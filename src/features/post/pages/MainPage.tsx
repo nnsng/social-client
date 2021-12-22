@@ -21,6 +21,18 @@ export function MainPage() {
 
   const [pageNum, setPageNum] = useState<number>(1);
 
+  useEffect(() => {
+    document.title = 'Blog App';
+  }, []);
+
+  useEffect(() => {
+    if (tagActive) {
+      dispatch(postActions.fetchPostList({ tag: tagActive, page: pageNum }));
+    } else {
+      dispatch(postActions.fetchPostList({ page: pageNum }));
+    }
+  }, [dispatch, tagActive, pageNum]);
+
   const handleTagClick = (tag: Tag) => {
     navigate(`?tag=${tag.value}`);
   };
@@ -38,14 +50,6 @@ export function MainPage() {
     await postApi.remove(post._id as string);
     dispatch(postActions.fetchPostList({ page: pageNum }));
   };
-
-  useEffect(() => {
-    if (tagActive) {
-      dispatch(postActions.fetchPostList({ tag: tagActive, page: pageNum }));
-    } else {
-      dispatch(postActions.fetchPostList({ page: pageNum }));
-    }
-  }, [dispatch, tagActive, pageNum]);
 
   return (
     <Container>

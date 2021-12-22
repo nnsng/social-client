@@ -29,8 +29,14 @@ export function PostDetailPage() {
   const [showComment, setShowComment] = useState(false);
 
   useEffect(() => {
-    slug && dispatch(postActions.fetchPostDetail(slug));
+    if (!slug) return;
+
+    dispatch(postActions.fetchPostDetail(slug));
   }, [dispatch, slug]);
+
+  useEffect(() => {
+    document.title = post?.title ?? 'Blog App';
+  }, [post]);
 
   useEffect(() => {
     if (!socket) return;

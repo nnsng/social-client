@@ -3,7 +3,7 @@ import { Avatar, Box, Button, CircularProgress, Grid, Stack, Typography } from '
 import { FileInputField, MuiTextField } from 'components/formFields';
 import { selectCdnLoading } from 'features/cdn/cdnSlice';
 import { User } from 'models';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAppSelector } from 'app/hooks';
 import * as yup from 'yup';
@@ -15,12 +15,13 @@ export interface EditProfileFromProps {
 
 const schema = yup.object().shape({
   name: yup.string().required('Vui lòng nhập họ tên'),
+  avatar: yup.string().notRequired(),
   username: yup
     .string()
     .min(6, 'Tối thiểu 6 ký tự')
     .max(50, 'Tối đa 50 ký tự')
     .matches(/^[a-zA-Z0-9]*$/, 'Tên người dùng không hợp lệ'),
-  email: yup.string().required(),
+  email: yup.string().email().required(),
   phone: yup
     .string()
     .max(10)
@@ -30,12 +31,16 @@ const schema = yup.object().shape({
 export default function EditProfileFrom(props: EditProfileFromProps) {
   const { submitting, initialValues, onSubmit } = props;
 
-  const { control, handleSubmit, getValues } = useForm({
+  const { control, handleSubmit, getValues, reset } = useForm({
     defaultValues: initialValues,
     resolver: yupResolver(schema),
   });
 
   const imageLoading = useAppSelector(selectCdnLoading);
+
+  useEffect(() => {
+    reset(initialValues);
+  }, [initialValues]);
 
   const handleFormSubmit = (formValues: User) => {
     onSubmit?.(formValues);

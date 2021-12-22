@@ -24,8 +24,6 @@ export function ChangePasswordPage() {
     toast.info('Coming soon!');
   };
 
-  // if (!currentUser) return null;
-
   return (
     <ChangePasswordForm
       initialValues={initialValues}

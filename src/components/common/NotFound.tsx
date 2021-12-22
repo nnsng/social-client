@@ -1,7 +1,11 @@
 import { Stack, Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export function NotFound() {
+  useEffect(() => {
+    document.title = 'Không tìm thấy trang';
+  }, []);
+
   return (
     <Stack
       sx={{
@@ -10,6 +14,7 @@ export function NotFound() {
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'background.default',
+        userSelect: 'none',
       }}
     >
       <Typography
@@ -20,8 +25,9 @@ export function NotFound() {
           letterSpacing: 20,
         }}
       >
-        404
+        4&#9785;4
       </Typography>
+
       <Typography
         sx={{
           fontSize: 20,

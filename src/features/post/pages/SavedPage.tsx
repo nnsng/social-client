@@ -18,6 +18,10 @@ export function SavedPage() {
   });
 
   useEffect(() => {
+    document.title = 'Bài viết đã lưu';
+  }, []);
+
+  useEffect(() => {
     dispatch(postActions.fetchSavedPostList(filters));
   }, [dispatch, filters]);
 

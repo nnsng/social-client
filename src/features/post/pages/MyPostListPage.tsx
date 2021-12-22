@@ -21,6 +21,10 @@ export function MyPostListPage() {
   });
 
   useEffect(() => {
+    document.title = 'Bài viết của tôi';
+  }, []);
+
+  useEffect(() => {
     dispatch(postActions.fetchMyPostList(filters));
   }, [dispatch, filters]);
 

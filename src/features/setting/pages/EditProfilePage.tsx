@@ -1,7 +1,7 @@
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { User } from 'models';
 import React from 'react';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
 import EditProfileForm from '../components/EditProfileForm';
 import { selectSettingSubmitting, settingActions } from '../settingSlice';
 
@@ -14,12 +14,10 @@ export function EditProfilePage() {
     dispatch(settingActions.updateProfile(formValues));
   };
 
-  if (!currentUser) return null;
-
   return (
     <EditProfileForm
       submitting={submitting}
-      initialValues={currentUser}
+      initialValues={currentUser as User}
       onSubmit={handleFormSubmit}
     />
   );

@@ -1,11 +1,15 @@
 import { Box, Container, Grid, Hidden, Typography } from '@mui/material';
 import { Header } from 'components/common';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import SettingTabs from './components/SettingTabs';
 import { ChangePasswordPage, EditProfilePage } from './pages';
 
 export default function Setting() {
+  useEffect(() => {
+    document.title = 'Cài đặt';
+  }, []);
+
   return (
     <Box>
       <Header />
@@ -48,9 +52,9 @@ export default function Setting() {
               <Grid item xs>
                 <Box px={{ xs: 2, sm: 0 }}>
                   <Routes>
-                    <Route path="/" element={<Navigate to="edit_profile" />} />
-                    <Route path="edit_profile" element={<EditProfilePage />} />
-                    <Route path="change_password" element={<ChangePasswordPage />} />
+                    <Route path="/" element={<Navigate to="edit-profile" />} />
+                    <Route path="edit-profile" element={<EditProfilePage />} />
+                    <Route path="change-password" element={<ChangePasswordPage />} />
                   </Routes>
                 </Box>
               </Grid>

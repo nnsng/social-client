@@ -81,6 +81,7 @@ export function Header() {
           py: 2,
           backgroundColor: 'background.default',
           boxShadow: themeConstants.boxShadow,
+          userSelect: 'none',
         }}
       >
         {loading && (

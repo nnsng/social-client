@@ -12,14 +12,18 @@ import { postActions } from '../postSlice';
 export function CreateEditPage() {
   const navigate = useNavigate();
   const { id: postId } = useParams();
-  const isEditMode = Boolean(postId);
+  const isNewPost = !postId;
 
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
   const [editedPost, setEditedPost] = useState<any>(null);
 
   useEffect(() => {
-    if (!postId) return;
+    document.title = isNewPost ? 'Tạo bài viết' : 'Chỉnh sửa bài viết';
+  }, [isNewPost]);
+
+  useEffect(() => {
+    if (isNewPost) return;
 
     (async () => {
       try {
@@ -32,21 +36,22 @@ export function CreateEditPage() {
     })();
   }, [postId, navigate]);
 
-  const initialValues: Post = {
-    title: '',
-    content: '',
-    description: '',
-    thumbnail: '',
-    tags: [],
-    authorId: currentUser?._id as string,
-    ...editedPost,
-  };
+  const initialValues: Post = isNewPost
+    ? {
+        title: '',
+        content: '',
+        description: '',
+        thumbnail: '',
+        tags: [],
+        authorId: currentUser?._id as string,
+      }
+    : editedPost;
 
   const handleFormSubmit = async (formValues: Post) => {
-    if (isEditMode) {
-      await postApi.update(formValues);
-    } else {
+    if (isNewPost) {
       await postApi.create(formValues);
+    } else {
+      await postApi.update(formValues);
     }
 
     dispatch(postActions.fetchPostList({}));
@@ -60,7 +65,7 @@ export function CreateEditPage() {
           <CreateEditForm
             initialValues={initialValues}
             onSubmit={handleFormSubmit}
-            isEditMode={isEditMode}
+            isNewPost={isNewPost}
           />
         )}
       </Box>

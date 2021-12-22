@@ -13,10 +13,10 @@ export default function SettingTabs({ direction, tabsSx }: SettingTabsProps) {
 
   const [tab, setTab] = useState<number>(() => {
     switch (location.pathname) {
-      case '/settings/edit_profile':
+      case '/settings/edit-profile':
         return 0;
 
-      case '/settings/change_password':
+      case '/settings/change-password':
         return 1;
 
       default:
@@ -31,11 +31,11 @@ export default function SettingTabs({ direction, tabsSx }: SettingTabsProps) {
   const tabItemList = [
     {
       label: 'Thông tin cá nhân',
-      linkTo: 'edit_profile',
+      linkTo: 'edit-profile',
     },
     {
       label: 'Đổi mật khẩu',
-      linkTo: 'change_password',
+      linkTo: 'change-password',
     },
   ];
 

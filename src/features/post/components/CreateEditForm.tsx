@@ -33,7 +33,7 @@ import * as yup from 'yup';
 export interface CreateEditFormProps {
   initialValues: Post;
   onSubmit?: (formValues: Post) => void;
-  isEditMode?: boolean;
+  isNewPost?: boolean;
 }
 
 const Transition = forwardRef(
@@ -51,7 +51,7 @@ const schema = yup.object().shape({
 });
 
 export default function CreateEditForm(props: CreateEditFormProps) {
-  const { initialValues, onSubmit, isEditMode } = props;
+  const { initialValues, onSubmit, isNewPost } = props;
 
   const {
     control,
@@ -80,7 +80,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     try {
       await onSubmit?.(formValues);
     } catch (error) {
-      const content = isEditMode ? 'Cập nhật bài viết thất bại' : 'Đăng bài thất bại';
+      const content = isNewPost ? 'Đăng bài thất bại' : 'Cập nhật bài viết thất bại';
       toast.error(content);
     }
   };
@@ -109,7 +109,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
 
           <Grid item xs="auto" ml={2}>
             <Button variant="outlined" color="primary" size="large" onClick={handleClickOpen}>
-              {isEditMode ? 'Cập nhật' : 'Đăng bài'}
+              {isNewPost ? 'Đăng bài' : 'Cập nhật'}
             </Button>
           </Grid>
         </Grid>
@@ -154,7 +154,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
               startIcon={isSubmitting && <CircularProgress size={20} />}
               onClick={handleSubmit(handleFormSubmit)}
             >
-              {isEditMode ? 'Cập nhật' : 'Đăng bài'}
+              {isNewPost ? 'Đăng bài' : 'Cập nhật'}
             </Button>
           </Toolbar>
         </Box>
