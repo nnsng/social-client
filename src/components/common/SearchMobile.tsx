@@ -33,7 +33,7 @@ export function SearchMobile(props: SearchMobileProps) {
   const navigate = useNavigate();
 
   const gotoPost = (post: Post) => {
-    navigate(`/blog/post/${post.slug}`);
+    navigate(`/blog/${post.slug}`);
     onClose?.();
   };
 

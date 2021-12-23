@@ -16,7 +16,7 @@ export default function Post() {
           <Route path="saved" element={<SavedPage />} />
           <Route path="create" element={<CreateEditPage />} />
           <Route path="edit/:id" element={<CreateEditPage />} />
-          <Route path="post/:slug" element={<PostDetailPage />} />
+          <Route path=":slug" element={<PostDetailPage />} />
           <Route path=":404" element={<NotFound />} />
         </Routes>
       </Box>

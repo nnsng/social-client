@@ -20,8 +20,9 @@ export interface ListParams {
   limit?: number;
   sort?: string;
   order?: 'asc' | 'desc';
+  tag?: string;
 
-  [key: string]: any;
+  // [key: string]: any;
 }
 
 export interface IMenuItem {

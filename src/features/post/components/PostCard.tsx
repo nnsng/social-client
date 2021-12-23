@@ -197,7 +197,7 @@ export default function PostCard({ post, onSavePost, onRemovePost }: PostCardPro
             <Typography
               variant="h6"
               component={Link}
-              to={`/blog/post/${post.slug}`}
+              to={`/blog/${post.slug}`}
               sx={{
                 ...themeMixins.truncate(2),
                 mb: 1,
@@ -215,7 +215,7 @@ export default function PostCard({ post, onSavePost, onRemovePost }: PostCardPro
           <Box width={{ xs: '100%', sm: 'auto' }} mt={{ xs: 2, sm: 0 }} ml={{ xs: 0, sm: 2 }}>
             <CardMedia
               component={Link}
-              to={`/blog/post/${post.slug}`}
+              to={`/blog/${post.slug}`}
               image={post.thumbnail}
               title={post.title}
               sx={{

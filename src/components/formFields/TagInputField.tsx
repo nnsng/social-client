@@ -5,7 +5,7 @@ import { Tag } from 'models';
 import React from 'react';
 import { Control, useController } from 'react-hook-form';
 import 'styles/tagInput.css';
-import { removeVietnameseTones } from 'utils';
+import { slugifyString } from 'utils';
 
 export interface TagInputFieldProps {
   name: string;
@@ -25,7 +25,7 @@ export function TagInputField(props: TagInputFieldProps) {
   const handleTagInputChange = (newTags: string[]) => {
     const tagMap = newTags.map((tag) => ({
       name: tag,
-      value: removeVietnameseTones(tag),
+      value: slugifyString(tag),
     }));
 
     onChange(tagMap);

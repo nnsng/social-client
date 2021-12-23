@@ -1,6 +1,6 @@
 import { Box, Container, Grid, Hidden } from '@mui/material';
 import postApi from 'api/postApi';
-import { Post, Tag } from 'models';
+import { ListParams, Post, Tag } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -8,33 +8,35 @@ import { toast } from 'react-toastify';
 import PostList from '../components/PostList';
 import PostRecommend from '../components/PostRecommend';
 import { postActions, selectPostList } from '../postSlice';
+import queryString from 'query-string';
 
 export function MainPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const params = new URLSearchParams(location.search);
-  const tagActive = params.get('tag');
-
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
 
-  const [pageNum, setPageNum] = useState<number>(1);
+  const [filter, setFilter] = useState<ListParams>(() => {
+    const query = queryString.parse(location.search);
+    return { page: 1, ...query };
+  });
 
   useEffect(() => {
     document.title = 'Blog App';
   }, []);
 
   useEffect(() => {
-    if (tagActive) {
-      dispatch(postActions.fetchPostList({ tag: tagActive, page: pageNum }));
-    } else {
-      dispatch(postActions.fetchPostList({ page: pageNum }));
-    }
-  }, [dispatch, tagActive, pageNum]);
+    navigate(`?${queryString.stringify(filter)}`);
+    dispatch(postActions.fetchPostList(filter));
+  }, [dispatch, filter]);
 
   const handleTagClick = (tag: Tag) => {
-    navigate(`?tag=${tag.value}`);
+    setFilter({ ...filter, tag: tag.value, page: 1 });
+  };
+
+  const handlePageChange = (page: number) => {
+    setFilter({ ...filter, page });
   };
 
   const handleSavePost = async (post: Post) => {
@@ -48,7 +50,7 @@ export function MainPage() {
 
   const handleRemovePost = async (post: Post) => {
     await postApi.remove(post._id as string);
-    dispatch(postActions.fetchPostList({ page: pageNum }));
+    dispatch(postActions.fetchPostList(filter));
   };
 
   return (
@@ -60,8 +62,8 @@ export function MainPage() {
               postList={postList}
               onSavePost={handleSavePost}
               onRemovePost={handleRemovePost}
-              page={pageNum}
-              onPageChange={setPageNum}
+              page={Number(filter.page) || 1}
+              onPageChange={handlePageChange}
             />
           </Box>
         </Grid>
@@ -86,7 +88,7 @@ export function MainPage() {
                 },
               }}
             >
-              <PostRecommend tagActive={tagActive || ''} onTagClick={handleTagClick} />
+              <PostRecommend tagActive={filter.tag} onTagClick={handleTagClick} />
             </Box>
           </Hidden>
         </Grid>

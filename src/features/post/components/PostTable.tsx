@@ -113,7 +113,7 @@ export default function PostTable(props: PostTableProps) {
                 <TableCell align="center">{idx + 1}</TableCell>
 
                 <TableCell>
-                  <Link to={`/blog/post/${post.slug}`}>{post.title}</Link>
+                  <Link to={`/blog/${post.slug}`}>{post.title}</Link>
                 </TableCell>
 
                 {saved ? (

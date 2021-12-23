@@ -29,7 +29,7 @@ import { Post } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { themeConstants, themeMixins } from 'styles/theme';
-import { removeVietnameseTones } from 'utils';
+import { slugifyString } from 'utils';
 import { SearchMobile } from '..';
 import DrawerMobile from './DrawerMobile';
 import Notification from './Notification';
@@ -59,11 +59,11 @@ export function Header() {
     const value = e.target.value;
 
     setSearchInput(value);
-    dispatch(postActions.searchWithDebounce(removeVietnameseTones(value)));
+    dispatch(postActions.searchWithDebounce(slugifyString(value)));
   };
 
   const gotoPost = (post: Post) => {
-    navigate(`/blog/post/${post.slug}`);
+    navigate(`/blog/${post.slug}`);
     setSearchInput('');
   };
 

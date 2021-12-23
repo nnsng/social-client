@@ -1,18 +1,17 @@
 import { Box, Typography } from '@mui/material';
 import { Tag } from 'models';
 import React from 'react';
+import { slugifyString } from 'utils';
 
-const tags = [
-  { name: 'Front-end', value: 'front-end' },
-  { name: 'Back-end', value: 'back-end' },
-  { name: 'Mobile app', value: 'mobile-app' },
-  { name: 'Design', value: 'design' },
-  { name: 'DevOps', value: 'devops' },
-  { name: 'Others', value: 'others' },
-];
+const tags: Tag[] = ['Front-end', 'Back-end', 'Mobile app', 'Design', 'DevOps', 'Others'].map(
+  (tag) => ({
+    name: tag,
+    value: slugifyString(tag),
+  })
+);
 
 export interface PostRecommendProps {
-  tagActive: string;
+  tagActive: string | undefined;
   onTagClick?: (tag: Tag) => void;
 }
 

@@ -7,15 +7,16 @@ import { useAppSelector } from 'app/hooks';
 import PostCard from './PostCard';
 
 export interface PostListProps {
-  postList?: Post[];
-  onSavePost?: (post: Post) => void;
-  onRemovePost?: (post: Post) => void;
+  postList: Post[];
   page?: number;
   onPageChange?: (page: number) => void;
+
+  onSavePost?: (post: Post) => void;
+  onRemovePost?: (post: Post) => void;
 }
 
 export default function PostList(props: PostListProps) {
-  const { postList, onSavePost, onRemovePost, page, onPageChange } = props;
+  const { postList, page, onPageChange, ...postMethod } = props;
 
   const totalPage = useAppSelector(selectTotalPages);
 
@@ -44,10 +45,10 @@ export default function PostList(props: PostListProps) {
       </Typography>
 
       <List disablePadding>
-        {postList && postList.length > 0 ? (
+        {postList.length > 0 ? (
           postList.map((post) => (
             <ListItem disablePadding sx={{ width: '100%' }} key={post._id}>
-              <PostCard post={post} onSavePost={onSavePost} onRemovePost={onRemovePost} />
+              <PostCard post={post} {...postMethod} />
             </ListItem>
           ))
         ) : (
