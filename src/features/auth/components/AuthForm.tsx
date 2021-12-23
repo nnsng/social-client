@@ -1,7 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, Grid, Typography } from '@mui/material';
-// import { ReactComponent as GoogleIcon } from 'assets/images/google.svg';
+import { GoogleIcon } from 'components/common';
 import { MuiTextField } from 'components/formFields';
+import useLoginWithGoogle from 'hooks/useLoginWithGoogle';
 import { AuthFormValue } from 'models';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -12,7 +13,6 @@ export interface AuthFormProps {
   registerMode: boolean;
   switchMode?: () => void;
   onSubmit?: (formValues: AuthFormValue) => void;
-  googleLogin?: () => void;
 }
 
 const getSchema = (registerMode: boolean) =>
@@ -31,19 +31,17 @@ const getSchema = (registerMode: boolean) =>
   });
 
 export default function AuthForm(props: AuthFormProps) {
-  const { initialValues, registerMode, switchMode, onSubmit, googleLogin } = props;
+  const { initialValues, registerMode, switchMode, onSubmit } = props;
 
   const { control, handleSubmit } = useForm({
     defaultValues: initialValues,
     resolver: yupResolver(getSchema(registerMode)),
   });
 
+  const googleLogin = useLoginWithGoogle();
+
   const handleFormSubmit = (formValues: AuthFormValue) => {
     onSubmit?.(formValues);
-  };
-
-  const handleGoogleLogin = () => {
-    googleLogin?.();
   };
 
   return (
@@ -129,8 +127,8 @@ export default function AuthForm(props: AuthFormProps) {
               color="primary"
               size="large"
               fullWidth
-              // startIcon={<GoogleIcon width={24} height={24} />}
-              onClick={handleGoogleLogin}
+              startIcon={<GoogleIcon width={24} height={24} />}
+              onClick={googleLogin}
             >
               Tiếp tục với Google
             </Button>

@@ -5,3 +5,4 @@ export * from './ActionMenu';
 export * from './NoPost';
 export * from './NotFound';
 export * from './SearchMobile';
+export * from './GoogleIcon';

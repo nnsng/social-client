@@ -13,8 +13,6 @@ export function RegisterPage() {
 
   const dispatch = useAppDispatch();
 
-  const googleLogin = useLoginWithGoogle();
-
   const initialValues: AuthFormValue = {
     email: '',
     password: '',
@@ -38,7 +36,6 @@ export function RegisterPage() {
         registerMode
         switchMode={switchMode}
         onSubmit={handleFormSubmit}
-        googleLogin={googleLogin}
       />
     </Stack>
   );

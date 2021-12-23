@@ -12,8 +12,6 @@ export function LoginPage() {
 
   const dispatch = useAppDispatch();
 
-  const googleLogin = useLoginWithGoogle();
-
   const initialValues: AuthFormValue = {
     email: '',
     password: '',
@@ -34,7 +32,6 @@ export function LoginPage() {
         registerMode={false}
         switchMode={switchMode}
         onSubmit={handleFormSubmit}
-        googleLogin={googleLogin}
       />
     </Stack>
   );
