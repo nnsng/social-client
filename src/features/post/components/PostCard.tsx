@@ -189,11 +189,11 @@ export default function PostCard({ post, onSavePost, onRemovePost }: PostCardPro
       <CardContent sx={{ p: 0 }}>
         <Box
           display="flex"
+          justifyContent="space-between"
           flexDirection={{ sm: 'row', xs: 'column' }}
           alignItems={{ sm: 'center', xs: 'flex-start' }}
-          justifyContent="space-between"
         >
-          <Box>
+          <Box flexGrow={1}>
             <Typography
               variant="h6"
               component={Link}
@@ -212,21 +212,23 @@ export default function PostCard({ post, onSavePost, onRemovePost }: PostCardPro
             </Typography>
           </Box>
 
-          <Box width={{ xs: '100%', sm: 'auto' }} mt={{ xs: 2, sm: 0 }} ml={{ xs: 0, sm: 2 }}>
-            <CardMedia
-              component={Link}
-              to={`/blog/${post.slug}`}
-              image={post.thumbnail}
-              title={post.title}
-              sx={{
-                maxWidth: { xs: 400, sm: 200 },
-                width: { xs: '100%', sm: 200 },
-                height: { xs: 200, sm: 100 },
-                borderRadius: 2,
-                bgcolor: 'grey.200',
-              }}
-            />
-          </Box>
+          {post.thumbnail && (
+            <Box width={{ xs: '100%', sm: 'auto' }} mt={{ xs: 2, sm: 0 }} ml={{ xs: 0, sm: 2 }}>
+              <CardMedia
+                component={Link}
+                to={`/blog/${post.slug}`}
+                image={post.thumbnail}
+                title={post.title}
+                sx={{
+                  maxWidth: { xs: 400, sm: 200 },
+                  width: { xs: '100%', sm: 200 },
+                  height: { xs: 200, sm: 100 },
+                  borderRadius: 2,
+                  bgcolor: 'grey.200',
+                }}
+              />
+            </Box>
+          )}
         </Box>
       </CardContent>
     </Card>

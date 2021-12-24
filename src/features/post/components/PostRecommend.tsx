@@ -1,6 +1,8 @@
-import { Box, Typography } from '@mui/material';
+import { CancelRounded } from '@mui/icons-material';
+import { Box, Stack, Typography } from '@mui/material';
 import { Tag } from 'models';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { slugifyString } from 'utils';
 
 const tags: Tag[] = ['Front-end', 'Back-end', 'Mobile app', 'Design', 'DevOps', 'Others'].map(
@@ -16,8 +18,14 @@ export interface PostRecommendProps {
 }
 
 export default function PostRecommend({ tagActive, onTagClick }: PostRecommendProps) {
+  const handleTagClick = (tag: Tag) => {
+    if (tag.value === tagActive) return;
+
+    onTagClick?.(tag);
+  };
+
   return (
-    <Box>
+    <Box sx={{ userSelect: 'none' }}>
       <Typography
         variant="button"
         sx={{
@@ -36,8 +44,10 @@ export default function PostRecommend({ tagActive, onTagClick }: PostRecommendPr
 
       <Box display="flex" flexWrap="wrap" pt={1}>
         {tags.map((tag, idx) => (
-          <Typography
+          <Stack
             key={idx}
+            direction="row"
+            alignItems="center"
             sx={{
               mt: 1,
               mr: 1,
@@ -53,10 +63,16 @@ export default function PostRecommend({ tagActive, onTagClick }: PostRecommendPr
                 cursor: 'pointer',
               },
             }}
-            onClick={() => onTagClick?.(tag)}
+            onClick={() => handleTagClick?.(tag)}
           >
-            {tag.name}
-          </Typography>
+            <Typography component="span" display="block">
+              {tag.name}
+            </Typography>
+
+            {tagActive === tag.value && (
+              <CancelRounded sx={{ ml: 1 }} onClick={() => handleTagClick({} as Tag)} />
+            )}
+          </Stack>
         ))}
       </Box>
     </Box>

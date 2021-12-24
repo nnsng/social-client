@@ -56,6 +56,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
   const {
     control,
     handleSubmit,
+    setValue,
     getValues,
     reset,
     formState: { errors, isSubmitting },
@@ -99,10 +100,10 @@ export default function CreateEditForm(props: CreateEditFormProps) {
               spellCheck={false}
               autoFocus
               sx={{
-                fontSize: 28,
-                fontWeight: 500,
                 pt: 2,
                 pb: 1,
+                fontSize: 28,
+                fontWeight: 500,
               }}
             />
           </Grid>
@@ -128,8 +129,8 @@ export default function CreateEditForm(props: CreateEditFormProps) {
             boxShadow: themeConstants.boxShadow,
           }}
         >
-          <Toolbar sx={{ height: '100%' }}>
-            <IconButton edge="start" color="inherit" onClick={handleClose}>
+          <Toolbar sx={{ height: '100%', display: 'flex' }}>
+            <IconButton edge="start" color="inherit" sx={{ flexShrink: 0 }} onClick={handleClose}>
               <CloseRounded />
             </IconButton>
 
@@ -152,6 +153,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
               autoFocus
               disabled={isSubmitting || imageLoading || hasError}
               startIcon={isSubmitting && <CircularProgress size={20} />}
+              sx={{ flexShrink: 0 }}
               onClick={handleSubmit(handleFormSubmit)}
             >
               {isNewPost ? 'Đăng bài' : 'Cập nhật'}
@@ -204,22 +206,29 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                     <Button
                       variant="contained"
                       color="primary"
-                      size="small"
+                      size="medium"
                       component="label"
                       htmlFor="thumbnail-input"
                       disabled={imageLoading}
-                      disableElevation
-                      sx={{
-                        mr: 1,
-                        fontWeight: 400,
-                        textTransform: 'none',
-                      }}
+                      startIcon={imageLoading && <CircularProgress size={20} />}
+                      sx={{ fontWeight: 400 }}
                     >
                       <FileInputField name="thumbnail" control={control} id="thumbnail-input" />
                       Chọn ảnh
                     </Button>
 
-                    {imageLoading && <CircularProgress size={20} />}
+                    {/* <Button
+                      variant="outlined"
+                      color="error"
+                      size="medium"
+                      sx={{
+                        ml: 2,
+                        fontWeight: 400,
+                      }}
+                      onClick={handleRemoveThumbnail}
+                    >
+                      Xóa ảnh
+                    </Button> */}
                   </Box>
                 </Box>
 
