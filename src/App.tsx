@@ -36,7 +36,7 @@ function App() {
   }, [dispatch, navigate]);
 
   useEffect(() => {
-    const socket = io(import.meta.env.VITE_SOCKET_URL as string);
+    const socket = io(import.meta.env.VITE_BASE_URL as string);
     dispatch(socketActions.setSocket(socket));
 
     return () => {

@@ -1,9 +1,9 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { ACCESS_TOKEN } from 'constants/common';
+import { ACCESS_TOKEN, API_URL } from 'constants/common';
 import queryString from 'query-string';
 
 const axiosClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL as string,
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
