@@ -80,7 +80,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
               width={160}
               sx={{ userSelect: 'none' }}
             >
-              Avatar
+              Ảnh đại diện
             </Typography>
 
             <Grid item xs={12}>
@@ -125,7 +125,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
               width={160}
               sx={{ userSelect: 'none' }}
             >
-              Username
+              Tên người dùng
             </Typography>
 
             <MuiTextField
