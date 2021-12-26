@@ -14,6 +14,7 @@ import {
   Typography,
 } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
+import { useAppSelector } from 'app/hooks';
 import {
   FileInputField,
   InputField,
@@ -25,10 +26,9 @@ import { selectCdnLoading } from 'features/cdn/cdnSlice';
 import { Post } from 'models';
 import React, { forwardRef, ReactElement, Ref, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useAppSelector } from 'app/hooks';
 import { toast } from 'react-toastify';
 import { themeConstants, themeMixins } from 'styles/theme';
-import * as yup from 'yup';
+import { postSchema } from 'utils';
 
 export interface CreateEditFormProps {
   initialValues: Post;
@@ -42,14 +42,6 @@ const Transition = forwardRef(
   }
 );
 
-const schema = yup.object().shape({
-  title: yup.string().required('Vui lòng nhập tiêu đề'),
-  content: yup.string().min(5, 'Nội dung tối thiểu 500 ký tự').required('Vui lòng nhập nội dung'),
-  description: yup.string(),
-  thumbnail: yup.string(),
-  tags: yup.array().of(yup.object().shape({ name: yup.string(), value: yup.string() })),
-});
-
 export default function CreateEditForm(props: CreateEditFormProps) {
   const { initialValues, onSubmit, isNewPost } = props;
 
@@ -59,11 +51,14 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     setValue,
     getValues,
     reset,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: initialValues,
-    resolver: yupResolver(schema),
+    resolver: yupResolver(postSchema),
   });
+
+  const watchThumbnail = watch('thumbnail');
 
   const imageLoading = useAppSelector(selectCdnLoading);
 
@@ -76,6 +71,10 @@ export default function CreateEditForm(props: CreateEditFormProps) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialValues]);
+
+  const handleRemoveThumbnail = () => {
+    setValue('thumbnail', '');
+  };
 
   const handleFormSubmit = async (formValues: Post) => {
     try {
@@ -195,7 +194,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                       maxWidth: 400,
                       height: 200,
                       bgcolor: 'grey.200',
-                      backgroundImage: `url('${getValues('thumbnail')}')`,
+                      backgroundImage: `url('${watchThumbnail}')`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center',
                       borderRadius: 2,
@@ -217,7 +216,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                       Chọn ảnh
                     </Button>
 
-                    {/* <Button
+                    <Button
                       variant="outlined"
                       color="error"
                       size="medium"
@@ -228,7 +227,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                       onClick={handleRemoveThumbnail}
                     >
                       Xóa ảnh
-                    </Button> */}
+                    </Button>
                   </Box>
                 </Box>
 

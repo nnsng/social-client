@@ -37,6 +37,7 @@ export function MuiTextField(props: MuiTextFieldProps) {
         inputRef={ref}
         size="small"
         fullWidth
+        spellCheck={false}
         {...restProps}
       />
     </Grid>

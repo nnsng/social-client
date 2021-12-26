@@ -36,15 +36,16 @@ export function CreateEditPage() {
     })();
   }, [postId, navigate]);
 
-  const initialValues: Post = {
-    title: '',
-    content: '',
-    description: '',
-    thumbnail: '',
-    tags: [],
-    authorId: currentUser?._id as string,
-    ...editedPost,
-  };
+  const initialValues: Post = isNewPost
+    ? {
+        title: '',
+        content: '',
+        description: '',
+        thumbnail: '',
+        tags: [],
+        authorId: currentUser?._id as string,
+      }
+    : editedPost;
 
   const handleFormSubmit = async (formValues: Post) => {
     if (isNewPost) {

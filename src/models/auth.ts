@@ -18,6 +18,7 @@ export interface AuthResponse {
 export interface AuthFormValue {
   email: string;
   password: string;
+  mode: 'login' | 'register';
   firstName?: string;
   lastName?: string;
 }

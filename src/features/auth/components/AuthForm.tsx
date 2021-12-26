@@ -6,39 +6,29 @@ import useLoginWithGoogle from 'hooks/useLoginWithGoogle';
 import { AuthFormValue } from 'models';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
+import { authSchema } from 'utils';
 
 export interface AuthFormProps {
   initialValues: AuthFormValue;
-  registerMode: boolean;
   switchMode?: () => void;
   onSubmit?: (formValues: AuthFormValue) => void;
 }
 
-const getSchema = (registerMode: boolean) =>
-  yup.object().shape({
-    email: yup.string().email('Email không hợp lệ.').required('Vui lòng nhập email.'),
-    password: yup
-      .string()
-      .min(6, 'Mật khẩu tối thiểu 6 ký tự.')
-      .required('Vui lòng nhập password.'),
-    firstName: registerMode
-      ? yup.string().required('Vui lòng nhập tên.')
-      : yup.string().notRequired(),
-    lastName: registerMode
-      ? yup.string().required('Vui lòng nhập họ.')
-      : yup.string().notRequired(),
-  });
-
 export default function AuthForm(props: AuthFormProps) {
-  const { initialValues, registerMode, switchMode, onSubmit } = props;
+  const { initialValues, switchMode, onSubmit } = props;
+  const isRegisterMode = initialValues.mode === 'register';
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: initialValues,
-    resolver: yupResolver(getSchema(registerMode)),
+    resolver: yupResolver(authSchema),
   });
 
   const googleLogin = useLoginWithGoogle();
+
+  const handleSwitchMode = () => {
+    reset();
+    switchMode?.();
+  };
 
   const handleFormSubmit = (formValues: AuthFormValue) => {
     onSubmit?.(formValues);
@@ -68,11 +58,11 @@ export default function AuthForm(props: AuthFormProps) {
               textAlign="center"
               sx={{ userSelect: 'none' }}
             >
-              {registerMode ? 'Đăng ký' : 'Đăng nhập'}
+              {isRegisterMode ? 'Đăng ký' : 'Đăng nhập'}
             </Typography>
           </Grid>
 
-          {registerMode && (
+          {isRegisterMode && (
             <>
               <MuiTextField
                 name="firstName"
@@ -81,7 +71,6 @@ export default function AuthForm(props: AuthFormProps) {
                 variant="outlined"
                 size="medium"
                 half
-                spellCheck={false}
               />
 
               <MuiTextField
@@ -91,7 +80,6 @@ export default function AuthForm(props: AuthFormProps) {
                 variant="outlined"
                 size="medium"
                 half
-                spellCheck={false}
               />
             </>
           )}
@@ -102,7 +90,6 @@ export default function AuthForm(props: AuthFormProps) {
             label="Email"
             variant="outlined"
             size="medium"
-            spellCheck={false}
           />
 
           <MuiTextField
@@ -112,12 +99,11 @@ export default function AuthForm(props: AuthFormProps) {
             variant="outlined"
             type="password"
             size="medium"
-            spellCheck={false}
           />
 
           <Grid item xs={12}>
             <Button type="submit" variant="contained" color="primary" size="large" fullWidth>
-              {registerMode ? 'Đăng ký' : 'Đăng nhập'}
+              {isRegisterMode ? 'Đăng ký' : 'Đăng nhập'}
             </Button>
           </Grid>
 
@@ -137,7 +123,7 @@ export default function AuthForm(props: AuthFormProps) {
           <Grid item xs={12}>
             <Box textAlign="center" sx={{ userSelect: 'none' }}>
               <Typography variant="subtitle2" component="span" sx={{ cursor: 'default' }}>
-                {registerMode ? 'Đã có tài khoản' : 'Chưa có tài khoản?'}&nbsp;
+                {isRegisterMode ? 'Đã có tài khoản' : 'Chưa có tài khoản?'}&nbsp;
               </Typography>
 
               <Typography
@@ -145,9 +131,9 @@ export default function AuthForm(props: AuthFormProps) {
                 component="span"
                 color="primary"
                 sx={{ cursor: 'pointer' }}
-                onClick={switchMode}
+                onClick={handleSwitchMode}
               >
-                {registerMode ? 'Đăng nhập' : 'Đăng ký'}
+                {isRegisterMode ? 'Đăng nhập' : 'Đăng ký'}
               </Typography>
             </Box>
           </Grid>

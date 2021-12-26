@@ -16,7 +16,7 @@ export function slugifyString(str: string) {
   return slugify(str, { locale: 'vi', lower: true });
 }
 
-export async function getImageUrl(image: File) {
+export async function getCdnImageUrl(image: File) {
   try {
     const formData = new FormData();
     formData.append('file', image);

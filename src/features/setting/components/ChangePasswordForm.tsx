@@ -6,27 +6,13 @@ import { ChangePasswordFormValue } from 'models';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import * as yup from 'yup';
+import { passwordSchema } from 'utils';
 
 export interface ChangePasswordFormProps {
   initialValues: ChangePasswordFormValue;
   onSubmit?: (formValues: ChangePasswordFormValue) => void;
   onForgotPassword?: () => void;
 }
-
-const schema = yup.object().shape({
-  currentPassword: yup
-    .string()
-    .min(6, 'Mật khẩu tối thiểu 6 ký tự')
-    .required('Vui lòng nhập mật khẩu hiện tại'),
-  newPassword: yup
-    .string()
-    .min(6, 'Mật khẩu tối thiểu 6 ký tự')
-    .required('Vui lòng nhập mật khẩu mới'),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref('newPassword'), null], 'Mật khẩu nhập lại không khớp'),
-});
 
 export default function ChangePasswordForm(props: ChangePasswordFormProps) {
   const { initialValues, onSubmit, onForgotPassword } = props;
@@ -38,7 +24,7 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
     formState: { isSubmitting },
   } = useForm({
     defaultValues: initialValues,
-    resolver: yupResolver(schema),
+    resolver: yupResolver(passwordSchema),
   });
 
   const handleFormSubmit = async (formValues: ChangePasswordFormValue) => {

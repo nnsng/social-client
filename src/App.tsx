@@ -3,8 +3,8 @@ import { useAppDispatch } from 'app/hooks';
 import { NotFound, PrivateRoute } from 'components/common';
 import { ACCESS_TOKEN } from 'constants/common';
 import { authActions } from 'features/auth/authSlice';
-import { LoginPage, RegisterPage } from 'features/auth/pages';
 import Blog from 'features/post';
+import Auth from 'features/auth';
 import Setting from 'features/setting';
 import SocketClient from 'features/socket/SocketClient';
 import { socketActions } from 'features/socket/socketSlice';
@@ -69,11 +69,11 @@ function App() {
           }
         />
 
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/login" element={<Auth mode="login" />} />
 
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/register" element={<Auth mode="register" />} />
 
-        <Route path="/404" element={<NotFound />} />
+        <Route path=":404" element={<NotFound />} />
       </Routes>
     </>
   );

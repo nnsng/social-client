@@ -4,16 +4,21 @@ import { AuthFormValue } from 'models';
 import React from 'react';
 import { useAppDispatch } from 'app/hooks';
 import { useNavigate } from 'react-router-dom';
+import { authActions } from './authSlice';
+import AuthForm from './components/AuthForm';
 import { toast } from 'react-toastify';
-import { authActions } from '../authSlice';
-import AuthForm from '../components/AuthForm';
 
-export function RegisterPage() {
+export interface AuthPageProps {
+  mode: 'login' | 'register';
+}
+
+export default function AuthPage({ mode }: AuthPageProps) {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
   const initialValues: AuthFormValue = {
+    mode,
     email: '',
     password: '',
     firstName: '',
@@ -21,22 +26,25 @@ export function RegisterPage() {
   };
 
   const switchMode = () => {
-    navigate('/login');
+    if (mode === 'login') {
+      navigate('/register');
+    } else {
+      navigate('/login');
+    }
   };
 
   const handleFormSubmit = (formValues: AuthFormValue) => {
-    dispatch(authActions.register({ formValues, navigate }));
-    toast.success('Đăng ký thành công');
+    if (mode === 'login') {
+      dispatch(authActions.login({ formValues, navigate }));
+    } else {
+      dispatch(authActions.register({ formValues, navigate }));
+      toast.success('Đăng ký thành công');
+    }
   };
 
   return (
     <Stack alignItems="center" justifyContent="center" minHeight="100vh" bgcolor="primary.main">
-      <AuthForm
-        initialValues={initialValues}
-        registerMode
-        switchMode={switchMode}
-        onSubmit={handleFormSubmit}
-      />
+      <AuthForm initialValues={initialValues} switchMode={switchMode} onSubmit={handleFormSubmit} />
     </Stack>
   );
 }
