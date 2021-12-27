@@ -18,8 +18,8 @@ export function MainPage() {
   const postList = useAppSelector(selectPostList);
 
   const [filter, setFilter] = useState<ListParams>(() => {
-    const query = queryString.parse(location.search);
-    return { page: 1, ...query };
+    const params = queryString.parse(location.search);
+    return { page: 1, ...params };
   });
 
   useEffect(() => {
@@ -40,12 +40,7 @@ export function MainPage() {
   };
 
   const handleSavePost = async (post: Post) => {
-    try {
-      await postApi.save(post._id as string);
-      toast.success('Đã lưu');
-    } catch (error: any) {
-      toast.error(error?.response?.data?.message);
-    }
+    await postApi.save(post._id as string);
   };
 
   const handleRemovePost = async (post: Post) => {
@@ -60,8 +55,8 @@ export function MainPage() {
           <Box component="section">
             <PostList
               postList={postList}
-              onSavePost={handleSavePost}
-              onRemovePost={handleRemovePost}
+              onSave={handleSavePost}
+              onRemove={handleRemovePost}
               page={Number(filter.page) || 1}
               onPageChange={handlePageChange}
             />

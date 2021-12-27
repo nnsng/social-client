@@ -12,6 +12,7 @@ import {
 import { themeMixins } from 'styles/theme';
 import { copyPostLink, formatTime } from 'utils';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export interface PostItemMobileProps {
   post: Post;
@@ -35,22 +36,56 @@ export function PostItemMobile(props: PostItemMobileProps) {
     copyPostLink(post);
   };
 
+  const handleEditPost = () => {
+    closeMenu();
+    onEdit?.(post);
+  };
+
+  const handleRemovePost = async () => {
+    try {
+      await onRemove?.(post);
+      closeMenu();
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
+  const handleUnSavePost = async () => {
+    try {
+      await onUnSave?.(post);
+      closeMenu();
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
+  const subMenuItemList: IMenuItem[] = saved
+    ? [
+        {
+          label: 'Bỏ lưu',
+          icon: BookmarkRemoveRounded,
+          onClick: handleUnSavePost,
+        },
+      ]
+    : [
+        {
+          label: 'Chỉnh sửa',
+          icon: BorderColorRounded,
+          onClick: handleEditPost,
+        },
+        {
+          label: 'Xoá',
+          icon: DeleteRounded,
+          onClick: handleRemovePost,
+        },
+      ];
+
   const menuItemList: IMenuItem[] = [
+    ...subMenuItemList,
     {
-      label: 'Chỉnh sửa',
-      icon: BorderColorRounded,
-      onClick: () => {
-        closeMenu();
-        onEdit?.(post);
-      },
-    },
-    {
-      label: 'Xoá',
-      icon: DeleteRounded,
-      onClick: () => {
-        closeMenu();
-        onRemove?.(post);
-      },
+      label: 'Sao chép liên kết',
+      icon: LinkRounded,
+      onClick: handleCopyLink,
     },
   ];
 
@@ -112,46 +147,20 @@ export function PostItemMobile(props: PostItemMobileProps) {
           </IconButton>
 
           <ActionMenu open={openMenu} onClose={closeMenu}>
-            <MenuItem
-              sx={{
-                py: 1.5,
-                px: 2.5,
-                fontSize: 15,
-              }}
-              onClick={handleCopyLink}
-            >
-              <LinkRounded sx={{ fontSize: 20, mr: 2 }} />
-              Sao chép liên kết
-            </MenuItem>
-
-            {saved ? (
+            {menuItemList.map(({ label, icon: Icon, onClick }, idx) => (
               <MenuItem
+                key={idx}
                 sx={{
                   py: 1.5,
                   px: 2.5,
                   fontSize: 15,
                 }}
-                onClick={() => onUnSave?.(post)}
+                onClick={onClick}
               >
-                <BookmarkRemoveRounded sx={{ fontSize: 20, mr: 2 }} />
-                Bỏ lưu
+                <Icon sx={{ fontSize: 20, mr: 2 }} />
+                {label}
               </MenuItem>
-            ) : (
-              menuItemList.map(({ label, icon: Icon, onClick }, idx) => (
-                <MenuItem
-                  key={idx}
-                  sx={{
-                    py: 1.5,
-                    px: 2.5,
-                    fontSize: 15,
-                  }}
-                  onClick={onClick}
-                >
-                  <Icon sx={{ fontSize: 20, mr: 2 }} />
-                  {label}
-                </MenuItem>
-              ))
-            )}
+            ))}
           </ActionMenu>
         </Box>
       </Stack>

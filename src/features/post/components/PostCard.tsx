@@ -29,11 +29,11 @@ import { copyPostLink, formatTime } from 'utils';
 
 export interface PostCardProps {
   post: Post;
-  onSavePost?: (post: Post) => void;
-  onRemovePost?: (post: Post) => void;
+  onSave?: (post: Post) => void;
+  onRemove?: (post: Post) => void;
 }
 
-export default function PostCard({ post, onSavePost, onRemovePost }: PostCardProps) {
+export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
   const navigate = useNavigate();
 
   const currentUser = useAppSelector(selectCurrentUser);
@@ -44,15 +44,19 @@ export default function PostCard({ post, onSavePost, onRemovePost }: PostCardPro
   const toggleMenu = () => setOpen(!open);
   const closeMenu = () => setOpen(false);
 
-  const handleSavePost = () => {
-    onSavePost?.(post);
+  const handleSavePost = async () => {
+    try {
+      await onSave?.(post);
+      toast.success('Đã lưu');
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
   };
 
   const handleRemovePost = async () => {
     try {
-      await onRemovePost?.(post);
+      await onRemove?.(post);
       closeMenu();
-
       toast.success('Xóa bài viết thành công');
     } catch (error: any) {
       toast.error(error?.response?.data?.message);

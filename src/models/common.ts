@@ -30,4 +30,5 @@ export interface IMenuItem {
   icon?: any;
   onClick?: () => void;
   authorized?: boolean;
+  page?: string;
 }

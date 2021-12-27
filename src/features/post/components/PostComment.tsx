@@ -1,48 +1,53 @@
 import { CloseRounded } from '@mui/icons-material';
 import {
   Avatar,
-  Box,
   CircularProgress,
-  Grid,
   IconButton,
   List,
   Stack,
   TextField,
   Typography,
 } from '@mui/material';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { selectCommentLoading } from 'features/comment/commentSlice';
 import { Comment } from 'models';
-import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import CommentItem from './CommentItem';
 import { postActions } from '../postSlice';
+import CommentItem from './CommentItem';
 
 export interface PostCommentProps {
   commentList: Comment[];
-  fetchComments?: () => void;
+  postId: string;
   onClose?: () => void;
-  onCreate?: (content: string) => void;
+  onCreate?: (comment: Comment) => void;
   onRemove?: (comment: Comment) => void;
-  onLikeComment?: (comment: Comment) => void;
+  onLike?: (comment: Comment) => void;
 }
 
 export default function PostComment(props: PostCommentProps) {
-  const { commentList, fetchComments, onClose, onCreate, onRemove, onLikeComment } = props;
+  const { commentList, postId, onClose, onCreate, onRemove, onLike } = props;
 
   const dispatch = useAppDispatch();
-  const currentUser = useAppSelector(selectCurrentUser);
   const loading = useAppSelector(selectCommentLoading);
+  const currentUser = useAppSelector(selectCurrentUser);
 
-  const [commentInput, setCommentInput] = useState<string>('');
-  const [submitting, setSubmitting] = useState<boolean>(false);
+  const initialValues: Comment = {
+    postId,
+    userId: currentUser?._id as string,
+    content: '',
+  };
 
-  useEffect(() => {
-    fetchComments?.();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm({
+    defaultValues: initialValues,
+  });
 
   useEffect(() => {
     return () => {
@@ -50,16 +55,13 @@ export default function PostComment(props: PostCommentProps) {
     };
   }, [dispatch, commentList]);
 
-  const handleSubmitComment = (e: any) => {
-    e.preventDefault();
-    if (!commentInput) return;
-
-    setSubmitting((state) => true);
-
-    onCreate?.(commentInput);
-    setCommentInput('');
-
-    setSubmitting((state) => false);
+  const handleSubmitComment = async (comment: Comment) => {
+    try {
+      await onCreate?.(comment);
+      setValue('content', '');
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
   };
 
   return (
@@ -92,38 +94,28 @@ export default function PostComment(props: PostCommentProps) {
           &nbsp;bình luận
         </Typography>
 
-        <form noValidate autoComplete="off" onSubmit={handleSubmitComment}>
-          <Box pt={6} pb={3}>
-            <Grid container spacing={2} alignItems="center">
-              <Grid item>
-                <Avatar src={currentUser?.avatar} sx={{ width: 36, height: 36 }} />
-              </Grid>
+        <form noValidate autoComplete="off" onSubmit={handleSubmit(handleSubmitComment)}>
+          <Stack direction="row" pt={6} pb={3}>
+            <Avatar
+              src={currentUser?.avatar}
+              sx={{ width: 36, height: 36, flexShrink: 1, mr: 3 }}
+            />
 
-              <Grid item xs>
-                <TextField
-                  variant="standard"
-                  placeholder="Viết bình luận..."
-                  fullWidth
-                  autoFocus
-                  spellCheck={false}
-                  value={commentInput}
-                  disabled={loading || submitting}
-                  onChange={(e) => setCommentInput(e.target.value)}
-                />
-              </Grid>
-            </Grid>
-          </Box>
+            <TextField
+              variant="standard"
+              placeholder="Viết bình luận..."
+              fullWidth
+              autoFocus
+              disabled={loading || isSubmitting}
+              {...register('content')}
+            />
+          </Stack>
         </form>
       </Stack>
 
       <List>
         {commentList?.map((comment) => (
-          <CommentItem
-            key={comment._id}
-            comment={comment}
-            onRemove={onRemove}
-            onLikeComment={onLikeComment}
-          />
+          <CommentItem key={comment._id} comment={comment} onRemove={onRemove} onLike={onLike} />
         ))}
       </List>
     </Stack>

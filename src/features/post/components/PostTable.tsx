@@ -55,8 +55,8 @@ export default function PostTable(props: PostTableProps) {
     try {
       await onRemove?.(selectedPost);
       toast.success('Xoá bài viết thành công.');
-    } catch (error) {
-      toast.error('Xoá bài viết thất bại.');
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
     }
 
     setLoading((prev) => false);
@@ -107,6 +107,7 @@ export default function PostTable(props: PostTableProps) {
               <TableCell align="center">Tuỳ chọn</TableCell>
             </TableRow>
           </TableHead>
+
           <TableBody>
             {postList.map((post, idx) => (
               <TableRow key={post._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>

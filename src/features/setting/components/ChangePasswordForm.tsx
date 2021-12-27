@@ -10,12 +10,12 @@ import { passwordSchema } from 'utils';
 
 export interface ChangePasswordFormProps {
   initialValues: ChangePasswordFormValue;
-  onSubmit?: (formValues: ChangePasswordFormValue) => void;
-  onForgotPassword?: () => void;
+  onSubmit: (formValues: ChangePasswordFormValue) => void;
+  forgotPassword?: () => void;
 }
 
 export default function ChangePasswordForm(props: ChangePasswordFormProps) {
-  const { initialValues, onSubmit, onForgotPassword } = props;
+  const { initialValues, onSubmit, forgotPassword } = props;
 
   const {
     control,
@@ -29,7 +29,7 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
 
   const handleFormSubmit = async (formValues: ChangePasswordFormValue) => {
     try {
-      await onSubmit?.(formValues);
+      await onSubmit(formValues);
       reset();
       toast.success('Đổi mật khẩu thành công');
     } catch (error: any) {
@@ -94,7 +94,7 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
             <Button
               color="primary"
               sx={{ ml: 3, ':hover': { bgcolor: 'transparent' } }}
-              onClick={onForgotPassword}
+              onClick={forgotPassword}
             >
               Quên mật khẩu
             </Button>

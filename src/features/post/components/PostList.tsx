@@ -11,12 +11,12 @@ export interface PostListProps {
   page?: number;
   onPageChange?: (page: number) => void;
 
-  onSavePost?: (post: Post) => void;
-  onRemovePost?: (post: Post) => void;
+  onSave?: (post: Post) => void;
+  onRemove?: (post: Post) => void;
 }
 
 export default function PostList(props: PostListProps) {
-  const { postList, page, onPageChange, ...postMethod } = props;
+  const { postList, page, onPageChange, onSave, onRemove } = props;
 
   const totalPage = useAppSelector(selectTotalPages);
 
@@ -48,7 +48,7 @@ export default function PostList(props: PostListProps) {
         {postList.length > 0 ? (
           postList.map((post) => (
             <ListItem disablePadding sx={{ width: '100%' }} key={post._id}>
-              <PostCard post={post} {...postMethod} />
+              <PostCard post={post} onSave={onSave} onRemove={onRemove} />
             </ListItem>
           ))
         ) : (

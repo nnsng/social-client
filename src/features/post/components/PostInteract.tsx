@@ -4,19 +4,22 @@ import {
   FavoriteRounded,
 } from '@mui/icons-material';
 import { Box, Button, Typography } from '@mui/material';
-import { Post, User } from 'models';
+import { useAppSelector } from 'app/hooks';
+import { selectCurrentUser } from 'features/auth/authSlice';
+import { Post } from 'models';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 export interface PostInteractProps {
   post: Post;
-  currentUser: User | null;
   openComment?: () => void;
   onLikePost?: () => void;
 }
 
 export default function PostInteract(props: PostInteractProps) {
-  const { post, currentUser, openComment, onLikePost } = props;
+  const { post, openComment, onLikePost } = props;
+
+  const currentUser = useAppSelector(selectCurrentUser);
 
   return (
     <Box position={{ xs: 'relative', lg: 'sticky' }} top={{ xs: 0, lg: 120 }} mb={5}>

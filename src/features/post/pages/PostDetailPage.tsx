@@ -1,19 +1,19 @@
 import { Container, Drawer, Grid } from '@mui/material';
 import commentApi from 'api/commentApi';
 import postApi from 'api/postApi';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { NotFound } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { commentActions, selectPostComments } from 'features/comment/commentSlice';
 import { selectSocket } from 'features/socket/socketSlice';
 import { Comment, Post } from 'models';
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import PostComment from '../components/PostComment';
 import PostDetail from '../components/PostDetail';
 import PostInteract from '../components/PostInteract';
 import { postActions, selectPostDetail, selectPostLoading } from '../postSlice';
-import { toast } from 'react-toastify';
 
 export function PostDetailPage() {
   const { slug } = useParams();
@@ -21,7 +21,6 @@ export function PostDetailPage() {
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectPostLoading);
   const post = useAppSelector(selectPostDetail);
-  const currentUser = useAppSelector(selectCurrentUser);
   const postComments = useAppSelector(selectPostComments);
 
   const socket = useAppSelector(selectSocket);
@@ -48,40 +47,31 @@ export function PostDetailPage() {
     };
   }, [socket, post]);
 
+  useEffect(() => {
+    showComment && dispatch(commentActions.fetchPostComments(post?._id as string));
+  }, [showComment]);
+
+  const openComment = () => setShowComment(!showComment);
   const closeComment = () => setShowComment(false);
+
+  const handleSavePost = async (post: Post) => {
+    await postApi.save(post._id as string);
+  };
 
   const handleRemovePost = async (post: Post) => {
     await postApi.remove(post._id as string);
   };
 
-  const handleToggleShowComment = () => {
-    setShowComment(!showComment);
+  const handleLikePost = () => {
+    dispatch(postActions.likePost(post?._id as string));
   };
 
-  const fetchPostComments = () => {
-    dispatch(commentActions.fetchPostComments(post?._id as string));
-  };
-
-  const handleCreateComment = async (value: string) => {
-    try {
-      const comment: Comment = {
-        postId: post?._id as string,
-        userId: currentUser?._id as string,
-        content: value,
-      };
-
-      await commentApi.create(comment);
-    } catch (error: any) {
-      toast.error(error?.response?.data?.message);
-    }
+  const handleCreateComment = async (comment: Comment) => {
+    await commentApi.create(comment);
   };
 
   const handleRemoveComment = async (comment: Comment) => {
     await commentApi.remove(comment._id as string);
-  };
-
-  const handleLikePost = () => {
-    dispatch(postActions.likePost(post?._id as string));
   };
 
   const handleLikeComment = (comment: Comment) => {
@@ -95,27 +85,22 @@ export function PostDetailPage() {
     <Container>
       <Grid container spacing={{ xs: 2, lg: 8 }}>
         <Grid item xs={12} md={10} lg={8} mx="auto">
-          <PostDetail post={post} onRemovePost={handleRemovePost} />
+          <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
         </Grid>
 
         <Grid item xs={12} md={10} lg={4} mx="auto">
-          <PostInteract
-            post={post}
-            currentUser={currentUser}
-            openComment={handleToggleShowComment}
-            onLikePost={handleLikePost}
-          />
+          <PostInteract post={post} openComment={openComment} onLikePost={handleLikePost} />
         </Grid>
       </Grid>
 
-      <Drawer anchor="right" open={showComment} onClose={handleToggleShowComment}>
+      <Drawer anchor="right" open={showComment} onClose={closeComment}>
         <PostComment
           commentList={postComments}
-          fetchComments={fetchPostComments}
+          postId={post?._id}
           onClose={closeComment}
           onCreate={handleCreateComment}
           onRemove={handleRemoveComment}
-          onLikeComment={handleLikeComment}
+          onLike={handleLikeComment}
         />
       </Drawer>
     </Container>

@@ -32,7 +32,7 @@ import { postSchema } from 'utils';
 
 export interface CreateEditFormProps {
   initialValues: Post;
-  onSubmit?: (formValues: Post) => void;
+  onSubmit?: (data: Post) => void;
   isNewPost?: boolean;
 }
 
@@ -63,6 +63,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
   const imageLoading = useAppSelector(selectCdnLoading);
 
   const [open, setOpen] = useState(false);
+
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -76,9 +77,9 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     setValue('thumbnail', '');
   };
 
-  const handleFormSubmit = async (formValues: Post) => {
+  const handleFormSubmit = async (data: Post) => {
     try {
-      await onSubmit?.(formValues);
+      await onSubmit?.(data);
     } catch (error) {
       const content = isNewPost ? 'Đăng bài thất bại' : 'Cập nhật bài viết thất bại';
       toast.error(content);

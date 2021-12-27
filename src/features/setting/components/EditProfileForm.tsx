@@ -10,7 +10,7 @@ import { profileSchema } from 'utils';
 export interface EditProfileFromProps {
   submitting: boolean;
   initialValues: User;
-  onSubmit?: (formValues: User) => void;
+  onSubmit: (formValues: User) => void;
 }
 
 export default function EditProfileFrom(props: EditProfileFromProps) {
@@ -27,12 +27,8 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
     reset(initialValues);
   }, [initialValues]);
 
-  const handleFormSubmit = (formValues: User) => {
-    onSubmit?.(formValues);
-  };
-
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Box pb={3}>
         <Grid container spacing={2}>
           <Grid item container alignItems="center">

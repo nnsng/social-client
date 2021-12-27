@@ -16,7 +16,7 @@ function* handleLogin(action: PayloadAction<AuthPayload>) {
 
     localStorage.setItem(ACCESS_TOKEN, response.token);
 
-    navigate?.('/');
+    navigate?.('/', { replace: true });
   } catch (error: any) {
     toast.error(error?.response?.data?.message);
     yield put(authActions.loginFailure());
@@ -29,7 +29,7 @@ function* handleRegister(action: PayloadAction<AuthPayload>) {
   try {
     yield call(authApi.register, formValues as AuthFormValue);
 
-    navigate?.('/login');
+    navigate?.('/login', { replace: true });
   } catch (error: any) {
     toast.error(error?.response?.data?.message);
   }
@@ -43,7 +43,7 @@ function* handleGoogleLogin(action: PayloadAction<AuthPayload>) {
 
     localStorage.setItem(ACCESS_TOKEN, response.token);
 
-    navigate?.('/');
+    navigate?.('/', { replace: true });
   } catch (error: any) {
     toast.error(error?.response?.data?.message);
     yield put(authActions.googleLoginFailure());

@@ -10,7 +10,7 @@ export function ChangePasswordPage() {
   const currentUser = useAppSelector(selectCurrentUser);
 
   const initialValues: ChangePasswordFormValue = {
-    userId: currentUser?._id || '',
+    userId: currentUser?._id as string,
     currentPassword: '',
     newPassword: '',
     confirmPassword: '',
@@ -28,7 +28,7 @@ export function ChangePasswordPage() {
     <ChangePasswordForm
       initialValues={initialValues}
       onSubmit={handleFormSubmit}
-      onForgotPassword={handleForgotPassword}
+      forgotPassword={handleForgotPassword}
     />
   );
 }

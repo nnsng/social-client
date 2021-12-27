@@ -29,10 +29,11 @@ import MdEditor from './MdEditor';
 
 export interface PostDetailProps {
   post: Post;
-  onRemovePost?: (post: Post) => void;
+  onSave?: (post: Post) => void;
+  onRemove?: (post: Post) => void;
 }
 
-export default function PostDetail({ post, onRemovePost }: PostDetailProps) {
+export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) {
   const navigate = useNavigate();
 
   const currentUser = useAppSelector(selectCurrentUser);
@@ -43,12 +44,19 @@ export default function PostDetail({ post, onRemovePost }: PostDetailProps) {
   const toggleMenu = () => setOpen(!open);
   const closeMenu = () => setOpen(false);
 
+  const handleSavePost = async () => {
+    try {
+      await onSave?.(post);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
+    }
+  };
+
   const handleRemovePost = async () => {
     try {
-      await onRemovePost?.(post);
+      await onRemove?.(post);
       closeMenu();
       toast.success('Xóa bài viết thành công');
-
       navigate('/blog');
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
@@ -107,6 +115,7 @@ export default function PostDetail({ post, onRemovePost }: PostDetailProps) {
                   color: 'text.primary',
                 },
               }}
+              onClick={handleSavePost}
             >
               <BookmarkBorderRounded />
             </IconButton>

@@ -22,10 +22,10 @@ import { formatTime } from 'utils';
 export interface CommentItemProps {
   comment: Comment;
   onRemove?: (comment: Comment) => void;
-  onLikeComment?: (comment: Comment) => void;
+  onLike?: (comment: Comment) => void;
 }
 
-export default function CommentItem({ comment, onRemove, onLikeComment }: CommentItemProps) {
+export default function CommentItem({ comment, onRemove, onLike }: CommentItemProps) {
   const currentUser = useAppSelector(selectCurrentUser);
 
   const anchorRef = useRef<HTMLElement | null>(null);
@@ -36,16 +36,16 @@ export default function CommentItem({ comment, onRemove, onLikeComment }: Commen
 
   const handleRemoveComment = async () => {
     try {
-      onRemove?.(comment);
-    } catch (error) {
-      toast.error('Xoá bình luận thất bại.');
+      await onRemove?.(comment);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message);
     }
 
     closeMenu();
   };
 
-  const handleLikeComment = async () => {
-    onLikeComment?.(comment);
+  const handleLikeComment = () => {
+    onLike?.(comment);
   };
 
   const isAuthorized = currentUser?._id === comment.userId || currentUser?.role === 'admin';

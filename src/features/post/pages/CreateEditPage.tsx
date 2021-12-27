@@ -47,14 +47,10 @@ export function CreateEditPage() {
       }
     : editedPost;
 
-  const handleFormSubmit = async (formValues: Post) => {
-    if (isNewPost) {
-      await postApi.create(formValues);
-    } else {
-      await postApi.update(formValues);
-    }
+  const handleFormSubmit = async (data: Post) => {
+    if (isNewPost) await postApi.create(data);
+    else await postApi.update(data);
 
-    dispatch(postActions.fetchPostList({}));
     navigate('/blog');
   };
 
