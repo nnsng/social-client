@@ -1,7 +1,9 @@
-import { Tab, Tabs } from '@mui/material';
+import { AccountCircleRounded, LockRounded } from '@mui/icons-material';
+import { Box, Hidden, Tab, Tabs } from '@mui/material';
 import { SxProps } from '@mui/system';
 import React, { SyntheticEvent, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { themeConstants } from 'styles/theme';
 
 export interface SettingTabsProps {
   direction?: 'vertical' | 'horizontal';
@@ -32,30 +34,70 @@ export default function SettingTabs({ direction, tabsSx }: SettingTabsProps) {
     {
       label: 'Thông tin cá nhân',
       linkTo: 'edit-profile',
+      icon: AccountCircleRounded,
     },
     {
       label: 'Đổi mật khẩu',
       linkTo: 'change-password',
+      icon: LockRounded,
     },
   ];
 
   return (
-    <Tabs orientation={direction} value={tab} sx={tabsSx} onChange={handleChangeTab}>
-      {tabItemList.map(({ label, linkTo }, idx) => (
-        <Tab
-          key={idx}
-          label={label}
-          component={Link}
-          to={linkTo}
+    <>
+      <Hidden smDown>
+        <Tabs
+          orientation="vertical"
+          value={tab}
           sx={{
-            alignItems: 'flex-start',
-            pr: { xs: 'auto', sm: 4 },
-            fontSize: 18,
-            fontWeight: 500,
-            textTransform: 'none',
+            minHeight: `calc(100vh - (82px + ${themeConstants.headerHeight}))`,
+            borderRight: 1,
+            borderColor: 'divider',
           }}
-        />
-      ))}
-    </Tabs>
+          onChange={handleChangeTab}
+        >
+          {tabItemList.map(({ label, linkTo }, idx) => (
+            <Tab
+              key={idx}
+              label={label}
+              component={Link}
+              to={linkTo}
+              sx={{
+                alignItems: 'flex-start',
+                pr: 4,
+                fontSize: 18,
+                fontWeight: 500,
+                textTransform: 'none',
+              }}
+            />
+          ))}
+        </Tabs>
+      </Hidden>
+
+      <Hidden smUp>
+        <Tabs
+          orientation="horizontal"
+          value={tab}
+          variant="fullWidth"
+          sx={{
+            position: 'relative',
+            '::after': {
+              content: '""',
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              width: '100%',
+              height: '1px',
+              bgcolor: 'divider',
+            },
+          }}
+          onChange={handleChangeTab}
+        >
+          {tabItemList.map(({ icon: Icon, linkTo }, idx) => (
+            <Tab key={idx} icon={<Icon />} component={Link} to={linkTo} />
+          ))}
+        </Tabs>
+      </Hidden>
+    </>
   );
 }

@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, CircularProgress, Grid, Typography } from '@mui/material';
+import { Button, CircularProgress, Grid, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { MuiTextField } from 'components/formFields';
 import { ChangePasswordFormValue } from 'models';
@@ -60,11 +60,13 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
             <Grid item container alignItems="center" key={idx}>
               <Typography
                 variant="h6"
-                fontSize={18}
-                fontWeight="500"
-                mb={0.5}
-                width={240}
-                sx={{ userSelect: 'none' }}
+                sx={{
+                  width: 240,
+                  mb: 0.5,
+                  fontSize: 18,
+                  fontWeight: 500,
+                  userSelect: 'none',
+                }}
               >
                 {label}
               </Typography>
@@ -81,23 +83,34 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
           ))}
 
           <Grid item>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              disabled={isSubmitting}
-              startIcon={isSubmitting && <CircularProgress size={20} />}
+            <Stack
+              sx={{
+                flexDirection: { xs: 'column-reverse', sm: 'row' },
+                mt: { xs: -1, sm: 0 },
+              }}
             >
-              Đổi mật khẩu
-            </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={isSubmitting}
+                startIcon={isSubmitting && <CircularProgress size={20} />}
+              >
+                Đổi mật khẩu
+              </Button>
 
-            <Button
-              color="primary"
-              sx={{ ml: 3, ':hover': { bgcolor: 'transparent' } }}
-              onClick={forgotPassword}
-            >
-              Quên mật khẩu
-            </Button>
+              <Button
+                color="primary"
+                sx={{
+                  mb: { xs: 1, sm: 0 },
+                  ml: { sm: 3 },
+                  ':hover': { bgcolor: 'transparent' },
+                }}
+                onClick={forgotPassword}
+              >
+                Quên mật khẩu
+              </Button>
+            </Stack>
           </Grid>
         </Grid>
       </Box>

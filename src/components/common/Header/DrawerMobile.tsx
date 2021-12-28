@@ -3,6 +3,7 @@ import {
   BookmarkBorderOutlined,
   ListAltOutlined,
   LogoutOutlined,
+  NotificationsRounded,
   SettingsOutlined,
 } from '@mui/icons-material';
 import { Avatar, Box, Divider, Drawer, MenuItem, MenuList, Typography } from '@mui/material';

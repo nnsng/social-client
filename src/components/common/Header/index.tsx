@@ -16,6 +16,7 @@ import {
   ListItemButton,
   OutlinedInput,
   Paper,
+  Stack,
   Typography,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
@@ -28,7 +29,7 @@ import {
 import { Post } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { themeConstants, themeMixins } from 'styles/theme';
+import theme, { themeConstants, themeMixins } from 'styles/theme';
 import { slugifyString } from 'utils';
 import { SearchMobile } from '..';
 import DrawerMobile from './DrawerMobile';
@@ -93,25 +94,19 @@ export function Header() {
         <Container maxWidth={false}>
           <Grid container alignItems="center" justifyContent="space-between">
             <Grid item xs="auto" mr={2}>
-              <Box display="flex" alignItems="center" component={Link} to="/">
+              <Stack direction="row" alignItems="center" component={Link} to="/">
                 <Avatar variant="rounded" sx={{ bgcolor: 'primary.main', mr: 1, fontWeight: 600 }}>
                   B
                 </Avatar>
 
-                {!openSearchMobile && (
-                  <Typography variant="h6" color="primary" fontWeight="600">
-                    BLOG APP
-                  </Typography>
-                )}
-              </Box>
+                <Typography variant="h6" color="primary" fontWeight="600">
+                  BLOG APP
+                </Typography>
+              </Stack>
             </Grid>
 
             <Grid item xs>
-              <Box
-                sx={{
-                  display: { xs: 'none', sm: 'block' },
-                }}
-              >
+              <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                 <FormControl
                   fullWidth
                   size="small"

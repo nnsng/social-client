@@ -61,7 +61,7 @@ const theme = createTheme({
 export default theme;
 
 export const themeConstants = {
-  headerHeight: 72,
+  headerHeight: '72px',
   boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
 };
 

@@ -8,10 +8,10 @@ export const tagSchema = yup.object().shape({
 
 export const postSchema = yup.object().shape({
   title: yup.string().required('Vui lòng nhập tiêu đề'),
-  content: yup.string().min(5, 'Nội dung tối thiểu 500 ký tự').required('Vui lòng nhập nội dung'),
-  description: yup.string(),
-  thumbnail: yup.string(),
-  tags: yup.array().of(tagSchema),
+  content: yup.string().min(50, 'Nội dung tối thiểu 500 ký tự').required('Vui lòng nhập nội dung'),
+  description: yup.string().notRequired(),
+  thumbnail: yup.string().notRequired(),
+  tags: yup.array().of(tagSchema).notRequired(),
 });
 
 // AUTH
@@ -31,18 +31,20 @@ export const authSchema = yup.object().shape({
 
 // SETTING
 export const profileSchema = yup.object().shape({
-  name: yup.string().required('Vui lòng nhập họ tên'),
+  name: yup.string().max(255, 'Tối đa 255 ký tự').required('Vui lòng nhập họ tên'),
   avatar: yup.string().notRequired(),
   username: yup
     .string()
     .min(6, 'Tối thiểu 6 ký tự')
     .max(50, 'Tối đa 50 ký tự')
-    .matches(/^[a-zA-Z0-9]*$/, 'Tên người dùng không hợp lệ'),
+    .matches(/^[a-zA-Z0-9]*$/, 'Tên người dùng không hợp lệ')
+    .notRequired(),
   email: yup.string().email().required(),
   phone: yup
     .string()
     .max(10)
-    .matches(/^[0-9]*$/, 'Số điện thoại không hợp lệ'),
+    .matches(/[0-9]|^$/, 'Số điện thoại không hợp lệ')
+    .notRequired(),
 });
 
 export const passwordSchema = yup.object().shape({
@@ -56,5 +58,6 @@ export const passwordSchema = yup.object().shape({
     .required('Vui lòng nhập mật khẩu mới'),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref('newPassword'), null], 'Mật khẩu nhập lại không khớp'),
+    .oneOf([yup.ref('newPassword'), null], 'Mật khẩu nhập lại không khớp')
+    .required('Vui lòng nhập lại mật khẩu mới'),
 });
