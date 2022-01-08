@@ -90,7 +90,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
 
   return (
     <form>
-      <Box height={`calc(100vh - ${themeConstants.headerHeight * 2} - 24px)`} mt={1}>
+      <Box height={`calc(100vh - ${themeConstants.headerHeight} * 2 - 24px)`} mt={1}>
         <Grid container alignItems="center">
           <Grid item xs>
             <InputField
