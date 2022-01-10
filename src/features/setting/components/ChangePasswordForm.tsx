@@ -83,12 +83,7 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
           ))}
 
           <Grid item>
-            <Stack
-              sx={{
-                flexDirection: { xs: 'column-reverse', sm: 'row' },
-                mt: { xs: -1, sm: 0 },
-              }}
-            >
+            <Stack direction="row">
               <Button
                 type="submit"
                 variant="contained"
@@ -101,9 +96,9 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
 
               <Button
                 color="primary"
+                size="small"
                 sx={{
-                  mb: { xs: 1, sm: 0 },
-                  ml: { sm: 3 },
+                  ml: { xs: 2, sm: 3 },
                   ':hover': { bgcolor: 'transparent' },
                 }}
                 onClick={forgotPassword}

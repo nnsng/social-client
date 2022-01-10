@@ -35,13 +35,13 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
   const closeMenu = () => setOpen(false);
 
   const handleRemoveComment = async () => {
+    closeMenu();
+
     try {
       await onRemove?.(comment);
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
     }
-
-    closeMenu();
   };
 
   const handleLikeComment = () => {
@@ -128,7 +128,7 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
             </Box>
           </Badge>
 
-          <Stack direction="row" alignItems="center" mt={1} pl={2}>
+          <Stack direction="row" alignItems="center" mt={1}>
             <Typography
               variant="subtitle2"
               color="primary"

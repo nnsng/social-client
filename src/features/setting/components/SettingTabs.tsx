@@ -33,13 +33,13 @@ export default function SettingTabs({ direction, tabsSx }: SettingTabsProps) {
   const tabItemList = [
     {
       label: 'Thông tin cá nhân',
+      mobileLabel: 'Thông tin',
       linkTo: 'edit-profile',
-      icon: AccountCircleRounded,
     },
     {
       label: 'Đổi mật khẩu',
+      mobileLabel: 'Mật khẩu',
       linkTo: 'change-password',
-      icon: LockRounded,
     },
   ];
 
@@ -93,8 +93,18 @@ export default function SettingTabs({ direction, tabsSx }: SettingTabsProps) {
           }}
           onChange={handleChangeTab}
         >
-          {tabItemList.map(({ icon: Icon, linkTo }, idx) => (
-            <Tab key={idx} icon={<Icon />} component={Link} to={linkTo} />
+          {tabItemList.map(({ mobileLabel, linkTo }, idx) => (
+            <Tab
+              key={idx}
+              label={mobileLabel}
+              component={Link}
+              to={linkTo}
+              sx={{
+                fontSize: 18,
+                fontWeight: 500,
+                textTransform: 'none',
+              }}
+            />
           ))}
         </Tabs>
       </Hidden>
