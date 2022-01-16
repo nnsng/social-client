@@ -9,8 +9,8 @@ import {
   BorderColorRounded,
   MoreHorizRounded,
 } from '@mui/icons-material';
-import { themeMixins } from 'styles/theme';
-import { copyPostLink, formatTime } from 'utils';
+import { mixins } from 'utils/theme';
+import { copyPostLink, formatTime } from 'utils/common';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -113,7 +113,7 @@ export function PostItemMobile(props: PostItemMobileProps) {
             fontSize={16}
             fontWeight="600"
             lineHeight={1.4}
-            sx={{ ...themeMixins.truncate(2) }}
+            sx={{ ...mixins.truncate(2) }}
           >
             {post.title}
           </Typography>

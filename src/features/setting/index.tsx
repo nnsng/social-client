@@ -1,8 +1,7 @@
-import { Box, Container, Grid, Hidden, Stack, Typography } from '@mui/material';
+import { Box, Container, Stack, Typography } from '@mui/material';
 import { Header } from 'components/common';
 import React, { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import theme from 'styles/theme';
 import SettingTabs from './components/SettingTabs';
 import { ChangePasswordPage, EditProfilePage } from './pages';
 

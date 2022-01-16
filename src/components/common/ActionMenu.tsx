@@ -1,6 +1,6 @@
 import { Drawer, Hidden, MenuList } from '@mui/material';
 import React from 'react';
-import { themeConstants } from 'styles/theme';
+import { themeConstants } from 'utils/theme';
 import { PopperMenu, PopperMenuProps } from '.';
 
 export interface ActionMenuProps extends PopperMenuProps {}

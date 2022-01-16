@@ -2,7 +2,7 @@ import { cdnActions } from 'features/cdn/cdnSlice';
 import React, { InputHTMLAttributes } from 'react';
 import { Control, useController } from 'react-hook-form';
 import { useAppDispatch } from 'app/hooks';
-import { getCdnImageUrl } from 'utils';
+import { uploadImage } from 'utils/common';
 
 export interface FileInputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -21,7 +21,7 @@ export function FileInputField({ name, control, ...inputProps }: FileInputFieldP
 
     try {
       const image = e.target.files[0];
-      const imageUrl = await getCdnImageUrl(image);
+      const imageUrl = await uploadImage(image);
 
       onChange(imageUrl);
     } catch (error) {

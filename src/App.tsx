@@ -2,9 +2,9 @@ import authApi from 'api/authApi';
 import { useAppDispatch } from 'app/hooks';
 import { NotFound, PrivateRoute } from 'components/common';
 import { ACCESS_TOKEN } from 'constants/common';
+import Auth from 'features/auth';
 import { authActions } from 'features/auth/authSlice';
 import Blog from 'features/post';
-import Auth from 'features/auth';
 import Setting from 'features/setting';
 import SocketClient from 'features/socket/SocketClient';
 import { socketActions } from 'features/socket/socketSlice';
@@ -12,6 +12,7 @@ import { User } from 'models';
 import { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
+import { env, variables } from 'utils/env';
 
 function App() {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ function App() {
   }, [dispatch, navigate]);
 
   useEffect(() => {
-    const socket = io(import.meta.env.VITE_BASE_URL as string);
+    const socket = io(env(variables.baseUrl));
     dispatch(socketActions.setSocket(socket));
 
     return () => {

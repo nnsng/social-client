@@ -5,7 +5,7 @@ import { Tag } from 'models';
 import React from 'react';
 import { Control, useController } from 'react-hook-form';
 import 'styles/tagInput.css';
-import { slugifyString } from 'utils';
+import { slugifyString } from 'utils/common';
 
 export interface TagInputFieldProps {
   name: string;

@@ -1,6 +1,5 @@
 @import '@pathofdev/react-tag-input/build/index.css';
 
-/*? REACT TAG INPUT */
 .react-tag-input {
   min-height: 57px;
   padding: 4px;
@@ -40,7 +39,7 @@
   background-color: unset;
 }
 
-/*! ----------------------- */
+/*************************/
 
 .tagInput {
   display: flex;

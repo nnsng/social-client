@@ -13,8 +13,8 @@ import { selectCurrentUser } from 'features/auth/authSlice';
 import React, { useRef, useState } from 'react';
 import { useAppSelector } from 'app/hooks';
 import { Link } from 'react-router-dom';
-import theme, { themeConstants } from 'styles/theme';
-import { formatTime } from 'utils';
+import theme, { themeConstants } from 'utils/theme';
+import { formatTime } from 'utils/common';
 import { PopperMenu } from '..';
 
 export default function Notification() {

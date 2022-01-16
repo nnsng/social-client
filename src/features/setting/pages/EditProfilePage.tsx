@@ -17,7 +17,7 @@ export function EditProfilePage() {
   return (
     <EditProfileForm
       submitting={submitting}
-      initialValues={currentUser as User}
+      defaultValues={currentUser as User}
       onSubmit={handleFormSubmit}
     />
   );

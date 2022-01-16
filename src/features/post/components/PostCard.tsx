@@ -24,8 +24,8 @@ import React, { useRef, useState } from 'react';
 import { useAppSelector } from 'app/hooks';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { themeConstants, themeMixins } from 'styles/theme';
-import { copyPostLink, formatTime } from 'utils';
+import { themeConstants, mixins } from 'utils/theme';
+import { copyPostLink, formatTime } from 'utils/common';
 
 export interface PostCardProps {
   post: Post;
@@ -55,8 +55,8 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
 
   const handleRemovePost = async () => {
     try {
-      await onRemove?.(post);
       closeMenu();
+      await onRemove?.(post);
       toast.success('Xóa bài viết thành công');
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
@@ -203,7 +203,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
               component={Link}
               to={`/blog/${post.slug}`}
               sx={{
-                ...themeMixins.truncate(2),
+                ...mixins.truncate(2),
                 mb: 1,
                 fontWeight: 600,
               }}
@@ -211,7 +211,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
               {post.title}
             </Typography>
 
-            <Typography variant="body1" m={0} sx={{ ...themeMixins.truncate(2) }}>
+            <Typography variant="body1" m={0} sx={{ ...mixins.truncate(2) }}>
               {post.description}
             </Typography>
           </Box>

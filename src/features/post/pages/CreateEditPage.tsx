@@ -14,8 +14,8 @@ export function CreateEditPage() {
   const { id: postId } = useParams();
   const isNewPost = !postId;
 
-  const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
+
   const [editedPost, setEditedPost] = useState<any>(null);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export function CreateEditPage() {
     })();
   }, [postId, navigate]);
 
-  const initialValues: Post = isNewPost
+  const defaultValues: Post = isNewPost
     ? {
         title: '',
         content: '',
@@ -48,10 +48,11 @@ export function CreateEditPage() {
     : editedPost;
 
   const handleFormSubmit = async (data: Post) => {
-    if (isNewPost) await postApi.create(data);
-    else await postApi.update(data);
+    const savedPost = (isNewPost
+      ? await postApi.create(data)
+      : await postApi.update(data)) as unknown as Post;
 
-    navigate('/blog');
+    navigate(`/blog/${savedPost.slug}`);
   };
 
   return (
@@ -59,7 +60,7 @@ export function CreateEditPage() {
       <Box mt={-4}>
         {currentUser && (
           <CreateEditForm
-            initialValues={initialValues}
+            defaultValues={defaultValues}
             onSubmit={handleFormSubmit}
             isNewPost={isNewPost}
           />

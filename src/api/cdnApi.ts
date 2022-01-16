@@ -1,9 +1,14 @@
+import { env, variables } from 'utils/env';
 import axiosClient from './axiosClient';
 
 const cdnApi = {
   getImageUrl(data: FormData) {
-    const url = import.meta.env.VITE_CDN_URL as string;
-    return axiosClient.post(url, data);
+    const url = env(variables.cdnUrl);
+    return axiosClient.post(url, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   },
 };
 

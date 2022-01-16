@@ -29,9 +29,9 @@ import {
 import { Post } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import theme, { themeConstants, themeMixins } from 'styles/theme';
-import { slugifyString } from 'utils';
-import { SearchMobile } from '..';
+import theme, { themeConstants, mixins } from 'utils/theme';
+import { slugifyString } from 'utils/common';
+import { SearchMobile } from '../SearchMobile';
 import DrawerMobile from './DrawerMobile';
 import Notification from './Notification';
 import UserMenu from './UserMenu';
@@ -179,7 +179,7 @@ export function Header() {
                                     <Typography
                                       variant="subtitle2"
                                       fontSize={15}
-                                      sx={{ ...themeMixins.truncate(2) }}
+                                      sx={{ ...mixins.truncate(2) }}
                                     >
                                       {post.title}
                                     </Typography>

@@ -11,7 +11,7 @@ import { IMenuItem } from 'models';
 import React, { useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { useNavigate } from 'react-router-dom';
-import theme, { themeConstants } from 'styles/theme';
+import theme, { themeConstants } from 'utils/theme';
 import { PopperMenu } from '..';
 
 export default function UserMenu() {

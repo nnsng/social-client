@@ -65,14 +65,12 @@ export const themeConstants = {
   boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
 };
 
-export const themeMixins = {
-  truncate(maxLine: number): SxProps {
-    return {
-      display: '-webkit-box',
-      WebkitLineClamp: maxLine,
-      WebkitBoxOrient: 'vertical',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-    };
-  },
+export const mixins = {
+  truncate: (maxLine: number): SxProps => ({
+    display: '-webkit-box',
+    WebkitLineClamp: maxLine,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  }),
 };

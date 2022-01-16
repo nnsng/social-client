@@ -16,8 +16,8 @@ import { Comment, IMenuItem } from 'models';
 import React, { useRef, useState } from 'react';
 import { useAppSelector } from 'app/hooks';
 import { toast } from 'react-toastify';
-import theme from 'styles/theme';
-import { formatTime } from 'utils';
+import theme from 'utils/theme';
+import { formatTime } from 'utils/common';
 
 export interface CommentItemProps {
   comment: Comment;

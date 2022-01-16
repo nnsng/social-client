@@ -23,8 +23,8 @@ import React, { useRef, useState } from 'react';
 import { useAppSelector } from 'app/hooks';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { themeConstants } from 'styles/theme';
-import { copyPostLink, formatTime } from 'utils';
+import { themeConstants } from 'utils/theme';
+import { copyPostLink, formatTime } from 'utils/common';
 import MdEditor from './MdEditor';
 
 export interface PostDetailProps {

@@ -3,7 +3,7 @@ import { Box, Stack, Typography } from '@mui/material';
 import { Tag } from 'models';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { slugifyString } from 'utils';
+import { slugifyString } from 'utils/common';
 
 const tags: Tag[] = ['Front-end', 'Back-end', 'Mobile app', 'Design', 'DevOps', 'Others'].map(
   (tag) => ({

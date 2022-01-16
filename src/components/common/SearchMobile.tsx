@@ -16,7 +16,7 @@ import { Post } from 'models';
 import React from 'react';
 import { SearchRounded, CloseRounded } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { themeConstants, themeMixins } from 'styles/theme';
+import { themeConstants, mixins } from 'utils/theme';
 
 export interface SearchMobileProps {
   loading?: boolean;
@@ -96,11 +96,7 @@ export function SearchMobile(props: SearchMobileProps) {
                       <Box />
                     </Avatar>
 
-                    <Typography
-                      variant="subtitle2"
-                      fontSize={15}
-                      sx={{ ...themeMixins.truncate(2) }}
-                    >
+                    <Typography variant="subtitle2" fontSize={15} sx={{ ...mixins.truncate(2) }}>
                       {post.title}
                     </Typography>
                   </Box>

@@ -17,7 +17,7 @@ export default function AuthPage({ mode }: AuthPageProps) {
 
   const dispatch = useAppDispatch();
 
-  const initialValues: AuthFormValue = {
+  const defaultValues: AuthFormValue = {
     mode,
     email: '',
     password: '',
@@ -44,7 +44,7 @@ export default function AuthPage({ mode }: AuthPageProps) {
 
   return (
     <Stack alignItems="center" justifyContent="center" minHeight="100vh" bgcolor="primary.main">
-      <AuthForm initialValues={initialValues} switchMode={switchMode} onSubmit={handleFormSubmit} />
+      <AuthForm defaultValues={defaultValues} switchMode={switchMode} onSubmit={handleFormSubmit} />
     </Stack>
   );
 }

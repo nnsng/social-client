@@ -16,13 +16,13 @@ export function slugifyString(str: string) {
   return slugify(str, { locale: 'vi', lower: true });
 }
 
-export async function getCdnImageUrl(image: File) {
+export async function uploadImage(image: File) {
   try {
     const formData = new FormData();
     formData.append('file', image);
     formData.append('upload_preset', 'cdn_test');
 
-    const imageObject: any = await cdnApi.getImageUrl(formData);
+    const imageObject: { [key: string]: any } = await cdnApi.getImageUrl(formData);
     return imageObject?.url;
   } catch (error) {
     console.log('Failed to get image url from cdn:', error);

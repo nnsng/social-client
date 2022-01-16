@@ -27,11 +27,11 @@ import { Post } from 'models';
 import React, { forwardRef, ReactElement, Ref, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { themeConstants, themeMixins } from 'styles/theme';
-import { postSchema } from 'utils';
+import { themeConstants, mixins } from 'utils/theme';
+import { postSchema } from 'utils/schema';
 
 export interface CreateEditFormProps {
-  initialValues: Post;
+  defaultValues: Post;
   onSubmit?: (data: Post) => void;
   isNewPost?: boolean;
 }
@@ -43,7 +43,7 @@ const Transition = forwardRef(
 );
 
 export default function CreateEditForm(props: CreateEditFormProps) {
-  const { initialValues, onSubmit, isNewPost } = props;
+  const { defaultValues, onSubmit, isNewPost } = props;
 
   const {
     control,
@@ -54,7 +54,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     watch,
     formState: { errors, isSubmitting },
   } = useForm({
-    defaultValues: initialValues,
+    defaultValues,
     resolver: yupResolver(postSchema),
   });
 
@@ -68,10 +68,10 @@ export default function CreateEditForm(props: CreateEditFormProps) {
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    reset(initialValues);
+    reset(defaultValues);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialValues]);
+  }, [defaultValues]);
 
   const handleRemoveThumbnail = () => {
     setValue('thumbnail', '');
@@ -138,7 +138,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
               variant="h6"
               component="div"
               sx={{
-                ...themeMixins.truncate(1),
+                ...mixins.truncate(1),
                 flexGrow: 1,
                 ml: 2,
               }}
@@ -221,6 +221,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                       variant="outlined"
                       color="error"
                       size="medium"
+                      disabled={imageLoading}
                       sx={{
                         ml: 2,
                         fontWeight: 400,

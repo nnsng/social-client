@@ -6,20 +6,20 @@ import useLoginWithGoogle from 'hooks/useLoginWithGoogle';
 import { AuthFormValue } from 'models';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { authSchema } from 'utils';
+import { authSchema } from 'utils/schema';
 
 export interface AuthFormProps {
-  initialValues: AuthFormValue;
+  defaultValues: AuthFormValue;
   switchMode?: () => void;
   onSubmit?: (formValues: AuthFormValue) => void;
 }
 
 export default function AuthForm(props: AuthFormProps) {
-  const { initialValues, switchMode, onSubmit } = props;
-  const isRegisterMode = initialValues.mode === 'register';
+  const { defaultValues, switchMode, onSubmit } = props;
+  const isRegisterMode = defaultValues.mode === 'register';
 
   const { control, handleSubmit, reset } = useForm({
-    defaultValues: initialValues,
+    defaultValues,
     resolver: yupResolver(authSchema),
   });
 

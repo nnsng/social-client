@@ -3,7 +3,7 @@ import { Box, Hidden, Tab, Tabs } from '@mui/material';
 import { SxProps } from '@mui/system';
 import React, { SyntheticEvent, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { themeConstants } from 'styles/theme';
+import { themeConstants } from 'utils/theme';
 
 export interface SettingTabsProps {
   direction?: 'vertical' | 'horizontal';

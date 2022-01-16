@@ -9,7 +9,7 @@ import ChangePasswordForm from '../components/ChangePasswordForm';
 export function ChangePasswordPage() {
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const initialValues: ChangePasswordFormValue = {
+  const defaultValues: ChangePasswordFormValue = {
     userId: currentUser?._id as string,
     currentPassword: '',
     newPassword: '',
@@ -26,7 +26,7 @@ export function ChangePasswordPage() {
 
   return (
     <ChangePasswordForm
-      initialValues={initialValues}
+      defaultValues={defaultValues}
       onSubmit={handleFormSubmit}
       forgotPassword={handleForgotPassword}
     />

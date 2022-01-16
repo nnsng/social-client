@@ -1,9 +1,10 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { ACCESS_TOKEN, API_URL } from 'constants/common';
+import { ACCESS_TOKEN } from 'constants/common';
 import queryString from 'query-string';
+import { env, variables } from 'utils/env';
 
 const axiosClient = axios.create({
-  baseURL: API_URL,
+  baseURL: env(variables.baseApiUrl),
   headers: {
     'Content-Type': 'application/json',
   },
@@ -14,7 +15,7 @@ axiosClient.interceptors.request.use(async (config: AxiosRequestConfig) => {
   // Handle token ...
   const token = localStorage.getItem(ACCESS_TOKEN);
 
-  if (token && config.url !== import.meta.env.VITE_CDN_URL) {
+  if (token && config.url !== env(variables.cdnUrl)) {
     if (config.headers) config.headers.Authorization = `Bearer ${token}`;
   }
 

@@ -6,16 +6,16 @@ import { ChangePasswordFormValue } from 'models';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { passwordSchema } from 'utils';
+import { passwordSchema } from 'utils/schema';
 
 export interface ChangePasswordFormProps {
-  initialValues: ChangePasswordFormValue;
+  defaultValues: ChangePasswordFormValue;
   onSubmit: (formValues: ChangePasswordFormValue) => void;
   forgotPassword?: () => void;
 }
 
 export default function ChangePasswordForm(props: ChangePasswordFormProps) {
-  const { initialValues, onSubmit, forgotPassword } = props;
+  const { defaultValues, onSubmit, forgotPassword } = props;
 
   const {
     control,
@@ -23,7 +23,7 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
     reset,
     formState: { isSubmitting },
   } = useForm({
-    defaultValues: initialValues,
+    defaultValues,
     resolver: yupResolver(passwordSchema),
   });
 

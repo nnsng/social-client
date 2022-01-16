@@ -34,7 +34,7 @@ export default function PostComment(props: PostCommentProps) {
   const loading = useAppSelector(selectCommentLoading);
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const initialValues: Comment = {
+  const defaultValues: Comment = {
     postId,
     userId: currentUser?._id as string,
     content: '',
@@ -46,7 +46,7 @@ export default function PostComment(props: PostCommentProps) {
     handleSubmit,
     formState: { isSubmitting },
   } = useForm({
-    defaultValues: initialValues,
+    defaultValues,
   });
 
   useEffect(() => {

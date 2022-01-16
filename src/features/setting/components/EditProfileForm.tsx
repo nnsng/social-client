@@ -6,26 +6,26 @@ import { selectCdnLoading } from 'features/cdn/cdnSlice';
 import { User } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { profileSchema } from 'utils';
+import { profileSchema } from 'utils/schema';
 export interface EditProfileFromProps {
   submitting: boolean;
-  initialValues: User;
+  defaultValues: User;
   onSubmit: (formValues: User) => void;
 }
 
 export default function EditProfileFrom(props: EditProfileFromProps) {
-  const { submitting, initialValues, onSubmit } = props;
+  const { submitting, defaultValues, onSubmit } = props;
 
   const { control, handleSubmit, getValues, reset } = useForm({
-    defaultValues: initialValues,
+    defaultValues,
     resolver: yupResolver(profileSchema),
   });
 
   const imageLoading = useAppSelector(selectCdnLoading);
 
   useEffect(() => {
-    reset(initialValues);
-  }, [initialValues]);
+    reset(defaultValues);
+  }, [defaultValues]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

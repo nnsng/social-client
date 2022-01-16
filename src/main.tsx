@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import App from './App';
 import { store } from './app/store';
 import './styles/index.css';
-import theme from './styles/theme';
+import theme from './utils/theme';
 
 ReactDOM.render(
   <React.StrictMode>
