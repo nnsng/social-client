@@ -68,7 +68,7 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
     <ListItem disableGutters sx={{ mb: 2.5 }}>
       <Grid container spacing={2}>
         <Grid item xs="auto">
-          <Avatar src={comment?.user?.avatar} sx={{ ...mixins.size(36) }} />
+          <Avatar src={comment?.user?.avatar} sx={{ width: 36, height: 36 }} />
         </Grid>
 
         <Grid item xs>
@@ -147,7 +147,8 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
                 mr: 1,
 
                 '::before': {
-                  ...mixins.size(2),
+                  width: 2,
+                  height: 2,
                   content: '""',
                   bgcolor: 'grey.500',
                   borderRadius: '50%',

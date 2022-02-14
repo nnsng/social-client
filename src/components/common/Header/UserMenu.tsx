@@ -11,7 +11,7 @@ import { authActions, selectCurrentUser } from 'features/auth/authSlice';
 import { IMenuItem } from 'models';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import theme, { mixins, themeConstants } from 'utils/theme';
+import theme, { themeConstants } from 'utils/theme';
 import { PopperMenu } from '..';
 
 export default function UserMenu() {
@@ -68,7 +68,7 @@ export default function UserMenu() {
     <>
       <Avatar
         src={currentUser?.avatar}
-        sx={{ ...mixins.size(28), cursor: 'pointer' }}
+        sx={{ width: 28, height: 28, cursor: 'pointer' }}
         ref={anchorRef as any}
         onClick={toggleMenu}
       />
@@ -86,7 +86,7 @@ export default function UserMenu() {
         onClose={closeMenu}
       >
         <Stack direction="row" alignItems="center" p={1}>
-          <Avatar src={currentUser?.avatar} sx={{ ...mixins.size(40) }} />
+          <Avatar src={currentUser?.avatar} sx={{ width: 40, height: 40 }} />
 
           <Box ml={2}>
             <Typography variant="body1" fontWeight="600">

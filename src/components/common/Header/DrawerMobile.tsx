@@ -11,7 +11,6 @@ import { authActions, selectCurrentUser } from 'features/auth/authSlice';
 import { IMenuItem } from 'models';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { mixins } from 'utils/theme';
 
 export default function DrawerMobile() {
   const navigate = useNavigate();
@@ -67,7 +66,8 @@ export default function DrawerMobile() {
       <Avatar
         src={currentUser?.avatar}
         sx={{
-          ...mixins.size(28),
+          width: 28,
+          height: 28,
           cursor: 'pointer',
         }}
         onClick={toggleMenu}
@@ -76,7 +76,7 @@ export default function DrawerMobile() {
       <Drawer anchor="right" open={openMenu} onClose={closeMenu}>
         <MenuList sx={{ width: '75vw', maxWidth: 300 }}>
           <Box ml={4} py={4}>
-            <Avatar src={currentUser?.avatar} sx={{ ...mixins.size(60), mb: 2 }} />
+            <Avatar src={currentUser?.avatar} sx={{ width: 60, height: 60, mb: 2 }} />
 
             <Box>
               <Typography variant="body1" fontSize={16} fontWeight="600">

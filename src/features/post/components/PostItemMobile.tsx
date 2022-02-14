@@ -1,18 +1,18 @@
+import {
+  BookmarkRemoveRounded,
+  BorderColorRounded,
+  DeleteRounded,
+  LinkRounded,
+  MoreHorizRounded,
+} from '@mui/icons-material';
 import { Avatar, Box, IconButton, ListItem, MenuItem, Stack, Typography } from '@mui/material';
 import { ActionMenu } from 'components/common';
 import { IMenuItem, Post } from 'models';
 import React, { useState } from 'react';
-import {
-  BookmarkRemoveRounded,
-  DeleteRounded,
-  LinkRounded,
-  BorderColorRounded,
-  MoreHorizRounded,
-} from '@mui/icons-material';
-import { mixins } from 'utils/theme';
-import { copyPostLink, formatTime } from 'utils/common';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { copyPostLink, formatTime } from 'utils/common';
+import { mixins } from 'utils/theme';
 
 export interface PostItemMobileProps {
   post: Post;
@@ -97,7 +97,8 @@ export function PostItemMobile(props: PostItemMobileProps) {
             variant="rounded"
             src={post.thumbnail}
             sx={{
-              ...mixins.size(100, 80),
+              width: 100,
+              height: 80,
               mr: 2,
               bgcolor: 'grey.200',
             }}

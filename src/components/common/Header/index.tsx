@@ -29,8 +29,8 @@ import {
 import { Post } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import theme, { themeConstants, mixins } from 'utils/theme';
 import { slugifyString } from 'utils/common';
+import { mixins, themeConstants } from 'utils/theme';
 import { SearchMobile } from '../SearchMobile';
 import DrawerMobile from './DrawerMobile';
 import Notification from './Notification';
@@ -166,7 +166,8 @@ export function Header() {
                                     <Avatar
                                       src={post.thumbnail}
                                       sx={{
-                                        ...mixins.size(32),
+                                        width: 32,
+                                        height: 32,
                                         mr: 1,
                                         bgcolor: 'grey.200',
                                       }}

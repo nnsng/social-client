@@ -1,3 +1,4 @@
+import { CloseRounded, SearchRounded } from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -14,9 +15,8 @@ import {
 } from '@mui/material';
 import { Post } from 'models';
 import React from 'react';
-import { SearchRounded, CloseRounded } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { themeConstants, mixins } from 'utils/theme';
+import { mixins, themeConstants } from 'utils/theme';
 
 export interface SearchMobileProps {
   loading?: boolean;
@@ -87,7 +87,8 @@ export function SearchMobile(props: SearchMobileProps) {
                     <Avatar
                       src={post.thumbnail}
                       sx={{
-                        ...mixins.size(32),
+                        width: 32,
+                        height: 32,
                         mr: 1,
                         bgcolor: 'grey.200',
                       }}
