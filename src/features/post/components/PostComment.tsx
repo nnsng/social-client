@@ -15,6 +15,7 @@ import { Comment } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { mixins } from 'utils/theme';
 import { postActions } from '../postSlice';
 import CommentItem from './CommentItem';
 
@@ -96,10 +97,7 @@ export default function PostComment(props: PostCommentProps) {
 
         <form noValidate autoComplete="off" onSubmit={handleSubmit(handleSubmitComment)}>
           <Stack direction="row" pt={6} pb={3}>
-            <Avatar
-              src={currentUser?.avatar}
-              sx={{ width: 36, height: 36, flexShrink: 1, mr: 3 }}
-            />
+            <Avatar src={currentUser?.avatar} sx={{ ...mixins.size(36), flexShrink: 1, mr: 3 }} />
 
             <TextField
               variant="standard"

@@ -13,7 +13,7 @@ import { selectCurrentUser } from 'features/auth/authSlice';
 import React, { useRef, useState } from 'react';
 import { useAppSelector } from 'app/hooks';
 import { Link } from 'react-router-dom';
-import theme, { themeConstants } from 'utils/theme';
+import theme, { mixins, themeConstants } from 'utils/theme';
 import { formatTime } from 'utils/common';
 import { PopperMenu } from '..';
 
@@ -87,7 +87,7 @@ export default function Notification() {
         <Box p={0.8}>
           <Link to="/blog">
             <MenuItem sx={{ borderRadius: 1 }} onClick={closeMenu}>
-              <Avatar src={currentUser?.avatar} sx={{ width: 48, height: 48, mr: 2 }} />
+              <Avatar src={currentUser?.avatar} sx={{ ...mixins.size(48), mr: 2 }} />
 
               <Box flexGrow={1}>
                 <Typography variant="body1" mb={0.5} whiteSpace="normal">

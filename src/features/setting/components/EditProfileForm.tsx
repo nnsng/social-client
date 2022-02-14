@@ -7,6 +7,7 @@ import { User } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { profileSchema } from 'utils/schema';
+import { mixins } from 'utils/theme';
 export interface EditProfileFromProps {
   submitting: boolean;
   defaultValues: User;
@@ -73,10 +74,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
                   display: 'inline-block',
                 }}
               >
-                <Avatar
-                  src={getValues('avatar')}
-                  sx={{ width: 68, height: 68, cursor: 'pointer' }}
-                />
+                <Avatar src={getValues('avatar')} sx={{ ...mixins.size(68), cursor: 'pointer' }} />
                 <FileInputField name="avatar" control={control} id="avatar-upload" />
 
                 {imageLoading && (

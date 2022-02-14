@@ -97,8 +97,7 @@ export function PostItemMobile(props: PostItemMobileProps) {
             variant="rounded"
             src={post.thumbnail}
             sx={{
-              width: 100,
-              height: 80,
+              ...mixins.size(100, 80),
               mr: 2,
               bgcolor: 'grey.200',
             }}

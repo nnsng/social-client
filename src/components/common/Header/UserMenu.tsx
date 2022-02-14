@@ -6,12 +6,12 @@ import {
   SettingsOutlined,
 } from '@mui/icons-material';
 import { Avatar, Box, Divider, MenuItem, Stack, Typography } from '@mui/material';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { authActions, selectCurrentUser } from 'features/auth/authSlice';
 import { IMenuItem } from 'models';
 import React, { useRef, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { useNavigate } from 'react-router-dom';
-import theme, { themeConstants } from 'utils/theme';
+import theme, { mixins, themeConstants } from 'utils/theme';
 import { PopperMenu } from '..';
 
 export default function UserMenu() {
@@ -26,24 +26,9 @@ export default function UserMenu() {
   const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
 
-  const gotoCreateEditPage = () => {
+  const handleGotoPage = (path: string) => {
     closeMenu();
-    navigate('/blog/create');
-  };
-
-  const gotoMyPostList = () => {
-    closeMenu();
-    navigate('/blog/my');
-  };
-
-  const gotoSavedPage = () => {
-    closeMenu();
-    navigate('/blog/saved');
-  };
-
-  const gotoSettings = () => {
-    closeMenu();
-    navigate('/settings');
+    navigate(path);
   };
 
   const handleLogout = () => {
@@ -55,22 +40,22 @@ export default function UserMenu() {
     {
       label: 'Viết bài',
       icon: AddCircleOutlineOutlined,
-      onClick: gotoCreateEditPage,
+      onClick: () => handleGotoPage('/blog/create'),
     },
     {
       label: 'Bài viết của tôi',
       icon: ListAltOutlined,
-      onClick: gotoMyPostList,
+      onClick: () => handleGotoPage('/blog/my'),
     },
     {
       label: 'Đã lưu',
       icon: BookmarkBorderOutlined,
-      onClick: gotoSavedPage,
+      onClick: () => handleGotoPage('/blog/saved'),
     },
     {
       label: 'Cài đặt',
       icon: SettingsOutlined,
-      onClick: gotoSettings,
+      onClick: () => handleGotoPage('/settings'),
     },
     {
       label: 'Đăng xuất',
@@ -83,7 +68,7 @@ export default function UserMenu() {
     <>
       <Avatar
         src={currentUser?.avatar}
-        sx={{ width: 28, height: 28, cursor: 'pointer' }}
+        sx={{ ...mixins.size(28), cursor: 'pointer' }}
         ref={anchorRef as any}
         onClick={toggleMenu}
       />
@@ -101,7 +86,7 @@ export default function UserMenu() {
         onClose={closeMenu}
       >
         <Stack direction="row" alignItems="center" p={1}>
-          <Avatar src={currentUser?.avatar} sx={{ width: 40, height: 40 }} />
+          <Avatar src={currentUser?.avatar} sx={{ ...mixins.size(40) }} />
 
           <Box ml={2}>
             <Typography variant="body1" fontWeight="600">

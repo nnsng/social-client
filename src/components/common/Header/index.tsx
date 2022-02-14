@@ -150,11 +150,10 @@ export function Header() {
                             />
                           )}
 
-                          <Typography variant="body2" color="textSecondary" sx={{ flex: 1 }}>
+                          <Typography variant="body2" color="textSecondary" sx={{ flexGrow: 1 }}>
                             {searchResultList.length === 0 && !searchLoading
-                              ? 'Không có kết quả'
-                              : 'Kết quả'}
-                            &nbsp;tìm kiếm cho "{searchInput}"
+                              ? `Không có kết quả tìm kiếm cho "${searchInput}"`
+                              : `Kết quả tìm kiếm cho "${searchInput}"`}
                           </Typography>
                         </Box>
 
@@ -167,8 +166,7 @@ export function Header() {
                                     <Avatar
                                       src={post.thumbnail}
                                       sx={{
-                                        width: 32,
-                                        height: 32,
+                                        ...mixins.size(32),
                                         mr: 1,
                                         bgcolor: 'grey.200',
                                       }}

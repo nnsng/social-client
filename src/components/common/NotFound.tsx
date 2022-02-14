@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 
 export function NotFound() {
   useEffect(() => {
-    document.title = 'Không tìm thấy trang';
+    document.title = 'Trang không tồn tại';
   }, []);
 
   return (
@@ -36,7 +36,7 @@ export function NotFound() {
           letterSpacing: 2,
         }}
       >
-        Oops...! Page not found
+        Oops...! Trang này không tồn tại
       </Typography>
     </Stack>
   );

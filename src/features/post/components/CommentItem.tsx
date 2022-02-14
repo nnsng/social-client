@@ -16,7 +16,7 @@ import { Comment, IMenuItem } from 'models';
 import React, { useRef, useState } from 'react';
 import { useAppSelector } from 'app/hooks';
 import { toast } from 'react-toastify';
-import theme from 'utils/theme';
+import theme, { mixins } from 'utils/theme';
 import { formatTime } from 'utils/common';
 
 export interface CommentItemProps {
@@ -68,7 +68,7 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
     <ListItem disableGutters sx={{ mb: 2.5 }}>
       <Grid container spacing={2}>
         <Grid item xs="auto">
-          <Avatar src={comment?.user?.avatar} sx={{ width: 36, height: 36 }} />
+          <Avatar src={comment?.user?.avatar} sx={{ ...mixins.size(36) }} />
         </Grid>
 
         <Grid item xs>
@@ -147,9 +147,8 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
                 mr: 1,
 
                 '::before': {
-                  content: `''`,
-                  width: 2,
-                  height: 2,
+                  ...mixins.size(2),
+                  content: '""',
                   bgcolor: 'grey.500',
                   borderRadius: '50%',
                   display: 'block',

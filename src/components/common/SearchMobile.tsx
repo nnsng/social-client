@@ -73,8 +73,8 @@ export function SearchMobile(props: SearchMobileProps) {
           <Typography variant="body2" color="textSecondary" sx={{ flexGrow: 1 }}>
             {searchInput?.length !== 0 &&
               (searchResultList?.length === 0 && !loading
-                ? `Không có kết quả tìm kiếm cho "${searchInput || ''}"`
-                : `Kết quả tìm kiếm cho "${searchInput || ''}"`)}
+                ? `Không có kết quả tìm kiếm cho "${searchInput}"`
+                : `Kết quả tìm kiếm cho "${searchInput}"`)}
           </Typography>
         </Box>
 
@@ -87,8 +87,7 @@ export function SearchMobile(props: SearchMobileProps) {
                     <Avatar
                       src={post.thumbnail}
                       sx={{
-                        width: 32,
-                        height: 32,
+                        ...mixins.size(32),
                         mr: 1,
                         bgcolor: 'grey.200',
                       }}

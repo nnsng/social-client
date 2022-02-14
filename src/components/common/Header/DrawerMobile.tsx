@@ -3,15 +3,15 @@ import {
   BookmarkBorderOutlined,
   ListAltOutlined,
   LogoutOutlined,
-  NotificationsRounded,
   SettingsOutlined,
 } from '@mui/icons-material';
 import { Avatar, Box, Divider, Drawer, MenuItem, MenuList, Typography } from '@mui/material';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { authActions, selectCurrentUser } from 'features/auth/authSlice';
 import { IMenuItem } from 'models';
 import React, { useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { useNavigate } from 'react-router-dom';
+import { mixins } from 'utils/theme';
 
 export default function DrawerMobile() {
   const navigate = useNavigate();
@@ -24,24 +24,9 @@ export default function DrawerMobile() {
   const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
 
-  const gotoCreateEditPage = () => {
+  const handleGotoPage = (path: string) => {
     closeMenu();
-    navigate('/blog/create');
-  };
-
-  const gotoMyPostList = () => {
-    closeMenu();
-    navigate('/blog/my');
-  };
-
-  const gotoSavedPage = () => {
-    closeMenu();
-    navigate('/blog/saved');
-  };
-
-  const gotoSettings = () => {
-    closeMenu();
-    navigate('/settings');
+    navigate(path);
   };
 
   const handleLogout = () => {
@@ -53,22 +38,22 @@ export default function DrawerMobile() {
     {
       label: 'Viết bài',
       icon: AddCircleOutlineOutlined,
-      onClick: gotoCreateEditPage,
+      onClick: () => handleGotoPage('/blog/create'),
     },
     {
       label: 'Bài viết của tôi',
       icon: ListAltOutlined,
-      onClick: gotoMyPostList,
+      onClick: () => handleGotoPage('/blog/my'),
     },
     {
       label: 'Đã lưu',
       icon: BookmarkBorderOutlined,
-      onClick: gotoSavedPage,
+      onClick: () => handleGotoPage('/blog/saved'),
     },
     {
       label: 'Cài đặt',
       icon: SettingsOutlined,
-      onClick: gotoSettings,
+      onClick: () => handleGotoPage('/settings'),
     },
     {
       label: 'Đăng xuất',
@@ -81,14 +66,17 @@ export default function DrawerMobile() {
     <>
       <Avatar
         src={currentUser?.avatar}
-        sx={{ width: 28, height: 28, cursor: 'pointer' }}
+        sx={{
+          ...mixins.size(28),
+          cursor: 'pointer',
+        }}
         onClick={toggleMenu}
       />
 
       <Drawer anchor="right" open={openMenu} onClose={closeMenu}>
         <MenuList sx={{ width: '75vw', maxWidth: 300 }}>
           <Box ml={4} py={4}>
-            <Avatar src={currentUser?.avatar} sx={{ width: 60, height: 60, mb: 2 }} />
+            <Avatar src={currentUser?.avatar} sx={{ ...mixins.size(60), mb: 2 }} />
 
             <Box>
               <Typography variant="body1" fontSize={16} fontWeight="600">

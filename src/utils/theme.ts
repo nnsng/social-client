@@ -66,6 +66,10 @@ export const themeConstants = {
 };
 
 export const mixins = {
+  size: (width: number, height: number = width): SxProps => ({
+    width,
+    height,
+  }),
   truncate: (maxLine: number): SxProps => ({
     display: '-webkit-box',
     WebkitLineClamp: maxLine,

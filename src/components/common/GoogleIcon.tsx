@@ -11,7 +11,7 @@ export function GoogleIcon({ width, height }: GoogleIconProps) {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 48 48"
       width={`${width || 48}px`}
-      height={`${height || 48}px`}
+      height={`${height || width || 48}px`}
     >
       <path
         fill="#FFC107"
