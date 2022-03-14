@@ -95,12 +95,15 @@ export function Header() {
           <Grid container alignItems="center" justifyContent="space-between">
             <Grid item xs="auto" mr={2}>
               <Stack direction="row" alignItems="center" component={Link} to="/">
-                <Avatar variant="rounded" sx={{ bgcolor: 'primary.main', mr: 1, fontWeight: 600 }}>
-                  B
+                <Avatar
+                  variant="rounded"
+                  sx={{ bgcolor: 'primary.main', mr: 1, fontSize: 28, fontWeight: 600 }}
+                >
+                  1
                 </Avatar>
 
                 <Typography variant="h6" color="primary" fontWeight="600">
-                  BLOG APP
+                  1social
                 </Typography>
               </Stack>
             </Grid>

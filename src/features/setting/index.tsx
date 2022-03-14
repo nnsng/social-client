@@ -1,17 +1,14 @@
 import { Box, Container, Stack, Typography } from '@mui/material';
-import { Header } from 'components/common';
-import React, { useEffect } from 'react';
+import { Header, Title } from 'components/common';
+import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import SettingTabs from './components/SettingTabs';
 import { ChangePasswordPage, EditProfilePage } from './pages';
 
 export default function Setting() {
-  useEffect(() => {
-    document.title = 'Cài đặt';
-  }, []);
-
   return (
-    <Box>
+    <>
+      <Title title="Cài đặt" />
       <Header />
 
       <Box component="main" pt={3}>
@@ -37,6 +34,6 @@ export default function Setting() {
           </Box>
         </Container>
       </Box>
-    </Box>
+    </>
   );
 }

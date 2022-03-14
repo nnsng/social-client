@@ -1,13 +1,13 @@
 import { Box, Container } from '@mui/material';
 import postApi from 'api/postApi';
+import { useAppSelector } from 'app/hooks';
+import { Title } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { Post } from 'models';
 import React, { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import CreateEditForm from '../components/CreateEditForm';
-import { postActions } from '../postSlice';
 
 export function CreateEditPage() {
   const navigate = useNavigate();
@@ -17,10 +17,6 @@ export function CreateEditPage() {
   const currentUser = useAppSelector(selectCurrentUser);
 
   const [editedPost, setEditedPost] = useState<any>(null);
-
-  useEffect(() => {
-    document.title = isNewPost ? 'Tạo bài viết' : 'Chỉnh sửa bài viết';
-  }, [isNewPost]);
 
   useEffect(() => {
     if (isNewPost) return;
@@ -56,16 +52,20 @@ export function CreateEditPage() {
   };
 
   return (
-    <Container maxWidth={false}>
-      <Box mt={-4}>
-        {currentUser && (
-          <CreateEditForm
-            defaultValues={defaultValues}
-            onSubmit={handleFormSubmit}
-            isNewPost={isNewPost}
-          />
-        )}
-      </Box>
-    </Container>
+    <>
+      <Title title={isNewPost ? 'Tạo bài viết' : 'Chỉnh sửa bài viết'} />
+
+      <Container maxWidth={false}>
+        <Box mt={-4}>
+          {currentUser && (
+            <CreateEditForm
+              defaultValues={defaultValues}
+              onSubmit={handleFormSubmit}
+              isNewPost={isNewPost}
+            />
+          )}
+        </Box>
+      </Container>
+    </>
   );
 }

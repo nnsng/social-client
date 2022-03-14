@@ -1,8 +1,9 @@
 import { Box, Container, Hidden, List, Pagination, Stack, Typography } from '@mui/material';
 import postApi from 'api/postApi';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { Title } from 'components/common';
 import { Post } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { useNavigate } from 'react-router-dom';
 import { PostItemMobile } from '../components/PostItemMobile';
 import PostTable from '../components/PostTable';
@@ -19,10 +20,6 @@ export function MyPostListPage() {
     page: 1,
     limit: 10,
   });
-
-  useEffect(() => {
-    document.title = 'Bài viết của tôi';
-  }, []);
 
   useEffect(() => {
     dispatch(postActions.fetchMyPostList(filters));
@@ -42,7 +39,9 @@ export function MyPostListPage() {
   };
 
   return (
-    <Box>
+    <>
+      <Title title="Bài viết của tôi" />
+
       <Container maxWidth="md">
         <Typography variant="h4" fontWeight="500" sx={{ userSelect: 'none' }}>
           Bài viết của tôi
@@ -80,6 +79,6 @@ export function MyPostListPage() {
           </Stack>
         )}
       </Container>
-    </Box>
+    </>
   );
 }

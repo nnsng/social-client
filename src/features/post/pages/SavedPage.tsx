@@ -1,8 +1,9 @@
 import { Box, Container, Hidden, List, Pagination, Stack, Typography } from '@mui/material';
 import postApi from 'api/postApi';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { Title } from 'components/common';
 import { Post } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PostItemMobile } from '../components/PostItemMobile';
 import PostTable from '../components/PostTable';
 import { postActions, selectPostList, selectTotalPages } from '../postSlice';
@@ -18,10 +19,6 @@ export function SavedPage() {
   });
 
   useEffect(() => {
-    document.title = 'Bài viết đã lưu';
-  }, []);
-
-  useEffect(() => {
     dispatch(postActions.fetchSavedPostList(filters));
   }, [dispatch, filters]);
 
@@ -35,7 +32,9 @@ export function SavedPage() {
   };
 
   return (
-    <Box>
+    <>
+      <Title title="Bài viết đã lưu" />
+
       <Container maxWidth="md">
         <Typography variant="h4" fontWeight="500" sx={{ userSelect: 'none' }}>
           Đã lưu
@@ -68,6 +67,6 @@ export function SavedPage() {
           </Stack>
         )}
       </Container>
-    </Box>
+    </>
   );
 }

@@ -2,14 +2,12 @@ import { Container, Drawer, Grid } from '@mui/material';
 import commentApi from 'api/commentApi';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { NotFound } from 'components/common';
-import { selectCurrentUser } from 'features/auth/authSlice';
+import { NotFound, Title } from 'components/common';
 import { commentActions, selectPostComments } from 'features/comment/commentSlice';
 import { selectSocket } from 'features/socket/socketSlice';
 import { Comment, Post } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import PostComment from '../components/PostComment';
 import PostDetail from '../components/PostDetail';
 import PostInteract from '../components/PostInteract';
@@ -32,10 +30,6 @@ export function PostDetailPage() {
 
     dispatch(postActions.fetchPostDetail(slug));
   }, [dispatch, slug]);
-
-  useEffect(() => {
-    document.title = post?.title ?? 'Blog App';
-  }, [post]);
 
   useEffect(() => {
     if (!socket) return;
@@ -82,27 +76,31 @@ export function PostDetailPage() {
   if (!post?._id) return <NotFound />;
 
   return (
-    <Container>
-      <Grid container spacing={{ xs: 2, lg: 8 }}>
-        <Grid item xs={12} md={10} lg={8} mx="auto">
-          <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
+    <>
+      <Title title={post?.title ?? '1social'} />
+
+      <Container>
+        <Grid container spacing={{ xs: 2, lg: 8 }}>
+          <Grid item xs={12} md={10} lg={8} mx="auto">
+            <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
+          </Grid>
+
+          <Grid item xs={12} md={10} lg={4} mx="auto">
+            <PostInteract post={post} openComment={openComment} onLikePost={handleLikePost} />
+          </Grid>
         </Grid>
 
-        <Grid item xs={12} md={10} lg={4} mx="auto">
-          <PostInteract post={post} openComment={openComment} onLikePost={handleLikePost} />
-        </Grid>
-      </Grid>
-
-      <Drawer anchor="right" open={showComment} onClose={closeComment}>
-        <PostComment
-          commentList={postComments}
-          postId={post?._id}
-          onClose={closeComment}
-          onCreate={handleCreateComment}
-          onRemove={handleRemoveComment}
-          onLike={handleLikeComment}
-        />
-      </Drawer>
-    </Container>
+        <Drawer anchor="right" open={showComment} onClose={closeComment}>
+          <PostComment
+            commentList={postComments}
+            postId={post?._id}
+            onClose={closeComment}
+            onCreate={handleCreateComment}
+            onRemove={handleRemoveComment}
+            onLike={handleLikeComment}
+          />
+        </Drawer>
+      </Container>
+    </>
   );
 }
