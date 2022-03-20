@@ -1,21 +1,24 @@
 import { Box, Container, Stack, Typography } from '@mui/material';
-import { Header, Title } from 'components/common';
+import { Header, PageTitle } from 'components/common';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import SettingTabs from './components/SettingTabs';
 import { ChangePasswordPage, EditProfilePage } from './pages';
 
 export default function Setting() {
+  const { t } = useTranslation('setting');
+
   return (
     <>
-      <Title title="Cài đặt" />
+      <PageTitle title={t('pageTitle')} />
       <Header />
 
       <Box component="main" pt={3}>
         <Container maxWidth="md">
           <Box>
             <Typography variant="h4" fontWeight="500" sx={{ userSelect: 'none' }}>
-              Cài đặt
+              {t('pageTitle')}
             </Typography>
 
             <Stack sx={{ flexDirection: { xs: 'column', sm: 'row' }, mt: 2 }}>

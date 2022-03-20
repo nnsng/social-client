@@ -1,11 +1,11 @@
 import { Stack, Typography } from '@mui/material';
 import React from 'react';
-import { Title } from './Title';
+import { PageTitle } from './PageTitle';
 
 export function NotFound() {
   return (
     <>
-      <Title title="Trang không tồn tại" />
+      <PageTitle title="Trang không tồn tại" />
 
       <Stack
         sx={{

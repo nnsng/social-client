@@ -1,0 +1,10 @@
+{
+  "profile": {
+    "label": "Thông tin cá nhân",
+    "mobileLabel": "Thông tin"
+  },
+  "password": {
+    "label": "Đổi mật khẩu",
+    "mobileLabel": "Mật khẩu"
+  }
+}

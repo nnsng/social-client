@@ -1,0 +1,23 @@
+{
+  "error": {
+    "create": "Create post error",
+    "edit": "Update post error"
+  },
+  "placeholder": {
+    "title": "Title",
+    "content": "Type content here...",
+    "description": "Type description...",
+    "tag": "Eg: Front-end, Back-end,..."
+  },
+  "label": {
+    "description": "Add description (optional):",
+    "thumbnail": "Add thumbnail:",
+    "tag": "Add up to {{maxTags}} tags relevant to the post: <br /> (Enter to add)"
+  },
+  "btnLabel": {
+    "create": "Create",
+    "edit": "Update",
+    "selectImage": "Select image",
+    "deleteImage": "Delete image"
+  }
+}

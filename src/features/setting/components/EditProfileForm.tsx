@@ -6,6 +6,7 @@ import { selectCdnLoading } from 'features/cdn/cdnSlice';
 import { User } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { profileSchema } from 'utils/schema';
 export interface EditProfileFromProps {
   submitting: boolean;
@@ -15,6 +16,8 @@ export interface EditProfileFromProps {
 
 export default function EditProfileFrom(props: EditProfileFromProps) {
   const { submitting, defaultValues, onSubmit } = props;
+
+  const { t } = useTranslation('editProfileForm');
 
   const { control, handleSubmit, getValues, reset } = useForm({
     defaultValues,
@@ -40,14 +43,14 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
               width={160}
               sx={{ userSelect: 'none' }}
             >
-              Họ tên
+              {t('label.fullName')}
             </Typography>
 
             <MuiTextField
               name="name"
               control={control}
               variant="outlined"
-              placeholder="Họ tên"
+              placeholder={t('label.fullName')}
               sx={{ maxWidth: 400 }}
             />
           </Grid>
@@ -61,7 +64,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
               width={160}
               sx={{ userSelect: 'none' }}
             >
-              Ảnh đại diện
+              {t('label.avatar')}
             </Typography>
 
             <Grid item xs={12}>
@@ -110,14 +113,14 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
               width={160}
               sx={{ userSelect: 'none' }}
             >
-              Tên người dùng
+              {t('label.username')}
             </Typography>
 
             <MuiTextField
               name="username"
               control={control}
               variant="outlined"
-              placeholder="Username"
+              placeholder={t('label.username')}
               sx={{ maxWidth: 400 }}
             />
           </Grid>
@@ -131,14 +134,14 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
               width={160}
               sx={{ userSelect: 'none' }}
             >
-              Email
+              {t('label.email')}
             </Typography>
 
             <MuiTextField
               name="email"
               control={control}
               variant="outlined"
-              placeholder="Email"
+              placeholder={t('label.email')}
               sx={{ maxWidth: 400 }}
               disabled
             />
@@ -153,14 +156,14 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
               width={160}
               sx={{ userSelect: 'none' }}
             >
-              Số điện thoại
+              {t('label.phone')}
             </Typography>
 
             <MuiTextField
               name="phone"
               control={control}
               variant="outlined"
-              placeholder="Số điện thoại"
+              placeholder={t('label.phone')}
               sx={{ maxWidth: 400 }}
             />
           </Grid>
@@ -173,7 +176,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
               disabled={submitting || imageLoading}
               startIcon={submitting && <CircularProgress size={20} />}
             >
-              Lưu thay đổi
+              {t('save')}
             </Button>
           </Grid>
         </Grid>

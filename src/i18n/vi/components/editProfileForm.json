@@ -1,0 +1,10 @@
+{
+  "label": {
+    "fullName": "Họ tên",
+    "avatar": "Ảnh đại diện",
+    "username": "Tên người dùng",
+    "email": "Email",
+    "phone": "Số điện thoại"
+  },
+  "save": "Lưu thay đổi"
+}

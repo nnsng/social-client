@@ -1,10 +1,11 @@
 import { Box, Container } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppSelector } from 'app/hooks';
-import { Title } from 'components/common';
+import { PageTitle } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { Post } from 'models';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import CreateEditForm from '../components/CreateEditForm';
@@ -14,8 +15,9 @@ export function CreateEditPage() {
   const { id: postId } = useParams();
   const isNewPost = !postId;
 
-  const currentUser = useAppSelector(selectCurrentUser);
+  const { t } = useTranslation('createEditPost');
 
+  const currentUser = useAppSelector(selectCurrentUser);
   const [editedPost, setEditedPost] = useState<any>(null);
 
   useEffect(() => {
@@ -53,7 +55,7 @@ export function CreateEditPage() {
 
   return (
     <>
-      <Title title={isNewPost ? 'Tạo bài viết' : 'Chỉnh sửa bài viết'} />
+      <PageTitle title={isNewPost ? t('pageTitle.create') : t('pageTitle.edit')} />
 
       <Container maxWidth={false}>
         <Box mt={-4}>

@@ -1,0 +1,10 @@
+{
+  "profile": {
+    "label": "Profile information",
+    "mobileLabel": "Information"
+  },
+  "password": {
+    "label": "Change password",
+    "mobileLabel": "Password"
+  }
+}

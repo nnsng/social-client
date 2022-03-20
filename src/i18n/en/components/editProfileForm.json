@@ -1,0 +1,10 @@
+{
+  "label": {
+    "fullName": "Full name",
+    "avatar": "Avatar",
+    "username": "Username",
+    "email": "Email",
+    "phone": "Phone number"
+  },
+  "save": "Save"
+}

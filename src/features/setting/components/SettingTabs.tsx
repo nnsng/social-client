@@ -1,17 +1,19 @@
-import { AccountCircleRounded, LockRounded } from '@mui/icons-material';
-import { Box, Hidden, Tab, Tabs } from '@mui/material';
+import { Hidden, Tab, Tabs } from '@mui/material';
 import { SxProps } from '@mui/system';
 import React, { SyntheticEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { themeConstants } from 'utils/theme';
 
-export interface SettingTabsProps {
-  direction?: 'vertical' | 'horizontal';
-  tabsSx?: SxProps;
-}
+// export interface SettingTabsProps {
+//   direction?: 'vertical' | 'horizontal';
+//   tabsSx?: SxProps;
+// }
 
-export default function SettingTabs({ direction, tabsSx }: SettingTabsProps) {
+export default function SettingTabs() {
   const location = useLocation();
+
+  const { t } = useTranslation('settingTabs');
 
   const [tab, setTab] = useState<number>(() => {
     switch (location.pathname) {
@@ -32,13 +34,13 @@ export default function SettingTabs({ direction, tabsSx }: SettingTabsProps) {
 
   const tabItemList = [
     {
-      label: 'Thông tin cá nhân',
-      mobileLabel: 'Thông tin',
+      label: t('profile.label'),
+      mobileLabel: t('profile.mobileLabel'),
       linkTo: 'edit-profile',
     },
     {
-      label: 'Đổi mật khẩu',
-      mobileLabel: 'Mật khẩu',
+      label: t('password.label'),
+      mobileLabel: t('password.mobileLabel'),
       linkTo: 'change-password',
     },
   ];

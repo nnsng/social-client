@@ -4,6 +4,7 @@ import '@pathofdev/react-tag-input/build/index.css';
 import { Tag } from 'models';
 import React from 'react';
 import { Control, useController } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import 'styles/tagInput.css';
 import { slugifyString } from 'utils/common';
 
@@ -17,6 +18,8 @@ export interface TagInputFieldProps {
 
 export function TagInputField(props: TagInputFieldProps) {
   const { name, control, editable, maxTags, placeholder } = props;
+
+  const { t } = useTranslation('createEditForm');
 
   const {
     field: { value, onChange },
@@ -34,9 +37,7 @@ export function TagInputField(props: TagInputFieldProps) {
   return (
     <Grid item xs>
       <Typography variant="subtitle1" mb={0.5}>
-        Thêm tối đa {maxTags} từ khóa liên quan đến bài viết:
-        <br />
-        (Enter để thêm từ khoá)
+        {t('label.tag', { maxTags })}
       </Typography>
 
       <ReactTagInput

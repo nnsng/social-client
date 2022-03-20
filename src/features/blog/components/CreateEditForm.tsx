@@ -26,9 +26,10 @@ import { selectCdnLoading } from 'features/cdn/cdnSlice';
 import { Post } from 'models';
 import React, { forwardRef, ReactElement, Ref, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { themeConstants, mixins } from 'utils/theme';
 import { postSchema } from 'utils/schema';
+import { mixins, themeConstants } from 'utils/theme';
 
 export interface CreateEditFormProps {
   defaultValues: Post;
@@ -44,6 +45,8 @@ const Transition = forwardRef(
 
 export default function CreateEditForm(props: CreateEditFormProps) {
   const { defaultValues, onSubmit, isNewPost } = props;
+
+  const { t } = useTranslation('createEditForm');
 
   const {
     control,
@@ -61,7 +64,6 @@ export default function CreateEditForm(props: CreateEditFormProps) {
   const watchThumbnail = watch('thumbnail');
 
   const imageLoading = useAppSelector(selectCdnLoading);
-
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => setOpen(true);
@@ -81,7 +83,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     try {
       await onSubmit?.(data);
     } catch (error) {
-      const content = isNewPost ? 'Đăng bài thất bại' : 'Cập nhật bài viết thất bại';
+      const content = isNewPost ? t('error.create') : t('error.edit');
       toast.error(content);
     }
   };
@@ -96,7 +98,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
             <InputField
               name="title"
               control={control}
-              placeholder="Tiêu đề"
+              placeholder={t('placeholder.title')}
               spellCheck={false}
               autoFocus
               sx={{
@@ -110,12 +112,12 @@ export default function CreateEditForm(props: CreateEditFormProps) {
 
           <Grid item xs="auto" ml={2}>
             <Button variant="outlined" color="primary" size="large" onClick={handleClickOpen}>
-              {isNewPost ? 'Đăng bài' : 'Cập nhật'}
+              {isNewPost ? t('btnLabel.create') : t('btnLabel.edit')}
             </Button>
           </Grid>
         </Grid>
 
-        <MdEditorField name="content" control={control} placeholder="Nhập nội dung bài viết..." />
+        <MdEditorField name="content" control={control} placeholder={t('placeholder.content')} />
       </Box>
 
       <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
@@ -156,7 +158,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
               sx={{ flexShrink: 0 }}
               onClick={handleSubmit(handleFormSubmit)}
             >
-              {isNewPost ? 'Đăng bài' : 'Cập nhật'}
+              {isNewPost ? t('btnLabel.create') : t('btnLabel.edit')}
             </Button>
           </Toolbar>
         </Box>
@@ -169,8 +171,8 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                   name="description"
                   control={control}
                   variant="outlined"
-                  title="Thêm mô tả cho bài viết (tuỳ chọn):"
-                  placeholder="Nhập mô tả..."
+                  title={t('label.description')}
+                  placeholder={t('placeholder.description')}
                   multiline
                   rows={5}
                 />
@@ -180,14 +182,14 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                   control={control}
                   maxTags={5}
                   editable
-                  placeholder="Ví dụ: Front-end, Back-end,..."
+                  placeholder={t('placeholder.tag')}
                 />
               </Grid>
 
               <Grid item xs={12} md={6}>
                 <Box>
                   <Typography variant="subtitle1" mb={0.5}>
-                    Thêm thumbnail cho bài viết:
+                    {t('label.thumbnail')}
                   </Typography>
 
                   <Box
@@ -214,7 +216,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                       sx={{ fontWeight: 400 }}
                     >
                       <FileInputField name="thumbnail" control={control} id="thumbnail-input" />
-                      Chọn ảnh
+                      {t('btnLabel.selectImage')}
                     </Button>
 
                     <Button
@@ -228,7 +230,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                       }}
                       onClick={handleRemoveThumbnail}
                     >
-                      Xóa ảnh
+                      {t('btnLabel.deleteImage')}
                     </Button>
                   </Box>
                 </Box>

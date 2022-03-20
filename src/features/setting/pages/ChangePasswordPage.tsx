@@ -1,8 +1,8 @@
 import authApi from 'api/authApi';
+import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { ChangePasswordFormValue } from 'models';
 import React from 'react';
-import { useAppSelector } from 'app/hooks';
 import { toast } from 'react-toastify';
 import ChangePasswordForm from '../components/ChangePasswordForm';
 

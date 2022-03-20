@@ -1,7 +1,7 @@
 import { Box, Container, Hidden, List, Pagination, Stack, Typography } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { Title } from 'components/common';
+import { PageTitle } from 'components/common';
 import { Post } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { PostItemMobile } from '../components/PostItemMobile';
@@ -33,7 +33,7 @@ export function SavedPage() {
 
   return (
     <>
-      <Title title="Bài viết đã lưu" />
+      <PageTitle title="Bài viết đã lưu" />
 
       <Container maxWidth="md">
         <Typography variant="h4" fontWeight="500" sx={{ userSelect: 'none' }}>

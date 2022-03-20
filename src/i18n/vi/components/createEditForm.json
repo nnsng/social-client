@@ -1,0 +1,23 @@
+{
+  "error": {
+    "create": "Đăng bài thất bại",
+    "edit": "Cập nhật bài viết thất bại"
+  },
+  "placeholder": {
+    "title": "Tiêu đề",
+    "content": "Nhập nội dung bài viết...",
+    "description": "Nhập mô tả...",
+    "tag": "Ví dụ: Front-end, Back-end,..."
+  },
+  "label": {
+    "description": "Thêm mô tả cho bài viết (tuỳ chọn):",
+    "thumbnail": "Thêm thumbnail cho bài viết:",
+    "tag": "Thêm tối đa {{maxTags}} từ khóa liên quan đến bài viết:<br />(Enter để thêm từ khoá)"
+  },
+  "btnLabel": {
+    "create": "Đăng bài",
+    "edit": "Cập nhật",
+    "selectImage": "Chọn ảnh",
+    "deleteImage": "Xóa ảnh"
+  }
+}

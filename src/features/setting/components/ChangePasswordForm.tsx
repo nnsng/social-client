@@ -5,6 +5,7 @@ import { MuiTextField } from 'components/formFields';
 import { ChangePasswordFormValue } from 'models';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { passwordSchema } from 'utils/schema';
 
@@ -16,6 +17,8 @@ export interface ChangePasswordFormProps {
 
 export default function ChangePasswordForm(props: ChangePasswordFormProps) {
   const { defaultValues, onSubmit, forgotPassword } = props;
+
+  const { t } = useTranslation('changePasswordForm');
 
   const {
     control,
@@ -31,7 +34,7 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
     try {
       await onSubmit(formValues);
       reset();
-      toast.success('Đổi mật khẩu thành công');
+      toast.success(t('success'));
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
     }
@@ -39,15 +42,15 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
 
   const formControlItems = [
     {
-      label: 'Mật khẩu hiện tại',
+      label: t('label.currentPassword'),
       name: 'currentPassword',
     },
     {
-      label: 'Mật khẩu mới',
+      label: t('label.newPassword'),
       name: 'newPassword',
     },
     {
-      label: 'Nhập lại mật khẩu mới',
+      label: t('label.confirmPassword'),
       name: 'confirmPassword',
     },
   ];
@@ -91,7 +94,7 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
                 disabled={isSubmitting}
                 startIcon={isSubmitting && <CircularProgress size={20} />}
               >
-                Đổi mật khẩu
+                {t('btnLabel.changePassword')}
               </Button>
 
               <Button
@@ -103,7 +106,7 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
                 }}
                 onClick={forgotPassword}
               >
-                Quên mật khẩu
+                {t('btnLabel.forgotPassword')}
               </Button>
             </Stack>
           </Grid>

@@ -6,4 +6,4 @@ export * from './NoPost';
 export * from './NotFound';
 export * from './SearchMobile';
 export * from './GoogleIcon';
-export * from './Title';
+export * from './PageTitle';

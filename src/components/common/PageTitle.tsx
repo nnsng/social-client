@@ -4,9 +4,9 @@ export interface ITitleProps {
   title: string;
 }
 
-export function Title({ title }: ITitleProps) {
+export function PageTitle({ title }: ITitleProps) {
   useEffect(() => {
-    document.title = title;
+    document.title = '1social - ' + title;
   });
 
   return null;

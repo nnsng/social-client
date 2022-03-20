@@ -2,7 +2,7 @@ import { Container, Drawer, Grid } from '@mui/material';
 import commentApi from 'api/commentApi';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { NotFound, Title } from 'components/common';
+import { NotFound, PageTitle } from 'components/common';
 import { commentActions, selectPostComments } from 'features/comment/commentSlice';
 import { selectSocket } from 'features/socket/socketSlice';
 import { Comment, Post } from 'models';
@@ -77,7 +77,7 @@ export function PostDetailPage() {
 
   return (
     <>
-      <Title title={post?.title ?? '1social'} />
+      <PageTitle title={post?.title ?? '1social'} />
 
       <Container>
         <Grid container spacing={{ xs: 2, lg: 8 }}>

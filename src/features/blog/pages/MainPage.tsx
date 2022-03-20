@@ -1,7 +1,7 @@
 import { Box, Container, Grid, Hidden } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { Title } from 'components/common';
+import { PageTitle } from 'components/common';
 import { ListParams, Post, Tag } from 'models';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
@@ -46,7 +46,7 @@ export function MainPage() {
 
   return (
     <>
-      <Title title="1social - blog" />
+      <PageTitle title="1social - blog" />
 
       <Container>
         <Grid container spacing={{ xs: 0, lg: 10 }}>
