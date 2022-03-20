@@ -12,6 +12,7 @@ import {
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import React, { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { formatTime } from 'utils/common';
 import theme, { themeConstants } from 'utils/theme';
@@ -19,6 +20,8 @@ import { PopperMenu } from '..';
 
 export default function Notification() {
   const currentUser = useAppSelector(selectCurrentUser);
+
+  const { t } = useTranslation('header');
 
   const [openMenu, setOpenMenu] = useState(false);
   const anchorRef = useRef<HTMLElement | null>(null);
@@ -64,7 +67,7 @@ export default function Notification() {
       >
         <Stack direction="row" alignItems="center" justifyContent="space-between" px={2} py={1}>
           <Typography variant="h6" fontWeight="500" sx={{ userSelect: 'none', cursor: 'default' }}>
-            Thông báo
+            {t('notification.label')}
           </Typography>
 
           <Typography
@@ -80,7 +83,7 @@ export default function Notification() {
               },
             }}
           >
-            Đánh dấu tất cả là đã đọc
+            {t('notification.makeRead')}
           </Typography>
         </Stack>
 
@@ -91,11 +94,12 @@ export default function Notification() {
 
               <Box flexGrow={1}>
                 <Typography variant="body1" mb={0.5} whiteSpace="normal">
-                  Chào mừng&nbsp;
+                  {/* Chào mừng&nbsp;
                   <Typography component="span" fontWeight="500">
                     {currentUser?.name}
                   </Typography>
-                  &nbsp;đến với Blog.
+                  &nbsp;đến với Blog. */}
+                  {t('notification.welcome', { name: currentUser?.name })}
                 </Typography>
 
                 <Typography variant="subtitle2" fontWeight="400">

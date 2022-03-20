@@ -21,13 +21,14 @@ import {
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
-  postActions,
+  blogActions,
   selectPostLoading,
   selectSearchLoading,
   selectSearchResultList,
-} from 'features/post/postSlice';
+} from 'features/blog/blogSlice';
 import { Post } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { slugifyString } from 'utils/common';
 import { mixins, themeConstants } from 'utils/theme';
@@ -38,6 +39,8 @@ import UserMenu from './UserMenu';
 
 export function Header() {
   const navigate = useNavigate();
+
+  const { t } = useTranslation('header');
 
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectPostLoading);
@@ -60,7 +63,7 @@ export function Header() {
     const value = e.target.value;
 
     setSearchInput(value);
-    dispatch(postActions.searchWithDebounce(slugifyString(value)));
+    dispatch(blogActions.searchWithDebounce(slugifyString(value)));
   };
 
   const gotoPost = (post: Post) => {
@@ -123,7 +126,7 @@ export function Header() {
                   }}
                 >
                   <OutlinedInput
-                    placeholder="Tìm kiếm bài viết"
+                    placeholder={t('search.placeholder')}
                     inputProps={{ sx: { pl: 1.5 } }}
                     value={searchInput}
                     onChange={handleSearchChange}
@@ -154,9 +157,13 @@ export function Header() {
                           )}
 
                           <Typography variant="body2" color="textSecondary" sx={{ flexGrow: 1 }}>
-                            {searchResultList.length === 0 && !searchLoading
+                            {/* {searchResultList.length === 0 && !searchLoading
                               ? `Không có kết quả tìm kiếm cho "${searchInput}"`
-                              : `Kết quả tìm kiếm cho "${searchInput}"`}
+                              : `Kết quả tìm kiếm cho "${searchInput}"`} */}
+                            {t('search.result', {
+                              count: searchResultList.length,
+                              searchTerm: `"${searchInput}"`,
+                            })}
                           </Typography>
                         </Box>
 

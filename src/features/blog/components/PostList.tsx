@@ -1,6 +1,6 @@
 import { Box, List, ListItem, Pagination, Stack, Typography } from '@mui/material';
 import { NoPost } from 'components/common';
-import { selectTotalPages } from 'features/post/postSlice';
+import { selectTotalPages } from 'features/blog/blogSlice';
 import { Post } from 'models';
 import React from 'react';
 import { useAppSelector } from 'app/hooks';

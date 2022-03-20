@@ -1,4 +1,4 @@
-import MdEditor, { MdEditorOnChangeProps } from 'features/post/components/MdEditor';
+import MdEditor, { MdEditorOnChangeProps } from 'features/blog/components/MdEditor';
 import React from 'react';
 import { Control, useController } from 'react-hook-form';
 

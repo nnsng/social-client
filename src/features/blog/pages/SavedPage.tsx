@@ -4,16 +4,13 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { Title } from 'components/common';
 import { Post } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { PostItemMobile } from '../components/PostItemMobile';
 import PostTable from '../components/PostTable';
-import { postActions, selectPostList, selectTotalPages } from '../postSlice';
+import { blogActions, selectPostList, selectTotalPages } from '../blogSlice';
 
-export function MyPostListPage() {
-  const navigate = useNavigate();
-
+export function SavedPage() {
   const dispatch = useAppDispatch();
-  const postList = useAppSelector(selectPostList);
+  const savedPostList = useAppSelector(selectPostList);
   const totalPage = useAppSelector(selectTotalPages);
 
   const [filters, setFilters] = useState({
@@ -22,16 +19,12 @@ export function MyPostListPage() {
   });
 
   useEffect(() => {
-    dispatch(postActions.fetchMyPostList(filters));
+    dispatch(blogActions.fetchSavedPostList(filters));
   }, [dispatch, filters]);
 
-  const handleEditPost = (post: Post) => {
-    navigate(`/blog/edit/${post._id}`);
-  };
-
-  const handleRemovePost = async (post: Post) => {
-    await postApi.remove(post._id as string);
-    dispatch(postActions.fetchMyPostList(filters));
+  const handleUnSavePost = async (post: Post) => {
+    await postApi.unSave(post._id as string);
+    dispatch(blogActions.fetchSavedPostList(filters));
   };
 
   const handleChangePagination = (event: ChangeEvent<unknown>, page: number) => {
@@ -40,28 +33,23 @@ export function MyPostListPage() {
 
   return (
     <>
-      <Title title="Bài viết của tôi" />
+      <Title title="Bài viết đã lưu" />
 
       <Container maxWidth="md">
         <Typography variant="h4" fontWeight="500" sx={{ userSelect: 'none' }}>
-          Bài viết của tôi
+          Đã lưu
         </Typography>
 
         <Hidden smDown>
           <Box mt={2}>
-            <PostTable postList={postList} onEdit={handleEditPost} onRemove={handleRemovePost} />
+            <PostTable postList={savedPostList} saved onUnSave={handleUnSavePost} />
           </Box>
         </Hidden>
 
         <Hidden smUp>
           <List>
-            {postList.map((post) => (
-              <PostItemMobile
-                key={post._id}
-                post={post}
-                onEdit={handleEditPost}
-                onRemove={handleRemovePost}
-              />
+            {savedPostList.map((post) => (
+              <PostItemMobile key={post._id} post={post} onUnSave={handleUnSavePost} saved />
             ))}
           </List>
         </Hidden>

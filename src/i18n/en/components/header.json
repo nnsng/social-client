@@ -1,0 +1,18 @@
+{
+  "search": {
+    "placeholder": "Search for post...",
+    "result": "{{count}} for {{searchTerm}}"
+  },
+  "notification": {
+    "label": "Notification",
+    "makeRead": "Mark all as read",
+    "welcome": "Welcome <b>{{name}}</b> to 1social"
+  },
+  "menu": {
+    "create": "Create post",
+    "myPosts": "My posts",
+    "saved": "Saved",
+    "settings": "Settings",
+    "logout": "Logout"
+  }
+}

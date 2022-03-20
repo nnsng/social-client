@@ -4,12 +4,13 @@ import { NotFound, PrivateRoute } from 'components/common';
 import { ACCESS_TOKEN } from 'constants/common';
 import Auth from 'features/auth';
 import { authActions } from 'features/auth/authSlice';
-import Blog from 'features/post';
+import Blog from 'features/blog';
 import Setting from 'features/setting';
-import SocketClient from 'features/socket/SocketClient';
+import SocketClient from 'features/socket';
 import { socketActions } from 'features/socket/socketSlice';
 import { User } from 'models';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { env, variables } from 'utils/env';
@@ -45,8 +46,13 @@ function App() {
     };
   }, [dispatch]);
 
+  const { i18n } = useTranslation();
+
   return (
     <>
+      <button onClick={() => i18n.changeLanguage('en')}>en</button>
+      <button onClick={() => i18n.changeLanguage('vi')}>vi</button>
+
       <SocketClient />
 
       <Routes>

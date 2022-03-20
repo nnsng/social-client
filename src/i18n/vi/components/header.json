@@ -1,0 +1,18 @@
+{
+  "search": {
+    "placeholder": "Tìm kiếm bài viết...",
+    "result": "{{count}} kết quả cho {{searchTerm}}"
+  },
+  "notification": {
+    "label": "Thông báo",
+    "makeRead": "Đánh dấu tất cả là đã đọc",
+    "welcome": "Chào mừng <b>{{name}}</b> đến với 1social"
+  },
+  "menu": {
+    "create": "Tạo bài viết",
+    "myPosts": "Bài viết của tôi",
+    "saved": "Đã lưu",
+    "settings": "Cài đặt",
+    "logout": "Đăng xuất"
+  }
+}

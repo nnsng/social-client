@@ -6,6 +6,7 @@ import useLoginWithGoogle from 'hooks/useLoginWithGoogle';
 import { AuthFormValue } from 'models';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { authSchema } from 'utils/schema';
 
 export interface AuthFormProps {
@@ -17,6 +18,8 @@ export interface AuthFormProps {
 export default function AuthForm(props: AuthFormProps) {
   const { defaultValues, switchMode, onSubmit } = props;
   const isRegisterMode = defaultValues.mode === 'register';
+
+  const { t } = useTranslation('authForm');
 
   const { control, handleSubmit, reset } = useForm({
     defaultValues,
@@ -58,7 +61,7 @@ export default function AuthForm(props: AuthFormProps) {
               textAlign="center"
               sx={{ userSelect: 'none' }}
             >
-              {isRegisterMode ? 'Đăng ký' : 'Đăng nhập'}
+              {isRegisterMode ? t('title.register') : t('title.login')}
             </Typography>
           </Grid>
 
@@ -67,7 +70,7 @@ export default function AuthForm(props: AuthFormProps) {
               <MuiTextField
                 name="firstName"
                 control={control}
-                label="Tên"
+                label={t('label.firstName')}
                 variant="outlined"
                 size="medium"
                 half
@@ -76,7 +79,7 @@ export default function AuthForm(props: AuthFormProps) {
               <MuiTextField
                 name="lastName"
                 control={control}
-                label="Họ"
+                label={t('label.lastName')}
                 variant="outlined"
                 size="medium"
                 half
@@ -87,7 +90,7 @@ export default function AuthForm(props: AuthFormProps) {
           <MuiTextField
             name="email"
             control={control}
-            label="Email"
+            label={t('label.email')}
             variant="outlined"
             size="medium"
           />
@@ -95,7 +98,7 @@ export default function AuthForm(props: AuthFormProps) {
           <MuiTextField
             name="password"
             control={control}
-            label="Mật khẩu"
+            label={t('label.password')}
             variant="outlined"
             type="password"
             size="medium"
@@ -103,7 +106,7 @@ export default function AuthForm(props: AuthFormProps) {
 
           <Grid item xs={12}>
             <Button type="submit" variant="contained" color="primary" size="large" fullWidth>
-              {isRegisterMode ? 'Đăng ký' : 'Đăng nhập'}
+              {isRegisterMode ? t('title.register') : t('title.login')}
             </Button>
           </Grid>
 
@@ -116,14 +119,14 @@ export default function AuthForm(props: AuthFormProps) {
               startIcon={<GoogleIcon width={24} height={24} />}
               onClick={googleLogin}
             >
-              Tiếp tục với Google
+              {t('googleLogin')}
             </Button>
           </Grid>
 
           <Grid item xs={12}>
             <Box textAlign="center" sx={{ userSelect: 'none' }}>
               <Typography variant="subtitle2" component="span" sx={{ cursor: 'default' }}>
-                {isRegisterMode ? 'Đã có tài khoản' : 'Chưa có tài khoản?'}&nbsp;
+                {isRegisterMode ? t('text.hadAccount') : t('text.noAccount')}&nbsp;
               </Typography>
 
               <Typography
@@ -133,7 +136,7 @@ export default function AuthForm(props: AuthFormProps) {
                 sx={{ cursor: 'pointer' }}
                 onClick={handleSwitchMode}
               >
-                {isRegisterMode ? 'Đăng nhập' : 'Đăng ký'}
+                {isRegisterMode ? t('title.login') : t('title.register')}
               </Typography>
             </Box>
           </Grid>

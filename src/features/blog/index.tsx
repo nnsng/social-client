@@ -4,7 +4,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { CreateEditPage, MainPage, MyPostListPage, PostDetailPage, SavedPage } from './pages';
 
-export default function Post() {
+export default function Blog() {
   return (
     <Box>
       <Header />

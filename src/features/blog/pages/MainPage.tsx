@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import PostList from '../components/PostList';
 import PostRecommend from '../components/PostRecommend';
-import { postActions, selectPostList } from '../postSlice';
+import { blogActions, selectPostList } from '../blogSlice';
 
 export function MainPage() {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export function MainPage() {
 
   useEffect(() => {
     navigate(`?${queryString.stringify(filter)}`);
-    dispatch(postActions.fetchPostList(filter));
+    dispatch(blogActions.fetchPostList(filter));
   }, [dispatch, filter]);
 
   const handleTagClick = (tag: Tag) => {
@@ -41,7 +41,7 @@ export function MainPage() {
 
   const handleRemovePost = async (post: Post) => {
     await postApi.remove(post._id as string);
-    dispatch(postActions.fetchPostList(filter));
+    dispatch(blogActions.fetchPostList(filter));
   };
 
   return (

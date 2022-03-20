@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom';
 import PostComment from '../components/PostComment';
 import PostDetail from '../components/PostDetail';
 import PostInteract from '../components/PostInteract';
-import { postActions, selectPostDetail, selectPostLoading } from '../postSlice';
+import { blogActions, selectPostDetail, selectPostLoading } from '../blogSlice';
 
 export function PostDetailPage() {
   const { slug } = useParams();
@@ -28,7 +28,7 @@ export function PostDetailPage() {
   useEffect(() => {
     if (!slug) return;
 
-    dispatch(postActions.fetchPostDetail(slug));
+    dispatch(blogActions.fetchPostDetail(slug));
   }, [dispatch, slug]);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export function PostDetailPage() {
   };
 
   const handleLikePost = () => {
-    dispatch(postActions.likePost(post?._id as string));
+    dispatch(blogActions.likePost(post?._id as string));
   };
 
   const handleCreateComment = async (comment: Comment) => {

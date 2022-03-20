@@ -1,0 +1,17 @@
+{
+  "title": {
+    "login": "Login",
+    "register": "Register"
+  },
+  "label": {
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "password": "Password"
+  },
+  "googleLogin": "Continue with Google",
+  "text": {
+    "hadAccount": "Already have an account?",
+    "noAccount": "Don't have an account yet?"
+  }
+}

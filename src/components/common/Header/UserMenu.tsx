@@ -10,12 +10,15 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { authActions, selectCurrentUser } from 'features/auth/authSlice';
 import { IMenuItem } from 'models';
 import React, { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import theme, { themeConstants } from 'utils/theme';
 import { PopperMenu } from '..';
 
 export default function UserMenu() {
   const navigate = useNavigate();
+
+  const { t } = useTranslation('header');
 
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
@@ -38,27 +41,27 @@ export default function UserMenu() {
 
   const userMenuList: IMenuItem[] = [
     {
-      label: 'Viết bài',
+      label: t('menu.create'),
       icon: AddCircleOutlineOutlined,
       onClick: () => handleGotoPage('/blog/create'),
     },
     {
-      label: 'Bài viết của tôi',
+      label: t('menu.myPosts'),
       icon: ListAltOutlined,
       onClick: () => handleGotoPage('/blog/my'),
     },
     {
-      label: 'Đã lưu',
+      label: t('menu.saved'),
       icon: BookmarkBorderOutlined,
       onClick: () => handleGotoPage('/blog/saved'),
     },
     {
-      label: 'Cài đặt',
+      label: t('menu.settings'),
       icon: SettingsOutlined,
       onClick: () => handleGotoPage('/settings'),
     },
     {
-      label: 'Đăng xuất',
+      label: t('menu.logout'),
       icon: LogoutOutlined,
       onClick: handleLogout,
     },

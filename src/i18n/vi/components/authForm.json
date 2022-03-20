@@ -1,0 +1,17 @@
+{
+  "title": {
+    "login": "Đăng nhập",
+    "register": "Đăng ký"
+  },
+  "label": {
+    "firstName": "Tên",
+    "lastName": "Họ",
+    "email": "Email",
+    "password": "Mật khẩu"
+  },
+  "googleLogin": "Tiếp tục với Google",
+  "text": {
+    "hadAccount": "Đã có tài khoản?",
+    "noAccount": "Chưa có tài khoản?"
+  }
+}

@@ -2,7 +2,7 @@ import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
 import { ListParams, ListResponse, PaginationParams, Post } from 'models';
 
-export interface PostState {
+export interface BlogState {
   loading: boolean;
   list: Post[];
   pagination: PaginationParams | null;
@@ -12,7 +12,7 @@ export interface PostState {
   searchLoading: boolean;
 }
 
-const initialState: PostState = {
+const initialState: BlogState = {
   loading: false,
   list: [],
   pagination: null,
@@ -22,8 +22,8 @@ const initialState: PostState = {
   searchLoading: false,
 };
 
-const postSlice = createSlice({
-  name: 'post',
+const blogSlice = createSlice({
+  name: 'blog',
   initialState,
   reducers: {
     fetchPostList(state, action: PayloadAction<ListParams>) {
@@ -102,19 +102,19 @@ const postSlice = createSlice({
   },
 });
 
-export const postActions = postSlice.actions;
+export const blogActions = blogSlice.actions;
 
-export const selectPostLoading = (state: RootState) => state.post.loading;
-export const selectPostList = (state: RootState) => state.post.list;
-export const selectPostDetail = (state: RootState) => state.post.detail;
-export const selectPostPagination = (state: RootState) => state.post.pagination;
+export const selectPostLoading = (state: RootState) => state.blog.loading;
+export const selectPostList = (state: RootState) => state.blog.list;
+export const selectPostDetail = (state: RootState) => state.blog.detail;
+export const selectPostPagination = (state: RootState) => state.blog.pagination;
 
-export const selectSearchResultList = (state: RootState) => state.post.searchResultList;
-export const selectSearchLoading = (state: RootState) => state.post.searchLoading;
+export const selectSearchResultList = (state: RootState) => state.blog.searchResultList;
+export const selectSearchLoading = (state: RootState) => state.blog.searchLoading;
 
 export const selectTotalPages = createSelector(selectPostPagination, (pagination) =>
   pagination ? Math.ceil(pagination?.totalRows / pagination?.limit) : 1
 );
 
-const postReducer = postSlice.reducer;
-export default postReducer;
+const blogReducer = blogSlice.reducer;
+export default blogReducer;

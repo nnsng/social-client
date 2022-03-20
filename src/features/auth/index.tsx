@@ -12,7 +12,7 @@ export interface AuthPageProps {
   mode: 'login' | 'register';
 }
 
-export default function AuthPage({ mode }: AuthPageProps) {
+export default function Auth({ mode }: AuthPageProps) {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();

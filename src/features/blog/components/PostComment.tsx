@@ -15,7 +15,7 @@ import { Comment } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { postActions } from '../postSlice';
+import { blogActions } from '../blogSlice';
 import CommentItem from './CommentItem';
 
 export interface PostCommentProps {
@@ -51,7 +51,7 @@ export default function PostComment(props: PostCommentProps) {
 
   useEffect(() => {
     return () => {
-      dispatch(postActions.updateCommentCount(commentList.length));
+      dispatch(blogActions.updateCommentCount(commentList.length));
     };
   }, [dispatch, commentList]);
 
