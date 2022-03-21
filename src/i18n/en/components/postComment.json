@@ -1,0 +1,10 @@
+{
+  "comment": " comments",
+  "placeholder": "Type comment...",
+  "like": "Like",
+  "unlike": "Unlike",
+  "menu": {
+    "delete": "Delete",
+    "report": "Report"
+  }
+}

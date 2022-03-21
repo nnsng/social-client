@@ -14,6 +14,7 @@ import { selectCommentLoading } from 'features/comment/commentSlice';
 import { Comment } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { blogActions } from '../blogSlice';
 import CommentItem from './CommentItem';
@@ -29,6 +30,8 @@ export interface PostCommentProps {
 
 export default function PostComment(props: PostCommentProps) {
   const { commentList, postId, onClose, onCreate, onRemove, onLike } = props;
+
+  const { t } = useTranslation('postComment');
 
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectCommentLoading);
@@ -91,7 +94,7 @@ export default function PostComment(props: PostCommentProps) {
           }}
         >
           {loading ? <CircularProgress size={20} color="primary" /> : commentList?.length}
-          &nbsp;bình luận
+          {t('comment')}
         </Typography>
 
         <form noValidate autoComplete="off" onSubmit={handleSubmit(handleSubmitComment)}>
@@ -108,7 +111,7 @@ export default function PostComment(props: PostCommentProps) {
 
             <TextField
               variant="standard"
-              placeholder="Viết bình luận..."
+              placeholder={t('placeholder')}
               fullWidth
               autoFocus
               disabled={loading || isSubmitting}

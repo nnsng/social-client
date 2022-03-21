@@ -1,12 +1,13 @@
 import { Stack } from '@mui/material';
-import useLoginWithGoogle from 'hooks/useLoginWithGoogle';
+import { useAppDispatch } from 'app/hooks';
+import { PageTitle } from 'components/common';
 import { AuthFormValue } from 'models';
 import React from 'react';
-import { useAppDispatch } from 'app/hooks';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { authActions } from './authSlice';
 import AuthForm from './components/AuthForm';
-import { toast } from 'react-toastify';
 
 export interface AuthPageProps {
   mode: 'login' | 'register';
@@ -14,6 +15,8 @@ export interface AuthPageProps {
 
 export default function Auth({ mode }: AuthPageProps) {
   const navigate = useNavigate();
+
+  const { t } = useTranslation('auth');
 
   const dispatch = useAppDispatch();
 
@@ -43,8 +46,16 @@ export default function Auth({ mode }: AuthPageProps) {
   };
 
   return (
-    <Stack alignItems="center" justifyContent="center" minHeight="100vh" bgcolor="primary.main">
-      <AuthForm defaultValues={defaultValues} switchMode={switchMode} onSubmit={handleFormSubmit} />
-    </Stack>
+    <>
+      <PageTitle title={mode === 'login' ? t('pageTitle.login') : t('pageTitle.register')} />
+
+      <Stack alignItems="center" justifyContent="center" minHeight="100vh" bgcolor="primary.main">
+        <AuthForm
+          defaultValues={defaultValues}
+          switchMode={switchMode}
+          onSubmit={handleFormSubmit}
+        />
+      </Stack>
+    </>
   );
 }

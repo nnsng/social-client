@@ -1,0 +1,10 @@
+{
+  "comment": " bình luận",
+  "placeholder": "Viết bình luận...",
+  "like": "Thích",
+  "unlike": "Bỏ thích",
+  "menu": {
+    "delete": "Xoá",
+    "report": "Báo cáo"
+  }
+}

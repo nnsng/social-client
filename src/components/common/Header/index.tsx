@@ -157,12 +157,9 @@ export function Header() {
                           )}
 
                           <Typography variant="body2" color="textSecondary" sx={{ flexGrow: 1 }}>
-                            {/* {searchResultList.length === 0 && !searchLoading
-                              ? `Không có kết quả tìm kiếm cho "${searchInput}"`
-                              : `Kết quả tìm kiếm cho "${searchInput}"`} */}
                             {t('search.result', {
                               count: searchResultList.length,
-                              searchTerm: `"${searchInput}"`,
+                              searchTerm: searchInput,
                             })}
                           </Typography>
                         </Box>

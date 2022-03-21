@@ -11,10 +11,11 @@ import {
   ListItemButton,
   OutlinedInput,
   Toolbar,
-  Typography,
+  Typography
 } from '@mui/material';
 import { Post } from 'models';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { mixins, themeConstants } from 'utils/theme';
 
@@ -31,6 +32,8 @@ export function SearchMobile(props: SearchMobileProps) {
   const { loading, open, onClose, searchResultList, searchInput, onSearchChange } = props;
 
   const navigate = useNavigate();
+
+  const { t } = useTranslation('header');
 
   const gotoPost = (post: Post) => {
     navigate(`/blog/${post.slug}`);
@@ -52,7 +55,7 @@ export function SearchMobile(props: SearchMobileProps) {
         <Toolbar sx={{ height: '100%' }}>
           <FormControl fullWidth size="small" sx={{ mr: 3 }}>
             <OutlinedInput
-              placeholder="Tìm kiếm bài viết"
+              placeholder={t('search.placeholder')}
               inputProps={{ sx: { pl: 1.5 } }}
               value={searchInput || ''}
               onChange={onSearchChange}
@@ -71,10 +74,10 @@ export function SearchMobile(props: SearchMobileProps) {
           {loading && <CircularProgress size={20} color="primary" sx={{ flexShrink: 0, mr: 1 }} />}
 
           <Typography variant="body2" color="textSecondary" sx={{ flexGrow: 1 }}>
-            {searchInput?.length !== 0 &&
-              (searchResultList?.length === 0 && !loading
-                ? `Không có kết quả tìm kiếm cho "${searchInput}"`
-                : `Kết quả tìm kiếm cho "${searchInput}"`)}
+            {t('search.result', {
+              count: searchResultList?.length,
+              searchTerm: searchInput,
+            })}
           </Typography>
         </Box>
 

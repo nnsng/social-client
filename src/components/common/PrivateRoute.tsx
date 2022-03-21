@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN } from 'constants/common';
+import { ACCESS_TOKEN } from 'utils/constants';
 import { Navigate } from 'react-router-dom';
 
 export interface PrivateRouteProps {

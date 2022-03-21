@@ -1,7 +1,7 @@
 import { call, delay, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import authApi from 'api/authApi';
-import { ACCESS_TOKEN } from 'constants/common';
+import { ACCESS_TOKEN } from 'utils/constants';
 import { AuthFormValue, AuthResponse } from 'models';
 import { toast } from 'react-toastify';
 import { authActions, AuthPayload } from './authSlice';

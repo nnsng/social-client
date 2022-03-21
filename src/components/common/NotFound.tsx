@@ -1,11 +1,14 @@
 import { Stack, Typography } from '@mui/material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { PageTitle } from './PageTitle';
 
 export function NotFound() {
+  const { t } = useTranslation('notFound');
+
   return (
     <>
-      <PageTitle title="Trang không tồn tại" />
+      <PageTitle title={t('pageTitle')} />
 
       <Stack
         sx={{
@@ -36,7 +39,7 @@ export function NotFound() {
             letterSpacing: 2,
           }}
         >
-          Oops...! Trang này không tồn tại
+          {t('content')}
         </Typography>
       </Stack>
     </>

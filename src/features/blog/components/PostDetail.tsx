@@ -16,15 +16,16 @@ import {
   MenuItem,
   Typography,
 } from '@mui/material';
+import { useAppSelector } from 'app/hooks';
 import { ActionMenu } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { IMenuItem, Post } from 'models';
 import React, { useRef, useState } from 'react';
-import { useAppSelector } from 'app/hooks';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { themeConstants } from 'utils/theme';
 import { copyPostLink, formatTime } from 'utils/common';
+import { themeConstants } from 'utils/theme';
 import MdEditor from './MdEditor';
 
 export interface PostDetailProps {
@@ -35,6 +36,8 @@ export interface PostDetailProps {
 
 export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) {
   const navigate = useNavigate();
+
+  const { t } = useTranslation('postDetail');
 
   const currentUser = useAppSelector(selectCurrentUser);
 
@@ -56,7 +59,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
     try {
       await onRemove?.(post);
       closeMenu();
-      toast.success('Xóa bài viết thành công');
+      toast.success(t('success'));
       navigate('/blog');
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
@@ -66,19 +69,19 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
   const isAuthorized = currentUser?._id === post?.authorId || currentUser?.role === 'admin';
   const menuItems: IMenuItem[] = [
     {
-      label: 'Chỉnh sửa bài viết',
+      label: t('menu.edit'),
       icon: BorderColorRounded,
       onClick: () => navigate(`/blog/edit/${post._id}`),
       authorized: isAuthorized,
     },
     {
-      label: 'Xoá bài viết',
+      label: t('menu.delete'),
       icon: DeleteRounded,
       onClick: handleRemovePost,
       authorized: isAuthorized,
     },
     {
-      label: 'Sao chép liên kết',
+      label: t('menu.copyLink'),
       icon: LinkRounded,
       onClick: () => {
         copyPostLink(post);
@@ -87,7 +90,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
       authorized: true,
     },
     {
-      label: 'Báo cáo bài viết',
+      label: t('menu.report'),
       icon: FlagRounded,
       onClick: () => {},
       authorized: true,
@@ -164,7 +167,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
         }
         title={
           <Typography variant="subtitle2" fontWeight="600">
-            {post?.author?.name || '(Khách)'}
+            {post?.author?.name}
           </Typography>
         }
         subheader={
@@ -186,7 +189,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
       />
 
       <CardContent sx={{ p: 0 }}>
-        <MdEditor value={post.content || 'Nội dung...'} readOnly />
+        <MdEditor value={post.content} readOnly />
       </CardContent>
     </Card>
   );

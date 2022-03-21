@@ -9,10 +9,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import PostList from '../components/PostList';
 import PostRecommend from '../components/PostRecommend';
 import { blogActions, selectPostList } from '../blogSlice';
+import { useTranslation } from 'react-i18next';
 
 export function MainPage() {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { t } = useTranslation('blog');
 
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
@@ -46,7 +49,7 @@ export function MainPage() {
 
   return (
     <>
-      <PageTitle title="1social - blog" />
+      <PageTitle title={t('pageTitle')} />
 
       <Container>
         <Grid container spacing={{ xs: 0, lg: 10 }}>

@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { ACCESS_TOKEN } from 'constants/common';
+import { ACCESS_TOKEN } from 'utils/constants';
 import queryString from 'query-string';
 import { env, variables } from 'utils/env';
 

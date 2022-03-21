@@ -10,14 +10,15 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import { useAppSelector } from 'app/hooks';
 import { ActionMenu } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { Comment, IMenuItem } from 'models';
 import React, { useRef, useState } from 'react';
-import { useAppSelector } from 'app/hooks';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import theme, { mixins } from 'utils/theme';
 import { formatTime } from 'utils/common';
+import theme from 'utils/theme';
 
 export interface CommentItemProps {
   comment: Comment;
@@ -26,6 +27,8 @@ export interface CommentItemProps {
 }
 
 export default function CommentItem({ comment, onRemove, onLike }: CommentItemProps) {
+  const { t } = useTranslation('postComment');
+
   const currentUser = useAppSelector(selectCurrentUser);
 
   const anchorRef = useRef<HTMLElement | null>(null);
@@ -51,13 +54,13 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
   const isAuthorized = currentUser?._id === comment.userId || currentUser?.role === 'admin';
   const menuItems: IMenuItem[] = [
     {
-      label: 'Xoá bình luận',
+      label: t('menu.delete'),
       icon: DeleteRounded,
       onClick: handleRemoveComment,
       authorized: isAuthorized,
     },
     {
-      label: 'Báo cáo bình luận',
+      label: t('menu.report'),
       icon: FlagRounded,
       onClick: () => {},
       authorized: true,
@@ -135,7 +138,7 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
               sx={{ cursor: 'pointer' }}
               onClick={handleLikeComment}
             >
-              {comment?.likes?.includes(currentUser?._id as string) ? 'Bỏ thích' : 'Thích'}
+              {comment?.likes?.includes(currentUser?._id as string) ? t('unlike') : t('like')}
             </Typography>
 
             <Typography
