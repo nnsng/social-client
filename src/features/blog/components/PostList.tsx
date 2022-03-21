@@ -1,9 +1,10 @@
 import { Box, List, ListItem, Pagination, Stack, Typography } from '@mui/material';
+import { useAppSelector } from 'app/hooks';
 import { NoPost } from 'components/common';
 import { selectTotalPages } from 'features/blog/blogSlice';
 import { Post } from 'models';
 import React from 'react';
-import { useAppSelector } from 'app/hooks';
+import { useTranslation } from 'react-i18next';
 import PostCard from './PostCard';
 
 export interface PostListProps {
@@ -17,6 +18,8 @@ export interface PostListProps {
 
 export default function PostList(props: PostListProps) {
   const { postList, page, onPageChange, onSave, onRemove } = props;
+
+  const { t } = useTranslation('postList');
 
   const totalPage = useAppSelector(selectTotalPages);
 
@@ -41,7 +44,7 @@ export default function PostList(props: PostListProps) {
           cursor: 'default',
         }}
       >
-        PHÙ HỢP VỚI BẠN
+        {t('newest')}
       </Typography>
 
       <List disablePadding>

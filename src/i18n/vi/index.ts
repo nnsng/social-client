@@ -9,6 +9,8 @@ import notFound from './pages/notFound.json';
 import header from './components/header.json';
 import authForm from './components/authForm.json';
 import createEditForm from './components/createEditForm.json';
+import postList from './components/postList.json';
+import postCard from './components/postCard.json';
 import postDetail from './components/postDetail.json';
 import postComment from './components/postComment.json';
 import settingTabs from './components/settingTabs.json';
@@ -27,6 +29,8 @@ export default {
   header,
   authForm,
   createEditForm,
+  postList,
+  postCard,
   postDetail,
   postComment,
   settingTabs,

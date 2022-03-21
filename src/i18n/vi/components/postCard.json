@@ -1,0 +1,12 @@
+{
+  "toast": {
+    "saved": "Đã lưu",
+    "delete": "Xóa bài viết thành công"
+  },
+  "menu": {
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa",
+    "copyLink": "Sao chép liên kết",
+    "report": "Báo cáo"
+  }
+}

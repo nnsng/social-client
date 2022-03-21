@@ -17,15 +17,16 @@ import {
   MenuItem,
   Typography,
 } from '@mui/material';
+import { useAppSelector } from 'app/hooks';
 import { ActionMenu } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { IMenuItem, Post } from 'models';
 import React, { useRef, useState } from 'react';
-import { useAppSelector } from 'app/hooks';
+import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { themeConstants, mixins } from 'utils/theme';
 import { copyPostLink, formatTime } from 'utils/common';
+import { mixins, themeConstants } from 'utils/theme';
 
 export interface PostCardProps {
   post: Post;
@@ -35,6 +36,8 @@ export interface PostCardProps {
 
 export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
   const navigate = useNavigate();
+
+  const { t } = useTranslation('postCard');
 
   const currentUser = useAppSelector(selectCurrentUser);
 
@@ -47,7 +50,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
   const handleSavePost = async () => {
     try {
       await onSave?.(post);
-      toast.success('Đã lưu');
+      toast.success(t('toast.saved'));
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
     }
@@ -57,7 +60,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
     try {
       closeMenu();
       await onRemove?.(post);
-      toast.success('Xóa bài viết thành công');
+      toast.success(t('toast.delete'));
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
     }
@@ -66,19 +69,19 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
   const isAuthorized = currentUser?._id === post?.authorId || currentUser?.role === 'admin';
   const menuItems: IMenuItem[] = [
     {
-      label: 'Chỉnh sửa bài viết',
+      label: t('menu.edit'),
       icon: BorderColorRounded,
       onClick: () => navigate(`edit/${post._id}`),
       authorized: isAuthorized,
     },
     {
-      label: 'Xoá bài viết',
+      label: t('menu.delete'),
       icon: DeleteRounded,
       onClick: handleRemovePost,
       authorized: isAuthorized,
     },
     {
-      label: 'Sao chép liên kết',
+      label: t('menu.copyLink'),
       icon: LinkRounded,
       onClick: () => {
         copyPostLink(post);
@@ -87,7 +90,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
       authorized: true,
     },
     {
-      label: 'Báo cáo bài viết',
+      label: t('menu.report'),
       icon: FlagRounded,
       onClick: () => {},
       authorized: true,
@@ -115,7 +118,6 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
               size="small"
               sx={{
                 mx: 0.5,
-
                 ':hover': {
                   bgcolor: 'transparent',
                   color: 'text.primary',
@@ -131,7 +133,6 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
               size="small"
               sx={{
                 mx: 0.5,
-
                 ':hover': {
                   bgcolor: 'transparent',
                   color: 'text.primary',
