@@ -12,5 +12,5 @@ const resources = {
 // initialize i18next with catalog and language to use
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'vi',
+  lng: 'en',
 });
