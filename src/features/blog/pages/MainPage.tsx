@@ -2,7 +2,7 @@ import { Box, Container, Grid, Hidden } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
-import { ListParams, Post, Tag } from 'models';
+import { ListParams, Post, Keyword } from 'models';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -30,8 +30,8 @@ export function MainPage() {
     dispatch(blogActions.fetchPostList(filter));
   }, [dispatch, filter]);
 
-  const handleTagClick = (tag: Tag) => {
-    setFilter({ ...filter, tag: tag.value, page: 1 });
+  const handleKeywordClick = (keyword: Keyword) => {
+    setFilter({ ...filter, keyword: keyword.value, page: 1 });
   };
 
   const handlePageChange = (page: number) => {
@@ -85,7 +85,7 @@ export function MainPage() {
                   },
                 }}
               >
-                <PostRecommend tagActive={filter.tag} onTagClick={handleTagClick} />
+                <PostRecommend keywordActive={filter.keyword} onKeywordClick={handleKeywordClick} />
               </Box>
             </Hidden>
           </Grid>

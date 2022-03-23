@@ -7,3 +7,4 @@ export * from './NotFound';
 export * from './SearchMobile';
 export * from './GoogleIcon';
 export * from './PageTitle';
+export * from './KeywordInput';

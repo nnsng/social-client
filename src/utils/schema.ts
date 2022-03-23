@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 // POST
-export const tagSchema = yup.object().shape({
+export const keywordSchema = yup.object().shape({
   name: yup.string().required(),
   value: yup.string().required(),
 });
@@ -11,7 +11,7 @@ export const postSchema = yup.object().shape({
   content: yup.string().min(50, 'Nội dung tối thiểu 500 ký tự').required('Vui lòng nhập nội dung'),
   description: yup.string().notRequired(),
   thumbnail: yup.string().notRequired(),
-  tags: yup.array().of(tagSchema).notRequired(),
+  keywords: yup.array().of(keywordSchema).notRequired(),
 });
 
 // AUTH

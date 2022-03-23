@@ -20,7 +20,7 @@ export interface ListParams {
   limit?: number;
   sort?: string;
   order?: 'asc' | 'desc';
-  tag?: string;
+  keyword?: string;
 
   // [key: string]: any;
 }

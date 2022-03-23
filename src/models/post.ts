@@ -12,7 +12,7 @@ export interface Comment {
   [key: string]: any;
 }
 
-export interface Tag {
+export interface Keyword {
   name: string;
   value: string;
 }
@@ -24,7 +24,7 @@ export interface Post {
   description: string;
   thumbnail: string;
   authorId: string;
-  tags: Tag[];
+  keywords: Keyword[];
   author?: User;
   likes?: string[];
   commentCount?: number;

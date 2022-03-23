@@ -40,7 +40,7 @@ export function CreateEditPage() {
         content: '',
         description: '',
         thumbnail: '',
-        tags: [],
+        keywords: [],
         authorId: currentUser?._id as string,
       }
     : editedPost;
@@ -59,13 +59,11 @@ export function CreateEditPage() {
 
       <Container maxWidth={false}>
         <Box mt={-4}>
-          {currentUser && (
-            <CreateEditForm
-              defaultValues={defaultValues}
-              onSubmit={handleFormSubmit}
-              isNewPost={isNewPost}
-            />
-          )}
+          <CreateEditForm
+            defaultValues={defaultValues}
+            onSubmit={handleFormSubmit}
+            isNewPost={isNewPost}
+          />
         </Box>
       </Container>
     </>
