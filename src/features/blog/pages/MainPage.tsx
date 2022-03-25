@@ -53,7 +53,7 @@ export function MainPage() {
 
       <Container>
         <Grid container spacing={{ xs: 0, lg: 10 }}>
-          <Grid item xs={12} md={10} lg={7} sx={{ m: '0 auto' }}>
+          <Grid item xs={12} md={10} lg={8} sx={{ m: '0 auto' }}>
             <Box component="section">
               <PostList
                 postList={postList}
@@ -65,7 +65,7 @@ export function MainPage() {
             </Box>
           </Grid>
 
-          <Grid item lg={5}>
+          {/* <Grid item lg={5}>
             <Hidden lgDown>
               <Box
                 component="section"
@@ -88,7 +88,7 @@ export function MainPage() {
                 <PostRecommend keywordActive={filter.keyword} onKeywordClick={handleKeywordClick} />
               </Box>
             </Hidden>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </>
