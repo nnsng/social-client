@@ -59,8 +59,10 @@ function App() {
 
   return (
     <>
-      <button onClick={() => changeLanguage('en')}>en</button>
-      <button onClick={() => changeLanguage('vi')}>vi</button>
+      <div style={{ position: 'fixed', zIndex: 9999 }}>
+        <button onClick={() => changeLanguage('en')}>en</button>
+        <button onClick={() => changeLanguage('vi')}>vi</button>
+      </div>
 
       <SocketClient />
 

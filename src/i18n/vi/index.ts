@@ -17,6 +17,8 @@ import settingTabs from './components/settingTabs.json';
 import editProfileForm from './components/editProfileForm.json';
 import changePasswordForm from './components/changePasswordForm.json';
 
+import validation from './validation';
+
 export default {
   // pages
   blog,
@@ -36,4 +38,6 @@ export default {
   settingTabs,
   editProfileForm,
   changePasswordForm,
+
+  validation,
 };

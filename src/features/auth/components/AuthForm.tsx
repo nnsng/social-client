@@ -3,11 +3,13 @@ import { Box, Button, Grid, Typography } from '@mui/material';
 import { GoogleIcon } from 'components/common';
 import { MuiTextField } from 'components/formFields';
 import useLoginWithGoogle from 'hooks/useLoginWithGoogle';
+import i18n from 'i18next';
 import { AuthFormValue } from 'models';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { authSchema } from 'utils/schema';
+import { translateValidation } from 'utils/translation';
+import * as yup from 'yup';
 
 export interface AuthFormProps {
   defaultValues: AuthFormValue;
@@ -20,11 +22,33 @@ export default function AuthForm(props: AuthFormProps) {
   const isRegisterMode = defaultValues.mode === 'register';
 
   const { t } = useTranslation('authForm');
+  const validation = translateValidation();
 
-  const { control, handleSubmit, reset } = useForm({
-    defaultValues,
-    resolver: yupResolver(authSchema),
+  const schema = yup.object().shape({
+    email: yup.string().required(validation.email.required).email(validation.email.email),
+    password: yup
+      .string()
+      .required(validation.password.required)
+      .min(6, validation.password.min(6)),
+    mode: yup.string().required(),
+    firstName: yup.string().when('mode', {
+      is: 'register',
+      then: yup.string().required(validation.firstName.required),
+    }),
+    lastName: yup.string().when('mode', {
+      is: 'register',
+      then: yup.string().required(validation.firstName.lastName),
+    }),
   });
+
+  const { control, handleSubmit, reset, clearErrors } = useForm({
+    defaultValues,
+    resolver: yupResolver(schema),
+  });
+
+  useEffect(() => {
+    clearErrors();
+  }, [i18n.language]);
 
   const googleLogin = useLoginWithGoogle();
 
