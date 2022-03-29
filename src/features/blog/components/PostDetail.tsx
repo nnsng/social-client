@@ -72,13 +72,13 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
       label: t('menu.edit'),
       icon: BorderColorRounded,
       onClick: () => navigate(`/blog/edit/${post._id}`),
-      authorized: isAuthorized,
+      active: isAuthorized,
     },
     {
       label: t('menu.delete'),
       icon: DeleteRounded,
       onClick: handleRemovePost,
-      authorized: isAuthorized,
+      active: isAuthorized,
     },
     {
       label: t('menu.copyLink'),
@@ -87,13 +87,13 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
         copyPostLink(post);
         closeMenu();
       },
-      authorized: true,
+      active: true,
     },
     {
       label: t('menu.report'),
       icon: FlagRounded,
       onClick: () => {},
-      authorized: true,
+      active: true,
     },
   ];
 
@@ -146,8 +146,8 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
               paperSx={{ boxShadow: themeConstants.boxShadow, overflow: 'hidden' }}
               onClose={closeMenu}
             >
-              {menuItems.map(({ label, icon: Icon, onClick, authorized }, idx) =>
-                authorized ? (
+              {menuItems.map(({ label, icon: Icon, onClick, active }, idx) =>
+                active ? (
                   <MenuItem
                     key={idx}
                     sx={{

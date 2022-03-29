@@ -29,6 +29,6 @@ export interface IMenuItem {
   label?: string;
   icon?: any;
   onClick?: () => void;
-  authorized?: boolean;
+  active?: boolean;
   page?: string;
 }

@@ -57,13 +57,13 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
       label: t('menu.delete'),
       icon: DeleteRounded,
       onClick: handleRemoveComment,
-      authorized: isAuthorized,
+      active: isAuthorized,
     },
     {
       label: t('menu.report'),
       icon: FlagRounded,
       onClick: () => {},
-      authorized: true,
+      active: true,
     },
   ];
 
@@ -173,8 +173,8 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
               zIndex={theme.zIndex.drawer + 1}
               onClose={closeMenu}
             >
-              {menuItems.map(({ label, icon: Icon, onClick, authorized }, idx) =>
-                authorized ? (
+              {menuItems.map(({ label, icon: Icon, onClick, active }, idx) =>
+                active ? (
                   <MenuItem
                     key={idx}
                     sx={{
