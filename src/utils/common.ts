@@ -1,4 +1,4 @@
-import i18n from 'i18next';
+import i18next from 'i18next';
 import cdnApi from 'api/cdnApi';
 import dayjs from 'dayjs';
 import 'dayjs/locale/vi';
@@ -8,7 +8,7 @@ import slugify from 'slugify';
 
 export const formatTime = (timestamp: any) => {
   dayjs.extend(relativeTime);
-  dayjs.locale(i18n.language);
+  dayjs.locale(i18next.language);
   return dayjs(timestamp).fromNow();
 };
 

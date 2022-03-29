@@ -1,24 +1,22 @@
 import authApi from 'api/authApi';
 import { useAppDispatch } from 'app/hooks';
 import { NotFound, PrivateRoute } from 'components/common';
-import { ACCESS_TOKEN } from 'utils/constants';
 import Auth from 'features/auth';
 import { authActions } from 'features/auth/authSlice';
 import Blog from 'features/blog';
 import Setting from 'features/setting';
 import SocketClient from 'features/socket';
 import { socketActions } from 'features/socket/socketSlice';
+import i18next from 'i18next';
 import { User } from 'models';
 import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
+import { ACCESS_TOKEN } from 'utils/constants';
 import { env, variables } from 'utils/env';
 
 function App() {
   const navigate = useNavigate();
-
-  const { i18n } = useTranslation();
 
   const dispatch = useAppDispatch();
 
@@ -49,19 +47,11 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    i18n.changeLanguage(localStorage.getItem('language') || 'en');
+    i18next.changeLanguage(localStorage.getItem('language') || 'en');
   }, []);
-
-  const changeLanguage = (language: string) => {
-    i18n.changeLanguage(language);
-    localStorage.setItem('language', language);
-  };
 
   return (
     <>
-      <button onClick={() => changeLanguage('en')}>en</button>
-      <button onClick={() => changeLanguage('vi')}>vi</button>
-
       <SocketClient />
 
       <Routes>

@@ -3,6 +3,7 @@
     "placeholder": "Tìm kiếm bài viết...",
     "result": "{{count}} kết quả cho \"{{searchTerm}}\""
   },
+  "language": "Ngôn ngữ",
   "notification": {
     "label": "Thông báo",
     "makeRead": "Đánh dấu tất cả là đã đọc",

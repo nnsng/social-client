@@ -2,8 +2,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, CircularProgress, Grid, Stack, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { MuiTextField } from 'components/formFields';
+import i18next from 'i18next';
 import { ChangePasswordFormValue } from 'models';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
@@ -24,11 +25,16 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
     control,
     handleSubmit,
     reset,
+    clearErrors,
     formState: { isSubmitting },
   } = useForm({
     defaultValues,
     resolver: yupResolver(passwordSchema),
   });
+
+  useEffect(() => {
+    clearErrors();
+  }, [i18next.language]);
 
   const handleFormSubmit = async (formValues: ChangePasswordFormValue) => {
     try {
