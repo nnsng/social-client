@@ -18,6 +18,7 @@ import {
 import { NoPost } from 'components/common';
 import { Post } from 'models';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { formatTime } from 'utils/common';
@@ -33,6 +34,8 @@ export interface PostTableProps {
 
 export default function PostTable(props: PostTableProps) {
   const { postList, onEdit, onRemove, saved, onUnSave } = props;
+
+  const { t } = useTranslation('postTable');
 
   const [selectedPost, setSelectedPost] = useState<Post>({} as Post);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -94,17 +97,17 @@ export default function PostTable(props: PostTableProps) {
             <TableRow>
               <TableCell align="center">#</TableCell>
 
-              <TableCell>Tiêu đề</TableCell>
+              <TableCell>{t('tableCell.title')}</TableCell>
 
               {saved ? (
-                <TableCell align="center">Tác giả</TableCell>
+                <TableCell align="center">{t('tableCell.author')}</TableCell>
               ) : (
-                <TableCell align="center">Thích</TableCell>
+                <TableCell align="center">{t('tableCell.like')}</TableCell>
               )}
 
-              <TableCell align="center">Đăng vào lúc</TableCell>
+              <TableCell align="center">{t('tableCell.createdAt')}</TableCell>
 
-              <TableCell align="center">Tuỳ chọn</TableCell>
+              <TableCell align="center">{t('tableCell.options')}</TableCell>
             </TableRow>
           </TableHead>
 
@@ -132,7 +135,7 @@ export default function PostTable(props: PostTableProps) {
                       sx={{ whiteSpace: 'nowrap' }}
                       onClick={() => handleSelectPost(post)}
                     >
-                      Bỏ lưu
+                      {t('button.unsave')}
                     </Button>
                   ) : (
                     <Box width="100%" whiteSpace={{ xs: 'normal', md: 'nowrap' }}>
@@ -141,11 +144,11 @@ export default function PostTable(props: PostTableProps) {
                         sx={{ whiteSpace: 'nowrap' }}
                         onClick={() => handleEditPost(post)}
                       >
-                        Chỉnh sửa
+                        {t('button.edit')}
                       </Button>
 
                       <Button color="error" onClick={() => handleSelectPost(post)}>
-                        Xoá
+                        {t('button.delete')}
                       </Button>
                     </Box>
                   )}
@@ -157,28 +160,26 @@ export default function PostTable(props: PostTableProps) {
 
         {postList.length === 0 &&
           (saved ? (
-            <NoPost>Bạn chưa lưu bài viết nào.</NoPost>
+            <NoPost>{t('noPost')}</NoPost>
           ) : (
-            <NoPost createText="Viết bài">Bạn chưa có bài viết nào.</NoPost>
+            <NoPost createText={t('createPost')}>{t('noPost')}</NoPost>
           ))}
       </TableContainer>
 
       <Dialog open={openDialog} onClose={closeDialog} sx={{ userSelect: 'none' }}>
-        <DialogTitle>{saved ? 'Bỏ lưu bài viết?' : 'Xoá bài viết?'}</DialogTitle>
+        <DialogTitle>{saved ? t('dialog.unsave.title') : t('dialog.delete.title')}</DialogTitle>
 
         <Divider />
 
         <DialogContent>
           <DialogContentText sx={{ color: 'text.primary' }}>
-            {saved
-              ? 'Bạn có chắc muốn bỏ lưu bài viết? Hành động này không thể khôi phục.'
-              : 'Bạn có chắc muốn xoá bài viết? Hành động này không thể khôi phục.'}
+            {saved ? t('dialog.unsave.content') : t('dialog.delete.content')}
           </DialogContentText>
         </DialogContent>
 
         <DialogActions>
           <Button color="inherit" size="large" disabled={loading} onClick={closeDialog}>
-            Huỷ
+            {t('dialog.button.cancel')}
           </Button>
 
           <Button
@@ -190,7 +191,7 @@ export default function PostTable(props: PostTableProps) {
             startIcon={loading && <CircularProgress size={20} />}
             onClick={saved ? handleUnSaveConfirm : handleRemoveConfirm}
           >
-            Tiếp tục
+            {t('dialog.button.confirm')}
           </Button>
         </DialogActions>
       </Dialog>

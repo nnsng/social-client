@@ -1,0 +1,30 @@
+{
+  "tableCell": {
+    "title": "Title",
+    "author": "Author",
+    "like": "Like",
+    "createdAt": "Created at",
+    "options": "Options"
+  },
+  "button": {
+    "unsave": "Unsave",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "noPost": "You have no post yet",
+  "createPost": "Create post",
+  "dialog": {
+    "unsave": {
+      "title": "Unsave post?",
+      "content": "Are you sure you want to unsave this post? This action cannot revert."
+    },
+    "delete": {
+      "title": "Delete post?",
+      "content": "Are you sure you want to delete this post? This action cannot revert."
+    },
+    "button": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    }
+  }
+}

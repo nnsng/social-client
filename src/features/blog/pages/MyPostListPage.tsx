@@ -4,13 +4,16 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
 import { Post } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { blogActions, selectPostList, selectTotalPages } from '../blogSlice';
 import { PostItemMobile } from '../components/PostItemMobile';
 import PostTable from '../components/PostTable';
-import { blogActions, selectPostList, selectTotalPages } from '../blogSlice';
 
 export function MyPostListPage() {
   const navigate = useNavigate();
+
+  const { t } = useTranslation('myPostList');
 
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
@@ -40,11 +43,11 @@ export function MyPostListPage() {
 
   return (
     <>
-      <PageTitle title="Bài viết của tôi" />
+      <PageTitle title={t('pageTitle')} />
 
       <Container maxWidth="md">
         <Typography variant="h4" fontWeight="500" sx={{ userSelect: 'none' }}>
-          Bài viết của tôi
+          {t('pageTitle')}
         </Typography>
 
         <Hidden smDown>

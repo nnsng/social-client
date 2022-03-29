@@ -9,6 +9,7 @@ import { Avatar, Box, IconButton, ListItem, MenuItem, Stack, Typography } from '
 import { ActionMenu } from 'components/common';
 import { IMenuItem, Post } from 'models';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { copyPostLink, formatTime } from 'utils/common';
@@ -25,6 +26,8 @@ export interface PostItemMobileProps {
 
 export function PostItemMobile(props: PostItemMobileProps) {
   const { post, onEdit, onRemove, saved, onUnSave } = props;
+
+  const { t } = useTranslation('postItemMobile');
 
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
@@ -62,19 +65,19 @@ export function PostItemMobile(props: PostItemMobileProps) {
   const subMenuItemList: IMenuItem[] = saved
     ? [
         {
-          label: 'Bỏ lưu',
+          label: t('unsave'),
           icon: BookmarkRemoveRounded,
           onClick: handleUnSavePost,
         },
       ]
     : [
         {
-          label: 'Chỉnh sửa',
+          label: t('edit'),
           icon: BorderColorRounded,
           onClick: handleEditPost,
         },
         {
-          label: 'Xoá',
+          label: t('delete'),
           icon: DeleteRounded,
           onClick: handleRemovePost,
         },
@@ -83,7 +86,7 @@ export function PostItemMobile(props: PostItemMobileProps) {
   const menuItemList: IMenuItem[] = [
     ...subMenuItemList,
     {
-      label: 'Sao chép liên kết',
+      label: t('copyLink'),
       icon: LinkRounded,
       onClick: handleCopyLink,
     },
@@ -126,7 +129,7 @@ export function PostItemMobile(props: PostItemMobileProps) {
               display="flex"
               alignItems="center"
             >
-              Tác giả: {post.author?.name}
+              {t('author', { author: post.author?.name })}
             </Typography>
           )}
 
