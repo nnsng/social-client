@@ -74,15 +74,18 @@ export function SearchMobile(props: SearchMobileProps) {
           {loading && <CircularProgress size={20} color="primary" sx={{ flexShrink: 0, mr: 1 }} />}
 
           <Typography variant="body2" color="textSecondary" sx={{ flexGrow: 1 }}>
-            {t('search.result', {
-              count: searchResultList?.length,
-              searchTerm: searchInput,
-            })}
+            {!loading &&
+              (searchInput || '').length > 0 &&
+              t('search.result', {
+                count: searchResultList?.length,
+                searchTerm: searchInput,
+              })}
           </Typography>
         </Box>
 
         <List disablePadding>
-          {searchResultList &&
+          {(searchInput || '').length > 1 &&
+            searchResultList &&
             searchResultList.map((post) => (
               <ListItem key={post._id} disablePadding>
                 <ListItemButton disableRipple onClick={() => gotoPost(post)}>

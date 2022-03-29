@@ -6,7 +6,7 @@ export interface ITitleProps {
 
 export function PageTitle({ title }: ITitleProps) {
   useEffect(() => {
-    document.title = '1social - ' + title;
+    document.title = title;
   });
 
   return null;

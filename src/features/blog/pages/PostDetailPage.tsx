@@ -8,10 +8,11 @@ import { selectSocket } from 'features/socket/socketSlice';
 import { Comment, Post } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { APP_NAME } from 'utils/constants';
+import { blogActions, selectPostDetail, selectPostLoading } from '../blogSlice';
 import PostComment from '../components/PostComment';
 import PostDetail from '../components/PostDetail';
 import PostInteract from '../components/PostInteract';
-import { blogActions, selectPostDetail, selectPostLoading } from '../blogSlice';
 
 export function PostDetailPage() {
   const { slug } = useParams();
@@ -77,7 +78,7 @@ export function PostDetailPage() {
 
   return (
     <>
-      <PageTitle title={post?.title ?? '1social'} />
+      <PageTitle title={post?.title ?? APP_NAME} />
 
       <Container>
         <Grid container spacing={{ xs: 2, lg: 8 }}>

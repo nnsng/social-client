@@ -6,8 +6,8 @@
   "language": "Language",
   "notification": {
     "label": "Notification",
-    "makeRead": "Mark all as read",
-    "welcome": "Welcome <b>{{name}}</b> to <b>1social</b>."
+    "markAsRead": "Mark all as read",
+    "welcome": "Welcome <b>{{name}}</b> to <b>{{appName}}</b>."
   },
   "menu": {
     "create": "Create post",

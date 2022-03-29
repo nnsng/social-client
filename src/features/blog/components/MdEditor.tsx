@@ -3,7 +3,7 @@ import MarkdownIt from 'markdown-it';
 import React from 'react';
 import Editor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
-import { uploadImage } from 'utils/common';
+import { getImageUrlFromCDN } from 'utils/common';
 
 export interface MdEditorOnChangeProps {
   html: string;
@@ -29,7 +29,7 @@ export default function MdEditor(props: MdEditorProps) {
   };
 
   const handleImageUpload = async (file: File) => {
-    const imageUrl = await uploadImage(file);
+    const imageUrl = await getImageUrlFromCDN(file);
     return imageUrl;
   };
 

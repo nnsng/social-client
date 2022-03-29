@@ -16,7 +16,7 @@ axiosClient.interceptors.request.use(async (config: AxiosRequestConfig) => {
   const token = localStorage.getItem(ACCESS_TOKEN);
 
   if (token && config.url !== env(variables.cdnUrl)) {
-    if (config.headers) config.headers.Authorization = `Bearer ${token}`;
+    config.headers && (config.headers.Authorization = `Bearer ${token}`);
   }
 
   return config;

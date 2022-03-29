@@ -7,10 +7,10 @@ const cdnSlice = createSlice({
     loading: false,
   },
   reducers: {
-    fetchImageUrl: (state) => {
+    startGetImageUrl: (state) => {
       state.loading = true;
     },
-    fetchImageUrlFinished: (state) => {
+    getImageUrlFinished: (state) => {
       state.loading = false;
     },
   },

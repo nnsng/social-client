@@ -16,6 +16,7 @@ import ReactHtmlParser from 'react-html-parser';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { formatTime } from 'utils/common';
+import { APP_NAME } from 'utils/constants';
 import theme, { themeConstants } from 'utils/theme';
 import { PopperMenu } from '..';
 
@@ -84,7 +85,7 @@ export default function Notification() {
               },
             }}
           >
-            {t('notification.makeRead')}
+            {t('notification.markAsRead')}
           </Typography>
         </Stack>
 
@@ -95,7 +96,12 @@ export default function Notification() {
 
               <Box flexGrow={1}>
                 <Typography variant="body1" mb={0.5} whiteSpace="normal">
-                  {ReactHtmlParser(t('notification.welcome', { name: currentUser?.name }))}
+                  {ReactHtmlParser(
+                    t('notification.welcome', {
+                      name: currentUser?.name,
+                      appName: APP_NAME,
+                    })
+                  )}
                 </Typography>
 
                 <Typography variant="subtitle2" fontWeight="400">

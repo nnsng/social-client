@@ -6,8 +6,8 @@
   "language": "Ngôn ngữ",
   "notification": {
     "label": "Thông báo",
-    "makeRead": "Đánh dấu tất cả là đã đọc",
-    "welcome": "Chào mừng <b>{{name}}</b> đến với <b>1social</b>."
+    "markAsRead": "Đánh dấu tất cả là đã đọc",
+    "welcome": "Chào mừng <b>{{name}}</b> đến với <b>{{appName}}</b>."
   },
   "menu": {
     "create": "Tạo bài viết",
