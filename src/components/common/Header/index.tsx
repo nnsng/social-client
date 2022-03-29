@@ -10,12 +10,15 @@ import {
   Grow,
   Hidden,
   IconButton,
+  InputLabel,
   LinearProgress,
   List,
   ListItem,
   ListItemButton,
+  MenuItem,
   OutlinedInput,
   Paper,
+  Select,
   Stack,
   Typography,
 } from '@mui/material';
@@ -26,6 +29,7 @@ import {
   selectSearchLoading,
   selectSearchResultList,
 } from 'features/blog/blogSlice';
+import i18next from 'i18next';
 import { Post } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -47,6 +51,7 @@ export function Header() {
   const searchLoading = useAppSelector(selectSearchLoading);
   const searchResultList = useAppSelector(selectSearchResultList);
 
+  const [language, setLanguage] = useState<string>(localStorage.getItem('language') || 'en');
   const [searchInput, setSearchInput] = useState<string>('');
   const [showSearchResult, setShowSearchResult] = useState<boolean>(false);
   const [openSearchMobile, setOpenSearchMobile] = useState<boolean>(false);
@@ -69,6 +74,13 @@ export function Header() {
   const gotoPost = (post: Post) => {
     navigate(`/blog/${post.slug}`);
     setSearchInput('');
+  };
+
+  const handleChangeLanguage = (e: any) => {
+    const language = e.target.value;
+    setLanguage(language);
+    i18next.changeLanguage(language);
+    localStorage.setItem('language', language);
   };
 
   const toggleSearchMobile = () => setOpenSearchMobile(!openSearchMobile);
@@ -227,6 +239,20 @@ export function Header() {
                 </Hidden>
 
                 <Hidden smDown>
+                  <FormControl fullWidth sx={{ mr: 2 }}>
+                    <InputLabel id="select-language">{t('language')}</InputLabel>
+                    <Select
+                      labelId="select-language"
+                      size="small"
+                      value={language}
+                      label={t('language')}
+                      onChange={handleChangeLanguage}
+                    >
+                      <MenuItem value="vi">Tiếng Việt</MenuItem>
+                      <MenuItem value="en">English</MenuItem>
+                    </Select>
+                  </FormControl>
+
                   <Notification />
 
                   <UserMenu />

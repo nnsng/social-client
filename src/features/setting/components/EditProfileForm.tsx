@@ -3,7 +3,7 @@ import { Avatar, Box, Button, CircularProgress, Grid, Stack, Typography } from '
 import { useAppSelector } from 'app/hooks';
 import { FileInputField, MuiTextField } from 'components/formFields';
 import { selectCdnLoading } from 'features/cdn/cdnSlice';
-import i18n from 'i18next';
+import i18next from 'i18next';
 import { User } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -50,7 +50,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
 
   useEffect(() => {
     clearErrors();
-  }, [i18n.language]);
+  }, [i18next.language]);
 
   useEffect(() => {
     reset(defaultValues);

@@ -3,7 +3,7 @@ import { Box, Button, Grid, Typography } from '@mui/material';
 import { GoogleIcon } from 'components/common';
 import { MuiTextField } from 'components/formFields';
 import useLoginWithGoogle from 'hooks/useLoginWithGoogle';
-import i18n from 'i18next';
+import i18next from 'i18next';
 import { AuthFormValue } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -48,7 +48,7 @@ export default function AuthForm(props: AuthFormProps) {
 
   useEffect(() => {
     clearErrors();
-  }, [i18n.language]);
+  }, [i18next.language]);
 
   const googleLogin = useLoginWithGoogle();
 

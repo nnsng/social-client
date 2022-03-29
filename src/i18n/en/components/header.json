@@ -3,6 +3,7 @@
     "placeholder": "Search for post...",
     "result": "{{count}} results for \"{{searchTerm}}\""
   },
+  "language": "Language",
   "notification": {
     "label": "Notification",
     "makeRead": "Mark all as read",
