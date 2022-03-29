@@ -1,0 +1,30 @@
+{
+  "tableCell": {
+    "title": "Tiêu đề",
+    "author": "Tác giả",
+    "like": "Thích",
+    "createdAt": "Đăng vào lúc",
+    "options": "Tùy chọn"
+  },
+  "button": {
+    "unsave": "Bỏ lưu",
+    "edit": "Sửa",
+    "delete": "Xóa"
+  },
+  "noPost": "Bạn chưa lưu bài viết nào.",
+  "createPost": "Viết bài",
+  "dialog": {
+    "unsave": {
+      "title": "Bỏ lưu bài viết?",
+      "content": "Bạn có chắc muốn bỏ lưu bài viết? Hành động này không thể khôi phục."
+    },
+    "delete": {
+      "title": "Xóa bài viết?",
+      "content": "Bạn có chắc muốn xoá bài viết? Hành động này không thể khôi phục."
+    },
+    "button": {
+      "cancel": "Hủy",
+      "confirm": "Xác nhận"
+    }
+  }
+}

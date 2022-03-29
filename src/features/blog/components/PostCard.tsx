@@ -72,13 +72,13 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
       label: t('menu.edit'),
       icon: BorderColorRounded,
       onClick: () => navigate(`edit/${post._id}`),
-      authorized: isAuthorized,
+      active: isAuthorized,
     },
     {
       label: t('menu.delete'),
       icon: DeleteRounded,
       onClick: handleRemovePost,
-      authorized: isAuthorized,
+      active: isAuthorized,
     },
     {
       label: t('menu.copyLink'),
@@ -87,13 +87,13 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
         copyPostLink(post);
         closeMenu();
       },
-      authorized: true,
+      active: true,
     },
     {
       label: t('menu.report'),
       icon: FlagRounded,
       onClick: () => {},
-      authorized: true,
+      active: true,
     },
   ];
 
@@ -150,8 +150,8 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
               paperSx={{ boxShadow: themeConstants.boxShadow, overflow: 'hidden' }}
               onClose={closeMenu}
             >
-              {menuItems.map(({ label, icon: Icon, onClick, authorized }, idx) =>
-                authorized ? (
+              {menuItems.map(({ label, icon: Icon, onClick, active }, idx) =>
+                active ? (
                   <MenuItem
                     key={idx}
                     sx={{

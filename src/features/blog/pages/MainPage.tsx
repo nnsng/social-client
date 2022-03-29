@@ -1,21 +1,18 @@
-import { Box, Container, Grid, Hidden } from '@mui/material';
+import { Box, Container, Grid } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
-import { ListParams, Post, Keyword } from 'models';
+import { ListParams, Post } from 'models';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import PostList from '../components/PostList';
-import PostRecommend from '../components/PostRecommend';
+import { APP_NAME } from 'utils/constants';
 import { blogActions, selectPostList } from '../blogSlice';
-import { useTranslation } from 'react-i18next';
+import PostList from '../components/PostList';
 
 export function MainPage() {
   const navigate = useNavigate();
   const location = useLocation();
-
-  const { t } = useTranslation('blog');
 
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
@@ -30,9 +27,9 @@ export function MainPage() {
     dispatch(blogActions.fetchPostList(filter));
   }, [dispatch, filter]);
 
-  const handleKeywordClick = (keyword: Keyword) => {
-    setFilter({ ...filter, keyword: keyword.value, page: 1 });
-  };
+  // const handleKeywordClick = (keyword: Keyword) => {
+  //   setFilter({ ...filter, keyword: keyword.value, page: 1 });
+  // };
 
   const handlePageChange = (page: number) => {
     setFilter({ ...filter, page });
@@ -49,7 +46,7 @@ export function MainPage() {
 
   return (
     <>
-      <PageTitle title={t('pageTitle')} />
+      <PageTitle title={APP_NAME} />
 
       <Container>
         <Grid container spacing={{ xs: 0, lg: 10 }}>

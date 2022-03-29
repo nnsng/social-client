@@ -4,11 +4,14 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
 import { Post } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { blogActions, selectPostList, selectTotalPages } from '../blogSlice';
 import { PostItemMobile } from '../components/PostItemMobile';
 import PostTable from '../components/PostTable';
-import { blogActions, selectPostList, selectTotalPages } from '../blogSlice';
 
 export function SavedPage() {
+  const { t } = useTranslation('saved');
+
   const dispatch = useAppDispatch();
   const savedPostList = useAppSelector(selectPostList);
   const totalPage = useAppSelector(selectTotalPages);
@@ -33,11 +36,11 @@ export function SavedPage() {
 
   return (
     <>
-      <PageTitle title="Bài viết đã lưu" />
+      <PageTitle title={t('pageTitle')} />
 
       <Container maxWidth="md">
         <Typography variant="h4" fontWeight="500" sx={{ userSelect: 'none' }}>
-          Đã lưu
+          {t('pageTitle')}
         </Typography>
 
         <Hidden smDown>
