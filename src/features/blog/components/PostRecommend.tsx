@@ -1,27 +1,32 @@
 import { CancelRounded } from '@mui/icons-material';
 import { Box, Stack, Typography } from '@mui/material';
-import { Tag } from 'models';
+import { Keyword } from 'models';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { slugifyString } from 'utils/common';
 
-const tags: Tag[] = ['Front-end', 'Back-end', 'Mobile app', 'Design', 'DevOps', 'Others'].map(
-  (tag) => ({
-    name: tag,
-    value: slugifyString(tag),
-  })
-);
+const keywords: Keyword[] = [
+  'Front-end',
+  'Back-end',
+  'Mobile app',
+  'Design',
+  'DevOps',
+  'Others',
+].map((keyword) => ({
+  name: keyword,
+  value: slugifyString(keyword),
+}));
 
 export interface PostRecommendProps {
-  tagActive: string | undefined;
-  onTagClick?: (tag: Tag) => void;
+  keywordActive: string | undefined;
+  onKeywordClick?: (keyword: Keyword) => void;
 }
 
-export default function PostRecommend({ tagActive, onTagClick }: PostRecommendProps) {
-  const handleTagClick = (tag: Tag) => {
-    if (tag.value === tagActive) return;
+export default function PostRecommend({ keywordActive, onKeywordClick }: PostRecommendProps) {
+  const handleKeywordClick = (keyword: Keyword) => {
+    if (keyword.value === keywordActive) return;
 
-    onTagClick?.(tag);
+    onKeywordClick?.(keyword);
   };
 
   return (
@@ -43,7 +48,7 @@ export default function PostRecommend({ tagActive, onTagClick }: PostRecommendPr
       </Typography>
 
       <Box display="flex" flexWrap="wrap" pt={1}>
-        {tags.map((tag, idx) => (
+        {keywords.map((keyword, idx) => (
           <Stack
             key={idx}
             direction="row"
@@ -55,22 +60,22 @@ export default function PostRecommend({ tagActive, onTagClick }: PostRecommendPr
               px: 1.5,
               borderRadius: 1,
               transition: 'easing.easeInOut',
-              bgcolor: tagActive === tag.value ? 'primary.main' : 'grey.200',
-              color: tagActive === tag.value ? 'primary.contrastText' : 'text.primary',
+              bgcolor: keywordActive === keyword.value ? 'primary.main' : 'grey.200',
+              color: keywordActive === keyword.value ? 'primary.contrastText' : 'text.primary',
 
               ':hover': {
-                bgcolor: tagActive === tag.value ? 'none' : 'grey.300',
+                bgcolor: keywordActive === keyword.value ? 'none' : 'grey.300',
                 cursor: 'pointer',
               },
             }}
-            onClick={() => handleTagClick?.(tag)}
+            onClick={() => handleKeywordClick?.(keyword)}
           >
             <Typography component="span" display="block">
-              {tag.name}
+              {keyword.name}
             </Typography>
 
-            {tagActive === tag.value && (
-              <CancelRounded sx={{ ml: 1 }} onClick={() => handleTagClick({} as Tag)} />
+            {keywordActive === keyword.value && (
+              <CancelRounded sx={{ ml: 1 }} onClick={() => handleKeywordClick({} as Keyword)} />
             )}
           </Stack>
         ))}

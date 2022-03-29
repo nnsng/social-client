@@ -8,7 +8,8 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { passwordSchema } from 'utils/schema';
+import { translateValidation } from 'utils/translation';
+import * as yup from 'yup';
 
 export interface ChangePasswordFormProps {
   defaultValues: ChangePasswordFormValue;
@@ -20,6 +21,22 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
   const { defaultValues, onSubmit, forgotPassword } = props;
 
   const { t } = useTranslation('changePasswordForm');
+  const validation = translateValidation();
+
+  const schema = yup.object().shape({
+    currentPassword: yup
+      .string()
+      .required(validation.currentPassword.required)
+      .min(6, validation.password.min(6)),
+    newPassword: yup
+      .string()
+      .required(validation.newPassword.required)
+      .min(6, validation.password.min(6)),
+    confirmPassword: yup
+      .string()
+      .required(validation.confirmPassword.required)
+      .oneOf([yup.ref('newPassword'), null], validation.confirmPassword.match),
+  });
 
   const {
     control,
@@ -29,7 +46,7 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
     formState: { isSubmitting },
   } = useForm({
     defaultValues,
-    resolver: yupResolver(passwordSchema),
+    resolver: yupResolver(schema),
   });
 
   useEffect(() => {

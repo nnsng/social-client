@@ -1,35 +1,31 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { CloseRounded } from '@mui/icons-material';
 import {
-  Alert,
   Box,
   Button,
   CircularProgress,
-  Container,
   Dialog,
+  DialogActions,
+  DialogContent,
   Grid,
-  IconButton,
-  Slide,
-  Toolbar,
+  Stack,
   Typography,
 } from '@mui/material';
-import { TransitionProps } from '@mui/material/transitions';
 import { useAppSelector } from 'app/hooks';
 import {
   FileInputField,
   InputField,
+  KeywordInputField,
   MdEditorField,
-  MuiTextField,
-  TagInputField,
 } from 'components/formFields';
 import { selectCdnLoading } from 'features/cdn/cdnSlice';
 import { Post } from 'models';
-import React, { forwardRef, ReactElement, Ref, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { postSchema } from 'utils/schema';
 import { mixins, themeConstants } from 'utils/theme';
+import * as yup from 'yup';
+import { translateValidation } from 'utils/translation';
 
 export interface CreateEditFormProps {
   defaultValues: Post;
@@ -37,16 +33,23 @@ export interface CreateEditFormProps {
   isNewPost?: boolean;
 }
 
-const Transition = forwardRef(
-  (props: TransitionProps & { children: ReactElement }, ref: Ref<unknown>) => {
-    return <Slide direction="up" ref={ref} {...props} />;
-  }
-);
-
 export default function CreateEditForm(props: CreateEditFormProps) {
   const { defaultValues, onSubmit, isNewPost } = props;
 
   const { t } = useTranslation('createEditForm');
+  const validation = translateValidation();
+
+  const schema = yup.object().shape({
+    title: yup.string().required(validation.title.required),
+    content: yup.string().required(validation.content.required).min(50, validation.content.min(50)),
+    thumbnail: yup.string(),
+    keywords: yup.array().of(
+      yup.object().shape({
+        name: yup.string().required(),
+        value: yup.string().required(),
+      })
+    ),
+  });
 
   const {
     control,
@@ -58,24 +61,34 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues,
-    resolver: yupResolver(postSchema),
+    resolver: yupResolver(schema),
   });
 
-  const watchThumbnail = watch('thumbnail');
+  const thumbnail = watch('thumbnail');
+  const maxKeywords = 5;
 
   const imageLoading = useAppSelector(selectCdnLoading);
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const openDialog = () => setOpen(true);
+  const closeDialog = () => setOpen(false);
 
   useEffect(() => {
     reset(defaultValues);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValues]);
 
-  const handleRemoveThumbnail = () => {
+  useEffect(() => {
+    if (isSubmitting) return;
+
+    const errorValues = Object.values(errors);
+    if (errorValues.length === 0) return;
+
+    for (const error of errorValues) {
+      toast.error(error.message);
+    }
+  }, [isSubmitting]);
+
+  const removeThumbnail = () => {
     setValue('thumbnail', '');
   };
 
@@ -87,8 +100,6 @@ export default function CreateEditForm(props: CreateEditFormProps) {
       toast.error(content);
     }
   };
-
-  const hasError = Object.keys(errors).length > 0;
 
   return (
     <form>
@@ -111,7 +122,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
           </Grid>
 
           <Grid item xs="auto" ml={2}>
-            <Button variant="outlined" color="primary" size="large" onClick={handleClickOpen}>
+            <Button variant="outlined" size="large" onClick={openDialog}>
               {isNewPost ? t('btnLabel.create') : t('btnLabel.edit')}
             </Button>
           </Grid>
@@ -120,130 +131,90 @@ export default function CreateEditForm(props: CreateEditFormProps) {
         <MdEditorField name="content" control={control} placeholder={t('placeholder.content')} />
       </Box>
 
-      <Dialog fullScreen open={open} onClose={handleClose} TransitionComponent={Transition}>
-        <Box
-          sx={{
-            position: 'sticky',
-            top: 0,
-            zIndex: 1,
-            height: themeConstants.headerHeight,
-            backgroundColor: 'background.default',
-            boxShadow: themeConstants.boxShadow,
-          }}
-        >
-          <Toolbar sx={{ height: '100%', display: 'flex' }}>
-            <IconButton edge="start" color="inherit" sx={{ flexShrink: 0 }} onClick={handleClose}>
-              <CloseRounded />
-            </IconButton>
+      <Dialog
+        open={open}
+        onClose={closeDialog}
+        sx={(theme) => ({
+          '& .MuiPaper-root': {
+            width: 800,
+          },
+          '& .MuiTypography-h6': {
+            padding: theme.spacing(1, 3),
+          },
+          '& .MuiDialogActions-root': {
+            padding: theme.spacing(1),
+          },
+        })}
+      >
+        <Typography variant="h6" component="div" sx={{ ...mixins.truncate(1) }}>
+          {getValues('title') || t('noTitle')}
+        </Typography>
 
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{
-                ...mixins.truncate(1),
-                flexGrow: 1,
-                ml: 2,
-              }}
-            >
-              {getValues('title')}
-            </Typography>
+        <DialogContent dividers>
+          <Box
+            sx={{
+              maxWidth: 400,
+              height: 200,
+              bgcolor: 'grey.200',
+              backgroundImage: `url('${thumbnail}')`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              borderRadius: 2,
+            }}
+          ></Box>
 
+          <Stack direction="row" alignItems="center" mt={1} mb={2} spacing={1}>
             <Button
               variant="contained"
-              color="primary"
-              size="large"
-              autoFocus
-              disabled={isSubmitting || imageLoading || hasError}
-              startIcon={isSubmitting && <CircularProgress size={20} />}
-              sx={{ flexShrink: 0 }}
-              onClick={handleSubmit(handleFormSubmit)}
+              size="small"
+              component="label"
+              htmlFor="thumbnail-input"
+              disabled={imageLoading}
+              startIcon={imageLoading && <CircularProgress size={20} />}
+              sx={{ fontWeight: 400 }}
             >
-              {isNewPost ? t('btnLabel.create') : t('btnLabel.edit')}
+              <FileInputField name="thumbnail" control={control} id="thumbnail-input" />
+              {t('btnLabel.addThumbnail')}
             </Button>
-          </Toolbar>
-        </Box>
 
-        <Box position="relative" py={5}>
-          <Container maxWidth="md">
-            <Grid container spacing={6}>
-              <Grid item container xs={12} md={6} spacing={4}>
-                <MuiTextField
-                  name="description"
-                  control={control}
-                  variant="outlined"
-                  title={t('label.description')}
-                  placeholder={t('placeholder.description')}
-                  multiline
-                  rows={5}
-                />
+            {thumbnail && (
+              <Button
+                variant="outlined"
+                color="error"
+                size="small"
+                disabled={imageLoading}
+                sx={{ fontWeight: 400 }}
+                onClick={removeThumbnail}
+              >
+                {t('btnLabel.removeThumbnail')}
+              </Button>
+            )}
+          </Stack>
 
-                <TagInputField
-                  name="tags"
-                  control={control}
-                  maxTags={5}
-                  editable
-                  placeholder={t('placeholder.tag')}
-                />
-              </Grid>
+          <KeywordInputField
+            name="keywords"
+            control={control}
+            maxKeywords={maxKeywords}
+            placeholder={t('placeholder.keyword', { maxKeywords })}
+            maxKeywordsError={t('placeholder.maxKeywordsError', { maxKeywords })}
+          />
+        </DialogContent>
 
-              <Grid item xs={12} md={6}>
-                <Box>
-                  <Typography variant="subtitle1" mb={0.5}>
-                    {t('label.thumbnail')}
-                  </Typography>
-
-                  <Box
-                    sx={{
-                      maxWidth: 400,
-                      height: 200,
-                      bgcolor: 'grey.200',
-                      backgroundImage: `url('${watchThumbnail}')`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      borderRadius: 2,
-                    }}
-                  ></Box>
-
-                  <Box display="flex" alignItems="center" mt={1}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      size="medium"
-                      component="label"
-                      htmlFor="thumbnail-input"
-                      disabled={imageLoading}
-                      startIcon={imageLoading && <CircularProgress size={20} />}
-                      sx={{ fontWeight: 400 }}
-                    >
-                      <FileInputField name="thumbnail" control={control} id="thumbnail-input" />
-                      {t('btnLabel.selectImage')}
-                    </Button>
-
-                    <Button
-                      variant="outlined"
-                      color="error"
-                      size="medium"
-                      disabled={imageLoading}
-                      sx={{
-                        ml: 2,
-                        fontWeight: 400,
-                      }}
-                      onClick={handleRemoveThumbnail}
-                    >
-                      {t('btnLabel.deleteImage')}
-                    </Button>
-                  </Box>
-                </Box>
-
-                {hasError && (
-                  <Alert severity="error" sx={{ maxWidth: 400, mt: 1 }}>
-                    {Object.values(errors)[0].message}
-                  </Alert>
-                )}
-              </Grid>
-            </Grid>
-          </Container>
-        </Box>
+        <DialogActions>
+          <Button variant="text" size="large" onClick={closeDialog}>
+            {t('btnLabel.cancel')}
+          </Button>
+          <Button
+            variant="contained"
+            size="large"
+            autoFocus
+            disabled={isSubmitting || imageLoading}
+            startIcon={isSubmitting && <CircularProgress size={20} />}
+            onClick={handleSubmit(handleFormSubmit)}
+          >
+            {isNewPost ? t('btnLabel.create') : t('btnLabel.edit')}
+          </Button>
+        </DialogActions>
       </Dialog>
     </form>
   );

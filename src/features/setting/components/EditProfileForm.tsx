@@ -8,7 +8,9 @@ import { User } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { profileSchema } from 'utils/schema';
+import { translateValidation } from 'utils/translation';
+import * as yup from 'yup';
+
 export interface EditProfileFromProps {
   submitting: boolean;
   defaultValues: User;
@@ -19,10 +21,29 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
   const { submitting, defaultValues, onSubmit } = props;
 
   const { t } = useTranslation('editProfileForm');
+  const validation = translateValidation();
+
+  const schema = yup.object().shape({
+    name: yup
+      .string()
+      .required(validation.fullName.required)
+      .max(255, validation.fullName.max(255)),
+    avatar: yup.string(),
+    username: yup
+      .string()
+      .min(6, validation.username.min(6))
+      .max(50, validation.username.max(50))
+      .matches(/^[a-zA-Z0-9]*$/, validation.username.valid),
+    email: yup.string().email().required(),
+    phone: yup
+      .string()
+      .max(10)
+      .matches(/[0-9]|^$/, validation.phone.valid),
+  });
 
   const { control, handleSubmit, getValues, reset, clearErrors } = useForm({
     defaultValues,
-    resolver: yupResolver(profileSchema),
+    resolver: yupResolver(schema),
   });
 
   const imageLoading = useAppSelector(selectCdnLoading);

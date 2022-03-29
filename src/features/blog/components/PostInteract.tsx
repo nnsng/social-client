@@ -85,9 +85,9 @@ export default function PostInteract(props: PostInteractProps) {
       </Box>
 
       <Box display="flex" flexWrap="wrap" mt={2}>
-        {post.tags &&
-          post.tags.map((tag, idx) => (
-            <Link key={idx} to={`/blog?tag=${tag.value}`}>
+        {post.keywords &&
+          post.keywords.map((keyword, idx) => (
+            <Link key={idx} to={`/blog?keyword=${keyword.value}`}>
               <Typography
                 sx={{
                   mr: 1,
@@ -102,7 +102,7 @@ export default function PostInteract(props: PostInteractProps) {
                   },
                 }}
               >
-                {tag.name}
+                {keyword.name}
               </Typography>
             </Link>
           ))}

@@ -6,18 +6,15 @@
   "placeholder": {
     "title": "Tiêu đề",
     "content": "Nhập nội dung bài viết...",
-    "description": "Nhập mô tả...",
-    "tag": "Ví dụ: Front-end, Back-end,..."
+    "keyword": "Thêm tối đa {{maxKeywords}} từ khóa liên quan đến bài viết",
+    "maxKeywordsError": "Số từ khóa tối đa là {{maxKeywords}}"
   },
-  "label": {
-    "description": "Thêm mô tả cho bài viết (tuỳ chọn):",
-    "thumbnail": "Thêm thumbnail cho bài viết:",
-    "tag": "Thêm tối đa {{maxTags}} từ khóa liên quan đến bài viết:<br />(Enter để thêm từ khoá)"
-  },
+  "noTitle": "(Chưa có tiêu đề)",
   "btnLabel": {
     "create": "Đăng bài",
     "edit": "Cập nhật",
-    "selectImage": "Chọn ảnh",
-    "deleteImage": "Xóa ảnh"
+    "cancel": "Hủy",
+    "addThumbnail": "Thêm thumbnail",
+    "removeThumbnail": "Xóa"
   }
 }

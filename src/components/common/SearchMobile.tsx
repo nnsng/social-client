@@ -11,7 +11,7 @@ import {
   ListItemButton,
   OutlinedInput,
   Toolbar,
-  Typography
+  Typography,
 } from '@mui/material';
 import { Post } from 'models';
 import React from 'react';

@@ -13,7 +13,6 @@
     "@hookform/resolvers": "^2.8.5",
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.5",
-    "@pathofdev/react-tag-input": "^1.0.7",
     "@reduxjs/toolkit": "^1.7.1",
     "axios": "^0.24.0",
     "dayjs": "^1.10.7",
