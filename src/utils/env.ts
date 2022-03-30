@@ -1,12 +1,8 @@
-export function env(name: string) {
-  const value = import.meta.env[name];
-
-  if (!value) {
-    throw new Error(`Missing: import.meta.env['${name}'].`);
-  }
-
+export const env = (variable: string) => {
+  const value = import.meta.env[variable];
+  if (!value) throw new Error(`Missing: import.meta.env['${variable}'].`);
   return value as string;
-}
+};
 
 export const variables = {
   baseUrl: 'VITE_BASE_URL',
