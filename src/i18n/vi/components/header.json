@@ -7,7 +7,8 @@
   "notification": {
     "label": "Thông báo",
     "markAsRead": "Đánh dấu tất cả là đã đọc",
-    "welcome": "Chào mừng <b>{{name}}</b> đến với <b>{{appName}}</b>."
+    "welcome1": "Chào mừng ",
+    "welcome2": "đến với "
   },
   "menu": {
     "create": "Tạo bài viết",

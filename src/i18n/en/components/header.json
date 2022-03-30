@@ -7,7 +7,8 @@
   "notification": {
     "label": "Notification",
     "markAsRead": "Mark all as read",
-    "welcome": "Welcome <b>{{name}}</b> to <b>{{appName}}</b>."
+    "welcome1": "Welcome ",
+    "welcome2": "to "
   },
   "menu": {
     "create": "Create post",

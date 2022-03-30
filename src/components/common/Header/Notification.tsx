@@ -19,6 +19,24 @@ import { APP_NAME } from 'utils/constants';
 import theme, { themeConstants } from 'utils/theme';
 import { PopperMenu } from '..';
 
+function WelcomeText({ name }: { name?: string }) {
+  const { t } = useTranslation('header');
+
+  return (
+    <>
+      {t('notification.welcome1')}
+      <Typography component="span" fontWeight={500}>
+        {name || ''}{' '}
+      </Typography>
+      {t('notification.welcome2')}
+      <Typography component="span" fontWeight={500}>
+        {APP_NAME}
+      </Typography>
+      {'.'}
+    </>
+  );
+}
+
 export default function Notification() {
   const currentUser = useAppSelector(selectCurrentUser);
 
@@ -95,10 +113,7 @@ export default function Notification() {
 
               <Box flexGrow={1}>
                 <Typography variant="body1" mb={0.5} whiteSpace="normal">
-                  {t('notification.welcome', {
-                    name: currentUser?.name,
-                    appName: APP_NAME,
-                  })}
+                  <WelcomeText name={currentUser?.name} />
                 </Typography>
 
                 <Typography variant="subtitle2" fontWeight="400">
