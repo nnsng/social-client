@@ -5,6 +5,7 @@ import 'dayjs/locale/vi';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Post } from 'models';
 import slugify from 'slugify';
+import { LANGUAGE } from './constants';
 
 export const formatTime = (timestamp: any) => {
   dayjs.extend(relativeTime);
@@ -12,7 +13,9 @@ export const formatTime = (timestamp: any) => {
   return dayjs(timestamp).fromNow();
 };
 
-export const slugifyString = (str: string) => slugify(str, { locale: 'vi', lower: true });
+export const slugifyString = (str: string) => {
+  return slugify(str, { locale: 'vi', lower: true });
+};
 
 export const getImageUrlFromCDN = async (image: File) => {
   try {

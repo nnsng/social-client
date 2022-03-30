@@ -14,6 +14,7 @@ import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { ACCESS_TOKEN } from 'utils/constants';
 import { env, variables } from 'utils/env';
+import { getLanguage } from 'utils/translation';
 
 function App() {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    i18next.changeLanguage(localStorage.getItem('language') || 'en');
+    i18next.changeLanguage(getLanguage());
   }, []);
 
   return (

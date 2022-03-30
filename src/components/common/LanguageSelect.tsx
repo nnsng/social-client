@@ -1,29 +1,24 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import i18next from 'i18next';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { changeGlobalLanguage, getLanguage } from 'utils/translation';
 
-export interface LanguageSelectProps {}
-
-export function LanguageSelect(props: LanguageSelectProps) {
+export function LanguageSelect() {
   const { t } = useTranslation('header');
-
-  const [language, setLanguage] = useState<string>(localStorage.getItem('language') || 'en');
 
   const handleChangeLanguage = (e: any) => {
     const language = e.target.value;
-    setLanguage(language);
-    i18next.changeLanguage(language);
-    localStorage.setItem('language', language);
+    changeGlobalLanguage(language);
   };
 
   return (
     <FormControl fullWidth sx={{ mr: 2 }}>
       <InputLabel id="select-language">{t('language')}</InputLabel>
+
       <Select
         labelId="select-language"
         size="small"
-        value={language}
+        value={getLanguage()}
         label={t('language')}
         onChange={handleChangeLanguage}
       >
