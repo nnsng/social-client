@@ -12,7 +12,6 @@ import {
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import React, { useRef, useState } from 'react';
-import ReactHtmlParser from 'react-html-parser';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { formatTime } from 'utils/common';
@@ -96,12 +95,10 @@ export default function Notification() {
 
               <Box flexGrow={1}>
                 <Typography variant="body1" mb={0.5} whiteSpace="normal">
-                  {ReactHtmlParser(
-                    t('notification.welcome', {
-                      name: currentUser?.name,
-                      appName: APP_NAME,
-                    })
-                  )}
+                  {t('notification.welcome', {
+                    name: currentUser?.name,
+                    appName: APP_NAME,
+                  })}
                 </Typography>
 
                 <Typography variant="subtitle2" fontWeight="400">
