@@ -8,7 +8,7 @@ import { User } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { translateValidation } from 'utils/translation';
+import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
 export interface EditProfileFromProps {
@@ -21,24 +21,21 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
   const { submitting, defaultValues, onSubmit } = props;
 
   const { t } = useTranslation('editProfileForm');
-  const validation = translateValidation();
+  const { validate } = useTranslateFiles('validate');
 
   const schema = yup.object().shape({
-    name: yup
-      .string()
-      .required(validation.fullName.required)
-      .max(255, validation.fullName.max(255)),
+    name: yup.string().required(validate.fullName.required).max(255, validate.fullName.max(255)),
     avatar: yup.string(),
     username: yup
       .string()
-      .min(6, validation.username.min(6))
-      .max(50, validation.username.max(50))
-      .matches(/^[a-zA-Z0-9]*$/, validation.username.valid),
+      .min(6, validate.username.min(6))
+      .max(50, validate.username.max(50))
+      .matches(/^[a-zA-Z0-9]*$/, validate.username.valid),
     email: yup.string().email().required(),
     phone: yup
       .string()
       .max(10)
-      .matches(/[0-9]|^$/, validation.phone.valid),
+      .matches(/[0-9]|^$/, validate.phone.valid),
   });
 
   const { control, handleSubmit, getValues, reset, clearErrors } = useForm({

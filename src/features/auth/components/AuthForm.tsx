@@ -8,7 +8,7 @@ import { AuthFormValue } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { translateValidation } from 'utils/translation';
+import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
 export interface AuthFormProps {
@@ -22,22 +22,19 @@ export default function AuthForm(props: AuthFormProps) {
   const isRegisterMode = defaultValues.mode === 'register';
 
   const { t } = useTranslation('authForm');
-  const validation = translateValidation();
+  const { validate } = useTranslateFiles('validate');
 
   const schema = yup.object().shape({
-    email: yup.string().required(validation.email.required).email(validation.email.email),
-    password: yup
-      .string()
-      .required(validation.password.required)
-      .min(6, validation.password.min(6)),
+    email: yup.string().required(validate.email.required).email(validate.email.email),
+    password: yup.string().required(validate.password.required).min(6, validate.password.min(6)),
     mode: yup.string().required(),
     firstName: yup.string().when('mode', {
       is: 'register',
-      then: yup.string().required(validation.firstName.required),
+      then: yup.string().required(validate.firstName.required),
     }),
     lastName: yup.string().when('mode', {
       is: 'register',
-      then: yup.string().required(validation.firstName.lastName),
+      then: yup.string().required(validate.firstName.lastName),
     }),
   });
 

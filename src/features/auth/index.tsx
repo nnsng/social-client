@@ -6,6 +6,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useTranslateFiles } from 'utils/translation';
 import { authActions } from './authSlice';
 import AuthForm from './components/AuthForm';
 
@@ -17,6 +18,7 @@ export default function Auth({ mode }: AuthPageProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('auth');
+  const { toast: toastTranslation } = useTranslateFiles('toast');
 
   const dispatch = useAppDispatch();
 
@@ -41,7 +43,7 @@ export default function Auth({ mode }: AuthPageProps) {
       dispatch(authActions.login({ formValues, navigate }));
     } else {
       dispatch(authActions.register({ formValues, navigate }));
-      toast.success('Đăng ký thành công');
+      toast.success(toastTranslation.auth.loginSuccess);
     }
   };
 

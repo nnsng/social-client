@@ -22,6 +22,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { formatTime } from 'utils/common';
+import { useTranslateFiles } from 'utils/translation';
 
 export interface PostTableProps {
   postList: Post[];
@@ -36,6 +37,7 @@ export default function PostTable(props: PostTableProps) {
   const { postList, onEdit, onRemove, saved, onUnSave } = props;
 
   const { t } = useTranslation('postTable');
+  const { toast: toastTranslation } = useTranslateFiles('toast');
 
   const [selectedPost, setSelectedPost] = useState<Post>({} as Post);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -57,7 +59,7 @@ export default function PostTable(props: PostTableProps) {
 
     try {
       await onRemove?.(selectedPost);
-      toast.success('Xoá bài viết thành công.');
+      toast.success(toastTranslation.postTable.deleteSuccess);
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
     }
@@ -69,9 +71,9 @@ export default function PostTable(props: PostTableProps) {
   const handleUnSaveConfirm = async () => {
     try {
       await onUnSave?.(selectedPost);
-      toast.success('Bỏ lưu bài viết thành công.');
+      toast.success(toastTranslation.postTable.unsaveSuccess);
     } catch (error) {
-      toast.error('Bỏ lưu bài viết thất bại.');
+      toast.error(toastTranslation.postTable.unsaveError);
     }
 
     closeDialog();

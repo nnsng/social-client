@@ -4,15 +4,18 @@ import authApi from 'api/authApi';
 import { authActions } from 'features/auth/authSlice';
 import { User } from 'models';
 import { toast } from 'react-toastify';
+import { useTranslateFiles } from 'utils/translation';
 import { settingActions } from './settingSlice';
 
 function* updateProfile(action: PayloadAction<User>) {
+  const { toast: toastTranslation } = useTranslateFiles('toast');
+
   try {
     const updatedUser: User = yield call(authApi.updateProfile, action.payload);
 
     yield put(authActions.setCurrentUser(updatedUser));
 
-    toast.success('Cập nhật thông tin thành công');
+    toast.success(toastTranslation.settingSaga.updateProfileSuccess);
   } catch (error: any) {
     toast.error(error?.response?.data?.message);
   }
