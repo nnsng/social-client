@@ -3,7 +3,6 @@
     "placeholder": "Tìm kiếm bài viết...",
     "result": "{{count}} kết quả cho \"{{searchTerm}}\""
   },
-  "language": "Ngôn ngữ",
   "notification": {
     "label": "Thông báo",
     "markAsRead": "Đánh dấu tất cả là đã đọc",
@@ -14,6 +13,7 @@
     "create": "Tạo bài viết",
     "myPosts": "Bài viết của tôi",
     "saved": "Đã lưu",
+    "language": "Ngôn ngữ",
     "settings": "Cài đặt",
     "logout": "Đăng xuất"
   }

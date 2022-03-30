@@ -36,7 +36,7 @@ function App() {
         dispatch(authActions.logout({ navigate }));
       }
     })();
-  }, [dispatch, navigate]);
+  }, [dispatch]);
 
   useEffect(() => {
     const socket = io(env(variables.baseUrl));

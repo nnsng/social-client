@@ -3,12 +3,12 @@ import {
   FavoriteBorderRounded,
   FavoriteRounded,
 } from '@mui/icons-material';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Chip, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { Post } from 'models';
+import { Keyword, Post } from 'models';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export interface PostInteractProps {
   post: Post;
@@ -19,7 +19,13 @@ export interface PostInteractProps {
 export default function PostInteract(props: PostInteractProps) {
   const { post, openComment, onLikePost } = props;
 
+  const navigate = useNavigate();
+
   const currentUser = useAppSelector(selectCurrentUser);
+
+  const filterByKeyword = (keyword: Keyword) => {
+    navigate(`/blog?keyword=${keyword.value}`);
+  };
 
   return (
     <Box position={{ xs: 'relative', lg: 'sticky' }} top={{ xs: 0, lg: 120 }} mb={5}>
@@ -41,7 +47,7 @@ export default function PostInteract(props: PostInteractProps) {
       </Typography>
 
       <Typography variant="body2" fontSize={16} lineHeight={1.8} py={1}>
-        {post.description}
+        {post?.author?.description}
       </Typography>
 
       <Box display="flex" alignItems="center">
@@ -87,24 +93,14 @@ export default function PostInteract(props: PostInteractProps) {
       <Box display="flex" flexWrap="wrap" mt={2}>
         {post.keywords &&
           post.keywords.map((keyword, idx) => (
-            <Link key={idx} to={`/blog?keyword=${keyword.value}`}>
-              <Typography
-                sx={{
-                  mr: 1,
-                  mb: 1,
-                  py: 0.5,
-                  px: 1.5,
-                  bgcolor: 'grey.50',
-                  borderRadius: 1,
-
-                  '&:hover': {
-                    bgcolor: 'grey.100',
-                  },
-                }}
-              >
-                {keyword.name}
-              </Typography>
-            </Link>
+            <Chip
+              key={idx}
+              variant="outlined"
+              color="primary"
+              size="medium"
+              label={keyword.name}
+              onClick={() => filterByKeyword(keyword)}
+            />
           ))}
       </Box>
     </Box>

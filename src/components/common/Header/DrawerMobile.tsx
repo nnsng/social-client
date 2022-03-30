@@ -1,17 +1,10 @@
-import {
-  AddCircleOutlineOutlined,
-  BookmarkBorderOutlined,
-  ListAltOutlined,
-  LogoutOutlined,
-  SettingsOutlined,
-} from '@mui/icons-material';
 import { Avatar, Box, Divider, Drawer, MenuItem, MenuList, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { authActions, selectCurrentUser } from 'features/auth/authSlice';
-import { IMenuItem } from 'models';
+import { selectCurrentUser } from 'features/auth/authSlice';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import GetUserMenuItemList from './GetUserMenuItemList';
 
 export default function DrawerMobile() {
   const navigate = useNavigate();
@@ -26,43 +19,12 @@ export default function DrawerMobile() {
   const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
 
-  const handleGotoPage = (path: string) => {
+  const handleMenuItemClick = (callback?: () => void) => {
     closeMenu();
-    navigate(path);
+    callback?.();
   };
 
-  const handleLogout = () => {
-    closeMenu();
-    dispatch(authActions.logout({ navigate }));
-  };
-
-  const drawerMenuItems: IMenuItem[] = [
-    {
-      label: t('menu.create'),
-      icon: AddCircleOutlineOutlined,
-      onClick: () => handleGotoPage('/blog/create'),
-    },
-    {
-      label: t('menu.myPosts'),
-      icon: ListAltOutlined,
-      onClick: () => handleGotoPage('/blog/my'),
-    },
-    {
-      label: t('menu.saved'),
-      icon: BookmarkBorderOutlined,
-      onClick: () => handleGotoPage('/blog/saved'),
-    },
-    {
-      label: t('menu.settings'),
-      icon: SettingsOutlined,
-      onClick: () => handleGotoPage('/settings'),
-    },
-    {
-      label: t('menu.logout'),
-      icon: LogoutOutlined,
-      onClick: handleLogout,
-    },
-  ];
+  const { userMenuItemList, dividers } = GetUserMenuItemList({ navigate, dispatch, t });
 
   return (
     <>
@@ -94,7 +56,7 @@ export default function DrawerMobile() {
 
           <Divider />
 
-          {drawerMenuItems.map(({ label, icon: Icon, onClick }, idx) => (
+          {userMenuItemList.map(({ label, icon: Icon, onClick }, idx) => (
             <Box key={idx}>
               <MenuItem
                 sx={{
@@ -103,13 +65,13 @@ export default function DrawerMobile() {
                   borderRadius: 1,
                   fontSize: 15,
                 }}
-                onClick={onClick}
+                onClick={() => handleMenuItemClick(onClick)}
               >
                 <Icon sx={{ mr: 2 }} />
                 {label}
               </MenuItem>
 
-              {[1, 2].includes(idx) && <Divider />}
+              {dividers.includes(idx) && <Divider />}
             </Box>
           ))}
         </MenuList>

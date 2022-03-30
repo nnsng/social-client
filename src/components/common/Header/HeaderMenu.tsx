@@ -1,7 +1,6 @@
 import { SearchRounded } from '@mui/icons-material';
 import { Hidden, IconButton, Stack } from '@mui/material';
 import React from 'react';
-import { LanguageSelect } from '../LanguageSelect';
 import DrawerMobile from './DrawerMobile';
 import Notification from './Notification';
 import UserMenu from './UserMenu';
@@ -32,14 +31,12 @@ export function HeaderMenu({ toggleSearchMobile }: HeaderMenuProps) {
           <SearchRounded />
         </IconButton>
 
-        <LanguageSelect />
         <Notification />
         <DrawerMobile />
       </Hidden>
 
       {/* Tablet & PC */}
       <Hidden smDown>
-        <LanguageSelect />
         <Notification />
         <UserMenu />
       </Hidden>

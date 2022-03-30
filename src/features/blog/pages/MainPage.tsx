@@ -1,14 +1,15 @@
-import { Box, Container, Grid } from '@mui/material';
+import { Box, Container, Grid, Hidden } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
-import { ListParams, Post } from 'models';
+import { Keyword, ListParams, Post } from 'models';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
 import { blogActions, selectPostList } from '../blogSlice';
 import PostList from '../components/PostList';
+import PostRecommend from '../components/PostRecommend';
 
 export function MainPage() {
   const navigate = useNavigate();
@@ -23,13 +24,13 @@ export function MainPage() {
   });
 
   useEffect(() => {
-    navigate(`?${queryString.stringify(filter)}`);
+    navigate(`?${queryString.stringify(filter)}`, { replace: true });
     dispatch(blogActions.fetchPostList(filter));
   }, [dispatch, filter]);
 
-  // const handleKeywordClick = (keyword: Keyword) => {
-  //   setFilter({ ...filter, keyword: keyword.value, page: 1 });
-  // };
+  const handleKeywordClick = (keyword: Keyword) => {
+    setFilter({ ...filter, keyword: keyword.value, page: 1 });
+  };
 
   const handlePageChange = (page: number) => {
     setFilter({ ...filter, page });
@@ -50,7 +51,7 @@ export function MainPage() {
 
       <Container>
         <Grid container spacing={{ xs: 0, lg: 10 }}>
-          <Grid item xs={12} md={10} lg={8} sx={{ m: '0 auto' }}>
+          <Grid item xs={12} md={10} lg={7} sx={{ m: '0 auto' }}>
             <Box component="section">
               <PostList
                 postList={postList}
@@ -62,7 +63,7 @@ export function MainPage() {
             </Box>
           </Grid>
 
-          {/* <Grid item lg={5}>
+          <Grid item lg={5}>
             <Hidden lgDown>
               <Box
                 component="section"
@@ -85,7 +86,7 @@ export function MainPage() {
                 <PostRecommend keywordActive={filter.keyword} onKeywordClick={handleKeywordClick} />
               </Box>
             </Hidden>
-          </Grid> */}
+          </Grid>
         </Grid>
       </Container>
     </>
