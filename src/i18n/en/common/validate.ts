@@ -1,4 +1,4 @@
-const validation = {
+const validate = {
   email: {
     email: 'Invalid email address',
     required: 'Email is required',
@@ -47,4 +47,4 @@ const validation = {
   },
 };
 
-export default validation;
+export default validate;

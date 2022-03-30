@@ -20,7 +20,8 @@ import settingTabs from './components/settingTabs.json';
 import editProfileForm from './components/editProfileForm.json';
 import changePasswordForm from './components/changePasswordForm.json';
 
-import validation from './validation';
+import validate from './common/validate';
+import toast from './common/toast';
 
 export default {
   // pages
@@ -45,5 +46,6 @@ export default {
   editProfileForm,
   changePasswordForm,
 
-  validation,
+  validate,
+  toast,
 };

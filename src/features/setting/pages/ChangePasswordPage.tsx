@@ -4,9 +4,12 @@ import { selectCurrentUser } from 'features/auth/authSlice';
 import { ChangePasswordFormValue } from 'models';
 import React from 'react';
 import { toast } from 'react-toastify';
+import { useTranslateFiles } from 'utils/translation';
 import ChangePasswordForm from '../components/ChangePasswordForm';
 
 export function ChangePasswordPage() {
+  const { toast: toastTranslation } = useTranslateFiles('toast');
+
   const currentUser = useAppSelector(selectCurrentUser);
 
   const defaultValues: ChangePasswordFormValue = {
@@ -21,7 +24,7 @@ export function ChangePasswordPage() {
   };
 
   const handleForgotPassword = () => {
-    toast.info('Coming soon!');
+    toast.info(toastTranslation.changePasswordPage.forgotPassword);
   };
 
   return (

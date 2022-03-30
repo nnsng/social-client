@@ -1,8 +1,4 @@
 {
-  "error": {
-    "create": "Đăng bài thất bại",
-    "edit": "Cập nhật bài viết thất bại"
-  },
   "placeholder": {
     "title": "Tiêu đề",
     "content": "Nhập nội dung bài viết...",

@@ -24,8 +24,8 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { mixins, themeConstants } from 'utils/theme';
+import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
-import { translateValidation } from 'utils/translation';
 
 export interface CreateEditFormProps {
   defaultValues: Post;
@@ -37,11 +37,11 @@ export default function CreateEditForm(props: CreateEditFormProps) {
   const { defaultValues, onSubmit, isNewPost } = props;
 
   const { t } = useTranslation('createEditForm');
-  const validation = translateValidation();
+  const { validate, toast: toastTranslation } = useTranslateFiles('validate', 'toast');
 
   const schema = yup.object().shape({
-    title: yup.string().required(validation.title.required),
-    content: yup.string().required(validation.content.required).min(50, validation.content.min(50)),
+    title: yup.string().required(validate.title.required),
+    content: yup.string().required(validate.content.required).min(50, validate.content.min(50)),
     thumbnail: yup.string(),
     keywords: yup.array().of(
       yup.object().shape({
@@ -96,7 +96,9 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     try {
       await onSubmit?.(data);
     } catch (error) {
-      const content = isNewPost ? t('error.create') : t('error.edit');
+      const content = isNewPost
+        ? toastTranslation.createEditForm.createError
+        : toastTranslation.createEditForm.updateError;
       toast.error(content);
     }
   };

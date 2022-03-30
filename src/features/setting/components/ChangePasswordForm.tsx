@@ -8,7 +8,7 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { translateValidation } from 'utils/translation';
+import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
 export interface ChangePasswordFormProps {
@@ -21,21 +21,21 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
   const { defaultValues, onSubmit, forgotPassword } = props;
 
   const { t } = useTranslation('changePasswordForm');
-  const validation = translateValidation();
+  const { validate, toast: toastTranslation } = useTranslateFiles('validate', 'toast');
 
   const schema = yup.object().shape({
     currentPassword: yup
       .string()
-      .required(validation.currentPassword.required)
-      .min(6, validation.password.min(6)),
+      .required(validate.currentPassword.required)
+      .min(6, validate.password.min(6)),
     newPassword: yup
       .string()
-      .required(validation.newPassword.required)
-      .min(6, validation.password.min(6)),
+      .required(validate.newPassword.required)
+      .min(6, validate.password.min(6)),
     confirmPassword: yup
       .string()
-      .required(validation.confirmPassword.required)
-      .oneOf([yup.ref('newPassword'), null], validation.confirmPassword.match),
+      .required(validate.confirmPassword.required)
+      .oneOf([yup.ref('newPassword'), null], validate.confirmPassword.match),
   });
 
   const {
@@ -57,7 +57,7 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
     try {
       await onSubmit(formValues);
       reset();
-      toast.success(t('success'));
+      toast.success(toastTranslation.changePasswordForm.success);
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
     }

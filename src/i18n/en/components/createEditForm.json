@@ -1,8 +1,4 @@
 {
-  "error": {
-    "create": "Create post error",
-    "edit": "Update post error"
-  },
   "placeholder": {
     "title": "Title",
     "content": "Type content here...",

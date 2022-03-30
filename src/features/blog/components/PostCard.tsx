@@ -27,6 +27,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { copyPostLink, formatTime } from 'utils/common';
 import { mixins, themeConstants } from 'utils/theme';
+import { useTranslateFiles } from 'utils/translation';
 
 export interface PostCardProps {
   post: Post;
@@ -38,6 +39,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('postCard');
+  const { toast: toastTranslation } = useTranslateFiles('toast');
 
   const currentUser = useAppSelector(selectCurrentUser);
 
@@ -50,7 +52,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
   const handleSavePost = async () => {
     try {
       await onSave?.(post);
-      toast.success(t('toast.saved'));
+      toast.success(toastTranslation.postCard.saveSuccess);
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
     }
@@ -60,7 +62,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
     try {
       closeMenu();
       await onRemove?.(post);
-      toast.success(t('toast.delete'));
+      toast.success(toastTranslation.postCard.deleteSuccess);
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
     }

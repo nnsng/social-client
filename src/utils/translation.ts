@@ -1,5 +1,9 @@
-import i18n from 'i18next';
+import i18next from 'i18next';
 
-export const translateValidation = () => {
-  return i18n.getResourceBundle(i18n.language, 'validation');
+export const useTranslateFiles = (...files: string[]) => {
+  const translations: { [key: string]: any } = {};
+  for (const file of files) {
+    translations[file] = i18next.getResourceBundle(i18next.language, file);
+  }
+  return translations;
 };

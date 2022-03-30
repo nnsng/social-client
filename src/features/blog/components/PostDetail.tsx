@@ -26,6 +26,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { copyPostLink, formatTime } from 'utils/common';
 import { themeConstants } from 'utils/theme';
+import { useTranslateFiles } from 'utils/translation';
 import MdEditor from './MdEditor';
 
 export interface PostDetailProps {
@@ -38,6 +39,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
   const navigate = useNavigate();
 
   const { t } = useTranslation('postDetail');
+  const { toast: toastTranslation } = useTranslateFiles('toast');
 
   const currentUser = useAppSelector(selectCurrentUser);
 
@@ -59,7 +61,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
     try {
       await onRemove?.(post);
       closeMenu();
-      toast.success(t('success'));
+      toast.success(toastTranslation.postDetail.deleteSuccess);
       navigate('/blog');
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
