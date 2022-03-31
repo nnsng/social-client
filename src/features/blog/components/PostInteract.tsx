@@ -96,10 +96,13 @@ export default function PostInteract(props: PostInteractProps) {
             <Chip
               key={idx}
               variant="outlined"
-              color="primary"
-              size="medium"
               label={keyword.name}
               onClick={() => filterByKeyword(keyword)}
+              sx={{
+                mb: 1,
+                mr: 1,
+                fontSize: 16,
+              }}
             />
           ))}
       </Box>

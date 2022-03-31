@@ -64,9 +64,9 @@ export function KeywordInput(props: KeywordInputProps) {
             key={idx}
             variant="outlined"
             color="primary"
-            size="small"
             label={keyword.name}
             onDelete={() => handleDelete(idx)}
+            sx={{ fontSize: 14 }}
           />
         ))}
       </Stack>

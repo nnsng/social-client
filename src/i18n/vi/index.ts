@@ -12,6 +12,7 @@ import authForm from './components/authForm.json';
 import createEditForm from './components/createEditForm.json';
 import postList from './components/postList.json';
 import postCard from './components/postCard.json';
+import postRecommend from './components/postRecommend.json';
 import postDetail from './components/postDetail.json';
 import postComment from './components/postComment.json';
 import postItemMobile from './components/postItemMobile.json';
@@ -38,6 +39,7 @@ export default {
   createEditForm,
   postList,
   postCard,
+  postRecommend,
   postDetail,
   postComment,
   postItemMobile,

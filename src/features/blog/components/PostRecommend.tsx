@@ -1,11 +1,11 @@
-import { CancelRounded } from '@mui/icons-material';
-import { Box, Stack, Typography } from '@mui/material';
+import { DeleteForeverRounded } from '@mui/icons-material';
+import { Box, Chip, Stack, Typography } from '@mui/material';
 import { Keyword } from 'models';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { slugifyString } from 'utils/common';
 
-const keywords: Keyword[] = [
+const keywordList: Keyword[] = [
   'Front-end',
   'Back-end',
   'Mobile app',
@@ -22,11 +22,18 @@ export interface PostRecommendProps {
   onKeywordClick?: (keyword: Keyword) => void;
 }
 
-export default function PostRecommend({ keywordActive, onKeywordClick }: PostRecommendProps) {
+export default function PostRecommend(props: PostRecommendProps) {
+  const { keywordActive, onKeywordClick } = props;
+
+  const { t } = useTranslation('postRecommend');
+
   const handleKeywordClick = (keyword: Keyword) => {
     if (keyword.value === keywordActive) return;
-
     onKeywordClick?.(keyword);
+  };
+
+  const clearKeyword = () => {
+    onKeywordClick?.({} as Keyword);
   };
 
   return (
@@ -44,42 +51,43 @@ export default function PostRecommend({ keywordActive, onKeywordClick }: PostRec
           cursor: 'default',
         }}
       >
-        CÁC CHỦ ĐỀ ĐƯỢC ĐỀ XUẤT
+        {t('title')}
       </Typography>
 
-      <Box display="flex" flexWrap="wrap" pt={1}>
-        {keywords.map((keyword, idx) => (
-          <Stack
+      <Stack direction="row" flexWrap="wrap" pt={1}>
+        {keywordList.map((keyword, idx) => (
+          <Chip
             key={idx}
-            direction="row"
-            alignItems="center"
+            variant={keywordActive === keyword.value ? undefined : 'outlined'}
+            color={keywordActive === keyword.value ? 'primary' : undefined}
+            label={keyword.name}
+            onClick={() => handleKeywordClick?.(keyword)}
             sx={{
               mt: 1,
               mr: 1,
-              py: 0.5,
-              px: 1.5,
-              borderRadius: 1,
-              transition: 'easing.easeInOut',
-              bgcolor: keywordActive === keyword.value ? 'primary.main' : 'grey.200',
-              color: keywordActive === keyword.value ? 'primary.contrastText' : 'text.primary',
-
-              ':hover': {
-                bgcolor: keywordActive === keyword.value ? 'none' : 'grey.300',
-                cursor: 'pointer',
-              },
+              fontSize: 16,
             }}
-            onClick={() => handleKeywordClick?.(keyword)}
-          >
-            <Typography component="span" display="block">
-              {keyword.name}
-            </Typography>
-
-            {keywordActive === keyword.value && (
-              <CancelRounded sx={{ ml: 1 }} onClick={() => handleKeywordClick({} as Keyword)} />
-            )}
-          </Stack>
+          />
         ))}
-      </Box>
+        {keywordActive && (
+          <Chip
+            variant="outlined"
+            label={
+              <Stack direction="row" alignItems="center">
+                <DeleteForeverRounded />
+                {/* {t('clear')} */}
+              </Stack>
+            }
+            color="error"
+            onClick={clearKeyword}
+            sx={{
+              mt: 1,
+              mr: 1,
+              fontSize: 16,
+            }}
+          />
+        )}
+      </Stack>
     </Box>
   );
 }
