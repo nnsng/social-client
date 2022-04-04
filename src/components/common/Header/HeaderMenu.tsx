@@ -1,7 +1,8 @@
-import { SearchRounded } from '@mui/icons-material';
-import { Hidden, IconButton, Stack } from '@mui/material';
+import { ChatRounded, SearchRounded } from '@mui/icons-material';
+import { Hidden, Stack } from '@mui/material';
 import React from 'react';
 import DrawerMobile from './DrawerMobile';
+import HeaderIconButton from './HeaderIconButton';
 import Notification from './Notification';
 import UserMenu from './UserMenu';
 
@@ -14,29 +15,14 @@ export function HeaderMenu({ toggleSearchMobile }: HeaderMenuProps) {
     <Stack direction="row" alignItems="center" ml="auto">
       {/* Mobile */}
       <Hidden smUp>
-        <IconButton
-          disableTouchRipple
-          sx={{
-            mr: 1,
-            color: 'text.secondary',
-            fontSize: 18,
-
-            ':hover': {
-              bgcolor: 'transparent',
-              color: 'text.primary',
-            },
-          }}
-          onClick={toggleSearchMobile}
-        >
-          <SearchRounded />
-        </IconButton>
-
+        <HeaderIconButton icon={<SearchRounded />} onClick={toggleSearchMobile} />
         <Notification />
         <DrawerMobile />
       </Hidden>
 
       {/* Tablet & PC */}
       <Hidden smDown>
+        <HeaderIconButton icon={<ChatRounded />} onClick={() => {}} />
         <Notification />
         <UserMenu />
       </Hidden>

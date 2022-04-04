@@ -4,7 +4,7 @@
     "result": "{{count}} results for \"{{searchTerm}}\""
   },
   "notification": {
-    "label": "Notification",
+    "label": "Notifications",
     "markAsRead": "Mark all as read",
     "welcome1": "Welcome ",
     "welcome2": "to "

@@ -33,7 +33,11 @@ export default function UserMenu() {
     <>
       <Avatar
         src={currentUser?.avatar}
-        sx={{ width: 28, height: 28, cursor: 'pointer' }}
+        sx={{
+          width: 28,
+          height: 28,
+          cursor: 'pointer',
+        }}
         ref={anchorRef as any}
         onClick={toggleMenu}
       />

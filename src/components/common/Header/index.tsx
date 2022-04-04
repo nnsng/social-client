@@ -16,56 +16,59 @@ export function Header() {
   const toggleSearchMobile = () => setOpenSearchMobile(!openSearchMobile);
 
   return (
-    <>
-      <Box
-        component="header"
-        sx={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 'appBar',
-          height: themeConstants.headerHeight,
-          py: 2,
-          backgroundColor: 'background.default',
-          boxShadow: themeConstants.boxShadow,
-          userSelect: 'none',
-        }}
-      >
-        {loading && (
-          <Box position="absolute" top="0" width="100%">
-            <LinearProgress color="primary" sx={{ height: 3 }} />
-          </Box>
-        )}
+    <Box
+      component="header"
+      sx={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 'appBar',
+        height: themeConstants.headerHeight,
+        py: 2,
+        backgroundColor: 'background.default',
+        boxShadow: themeConstants.boxShadow,
+        userSelect: 'none',
+      }}
+    >
+      {loading && (
+        <Box position="absolute" top="0" width="100%">
+          <LinearProgress color="primary" sx={{ height: 3 }} />
+        </Box>
+      )}
 
-        <Container maxWidth={false}>
-          <Grid container alignItems="center" justifyContent="space-between">
-            <Grid item xs="auto" mr={2}>
-              <Stack direction="row" alignItems="center" component={Link} to="/">
-                <Avatar
-                  variant="rounded"
-                  sx={{ bgcolor: 'primary.main', mr: 1, fontSize: 28, fontWeight: 600 }}
-                >
-                  1
-                </Avatar>
+      <Container>
+        <Grid container alignItems="center" justifyContent="space-between">
+          <Grid item xs="auto" mr={2}>
+            <Stack direction="row" alignItems="center" component={Link} to="/">
+              <Avatar
+                variant="rounded"
+                sx={{
+                  bgcolor: 'primary.main',
+                  mr: 1,
+                  fontSize: 28,
+                  fontWeight: 600,
+                }}
+              >
+                1
+              </Avatar>
 
-                <Typography variant="h6" color="primary" fontWeight="600">
-                  {APP_NAME}
-                </Typography>
-              </Stack>
-            </Grid>
-
-            <Grid item xs>
-              <SearchBox
-                openSearchMobile={openSearchMobile}
-                toggleSearchMobile={toggleSearchMobile}
-              />
-            </Grid>
-
-            <Grid item xs="auto" ml={2}>
-              <HeaderMenu toggleSearchMobile={toggleSearchMobile} />
-            </Grid>
+              <Typography variant="h6" color="primary" fontWeight="600">
+                {APP_NAME}
+              </Typography>
+            </Stack>
           </Grid>
-        </Container>
-      </Box>
-    </>
+
+          <Grid item xs>
+            <SearchBox
+              openSearchMobile={openSearchMobile}
+              toggleSearchMobile={toggleSearchMobile}
+            />
+          </Grid>
+
+          <Grid item xs="auto">
+            <HeaderMenu toggleSearchMobile={toggleSearchMobile} />
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 }

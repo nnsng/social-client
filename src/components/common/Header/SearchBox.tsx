@@ -68,11 +68,8 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
           size="small"
           sx={{
             width: '100%',
-            maxWidth: 360,
-            position: { xs: 'relative', md: 'absolute' },
-            top: { xs: 0, md: '50%' },
-            left: { xs: 0, md: '50%' },
-            transform: { xs: 'none', md: 'translate(-50%, -50%)' },
+            maxWidth: 320,
+            position: 'relative',
           }}
         >
           <OutlinedInput

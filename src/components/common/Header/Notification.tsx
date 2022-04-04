@@ -3,6 +3,7 @@ import {
   Avatar,
   Backdrop,
   Box,
+  Divider,
   Hidden,
   IconButton,
   MenuItem,
@@ -18,6 +19,7 @@ import { formatTime } from 'utils/common';
 import { APP_NAME } from 'utils/constants';
 import theme, { themeConstants } from 'utils/theme';
 import { PopperMenu } from '..';
+import HeaderIconButton from './HeaderIconButton';
 
 function WelcomeText({ name }: { name?: string }) {
   const { t } = useTranslation('header');
@@ -50,22 +52,12 @@ export default function Notification() {
 
   return (
     <>
-      <IconButton
-        ref={anchorRef as any}
+      <HeaderIconButton
+        ref={anchorRef}
+        icon={<NotificationsRounded />}
+        active={openMenu}
         onClick={toggleMenu}
-        sx={{
-          mr: 2,
-          color: 'text.secondary',
-          fontSize: 18,
-
-          ':hover': {
-            backgroundColor: 'transparent',
-            color: 'text.primary',
-          },
-        }}
-      >
-        <NotificationsRounded />
-      </IconButton>
+      />
 
       <Hidden smUp>
         <Backdrop open={openMenu} sx={{ zIndex: (theme) => theme.zIndex.appBar + 1 }}></Backdrop>
@@ -84,44 +76,36 @@ export default function Notification() {
         zIndex={theme.zIndex.appBar + 1}
         onClose={closeMenu}
       >
-        <Stack direction="row" alignItems="center" justifyContent="space-between" px={2} py={1}>
-          <Typography variant="h6" fontWeight="500" sx={{ userSelect: 'none', cursor: 'default' }}>
-            {t('notification.label')}
-          </Typography>
+        <Typography
+          variant="h6"
+          fontWeight="500"
+          px={2}
+          py={1}
+          sx={{ userSelect: 'none', cursor: 'default' }}
+        >
+          {t('notification.label')}
+        </Typography>
 
-          <Typography
-            variant="body1"
-            fontSize={14}
-            sx={{
-              transition: 'easing.easeInOut',
-              userSelect: 'none',
-              cursor: 'pointer',
-
-              ':hover': {
-                color: 'primary.main',
-              },
-            }}
-          >
-            {t('notification.markAsRead')}
-          </Typography>
-        </Stack>
+        <Divider sx={{ m: 0 }} />
 
         <Box p={0.8}>
-          <Link to="/blog">
-            <MenuItem sx={{ borderRadius: 1 }} onClick={closeMenu}>
-              <Avatar src={currentUser?.avatar} sx={{ width: 48, height: 48, mr: 2 }} />
+          {Array.from(new Array(1)).map((_, idx) => (
+            <Link key={idx} to="/blog">
+              <MenuItem sx={{ borderRadius: 1 }} onClick={closeMenu}>
+                <Avatar src={currentUser?.avatar} sx={{ width: 48, height: 48, mr: 2 }} />
 
-              <Box flexGrow={1}>
-                <Typography variant="body1" mb={0.5} whiteSpace="normal">
-                  <WelcomeText name={currentUser?.name} />
-                </Typography>
+                <Box flexGrow={1}>
+                  <Typography variant="body1" mb={0.5} whiteSpace="normal">
+                    <WelcomeText name={currentUser?.name} />
+                  </Typography>
 
-                <Typography variant="subtitle2" fontWeight="400">
-                  {formatTime(currentUser?.createdAt)}
-                </Typography>
-              </Box>
-            </MenuItem>
-          </Link>
+                  <Typography variant="subtitle2" fontWeight="400">
+                    {formatTime(currentUser?.createdAt)}
+                  </Typography>
+                </Box>
+              </MenuItem>
+            </Link>
+          ))}
         </Box>
       </PopperMenu>
     </>
