@@ -4,7 +4,6 @@ import { selectCurrentUser } from 'features/auth/authSlice';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import theme, { themeConstants } from 'utils/theme';
 import { PopperMenu } from '..';
 import GetUserMenuItemList from './GetUserMenuItemList';
 
@@ -49,9 +48,8 @@ export default function UserMenu() {
           minWidth: 280,
           mt: 2,
           p: 0.8,
-          boxShadow: themeConstants.boxShadow,
         }}
-        zIndex={theme.zIndex.appBar + 1}
+        zIndex={(theme) => (theme.zIndex as any).appBar + 1}
         onClose={closeMenu}
       >
         <Stack direction="row" alignItems="center" p={1}>

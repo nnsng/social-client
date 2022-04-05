@@ -83,15 +83,17 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
           <ClickAwayListener onClickAway={() => setShowSearchResult(false)}>
             <Grow in={showSearchResult}>
               <Paper
-                elevation={0}
                 sx={{
                   position: 'absolute',
-                  inset: '100% 0 auto 0',
+                  inset: '100% 0 auto',
                   maxHeight: 450,
                   mt: 1,
                   bgcolor: 'background.default',
-                  boxShadow: themeConstants.boxShadow,
-                  overflow: 'scroll',
+                  overflow: 'auto',
+                  boxShadow: (theme) =>
+                    theme.palette.mode === 'light' ? themeConstants.boxShadow : undefined,
+                  border: (theme) => (theme.palette.mode === 'dark' ? 1 : undefined),
+                  borderColor: (theme) => (theme.palette.mode === 'dark' ? 'divider' : undefined),
                 }}
               >
                 <Box display="flex" alignItems="center" p={2}>
@@ -99,7 +101,7 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
                     <CircularProgress size={20} color="primary" sx={{ flexShrink: 0, mr: 1 }} />
                   )}
 
-                  <Typography variant="body2" color="textSecondary" sx={{ flexGrow: 1 }}>
+                  <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
                     {!loading &&
                       t('search.result', {
                         count: searchResultList.length,

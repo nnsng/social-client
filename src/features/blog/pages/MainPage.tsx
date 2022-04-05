@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Hidden } from '@mui/material';
+import { Box, Grid, Hidden } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
@@ -49,7 +49,7 @@ export function MainPage() {
     <>
       <PageTitle title={APP_NAME} />
 
-      <Container>
+      <Box>
         <Grid container spacing={{ xs: 0, lg: 10 }}>
           <Grid item xs={12} md={10} lg={7} sx={{ m: '0 auto' }}>
             <Box component="section">
@@ -88,7 +88,7 @@ export function MainPage() {
             </Hidden>
           </Grid>
         </Grid>
-      </Container>
+      </Box>
     </>
   );
 }

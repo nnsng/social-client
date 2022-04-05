@@ -203,6 +203,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
           <Box flexGrow={1}>
             <Typography
               variant="h6"
+              color="text.primary"
               component={Link}
               to={`/blog/${post.slug}`}
               sx={{

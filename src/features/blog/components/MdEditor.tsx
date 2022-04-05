@@ -39,6 +39,31 @@ export default function MdEditor(props: MdEditorProps) {
     '& .rc-md-editor': {
       height: '100%',
       border: 'none',
+      bgcolor: (theme: any) => theme.palette.background.default,
+
+      '& .editor-container .sec-md .input, .editor-container .sec-html .html-wrap': {
+        bgcolor: (theme: any) => theme.palette.background.default,
+        color: (theme: any) => theme.palette.text.primary,
+      },
+
+      '& .header-list .list-item': {
+        color: (theme: any) => theme.palette.text.primary,
+        '&:hover': {
+          bgcolor: (theme: any) => theme.palette.action.hover,
+        },
+      },
+
+      '& .drop-wrap': {
+        bgcolor: (theme: any) => theme.palette.background.default,
+        borderColor: (theme: any) => theme.palette.divider,
+      },
+
+      '& .table-list.wrap .list-item': {
+        bgcolor: (theme: any) => theme.palette.action.focus,
+        '&.active': {
+          bgcolor: (theme: any) => theme.palette.action.disabled,
+        },
+      },
 
       '&.full': {
         zIndex: 9999,
@@ -47,7 +72,14 @@ export default function MdEditor(props: MdEditorProps) {
 
     '& .rc-md-navigation': {
       border: 'none',
-      bgcolor: 'transparent',
+      bgcolor: (theme: any) => theme.palette.background.default,
+
+      '& .button-wrap .button': {
+        color: (theme: any) => theme.palette.text.secondary,
+        '&:hover': {
+          color: (theme: any) => theme.palette.text.primary,
+        },
+      },
     },
 
     '& .md-editor': {
@@ -60,6 +92,7 @@ export default function MdEditor(props: MdEditorProps) {
 
     '& .md-preview': {
       m: readOnly ? '-15px' : 0,
+      color: (theme: any) => theme.palette.text.primary,
 
       '& p': {
         fontSize: readOnly ? 18 : 16,
@@ -72,26 +105,37 @@ export default function MdEditor(props: MdEditorProps) {
       },
 
       '& code': {
-        fontSize: readOnly ? 16 : 14,
-        lineHeight: readOnly ? 1.8 : 1.6,
         py: 0.25,
         px: 0.5,
-        bgcolor: 'grey.200',
         borderRadius: '2px',
+        fontSize: readOnly ? 16 : 14,
+        lineHeight: readOnly ? 1.8 : 1.6,
+        bgcolor: (theme: any) => theme.palette.action.hover,
+        color: (theme: any) => theme.palette.text.primary,
       },
 
       '& pre': {
-        bgcolor: 'grey.200',
         borderRadius: 1,
+        bgcolor: (theme: any) => theme.palette.action.hover,
+        color: (theme: any) => theme.palette.text.primary,
+        '& code': {
+          bgcolor: 'transparent',
+        },
       },
 
       '& blockquote': {
         borderLeft: 4,
         borderColor: 'primary.main',
+        bgcolor: (theme: any) => theme.palette.action.hover,
+        color: (theme: any) => theme.palette.text.primary,
       },
 
       '& a': {
         color: 'primary.main',
+      },
+
+      '& hr': {
+        borderColor: (theme: any) => theme.palette.divider,
       },
     },
   };

@@ -1,65 +1,115 @@
-import { SxProps } from '@mui/system';
+import { PaletteMode } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
+import { SxProps } from '@mui/system';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      // main: '#ff652f',
-      main: '#7575FF',
-      contrastText: '#fff',
+const getPaletteTheme = (mode: PaletteMode) => {
+  return {
+    mode,
+    ...(mode === 'light'
+      ? {
+          primary: {
+            // main: '#ff652f',
+            main: '#7575FF',
+            contrastText: '#fff',
+          },
+          text: {
+            primary: 'rgba(0, 0, 0, 0.87)',
+            secondary: 'rgba(0, 0, 0, 0.6)',
+            disabled: 'rgba(0, 0, 0, 0.38)',
+          },
+          action: {
+            active: 'rgba(0, 0, 0, 0.54)',
+            hover: 'rgba(0, 0, 0, 0.04)',
+            selected: 'rgba(0, 0, 0, 0.08)',
+            disabled: 'rgba(0, 0, 0, 0.26)',
+            disabledBackground: 'rgba(0, 0, 0, 0.12)',
+          },
+          background: {
+            default: '#fff',
+            paper: '#fff',
+          },
+          divider: 'rgba(0, 0, 0, 0.12)',
+        }
+      : {
+          primary: {
+            // main: '#ff652f',
+            main: '#7575FF',
+            contrastText: 'rgba(0, 0, 0, 0.87)',
+          },
+          text: {
+            primary: '#fff',
+            secondary: 'rgba(255, 255, 255, 0.7)',
+            disabled: 'rgba(255, 255, 255, 0.5)',
+          },
+          action: {
+            active: '#fff',
+            hover: 'rgba(255, 255, 255, 0.08)',
+            selected: 'rgba(255, 255, 255, 0.16)',
+            disabled: 'rgba(255, 255, 255, 0.3)',
+            disabledBackground: 'rgba(255, 255, 255, 0.12)',
+          },
+          background: {
+            default: '#18191A',
+            paper: '#18191A',
+          },
+          divider: 'rgba(255, 255, 255, 0.12)',
+        }),
+  };
+};
+
+export const getTheme = (mode: PaletteMode) =>
+  createTheme({
+    palette: getPaletteTheme(mode),
+    typography: {
+      fontFamily: `'Montserrat', Arial, Helvetica, sans-serif`,
     },
-    text: {
-      primary: '#333',
-      secondary: '#888',
-    },
-  },
-  typography: {
-    fontFamily: `'Montserrat', Arial, Helvetica, sans-serif`,
-  },
-  components: {
-    MuiButton: {
-      defaultProps: {
-        disableRipple: true,
-        disableElevation: true,
+    components: {
+      MuiButton: {
+        defaultProps: {
+          disableRipple: true,
+          disableElevation: true,
+        },
+        styleOverrides: {
+          root: {
+            textTransform: 'none',
+          },
+        },
       },
-      styleOverrides: {
-        root: {
-          textTransform: 'none',
+      MuiIconButton: {
+        defaultProps: {
+          disableRipple: true,
+        },
+      },
+      MuiMenuItem: {
+        defaultProps: {
+          disableRipple: true,
+        },
+      },
+      MuiPaper: {
+        defaultProps: {
+          elevation: 0,
+        },
+      },
+      MuiDivider: {
+        styleOverrides: {
+          root: {
+            marginTop: 6,
+            marginBottom: 6,
+          },
+        },
+      },
+      MuiButtonBase: {
+        defaultProps: {
+          disableRipple: true,
+        },
+      },
+      MuiSvgIcon: {
+        defaultProps: {
+          fontSize: 'small',
         },
       },
     },
-    MuiIconButton: {
-      defaultProps: {
-        disableRipple: true,
-      },
-    },
-    MuiMenuItem: {
-      defaultProps: {
-        disableRipple: true,
-      },
-    },
-    MuiDivider: {
-      styleOverrides: {
-        root: {
-          marginTop: 6,
-          marginBottom: 6,
-        },
-      },
-    },
-    MuiButtonBase: {
-      defaultProps: {
-        disableRipple: true,
-      },
-    },
-    MuiSvgIcon: {
-      defaultProps: {
-        fontSize: 'small',
-      },
-    },
-  },
-});
-
-export default theme;
+  });
 
 export const themeConstants = {
   headerHeight: '72px',

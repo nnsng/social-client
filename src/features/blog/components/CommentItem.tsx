@@ -18,7 +18,6 @@ import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { formatTime } from 'utils/common';
-import theme from 'utils/theme';
 
 export interface CommentItemProps {
   comment: Comment;
@@ -170,7 +169,7 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
             <ActionMenu
               open={open}
               anchorEl={anchorRef.current}
-              zIndex={theme.zIndex.drawer + 1}
+              zIndex={(theme) => (theme.zIndex as any).drawer + 1}
               onClose={closeMenu}
             >
               {menuItems.map(({ label, icon: Icon, onClick, active }, idx) =>
