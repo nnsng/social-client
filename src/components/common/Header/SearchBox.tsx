@@ -69,7 +69,10 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
           sx={{
             width: '100%',
             maxWidth: 320,
-            position: 'relative',
+            position: { xs: 'relative', md: 'absolute' },
+            top: { md: '50%' },
+            left: { md: '50%' },
+            transform: { md: 'translate(-50%, -50%)' },
           }}
         >
           <OutlinedInput
@@ -78,6 +81,11 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
             value={searchInput}
             onChange={handleSearchChange}
             startAdornment={<SearchRounded sx={{ color: 'text.secondary' }} />}
+            sx={{
+              borderRadius: 40,
+              bgcolor: (theme) =>
+                theme.palette.mode === 'light' ? 'background.default' : 'background.paper',
+            }}
           />
 
           <ClickAwayListener onClickAway={() => setShowSearchResult(false)}>
@@ -88,7 +96,7 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
                   inset: '100% 0 auto',
                   maxHeight: 450,
                   mt: 1,
-                  bgcolor: 'background.default',
+                  bgcolor: 'background.paper',
                   overflow: 'auto',
                   boxShadow: (theme) =>
                     theme.palette.mode === 'light' ? themeConstants.boxShadow : undefined,

@@ -39,7 +39,14 @@ export default function DrawerMobile() {
       />
 
       <Drawer anchor="right" open={openMenu} onClose={closeMenu}>
-        <MenuList sx={{ width: '75vw', maxWidth: 300 }}>
+        <MenuList
+          sx={{
+            width: '75vw',
+            maxWidth: 300,
+            height: '100vh',
+            bgcolor: 'background.default',
+          }}
+        >
           <Box ml={4} py={4}>
             <Avatar src={currentUser?.avatar} sx={{ width: 60, height: 60, mb: 2 }} />
 

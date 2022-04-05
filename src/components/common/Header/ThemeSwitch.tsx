@@ -1,10 +1,10 @@
 import { useSwitch, UseSwitchProps } from '@mui/base/SwitchUnstyled';
 import { PaletteMode } from '@mui/material';
 import { styled } from '@mui/system';
-import { useAppSelector } from 'app/hooks';
 import clsx from 'clsx';
-import { selectThemeMode } from 'features/common/themeSlice';
 import React, { useEffect } from 'react';
+import { getLocalConfig } from 'utils/common';
+import { THEME } from 'utils/constants';
 
 const SwitchRoot = styled('span')`
   display: inline-block;
@@ -12,6 +12,7 @@ const SwitchRoot = styled('span')`
   width: 64px;
   height: 36px;
   padding: 8px;
+  margin: 0 8px;
 `;
 
 const SwitchInput = styled('input')`
@@ -107,7 +108,7 @@ interface ThemeSwitchProps {
 }
 
 export default function ThemeSwitch({ onChange }: ThemeSwitchProps) {
-  const themeMode = useAppSelector(selectThemeMode);
+  const themeMode = getLocalConfig(THEME);
 
   const handleSwitchChange = (checked: boolean) => {
     onChange?.(checked ? 'dark' : 'light');

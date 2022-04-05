@@ -42,7 +42,8 @@ export function Header() {
         height: themeConstants.headerHeight,
         py: 2,
         userSelect: 'none',
-        bgcolor: (theme) => (theme.palette.mode === 'light' ? 'background.default' : '#242526'),
+        bgcolor: (theme) =>
+          theme.palette.mode === 'light' ? 'background.default' : 'background.paper',
         boxShadow: (theme) =>
           theme.palette.mode === 'light' ? themeConstants.boxShadow : undefined,
         border: (theme) => (theme.palette.mode === 'dark' ? 1 : undefined),
@@ -71,7 +72,7 @@ export function Header() {
                 1
               </Avatar>
 
-              <Typography variant="h6" color="primary" fontWeight="600">
+              <Typography variant="h6" color="primary" fontWeight="600" letterSpacing={1}>
                 {APP_NAME}
               </Typography>
             </Stack>

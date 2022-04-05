@@ -27,7 +27,7 @@ export function HeaderMenu(props: HeaderMenuProps) {
       {/* Mobile */}
       <Hidden smUp>
         <HeaderIconButton icon={<SearchRounded />} onClick={toggleSearchMobile} />
-        <ThemeSwitch />
+        <ThemeSwitch onChange={onThemeModeChange} />
         <Notification />
         <DrawerMobile />
       </Hidden>

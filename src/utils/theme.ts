@@ -50,7 +50,7 @@ const getPaletteTheme = (mode: PaletteMode) => {
           },
           background: {
             default: '#18191A',
-            paper: '#18191A',
+            paper: '#242526',
           },
           divider: 'rgba(255, 255, 255, 0.12)',
         }),

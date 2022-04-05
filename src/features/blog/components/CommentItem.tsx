@@ -3,6 +3,14 @@ import {
   Avatar,
   Badge,
   Box,
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Divider,
   Grid,
   IconButton,
   ListItem,
@@ -31,19 +39,29 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
   const currentUser = useAppSelector(selectCurrentUser);
 
   const anchorRef = useRef<HTMLElement | null>(null);
-  const [open, setOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const toggleMenu = () => setOpen(!open);
-  const closeMenu = () => setOpen(false);
+  const toggleMenu = () => setOpenMenu(!openMenu);
+  const closeMenu = () => setOpenMenu(false);
+  const closeDialog = () => setOpenDialog(false);
 
   const handleRemoveComment = async () => {
-    closeMenu();
+    setLoading((prevState) => true);
 
     try {
       await onRemove?.(comment);
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
     }
+
+    setLoading((prevState) => false);
+  };
+
+  const confirmRemoveComment = () => {
+    closeMenu();
+    setOpenDialog(true);
   };
 
   const handleLikeComment = () => {
@@ -55,7 +73,7 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
     {
       label: t('menu.delete'),
       icon: DeleteRounded,
-      onClick: handleRemoveComment,
+      onClick: confirmRemoveComment,
       active: isAuthorized,
     },
     {
@@ -67,131 +85,156 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
   ];
 
   return (
-    <ListItem disableGutters sx={{ mb: 2.5 }}>
-      <Grid container spacing={2}>
-        <Grid item xs="auto">
-          <Avatar src={comment?.user?.avatar} sx={{ width: 36, height: 36 }} />
-        </Grid>
+    <>
+      <ListItem disableGutters sx={{ mb: 2.5 }}>
+        <Grid container spacing={2}>
+          <Grid item xs="auto">
+            <Avatar src={comment?.user?.avatar} sx={{ width: 36, height: 36 }} />
+          </Grid>
 
-        <Grid item xs>
-          <Badge
-            color="primary"
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            invisible={!comment?.likes?.length}
-            sx={{
-              '& .MuiBadge-badge': {
-                bottom: 2,
-                right: 6,
-                py: 1.5,
-                pl: 0.3,
-                pr: 0.5,
-                bgcolor: 'common.white',
-                borderRadius: 5,
-                boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
-                color: 'text.primary',
-                fontSize: 12,
-              },
-            }}
-            badgeContent={
-              <Typography variant="subtitle2" display="flex" alignItems="center" fontSize="inherit">
-                <Stack
-                  sx={{
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    mr: 0.5,
-                    bgcolor: 'primary.main',
-                    borderRadius: '50%',
-                  }}
-                >
-                  <FavoriteRounded sx={{ color: 'white', fontSize: 13, m: 0.3 }} />
-                </Stack>
-                {comment?.likes?.length || 0}
-              </Typography>
-            }
-          >
-            <Box
-              sx={{
-                position: 'relative',
-                width: 'fit-content',
-                backgroundColor: 'grey.100',
-                borderRadius: 4,
-                py: 1,
-                px: 2,
-              }}
-            >
-              <Typography variant="subtitle2" fontWeight="600">
-                {comment?.user?.name}
-              </Typography>
-
-              <Typography variant="body1">{comment.content}</Typography>
-            </Box>
-          </Badge>
-
-          <Stack direction="row" alignItems="center" mt={1}>
-            <Typography
-              variant="subtitle2"
+          <Grid item xs>
+            <Badge
               color="primary"
-              sx={{ cursor: 'pointer' }}
-              onClick={handleLikeComment}
-            >
-              {comment?.likes?.includes(currentUser?._id as string) ? t('unlike') : t('like')}
-            </Typography>
-
-            <Typography
-              variant="subtitle2"
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              invisible={!comment?.likes?.length}
               sx={{
-                display: 'flex',
-                alignItems: 'center',
-                color: 'text.secondary',
-                mr: 1,
-
-                '::before': {
-                  width: 2,
-                  height: 2,
-                  content: '""',
-                  bgcolor: 'grey.500',
-                  borderRadius: '50%',
-                  display: 'block',
-                  mx: 1,
+                '& .MuiBadge-badge': {
+                  bottom: 2,
+                  right: 6,
+                  py: 1.5,
+                  pl: 0.3,
+                  pr: 0.5,
+                  bgcolor: 'background.paper',
+                  borderRadius: 5,
+                  boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
                 },
               }}
-            >
-              {formatTime(comment.createdAt)}
-            </Typography>
+              badgeContent={
+                <Stack direction="row" alignItems="center" p={0.3}>
+                  <FavoriteRounded sx={{ color: 'primary.main', fontSize: 18 }} />
 
-            <IconButton size="small" disableRipple ref={anchorRef as any} onClick={toggleMenu}>
-              <MoreHorizRounded />
-            </IconButton>
-
-            <ActionMenu
-              open={open}
-              anchorEl={anchorRef.current}
-              zIndex={(theme) => (theme.zIndex as any).drawer + 1}
-              onClose={closeMenu}
+                  <Typography variant="subtitle2" color="text.primary" ml={0.5}>
+                    {comment?.likes?.length || 0}
+                  </Typography>
+                </Stack>
+              }
             >
-              {menuItems.map(({ label, icon: Icon, onClick, active }, idx) =>
-                active ? (
-                  <MenuItem
-                    key={idx}
-                    sx={{
-                      py: 1.5,
-                      px: 2.5,
-                      fontSize: 15,
-                    }}
-                    onClick={onClick}
-                  >
-                    <Icon sx={{ mr: 2 }} />
-                    {label}
-                  </MenuItem>
-                ) : null
-              )}
-            </ActionMenu>
-          </Stack>
+              <Box
+                sx={{
+                  position: 'relative',
+                  width: 'fit-content',
+                  py: 1,
+                  px: 2,
+                  bgcolor: 'action.hover',
+                  borderRadius: 4,
+                }}
+              >
+                <Typography variant="subtitle2" color="text.primary" fontWeight="600">
+                  {comment?.user?.name}
+                </Typography>
+
+                <Typography variant="body1" color="text.primary">
+                  {comment.content}
+                </Typography>
+              </Box>
+            </Badge>
+
+            <Stack direction="row" alignItems="center" mt={1}>
+              <Typography
+                variant="subtitle2"
+                color="primary"
+                sx={{ cursor: 'pointer' }}
+                onClick={handleLikeComment}
+              >
+                {comment?.likes?.includes(currentUser?._id as string) ? t('unlike') : t('like')}
+              </Typography>
+
+              <Typography
+                variant="subtitle2"
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  color: 'text.secondary',
+                  mr: 1,
+
+                  '::before': {
+                    width: 2,
+                    height: 2,
+                    content: '""',
+                    bgcolor: 'grey.500',
+                    borderRadius: '50%',
+                    display: 'block',
+                    mx: 1,
+                  },
+                }}
+              >
+                {formatTime(comment.createdAt)}
+              </Typography>
+
+              <IconButton size="small" disableRipple ref={anchorRef as any} onClick={toggleMenu}>
+                <MoreHorizRounded />
+              </IconButton>
+
+              <ActionMenu
+                open={openMenu}
+                anchorEl={anchorRef.current}
+                zIndex={(theme) => (theme.zIndex as any).drawer + 1}
+                onClose={closeMenu}
+              >
+                {menuItems.map(({ label, icon: Icon, onClick, active }, idx) =>
+                  active ? (
+                    <MenuItem
+                      key={idx}
+                      sx={{
+                        py: 1.5,
+                        px: 2.5,
+                        fontSize: 15,
+                      }}
+                      onClick={onClick}
+                    >
+                      <Icon sx={{ mr: 2 }} />
+                      {label}
+                    </MenuItem>
+                  ) : null
+                )}
+              </ActionMenu>
+            </Stack>
+          </Grid>
         </Grid>
-      </Grid>
-    </ListItem>
+      </ListItem>
+
+      <Dialog open={openDialog} onClose={closeDialog} sx={{ userSelect: 'none' }}>
+        <DialogTitle>{t('dialog.title')}</DialogTitle>
+
+        <Divider />
+
+        <DialogContent>
+          <DialogContentText sx={{ color: 'text.primary' }}>
+            {t('dialog.content')}
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions>
+          <Button color="inherit" size="large" disabled={loading} onClick={closeDialog}>
+            {t('dialog.button.cancel')}
+          </Button>
+
+          <Button
+            variant="contained"
+            color="error"
+            size="large"
+            disabled={loading}
+            autoFocus
+            startIcon={loading && <CircularProgress size={20} />}
+            onClick={handleRemoveComment}
+          >
+            {t('dialog.button.confirm')}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }

@@ -57,7 +57,7 @@ export default function Notification() {
         anchorEl={anchorRef.current}
         paperSx={{
           width: { xs: '100vw', sm: 400 },
-          mt: 2,
+          mt: 1,
           py: { xs: 2, sm: 0 },
           borderRadius: { xs: 4, sm: 1 },
         }}

@@ -109,6 +109,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
         borderTop: 1,
         borderColor: 'divider',
         borderRadius: 0,
+        bgcolor: 'background.default',
       }}
     >
       <CardHeader

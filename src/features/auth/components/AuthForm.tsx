@@ -82,7 +82,7 @@ export default function AuthForm(props: AuthFormProps) {
               textAlign="center"
               sx={{ userSelect: 'none' }}
             >
-              {isRegisterMode ? t('title.register') : t('title.login')}
+              {`${isRegisterMode ? t('title.register') : t('title.login')}`.toUpperCase()}
             </Typography>
           </Grid>
 

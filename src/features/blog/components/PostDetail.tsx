@@ -100,7 +100,12 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
   ];
 
   return (
-    <Card elevation={0}>
+    <Card
+      elevation={0}
+      sx={{
+        bgcolor: 'background.default',
+      }}
+    >
       <Typography variant="h1" fontSize={40} fontWeight={600} mb={2}>
         {post.title}
       </Typography>

@@ -35,6 +35,7 @@ export default function UserMenu() {
         sx={{
           width: 28,
           height: 28,
+          ml: 1,
           cursor: 'pointer',
         }}
         ref={anchorRef as any}
