@@ -1,3 +1,5 @@
+import { NavigateFunction } from 'react-router-dom';
+
 export interface User {
   _id: string;
   name: string;
@@ -29,4 +31,10 @@ export interface ChangePasswordFormValue {
   currentPassword: string;
   newPassword: string;
   confirmPassword?: string;
+}
+
+export interface AuthPayload {
+  formValues?: AuthFormValue;
+  token?: string;
+  navigate?: NavigateFunction;
 }
