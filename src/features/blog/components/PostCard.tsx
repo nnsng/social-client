@@ -101,7 +101,6 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
 
   return (
     <Card
-      elevation={0}
       sx={{
         width: '100%',
         p: 0,
