@@ -9,7 +9,9 @@ import {
 import { authActions } from 'features/auth/authSlice';
 import { IMenuItem } from 'models';
 import { NavigateFunction } from 'react-router-dom';
-import { changeGlobalLanguage, getLanguage } from 'utils/translation';
+import { getLocalConfig } from 'utils/common';
+import { LANGUAGE } from 'utils/constants';
+import { changeGlobalLanguage } from 'utils/translation';
 
 export interface GetUserMenuItemListProps {
   navigate: NavigateFunction;
@@ -25,7 +27,8 @@ export default function GetUserMenuItemList(props: GetUserMenuItemListProps) {
   };
 
   const changeLanguage = () => {
-    const currentLanguage = getLanguage();
+    const currentLanguage = getLocalConfig(LANGUAGE);
+    console.log('~ currentLanguage', currentLanguage);
     changeGlobalLanguage(currentLanguage === 'en' ? 'vi' : 'en');
   };
 

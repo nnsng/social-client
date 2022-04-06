@@ -157,7 +157,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
             sx={{
               maxWidth: 400,
               height: 200,
-              bgcolor: 'grey.200',
+              bgcolor: (theme) => theme.palette.action.hover,
               backgroundImage: `url('${thumbnail}')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',

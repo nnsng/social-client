@@ -47,7 +47,13 @@ export default function PostList(props: PostListProps) {
         {t('newest')}
       </Typography>
 
-      <List disablePadding>
+      <List
+        disablePadding
+        sx={{
+          borderTop: postList.length === 0 ? 1 : 0,
+          borderColor: 'divider',
+        }}
+      >
         {postList.length > 0 ? (
           postList.map((post) => (
             <ListItem disablePadding sx={{ width: '100%' }} key={post._id}>

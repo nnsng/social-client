@@ -8,4 +8,4 @@ export * from './SearchMobile';
 export * from './GoogleIcon';
 export * from './PageTitle';
 export * from './KeywordInput';
-export * from './LanguageSelect';
+export * from './ApplyTheme';

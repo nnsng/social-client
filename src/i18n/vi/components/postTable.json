@@ -16,11 +16,11 @@
   "dialog": {
     "unsave": {
       "title": "Bỏ lưu bài viết?",
-      "content": "Bạn có chắc muốn bỏ lưu bài viết? Hành động này không thể khôi phục."
+      "content": "Bạn có chắc muốn bỏ lưu bài viết với tiêu đề \"{{title}}\" không?"
     },
     "delete": {
       "title": "Xóa bài viết?",
-      "content": "Bạn có chắc muốn xoá bài viết? Hành động này không thể khôi phục."
+      "content": "Bạn có chắc muốn xoá bài viết với tiêu đề \"{{title}}\" không?"
     },
     "button": {
       "cancel": "Hủy",

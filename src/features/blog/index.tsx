@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { Header, NotFound } from 'components/common';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
@@ -10,15 +10,17 @@ export default function Blog() {
       <Header />
 
       <Box component="main" pt={3}>
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="my" element={<MyPostListPage />} />
-          <Route path="saved" element={<SavedPage />} />
-          <Route path="create" element={<CreateEditPage />} />
-          <Route path="edit/:id" element={<CreateEditPage />} />
-          <Route path=":slug" element={<PostDetailPage />} />
-          <Route path=":404" element={<NotFound />} />
-        </Routes>
+        <Container>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="my" element={<MyPostListPage />} />
+            <Route path="saved" element={<SavedPage />} />
+            <Route path="create" element={<CreateEditPage />} />
+            <Route path="edit/:id" element={<CreateEditPage />} />
+            <Route path=":slug" element={<PostDetailPage />} />
+            <Route path=":404" element={<NotFound />} />
+          </Routes>
+        </Container>
       </Box>
     </Box>
   );

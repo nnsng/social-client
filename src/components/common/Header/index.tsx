@@ -1,6 +1,16 @@
-import { Avatar, Box, Container, Grid, LinearProgress, Stack, Typography } from '@mui/material';
-import { useAppSelector } from 'app/hooks';
+import {
+  Avatar,
+  Box,
+  Container,
+  Grid,
+  LinearProgress,
+  PaletteMode,
+  Stack,
+  Typography,
+} from '@mui/material';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectPostLoading } from 'features/blog/blogSlice';
+import { themeActions } from 'features/common/themeSlice';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
@@ -9,11 +19,18 @@ import { HeaderMenu } from './HeaderMenu';
 import { SearchBox } from './SearchBox';
 
 export function Header() {
+  const dispatch = useAppDispatch();
   const loading = useAppSelector(selectPostLoading);
 
   const [openSearchMobile, setOpenSearchMobile] = useState<boolean>(false);
 
-  const toggleSearchMobile = () => setOpenSearchMobile(!openSearchMobile);
+  const toggleSearchMobile = () => {
+    setOpenSearchMobile(!openSearchMobile);
+  };
+
+  const changeThemeMode = (mode: PaletteMode) => {
+    dispatch(themeActions.changeThemeMode(mode));
+  };
 
   return (
     <Box
@@ -24,9 +41,13 @@ export function Header() {
         zIndex: 'appBar',
         height: themeConstants.headerHeight,
         py: 2,
-        backgroundColor: 'background.default',
-        boxShadow: themeConstants.boxShadow,
         userSelect: 'none',
+        bgcolor: (theme) =>
+          theme.palette.mode === 'light' ? 'background.default' : 'background.paper',
+        boxShadow: (theme) =>
+          theme.palette.mode === 'light' ? themeConstants.boxShadow : undefined,
+        border: (theme) => (theme.palette.mode === 'dark' ? 1 : undefined),
+        borderColor: (theme) => (theme.palette.mode === 'dark' ? 'divider' : undefined),
       }}
     >
       {loading && (
@@ -51,7 +72,7 @@ export function Header() {
                 1
               </Avatar>
 
-              <Typography variant="h6" color="primary" fontWeight="600">
+              <Typography variant="h6" color="primary" fontWeight="600" letterSpacing={1}>
                 {APP_NAME}
               </Typography>
             </Stack>
@@ -65,7 +86,10 @@ export function Header() {
           </Grid>
 
           <Grid item xs="auto">
-            <HeaderMenu toggleSearchMobile={toggleSearchMobile} />
+            <HeaderMenu
+              toggleSearchMobile={toggleSearchMobile}
+              onThemeModeChange={changeThemeMode}
+            />
           </Grid>
         </Grid>
       </Container>

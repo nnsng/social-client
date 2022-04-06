@@ -12,6 +12,7 @@ export interface MuiTextFieldProps extends OutlinedTextFieldProps {
 
 export function MuiTextField(props: MuiTextFieldProps) {
   const { name, control, label, title, half, ...restProps } = props;
+  const { sx } = restProps;
 
   const {
     field: { value, onChange, onBlur, ref },
@@ -39,6 +40,7 @@ export function MuiTextField(props: MuiTextFieldProps) {
         fullWidth
         spellCheck={false}
         {...restProps}
+        sx={{ ...sx, bgcolor: 'background.paper' }}
       />
     </Grid>
   );

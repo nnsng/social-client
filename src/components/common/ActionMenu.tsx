@@ -10,15 +10,12 @@ export function ActionMenu(props: ActionMenuProps) {
 
   return (
     <>
+      {/* Tablet & PC */}
       <Hidden smDown>
         <PopperMenu
           open={open}
           anchorEl={anchorEl}
-          paperSx={{
-            boxShadow: themeConstants.boxShadow,
-            overflow: 'hidden',
-            ...paperSx,
-          }}
+          paperSx={paperSx}
           zIndex={zIndex}
           onClose={onClose}
         >
@@ -26,6 +23,7 @@ export function ActionMenu(props: ActionMenuProps) {
         </PopperMenu>
       </Hidden>
 
+      {/* Mobile */}
       <Hidden smUp>
         <Drawer
           anchor="bottom"
