@@ -17,7 +17,6 @@ export const checkTokenExpiration = async ({ type, token, navigate }: CheckToken
   if (type === TOKEN.ACTIVE) return;
 
   const decoded: Token = jwtDecode(token);
-  console.log(type, decoded.exp - Date.now() / 1000);
   if (decoded.exp >= Date.now() / 1000) return token;
 
   if (type === TOKEN.REFRESH) return navigate?.('/login');
