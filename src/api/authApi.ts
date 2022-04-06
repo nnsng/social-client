@@ -18,6 +18,10 @@ const authApi = {
     const url = '/auth/active';
     return axiosClient.post(url, { token });
   },
+  refreshToken(token: string) {
+    const url = '/auth/refresh-token';
+    return axiosClient.post(url, { token });
+  },
   getCurrentUser() {
     const url = '/auth/me';
     return axiosClient.get(url);

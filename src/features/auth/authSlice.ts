@@ -18,9 +18,9 @@ const authSlice = createSlice({
 
     login(state, action: PayloadAction<AuthPayload>) {},
 
-    activeAccount(state, action: PayloadAction<AuthPayload>) {},
-
     googleLogin(state, action: PayloadAction<AuthPayload>) {},
+
+    activeAccount(state, action: PayloadAction<AuthPayload>) {},
 
     logout(state, action: PayloadAction<AuthPayload>) {
       state.currentUser = null;

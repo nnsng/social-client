@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN } from 'utils/constants';
+import { TOKEN } from 'utils/constants';
 import { Navigate } from 'react-router-dom';
 
 export interface PrivateRouteProps {
@@ -6,7 +6,7 @@ export interface PrivateRouteProps {
 }
 
 export function PrivateRoute({ children }: PrivateRouteProps) {
-  const isAuth = localStorage.getItem(ACCESS_TOKEN);
+  const isAuth = localStorage.getItem(TOKEN.ACCESS);
 
   return isAuth ? children : <Navigate to="/login" />;
 }

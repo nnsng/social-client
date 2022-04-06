@@ -32,3 +32,9 @@ export interface IMenuItem {
   active?: boolean;
   page?: string;
 }
+
+export interface Token {
+  _id: string;
+  iat: number;
+  exp: number;
+}
