@@ -1,27 +1,24 @@
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import { CssBaseline } from '@mui/material';
+import { ApplyTheme } from 'components/common';
+import 'i18n';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
 import App from './App';
 import { store } from './app/store';
-import theme from './utils/theme';
 import './styles/index.css';
-import 'i18n';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
+    <Provider store={store}>
+      <ApplyTheme>
         <BrowserRouter>
           <CssBaseline />
           <App />
         </BrowserRouter>
-        <ToastContainer autoClose={3000} />
-      </Provider>
-    </ThemeProvider>
+      </ApplyTheme>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

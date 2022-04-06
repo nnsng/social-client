@@ -41,11 +41,11 @@ export default function PostRecommend(props: PostRecommendProps) {
       <Typography
         variant="button"
         sx={{
-          display: 'block',
+          display: 'inline-block',
           mb: -1,
           borderBottom: 1,
-          borderColor: 'text.secondary',
-          color: 'text.secondary',
+          borderColor: 'text.primary',
+          color: 'text.primary',
           fontWeight: 600,
           userSelect: 'none',
           cursor: 'default',
@@ -54,7 +54,15 @@ export default function PostRecommend(props: PostRecommendProps) {
         {t('title')}
       </Typography>
 
-      <Stack direction="row" flexWrap="wrap" pt={1}>
+      <Stack
+        direction="row"
+        flexWrap="wrap"
+        sx={{
+          mt: '1.5px',
+          borderTop: 1,
+          borderColor: 'divider',
+        }}
+      >
         {keywordList.map((keyword, idx) => (
           <Chip
             key={idx}
@@ -66,18 +74,13 @@ export default function PostRecommend(props: PostRecommendProps) {
               mt: 1,
               mr: 1,
               fontSize: 16,
+              color: keywordActive === keyword.value ? 'common.white' : 'text.secondary',
             }}
           />
         ))}
         {keywordActive && (
           <Chip
-            variant="outlined"
-            label={
-              <Stack direction="row" alignItems="center">
-                <DeleteForeverRounded />
-                {/* {t('clear')} */}
-              </Stack>
-            }
+            label={<DeleteForeverRounded sx={{ display: 'flex', alignItems: 'center' }} />}
             color="error"
             onClick={clearKeyword}
             sx={{

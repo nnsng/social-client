@@ -1,4 +1,4 @@
-import { Box, Container, Hidden, List, Pagination, Stack, Typography } from '@mui/material';
+import { Box, Hidden, List, Pagination, Stack, Typography } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
@@ -45,7 +45,7 @@ export function MyPostListPage() {
     <>
       <PageTitle title={t('pageTitle')} />
 
-      <Container maxWidth="md">
+      <Box>
         <Typography variant="h4" fontWeight="500" sx={{ userSelect: 'none' }}>
           {t('pageTitle')}
         </Typography>
@@ -81,7 +81,7 @@ export function MyPostListPage() {
             />
           </Stack>
         )}
-      </Container>
+      </Box>
     </>
   );
 }

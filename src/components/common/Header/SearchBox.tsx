@@ -69,7 +69,10 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
           sx={{
             width: '100%',
             maxWidth: 320,
-            position: 'relative',
+            position: { xs: 'relative', md: 'absolute' },
+            top: { md: '50%' },
+            left: { md: '50%' },
+            transform: { md: 'translate(-50%, -50%)' },
           }}
         >
           <OutlinedInput
@@ -78,20 +81,27 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
             value={searchInput}
             onChange={handleSearchChange}
             startAdornment={<SearchRounded sx={{ color: 'text.secondary' }} />}
+            sx={{
+              borderRadius: 40,
+              bgcolor: (theme) =>
+                theme.palette.mode === 'light' ? 'background.default' : 'background.paper',
+            }}
           />
 
           <ClickAwayListener onClickAway={() => setShowSearchResult(false)}>
             <Grow in={showSearchResult}>
               <Paper
-                elevation={0}
                 sx={{
                   position: 'absolute',
-                  inset: '100% 0 auto 0',
+                  inset: '100% 0 auto',
                   maxHeight: 450,
                   mt: 1,
-                  bgcolor: 'background.default',
-                  boxShadow: themeConstants.boxShadow,
-                  overflow: 'scroll',
+                  bgcolor: 'background.paper',
+                  overflow: 'auto',
+                  boxShadow: (theme) =>
+                    theme.palette.mode === 'light' ? themeConstants.boxShadow : undefined,
+                  border: (theme) => (theme.palette.mode === 'dark' ? 1 : undefined),
+                  borderColor: (theme) => (theme.palette.mode === 'dark' ? 'divider' : undefined),
                 }}
               >
                 <Box display="flex" alignItems="center" p={2}>
@@ -99,7 +109,7 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
                     <CircularProgress size={20} color="primary" sx={{ flexShrink: 0, mr: 1 }} />
                   )}
 
-                  <Typography variant="body2" color="textSecondary" sx={{ flexGrow: 1 }}>
+                  <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
                     {!loading &&
                       t('search.result', {
                         count: searchResultList.length,

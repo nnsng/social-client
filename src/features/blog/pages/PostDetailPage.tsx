@@ -1,4 +1,4 @@
-import { Container, Drawer, Grid } from '@mui/material';
+import { Box, Drawer, Grid } from '@mui/material';
 import commentApi from 'api/commentApi';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
@@ -80,7 +80,7 @@ export function PostDetailPage() {
     <>
       <PageTitle title={post?.title ?? APP_NAME} />
 
-      <Container>
+      <Box>
         <Grid container spacing={{ xs: 2, lg: 8 }}>
           <Grid item xs={12} md={10} lg={8} mx="auto">
             <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
@@ -101,7 +101,7 @@ export function PostDetailPage() {
             onLike={handleLikeComment}
           />
         </Drawer>
-      </Container>
+      </Box>
     </>
   );
 }

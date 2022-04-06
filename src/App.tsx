@@ -12,9 +12,9 @@ import { User } from 'models';
 import { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
-import { ACCESS_TOKEN } from 'utils/constants';
+import { getLocalConfig } from 'utils/common';
+import { ACCESS_TOKEN, LANGUAGE } from 'utils/constants';
 import { env, variables } from 'utils/env';
-import { getLanguage } from 'utils/translation';
 
 function App() {
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    i18next.changeLanguage(getLanguage());
+    i18next.changeLanguage(getLocalConfig(LANGUAGE));
   }, []);
 
   return (

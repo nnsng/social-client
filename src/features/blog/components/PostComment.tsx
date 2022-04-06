@@ -68,8 +68,14 @@ export default function PostComment(props: PostCommentProps) {
   };
 
   return (
-    <Stack width="100vw" maxWidth={680} px={{ xs: 3, sm: 5 }}>
-      <Stack position="sticky" top={0} zIndex={2} pt={8} bgcolor="background.default">
+    <Stack
+      width="100vw"
+      height="100vh"
+      maxWidth={680}
+      px={{ xs: 3, sm: 5 }}
+      bgcolor="background.paper"
+    >
+      <Stack position="sticky" top={0} zIndex={2} pt={8}>
         <IconButton
           edge="start"
           color="inherit"

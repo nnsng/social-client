@@ -1,4 +1,5 @@
 import i18next from 'i18next';
+import { setLocalConfig } from './common';
 import { LANGUAGE } from './constants';
 
 export const useTranslateFiles = (...files: string[]) => {
@@ -9,11 +10,7 @@ export const useTranslateFiles = (...files: string[]) => {
   return translations;
 };
 
-export const getLanguage = () => {
-  return localStorage.getItem(LANGUAGE) || 'vi';
-};
-
 export const changeGlobalLanguage = (language: string) => {
   i18next.changeLanguage(language);
-  localStorage.setItem(LANGUAGE, language);
+  setLocalConfig(LANGUAGE, language);
 };

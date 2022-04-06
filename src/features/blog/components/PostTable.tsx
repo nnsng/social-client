@@ -118,7 +118,13 @@ export default function PostTable(props: PostTableProps) {
               <TableRow key={post._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                 <TableCell align="center">{idx + 1}</TableCell>
 
-                <TableCell>
+                <TableCell
+                  sx={{
+                    '& a': {
+                      color: 'text.primary',
+                    },
+                  }}
+                >
                   <Link to={`/blog/${post.slug}`}>{post.title}</Link>
                 </TableCell>
 
@@ -175,7 +181,9 @@ export default function PostTable(props: PostTableProps) {
 
         <DialogContent>
           <DialogContentText sx={{ color: 'text.primary' }}>
-            {saved ? t('dialog.unsave.content') : t('dialog.delete.content')}
+            {saved
+              ? t('dialog.unsave.content', { title: selectedPost.title })
+              : t('dialog.delete.content', { title: selectedPost.title })}
           </DialogContentText>
         </DialogContent>
 

@@ -62,8 +62,6 @@ export function KeywordInput(props: KeywordInputProps) {
         {keywordList.map((keyword, idx) => (
           <Chip
             key={idx}
-            variant="outlined"
-            color="primary"
             label={keyword.name}
             onDelete={() => handleDelete(idx)}
             sx={{ fontSize: 14 }}

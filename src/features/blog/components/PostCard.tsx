@@ -101,7 +101,6 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
 
   return (
     <Card
-      elevation={0}
       sx={{
         width: '100%',
         p: 0,
@@ -109,6 +108,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
         borderTop: 1,
         borderColor: 'divider',
         borderRadius: 0,
+        bgcolor: 'background.default',
       }}
     >
       <CardHeader
@@ -203,6 +203,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
           <Box flexGrow={1}>
             <Typography
               variant="h6"
+              color="text.primary"
               component={Link}
               to={`/blog/${post.slug}`}
               sx={{

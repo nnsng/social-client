@@ -57,15 +57,13 @@ export function CreateEditPage() {
     <>
       <PageTitle title={isNewPost ? t('pageTitle.create') : t('pageTitle.edit')} />
 
-      <Container maxWidth={false}>
-        <Box mt={-4}>
-          <CreateEditForm
-            defaultValues={defaultValues}
-            onSubmit={handleFormSubmit}
-            isNewPost={isNewPost}
-          />
-        </Box>
-      </Container>
+      <Box mt={-4}>
+        <CreateEditForm
+          defaultValues={defaultValues}
+          onSubmit={handleFormSubmit}
+          isNewPost={isNewPost}
+        />
+      </Box>
     </>
   );
 }

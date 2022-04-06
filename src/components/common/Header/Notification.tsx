@@ -1,15 +1,5 @@
 import { NotificationsRounded } from '@mui/icons-material';
-import {
-  Avatar,
-  Backdrop,
-  Box,
-  Divider,
-  Hidden,
-  IconButton,
-  MenuItem,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Avatar, Backdrop, Box, Divider, Hidden, MenuItem, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import React, { useRef, useState } from 'react';
@@ -17,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { formatTime } from 'utils/common';
 import { APP_NAME } from 'utils/constants';
-import theme, { themeConstants } from 'utils/theme';
 import { PopperMenu } from '..';
 import HeaderIconButton from './HeaderIconButton';
 
@@ -68,12 +57,11 @@ export default function Notification() {
         anchorEl={anchorRef.current}
         paperSx={{
           width: { xs: '100vw', sm: 400 },
-          mt: 2,
+          mt: 1,
           py: { xs: 2, sm: 0 },
-          boxShadow: themeConstants.boxShadow,
           borderRadius: { xs: 4, sm: 1 },
         }}
-        zIndex={theme.zIndex.appBar + 1}
+        zIndex={(theme) => (theme.zIndex as any).appBar + 1}
         onClose={closeMenu}
       >
         <Typography
@@ -95,11 +83,11 @@ export default function Notification() {
                 <Avatar src={currentUser?.avatar} sx={{ width: 48, height: 48, mr: 2 }} />
 
                 <Box flexGrow={1}>
-                  <Typography variant="body1" mb={0.5} whiteSpace="normal">
+                  <Typography variant="body1" color="text.primary" mb={0.5} whiteSpace="normal">
                     <WelcomeText name={currentUser?.name} />
                   </Typography>
 
-                  <Typography variant="subtitle2" fontWeight="400">
+                  <Typography variant="subtitle2" color="text.secondary" fontWeight="400">
                     {formatTime(currentUser?.createdAt)}
                   </Typography>
                 </Box>
