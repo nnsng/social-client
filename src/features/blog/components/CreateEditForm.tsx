@@ -139,6 +139,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
         sx={(theme) => ({
           '& .MuiPaper-root': {
             width: 800,
+            backgroundImage: 'none',
           },
           '& .MuiTypography-h6': {
             padding: theme.spacing(1, 3),
