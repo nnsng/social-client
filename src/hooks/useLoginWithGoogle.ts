@@ -10,8 +10,8 @@ export default function useLoginWithGoogle() {
   const dispatch = useAppDispatch();
 
   const onSuccess = async (res: any) => {
-    const { tokenId } = res;
-    dispatch(authActions.googleLogin({ tokenId, navigate }));
+    const token = res.tokenId;
+    dispatch(authActions.googleLogin({ token, navigate }));
   };
 
   const onFailure = (res: any) => {

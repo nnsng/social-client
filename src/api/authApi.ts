@@ -14,6 +14,10 @@ const authApi = {
     const url = '/auth/google-login';
     return axiosClient.post(url, { idToken });
   },
+  active(token: string) {
+    const url = '/auth/active';
+    return axiosClient.post(url, { token });
+  },
   getCurrentUser() {
     const url = '/auth/me';
     return axiosClient.get(url);
