@@ -9,11 +9,11 @@ import UserMenu from './UserMenu';
 
 export interface HeaderMenuProps {
   toggleSearchMobile?: () => void;
-  onThemeModeChange?: (mode: PaletteMode) => void;
+  onThemeChange?: (mode: PaletteMode) => void;
 }
 
 export function HeaderMenu(props: HeaderMenuProps) {
-  const { toggleSearchMobile, onThemeModeChange } = props;
+  const { toggleSearchMobile, onThemeChange } = props;
 
   const hideOnMobile = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
 
@@ -21,14 +21,14 @@ export function HeaderMenu(props: HeaderMenuProps) {
     <Stack direction="row" alignItems="center" ml="auto">
       {hideOnMobile ? (
         <>
-          <ThemeSwitch onChange={onThemeModeChange} />
+          <ThemeSwitch onChange={onThemeChange} />
           <Notification />
           <UserMenu />
         </>
       ) : (
         <>
           <HeaderIconButton icon={<SearchRounded />} onClick={toggleSearchMobile} />
-          <ThemeSwitch onChange={onThemeModeChange} />
+          <ThemeSwitch onChange={onThemeChange} />
           <Notification />
           <DrawerMobile />
         </>
