@@ -1,4 +1,4 @@
-import { ChangePasswordFormValue, AuthFormValue, User } from 'models';
+import { AuthFormValue, ChangePasswordFormValue, User } from 'models';
 import axiosClient from './axiosClient';
 
 const authApi = {
@@ -16,10 +16,6 @@ const authApi = {
   },
   active(token: string) {
     const url = '/auth/active';
-    return axiosClient.post(url, { token });
-  },
-  refreshToken(token: string) {
-    const url = '/auth/refresh-token';
     return axiosClient.post(url, { token });
   },
   getCurrentUser() {
