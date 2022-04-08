@@ -44,9 +44,19 @@ export default function SettingTabs() {
       orientation="vertical"
       value={tab}
       sx={{
-        minHeight: `calc(100vh - (82px + ${themeConstants.headerHeight}))`,
-        borderRight: 1,
-        borderColor: 'divider',
+        position: 'relative',
+        '&::after': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          height: '100%',
+          borderRight: 1,
+          borderColor: 'divider',
+        },
+        '& .MuiTabs-flexContainer': {
+          height: `calc(100vh - (82px + ${themeConstants.headerHeight}))`,
+        },
       }}
       onChange={handleChangeTab}
     >
