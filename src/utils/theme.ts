@@ -8,8 +8,8 @@ const getPaletteTheme = (mode: PaletteMode) => {
     ...(mode === 'light'
       ? {
           primary: {
-            // main: '#ff652f',
-            main: '#7575FF',
+            main: '#ff652f',
+            // main: '#7575FF',
             contrastText: '#fff',
           },
           text: {
@@ -32,8 +32,8 @@ const getPaletteTheme = (mode: PaletteMode) => {
         }
       : {
           primary: {
-            // main: '#ff652f',
-            main: '#7575FF',
+            main: '#ff652f',
+            // main: '#7575FF',
             contrastText: 'rgba(0, 0, 0, 0.87)',
           },
           text: {

@@ -59,7 +59,13 @@ export function Header() {
       <Container>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item xs="auto" mr={2}>
-            <Stack direction="row" alignItems="center" component={Link} to="/">
+            <Stack
+              direction="row"
+              alignItems="center"
+              component={Link}
+              to="/"
+              sx={{ textDecoration: 'none' }}
+            >
               <Avatar
                 variant="rounded"
                 sx={{
