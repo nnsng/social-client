@@ -131,7 +131,7 @@ export default function AuthForm(props: AuthFormProps) {
             </Button>
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={12} hidden>
             <Button
               variant="outlined"
               color="primary"
