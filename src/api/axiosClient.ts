@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import queryString from 'query-string';
-import { TOKEN } from 'utils/constants';
+import { ACCESS_TOKEN } from 'utils/constants';
 import { env, variables } from 'utils/env';
 
 const axiosClient = axios.create({
@@ -12,9 +12,9 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use(async (config: AxiosRequestConfig) => {
-  const accessToken = localStorage.getItem(TOKEN.ACCESS);
-  if (accessToken && config.url !== env(variables.cdnUrl)) {
-    config.headers && (config.headers.Authorization = `Bearer ${accessToken}`);
+  const token = localStorage.getItem(ACCESS_TOKEN);
+  if (token && config.url !== env(variables.cdnUrl)) {
+    config.headers && (config.headers.Authorization = `Bearer ${token}`);
   }
 
   return config;

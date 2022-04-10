@@ -1,4 +1,4 @@
-import { Box, Grid, Hidden } from '@mui/material';
+import { Box, Grid, Theme, useMediaQuery } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
@@ -45,6 +45,8 @@ export function MainPage() {
     dispatch(blogActions.fetchPostList(filter));
   };
 
+  const showPostRecommend = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+
   return (
     <>
       <PageTitle title={APP_NAME} />
@@ -63,8 +65,8 @@ export function MainPage() {
             </Box>
           </Grid>
 
-          <Grid item lg={5}>
-            <Hidden lgDown>
+          {showPostRecommend && (
+            <Grid item lg={5}>
               <Box
                 component="section"
                 sx={{
@@ -85,8 +87,8 @@ export function MainPage() {
               >
                 <PostRecommend keywordActive={filter.keyword} onKeywordClick={handleKeywordClick} />
               </Box>
-            </Hidden>
-          </Grid>
+            </Grid>
+          )}
         </Grid>
       </Box>
     </>

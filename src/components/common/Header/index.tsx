@@ -86,10 +86,7 @@ export function Header() {
           </Grid>
 
           <Grid item xs="auto">
-            <HeaderMenu
-              toggleSearchMobile={toggleSearchMobile}
-              onThemeModeChange={changeThemeMode}
-            />
+            <HeaderMenu toggleSearchMobile={toggleSearchMobile} onThemeChange={changeThemeMode} />
           </Grid>
         </Grid>
       </Container>

@@ -1,14 +1,8 @@
-import { Hidden, Tab, Tabs } from '@mui/material';
-import { SxProps } from '@mui/system';
+import { Tab, Tabs, Theme, useMediaQuery } from '@mui/material';
 import React, { SyntheticEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { themeConstants } from 'utils/theme';
-
-// export interface SettingTabsProps {
-//   direction?: 'vertical' | 'horizontal';
-//   tabsSx?: SxProps;
-// }
 
 export default function SettingTabs() {
   const location = useLocation();
@@ -19,10 +13,8 @@ export default function SettingTabs() {
     switch (location.pathname) {
       case '/settings/edit-profile':
         return 0;
-
       case '/settings/change-password':
         return 1;
-
       default:
         return 0;
     }
@@ -45,71 +37,77 @@ export default function SettingTabs() {
     },
   ];
 
-  return (
-    <>
-      <Hidden smDown>
-        <Tabs
-          orientation="vertical"
-          value={tab}
-          sx={{
-            minHeight: `calc(100vh - (82px + ${themeConstants.headerHeight}))`,
-            borderRight: 1,
-            borderColor: 'divider',
-          }}
-          onChange={handleChangeTab}
-        >
-          {tabItemList.map(({ label, linkTo }, idx) => (
-            <Tab
-              key={idx}
-              label={label}
-              component={Link}
-              to={linkTo}
-              sx={{
-                alignItems: 'flex-start',
-                pr: 4,
-                fontSize: 18,
-                fontWeight: 500,
-                textTransform: 'none',
-              }}
-            />
-          ))}
-        </Tabs>
-      </Hidden>
+  const hideOnMobile = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
 
-      <Hidden smUp>
-        <Tabs
-          orientation="horizontal"
-          value={tab}
-          variant="fullWidth"
+  return hideOnMobile ? (
+    <Tabs
+      orientation="vertical"
+      value={tab}
+      sx={{
+        position: 'relative',
+        '&::after': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          right: 0,
+          height: '100%',
+          borderRight: 1,
+          borderColor: 'divider',
+        },
+        '& .MuiTabs-flexContainer': {
+          height: `calc(100vh - (82px + ${themeConstants.headerHeight}))`,
+        },
+      }}
+      onChange={handleChangeTab}
+    >
+      {tabItemList.map(({ label, linkTo }, idx) => (
+        <Tab
+          key={idx}
+          label={label}
+          component={Link}
+          to={linkTo}
           sx={{
-            position: 'relative',
-            '::after': {
-              content: '""',
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              width: '100%',
-              height: '1px',
-              bgcolor: 'divider',
-            },
+            alignItems: 'flex-start',
+            pr: 4,
+            fontSize: 18,
+            fontWeight: 500,
+            textTransform: 'none',
           }}
-          onChange={handleChangeTab}
-        >
-          {tabItemList.map(({ mobileLabel, linkTo }, idx) => (
-            <Tab
-              key={idx}
-              label={mobileLabel}
-              component={Link}
-              to={linkTo}
-              sx={{
-                fontSize: 18,
-                fontWeight: 500,
-                textTransform: 'none',
-              }}
-            />
-          ))}
-        </Tabs>
-      </Hidden>
-    </>
+        />
+      ))}
+    </Tabs>
+  ) : (
+    <Tabs
+      orientation="horizontal"
+      value={tab}
+      variant="fullWidth"
+      sx={{
+        position: 'relative',
+        '::after': {
+          content: '""',
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          width: '100%',
+          height: '1px',
+          bgcolor: 'divider',
+        },
+      }}
+      onChange={handleChangeTab}
+    >
+      {tabItemList.map(({ mobileLabel, linkTo }, idx) => (
+        <Tab
+          key={idx}
+          label={mobileLabel}
+          component={Link}
+          to={linkTo}
+          sx={{
+            fontSize: 18,
+            fontWeight: 500,
+            textTransform: 'none',
+          }}
+        />
+      ))}
+    </Tabs>
   );
 }

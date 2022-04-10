@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useTranslateFiles } from 'utils/translation';
 import CreateEditForm from '../components/CreateEditForm';
 
 export function CreateEditPage() {
@@ -16,6 +17,7 @@ export function CreateEditPage() {
   const isNewPost = !postId;
 
   const { t } = useTranslation('createEditPost');
+  const { toast: toastTranslation } = useTranslateFiles('toast');
 
   const currentUser = useAppSelector(selectCurrentUser);
   const [editedPost, setEditedPost] = useState<any>(null);
@@ -28,7 +30,8 @@ export function CreateEditPage() {
         const post = await postApi.getPostForEdit(postId);
         setEditedPost(post);
       } catch (error: any) {
-        toast.error(error?.response?.data?.message);
+        const errorName = error?.response?.data?.name || 'somethingWrong';
+        toast.error(toastTranslation.errors[errorName]);
         navigate('/blog/create');
       }
     })();

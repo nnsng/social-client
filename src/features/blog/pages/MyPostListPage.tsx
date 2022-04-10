@@ -1,4 +1,4 @@
-import { Box, Hidden, List, Pagination, Stack, Typography } from '@mui/material';
+import { Box, List, Pagination, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
@@ -41,6 +41,8 @@ export function MyPostListPage() {
     setFilters({ ...filters, page });
   };
 
+  const hideOnMobile = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
+
   return (
     <>
       <PageTitle title={t('pageTitle')} />
@@ -50,13 +52,11 @@ export function MyPostListPage() {
           {t('pageTitle')}
         </Typography>
 
-        <Hidden smDown>
+        {hideOnMobile ? (
           <Box mt={2}>
             <PostTable postList={postList} onEdit={handleEditPost} onRemove={handleRemovePost} />
           </Box>
-        </Hidden>
-
-        <Hidden smUp>
+        ) : (
           <List>
             {postList.map((post) => (
               <PostItemMobile
@@ -67,7 +67,7 @@ export function MyPostListPage() {
               />
             ))}
           </List>
-        </Hidden>
+        )}
 
         {totalPage > 1 && (
           <Stack my={2}>

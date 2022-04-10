@@ -1,5 +1,5 @@
 import { SearchRounded } from '@mui/icons-material';
-import { Hidden, PaletteMode, Stack } from '@mui/material';
+import { PaletteMode, Stack, Theme, useMediaQuery } from '@mui/material';
 import React from 'react';
 import DrawerMobile from './DrawerMobile';
 import HeaderIconButton from './HeaderIconButton';
@@ -9,28 +9,30 @@ import UserMenu from './UserMenu';
 
 export interface HeaderMenuProps {
   toggleSearchMobile?: () => void;
-  onThemeModeChange?: (mode: PaletteMode) => void;
+  onThemeChange?: (mode: PaletteMode) => void;
 }
 
 export function HeaderMenu(props: HeaderMenuProps) {
-  const { toggleSearchMobile, onThemeModeChange } = props;
+  const { toggleSearchMobile, onThemeChange } = props;
+
+  const hideOnMobile = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
 
   return (
     <Stack direction="row" alignItems="center" ml="auto">
-      {/* Tablet & PC */}
-      <Hidden smDown>
-        <ThemeSwitch onChange={onThemeModeChange} />
-        <Notification />
-        <UserMenu />
-      </Hidden>
-
-      {/* Mobile */}
-      <Hidden smUp>
-        <HeaderIconButton icon={<SearchRounded />} onClick={toggleSearchMobile} />
-        <ThemeSwitch onChange={onThemeModeChange} />
-        <Notification />
-        <DrawerMobile />
-      </Hidden>
+      {hideOnMobile ? (
+        <>
+          <ThemeSwitch onChange={onThemeChange} />
+          <Notification />
+          <UserMenu />
+        </>
+      ) : (
+        <>
+          <HeaderIconButton icon={<SearchRounded />} onClick={toggleSearchMobile} />
+          <ThemeSwitch onChange={onThemeChange} />
+          <Notification />
+          <DrawerMobile />
+        </>
+      )}
     </Stack>
   );
 }

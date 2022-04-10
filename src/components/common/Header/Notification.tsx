@@ -1,5 +1,14 @@
 import { NotificationsRounded } from '@mui/icons-material';
-import { Avatar, Backdrop, Box, Divider, Hidden, MenuItem, Typography } from '@mui/material';
+import {
+  Avatar,
+  Backdrop,
+  Box,
+  Divider,
+  MenuItem,
+  Theme,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import React, { useRef, useState } from 'react';
@@ -39,6 +48,8 @@ export default function Notification() {
   const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
 
+  const showBackdrop = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+
   return (
     <>
       <HeaderIconButton
@@ -48,9 +59,9 @@ export default function Notification() {
         onClick={toggleMenu}
       />
 
-      <Hidden smUp>
+      {showBackdrop && (
         <Backdrop open={openMenu} sx={{ zIndex: (theme) => theme.zIndex.appBar + 1 }}></Backdrop>
-      </Hidden>
+      )}
 
       <PopperMenu
         open={openMenu}

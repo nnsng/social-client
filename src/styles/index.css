@@ -6,7 +6,6 @@
   --font-code: 'Source Code Pro', monospace;
   /* --color-primary: #ff652f; */
   --color-primary: #7575ff;
-  --color-text: #333;
 }
 
 * {
@@ -21,15 +20,8 @@ html {
   /* user-select: none; */
 }
 
-input,
-textarea {
-  font-family: var(--font-primary);
-  color: var(--color-text);
-}
-
 a {
   text-decoration: none;
-  color: var(--color-text);
 }
 
 code {

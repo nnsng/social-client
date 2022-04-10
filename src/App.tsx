@@ -12,9 +12,8 @@ import { User } from 'models';
 import { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
-import { checkTokenExpiration } from 'utils/auth';
 import { getLocalConfig } from 'utils/common';
-import { TOKEN, LANGUAGE } from 'utils/constants';
+import { ACCESS_TOKEN, LANGUAGE } from 'utils/constants';
 import { env, variables } from 'utils/env';
 
 function App() {
@@ -25,12 +24,8 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
-        const accessToken = localStorage.getItem(TOKEN.ACCESS) || '';
-        const refreshToken = localStorage.getItem(TOKEN.REFRESH) || '';
-        if (!accessToken || !refreshToken) return;
-
-        await checkTokenExpiration({ type: TOKEN.REFRESH, token: refreshToken });
-        await checkTokenExpiration({ type: TOKEN.ACCESS, token: accessToken });
+        const token = localStorage.getItem(ACCESS_TOKEN) || '';
+        if (!token) return;
 
         const user = await authApi.getCurrentUser();
         if (!user) throw new Error();

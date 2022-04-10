@@ -17,7 +17,8 @@ function* updateProfile(action: PayloadAction<User>) {
 
     toast.success(toastTranslation.settingSaga.updateProfileSuccess);
   } catch (error: any) {
-    toast.error(error?.response?.data?.message);
+    const errorName = error?.response?.data?.name || 'somethingWrong';
+    toast.error(toastTranslation.errors[errorName]);
   }
 
   yield put(settingActions.updateProfileFinished());

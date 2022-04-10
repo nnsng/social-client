@@ -54,7 +54,8 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
       await onSave?.(post);
       toast.success(toastTranslation.postCard.saveSuccess);
     } catch (error: any) {
-      toast.error(error?.response?.data?.message);
+      const errorName = error?.response?.data?.name || 'somethingWrong';
+      toast.error(toastTranslation.errors[errorName]);
     }
   };
 
@@ -64,7 +65,8 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
       await onRemove?.(post);
       toast.success(toastTranslation.postCard.deleteSuccess);
     } catch (error: any) {
-      toast.error(error?.response?.data?.message);
+      const errorName = error?.response?.data?.name || 'somethingWrong';
+      toast.error(toastTranslation.errors[errorName]);
     }
   };
 

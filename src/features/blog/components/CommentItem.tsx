@@ -26,6 +26,7 @@ import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { formatTime } from 'utils/common';
+import { useTranslateFiles } from 'utils/translation';
 
 export interface CommentItemProps {
   comment: Comment;
@@ -35,6 +36,7 @@ export interface CommentItemProps {
 
 export default function CommentItem({ comment, onRemove, onLike }: CommentItemProps) {
   const { t } = useTranslation('postComment');
+  const { toast: toastTranslation } = useTranslateFiles('toast');
 
   const currentUser = useAppSelector(selectCurrentUser);
 
@@ -53,7 +55,8 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
     try {
       await onRemove?.(comment);
     } catch (error: any) {
-      toast.error(error?.response?.data?.message);
+      const errorName = error?.response?.data?.name || 'somethingWrong';
+      toast.error(toastTranslation.errors[errorName]);
     }
 
     setLoading((prevState) => false);

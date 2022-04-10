@@ -53,7 +53,8 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
     try {
       await onSave?.(post);
     } catch (error: any) {
-      toast.error(error?.response?.data?.message);
+      const errorName = error?.response?.data?.name || 'somethingWrong';
+      toast.error(toastTranslation.errors[errorName]);
     }
   };
 
@@ -64,7 +65,8 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
       toast.success(toastTranslation.postDetail.deleteSuccess);
       navigate('/blog');
     } catch (error: any) {
-      toast.error(error?.response?.data?.message);
+      const errorName = error?.response?.data?.name || 'somethingWrong';
+      toast.error(toastTranslation.errors[errorName]);
     }
   };
 
