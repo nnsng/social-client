@@ -29,13 +29,13 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
     username: yup
       .string()
       .min(6, validate.username.min(6))
-      .max(50, validate.username.max(50))
-      .matches(/^[a-zA-Z0-9]*$/, validate.username.valid),
+      .max(50, validate.username.max(20))
+      .matches(/^(?![_.])[a-zA-Z0-9._]+(?<![_.])$/, validate.username.valid),
     email: yup.string().email().required(),
     phone: yup
       .string()
       .max(10)
-      .matches(/[0-9]|^$/, validate.phone.valid),
+      .matches(/(0[3|5|7|8|9])+([0-9]{8})\b/, validate.phone.valid),
   });
 
   const { control, handleSubmit, getValues, reset, clearErrors } = useForm({
