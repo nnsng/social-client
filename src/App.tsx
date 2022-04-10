@@ -39,7 +39,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    const socket = io(env(variables.baseUrl));
+    const socket = io(env(variables.serverUrl));
     dispatch(socketActions.setSocket(socket));
 
     return () => {

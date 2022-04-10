@@ -4,7 +4,7 @@ import { ACCESS_TOKEN } from 'utils/constants';
 import { env, variables } from 'utils/env';
 
 const axiosClient = axios.create({
-  baseURL: env(variables.baseApiUrl),
+  baseURL: env(variables.apiUrl),
   headers: {
     'Content-Type': 'application/json',
   },
