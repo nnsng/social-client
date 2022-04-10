@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { copyPostLink, formatTime } from 'utils/common';
 import { mixins } from 'utils/theme';
+import { useTranslateFiles } from 'utils/translation';
 
 export interface PostItemMobileProps {
   post: Post;
@@ -28,6 +29,7 @@ export function PostItemMobile(props: PostItemMobileProps) {
   const { post, onEdit, onRemove, saved, onUnSave } = props;
 
   const { t } = useTranslation('postItemMobile');
+  const { toast: toastTranslation } = useTranslateFiles('toast');
 
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
@@ -49,7 +51,8 @@ export function PostItemMobile(props: PostItemMobileProps) {
       await onRemove?.(post);
       closeMenu();
     } catch (error: any) {
-      toast.error(error?.response?.data?.message);
+      const errorName = error?.response?.data?.name || 'somethingWrong';
+      toast.error(toastTranslation.errors[errorName]);
     }
   };
 
@@ -58,7 +61,8 @@ export function PostItemMobile(props: PostItemMobileProps) {
       await onUnSave?.(post);
       closeMenu();
     } catch (error: any) {
-      toast.error(error?.response?.data?.message);
+      const errorName = error?.response?.data?.name || 'somethingWrong';
+      toast.error(toastTranslation.errors[errorName]);
     }
   };
 

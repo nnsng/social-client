@@ -16,6 +16,7 @@ import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { useTranslateFiles } from 'utils/translation';
 import { blogActions } from '../blogSlice';
 import CommentItem from './CommentItem';
 
@@ -32,6 +33,7 @@ export default function PostComment(props: PostCommentProps) {
   const { commentList, postId, onClose, onCreate, onRemove, onLike } = props;
 
   const { t } = useTranslation('postComment');
+  const { toast: toastTranslation } = useTranslateFiles('toast');
 
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectCommentLoading);
@@ -63,7 +65,8 @@ export default function PostComment(props: PostCommentProps) {
       await onCreate?.(comment);
       setValue('content', '');
     } catch (error: any) {
-      toast.error(error?.response?.data?.message);
+      const errorName = error?.response?.data?.name || 'somethingWrong';
+      toast.error(toastTranslation.errors[errorName]);
     }
   };
 

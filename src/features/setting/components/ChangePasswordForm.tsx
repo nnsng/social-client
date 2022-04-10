@@ -59,7 +59,8 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
       reset();
       toast.success(toastTranslation.changePasswordForm.success);
     } catch (error: any) {
-      toast.error(error?.response?.data?.message);
+      const errorName = error?.response?.data?.name || 'somethingWrong';
+      toast.error(toastTranslation.errors[errorName]);
     }
   };
 
