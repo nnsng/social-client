@@ -1,16 +1,6 @@
-import {
-  Avatar,
-  Box,
-  Container,
-  Grid,
-  LinearProgress,
-  PaletteMode,
-  Stack,
-  Typography,
-} from '@mui/material';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { Avatar, Box, Container, Grid, LinearProgress, Stack, Typography } from '@mui/material';
+import { useAppSelector } from 'app/hooks';
 import { selectPostLoading } from 'features/blog/blogSlice';
-import { themeActions } from 'features/common/themeSlice';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
@@ -19,17 +9,12 @@ import { HeaderMenu } from './HeaderMenu';
 import { SearchBox } from './SearchBox';
 
 export function Header() {
-  const dispatch = useAppDispatch();
   const loading = useAppSelector(selectPostLoading);
 
   const [openSearchMobile, setOpenSearchMobile] = useState<boolean>(false);
 
   const toggleSearchMobile = () => {
     setOpenSearchMobile(!openSearchMobile);
-  };
-
-  const changeThemeMode = (mode: PaletteMode) => {
-    dispatch(themeActions.changeThemeMode(mode));
   };
 
   return (
@@ -86,7 +71,7 @@ export function Header() {
           </Grid>
 
           <Grid item xs="auto">
-            <HeaderMenu toggleSearchMobile={toggleSearchMobile} onThemeChange={changeThemeMode} />
+            <HeaderMenu toggleSearchMobile={toggleSearchMobile} />
           </Grid>
         </Grid>
       </Container>

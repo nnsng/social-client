@@ -7,11 +7,10 @@ import {
   SettingsOutlined,
 } from '@mui/icons-material';
 import { authActions } from 'features/auth/authSlice';
+import { configActions } from 'features/common/configSlice';
 import { IMenuItem } from 'models';
 import { NavigateFunction } from 'react-router-dom';
-import { getLocalConfig } from 'utils/common';
-import { LANGUAGE } from 'utils/constants';
-import { changeGlobalLanguage } from 'utils/translation';
+import { localConfig } from 'utils/common';
 
 export interface GetUserMenuItemListProps {
   navigate: NavigateFunction;
@@ -27,9 +26,8 @@ export default function GetUserMenuItemList(props: GetUserMenuItemListProps) {
   };
 
   const changeLanguage = () => {
-    const currentLanguage = getLocalConfig(LANGUAGE);
-    console.log('~ currentLanguage', currentLanguage);
-    changeGlobalLanguage(currentLanguage === 'en' ? 'vi' : 'en');
+    const currentLanguage = localConfig.get('lang');
+    dispatch(configActions.changeLanguage(currentLanguage === 'en' ? 'vi' : 'en'));
   };
 
   const handleLogout = () => {

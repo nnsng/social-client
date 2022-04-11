@@ -1,8 +1,8 @@
 import authReducer from 'features/auth/authSlice';
 import blogReducer from 'features/blog/blogSlice';
-import cdnReducer from 'features/cdn/cdnSlice';
+import cdnReducer from 'features/common/cdnSlice';
 import commentReducer from 'features/comment/commentSlice';
-import themeReducer from 'features/common/themeSlice';
+import configReducer from 'features/common/configSlice';
 import settingReducer from 'features/setting/settingSlice';
 import socketReducer from 'features/socket/socketSlice';
 import { combineReducers } from 'redux';
@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
   cdn: cdnReducer,
   setting: settingReducer,
   socket: socketReducer,
-  theme: themeReducer,
+  config: configReducer,
 });
 
 export default rootReducer;

@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Avatar, Box, Button, CircularProgress, Grid, Stack, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { FileInputField, MuiTextField } from 'components/formFields';
-import { selectCdnLoading } from 'features/cdn/cdnSlice';
+import { selectCdnLoading } from 'features/common/cdnSlice';
 import i18next from 'i18next';
 import { User } from 'models';
 import React, { useEffect } from 'react';

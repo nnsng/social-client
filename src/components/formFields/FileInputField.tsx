@@ -1,4 +1,4 @@
-import { cdnActions } from 'features/cdn/cdnSlice';
+import { cdnActions } from 'features/common/cdnSlice';
 import React, { InputHTMLAttributes } from 'react';
 import { Control, useController } from 'react-hook-form';
 import { useAppDispatch } from 'app/hooks';

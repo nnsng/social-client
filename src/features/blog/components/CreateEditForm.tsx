@@ -17,7 +17,7 @@ import {
   KeywordInputField,
   MdEditorField,
 } from 'components/formFields';
-import { selectCdnLoading } from 'features/cdn/cdnSlice';
+import { selectCdnLoading } from 'features/common/cdnSlice';
 import { Post } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';

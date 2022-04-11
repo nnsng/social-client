@@ -38,3 +38,5 @@ export interface Token {
   iat: number;
   exp: number;
 }
+
+export type SupportedLanguage = 'en' | 'vi';
