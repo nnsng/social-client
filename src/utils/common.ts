@@ -22,7 +22,7 @@ export const getImageUrlFromCDN = async (image: File) => {
   try {
     const formData = new FormData();
     formData.append('file', image);
-    formData.append('upload_preset', 'cdn_test');
+    formData.append('upload_preset', '1social');
 
     const imageObject: any = await cdnApi.getImageUrl(formData);
     return imageObject?.url || '';
