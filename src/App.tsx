@@ -25,7 +25,7 @@ function App() {
     (async () => {
       try {
         const token = localStorage.getItem(ACCESS_TOKEN) || '';
-        if (!token) return;
+        if (!token) return navigate('/login', { replace: true });
 
         const user = await authApi.getCurrentUser();
         if (!user) throw new Error();
@@ -80,6 +80,7 @@ function App() {
         <Route path="/register" element={<Auth />} />
         <Route path="/active" element={<Auth active />} />
 
+        <Route path="/404" element={<NotFound />} />
         <Route path=":404" element={<NotFound />} />
       </Routes>
     </>
