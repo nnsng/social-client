@@ -10,11 +10,17 @@
     "welcome2": "to "
   },
   "menu": {
-    "create": "Create post",
-    "myPosts": "My posts",
+    "create": "Create new post",
+    "myPosts": "My post list",
     "saved": "Saved",
-    "language": "Language",
+    "appearance": "Theme & Language",
     "settings": "Settings",
     "logout": "Logout"
+  },
+  "appearanceDialog": {
+    "title": "Theme & Language",
+    "darkMode": "Dark mode:",
+    "themeColor": "Theme color:",
+    "language": "Language:"
   }
 }

@@ -139,17 +139,19 @@ export default function CreateEditForm(props: CreateEditFormProps) {
         sx={(theme) => ({
           '& .MuiPaper-root': {
             width: 800,
-            backgroundImage: 'none',
-          },
-          '& .MuiTypography-h6': {
-            padding: theme.spacing(1, 3),
-          },
-          '& .MuiDialogActions-root': {
-            padding: theme.spacing(1),
           },
         })}
       >
-        <Typography variant="h6" component="div" sx={{ ...mixins.truncate(1) }}>
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{
+            px: 3,
+            py: 2,
+            fontWeight: 600,
+            ...mixins.truncate(1),
+          }}
+        >
           {getValues('title') || t('noTitle')}
         </Typography>
 
@@ -166,7 +168,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
             }}
           ></Box>
 
-          <Stack direction="row" alignItems="center" mt={1} mb={2} spacing={1}>
+          <Stack alignItems="center" mt={1} mb={2} spacing={1}>
             <Button
               variant="contained"
               size="small"
@@ -203,7 +205,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
           />
         </DialogContent>
 
-        <DialogActions>
+        <DialogActions sx={{ px: 2 }}>
           <Button variant="text" size="large" onClick={closeDialog}>
             {t('btnLabel.cancel')}
           </Button>

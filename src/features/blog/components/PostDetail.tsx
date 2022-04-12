@@ -175,7 +175,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
           </Box>
         }
         title={
-          <Typography variant="subtitle2" fontWeight="600">
+          <Typography variant="subtitle2" fontWeight={600}>
             {post?.author?.name}
           </Typography>
         }

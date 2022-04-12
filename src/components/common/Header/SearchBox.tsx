@@ -123,7 +123,7 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
                     searchResultList.map((post) => (
                       <ListItem key={post._id} disablePadding>
                         <ListItemButton disableRipple onClick={() => gotoPost(post)}>
-                          <Stack direction="row" alignItems="center">
+                          <Stack alignItems="center">
                             <Avatar
                               src={post.thumbnail}
                               sx={{

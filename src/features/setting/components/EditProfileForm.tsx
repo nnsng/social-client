@@ -58,14 +58,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
       <Box pb={3}>
         <Grid container spacing={2}>
           <Grid item container alignItems="center">
-            <Typography
-              variant="h6"
-              fontSize={18}
-              fontWeight="500"
-              mb={0.5}
-              width={160}
-              sx={{ userSelect: 'none' }}
-            >
+            <Typography variant="h6" fontSize={18} fontWeight={500} mb={0.5} width={160}>
               {t('label.fullName')}
             </Typography>
 
@@ -79,14 +72,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
           </Grid>
 
           <Grid item container alignItems="center">
-            <Typography
-              variant="h6"
-              fontSize={18}
-              fontWeight="500"
-              mb={0.5}
-              width={160}
-              sx={{ userSelect: 'none' }}
-            >
+            <Typography variant="h6" fontSize={18} fontWeight={500} mb={0.5} width={160}>
               {t('label.avatar')}
             </Typography>
 
@@ -128,14 +114,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
           </Grid>
 
           <Grid item container alignItems="center">
-            <Typography
-              variant="h6"
-              fontSize={18}
-              fontWeight="500"
-              mb={0.5}
-              width={160}
-              sx={{ userSelect: 'none' }}
-            >
+            <Typography variant="h6" fontSize={18} fontWeight={500} mb={0.5} width={160}>
               {t('label.username')}
             </Typography>
 
@@ -149,14 +128,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
           </Grid>
 
           <Grid item container alignItems="center">
-            <Typography
-              variant="h6"
-              fontSize={18}
-              fontWeight="500"
-              mb={0.5}
-              width={160}
-              sx={{ userSelect: 'none' }}
-            >
+            <Typography variant="h6" fontSize={18} fontWeight={500} mb={0.5} width={160}>
               {t('label.email')}
             </Typography>
 
@@ -171,14 +143,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
           </Grid>
 
           <Grid item container alignItems="center">
-            <Typography
-              variant="h6"
-              fontSize={18}
-              fontWeight="500"
-              mb={0.5}
-              width={160}
-              sx={{ userSelect: 'none' }}
-            >
+            <Typography variant="h6" fontSize={18} fontWeight={500} mb={0.5} width={160}>
               {t('label.phone')}
             </Typography>
 

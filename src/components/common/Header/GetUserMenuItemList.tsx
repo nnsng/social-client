@@ -1,7 +1,7 @@
 import {
   AddCircleOutlineOutlined,
   BookmarkBorderOutlined,
-  LanguageRounded,
+  DarkModeRounded,
   ListAltOutlined,
   LogoutOutlined,
   SettingsOutlined,
@@ -10,7 +10,6 @@ import { authActions } from 'features/auth/authSlice';
 import { configActions } from 'features/common/configSlice';
 import { IMenuItem } from 'models';
 import { NavigateFunction } from 'react-router-dom';
-import { localConfig } from 'utils/common';
 
 export interface GetUserMenuItemListProps {
   navigate: NavigateFunction;
@@ -21,16 +20,11 @@ export interface GetUserMenuItemListProps {
 export default function GetUserMenuItemList(props: GetUserMenuItemListProps) {
   const { navigate, dispatch, t } = props;
 
-  const handleGotoPage = (path: string) => {
-    navigate(path);
+  const showAppearanceDialog = () => {
+    dispatch(configActions.setShowConfig(true));
   };
 
-  const changeLanguage = () => {
-    const currentLanguage = localConfig.get('lang');
-    dispatch(configActions.changeLanguage(currentLanguage === 'en' ? 'vi' : 'en'));
-  };
-
-  const handleLogout = () => {
+  const logout = () => {
     dispatch(authActions.logout({ navigate }));
   };
 
@@ -38,32 +32,32 @@ export default function GetUserMenuItemList(props: GetUserMenuItemListProps) {
     {
       label: t('menu.create'),
       icon: AddCircleOutlineOutlined,
-      onClick: () => handleGotoPage('/blog/create'),
+      onClick: () => navigate('/blog/create'),
     },
     {
       label: t('menu.myPosts'),
       icon: ListAltOutlined,
-      onClick: () => handleGotoPage('/blog/my'),
+      onClick: () => navigate('/blog/my'),
     },
     {
       label: t('menu.saved'),
       icon: BookmarkBorderOutlined,
-      onClick: () => handleGotoPage('/blog/saved'),
+      onClick: () => navigate('/blog/saved'),
     },
     {
-      label: t('menu.language'),
-      icon: LanguageRounded,
-      onClick: changeLanguage,
+      label: t('menu.appearance'),
+      icon: DarkModeRounded,
+      onClick: showAppearanceDialog,
     },
     {
       label: t('menu.settings'),
       icon: SettingsOutlined,
-      onClick: () => handleGotoPage('/settings'),
+      onClick: () => navigate('/settings'),
     },
     {
       label: t('menu.logout'),
       icon: LogoutOutlined,
-      onClick: handleLogout,
+      onClick: logout,
     },
   ];
 

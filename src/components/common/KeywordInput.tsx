@@ -58,7 +58,7 @@ export function KeywordInput(props: KeywordInputProps) {
         onKeyUp={handleAddKeyword}
       />
 
-      <Stack direction="row" mt={1} spacing={0.5}>
+      <Stack mt={1} spacing={0.5}>
         {keywordList.map((keyword, idx) => (
           <Chip
             key={idx}

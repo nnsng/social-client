@@ -1,16 +1,17 @@
 import { PaletteMode } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { SxProps } from '@mui/system';
+import { SupportedThemeColor } from 'models';
 
-const getPaletteTheme = (mode: PaletteMode) => {
+const configPalette = (mode: PaletteMode = 'light', color: string = '#7575FF') => {
   return {
     mode,
     ...(mode === 'light'
       ? {
           primary: {
             // main: '#ff652f',
-            main: '#7575FF',
-            contrastText: '#fff',
+            main: color,
+            contrastText: '#FFF',
           },
           text: {
             primary: 'rgba(0, 0, 0, 0.87)',
@@ -25,15 +26,15 @@ const getPaletteTheme = (mode: PaletteMode) => {
             disabledBackground: 'rgba(0, 0, 0, 0.12)',
           },
           background: {
-            default: '#fff',
-            paper: '#fff',
+            default: '#FFF',
+            paper: '#FFF',
           },
           divider: 'rgba(0, 0, 0, 0.12)',
         }
       : {
           primary: {
             // main: '#ff652f',
-            main: '#7575FF',
+            main: color,
             contrastText: 'rgba(0, 0, 0, 0.87)',
           },
           text: {
@@ -57,13 +58,18 @@ const getPaletteTheme = (mode: PaletteMode) => {
   };
 };
 
-export const getTheme = (mode: PaletteMode) =>
+export const getTheme = (mode?: PaletteMode, color?: SupportedThemeColor) =>
   createTheme({
-    palette: getPaletteTheme(mode),
+    palette: configPalette(mode, color),
     typography: {
       fontFamily: `'Montserrat', Arial, Helvetica, sans-serif`,
     },
     components: {
+      MuiStack: {
+        defaultProps: {
+          direction: 'row',
+        },
+      },
       MuiButton: {
         defaultProps: {
           disableRipple: true,
@@ -72,6 +78,9 @@ export const getTheme = (mode: PaletteMode) =>
         styleOverrides: {
           root: {
             textTransform: 'none',
+          },
+          contained: {
+            color: '#FFF',
           },
         },
       },
@@ -88,6 +97,11 @@ export const getTheme = (mode: PaletteMode) =>
       MuiPaper: {
         defaultProps: {
           elevation: 0,
+        },
+        styleOverrides: {
+          root: {
+            backgroundImage: 'none',
+          },
         },
       },
       MuiDivider: {
@@ -110,6 +124,14 @@ export const getTheme = (mode: PaletteMode) =>
       },
     },
   });
+
+export const supportedThemeColors: SupportedThemeColor[] = [
+  '#7575FF',
+  '#FF652F',
+  '#00CC6A',
+  '#FFB900',
+  '#C239B3',
+];
 
 export const themeConstants = {
   headerHeight: '72px',

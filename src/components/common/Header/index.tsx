@@ -26,7 +26,6 @@ export function Header() {
         zIndex: 'appBar',
         height: themeConstants.headerHeight,
         py: 2,
-        userSelect: 'none',
         bgcolor: (theme) =>
           theme.palette.mode === 'light' ? 'background.default' : 'background.paper',
         boxShadow: (theme) =>
@@ -44,7 +43,7 @@ export function Header() {
       <Container>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item xs="auto" mr={2}>
-            <Stack direction="row" alignItems="center" component={Link} to="/">
+            <Stack alignItems="center" component={Link} to="/">
               <Avatar
                 variant="rounded"
                 sx={{
@@ -57,7 +56,7 @@ export function Header() {
                 1
               </Avatar>
 
-              <Typography variant="h6" color="primary" fontWeight="600" letterSpacing={1}>
+              <Typography variant="h6" color="primary" fontWeight={600} letterSpacing={1}>
                 {APP_NAME}
               </Typography>
             </Stack>

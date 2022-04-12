@@ -92,7 +92,6 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
                   mb: 0.5,
                   fontSize: 18,
                   fontWeight: 500,
-                  userSelect: 'none',
                 }}
               >
                 {label}
@@ -110,7 +109,7 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
           ))}
 
           <Grid item>
-            <Stack direction="row">
+            <Stack>
               <Button
                 type="submit"
                 variant="contained"
