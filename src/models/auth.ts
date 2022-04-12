@@ -1,6 +1,6 @@
 import { PaletteMode } from '@mui/material';
 import { NavigateFunction } from 'react-router-dom';
-import { SupportedLanguage } from './common';
+import { SupportedLanguage, SupportedThemeColor } from './common';
 
 export interface User {
   _id: string;
@@ -42,7 +42,7 @@ export interface AuthPayload {
 }
 
 export interface UserConfig {
-  theme?: PaletteMode;
-  color?: string;
-  lang?: SupportedLanguage;
+  theme: PaletteMode;
+  color: SupportedThemeColor;
+  lang: SupportedLanguage;
 }

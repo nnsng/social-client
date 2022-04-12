@@ -1,15 +1,16 @@
 import { PaletteMode } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { SxProps } from '@mui/system';
+import { SupportedThemeColor } from 'models';
 
-const getPaletteTheme = (mode: PaletteMode) => {
+const configPalette = (mode: PaletteMode = 'light', color: string = '#7575FF') => {
   return {
     mode,
     ...(mode === 'light'
       ? {
           primary: {
             // main: '#ff652f',
-            main: '#7575FF',
+            main: color,
             contrastText: '#fff',
           },
           text: {
@@ -33,7 +34,7 @@ const getPaletteTheme = (mode: PaletteMode) => {
       : {
           primary: {
             // main: '#ff652f',
-            main: '#7575FF',
+            main: color,
             contrastText: 'rgba(0, 0, 0, 0.87)',
           },
           text: {
@@ -57,9 +58,9 @@ const getPaletteTheme = (mode: PaletteMode) => {
   };
 };
 
-export const getTheme = (mode: PaletteMode) =>
+export const getTheme = (mode?: PaletteMode, color?: SupportedThemeColor) =>
   createTheme({
-    palette: getPaletteTheme(mode),
+    palette: configPalette(mode, color),
     typography: {
       fontFamily: `'Montserrat', Arial, Helvetica, sans-serif`,
     },
