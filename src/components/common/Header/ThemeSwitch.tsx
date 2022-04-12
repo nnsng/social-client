@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles';
-import Switch from '@mui/material/Switch';
+import { Switch, SwitchProps } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { configActions, selectThemeMode } from 'features/common/configSlice';
 import React from 'react';
@@ -52,7 +52,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export default function ThemeSwitch() {
+export default function ThemeSwitch(props: SwitchProps) {
   const dispatch = useAppDispatch();
   const themeMode = useAppSelector(selectThemeMode);
 
@@ -61,5 +61,5 @@ export default function ThemeSwitch() {
     dispatch(configActions.changeThemeMode(darkMode ? 'dark' : 'light'));
   };
 
-  return <MaterialUISwitch checked={themeMode === 'dark'} onChange={changeTheme} />;
+  return <MaterialUISwitch checked={themeMode === 'dark'} onChange={changeTheme} {...props} />;
 }

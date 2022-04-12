@@ -21,9 +21,9 @@ export default function UserMenu() {
   const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
 
-  const handleMenuItemClick = (callback?: () => void) => {
+  const handleMenuItemClick = (onMenuItemClick?: () => void) => {
     closeMenu();
-    callback?.();
+    onMenuItemClick?.();
   };
 
   const { userMenuItemList, dividers } = GetUserMenuItemList({ navigate, dispatch, t });
@@ -35,7 +35,7 @@ export default function UserMenu() {
         sx={{
           width: 28,
           height: 28,
-          ml: 1,
+          ml: 2,
           cursor: 'pointer',
         }}
         ref={anchorRef as any}
@@ -53,11 +53,11 @@ export default function UserMenu() {
         zIndex={(theme) => (theme.zIndex as any).appBar + 1}
         onClose={closeMenu}
       >
-        <Stack direction="row" alignItems="center" p={1}>
+        <Stack alignItems="center" p={1}>
           <Avatar src={currentUser?.avatar} sx={{ width: 40, height: 40 }} />
 
           <Box ml={2}>
-            <Typography variant="body1" fontWeight="600">
+            <Typography variant="body1" fontWeight={600}>
               {currentUser?.name}
             </Typography>
 

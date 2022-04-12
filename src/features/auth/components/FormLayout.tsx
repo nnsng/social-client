@@ -45,7 +45,13 @@ export default function FormLayout({ mode }: FormLayoutProps) {
     <>
       <PageTitle title={mode === 'login' ? t('pageTitle.login') : t('pageTitle.register')} />
 
-      <Stack alignItems="center" justifyContent="center" minHeight="100vh" bgcolor="primary.main">
+      <Stack
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        minHeight="100vh"
+        bgcolor="primary.main"
+      >
         <AuthForm
           defaultValues={defaultValues}
           switchMode={switchMode}

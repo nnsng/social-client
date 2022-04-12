@@ -98,7 +98,7 @@ export function PostItemMobile(props: PostItemMobileProps) {
 
   return (
     <ListItem disablePadding sx={{ my: 2 }}>
-      <Stack direction="row" width="100%" alignItems="center">
+      <Stack width="100%" alignItems="center">
         <Box flexShrink={0} component={Link} to={`/blog/${post.slug}`}>
           <Avatar
             variant="rounded"
@@ -114,11 +114,18 @@ export function PostItemMobile(props: PostItemMobileProps) {
           </Avatar>
         </Box>
 
-        <Stack flexGrow={1} justifyContent="center" component={Link} to={`/blog/${post.slug}`}>
+        <Stack
+          direction="column"
+          flexGrow={1}
+          justifyContent="center"
+          component={Link}
+          to={`/blog/${post.slug}`}
+        >
           <Typography
             variant="h6"
+            color="text.primary"
             fontSize={16}
-            fontWeight="600"
+            fontWeight={600}
             lineHeight={1.4}
             sx={{ ...mixins.truncate(2) }}
           >

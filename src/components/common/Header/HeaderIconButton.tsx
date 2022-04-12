@@ -15,7 +15,6 @@ function HeaderIconButton(props: HeaderIconButtonProps, ref?: any) {
       ref={ref ?? null}
       onClick={onClick}
       sx={{
-        mx: 1,
         color: active ? 'text.primary' : 'text.secondary',
 
         '.MuiSvgIcon-root': {

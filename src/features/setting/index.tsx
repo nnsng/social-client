@@ -17,7 +17,7 @@ export default function Setting() {
       <Box component="main" pt={3}>
         <Container maxWidth="md">
           <Box>
-            <Typography variant="h4" fontWeight="500" sx={{ userSelect: 'none' }}>
+            <Typography variant="h4" fontWeight={500}>
               {t('pageTitle')}
             </Typography>
 

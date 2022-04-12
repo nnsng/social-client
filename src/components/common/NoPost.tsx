@@ -14,7 +14,6 @@ export function NoPost({ children, createText }: NoPostProps) {
         textAlign: 'center',
         color: 'text.secondary',
         p: 2,
-        userSelect: 'none',
       }}
     >
       {children}&nbsp;

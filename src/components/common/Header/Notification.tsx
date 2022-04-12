@@ -75,13 +75,7 @@ export default function Notification() {
         zIndex={(theme) => (theme.zIndex as any).appBar + 1}
         onClose={closeMenu}
       >
-        <Typography
-          variant="h6"
-          fontWeight="500"
-          px={2}
-          py={1}
-          sx={{ userSelect: 'none', cursor: 'default' }}
-        >
+        <Typography variant="h6" fontWeight={600} px={2} py={1} sx={{ cursor: 'default' }}>
           {t('notification.label')}
         </Typography>
 

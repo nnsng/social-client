@@ -37,7 +37,7 @@ export default function PostRecommend(props: PostRecommendProps) {
   };
 
   return (
-    <Box sx={{ userSelect: 'none' }}>
+    <Box>
       <Typography
         variant="button"
         sx={{
@@ -47,7 +47,6 @@ export default function PostRecommend(props: PostRecommendProps) {
           borderColor: 'text.primary',
           color: 'text.primary',
           fontWeight: 600,
-          userSelect: 'none',
           cursor: 'default',
         }}
       >
@@ -55,7 +54,6 @@ export default function PostRecommend(props: PostRecommendProps) {
       </Typography>
 
       <Stack
-        direction="row"
         flexWrap="wrap"
         sx={{
           mt: '1.5px',

@@ -33,6 +33,7 @@ export default function DrawerMobile() {
         sx={{
           width: 28,
           height: 28,
+          ml: 1.5,
           cursor: 'pointer',
         }}
         onClick={toggleMenu}
@@ -51,7 +52,7 @@ export default function DrawerMobile() {
             <Avatar src={currentUser?.avatar} sx={{ width: 60, height: 60, mb: 2 }} />
 
             <Box>
-              <Typography variant="body1" fontSize={16} fontWeight="600">
+              <Typography variant="body1" fontSize={16} fontWeight={600}>
                 {currentUser?.name}
               </Typography>
 

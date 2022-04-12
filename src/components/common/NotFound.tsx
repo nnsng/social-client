@@ -17,7 +17,6 @@ export function NotFound() {
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: 'background.default',
-          userSelect: 'none',
         }}
       >
         <Typography

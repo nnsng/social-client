@@ -72,13 +72,14 @@ export default function PostComment(props: PostCommentProps) {
 
   return (
     <Stack
+      direction="column"
       width="100vw"
       height="100vh"
       maxWidth={680}
       px={{ xs: 3, sm: 5 }}
       bgcolor="background.paper"
     >
-      <Stack position="sticky" top={0} zIndex={2} pt={8}>
+      <Stack direction="column" position="sticky" top={0} zIndex={2} pt={8}>
         <IconButton
           edge="start"
           color="inherit"
@@ -98,7 +99,6 @@ export default function PostComment(props: PostCommentProps) {
             display: 'flex',
             alignItems: 'center',
             fontWeight: 600,
-            userSelect: 'none',
             cursor: 'default',
           }}
         >
@@ -107,7 +107,7 @@ export default function PostComment(props: PostCommentProps) {
         </Typography>
 
         <form noValidate autoComplete="off" onSubmit={handleSubmit(handleSubmitComment)}>
-          <Stack direction="row" pt={6} pb={3}>
+          <Stack pt={6} pb={3}>
             <Avatar
               src={currentUser?.avatar}
               sx={{

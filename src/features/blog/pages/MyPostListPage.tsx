@@ -48,7 +48,7 @@ export function MyPostListPage() {
       <PageTitle title={t('pageTitle')} />
 
       <Box>
-        <Typography variant="h4" fontWeight="500" sx={{ userSelect: 'none' }}>
+        <Typography variant="h4" fontWeight={500}>
           {t('pageTitle')}
         </Typography>
 

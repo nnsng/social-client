@@ -11,7 +11,7 @@ const configPalette = (mode: PaletteMode = 'light', color: string = '#7575FF') =
           primary: {
             // main: '#ff652f',
             main: color,
-            contrastText: '#fff',
+            contrastText: '#FFF',
           },
           text: {
             primary: 'rgba(0, 0, 0, 0.87)',
@@ -26,8 +26,8 @@ const configPalette = (mode: PaletteMode = 'light', color: string = '#7575FF') =
             disabledBackground: 'rgba(0, 0, 0, 0.12)',
           },
           background: {
-            default: '#fff',
-            paper: '#fff',
+            default: '#FFF',
+            paper: '#FFF',
           },
           divider: 'rgba(0, 0, 0, 0.12)',
         }
@@ -65,6 +65,11 @@ export const getTheme = (mode?: PaletteMode, color?: SupportedThemeColor) =>
       fontFamily: `'Montserrat', Arial, Helvetica, sans-serif`,
     },
     components: {
+      MuiStack: {
+        defaultProps: {
+          direction: 'row',
+        },
+      },
       MuiButton: {
         defaultProps: {
           disableRipple: true,
@@ -73,6 +78,9 @@ export const getTheme = (mode?: PaletteMode, color?: SupportedThemeColor) =>
         styleOverrides: {
           root: {
             textTransform: 'none',
+          },
+          contained: {
+            color: '#FFF',
           },
         },
       },
@@ -89,6 +97,11 @@ export const getTheme = (mode?: PaletteMode, color?: SupportedThemeColor) =>
       MuiPaper: {
         defaultProps: {
           elevation: 0,
+        },
+        styleOverrides: {
+          root: {
+            backgroundImage: 'none',
+          },
         },
       },
       MuiDivider: {
@@ -111,6 +124,14 @@ export const getTheme = (mode?: PaletteMode, color?: SupportedThemeColor) =>
       },
     },
   });
+
+export const supportedThemeColors: SupportedThemeColor[] = [
+  '#7575FF',
+  '#FF652F',
+  '#00CC6A',
+  '#FFB900',
+  '#C239B3',
+];
 
 export const themeConstants = {
   headerHeight: '72px',

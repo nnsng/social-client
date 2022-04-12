@@ -78,9 +78,8 @@ export default function AuthForm(props: AuthFormProps) {
               color="primary"
               mb={2}
               fontSize={48}
-              fontWeight="600"
+              fontWeight={600}
               textAlign="center"
-              sx={{ userSelect: 'none' }}
             >
               {`${isRegisterMode ? t('title.register') : t('title.login')}`.toUpperCase()}
             </Typography>
@@ -145,7 +144,7 @@ export default function AuthForm(props: AuthFormProps) {
           </Grid>
 
           <Grid item xs={12}>
-            <Box textAlign="center" sx={{ userSelect: 'none' }}>
+            <Box textAlign="center">
               <Typography variant="subtitle2" component="span" sx={{ cursor: 'default' }}>
                 {isRegisterMode ? t('text.hadAccount') : t('text.noAccount')}&nbsp;
               </Typography>

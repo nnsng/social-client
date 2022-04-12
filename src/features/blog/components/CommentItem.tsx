@@ -116,7 +116,7 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
                 },
               }}
               badgeContent={
-                <Stack direction="row" alignItems="center" p={0.3}>
+                <Stack alignItems="center" p={0.3}>
                   <FavoriteRounded sx={{ color: 'primary.main', fontSize: 18 }} />
 
                   <Typography variant="subtitle2" color="text.primary" ml={0.5}>
@@ -135,7 +135,7 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
                   borderRadius: 4,
                 }}
               >
-                <Typography variant="subtitle2" color="text.primary" fontWeight="600">
+                <Typography variant="subtitle2" color="text.primary" fontWeight={600}>
                   {comment?.user?.name}
                 </Typography>
 
@@ -145,7 +145,7 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
               </Box>
             </Badge>
 
-            <Stack direction="row" alignItems="center" mt={1}>
+            <Stack alignItems="center" mt={1}>
               <Typography
                 variant="subtitle2"
                 color="primary"
@@ -209,7 +209,7 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
         </Grid>
       </ListItem>
 
-      <Dialog open={openDialog} onClose={closeDialog} sx={{ userSelect: 'none' }}>
+      <Dialog open={openDialog} onClose={closeDialog}>
         <DialogTitle>{t('dialog.title')}</DialogTitle>
 
         <Divider />

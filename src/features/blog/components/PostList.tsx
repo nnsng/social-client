@@ -40,7 +40,6 @@ export default function PostList(props: PostListProps) {
           borderColor: 'text.primary',
           color: 'text.primary',
           fontWeight: 600,
-          userSelect: 'none',
           cursor: 'default',
         }}
       >

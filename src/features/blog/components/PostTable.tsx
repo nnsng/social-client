@@ -87,7 +87,6 @@ export default function PostTable(props: PostTableProps) {
           '& th': {
             whiteSpace: 'nowrap',
             fontSize: 16,
-            userSelect: 'none',
           },
 
           '& td': {
@@ -175,10 +174,10 @@ export default function PostTable(props: PostTableProps) {
           ))}
       </TableContainer>
 
-      <Dialog open={openDialog} onClose={closeDialog} sx={{ userSelect: 'none' }}>
-        <DialogTitle>{saved ? t('dialog.unsave.title') : t('dialog.delete.title')}</DialogTitle>
-
-        <Divider />
+      <Dialog open={openDialog} onClose={closeDialog}>
+        <DialogTitle sx={{ fontWeight: 600 }}>
+          {saved ? t('dialog.unsave.title') : t('dialog.delete.title')}
+        </DialogTitle>
 
         <DialogContent>
           <DialogContentText sx={{ color: 'text.primary' }}>
