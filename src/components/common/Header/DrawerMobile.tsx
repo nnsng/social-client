@@ -4,7 +4,7 @@ import { selectCurrentUser } from 'features/auth/authSlice';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import GetUserMenuItemList from './GetUserMenuItemList';
+import { GetUserMenu } from '../Menu';
 
 export default function DrawerMobile() {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export default function DrawerMobile() {
     callback?.();
   };
 
-  const { userMenuItemList, dividers } = GetUserMenuItemList({ navigate, dispatch, t });
+  const { userMenu, dividers } = GetUserMenu({ navigate, dispatch, t });
 
   return (
     <>
@@ -64,7 +64,7 @@ export default function DrawerMobile() {
 
           <Divider />
 
-          {userMenuItemList.map(({ label, icon: Icon, onClick }, idx) => (
+          {userMenu.map(({ label, icon: Icon, onClick }, idx) => (
             <Box key={idx}>
               <MenuItem
                 sx={{

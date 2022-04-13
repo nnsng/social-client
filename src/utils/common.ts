@@ -5,8 +5,10 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { ConfigKey } from 'features/common/configSlice';
 import i18next from 'i18next';
 import { Post, UserConfig } from 'models';
+import { toast } from 'react-toastify';
 import slugify from 'slugify';
 import { CONFIG } from './constants';
+import { useTranslateFiles } from './translation';
 
 export const formatTime = (timestamp: any) => {
   dayjs.extend(relativeTime);
@@ -32,7 +34,9 @@ export const getImageUrlFromCDN = async (image: File) => {
 };
 
 export const copyPostLink = (post: Post) => {
+  const { toast: toastTranslation } = useTranslateFiles('toast');
   navigator.clipboard.writeText(`${window.location.origin}/blog/${post.slug}`);
+  toast.success(toastTranslation.copyLinkSuccess);
 };
 
 export const localConfig = {

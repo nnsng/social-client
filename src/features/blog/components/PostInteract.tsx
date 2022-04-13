@@ -56,7 +56,6 @@ export default function PostInteract(props: PostInteractProps) {
           sx={{
             color: 'text.secondary',
             fontSize: 16,
-
             ':hover': {
               color: 'error.main',
             },
@@ -78,9 +77,8 @@ export default function PostInteract(props: PostInteractProps) {
           sx={{
             color: 'text.secondary',
             fontSize: 16,
-
             ':hover': {
-              color: 'info.main',
+              color: 'primary.main',
             },
           }}
           startIcon={<ChatBubbleOutlineRounded />}

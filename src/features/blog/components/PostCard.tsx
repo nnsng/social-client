@@ -1,11 +1,4 @@
-import {
-  BookmarkBorderRounded,
-  BorderColorRounded,
-  DeleteRounded,
-  FlagRounded,
-  LinkRounded,
-  MoreHorizRounded,
-} from '@mui/icons-material';
+import { BookmarkBorderRounded, MoreHorizRounded } from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -19,13 +12,14 @@ import {
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { ActionMenu } from 'components/common';
+import { GetPostMenu } from 'components/common/Menu';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { IMenuItem, Post } from 'models';
+import { Post } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { copyPostLink, formatTime } from 'utils/common';
+import { formatTime } from 'utils/common';
 import { mixins, themeConstants } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 
@@ -70,36 +64,19 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
     }
   };
 
+  const handleMenuItemClick = (onMenuItemClick?: () => void) => {
+    closeMenu();
+    onMenuItemClick?.();
+  };
+
   const isAuthorized = currentUser?._id === post?.authorId || currentUser?.role === 'admin';
-  const menuItems: IMenuItem[] = [
-    {
-      label: t('menu.edit'),
-      icon: BorderColorRounded,
-      onClick: () => navigate(`edit/${post._id}`),
-      active: isAuthorized,
-    },
-    {
-      label: t('menu.delete'),
-      icon: DeleteRounded,
-      onClick: handleRemovePost,
-      active: isAuthorized,
-    },
-    {
-      label: t('menu.copyLink'),
-      icon: LinkRounded,
-      onClick: () => {
-        copyPostLink(post);
-        closeMenu();
-      },
-      active: true,
-    },
-    {
-      label: t('menu.report'),
-      icon: FlagRounded,
-      onClick: () => {},
-      active: true,
-    },
-  ];
+  const postMenu = GetPostMenu({
+    post,
+    isAuthorized,
+    onRemovePost: handleRemovePost,
+    navigate,
+    t,
+  });
 
   return (
     <Card
@@ -122,6 +99,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
               size="small"
               sx={{
                 mx: 0.5,
+                color: 'text.secondary',
                 ':hover': {
                   bgcolor: 'transparent',
                   color: 'text.primary',
@@ -137,6 +115,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
               size="small"
               sx={{
                 mx: 0.5,
+                color: 'text.secondary',
                 ':hover': {
                   bgcolor: 'transparent',
                   color: 'text.primary',
@@ -154,7 +133,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
               paperSx={{ boxShadow: themeConstants.boxShadow, overflow: 'hidden' }}
               onClose={closeMenu}
             >
-              {menuItems.map(({ label, icon: Icon, onClick, active }, idx) =>
+              {postMenu.map(({ label, icon: Icon, onClick, active }, idx) =>
                 active ? (
                   <MenuItem
                     key={idx}
@@ -163,7 +142,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
                       px: 2.5,
                       fontSize: 15,
                     }}
-                    onClick={onClick}
+                    onClick={() => handleMenuItemClick(onClick)}
                   >
                     <Icon sx={{ fontSize: { xs: 20, sm: 18 }, mr: 2 }} />
                     {label}

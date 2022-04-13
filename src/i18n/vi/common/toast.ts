@@ -53,6 +53,8 @@ const toast = {
     // others
     somethingWrong: 'Có lỗi xảy ra.',
   },
+
+  copyLinkSuccess: 'Đã sao chép.',
 };
 
 export default toast;

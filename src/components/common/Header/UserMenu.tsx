@@ -5,7 +5,7 @@ import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { PopperMenu } from '..';
-import GetUserMenuItemList from './GetUserMenuItemList';
+import { GetUserMenu } from '../Menu';
 
 export default function UserMenu() {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ export default function UserMenu() {
     onMenuItemClick?.();
   };
 
-  const { userMenuItemList, dividers } = GetUserMenuItemList({ navigate, dispatch, t });
+  const { userMenu, dividers } = GetUserMenu({ navigate, dispatch, t });
 
   return (
     <>
@@ -67,7 +67,7 @@ export default function UserMenu() {
 
         <Divider />
 
-        {userMenuItemList.map(({ label, icon: Icon, onClick }, idx) => (
+        {userMenu.map(({ label, icon: Icon, onClick }, idx) => (
           <Box key={idx}>
             <MenuItem
               sx={{

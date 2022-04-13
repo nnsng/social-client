@@ -9,15 +9,9 @@ import {
 import { authActions } from 'features/auth/authSlice';
 import { configActions } from 'features/common/configSlice';
 import { IMenuItem } from 'models';
-import { NavigateFunction } from 'react-router-dom';
+import { GetMenuProps } from '.';
 
-export interface GetUserMenuItemListProps {
-  navigate: NavigateFunction;
-  dispatch: any;
-  t: any;
-}
-
-export default function GetUserMenuItemList(props: GetUserMenuItemListProps) {
+export function GetUserMenu(props: GetMenuProps) {
   const { navigate, dispatch, t } = props;
 
   const showAppearanceDialog = () => {
@@ -28,21 +22,21 @@ export default function GetUserMenuItemList(props: GetUserMenuItemListProps) {
     dispatch(authActions.logout({ navigate }));
   };
 
-  const userMenuItemList: IMenuItem[] = [
+  const userMenu: IMenuItem[] = [
     {
       label: t('menu.create'),
       icon: AddCircleOutlineOutlined,
-      onClick: () => navigate('/blog/create'),
+      onClick: () => navigate?.('/blog/create'),
     },
     {
       label: t('menu.myPosts'),
       icon: ListAltOutlined,
-      onClick: () => navigate('/blog/my'),
+      onClick: () => navigate?.('/blog/my'),
     },
     {
       label: t('menu.saved'),
       icon: BookmarkBorderOutlined,
-      onClick: () => navigate('/blog/saved'),
+      onClick: () => navigate?.('/blog/saved'),
     },
     {
       label: t('menu.appearance'),
@@ -52,7 +46,7 @@ export default function GetUserMenuItemList(props: GetUserMenuItemListProps) {
     {
       label: t('menu.settings'),
       icon: SettingsOutlined,
-      onClick: () => navigate('/settings'),
+      onClick: () => navigate?.('/settings'),
     },
     {
       label: t('menu.logout'),
@@ -63,5 +57,5 @@ export default function GetUserMenuItemList(props: GetUserMenuItemListProps) {
 
   const dividers: number[] = [1, 2, 4];
 
-  return { userMenuItemList, dividers };
+  return { userMenu, dividers };
 }

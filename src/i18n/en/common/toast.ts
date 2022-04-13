@@ -53,6 +53,8 @@ const toast = {
     // others
     somethingWrong: 'Something went wrong.',
   },
+
+  copyLinkSuccess: 'Copied.',
 };
 
 export default toast;
