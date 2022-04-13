@@ -102,7 +102,11 @@ export default function PostComment(props: PostCommentProps) {
             cursor: 'default',
           }}
         >
-          {loading ? <CircularProgress size={20} color="primary" /> : commentList?.length}
+          {loading ? (
+            <CircularProgress size={20} color="primary" sx={{ mr: 1 }} />
+          ) : (
+            commentList?.length
+          )}
           {t('comment')}
         </Typography>
 

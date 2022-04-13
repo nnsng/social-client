@@ -1,0 +1,24 @@
+const dialog = {
+  post: {
+    delete: {
+      title: 'Delete post?',
+      content: 'Are you sure you want to delete this post?',
+    },
+    unsave: {
+      title: 'Unsave post?',
+      content: 'Are you sure you want to unsave this post?',
+    },
+  },
+  comment: {
+    delete: {
+      title: 'Delete comment?',
+      content: 'Are you sure you want to delete this comment?',
+    },
+  },
+  button: {
+    cancel: 'Cancel',
+    confirm: 'Confirm',
+  },
+};
+
+export default dialog;

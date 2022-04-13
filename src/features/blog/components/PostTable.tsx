@@ -1,13 +1,6 @@
 import {
   Box,
   Button,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Divider,
   Table,
   TableBody,
   TableCell,
@@ -15,7 +8,7 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import { NoPost } from 'components/common';
+import { ConfirmDialog, NoPost } from 'components/common';
 import { Post } from 'models';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -37,7 +30,10 @@ export default function PostTable(props: PostTableProps) {
   const { postList, onEdit, onRemove, saved, onUnSave } = props;
 
   const { t } = useTranslation('postTable');
-  const { toast: toastTranslation } = useTranslateFiles('toast');
+  const { toast: toastTranslation, dialog: dialogTranslation } = useTranslateFiles(
+    'toast',
+    'dialog'
+  );
 
   const [selectedPost, setSelectedPost] = useState<Post>({} as Post);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -174,37 +170,16 @@ export default function PostTable(props: PostTableProps) {
           ))}
       </TableContainer>
 
-      <Dialog open={openDialog} onClose={closeDialog}>
-        <DialogTitle sx={{ fontWeight: 600 }}>
-          {saved ? t('dialog.unsave.title') : t('dialog.delete.title')}
-        </DialogTitle>
-
-        <DialogContent>
-          <DialogContentText sx={{ color: 'text.primary' }}>
-            {saved
-              ? t('dialog.unsave.content', { title: selectedPost.title })
-              : t('dialog.delete.content', { title: selectedPost.title })}
-          </DialogContentText>
-        </DialogContent>
-
-        <DialogActions>
-          <Button color="inherit" size="large" disabled={loading} onClick={closeDialog}>
-            {t('dialog.button.cancel')}
-          </Button>
-
-          <Button
-            variant="contained"
-            color="error"
-            size="large"
-            disabled={loading}
-            autoFocus
-            startIcon={loading && <CircularProgress size={20} />}
-            onClick={saved ? handleUnSaveConfirm : handleRemoveConfirm}
-          >
-            {t('dialog.button.confirm')}
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <ConfirmDialog
+        open={openDialog}
+        onClose={closeDialog}
+        title={saved ? dialogTranslation.post.unsave.title : dialogTranslation.post.delete.title}
+        content={
+          saved ? dialogTranslation.post.unsave.content : dialogTranslation.post.delete.content
+        }
+        onConfirm={saved ? handleUnSaveConfirm : handleRemoveConfirm}
+        loading={loading}
+      />
     </>
   );
 }

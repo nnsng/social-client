@@ -23,6 +23,7 @@ import changePasswordForm from './components/changePasswordForm.json';
 
 import validate from './common/validate';
 import toast from './common/toast';
+import dialog from './common/dialog';
 
 export default {
   // pages
@@ -50,4 +51,5 @@ export default {
 
   validate,
   toast,
+  dialog,
 };

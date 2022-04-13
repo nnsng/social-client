@@ -6,13 +6,5 @@
   "menu": {
     "delete": "Xoá",
     "report": "Báo cáo"
-  },
-  "dialog": {
-    "title": "Xóa bình luận?",
-    "content": "Bạn có chắc muốn xóa bình luận này không?",
-    "button": {
-      "cancel": "Hủy",
-      "confirm": "Xác nhận"
-    }
   }
 }

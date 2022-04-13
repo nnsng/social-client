@@ -9,3 +9,4 @@ export * from './GoogleIcon';
 export * from './PageTitle';
 export * from './KeywordInput';
 export * from './ApplyTheme';
+export * from './ConfirmDialog';

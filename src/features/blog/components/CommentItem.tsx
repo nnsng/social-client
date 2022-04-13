@@ -3,23 +3,15 @@ import {
   Avatar,
   Badge,
   Box,
-  Button,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Divider,
   Grid,
   IconButton,
   ListItem,
   MenuItem,
   Stack,
-  Typography,
+  Typography
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
-import { ActionMenu } from 'components/common';
+import { ActionMenu, ConfirmDialog } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { Comment, IMenuItem } from 'models';
 import React, { useRef, useState } from 'react';
@@ -36,7 +28,10 @@ export interface CommentItemProps {
 
 export default function CommentItem({ comment, onRemove, onLike }: CommentItemProps) {
   const { t } = useTranslation('postComment');
-  const { toast: toastTranslation } = useTranslateFiles('toast');
+  const { toast: toastTranslation, dialog: dialogTranslation } = useTranslateFiles(
+    'toast',
+    'dialog'
+  );
 
   const currentUser = useAppSelector(selectCurrentUser);
 
@@ -209,35 +204,14 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
         </Grid>
       </ListItem>
 
-      <Dialog open={openDialog} onClose={closeDialog}>
-        <DialogTitle>{t('dialog.title')}</DialogTitle>
-
-        <Divider />
-
-        <DialogContent>
-          <DialogContentText sx={{ color: 'text.primary' }}>
-            {t('dialog.content')}
-          </DialogContentText>
-        </DialogContent>
-
-        <DialogActions>
-          <Button color="inherit" size="large" disabled={loading} onClick={closeDialog}>
-            {t('dialog.button.cancel')}
-          </Button>
-
-          <Button
-            variant="contained"
-            color="error"
-            size="large"
-            disabled={loading}
-            autoFocus
-            startIcon={loading && <CircularProgress size={20} />}
-            onClick={handleRemoveComment}
-          >
-            {t('dialog.button.confirm')}
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <ConfirmDialog
+        open={openDialog}
+        onClose={closeDialog}
+        title={dialogTranslation.comment.delete.title}
+        content={dialogTranslation.comment.delete.content}
+        onConfirm={handleRemoveComment}
+        loading={loading}
+      />
     </>
   );
 }

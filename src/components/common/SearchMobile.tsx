@@ -41,7 +41,7 @@ export function SearchMobile(props: SearchMobileProps) {
   };
 
   return (
-    <Dialog fullScreen open={open || false}>
+    <Dialog fullScreen open={!!open}>
       <Box
         sx={{
           position: 'sticky',
