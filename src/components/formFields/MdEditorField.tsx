@@ -1,4 +1,4 @@
-import MdEditor, { MdEditorOnChangeProps } from 'features/blog/components/MdEditor';
+import MdEditor, { MdEditorOnChange } from 'features/blog/components/MdEditor';
 import React from 'react';
 import { Control, useController } from 'react-hook-form';
 
@@ -13,7 +13,7 @@ export function MdEditorField({ name, control, placeholder }: MdEditorFieldProps
     field: { value, onChange },
   } = useController({ name, control });
 
-  const handleEditorChange = ({ html, text }: MdEditorOnChangeProps) => {
+  const handleEditorChange = ({ html, text }: MdEditorOnChange) => {
     onChange(text);
   };
 
