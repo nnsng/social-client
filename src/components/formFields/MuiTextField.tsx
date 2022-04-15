@@ -1,4 +1,4 @@
-import { Grid, OutlinedTextFieldProps, TextField, Typography } from '@mui/material';
+import { OutlinedTextFieldProps, Stack, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { Control, useController } from 'react-hook-form';
 
@@ -7,11 +7,10 @@ export interface MuiTextFieldProps extends OutlinedTextFieldProps {
   control: Control<any>;
   label?: string;
   title?: string;
-  half?: boolean;
 }
 
 export function MuiTextField(props: MuiTextFieldProps) {
-  const { name, control, label, title, half, ...restProps } = props;
+  const { name, control, label, title, ...restProps } = props;
   const { sx } = restProps;
 
   const {
@@ -20,9 +19,9 @@ export function MuiTextField(props: MuiTextFieldProps) {
   } = useController({ name, control });
 
   return (
-    <Grid item xs={half ? 6 : 12}>
+    <Stack direction="column">
       {title && (
-        <Typography variant="subtitle1" mb={0.5}>
+        <Typography variant="h6" fontSize={18} fontWeight={500} mb={0.5}>
           {title}
         </Typography>
       )}
@@ -42,6 +41,6 @@ export function MuiTextField(props: MuiTextFieldProps) {
         {...restProps}
         sx={{ ...sx, bgcolor: 'background.paper' }}
       />
-    </Grid>
+    </Stack>
   );
 }

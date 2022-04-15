@@ -35,10 +35,10 @@ export function PostDetailPage() {
   useEffect(() => {
     if (!socket) return;
 
-    socket.emit('joinRoom', { id: post?._id });
+    socket.emit('joinPost', { postId: post?._id });
 
     return () => {
-      socket.emit('outRoom', { id: post?._id });
+      socket.emit('leavePost', { postId: post?._id });
     };
   }, [socket, post]);
 

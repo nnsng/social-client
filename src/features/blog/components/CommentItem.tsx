@@ -8,7 +8,7 @@ import {
   ListItem,
   MenuItem,
   Stack,
-  Typography
+  Typography,
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { ActionMenu, ConfirmDialog } from 'components/common';
@@ -72,13 +72,13 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
       label: t('menu.delete'),
       icon: DeleteRounded,
       onClick: confirmRemoveComment,
-      active: isAuthorized,
+      show: isAuthorized,
     },
     {
       label: t('menu.report'),
       icon: FlagRounded,
       onClick: () => {},
-      active: true,
+      show: true,
     },
   ];
 
@@ -131,7 +131,7 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
                 }}
               >
                 <Typography variant="subtitle2" color="text.primary" fontWeight={600}>
-                  {comment?.user?.name}
+                  {comment?.user?.fullName}
                 </Typography>
 
                 <Typography variant="body1" color="text.primary">
@@ -182,8 +182,8 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
                 zIndex={(theme) => (theme.zIndex as any).drawer + 1}
                 onClose={closeMenu}
               >
-                {menuItems.map(({ label, icon: Icon, onClick, active }, idx) =>
-                  active ? (
+                {menuItems.map(({ label, icon: Icon, onClick, show }, idx) =>
+                  show ? (
                     <MenuItem
                       key={idx}
                       sx={{

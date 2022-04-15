@@ -1,12 +1,12 @@
-import { AuthFormValue, ChangePasswordFormValue, User } from 'models';
+import { AuthFormValues, ChangePasswordFormValue, User } from 'models';
 import axiosClient from './axiosClient';
 
 const authApi = {
-  login(data: AuthFormValue) {
+  login(data: AuthFormValues) {
     const url = '/auth/login';
     return axiosClient.post(url, data);
   },
-  register(data: AuthFormValue) {
+  register(data: AuthFormValues) {
     const url = '/auth/register';
     return axiosClient.post(url, data);
   },

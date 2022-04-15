@@ -17,25 +17,25 @@ export function GetPostMenu(props: GetPostMenuProps) {
       label: t('menu.edit'),
       icon: BorderColorRounded,
       onClick: () => navigate?.(`/blog/edit/${post._id}`),
-      active: isAuthorized,
+      show: isAuthorized,
     },
     {
       label: t('menu.delete'),
       icon: DeleteRounded,
       onClick: onRemovePost,
-      active: isAuthorized,
+      show: isAuthorized,
     },
     {
       label: t('menu.copyLink'),
       icon: LinkRounded,
       onClick: () => copyPostLink(post),
-      active: true,
+      show: true,
     },
     {
       label: t('menu.report'),
       icon: FlagRounded,
       onClick: () => {},
-      active: true,
+      show: true,
     },
   ];
 

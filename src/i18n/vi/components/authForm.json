@@ -4,8 +4,8 @@
     "register": "Đăng ký"
   },
   "label": {
-    "firstName": "Tên",
-    "lastName": "Họ",
+    "fullName": "Họ tên",
+    "username": "Tên người dùng",
     "email": "Email",
     "password": "Mật khẩu"
   },

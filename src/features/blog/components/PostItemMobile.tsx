@@ -20,7 +20,6 @@ export interface PostItemMobileProps {
   post: Post;
   onEdit?: (post: Post) => void;
   onRemove?: (post: Post) => void;
-
   saved?: boolean;
   onUnSave?: (post: Post) => void;
 }
@@ -36,20 +35,9 @@ export function PostItemMobile(props: PostItemMobileProps) {
   const toggleOpenMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
 
-  const handleCopyLink = () => {
-    closeMenu();
-    copyPostLink(post);
-  };
-
-  const handleEditPost = () => {
-    closeMenu();
-    onEdit?.(post);
-  };
-
   const handleRemovePost = async () => {
     try {
       await onRemove?.(post);
-      closeMenu();
     } catch (error: any) {
       const errorName = error?.response?.data?.name || 'somethingWrong';
       toast.error(toastTranslation.errors[errorName]);
@@ -59,40 +47,41 @@ export function PostItemMobile(props: PostItemMobileProps) {
   const handleUnSavePost = async () => {
     try {
       await onUnSave?.(post);
-      closeMenu();
     } catch (error: any) {
       const errorName = error?.response?.data?.name || 'somethingWrong';
       toast.error(toastTranslation.errors[errorName]);
     }
   };
 
-  const subMenuItemList: IMenuItem[] = saved
-    ? [
-        {
-          label: t('unsave'),
-          icon: BookmarkRemoveRounded,
-          onClick: handleUnSavePost,
-        },
-      ]
-    : [
-        {
-          label: t('edit'),
-          icon: BorderColorRounded,
-          onClick: handleEditPost,
-        },
-        {
-          label: t('delete'),
-          icon: DeleteRounded,
-          onClick: handleRemovePost,
-        },
-      ];
+  const handleMenuItemClick = (onMenuItemClick?: () => void) => {
+    closeMenu();
+    onMenuItemClick?.();
+  };
 
   const menuItemList: IMenuItem[] = [
-    ...subMenuItemList,
+    {
+      label: t('unsave'),
+      icon: BookmarkRemoveRounded,
+      onClick: handleUnSavePost,
+      show: saved,
+    },
+    {
+      label: t('edit'),
+      icon: BorderColorRounded,
+      onClick: () => onEdit?.(post),
+      show: !saved,
+    },
+    {
+      label: t('delete'),
+      icon: DeleteRounded,
+      onClick: handleRemovePost,
+      show: !saved,
+    },
     {
       label: t('copyLink'),
       icon: LinkRounded,
-      onClick: handleCopyLink,
+      onClick: () => copyPostLink(post),
+      show: true,
     },
   ];
 
@@ -140,7 +129,7 @@ export function PostItemMobile(props: PostItemMobileProps) {
               display="flex"
               alignItems="center"
             >
-              {t('author', { author: post.author?.name })}
+              {t('author', { author: post.author?.fullName })}
             </Typography>
           )}
 
@@ -169,7 +158,7 @@ export function PostItemMobile(props: PostItemMobileProps) {
                   px: 2.5,
                   fontSize: 15,
                 }}
-                onClick={onClick}
+                onClick={() => handleMenuItemClick(onClick)}
               >
                 <Icon sx={{ fontSize: 20, mr: 2 }} />
                 {label}

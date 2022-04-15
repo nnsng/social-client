@@ -139,8 +139,8 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
                 paperSx={{ boxShadow: themeConstants.boxShadow, overflow: 'hidden' }}
                 onClose={closeMenu}
               >
-                {postMenu.map(({ label, icon: Icon, onClick, active }, idx) =>
-                  active ? (
+                {postMenu.map(({ label, icon: Icon, onClick, show }, idx) =>
+                  show ? (
                     <MenuItem
                       key={idx}
                       sx={{
@@ -160,7 +160,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
           }
           title={
             <Typography variant="subtitle2" fontWeight={600}>
-              {post?.author?.name}
+              {post?.author?.fullName}
             </Typography>
           }
           subheader={

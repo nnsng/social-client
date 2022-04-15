@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material';
 import { useAppDispatch } from 'app/hooks';
 import { PageTitle } from 'components/common';
-import { AuthFormValue } from 'models';
+import { AuthFormValues } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -21,12 +21,12 @@ export default function FormLayout({ mode }: FormLayoutProps) {
 
   const dispatch = useAppDispatch();
 
-  const defaultValues: AuthFormValue = {
+  const defaultValues: AuthFormValues = {
     mode,
     email: '',
     password: '',
-    firstName: '',
-    lastName: '',
+    fullName: '',
+    username: '',
   };
 
   const switchMode = () => {
@@ -37,7 +37,7 @@ export default function FormLayout({ mode }: FormLayoutProps) {
     }
   };
 
-  const handleFormSubmit = (formValues: AuthFormValue) => {
+  const handleFormSubmit = (formValues: AuthFormValues) => {
     dispatch(authActions[mode]({ formValues, navigate }));
   };
 

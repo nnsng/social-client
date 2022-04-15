@@ -24,18 +24,22 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
   const { validate } = useTranslateFiles('validate');
 
   const schema = yup.object().shape({
-    name: yup.string().required(validate.fullName.required).max(255, validate.fullName.max(255)),
+    fullName: yup
+      .string()
+      .required(validate.fullName.required)
+      .max(255, validate.fullName.max(255)),
     avatar: yup.string(),
     username: yup
       .string()
+      .required(validate.username.required)
       .min(6, validate.username.min(6))
       .max(50, validate.username.max(20))
       .matches(/^(?![_.])[a-zA-Z0-9._]+(?<![_.])$/, validate.username.valid),
     email: yup.string().email().required(),
-    phone: yup
-      .string()
-      .max(10)
-      .matches(/(0[3|5|7|8|9])+([0-9]{8})\b/, validate.phone.valid),
+    // phone: yup
+    //   .string()
+    //   .max(10)
+    //   .matches(/(0[3|5|7|8|9])+([0-9]{8})\b/, validate.phone.valid),
   });
 
   const { control, handleSubmit, getValues, reset, clearErrors } = useForm({
@@ -56,107 +60,87 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Box pb={3}>
-        <Grid container spacing={2}>
-          <Grid item container alignItems="center">
-            <Typography variant="h6" fontSize={18} fontWeight={500} mb={0.5} width={160}>
-              {t('label.fullName')}
-            </Typography>
+        <Stack direction="column" spacing={2}>
+          <MuiTextField
+            name="fullName"
+            control={control}
+            variant="outlined"
+            placeholder={t('label.fullName')}
+            title={t('label.fullName')}
+            sx={{ maxWidth: 400 }}
+          />
 
-            <MuiTextField
-              name="name"
-              control={control}
-              variant="outlined"
-              placeholder={t('label.fullName')}
-              sx={{ maxWidth: 400 }}
-            />
-          </Grid>
-
-          <Grid item container alignItems="center">
+          <Stack direction="column">
             <Typography variant="h6" fontSize={18} fontWeight={500} mb={0.5} width={160}>
               {t('label.avatar')}
             </Typography>
 
-            <Grid item xs={12}>
-              <Box
-                component="label"
-                htmlFor="avatar-upload"
+            <Box
+              component="label"
+              htmlFor="avatar-upload"
+              sx={{
+                position: 'relative',
+                display: 'inline-block',
+                width: 68,
+                height: 68,
+              }}
+            >
+              <Avatar
+                src={getValues('avatar')}
                 sx={{
-                  position: 'relative',
-                  display: 'inline-block',
+                  width: 68,
+                  height: 68,
+                  cursor: 'pointer',
                 }}
-              >
-                <Avatar
-                  src={getValues('avatar')}
+              />
+              <FileInputField name="avatar" control={control} id="avatar-upload" />
+
+              {imageLoading && (
+                <Stack
                   sx={{
-                    width: 68,
-                    height: 68,
-                    cursor: 'pointer',
+                    position: 'absolute',
+                    inset: '0',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    bgcolor: 'rgba(0, 0, 0, 0.3)',
+                    borderRadius: '50%',
                   }}
-                />
-                <FileInputField name="avatar" control={control} id="avatar-upload" />
+                >
+                  <CircularProgress size={24} />
+                </Stack>
+              )}
+            </Box>
+          </Stack>
 
-                {imageLoading && (
-                  <Stack
-                    sx={{
-                      position: 'absolute',
-                      inset: '0',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      bgcolor: 'rgba(0, 0, 0, 0.3)',
-                      borderRadius: '50%',
-                    }}
-                  >
-                    <CircularProgress size={24} />
-                  </Stack>
-                )}
-              </Box>
-            </Grid>
-          </Grid>
+          <MuiTextField
+            name="username"
+            control={control}
+            variant="outlined"
+            placeholder={t('label.username')}
+            title={t('label.username')}
+            sx={{ maxWidth: 400 }}
+          />
 
-          <Grid item container alignItems="center">
-            <Typography variant="h6" fontSize={18} fontWeight={500} mb={0.5} width={160}>
-              {t('label.username')}
-            </Typography>
+          <MuiTextField
+            name="email"
+            control={control}
+            variant="outlined"
+            placeholder={t('label.email')}
+            title={t('label.email')}
+            sx={{ maxWidth: 400 }}
+            disabled
+          />
 
-            <MuiTextField
-              name="username"
-              control={control}
-              variant="outlined"
-              placeholder={t('label.username')}
-              sx={{ maxWidth: 400 }}
-            />
-          </Grid>
+          {/* <MuiTextField
+            name="phone"
+            control={control}
+            variant="outlined"
+            placeholder={t('label.phone')}
+            title={t('label.phone')}
+            sx={{ maxWidth: 400 }}
+          /> */}
 
-          <Grid item container alignItems="center">
-            <Typography variant="h6" fontSize={18} fontWeight={500} mb={0.5} width={160}>
-              {t('label.email')}
-            </Typography>
-
-            <MuiTextField
-              name="email"
-              control={control}
-              variant="outlined"
-              placeholder={t('label.email')}
-              sx={{ maxWidth: 400 }}
-              disabled
-            />
-          </Grid>
-
-          <Grid item container alignItems="center">
-            <Typography variant="h6" fontSize={18} fontWeight={500} mb={0.5} width={160}>
-              {t('label.phone')}
-            </Typography>
-
-            <MuiTextField
-              name="phone"
-              control={control}
-              variant="outlined"
-              placeholder={t('label.phone')}
-              sx={{ maxWidth: 400 }}
-            />
-          </Grid>
-
-          <Grid item>
+          <Box>
             <Button
               type="submit"
               variant="contained"
@@ -166,8 +150,8 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
             >
               {t('save')}
             </Button>
-          </Grid>
-        </Grid>
+          </Box>
+        </Stack>
       </Box>
     </form>
   );

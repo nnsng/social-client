@@ -82,58 +82,44 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Box pb={3}>
-        <Grid container spacing={2}>
+        <Stack direction="column" spacing={2}>
           {formControlItems.map(({ label, name }, idx) => (
-            <Grid item container alignItems="center" key={idx}>
-              <Typography
-                variant="h6"
-                sx={{
-                  width: 240,
-                  mb: 0.5,
-                  fontSize: 18,
-                  fontWeight: 500,
-                }}
-              >
-                {label}
-              </Typography>
-
-              <MuiTextField
-                name={name}
-                control={control}
-                type="password"
-                variant="outlined"
-                placeholder={label}
-                sx={{ maxWidth: 400 }}
-              />
-            </Grid>
+            <MuiTextField
+              key={idx}
+              name={name}
+              control={control}
+              type="password"
+              variant="outlined"
+              placeholder={label}
+              title={label}
+              sx={{ maxWidth: 400 }}
+            />
           ))}
 
-          <Grid item>
-            <Stack>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                disabled={isSubmitting}
-                startIcon={isSubmitting && <CircularProgress size={20} />}
-              >
-                {t('btnLabel.changePassword')}
-              </Button>
+          <Stack alignItems="center">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={isSubmitting}
+              startIcon={isSubmitting && <CircularProgress size={20} />}
+            >
+              {t('btnLabel.changePassword')}
+            </Button>
 
-              <Button
-                color="primary"
-                size="small"
-                sx={{
-                  ml: { xs: 2, sm: 3 },
-                  ':hover': { bgcolor: 'transparent' },
-                }}
-                onClick={forgotPassword}
-              >
-                {t('btnLabel.forgotPassword')}
-              </Button>
-            </Stack>
-          </Grid>
-        </Grid>
+            <Button
+              color="primary"
+              size="small"
+              sx={{
+                ml: { xs: 2, sm: 3 },
+                ':hover': { bgcolor: 'transparent' },
+              }}
+              onClick={forgotPassword}
+            >
+              {t('btnLabel.forgotPassword')}
+            </Button>
+          </Stack>
+        </Stack>
       </Box>
     </form>
   );

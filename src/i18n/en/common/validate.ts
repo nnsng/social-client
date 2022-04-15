@@ -1,4 +1,5 @@
 const validate = {
+  // user
   email: {
     email: 'Invalid email address',
     required: 'Email is required',
@@ -6,27 +7,21 @@ const validate = {
   password: {
     required: 'Password is required',
     min: (n: number) => `Password must be at least ${n} characters`,
+    max: (n: number) => `Password must be at most ${n} characters`,
   },
-  firstName: {
-    required: 'First name is required',
-  },
-  lastName: {
-    required: 'Last name is required',
-  },
-
   fullName: {
     required: 'Full name is required',
     max: (n: number) => `Full name must be at most ${n} characters`,
   },
   username: {
+    required: 'Username is required',
     min: (n: number) => `Username must be at least ${n} characters`,
     max: (n: number) => `Username must be at most ${n} characters`,
-    valid: 'Username is invalid',
+    valid: 'Only A-Z, a-z, 0-9, -, . are allowed',
   },
   phone: {
     valid: 'Phone number is invalid',
   },
-
   currentPassword: {
     required: 'Current password is required',
   },
@@ -38,6 +33,7 @@ const validate = {
     match: 'Confirm password does not match',
   },
 
+  // post
   title: {
     required: 'Please enter a title',
   },

@@ -117,7 +117,7 @@ export default function PostComment(props: PostCommentProps) {
               sx={{
                 width: 36,
                 height: 36,
-                flexShrink: 1,
+                flexGrow: 0,
                 mr: 3,
               }}
             />

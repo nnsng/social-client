@@ -70,7 +70,7 @@ export default function AppearanceDialog() {
     <div>
       <Dialog onClose={closeDialog} open={showConfig}>
         <DialogTitle sx={{ m: 0, px: 3, py: 2 }}>
-          <Typography variant="h6" fontWeight={600}>
+          <Typography variant="h6" component="div" fontWeight={600}>
             {t('appearanceDialog.title')}
           </Typography>
 

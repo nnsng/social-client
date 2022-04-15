@@ -1,20 +1,28 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, ButtonProps, Stack, Typography } from '@mui/material';
 import { GoogleIcon } from 'components/common';
 import { MuiTextField } from 'components/formFields';
 import useLoginWithGoogle from 'hooks/useLoginWithGoogle';
 import i18next from 'i18next';
-import { AuthFormValue } from 'models';
+import { AuthFormValues } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
+function AuthButton({ children, ...props }: ButtonProps) {
+  return (
+    <Button color="primary" fullWidth sx={{ fontSize: '1rem', height: 48 }} {...props}>
+      {children}
+    </Button>
+  );
+}
+
 export interface AuthFormProps {
-  defaultValues: AuthFormValue;
+  defaultValues: AuthFormValues;
   switchMode?: () => void;
-  onSubmit?: (formValues: AuthFormValue) => void;
+  onSubmit?: (formValues: AuthFormValues) => void;
 }
 
 export default function AuthForm(props: AuthFormProps) {
@@ -26,15 +34,24 @@ export default function AuthForm(props: AuthFormProps) {
 
   const schema = yup.object().shape({
     email: yup.string().required(validate.email.required).email(validate.email.email),
-    password: yup.string().required(validate.password.required).min(6, validate.password.min(6)),
+    password: yup
+      .string()
+      .required(validate.password.required)
+      .min(6, validate.password.min(6))
+      .max(255, validate.password.max(255)),
     mode: yup.string().required(),
-    firstName: yup.string().when('mode', {
+    fullName: yup.string().when('mode', {
       is: 'register',
-      then: yup.string().required(validate.firstName.required),
+      then: yup.string().required(validate.fullName.required).max(255, validate.fullName.max(255)),
     }),
-    lastName: yup.string().when('mode', {
+    username: yup.string().when('mode', {
       is: 'register',
-      then: yup.string().required(validate.firstName.lastName),
+      then: yup
+        .string()
+        .required(validate.username.required)
+        .min(6, validate.username.min(6))
+        .max(50, validate.username.max(20))
+        .matches(/^[a-zA-Z0-9_\.]+$/, validate.username.valid),
     }),
   });
 
@@ -54,55 +71,51 @@ export default function AuthForm(props: AuthFormProps) {
     switchMode?.();
   };
 
-  const handleFormSubmit = (formValues: AuthFormValue) => {
+  const handleFormSubmit = (formValues: AuthFormValues) => {
     onSubmit?.(formValues);
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)}>
+    <form onSubmit={handleSubmit(handleFormSubmit)} style={{ width: '100%' }}>
       <Box
         sx={{
-          width: '100%',
           maxWidth: 450,
           py: 5,
           px: 4,
+          m: 'auto',
           bgcolor: 'background.default',
           borderRadius: 3,
           boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
         }}
       >
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography
-              variant="h4"
-              color="primary"
-              mb={2}
-              fontSize={48}
-              fontWeight={600}
-              textAlign="center"
-            >
-              {`${isRegisterMode ? t('title.register') : t('title.login')}`.toUpperCase()}
-            </Typography>
-          </Grid>
+        <Stack direction="column" spacing={2}>
+          <Typography
+            variant="h4"
+            color="primary"
+            mb={2}
+            fontSize={48}
+            fontWeight={600}
+            textAlign="center"
+          >
+            {`${isRegisterMode ? t('title.register') : t('title.login')}`.toUpperCase()}
+          </Typography>
 
           {isRegisterMode && (
             <>
               <MuiTextField
-                name="firstName"
+                name="fullName"
                 control={control}
-                label={t('label.firstName')}
+                label={t('label.fullName')}
                 variant="outlined"
                 size="medium"
-                half
               />
 
               <MuiTextField
-                name="lastName"
+                name="username"
                 control={control}
-                label={t('label.lastName')}
+                label={t('label.username')}
                 variant="outlined"
                 size="medium"
-                half
               />
             </>
           )}
@@ -124,43 +137,48 @@ export default function AuthForm(props: AuthFormProps) {
             size="medium"
           />
 
-          <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary" size="large" fullWidth>
-              {isRegisterMode ? t('title.register') : t('title.login')}
-            </Button>
-          </Grid>
+          <AuthButton type="submit" variant="contained">
+            {isRegisterMode ? t('title.register') : t('title.login')}
+          </AuthButton>
 
-          <Grid item xs={12}>
-            <Button
+          {!isRegisterMode && (
+            <AuthButton
               variant="outlined"
-              color="primary"
-              size="large"
-              fullWidth
               startIcon={<GoogleIcon width={24} height={24} />}
               onClick={googleLogin}
             >
               {t('googleLogin')}
-            </Button>
-          </Grid>
+            </AuthButton>
+          )}
 
-          <Grid item xs={12}>
-            <Box textAlign="center">
-              <Typography variant="subtitle2" component="span" sx={{ cursor: 'default' }}>
-                {isRegisterMode ? t('text.hadAccount') : t('text.noAccount')}&nbsp;
-              </Typography>
+          <Box textAlign="center">
+            <Typography variant="subtitle2" component="span" sx={{ cursor: 'default' }}>
+              {isRegisterMode ? t('text.hadAccount') : t('text.noAccount')}&nbsp;
+            </Typography>
 
-              <Typography
-                variant="subtitle2"
-                component="span"
-                color="primary"
-                sx={{ cursor: 'pointer' }}
-                onClick={handleSwitchMode}
-              >
-                {isRegisterMode ? t('title.login') : t('title.register')}
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
+            <Typography
+              variant="subtitle2"
+              component="span"
+              color="primary"
+              sx={{ cursor: 'pointer' }}
+              onClick={handleSwitchMode}
+            >
+              {isRegisterMode ? t('title.login') : t('title.register')}
+            </Typography>
+          </Box>
+
+          {!isRegisterMode && (
+            <Typography
+              variant="subtitle2"
+              component="span"
+              color="primary"
+              textAlign="center"
+              sx={{ cursor: 'pointer' }}
+            >
+              Quên mật khẩu?
+            </Typography>
+          )}
+        </Stack>
       </Box>
     </form>
   );

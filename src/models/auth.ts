@@ -4,7 +4,7 @@ import { SupportedLanguage, SupportedThemeColor } from './common';
 
 export interface User {
   _id: string;
-  name: string;
+  fullName: string;
   email: string;
   avatar: string;
   username: string;
@@ -20,12 +20,12 @@ export interface AuthResponse {
   token: string;
 }
 
-export interface AuthFormValue {
+export interface AuthFormValues {
+  mode: 'login' | 'register';
   email: string;
   password: string;
-  mode: 'login' | 'register';
-  firstName?: string;
-  lastName?: string;
+  fullName?: string;
+  username?: string;
 }
 
 export interface ChangePasswordFormValue {
@@ -36,7 +36,7 @@ export interface ChangePasswordFormValue {
 }
 
 export interface AuthPayload {
-  formValues?: AuthFormValue;
+  formValues?: AuthFormValues;
   token?: string;
   navigate?: NavigateFunction;
 }

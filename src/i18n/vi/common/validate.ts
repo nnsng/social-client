@@ -1,4 +1,5 @@
 const validate = {
+  // user
   email: {
     email: 'Email không hợp lệ',
     required: 'Vui lòng nhập email',
@@ -6,27 +7,21 @@ const validate = {
   password: {
     required: 'Vui lòng nhập mật khẩu',
     min: (n: number) => `Mật khẩu tối thiểu ${n} ký tự`,
+    max: (n: number) => `Mật khẩu tối đa ${n} ký tự`,
   },
-  firstName: {
-    required: 'Vui lòng nhập tên',
-  },
-  lastName: {
-    required: 'Vui lòng nhập họ',
-  },
-
   fullName: {
     required: 'Vui lòng nhập họ tên',
     max: (n: number) => `Họ tên tối đa ${n} ký tự`,
   },
   username: {
+    required: 'Vui lòng nhập tên người dùng',
     min: (n: number) => `Tên người dùng tối thiểu ${n} ký tự`,
     max: (n: number) => `Tên người dùng tối đa ${n} ký tự`,
-    valid: 'Tên người dùng không hợp lệ',
+    valid: 'Chỉ chấp nhận A-Z, a-z, 0-9, -, .',
   },
   phone: {
     valid: 'Số điện thoại không hợp lệ',
   },
-
   currentPassword: {
     required: 'Vui lòng nhập mật khẩu hiện tại',
   },
@@ -38,6 +33,7 @@ const validate = {
     match: 'Mật khẩu nhập lại không khớp',
   },
 
+  // post
   title: {
     required: 'Vui lòng nhập tiêu đề',
   },

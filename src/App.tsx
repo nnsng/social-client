@@ -2,12 +2,12 @@ import authApi from 'api/authApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { NotFound, PrivateRoute } from 'components/common';
 import Auth from 'features/auth';
-import { authActions } from 'features/auth/authSlice';
+import { authActions, selectCurrentUser } from 'features/auth/authSlice';
 import Blog from 'features/blog';
 import { selectLanguage } from 'features/common/configSlice';
 import Setting from 'features/setting';
 import SocketClient from 'features/socket';
-import { socketActions } from 'features/socket/socketSlice';
+import { selectSocket, socketActions } from 'features/socket/socketSlice';
 import i18next from 'i18next';
 import { User } from 'models';
 import { useEffect } from 'react';
@@ -20,13 +20,15 @@ function App() {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
+  const currentUser = useAppSelector(selectCurrentUser);
+  const socket = useAppSelector(selectSocket);
   const language = useAppSelector(selectLanguage);
 
   useEffect(() => {
     (async () => {
       try {
         const token = localStorage.getItem(ACCESS_TOKEN) || '';
-        if (!token) return navigate('/login', { replace: true });
+        if (!token) return;
 
         const user = await authApi.getCurrentUser();
         if (!user) throw new Error();
@@ -41,12 +43,24 @@ function App() {
 
   useEffect(() => {
     const socket = io(env(variables.serverUrl));
+    if (!socket) return;
+
     dispatch(socketActions.setSocket(socket));
 
     return () => {
       socket.close();
     };
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!socket || !currentUser) return;
+
+    socket.emit('joinSocial', { userId: currentUser._id });
+
+    return () => {
+      socket.emit('leaveSocial', { userId: currentUser._id });
+    };
+  }, [socket, currentUser]);
 
   useEffect(() => {
     i18next.changeLanguage(language);
@@ -77,9 +91,9 @@ function App() {
           }
         />
 
-        <Route path="/login" element={<Auth />} />
-        <Route path="/register" element={<Auth />} />
-        <Route path="/active" element={<Auth active />} />
+        <Route path="/login" element={<Auth mode="login" />} />
+        <Route path="/register" element={<Auth mode="register" />} />
+        <Route path="/active" element={<Auth mode="active" />} />
 
         <Route path="/404" element={<NotFound />} />
         <Route path=":404" element={<NotFound />} />

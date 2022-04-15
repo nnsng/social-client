@@ -89,7 +89,7 @@ export default function Notification() {
 
                 <Box flexGrow={1}>
                   <Typography variant="body1" color="text.primary" mb={0.5} whiteSpace="normal">
-                    <WelcomeText name={currentUser?.name} />
+                    <WelcomeText name={currentUser?.fullName} />
                   </Typography>
 
                   <Typography variant="subtitle2" color="text.secondary" fontWeight="400">

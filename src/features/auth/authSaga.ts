@@ -1,7 +1,7 @@
 import { call, delay, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import authApi from 'api/authApi';
-import { AuthFormValue, AuthPayload, AuthResponse } from 'models';
+import { AuthFormValues, AuthPayload, AuthResponse } from 'models';
 import { toast } from 'react-toastify';
 import { ACCESS_TOKEN } from 'utils/constants';
 import { useTranslateFiles } from 'utils/translation';
@@ -13,7 +13,7 @@ function* handleLogin(action: PayloadAction<AuthPayload>) {
   const { toast: toastTranslation } = useTranslateFiles('toast');
 
   try {
-    const response: AuthResponse = yield call(authApi.login, formValues as AuthFormValue);
+    const response: AuthResponse = yield call(authApi.login, formValues as AuthFormValues);
     yield put(authActions.setCurrentUser(response.user));
     localStorage.setItem(ACCESS_TOKEN, response.token);
     navigate?.('/', { replace: true });
@@ -29,7 +29,7 @@ function* handleRegister(action: PayloadAction<AuthPayload>) {
   const { toast: toastTranslation } = useTranslateFiles('toast');
 
   try {
-    yield call(authApi.register, formValues as AuthFormValue);
+    yield call(authApi.register, formValues as AuthFormValues);
     navigate?.('/login', { replace: true });
     toast.info('Please check your email to active your account!');
   } catch (error: any) {

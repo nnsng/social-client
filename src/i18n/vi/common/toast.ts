@@ -23,7 +23,7 @@ const toast = {
     updateProfileSuccess: 'Cập nhật thông tin thành công.',
   },
   changePasswordPage: {
-    forgotPassword: 'Chưa cập nhật.',
+    forgotPassword: 'Đang cập nhật.',
   },
   changePasswordForm: {
     success: 'Đổi mật khẩu thành công',

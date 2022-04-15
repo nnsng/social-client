@@ -29,8 +29,7 @@ export interface IMenuItem {
   label?: string;
   icon?: any;
   onClick?: () => void;
-  active?: boolean;
-  page?: string;
+  show?: boolean;
 }
 
 export interface Token {
