@@ -1,6 +1,6 @@
 import { PaletteMode } from '@mui/material';
 import { NavigateFunction } from 'react-router-dom';
-import { SupportedLanguage, SupportedThemeColor } from './common';
+import { SupportedLanguage, SupportedThemeColor } from './types';
 
 export interface User {
   _id: string;
@@ -27,7 +27,7 @@ export interface AuthFormValues {
   username?: string;
 }
 
-export interface ChangePasswordFormValue {
+export interface ChangePasswordFormValues {
   userId: string;
   currentPassword: string;
   newPassword: string;

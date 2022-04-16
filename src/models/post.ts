@@ -12,8 +12,6 @@ export interface Post {
   commentCount?: number;
   slug?: string;
   createdAt?: string;
-
-  [key: string]: any;
 }
 
 export interface Comment {
@@ -24,8 +22,6 @@ export interface Comment {
   user?: User;
   likes?: string[];
   createdAt?: string;
-
-  [key: string]: any;
 }
 
 export interface Keyword {

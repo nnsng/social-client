@@ -1,7 +1,7 @@
 import authApi from 'api/authApi';
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { ChangePasswordFormValue } from 'models';
+import { ChangePasswordFormValues } from 'models';
 import React from 'react';
 import { toast } from 'react-toastify';
 import { useTranslateFiles } from 'utils/translation';
@@ -12,14 +12,14 @@ export function ChangePasswordPage() {
 
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const defaultValues: ChangePasswordFormValue = {
+  const defaultValues: ChangePasswordFormValues = {
     userId: currentUser?._id as string,
     currentPassword: '',
     newPassword: '',
     confirmPassword: '',
   };
 
-  const handleFormSubmit = async (formValues: ChangePasswordFormValue) => {
+  const handleFormSubmit = async (formValues: ChangePasswordFormValues) => {
     await authApi.changePassword(formValues);
   };
 

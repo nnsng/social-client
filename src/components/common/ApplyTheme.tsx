@@ -1,8 +1,7 @@
 import { ThemeProvider } from '@mui/material';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { useAppSelector } from 'app/hooks';
 import favicons from 'assets/favicons';
-import { configActions, selectThemeColor, selectThemeMode } from 'features/common/configSlice';
-import { SupportedThemeColor } from 'models';
+import { selectThemeColor, selectThemeMode } from 'features/common/configSlice';
 import React, { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';

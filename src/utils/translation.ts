@@ -6,7 +6,7 @@ export const supportedLanguages = [
 ];
 
 export const useTranslateFiles = (...files: string[]) => {
-  const translations: { [key: string]: any } = {};
+  const translations: any = {};
   for (const file of files) {
     translations[file] = i18next.getResourceBundle(i18next.language, file);
   }

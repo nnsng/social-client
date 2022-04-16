@@ -3,7 +3,7 @@ import { Button, CircularProgress, Grid, Stack, Typography } from '@mui/material
 import { Box } from '@mui/system';
 import { MuiTextField } from 'components/formFields';
 import i18next from 'i18next';
-import { ChangePasswordFormValue } from 'models';
+import { ChangePasswordFormValues } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -12,8 +12,8 @@ import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
 export interface ChangePasswordFormProps {
-  defaultValues: ChangePasswordFormValue;
-  onSubmit: (formValues: ChangePasswordFormValue) => void;
+  defaultValues: ChangePasswordFormValues;
+  onSubmit: (formValues: ChangePasswordFormValues) => void;
   forgotPassword?: () => void;
 }
 
@@ -53,7 +53,7 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
     clearErrors();
   }, [i18next.language]);
 
-  const handleFormSubmit = async (formValues: ChangePasswordFormValue) => {
+  const handleFormSubmit = async (formValues: ChangePasswordFormValues) => {
     try {
       await onSubmit(formValues);
       reset();
