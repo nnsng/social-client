@@ -1,9 +1,8 @@
 import { PaletteMode } from '@mui/material';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SupportedLanguage, UserConfig } from 'models';
-import { localConfig } from 'utils/common';
 import { RootState } from 'app/store';
-import { SupportedThemeColor } from 'models/common';
+import { SupportedLanguage, SupportedThemeColor, UserConfig } from 'models';
+import { localConfig } from 'utils/common';
 
 export type ConfigKey = keyof UserConfig;
 

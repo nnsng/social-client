@@ -80,7 +80,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
   useEffect(() => {
     if (isSubmitting) return;
 
-    const errorValues = Object.values(errors);
+    const errorValues: any = Object.values(errors);
     if (errorValues.length === 0) return;
 
     for (const error of errorValues) {
