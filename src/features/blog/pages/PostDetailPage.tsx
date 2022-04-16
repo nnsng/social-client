@@ -77,7 +77,7 @@ export function PostDetailPage() {
 
   return (
     <>
-      <PageTitle title={loading ? APP_NAME : `${post?.title} | ${post?.author?.fullName}`} />
+      <PageTitle title={loading ? APP_NAME : `${post?.title} | ${post?.author?.name}`} />
 
       {!loading && post && (
         <Box>

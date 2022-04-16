@@ -40,9 +40,9 @@ export default function AuthForm(props: AuthFormProps) {
       .min(6, validate.password.min(6))
       .max(255, validate.password.max(255)),
     mode: yup.string().required(),
-    fullName: yup.string().when('mode', {
+    name: yup.string().when('mode', {
       is: 'register',
-      then: yup.string().required(validate.fullName.required).max(255, validate.fullName.max(255)),
+      then: yup.string().required(validate.name.required).max(255, validate.name.max(255)),
     }),
     username: yup.string().when('mode', {
       is: 'register',
@@ -103,9 +103,9 @@ export default function AuthForm(props: AuthFormProps) {
           {isRegisterMode && (
             <>
               <MuiTextField
-                name="fullName"
+                name="name"
                 control={control}
-                label={t('label.fullName')}
+                label={t('label.name')}
                 variant="outlined"
                 size="medium"
               />

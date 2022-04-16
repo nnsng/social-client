@@ -131,7 +131,7 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
                 }}
               >
                 <Typography variant="subtitle2" color="text.primary" fontWeight={600}>
-                  {comment?.user?.fullName}
+                  {comment?.user?.name}
                 </Typography>
 
                 <Typography variant="body1" color="text.primary">

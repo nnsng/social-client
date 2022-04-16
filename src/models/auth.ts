@@ -4,7 +4,7 @@ import { SupportedLanguage, SupportedThemeColor } from './types';
 
 export interface User {
   _id: string;
-  fullName: string;
+  name: string;
   email: string;
   username: string;
   avatar?: string;
@@ -23,7 +23,7 @@ export interface AuthFormValues {
   mode: 'login' | 'register';
   email: string;
   password: string;
-  fullName?: string;
+  name?: string;
   username?: string;
 }
 

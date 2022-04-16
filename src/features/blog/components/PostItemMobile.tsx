@@ -129,7 +129,7 @@ export function PostItemMobile(props: PostItemMobileProps) {
               display="flex"
               alignItems="center"
             >
-              {t('author', { author: post.author?.fullName })}
+              {t('author', { author: post.author?.name })}
             </Typography>
           )}
 

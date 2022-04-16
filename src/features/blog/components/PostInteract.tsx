@@ -43,7 +43,7 @@ export default function PostInteract(props: PostInteractProps) {
           cursor: 'default',
         }}
       >
-        {post?.author?.fullName}
+        {post?.author?.name}
       </Typography>
 
       <Typography variant="body2" fontSize={16} lineHeight={1.8} py={1}>

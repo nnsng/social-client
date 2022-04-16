@@ -160,7 +160,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
           }
           title={
             <Typography variant="subtitle2" fontWeight={600}>
-              {post?.author?.fullName}
+              {post?.author?.name}
             </Typography>
           }
           subheader={

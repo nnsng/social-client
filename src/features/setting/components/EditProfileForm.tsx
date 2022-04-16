@@ -24,10 +24,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
   const { validate } = useTranslateFiles('validate');
 
   const schema = yup.object().shape({
-    fullName: yup
-      .string()
-      .required(validate.fullName.required)
-      .max(255, validate.fullName.max(255)),
+    name: yup.string().required(validate.name.required).max(255, validate.name.max(255)),
     avatar: yup.string(),
     username: yup
       .string()
@@ -59,11 +56,11 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
       <Box pb={3}>
         <Stack direction="column" spacing={2}>
           <MuiTextField
-            name="fullName"
+            name="name"
             control={control}
             variant="outlined"
-            placeholder={t('label.fullName')}
-            title={t('label.fullName')}
+            placeholder={t('label.name')}
+            title={t('label.name')}
             sx={{ maxWidth: 400 }}
           />
 

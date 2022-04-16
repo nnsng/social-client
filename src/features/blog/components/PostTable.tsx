@@ -125,7 +125,7 @@ export default function PostTable(props: PostTableProps) {
                 </TableCell>
 
                 {saved ? (
-                  <TableCell align="center">{post?.author?.fullName}</TableCell>
+                  <TableCell align="center">{post?.author?.name}</TableCell>
                 ) : (
                   <TableCell align="center">{post?.likes?.length}</TableCell>
                 )}

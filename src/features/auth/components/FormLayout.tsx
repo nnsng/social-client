@@ -23,7 +23,7 @@ export default function FormLayout({ mode }: FormLayoutProps) {
     mode,
     email: '',
     password: '',
-    fullName: '',
+    name: '',
     username: '',
   };
 

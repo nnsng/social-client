@@ -167,7 +167,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
           }
           title={
             <Typography variant="subtitle2" fontWeight={600}>
-              {post?.author?.fullName}
+              {post?.author?.name}
             </Typography>
           }
           subheader={

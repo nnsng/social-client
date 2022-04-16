@@ -4,7 +4,7 @@
     "register": "Register"
   },
   "label": {
-    "fullName": "Full name",
+    "name": "Full name",
     "username": "Username",
     "email": "Email",
     "password": "Password"
