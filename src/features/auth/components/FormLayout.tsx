@@ -5,8 +5,6 @@ import { AuthFormValues } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { useTranslateFiles } from 'utils/translation';
 import { authActions } from '../authSlice';
 import AuthForm from './AuthForm';
 

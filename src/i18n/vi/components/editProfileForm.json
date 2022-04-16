@@ -4,7 +4,7 @@
     "avatar": "Ảnh đại diện",
     "username": "Tên người dùng",
     "email": "Email",
-    "phone": "Số điện thoại"
+    "bio": "Giới thiệu bản thân"
   },
   "save": "Lưu thay đổi"
 }

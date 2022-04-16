@@ -11,6 +11,7 @@ export function NotFound() {
       <PageTitle title={t('pageTitle')} />
 
       <Stack
+        direction="column"
         sx={{
           position: 'fixed',
           inset: 0,

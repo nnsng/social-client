@@ -2,6 +2,7 @@ const toast = {
   auth: {
     loginSuccess: 'Đăng ký thành công.',
     activeSuccess: 'Tài khoản của bạn đã được kích hoạt.',
+    activeAccount: 'Vui lòng kiểm tra email của bạn để kích hoạt tài khoản!',
   },
   createEditForm: {
     createError: 'Đăng bài thất bại.',

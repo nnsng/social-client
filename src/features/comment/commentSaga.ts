@@ -19,7 +19,6 @@ function* likeComment(action: PayloadAction<string>) {
     const comment: Comment = yield call(commentApi.like, action.payload);
     yield put(commentActions.likeCommentSuccess(comment));
   } catch (error) {
-    yield put(commentActions.likeCommentFailure());
     console.log('Failed to like comment:', error);
   }
 }

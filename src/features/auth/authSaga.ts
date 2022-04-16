@@ -31,7 +31,7 @@ function* handleRegister(action: PayloadAction<AuthPayload>) {
   try {
     yield call(authApi.register, formValues as AuthFormValues);
     navigate?.('/login', { replace: true });
-    toast.info('Please check your email to active your account!');
+    toast.info(toastTranslation.auth.activeAccount);
   } catch (error: any) {
     const errorName = error?.response?.data?.name || 'somethingWrong';
     toast.error(toastTranslation.errors[errorName]);

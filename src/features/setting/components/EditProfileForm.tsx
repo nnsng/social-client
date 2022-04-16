@@ -36,10 +36,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
       .max(50, validate.username.max(20))
       .matches(/^(?![_.])[a-zA-Z0-9._]+(?<![_.])$/, validate.username.valid),
     email: yup.string().email().required(),
-    // phone: yup
-    //   .string()
-    //   .max(10)
-    //   .matches(/(0[3|5|7|8|9])+([0-9]{8})\b/, validate.phone.valid),
+    bio: yup.string(),
   });
 
   const { control, handleSubmit, getValues, reset, clearErrors } = useForm({
@@ -131,14 +128,16 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
             disabled
           />
 
-          {/* <MuiTextField
-            name="phone"
+          <MuiTextField
+            name="bio"
             control={control}
             variant="outlined"
-            placeholder={t('label.phone')}
-            title={t('label.phone')}
+            placeholder={t('label.bio')}
+            title={t('label.bio')}
             sx={{ maxWidth: 400 }}
-          /> */}
+            multiline
+            rows={3}
+          />
 
           <Box>
             <Button

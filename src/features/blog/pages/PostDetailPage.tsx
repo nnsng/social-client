@@ -73,35 +73,36 @@ export function PostDetailPage() {
     dispatch(commentActions.likeComment(comment._id as string));
   };
 
-  if (loading) return null;
-  if (!post?._id) return <NotFound />;
+  if (!loading && !post) return <NotFound />;
 
   return (
     <>
-      <PageTitle title={post?.title ?? APP_NAME} />
+      <PageTitle title={loading ? APP_NAME : `${post?.title} | ${post?.author?.fullName}`} />
 
-      <Box>
-        <Grid container spacing={{ xs: 2, lg: 8 }}>
-          <Grid item xs={12} md={10} lg={8} mx="auto">
-            <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
+      {!loading && post && (
+        <Box>
+          <Grid container spacing={{ xs: 2, lg: 8 }}>
+            <Grid item xs={12} md={10} lg={8} mx="auto">
+              <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
+            </Grid>
+
+            <Grid item xs={12} md={10} lg={4} mx="auto">
+              <PostInteract post={post} openComment={openComment} onLikePost={handleLikePost} />
+            </Grid>
           </Grid>
 
-          <Grid item xs={12} md={10} lg={4} mx="auto">
-            <PostInteract post={post} openComment={openComment} onLikePost={handleLikePost} />
-          </Grid>
-        </Grid>
-
-        <Drawer anchor="right" open={showComment} onClose={closeComment}>
-          <PostComment
-            commentList={postComments}
-            postId={post?._id}
-            onClose={closeComment}
-            onCreate={handleCreateComment}
-            onRemove={handleRemoveComment}
-            onLike={handleLikeComment}
-          />
-        </Drawer>
-      </Box>
+          <Drawer anchor="right" open={showComment} onClose={closeComment}>
+            <PostComment
+              commentList={postComments}
+              postId={post?._id || ''}
+              onClose={closeComment}
+              onCreate={handleCreateComment}
+              onRemove={handleRemoveComment}
+              onLike={handleLikeComment}
+            />
+          </Drawer>
+        </Box>
+      )}
     </>
   );
 }

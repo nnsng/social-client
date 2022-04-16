@@ -8,6 +8,7 @@ import {
   CardMedia,
   IconButton,
   MenuItem,
+  Stack,
   Typography,
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
@@ -187,8 +188,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
         />
 
         <CardContent sx={{ p: 0 }}>
-          <Box
-            display="flex"
+          <Stack
             justifyContent="space-between"
             flexDirection={{ sm: 'row', xs: 'column' }}
             alignItems={{ sm: 'center', xs: 'flex-start' }}
@@ -209,7 +209,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
               </Typography>
 
               <Typography variant="body1" m={0} sx={{ ...mixins.truncate(2) }}>
-                {post.description}
+                {post.content}
               </Typography>
             </Box>
 
@@ -230,7 +230,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
                 />
               </Box>
             )}
-          </Box>
+          </Stack>
         </CardContent>
       </Card>
 

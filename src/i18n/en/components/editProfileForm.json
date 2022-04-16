@@ -4,7 +4,7 @@
     "avatar": "Avatar",
     "username": "Username",
     "email": "Email",
-    "phone": "Phone number"
+    "bio": "Bio"
   },
   "save": "Save"
 }

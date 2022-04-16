@@ -3,7 +3,7 @@ import {
   FavoriteBorderRounded,
   FavoriteRounded,
 } from '@mui/icons-material';
-import { Box, Button, Chip, Typography } from '@mui/material';
+import { Box, Button, Chip, Stack, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { Keyword, Post } from 'models';
@@ -47,10 +47,10 @@ export default function PostInteract(props: PostInteractProps) {
       </Typography>
 
       <Typography variant="body2" fontSize={16} lineHeight={1.8} py={1}>
-        {post?.author?.description}
+        {post?.author?.bio}
       </Typography>
 
-      <Box display="flex" alignItems="center">
+      <Stack alignItems="center">
         <Button
           color="inherit"
           sx={{
@@ -86,9 +86,9 @@ export default function PostInteract(props: PostInteractProps) {
         >
           {post?.commentCount}
         </Button>
-      </Box>
+      </Stack>
 
-      <Box display="flex" flexWrap="wrap" mt={2}>
+      <Stack flexWrap="wrap" mt={2}>
         {post.keywords &&
           post.keywords.map((keyword, idx) => (
             <Chip
@@ -103,7 +103,7 @@ export default function PostInteract(props: PostInteractProps) {
               }}
             />
           ))}
-      </Box>
+      </Stack>
     </Box>
   );
 }

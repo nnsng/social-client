@@ -144,7 +144,7 @@ export default function PostTable(props: PostTableProps) {
                   ) : (
                     <Box width="100%" whiteSpace={{ xs: 'normal', md: 'nowrap' }}>
                       <Button
-                        color="info"
+                        color="primary"
                         sx={{ whiteSpace: 'nowrap' }}
                         onClick={() => handleEditPost(post)}
                       >

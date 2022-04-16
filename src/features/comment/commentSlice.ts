@@ -18,7 +18,6 @@ const commentSlice = createSlice({
   reducers: {
     fetchPostComments(state, action: PayloadAction<string>) {
       state.loading = true;
-      state.postComments = [];
     },
     fetchPostCommentsSuccess(state, action: PayloadAction<Comment[]>) {
       state.loading = false;
@@ -43,7 +42,6 @@ const commentSlice = createSlice({
         comment._id === likedComment._id ? likedComment : comment
       );
     },
-    likeCommentFailure(state) {},
   },
 });
 
