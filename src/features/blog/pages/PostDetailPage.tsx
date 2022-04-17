@@ -12,7 +12,7 @@ import { APP_NAME } from 'utils/constants';
 import { blogActions, selectPostDetail, selectPostLoading } from '../blogSlice';
 import PostComment from '../components/PostComment';
 import PostDetail from '../components/PostDetail';
-import PostInteract from '../components/PostInteract';
+import PostReact from '../components/PostReact';
 
 export function PostDetailPage() {
   const { slug } = useParams();
@@ -87,7 +87,7 @@ export function PostDetailPage() {
             </Grid>
 
             <Grid item xs={12} md={10} lg={4} mx="auto">
-              <PostInteract post={post} openComment={openComment} onLikePost={handleLikePost} />
+              <PostReact post={post} openComment={openComment} onLikePost={handleLikePost} />
             </Grid>
           </Grid>
 

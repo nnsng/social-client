@@ -16,7 +16,7 @@ import { selectCurrentUser } from 'features/auth/authSlice';
 import { Post } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { formatTime } from 'utils/common';
 import { themeConstants } from 'utils/theme';
@@ -53,6 +53,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
   const handleSavePost = async () => {
     try {
       await onSave?.(post);
+      toast.success(toastTranslation.postDetail.saveSuccess);
     } catch (error: any) {
       const errorName = error?.response?.data?.name || 'somethingWrong';
       toast.error(toastTranslation.errors[errorName]);
@@ -80,7 +81,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
     onMenuItemClick?.();
   };
 
-  const isAuthorized = currentUser?._id === post?.authorId || currentUser?.role === 'admin';
+  const isAuthorized = currentUser?._id === post.authorId || currentUser?.role === 'admin';
   const postMenu = GetPostMenu({
     post,
     isAuthorized,
@@ -97,7 +98,11 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
         </Typography>
 
         <CardHeader
-          avatar={<Avatar src={post.author?.avatar} />}
+          avatar={
+            <Link to={`/blog?username=${post?.author?.username}`}>
+              <Avatar src={post?.author?.avatar} />
+            </Link>
+          }
           action={
             <Box>
               <IconButton
@@ -159,7 +164,13 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
             </Box>
           }
           title={
-            <Typography variant="subtitle2" fontWeight={600}>
+            <Typography
+              variant="subtitle2"
+              color="text.primary"
+              fontWeight={600}
+              component={Link}
+              to={`/blog?username=${post?.author?.username}`}
+            >
               {post?.author?.name}
             </Typography>
           }

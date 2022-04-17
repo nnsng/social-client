@@ -81,7 +81,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
     onMenuItemClick?.();
   };
 
-  const isAuthorized = currentUser?._id === post?.authorId || currentUser?.role === 'admin';
+  const isAuthorized = currentUser?._id === post.authorId || currentUser?.role === 'admin';
   const postMenu = GetPostMenu({
     post,
     isAuthorized,
@@ -104,7 +104,11 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
         }}
       >
         <CardHeader
-          avatar={<Avatar src={post?.author?.avatar} />}
+          avatar={
+            <Link to={`/blog?username=${post?.author?.username}`}>
+              <Avatar src={post?.author?.avatar} />
+            </Link>
+          }
           action={
             <Box>
               <IconButton
@@ -166,7 +170,13 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
             </Box>
           }
           title={
-            <Typography variant="subtitle2" fontWeight={600}>
+            <Typography
+              variant="subtitle2"
+              color="text.primary"
+              fontWeight={600}
+              component={Link}
+              to={`/blog?username=${post?.author?.username}`}
+            >
               {post?.author?.name}
             </Typography>
           }

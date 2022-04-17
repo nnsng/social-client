@@ -8,15 +8,15 @@ import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { Keyword, Post } from 'models';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-export interface PostInteractProps {
+export interface PostReactProps {
   post: Post;
   openComment?: () => void;
   onLikePost?: () => void;
 }
 
-export default function PostInteract(props: PostInteractProps) {
+export default function PostReact(props: PostReactProps) {
   const { post, openComment, onLikePost } = props;
 
   const navigate = useNavigate();
@@ -40,8 +40,9 @@ export default function PostInteract(props: PostInteractProps) {
           color: 'text.primary',
           fontSize: 18,
           fontWeight: 600,
-          cursor: 'default',
         }}
+        component={Link}
+        to={`/blog?username=${post?.author?.username}`}
       >
         {post?.author?.name}
       </Typography>
@@ -61,7 +62,7 @@ export default function PostInteract(props: PostInteractProps) {
             },
           }}
           startIcon={
-            post.likes?.includes(currentUser?._id as string) ? (
+            post?.likes?.includes(currentUser?._id as string) ? (
               <FavoriteRounded sx={{ color: 'error.main' }} />
             ) : (
               <FavoriteBorderRounded />
@@ -84,7 +85,7 @@ export default function PostInteract(props: PostInteractProps) {
           startIcon={<ChatBubbleOutlineRounded />}
           onClick={openComment}
         >
-          {post?.commentCount}
+          {post.commentCount}
         </Button>
       </Stack>
 

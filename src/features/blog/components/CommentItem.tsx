@@ -16,6 +16,7 @@ import { selectCurrentUser } from 'features/auth/authSlice';
 import { Comment, IMenuItem } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { formatTime } from 'utils/common';
 import { useTranslateFiles } from 'utils/translation';
@@ -85,19 +86,21 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
   return (
     <>
       <ListItem disableGutters sx={{ mb: 2.5 }}>
-        <Grid container spacing={2}>
-          <Grid item xs="auto">
-            <Avatar src={comment?.user?.avatar} sx={{ width: 36, height: 36 }} />
-          </Grid>
+        <Stack spacing={2}>
+          <Stack flexShrink={0}>
+            <Link to={`/blog?username=${comment?.user?.username}`}>
+              <Avatar src={comment?.user?.avatar} sx={{ width: 36, height: 36 }} />
+            </Link>
+          </Stack>
 
-          <Grid item xs>
+          <Grid xs>
             <Badge
               color="primary"
               anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'right',
               }}
-              invisible={!comment?.likes?.length}
+              invisible={comment?.likes?.length === 0}
               sx={{
                 '& .MuiBadge-badge': {
                   bottom: 2,
@@ -130,7 +133,13 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
                   borderRadius: 4,
                 }}
               >
-                <Typography variant="subtitle2" color="text.primary" fontWeight={600}>
+                <Typography
+                  variant="subtitle2"
+                  color="text.primary"
+                  fontWeight={600}
+                  component={Link}
+                  to={`/blog?username=${comment?.user?.username}`}
+                >
                   {comment?.user?.name}
                 </Typography>
 
@@ -201,7 +210,7 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
               </ActionMenu>
             </Stack>
           </Grid>
-        </Grid>
+        </Stack>
       </ListItem>
 
       <ConfirmDialog

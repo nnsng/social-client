@@ -125,7 +125,9 @@ export default function PostTable(props: PostTableProps) {
                 </TableCell>
 
                 {saved ? (
-                  <TableCell align="center">{post?.author?.name}</TableCell>
+                  <TableCell align="center">
+                    <Link to={`/blog?username=${post?.author?.username}`}>{post.author?.name}</Link>
+                  </TableCell>
                 ) : (
                   <TableCell align="center">{post?.likes?.length}</TableCell>
                 )}

@@ -13,6 +13,7 @@ const toast = {
     deleteSuccess: 'Xóa bài viết thành công.',
   },
   postDetail: {
+    saveSuccess: 'Đã lưu.',
     deleteSuccess: 'Xóa bài viết thành công.',
   },
   postTable: {
