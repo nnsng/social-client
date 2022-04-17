@@ -1,7 +1,7 @@
-import { cdnActions } from 'features/common/cdnSlice';
+import { useAppDispatch } from 'app/hooks';
+import { uploadActions } from 'features/common/uploadSlice';
 import React, { InputHTMLAttributes } from 'react';
 import { Control, useController } from 'react-hook-form';
-import { useAppDispatch } from 'app/hooks';
 import { getImageUrlFromCDN } from 'utils/common';
 
 export interface FileInputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -17,18 +17,17 @@ export function FileInputField({ name, control, ...inputProps }: FileInputFieldP
   const dispatch = useAppDispatch();
 
   const handleFileInputChange = async (e: any) => {
-    dispatch(cdnActions.startGetImageUrl());
+    dispatch(uploadActions.setLoading(true));
 
     try {
       const image = e.target.files[0];
       const imageUrl = await getImageUrlFromCDN(image);
-
       onChange(imageUrl);
     } catch (error) {
       console.log('Failed to get image url: ', error);
     }
 
-    dispatch(cdnActions.getImageUrlFinished());
+    dispatch(uploadActions.setLoading(false));
   };
 
   return (

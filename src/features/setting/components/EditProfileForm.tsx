@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Avatar, Box, Button, CircularProgress, Grid, Stack, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { FileInputField, MuiTextField } from 'components/formFields';
-import { selectCdnLoading } from 'features/common/cdnSlice';
+import { selectUploading } from 'features/common/uploadSlice';
 import i18next from 'i18next';
 import { User } from 'models';
 import React, { useEffect } from 'react';
@@ -41,7 +41,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
     resolver: yupResolver(schema),
   });
 
-  const imageLoading = useAppSelector(selectCdnLoading);
+  const uploading = useAppSelector(selectUploading);
 
   useEffect(() => {
     clearErrors();
@@ -89,7 +89,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
               />
               <FileInputField name="avatar" control={control} id="avatar-upload" />
 
-              {imageLoading && (
+              {uploading && (
                 <Stack
                   sx={{
                     position: 'absolute',
@@ -141,7 +141,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
               type="submit"
               variant="contained"
               color="primary"
-              disabled={submitting || imageLoading}
+              disabled={submitting || uploading}
               startIcon={submitting && <CircularProgress size={20} />}
             >
               {t('save')}

@@ -1,4 +1,4 @@
-import cdnApi from 'api/cdnApi';
+import otherApi from 'api/otherApi';
 import dayjs from 'dayjs';
 import 'dayjs/locale/vi';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -26,7 +26,7 @@ export const getImageUrlFromCDN = async (image: File) => {
     formData.append('file', image);
     formData.append('upload_preset', '1social');
 
-    const imageObject: any = await cdnApi.getImageUrl(formData);
+    const imageObject: any = await otherApi.uploadImageToCDN(formData);
     return imageObject?.url || '';
   } catch (error) {
     console.log('Failed to get image url from cdn:', error);

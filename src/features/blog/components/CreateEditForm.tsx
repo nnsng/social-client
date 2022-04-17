@@ -17,7 +17,7 @@ import {
   KeywordInputField,
   MdEditorField,
 } from 'components/formFields';
-import { selectCdnLoading } from 'features/common/cdnSlice';
+import { selectUploading } from 'features/common/uploadSlice';
 import { Post } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -67,7 +67,8 @@ export default function CreateEditForm(props: CreateEditFormProps) {
   const thumbnail = watch('thumbnail');
   const maxKeywords = 5;
 
-  const imageLoading = useAppSelector(selectCdnLoading);
+  const uploading = useAppSelector(selectUploading);
+
   const [open, setOpen] = useState(false);
 
   const openDialog = () => setOpen(true);
@@ -174,8 +175,8 @@ export default function CreateEditForm(props: CreateEditFormProps) {
               size="small"
               component="label"
               htmlFor="thumbnail-input"
-              disabled={imageLoading}
-              startIcon={imageLoading && <CircularProgress size={20} />}
+              disabled={uploading}
+              startIcon={uploading && <CircularProgress size={20} />}
               sx={{ fontWeight: 400 }}
             >
               <FileInputField name="thumbnail" control={control} id="thumbnail-input" />
@@ -187,7 +188,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
                 variant="outlined"
                 color="error"
                 size="small"
-                disabled={imageLoading}
+                disabled={uploading}
                 sx={{ fontWeight: 400 }}
                 onClick={removeThumbnail}
               >
@@ -213,7 +214,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
             variant="contained"
             size="large"
             autoFocus
-            disabled={isSubmitting || imageLoading}
+            disabled={isSubmitting || uploading}
             startIcon={isSubmitting && <CircularProgress size={20} />}
             onClick={handleSubmit(handleFormSubmit)}
           >
