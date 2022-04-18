@@ -58,7 +58,7 @@ export default function UserMenu() {
 
           <Box ml={2}>
             <Typography variant="body1" fontWeight={600}>
-              {currentUser?.fullName}
+              {currentUser?.name}
             </Typography>
 
             <Typography variant="body2">{currentUser?.email}</Typography>

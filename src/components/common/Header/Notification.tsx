@@ -1,14 +1,5 @@
 import { NotificationsRounded } from '@mui/icons-material';
-import {
-  Avatar,
-  Backdrop,
-  Box,
-  Divider,
-  MenuItem,
-  Theme,
-  Typography,
-  useMediaQuery,
-} from '@mui/material';
+import { Backdrop, Box, Divider, MenuItem, Theme, Typography, useMediaQuery } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import React, { useRef, useState } from 'react';
@@ -16,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { formatTime } from 'utils/common';
 import { APP_NAME } from 'utils/constants';
-import { PopperMenu } from '..';
+import { Logo, PopperMenu } from '..';
 import HeaderIconButton from './HeaderIconButton';
 
 function WelcomeText({ name }: { name?: string }) {
@@ -85,11 +76,11 @@ export default function Notification() {
           {Array.from(new Array(1)).map((_, idx) => (
             <Link key={idx} to="/blog">
               <MenuItem sx={{ borderRadius: 1 }} onClick={closeMenu}>
-                <Avatar src={currentUser?.avatar} sx={{ width: 48, height: 48, mr: 2 }} />
+                <Logo variant="circular" sx={{ width: 48, height: 48 }} />
 
-                <Box flexGrow={1}>
+                <Box flexGrow={1} ml={2}>
                   <Typography variant="body1" color="text.primary" mb={0.5} whiteSpace="normal">
-                    <WelcomeText name={currentUser?.fullName} />
+                    <WelcomeText name={currentUser?.name} />
                   </Typography>
 
                   <Typography variant="subtitle2" color="text.secondary" fontWeight="400">

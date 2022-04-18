@@ -3,7 +3,7 @@ import commentApi from 'api/commentApi';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { NotFound, PageTitle } from 'components/common';
-import { commentActions, selectPostComments } from 'features/comment/commentSlice';
+import { commentActions, selectPostComments } from 'features/blog/commentSlice';
 import { selectSocket } from 'features/socket/socketSlice';
 import { Comment, Post } from 'models';
 import React, { useEffect, useState } from 'react';
@@ -12,7 +12,7 @@ import { APP_NAME } from 'utils/constants';
 import { blogActions, selectPostDetail, selectPostLoading } from '../blogSlice';
 import PostComment from '../components/PostComment';
 import PostDetail from '../components/PostDetail';
-import PostInteract from '../components/PostInteract';
+import PostReact from '../components/PostReact';
 
 export function PostDetailPage() {
   const { slug } = useParams();
@@ -43,10 +43,14 @@ export function PostDetailPage() {
   }, [socket, post]);
 
   useEffect(() => {
-    showComment && dispatch(commentActions.fetchPostComments(post?._id as string));
+    if (showComment) {
+      dispatch(commentActions.fetchPostComments(post?._id as string));
+    } else {
+      dispatch(blogActions.updateCommentCount(postComments.length));
+    }
   }, [showComment]);
 
-  const openComment = () => setShowComment(!showComment);
+  const openComment = () => setShowComment(true);
   const closeComment = () => setShowComment(false);
 
   const handleSavePost = async (post: Post) => {
@@ -77,7 +81,7 @@ export function PostDetailPage() {
 
   return (
     <>
-      <PageTitle title={loading ? APP_NAME : `${post?.title} | ${post?.author?.fullName}`} />
+      <PageTitle title={loading ? APP_NAME : `${post?.title} | ${post?.author?.name}`} />
 
       {!loading && post && (
         <Box>
@@ -87,7 +91,7 @@ export function PostDetailPage() {
             </Grid>
 
             <Grid item xs={12} md={10} lg={4} mx="auto">
-              <PostInteract post={post} openComment={openComment} onLikePost={handleLikePost} />
+              <PostReact post={post} onOpenComment={openComment} onLikePost={handleLikePost} />
             </Grid>
           </Grid>
 

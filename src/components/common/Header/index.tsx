@@ -1,10 +1,11 @@
-import { Avatar, Box, Container, Grid, LinearProgress, Stack, Typography } from '@mui/material';
+import { Box, Container, Grid, LinearProgress, Stack, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { selectPostLoading } from 'features/blog/blogSlice';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
 import { themeConstants } from 'utils/theme';
+import { Logo } from '..';
 import { HeaderMenu } from './HeaderMenu';
 import { SearchBox } from './SearchBox';
 
@@ -44,19 +45,9 @@ export function Header() {
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item xs="auto" mr={2}>
             <Stack alignItems="center" component={Link} to="/">
-              <Avatar
-                variant="rounded"
-                sx={{
-                  bgcolor: 'primary.main',
-                  mr: 1,
-                  fontSize: 28,
-                  fontWeight: 600,
-                }}
-              >
-                1
-              </Avatar>
+              <Logo />
 
-              <Typography variant="h6" color="primary" fontWeight={600} letterSpacing={1}>
+              <Typography variant="h6" color="primary" fontWeight={600} letterSpacing={1} ml={1}>
                 {APP_NAME}
               </Typography>
             </Stack>

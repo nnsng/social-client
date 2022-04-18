@@ -10,3 +10,4 @@ export * from './PageTitle';
 export * from './KeywordInput';
 export * from './ApplyTheme';
 export * from './ConfirmDialog';
+export * from './Logo';

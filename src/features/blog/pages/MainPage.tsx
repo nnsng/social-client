@@ -24,7 +24,7 @@ export function MainPage() {
   });
 
   useEffect(() => {
-    navigate(`?${queryString.stringify(filter)}`, { replace: true });
+    navigate(`?${queryString.stringify(filter)}`);
     dispatch(blogActions.fetchPostList(filter));
   }, [dispatch, filter]);
 

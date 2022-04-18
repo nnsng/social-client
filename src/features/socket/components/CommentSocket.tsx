@@ -1,5 +1,5 @@
 import { useAppDispatch } from 'app/hooks';
-import { commentActions } from 'features/comment/commentSlice';
+import { commentActions } from 'features/blog/commentSlice';
 import { useEffect } from 'react';
 import { SocketProps } from '..';
 

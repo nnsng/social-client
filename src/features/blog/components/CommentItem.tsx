@@ -16,6 +16,7 @@ import { selectCurrentUser } from 'features/auth/authSlice';
 import { Comment, IMenuItem } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { formatTime } from 'utils/common';
 import { useTranslateFiles } from 'utils/translation';
@@ -26,7 +27,9 @@ export interface CommentItemProps {
   onLike?: (comment: Comment) => void;
 }
 
-export default function CommentItem({ comment, onRemove, onLike }: CommentItemProps) {
+export default function CommentItem(props: CommentItemProps) {
+  const { comment, onRemove, onLike } = props;
+
   const { t } = useTranslation('postComment');
   const { toast: toastTranslation, dialog: dialogTranslation } = useTranslateFiles(
     'toast',
@@ -87,7 +90,9 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
       <ListItem disableGutters sx={{ mb: 2.5 }}>
         <Grid container spacing={2}>
           <Grid item xs="auto">
-            <Avatar src={comment?.user?.avatar} sx={{ width: 36, height: 36 }} />
+            <Link to={`/blog?username=${comment?.user?.username}`}>
+              <Avatar src={comment?.user?.avatar} sx={{ width: 36, height: 36 }} />
+            </Link>
           </Grid>
 
           <Grid item xs>
@@ -113,7 +118,6 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
               badgeContent={
                 <Stack alignItems="center" p={0.3}>
                   <FavoriteRounded sx={{ color: 'primary.main', fontSize: 18 }} />
-
                   <Typography variant="subtitle2" color="text.primary" ml={0.5}>
                     {comment?.likes?.length || 0}
                   </Typography>
@@ -130,8 +134,14 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
                   borderRadius: 4,
                 }}
               >
-                <Typography variant="subtitle2" color="text.primary" fontWeight={600}>
-                  {comment?.user?.fullName}
+                <Typography
+                  variant="subtitle2"
+                  color="text.primary"
+                  fontWeight={600}
+                  component={Link}
+                  to={`/blog?username=${comment?.user?.username}`}
+                >
+                  {comment?.user?.name}
                 </Typography>
 
                 <Typography variant="body1" color="text.primary">

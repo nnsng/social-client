@@ -53,7 +53,7 @@ export default function DrawerMobile() {
 
             <Box>
               <Typography variant="body1" fontSize={16} fontWeight={600}>
-                {currentUser?.fullName}
+                {currentUser?.name}
               </Typography>
 
               <Typography variant="body2" fontSize={14}>

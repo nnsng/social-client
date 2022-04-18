@@ -9,7 +9,7 @@ const validate = {
     min: (n: number) => `Password must be at least ${n} characters`,
     max: (n: number) => `Password must be at most ${n} characters`,
   },
-  fullName: {
+  name: {
     required: 'Full name is required',
     max: (n: number) => `Full name must be at most ${n} characters`,
   },

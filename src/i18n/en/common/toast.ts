@@ -13,6 +13,7 @@ const toast = {
     deleteSuccess: 'Deleted.',
   },
   postDetail: {
+    saveSuccess: 'Saved.',
     deleteSuccess: 'Deleted.',
   },
   postTable: {

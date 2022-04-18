@@ -4,7 +4,7 @@
     "register": "Đăng ký"
   },
   "label": {
-    "fullName": "Họ tên",
+    "name": "Họ tên",
     "username": "Tên người dùng",
     "email": "Email",
     "password": "Mật khẩu"

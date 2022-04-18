@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Avatar, Box, Button, CircularProgress, Grid, Stack, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { FileInputField, MuiTextField } from 'components/formFields';
-import { selectCdnLoading } from 'features/common/cdnSlice';
+import { selectUploading } from 'features/common/uploadSlice';
 import i18next from 'i18next';
 import { User } from 'models';
 import React, { useEffect } from 'react';
@@ -24,10 +24,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
   const { validate } = useTranslateFiles('validate');
 
   const schema = yup.object().shape({
-    fullName: yup
-      .string()
-      .required(validate.fullName.required)
-      .max(255, validate.fullName.max(255)),
+    name: yup.string().required(validate.name.required).max(255, validate.name.max(255)),
     avatar: yup.string(),
     username: yup
       .string()
@@ -44,7 +41,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
     resolver: yupResolver(schema),
   });
 
-  const imageLoading = useAppSelector(selectCdnLoading);
+  const uploading = useAppSelector(selectUploading);
 
   useEffect(() => {
     clearErrors();
@@ -59,11 +56,11 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
       <Box pb={3}>
         <Stack direction="column" spacing={2}>
           <MuiTextField
-            name="fullName"
+            name="name"
             control={control}
             variant="outlined"
-            placeholder={t('label.fullName')}
-            title={t('label.fullName')}
+            placeholder={t('label.name')}
+            title={t('label.name')}
             sx={{ maxWidth: 400 }}
           />
 
@@ -92,7 +89,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
               />
               <FileInputField name="avatar" control={control} id="avatar-upload" />
 
-              {imageLoading && (
+              {uploading && (
                 <Stack
                   sx={{
                     position: 'absolute',
@@ -144,7 +141,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
               type="submit"
               variant="contained"
               color="primary"
-              disabled={submitting || imageLoading}
+              disabled={submitting || uploading}
               startIcon={submitting && <CircularProgress size={20} />}
             >
               {t('save')}

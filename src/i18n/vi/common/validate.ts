@@ -9,7 +9,7 @@ const validate = {
     min: (n: number) => `Mật khẩu tối thiểu ${n} ký tự`,
     max: (n: number) => `Mật khẩu tối đa ${n} ký tự`,
   },
-  fullName: {
+  name: {
     required: 'Vui lòng nhập họ tên',
     max: (n: number) => `Họ tên tối đa ${n} ký tự`,
   },

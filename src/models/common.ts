@@ -21,6 +21,7 @@ export interface ListParams {
   sort?: string;
   order?: 'asc' | 'desc';
   keyword?: string;
+  username?: string;
 }
 
 export interface IMenuItem {
