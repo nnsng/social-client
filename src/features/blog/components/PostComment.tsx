@@ -8,16 +8,15 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { selectCommentLoading } from 'features/comment/commentSlice';
+import { selectCommentLoading } from 'features/blog/commentSlice';
 import { Comment } from 'models';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { useTranslateFiles } from 'utils/translation';
-import { blogActions } from '../blogSlice';
 import CommentItem from './CommentItem';
 
 export interface PostCommentProps {
@@ -35,7 +34,6 @@ export default function PostComment(props: PostCommentProps) {
   const { t } = useTranslation('postComment');
   const { toast: toastTranslation } = useTranslateFiles('toast');
 
-  const dispatch = useAppDispatch();
   const loading = useAppSelector(selectCommentLoading);
   const currentUser = useAppSelector(selectCurrentUser);
 
@@ -53,12 +51,6 @@ export default function PostComment(props: PostCommentProps) {
   } = useForm({
     defaultValues,
   });
-
-  useEffect(() => {
-    return () => {
-      dispatch(blogActions.updateCommentCount(commentList.length));
-    };
-  }, [dispatch, commentList]);
 
   const handleSubmitComment = async (comment: Comment) => {
     try {
@@ -111,7 +103,7 @@ export default function PostComment(props: PostCommentProps) {
         </Typography>
 
         <form noValidate autoComplete="off" onSubmit={handleSubmit(handleSubmitComment)}>
-          <Stack pt={6} pb={3}>
+          <Stack pt={6} pb={3} bgcolor="background.paper">
             <Avatar
               src={currentUser?.avatar}
               sx={{

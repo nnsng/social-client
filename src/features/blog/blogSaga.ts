@@ -67,7 +67,6 @@ function* likePost(action: PayloadAction<string>) {
     const post: Post = yield call(postApi.like, action.payload);
     yield put(blogActions.likePostSuccess(post));
   } catch (error) {
-    yield put(blogActions.likePostFailure());
     console.log('Failed to like post:', error);
   }
 }

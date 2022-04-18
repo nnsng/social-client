@@ -27,7 +27,9 @@ export interface CommentItemProps {
   onLike?: (comment: Comment) => void;
 }
 
-export default function CommentItem({ comment, onRemove, onLike }: CommentItemProps) {
+export default function CommentItem(props: CommentItemProps) {
+  const { comment, onRemove, onLike } = props;
+
   const { t } = useTranslation('postComment');
   const { toast: toastTranslation, dialog: dialogTranslation } = useTranslateFiles(
     'toast',
@@ -86,21 +88,21 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
   return (
     <>
       <ListItem disableGutters sx={{ mb: 2.5 }}>
-        <Stack spacing={2}>
-          <Stack flexShrink={0}>
+        <Grid container spacing={2}>
+          <Grid item xs="auto">
             <Link to={`/blog?username=${comment?.user?.username}`}>
               <Avatar src={comment?.user?.avatar} sx={{ width: 36, height: 36 }} />
             </Link>
-          </Stack>
+          </Grid>
 
-          <Grid xs>
+          <Grid item xs>
             <Badge
               color="primary"
               anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'right',
               }}
-              invisible={comment?.likes?.length === 0}
+              invisible={!comment?.likes?.length}
               sx={{
                 '& .MuiBadge-badge': {
                   bottom: 2,
@@ -116,7 +118,6 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
               badgeContent={
                 <Stack alignItems="center" p={0.3}>
                   <FavoriteRounded sx={{ color: 'primary.main', fontSize: 18 }} />
-
                   <Typography variant="subtitle2" color="text.primary" ml={0.5}>
                     {comment?.likes?.length || 0}
                   </Typography>
@@ -210,7 +211,7 @@ export default function CommentItem({ comment, onRemove, onLike }: CommentItemPr
               </ActionMenu>
             </Stack>
           </Grid>
-        </Stack>
+        </Grid>
       </ListItem>
 
       <ConfirmDialog

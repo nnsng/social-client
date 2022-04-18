@@ -80,7 +80,6 @@ const blogSlice = createSlice({
     likePostSuccess(state, action: PayloadAction<Post>) {
       state.detail = action.payload;
     },
-    likePostFailure(state) {},
 
     updateCommentCount(state, action: PayloadAction<number>) {
       if (state.detail) {

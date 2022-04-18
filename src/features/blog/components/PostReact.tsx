@@ -12,12 +12,12 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export interface PostReactProps {
   post: Post;
-  openComment?: () => void;
+  onOpenComment?: () => void;
   onLikePost?: () => void;
 }
 
 export default function PostReact(props: PostReactProps) {
-  const { post, openComment, onLikePost } = props;
+  const { post, onOpenComment, onLikePost } = props;
 
   const navigate = useNavigate();
 
@@ -83,7 +83,7 @@ export default function PostReact(props: PostReactProps) {
             },
           }}
           startIcon={<ChatBubbleOutlineRounded />}
-          onClick={openComment}
+          onClick={onOpenComment}
         >
           {post.commentCount}
         </Button>

@@ -1,6 +1,6 @@
 import authReducer from 'features/auth/authSlice';
 import blogReducer from 'features/blog/blogSlice';
-import commentReducer from 'features/comment/commentSlice';
+import commentReducer from 'features/blog/commentSlice';
 import configReducer from 'features/common/configSlice';
 import uploadReducer from 'features/common/uploadSlice';
 import settingReducer from 'features/setting/settingSlice';
