@@ -28,7 +28,13 @@ export default function PostReact(props: PostReactProps) {
   };
 
   return (
-    <Box position={{ xs: 'relative', lg: 'sticky' }} top={{ xs: 0, lg: 120 }} mb={5}>
+    <Box
+      sx={{
+        position: { xs: 'relative', lg: 'sticky' },
+        top: { xs: 0, lg: 120 },
+        mb: 5,
+      }}
+    >
       <Typography
         variant="body1"
         sx={{
@@ -94,7 +100,6 @@ export default function PostReact(props: PostReactProps) {
           post.keywords.map((keyword, idx) => (
             <Chip
               key={idx}
-              variant="outlined"
               label={keyword.name}
               onClick={() => filterByKeyword(keyword)}
               sx={{

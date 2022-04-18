@@ -66,6 +66,7 @@ export default function SettingTabs() {
           label={label}
           component={Link}
           to={linkTo}
+          replace={true}
           sx={{
             alignItems: 'flex-start',
             pr: 4,
@@ -101,6 +102,7 @@ export default function SettingTabs() {
           label={mobileLabel}
           component={Link}
           to={linkTo}
+          replace={true}
           sx={{
             fontSize: 18,
             fontWeight: 500,

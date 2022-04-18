@@ -83,7 +83,7 @@ export default function AuthForm(props: AuthFormProps) {
           py: 5,
           px: 4,
           m: 'auto',
-          bgcolor: 'background.default',
+          bgcolor: 'background.paper',
           borderRadius: 3,
           boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
         }}

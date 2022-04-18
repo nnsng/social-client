@@ -5,7 +5,7 @@
     "keyword": "Thêm tối đa {{maxKeywords}} từ khóa liên quan đến bài viết",
     "maxKeywordsError": "Số từ khóa tối đa là {{maxKeywords}}"
   },
-  "noTitle": "(Chưa có tiêu đề)",
+  "noTitle": "Chưa có tiêu đề",
   "btnLabel": {
     "create": "Đăng bài",
     "edit": "Cập nhật",

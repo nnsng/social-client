@@ -5,7 +5,7 @@
     "keyword": "Add up to {{maxKeywords}} keywords relevant to the post",
     "maxKeywordsError": "Max number of keywords is {{maxKeywords}}"
   },
-  "noTitle": "(No title)",
+  "noTitle": "No title",
   "btnLabel": {
     "create": "Create",
     "edit": "Update",

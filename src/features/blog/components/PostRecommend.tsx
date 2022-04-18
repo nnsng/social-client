@@ -1,5 +1,4 @@
-import { DeleteForeverRounded } from '@mui/icons-material';
-import { Box, Chip, Stack, Typography } from '@mui/material';
+import { Box, Chip, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
 import { Keyword } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -28,7 +27,7 @@ export default function PostRecommend(props: PostRecommendProps) {
   const { t } = useTranslation('postRecommend');
 
   const handleKeywordClick = (keyword: Keyword) => {
-    if (keyword.value === keywordActive) return;
+    if (keyword.value === keywordActive) return clearKeyword();
     onKeywordClick?.(keyword);
   };
 
@@ -36,35 +35,42 @@ export default function PostRecommend(props: PostRecommendProps) {
     onKeywordClick?.({} as Keyword);
   };
 
+  const isOnPC = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+
   return (
     <Box>
-      <Typography
-        variant="button"
-        sx={{
-          display: 'inline-block',
-          mb: -1,
-          borderBottom: 1,
-          borderColor: 'text.primary',
-          color: 'text.primary',
-          fontWeight: 600,
-          cursor: 'default',
-        }}
-      >
-        {t('title')}
-      </Typography>
+      {isOnPC && (
+        <Typography
+          variant="button"
+          sx={{
+            display: 'inline-block',
+            mb: -1,
+            borderBottom: 1,
+            borderColor: 'text.primary',
+            color: 'text.primary',
+            fontWeight: 600,
+            cursor: 'default',
+          }}
+        >
+          {t('title')}
+        </Typography>
+      )}
 
       <Stack
         flexWrap="wrap"
-        sx={{
-          mt: '1.5px',
-          borderTop: 1,
-          borderColor: 'divider',
-        }}
+        sx={
+          isOnPC
+            ? {
+                mt: '1.5px',
+                borderTop: 1,
+                borderColor: 'divider',
+              }
+            : {}
+        }
       >
         {keywordList.map((keyword, idx) => (
           <Chip
             key={idx}
-            variant={keywordActive === keyword.value ? undefined : 'outlined'}
             color={keywordActive === keyword.value ? 'primary' : undefined}
             label={keyword.name}
             onClick={() => handleKeywordClick?.(keyword)}
@@ -76,7 +82,7 @@ export default function PostRecommend(props: PostRecommendProps) {
             }}
           />
         ))}
-        {keywordActive && (
+        {/* {keywordActive && (
           <Chip
             label={<DeleteForeverRounded sx={{ display: 'flex', alignItems: 'center' }} />}
             color="error"
@@ -87,7 +93,7 @@ export default function PostRecommend(props: PostRecommendProps) {
               fontSize: 16,
             }}
           />
-        )}
+        )} */}
       </Stack>
     </Box>
   );

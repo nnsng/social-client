@@ -27,11 +27,10 @@ export function Header() {
         zIndex: 'appBar',
         height: themeConstants.headerHeight,
         py: 2,
-        bgcolor: (theme) =>
-          theme.palette.mode === 'light' ? 'background.default' : 'background.paper',
+        bgcolor: 'background.paper',
         boxShadow: (theme) =>
           theme.palette.mode === 'light' ? themeConstants.boxShadow : undefined,
-        border: (theme) => (theme.palette.mode === 'dark' ? 1 : undefined),
+        borderBottom: (theme) => (theme.palette.mode === 'dark' ? 1 : undefined),
         borderColor: (theme) => (theme.palette.mode === 'dark' ? 'divider' : undefined),
       }}
     >
@@ -44,7 +43,7 @@ export function Header() {
       <Container>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item xs="auto" mr={2}>
-            <Stack alignItems="center" component={Link} to="/">
+            <Stack alignItems="center" component={Link} to="/blog">
               <Logo />
 
               <Typography variant="h6" color="primary" fontWeight={600} letterSpacing={1} ml={1}>

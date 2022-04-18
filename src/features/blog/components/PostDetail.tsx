@@ -92,7 +92,16 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
 
   return (
     <>
-      <Card sx={{ bgcolor: 'background.default' }}>
+      <Card
+        sx={{
+          p: 3,
+          mx: 2,
+          mb: 3,
+          bgcolor: 'background.paper',
+          borderRadius: 2,
+          boxShadow: themeConstants.boxShadow,
+        }}
+      >
         <Typography variant="h1" fontSize={40} fontWeight={600} mb={2}>
           {post.title}
         </Typography>
@@ -192,7 +201,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
           }}
         />
 
-        <CardContent sx={{ p: 0 }}>
+        <CardContent sx={{ '&:last-child': { p: 0 } }}>
           <MdEditor value={post.content} readOnly />
         </CardContent>
       </Card>

@@ -83,8 +83,7 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
             startAdornment={<SearchRounded sx={{ color: 'text.secondary' }} />}
             sx={{
               borderRadius: 40,
-              bgcolor: (theme) =>
-                theme.palette.mode === 'light' ? 'background.default' : 'background.paper',
+              bgcolor: 'background.paper',
             }}
           />
 

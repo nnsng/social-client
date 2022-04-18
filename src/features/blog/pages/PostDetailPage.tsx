@@ -9,6 +9,7 @@ import { Comment, Post } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
+import { themeConstants } from 'utils/theme';
 import { blogActions, selectPostDetail, selectPostLoading } from '../blogSlice';
 import PostComment from '../components/PostComment';
 import PostDetail from '../components/PostDetail';
@@ -84,13 +85,29 @@ export function PostDetailPage() {
       <PageTitle title={loading ? APP_NAME : `${post?.title} | ${post?.author?.name}`} />
 
       {!loading && post && (
-        <Box>
-          <Grid container spacing={{ xs: 2, lg: 8 }}>
-            <Grid item xs={12} md={10} lg={8} mx="auto">
+        <Box mx={-2}>
+          <Grid
+            container
+            sx={{
+              contain: 'content',
+              minHeight: `calc(100vh - ${themeConstants.headerHeight})`,
+            }}
+          >
+            <Grid item xs={12} md={10} lg={7} mx="auto">
               <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
             </Grid>
 
-            <Grid item xs={12} md={10} lg={4} mx="auto">
+            <Grid
+              item
+              xs={12}
+              md={10}
+              lg={2}
+              mx="auto"
+              sx={{
+                position: { lg: 'fixed' },
+                right: { lg: 0 },
+              }}
+            >
               <PostReact post={post} onOpenComment={openComment} onLikePost={handleLikePost} />
             </Grid>
           </Grid>

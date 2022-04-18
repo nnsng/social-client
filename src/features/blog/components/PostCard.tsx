@@ -95,12 +95,11 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
       <Card
         sx={{
           width: '100%',
-          p: 0,
-          pt: 3,
-          borderTop: 1,
-          borderColor: 'divider',
-          borderRadius: 0,
-          bgcolor: 'background.default',
+          p: 3,
+          mb: 2,
+          borderRadius: 2,
+          bgcolor: 'background.paper',
+          boxShadow: themeConstants.boxShadow,
         }}
       >
         <CardHeader
@@ -188,16 +187,15 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
           sx={{
             display: 'flex',
             alignItems: 'center',
-            mb: 2,
             p: 0,
-
+            mb: post.thumbnail ? 0 : 2,
             '& .MuiCardHeader-action': {
               m: 0,
             },
           }}
         />
 
-        <CardContent sx={{ p: 0 }}>
+        <CardContent sx={{ '&:last-child': { p: 0 } }}>
           <Stack
             justifyContent="space-between"
             flexDirection={{ sm: 'row', xs: 'column' }}

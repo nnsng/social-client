@@ -64,6 +64,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     resolver: yupResolver(schema),
   });
 
+  const title = watch('title');
   const thumbnail = watch('thumbnail');
   const maxKeywords = 5;
 
@@ -106,33 +107,38 @@ export default function CreateEditForm(props: CreateEditFormProps) {
 
   return (
     <form>
-      <Box height={`calc(100vh - ${themeConstants.headerHeight} * 2 - 24px)`} mt={1}>
-        <Grid container alignItems="center">
-          <Grid item xs>
-            <InputField
-              name="title"
-              control={control}
-              placeholder={t('placeholder.title')}
-              spellCheck={false}
-              autoFocus
-              sx={{
-                pt: 2,
-                pb: 1,
-                fontSize: 28,
-                fontWeight: 500,
-              }}
-            />
-          </Grid>
+      <Stack
+        direction="column"
+        height={`calc(100vh - ${themeConstants.headerHeight} * 2 + 36px)`}
+        sx={{
+          mt: 3,
+          borderRadius: 2,
+          boxShadow: themeConstants.boxShadow,
+          bgcolor: 'background.paper',
+        }}
+      >
+        <Stack alignItems="center" spacing={1} px={2}>
+          <InputField
+            name="title"
+            control={control}
+            placeholder={t('placeholder.title')}
+            spellCheck={false}
+            autoFocus
+            sx={{
+              pt: 2,
+              pb: 1,
+              fontSize: 28,
+              fontWeight: 500,
+            }}
+          />
 
-          <Grid item xs="auto" ml={2}>
-            <Button variant="outlined" size="large" onClick={openDialog}>
-              {isNewPost ? t('btnLabel.create') : t('btnLabel.edit')}
-            </Button>
-          </Grid>
-        </Grid>
+          <Button variant="outlined" size="large" onClick={openDialog} sx={{ flexShrink: 0 }}>
+            {isNewPost ? t('btnLabel.create') : t('btnLabel.edit')}
+          </Button>
+        </Stack>
 
         <MdEditorField name="content" control={control} placeholder={t('placeholder.content')} />
-      </Box>
+      </Stack>
 
       <Dialog
         open={open}
@@ -145,6 +151,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
       >
         <Typography
           variant="h6"
+          color={title.length > 0 ? 'text.primary' : 'text.disabled'}
           component="div"
           sx={{
             px: 3,
@@ -153,7 +160,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
             ...mixins.truncate(1),
           }}
         >
-          {getValues('title') || t('noTitle')}
+          {title || t('noTitle')}
         </Typography>
 
         <DialogContent dividers>

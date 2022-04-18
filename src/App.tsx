@@ -73,7 +73,7 @@ function App() {
       <SocketClient />
 
       <Routes>
-        <Route path="/" element={<Navigate to="/blog" />} />
+        <Route path="/" element={<Navigate to="/blog" replace={true} />} />
 
         <Route
           path="/blog/*"

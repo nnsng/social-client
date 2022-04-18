@@ -10,7 +10,6 @@ import notFound from './pages/notFound.json';
 import header from './components/header.json';
 import authForm from './components/authForm.json';
 import createEditForm from './components/createEditForm.json';
-import postList from './components/postList.json';
 import postCard from './components/postCard.json';
 import postRecommend from './components/postRecommend.json';
 import postDetail from './components/postDetail.json';
@@ -38,7 +37,6 @@ export default {
   header,
   authForm,
   createEditForm,
-  postList,
   postCard,
   postRecommend,
   postDetail,

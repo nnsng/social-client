@@ -28,7 +28,7 @@ export default function Setting() {
 
               <Box flexGrow={1} px={{ xs: 2, sm: 0 }}>
                 <Routes>
-                  <Route path="/" element={<Navigate to="edit-profile" />} />
+                  <Route path="/" element={<Navigate to="edit-profile" replace={true} />} />
                   <Route path="edit-profile" element={<EditProfilePage />} />
                   <Route path="change-password" element={<ChangePasswordPage />} />
                 </Routes>

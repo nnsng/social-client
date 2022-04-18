@@ -38,12 +38,12 @@ const configPalette = (mode: PaletteMode = 'light', color: string = '#7575FF') =
             contrastText: 'rgba(0, 0, 0, 0.87)',
           },
           text: {
-            primary: '#fff',
+            primary: '#FFF',
             secondary: 'rgba(255, 255, 255, 0.7)',
             disabled: 'rgba(255, 255, 255, 0.5)',
           },
           action: {
-            active: '#fff',
+            active: '#FFF',
             hover: 'rgba(255, 255, 255, 0.08)',
             selected: 'rgba(255, 255, 255, 0.16)',
             disabled: 'rgba(255, 255, 255, 0.3)',

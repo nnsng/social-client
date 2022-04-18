@@ -1,4 +1,4 @@
-import { Box, Grid, Theme, useMediaQuery } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
@@ -24,7 +24,7 @@ export function MainPage() {
   });
 
   useEffect(() => {
-    navigate(`?${queryString.stringify(filter)}`);
+    navigate(`?${queryString.stringify(filter)}`, { replace: true });
     dispatch(blogActions.fetchPostList(filter));
   }, [dispatch, filter]);
 
@@ -45,15 +45,23 @@ export function MainPage() {
     dispatch(blogActions.fetchPostList(filter));
   };
 
-  const showPostRecommend = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
-
   return (
     <>
       <PageTitle title={APP_NAME} />
 
       <Box>
-        <Grid container spacing={{ xs: 0, lg: 10 }}>
-          <Grid item xs={12} md={10} lg={7} sx={{ m: '0 auto' }}>
+        <Grid
+          container
+          item
+          xs
+          md={10}
+          lg
+          sx={{
+            flexDirection: { xs: 'column-reverse', lg: 'row' },
+            mx: 'auto',
+          }}
+        >
+          <Grid item xs sx={{ width: '100%', mx: 'auto' }}>
             <Box component="section">
               <PostList
                 postList={postList}
@@ -65,30 +73,21 @@ export function MainPage() {
             </Box>
           </Grid>
 
-          {showPostRecommend && (
-            <Grid item lg={5}>
-              <Box
-                component="section"
-                sx={{
-                  position: 'sticky',
-                  top: 96,
-                  pl: 10,
-
-                  '::before': {
-                    content: '""',
-                    position: 'absolute',
-                    top: -96,
-                    left: 0,
-                    height: '100vh',
-                    borderLeft: 1,
-                    borderColor: 'divider',
-                  },
-                }}
-              >
-                <PostRecommend keywordActive={filter.keyword} onKeywordClick={handleKeywordClick} />
-              </Box>
-            </Grid>
-          )}
+          <Grid item xs="auto">
+            <Box
+              component="section"
+              sx={{
+                position: 'sticky',
+                top: 96,
+                maxWidth: { lg: 350 },
+                ml: { lg: 8 },
+                mt: { xs: -2, lg: 0 },
+                mb: { xs: 2, lg: 0 },
+              }}
+            >
+              <PostRecommend keywordActive={filter.keyword} onKeywordClick={handleKeywordClick} />
+            </Box>
+          </Grid>
         </Grid>
       </Box>
     </>
