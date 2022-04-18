@@ -77,7 +77,7 @@ export default function PostRecommend(props: PostRecommendProps) {
             sx={{
               mt: 1,
               mr: 1,
-              fontSize: 16,
+              fontSize: { lg: 16 },
               color: keywordActive === keyword.value ? 'common.white' : 'text.secondary',
             }}
           />

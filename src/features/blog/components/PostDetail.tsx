@@ -95,7 +95,6 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
       <Card
         sx={{
           p: 3,
-          mx: 2,
           mb: 3,
           bgcolor: 'background.paper',
           borderRadius: 2,

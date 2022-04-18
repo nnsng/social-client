@@ -33,6 +33,7 @@ export default function PostReact(props: PostReactProps) {
         position: { xs: 'relative', lg: 'sticky' },
         top: { xs: 0, lg: 120 },
         mb: 5,
+        width: { xs: '100%', lg: 197 },
       }}
     >
       <Typography
@@ -105,7 +106,6 @@ export default function PostReact(props: PostReactProps) {
               sx={{
                 mb: 1,
                 mr: 1,
-                fontSize: 16,
               }}
             />
           ))}

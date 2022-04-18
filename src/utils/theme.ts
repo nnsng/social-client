@@ -62,9 +62,16 @@ export const getTheme = (mode?: PaletteMode, color?: SupportedThemeColor) =>
   createTheme({
     palette: configPalette(mode, color),
     typography: {
-      fontFamily: `'Montserrat', Arial, Helvetica, sans-serif`,
+      fontFamily: 'Montserrat, Arial, Helvetica, sans-serif',
     },
     components: {
+      MuiChip: {
+        styleOverrides: {
+          root: {
+            fontSize: 14,
+          },
+        },
+      },
       MuiStack: {
         defaultProps: {
           direction: 'row',
@@ -78,9 +85,6 @@ export const getTheme = (mode?: PaletteMode, color?: SupportedThemeColor) =>
         styleOverrides: {
           root: {
             textTransform: 'none',
-          },
-          contained: {
-            color: '#FFF',
           },
         },
       },

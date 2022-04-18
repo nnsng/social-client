@@ -90,7 +90,7 @@ export function PostDetailPage() {
             container
             sx={{
               contain: 'content',
-              minHeight: `calc(100vh - ${themeConstants.headerHeight})`,
+              minHeight: `calc(100vh - ${themeConstants.headerHeight} - 24px)`,
             }}
           >
             <Grid item xs={12} md={10} lg={7} mx="auto">
@@ -106,6 +106,8 @@ export function PostDetailPage() {
               sx={{
                 position: { lg: 'fixed' },
                 right: { lg: 0 },
+                top: 0,
+                bottom: 0,
               }}
             >
               <PostReact post={post} onOpenComment={openComment} onLikePost={handleLikePost} />
