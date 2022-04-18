@@ -11,3 +11,4 @@ export * from './KeywordInput';
 export * from './ApplyTheme';
 export * from './ConfirmDialog';
 export * from './Logo';
+export * from './BackdropLoading';

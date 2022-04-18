@@ -1,20 +1,22 @@
 import authApi from 'api/authApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { NotFound, PrivateRoute } from 'components/common';
-import Auth from 'features/auth';
+import { BackdropLoading, NotFound, PrivateRoute } from 'components/common';
 import { authActions, selectCurrentUser } from 'features/auth/authSlice';
-import Blog from 'features/blog';
 import { selectLanguage } from 'features/common/configSlice';
-import Setting from 'features/setting';
-import SocketClient from 'features/socket';
 import { selectSocket, socketActions } from 'features/socket/socketSlice';
 import i18next from 'i18next';
 import { User } from 'models';
-import { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { ACCESS_TOKEN } from 'utils/constants';
 import { env, variables } from 'utils/env';
+
+// dynamic import
+const Auth = React.lazy(() => import('features/auth'));
+const Blog = React.lazy(() => import('features/blog'));
+const Setting = React.lazy(() => import('features/setting'));
+const SocketClient = React.lazy(() => import('features/socket'));
 
 function App() {
   const navigate = useNavigate();
@@ -67,7 +69,7 @@ function App() {
   }, [language]);
 
   return (
-    <>
+    <Suspense fallback={<BackdropLoading open={true} />}>
       <SocketClient />
 
       <Routes>
@@ -95,10 +97,16 @@ function App() {
         <Route path="/register" element={<Auth mode="register" />} />
         <Route path="/active" element={<Auth mode="active" />} />
 
-        <Route path="/404" element={<NotFound />} />
-        <Route path=":404" element={<NotFound />} />
+        <Route
+          path=":404"
+          element={
+            <PrivateRoute>
+              <NotFound showHeader />
+            </PrivateRoute>
+          }
+        />
       </Routes>
-    </>
+    </Suspense>
   );
 }
 
