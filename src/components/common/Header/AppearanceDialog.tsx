@@ -17,7 +17,6 @@ import {
   selectShowConfig,
   selectThemeColor,
 } from 'features/common/configSlice';
-import { SupportedLanguage, SupportedThemeColor } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { supportedThemeColors } from 'utils/theme';
@@ -25,7 +24,7 @@ import { supportedLanguages } from 'utils/translation';
 import ThemeSwitch from './ThemeSwitch';
 
 interface ColorRatioProps extends RadioProps {
-  iconColor: SupportedThemeColor;
+  iconColor: string;
 }
 
 function ColorRadio({ iconColor, ...otherProps }: ColorRatioProps) {
@@ -57,12 +56,12 @@ export default function AppearanceDialog() {
   };
 
   const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedColor = event.target.value as SupportedThemeColor;
+    const selectedColor = event.target.value;
     dispatch(configActions.changeThemeColor(selectedColor));
   };
 
   const handleLanguageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedLanguage = event.target.value as SupportedLanguage;
+    const selectedLanguage = event.target.value;
     dispatch(configActions.changeLanguage(selectedLanguage));
   };
 

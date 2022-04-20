@@ -1,7 +1,7 @@
 import { PaletteMode } from '@mui/material';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { SupportedLanguage, SupportedThemeColor, UserConfig } from 'models';
+import { UserConfig } from 'models';
 import { localConfig } from 'utils/common';
 
 export type ConfigKey = keyof UserConfig;
@@ -29,11 +29,11 @@ const configSlice = createSlice({
       state.theme = action.payload;
       localConfig.setProperty('theme', action.payload);
     },
-    changeThemeColor(state, action: PayloadAction<SupportedThemeColor>) {
+    changeThemeColor(state, action: PayloadAction<string>) {
       state.color = action.payload;
       localConfig.setProperty('color', action.payload);
     },
-    changeLanguage(state, action: PayloadAction<SupportedLanguage>) {
+    changeLanguage(state, action: PayloadAction<string>) {
       state.lang = action.payload;
       localConfig.setProperty('lang', action.payload);
     },

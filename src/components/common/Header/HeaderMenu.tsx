@@ -5,16 +5,13 @@ import AppearanceDialog from './AppearanceDialog';
 import DrawerMobile from './DrawerMobile';
 import HeaderIconButton from './HeaderIconButton';
 import Notification from './Notification';
-import ThemeSwitch from './ThemeSwitch';
 import UserMenu from './UserMenu';
 
 export interface HeaderMenuProps {
   toggleSearchMobile?: () => void;
 }
 
-export function HeaderMenu(props: HeaderMenuProps) {
-  const { toggleSearchMobile } = props;
-
+export function HeaderMenu({ toggleSearchMobile }: HeaderMenuProps) {
   const hideOnMobile = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
 
   return (

@@ -4,10 +4,12 @@ import green from './00CC6A.ico';
 import yellow from './FFB900.ico';
 import purple from './C239B3.ico';
 
+export { default as rainbowFavicon } from './rainbow.ico';
+
 export default {
   '#7575FF': blue,
   '#FF652F': orange,
   '#00CC6A': green,
   '#FFB900': yellow,
   '#C239B3': purple,
-};
+} as any;

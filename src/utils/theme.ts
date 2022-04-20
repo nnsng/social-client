@@ -1,7 +1,6 @@
 import { PaletteMode } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { SxProps } from '@mui/system';
-import { SupportedThemeColor } from 'models';
 
 const configPalette = (mode: PaletteMode = 'light', color: string = '#7575FF') => {
   return {
@@ -58,7 +57,7 @@ const configPalette = (mode: PaletteMode = 'light', color: string = '#7575FF') =
   };
 };
 
-export const getTheme = (mode?: PaletteMode, color?: SupportedThemeColor) =>
+export const getTheme = (mode?: PaletteMode, color?: string) =>
   createTheme({
     palette: configPalette(mode, color),
     typography: {
@@ -129,7 +128,7 @@ export const getTheme = (mode?: PaletteMode, color?: SupportedThemeColor) =>
     },
   });
 
-export const supportedThemeColors: SupportedThemeColor[] = [
+export const supportedThemeColors: string[] = [
   '#7575FF',
   '#FF652F',
   '#00CC6A',
