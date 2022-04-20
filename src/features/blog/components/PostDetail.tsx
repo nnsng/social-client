@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { formatTime } from 'utils/common';
-import { themeConstants } from 'utils/theme';
+import { themeVariables } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 import MdEditor from './MdEditor';
 
@@ -98,7 +98,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
           mb: 3,
           bgcolor: 'background.paper',
           borderRadius: 2,
-          boxShadow: themeConstants.boxShadow,
+          boxShadow: themeVariables.boxShadow,
         }}
       >
         <Typography variant="h1" fontSize={40} fontWeight={600} mb={2}>
@@ -149,7 +149,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
               <ActionMenu
                 open={openMenu}
                 anchorEl={anchorRef.current}
-                paperSx={{ boxShadow: themeConstants.boxShadow, overflow: 'hidden' }}
+                paperSx={{ boxShadow: themeVariables.boxShadow, overflow: 'hidden' }}
                 onClose={closeMenu}
               >
                 {postMenu.map(({ label, icon: Icon, onClick, show }, idx) =>

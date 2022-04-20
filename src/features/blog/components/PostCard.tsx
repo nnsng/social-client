@@ -21,7 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { formatTime } from 'utils/common';
-import { mixins, themeConstants } from 'utils/theme';
+import { mixins, themeVariables } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 
 export interface PostCardProps {
@@ -99,7 +99,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
           mb: 2,
           borderRadius: 2,
           bgcolor: 'background.paper',
-          boxShadow: themeConstants.boxShadow,
+          boxShadow: themeVariables.boxShadow,
         }}
       >
         <CardHeader
@@ -146,7 +146,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
               <ActionMenu
                 open={openMenu}
                 anchorEl={anchorRef.current}
-                paperSx={{ boxShadow: themeConstants.boxShadow, overflow: 'hidden' }}
+                paperSx={{ boxShadow: themeVariables.boxShadow, overflow: 'hidden' }}
                 onClose={closeMenu}
               >
                 {postMenu.map(({ label, icon: Icon, onClick, show }, idx) =>

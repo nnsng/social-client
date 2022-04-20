@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
-import { themeConstants } from 'utils/theme';
+import { themeVariables } from 'utils/theme';
 import { Logo } from '..';
 import { HeaderMenu } from './HeaderMenu';
 import { SearchBox } from './SearchBox';
@@ -32,11 +32,11 @@ export function Header() {
         position: 'sticky',
         top: 0,
         zIndex: 'appBar',
-        height: themeConstants.headerHeight,
+        height: themeVariables.headerHeight,
         py: 2,
         bgcolor: 'background.paper',
         boxShadow: (theme) =>
-          theme.palette.mode === 'light' ? themeConstants.boxShadow : undefined,
+          theme.palette.mode === 'light' ? themeVariables.boxShadow : undefined,
         borderBottom: (theme) => (theme.palette.mode === 'dark' ? 1 : undefined),
         borderColor: (theme) => (theme.palette.mode === 'dark' ? 'divider' : undefined),
       }}

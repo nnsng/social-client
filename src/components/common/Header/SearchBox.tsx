@@ -21,7 +21,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { slugifyString } from 'utils/common';
-import { mixins, themeConstants } from 'utils/theme';
+import { mixins, themeVariables } from 'utils/theme';
 import { SearchMobile } from '../SearchMobile';
 
 export interface SearchBoxProps {
@@ -98,7 +98,7 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
                   bgcolor: 'background.paper',
                   overflow: 'auto',
                   boxShadow: (theme) =>
-                    theme.palette.mode === 'light' ? themeConstants.boxShadow : undefined,
+                    theme.palette.mode === 'light' ? themeVariables.boxShadow : undefined,
                   border: (theme) => (theme.palette.mode === 'dark' ? 1 : undefined),
                   borderColor: (theme) => (theme.palette.mode === 'dark' ? 'divider' : undefined),
                 }}

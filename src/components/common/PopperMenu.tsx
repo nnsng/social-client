@@ -1,7 +1,7 @@
 import { ClickAwayListener, Grow, MenuList, Paper, Popper } from '@mui/material';
 import { SxProps, Theme } from '@mui/system';
 import React from 'react';
-import { themeConstants } from 'utils/theme';
+import { themeVariables } from 'utils/theme';
 
 export interface PopperMenuProps {
   open: boolean;
@@ -23,7 +23,7 @@ export function PopperMenu(props: PopperMenuProps) {
             sx={{
               border: (theme) => (theme.palette.mode === 'dark' ? 1 : 0),
               borderColor: 'divider',
-              boxShadow: themeConstants.boxShadow,
+              boxShadow: themeVariables.boxShadow,
               overflow: 'hidden',
               ...paperSx,
             }}

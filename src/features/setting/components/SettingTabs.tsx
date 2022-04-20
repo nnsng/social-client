@@ -2,7 +2,7 @@ import { Tab, Tabs, Theme, useMediaQuery } from '@mui/material';
 import React, { SyntheticEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
-import { themeConstants } from 'utils/theme';
+import { themeVariables } from 'utils/theme';
 
 export default function SettingTabs() {
   const location = useLocation();
@@ -55,7 +55,7 @@ export default function SettingTabs() {
           borderColor: 'divider',
         },
         '& .MuiTabs-flexContainer': {
-          height: `calc(100vh - (82px + ${themeConstants.headerHeight}))`,
+          height: `calc(100vh - (82px + ${themeVariables.headerHeight}))`,
         },
       }}
       onChange={handleChangeTab}

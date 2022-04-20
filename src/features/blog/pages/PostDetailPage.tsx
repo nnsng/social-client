@@ -9,7 +9,7 @@ import { Comment, Post } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
-import { themeConstants } from 'utils/theme';
+import { themeVariables } from 'utils/theme';
 import { blogActions, selectPostDetail, selectPostLoading } from '../blogSlice';
 import PostComment from '../components/PostComment';
 import PostDetail from '../components/PostDetail';
@@ -90,7 +90,7 @@ export function PostDetailPage() {
             container
             sx={{
               contain: 'content',
-              minHeight: `calc(100vh - ${themeConstants.headerHeight} - 24px)`,
+              minHeight: `calc(100vh - ${themeVariables.headerHeight} - 24px)`,
             }}
           >
             <Grid item xs={12} md={10} lg={7} mx="auto">

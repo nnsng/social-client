@@ -17,7 +17,7 @@ import { Post } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { mixins, themeConstants } from 'utils/theme';
+import { mixins, themeVariables } from 'utils/theme';
 
 export interface SearchMobileProps {
   loading?: boolean;
@@ -47,9 +47,9 @@ export function SearchMobile(props: SearchMobileProps) {
           position: 'sticky',
           top: 0,
           zIndex: 1,
-          height: themeConstants.headerHeight,
+          height: themeVariables.headerHeight,
           backgroundColor: 'background.default',
-          boxShadow: themeConstants.boxShadow,
+          boxShadow: themeVariables.boxShadow,
         }}
       >
         <Toolbar sx={{ height: '100%' }}>

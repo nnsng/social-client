@@ -23,7 +23,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { mixins, themeConstants } from 'utils/theme';
+import { mixins, themeVariables } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
@@ -109,11 +109,11 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     <form>
       <Stack
         direction="column"
-        height={`calc(100vh - ${themeConstants.headerHeight} * 2 + 36px)`}
+        height={`calc(100vh - ${themeVariables.headerHeight} * 2 + 36px)`}
         sx={{
           mt: 3,
           borderRadius: 2,
-          boxShadow: themeConstants.boxShadow,
+          boxShadow: themeVariables.boxShadow,
           bgcolor: 'background.paper',
         }}
       >

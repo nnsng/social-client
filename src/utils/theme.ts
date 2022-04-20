@@ -136,7 +136,7 @@ export const supportedThemeColors: string[] = [
   '#C239B3',
 ];
 
-export const themeConstants = {
+export const themeVariables = {
   headerHeight: '72px',
   boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
 };
