@@ -35,7 +35,7 @@ export const getImageUrlFromCDN = async (image: File) => {
 
 export const copyPostLink = (post: Post) => {
   const { toast: toastTranslation } = useTranslateFiles('toast');
-  navigator.clipboard.writeText(`${window.location.origin}/blog/${post.slug}`);
+  navigator.clipboard.writeText(`${window.location.origin}/blog/post/${post.slug}`);
   toast.success(toastTranslation.copyLinkSuccess);
 };
 

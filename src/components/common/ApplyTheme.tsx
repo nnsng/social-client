@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
-import favicons, { rainbowFavicon } from 'assets/favicons';
+import favicons, { blackFavicon } from 'assets/favicons';
 import { selectThemeColor, selectThemeMode } from 'features/common/configSlice';
 import React, { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
@@ -20,7 +20,7 @@ export function ApplyTheme({ children }: ApplyThemeProps) {
     document.documentElement.style.setProperty('--color-primary', themeColor);
 
     const faviconElement = document.getElementById('favicon') as any;
-    faviconElement.href = favicons[themeColor] ?? rainbowFavicon;
+    faviconElement.href = favicons[themeColor] ?? blackFavicon;
   }, [themeColor]);
 
   return (

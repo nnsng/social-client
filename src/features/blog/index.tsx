@@ -9,7 +9,7 @@ export default function Blog() {
     <Box>
       <Header />
 
-      <Box component="main" pt={3}>
+      <Box component="main">
         <Container>
           <Routes>
             <Route path="/" element={<MainPage />} />
@@ -17,7 +17,7 @@ export default function Blog() {
             <Route path="saved" element={<SavedPage />} />
             <Route path="create" element={<CreateEditPage />} />
             <Route path="edit/:id" element={<CreateEditPage />} />
-            <Route path=":slug" element={<PostDetailPage />} />
+            <Route path="post/:slug" element={<PostDetailPage />} />
             <Route path=":404" element={<NotFound />} />
           </Routes>
         </Container>

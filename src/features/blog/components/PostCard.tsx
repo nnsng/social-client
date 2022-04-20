@@ -206,7 +206,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
                 variant="h6"
                 color="text.primary"
                 component={Link}
-                to={`/blog/${post.slug}`}
+                to={`/blog/post/${post.slug}`}
                 sx={{
                   ...mixins.truncate(2),
                   mb: 1,
@@ -225,7 +225,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
               <Box width={{ xs: '100%', sm: 'auto' }} mt={{ xs: 2, sm: 0 }} ml={{ xs: 0, sm: 2 }}>
                 <CardMedia
                   component={Link}
-                  to={`/blog/${post.slug}`}
+                  to={`/blog/post/${post.slug}`}
                   image={post.thumbnail}
                   title={post.title}
                   sx={{

@@ -60,7 +60,7 @@ export function CreateEditPage() {
     <>
       <PageTitle title={isNewPost ? t('pageTitle.create') : t('pageTitle.edit')} />
 
-      <Box mt={-4}>
+      <Box mt={3}>
         <CreateEditForm
           defaultValues={defaultValues}
           onSubmit={handleFormSubmit}

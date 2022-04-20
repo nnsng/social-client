@@ -88,7 +88,7 @@ export function PostItemMobile(props: PostItemMobileProps) {
   return (
     <ListItem disablePadding sx={{ my: 2 }}>
       <Stack width="100%" alignItems="center">
-        <Box flexShrink={0} component={Link} to={`/blog/${post.slug}`}>
+        <Box flexShrink={0} component={Link} to={`/blog/post/${post.slug}`}>
           <Avatar
             variant="rounded"
             src={post.thumbnail}
@@ -108,7 +108,7 @@ export function PostItemMobile(props: PostItemMobileProps) {
           flexGrow={1}
           justifyContent="center"
           component={Link}
-          to={`/blog/${post.slug}`}
+          to={`/blog/post/${post.slug}`}
         >
           <Typography
             variant="h6"

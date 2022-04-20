@@ -36,7 +36,7 @@ export function SearchMobile(props: SearchMobileProps) {
   const { t } = useTranslation('header');
 
   const gotoPost = (post: Post) => {
-    navigate(`/blog/${post.slug}`);
+    navigate(`/blog/post/${post.slug}`);
     onClose?.();
   };
 

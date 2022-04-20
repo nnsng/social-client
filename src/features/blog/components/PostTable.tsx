@@ -121,7 +121,7 @@ export default function PostTable(props: PostTableProps) {
                     },
                   }}
                 >
-                  <Link to={`/blog/${post.slug}`}>{post.title}</Link>
+                  <Link to={`/blog/post/${post.slug}`}>{post.title}</Link>
                 </TableCell>
 
                 {saved ? (

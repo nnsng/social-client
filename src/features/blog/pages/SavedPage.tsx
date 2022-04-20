@@ -40,7 +40,7 @@ export function SavedPage() {
     <>
       <PageTitle title={t('pageTitle')} />
 
-      <Box>
+      <Box mt={3}>
         <Typography variant="h4" fontWeight={500}>
           {t('pageTitle')}
         </Typography>

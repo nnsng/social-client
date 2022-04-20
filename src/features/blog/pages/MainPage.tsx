@@ -49,7 +49,7 @@ export function MainPage() {
     <>
       <PageTitle title={APP_NAME} />
 
-      <Box>
+      <Box mt={3}>
         <Grid
           container
           item

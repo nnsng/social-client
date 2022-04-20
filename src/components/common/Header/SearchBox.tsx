@@ -56,7 +56,7 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
   };
 
   const gotoPost = (post: Post) => {
-    navigate(`/blog/${post.slug}`);
+    navigate(`/blog/post/${post.slug}`);
     setSearchInput('');
   };
 

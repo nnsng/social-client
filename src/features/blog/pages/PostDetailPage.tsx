@@ -93,7 +93,7 @@ export function PostDetailPage() {
               minHeight: `calc(100vh - ${themeVariables.headerHeight} - 24px)`,
             }}
           >
-            <Grid item xs={12} md={10} lg={7} mx="auto">
+            <Grid item xs={12} md={10} lg={7} mt={3} mx="auto">
               <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
             </Grid>
 
