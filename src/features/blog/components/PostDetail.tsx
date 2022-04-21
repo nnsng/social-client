@@ -92,16 +92,8 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
 
   return (
     <>
-      <Card
-        sx={{
-          p: 3,
-          mb: 3,
-          bgcolor: 'background.paper',
-          borderRadius: 2,
-          boxShadow: themeVariables.boxShadow,
-        }}
-      >
-        <Typography variant="h1" fontSize={40} fontWeight={600} mb={2}>
+      <Card sx={{ mb: 3, bgcolor: 'background.default' }}>
+        <Typography variant="h1" fontSize={40} fontWeight={600} mb={0}>
           {post.title}
         </Typography>
 
@@ -190,7 +182,8 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
           sx={{
             display: 'flex',
             alignItems: 'center',
-            my: 4,
+            mt: 2,
+            mb: 3,
             mx: 0,
             p: 0,
 

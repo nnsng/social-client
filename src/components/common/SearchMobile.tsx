@@ -1,4 +1,4 @@
-import { CloseRounded, SearchRounded } from '@mui/icons-material';
+import { ArrowBackIosNewRounded, CloseRounded, SearchRounded } from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -23,13 +23,14 @@ export interface SearchMobileProps {
   loading?: boolean;
   open?: boolean;
   onClose?: () => void;
-  searchResultList?: Post[];
-  searchInput?: string;
-  onSearchChange?: (e: any) => void;
+  result?: Post[];
+  inputValue?: string;
+  onChange?: (e: any) => void;
+  onClear?: () => void;
 }
 
 export function SearchMobile(props: SearchMobileProps) {
-  const { loading, open, onClose, searchResultList, searchInput, onSearchChange } = props;
+  const { loading, open, onClose, result, inputValue, onChange, onClear } = props;
 
   const navigate = useNavigate();
 
@@ -53,19 +54,34 @@ export function SearchMobile(props: SearchMobileProps) {
         }}
       >
         <Toolbar sx={{ height: '100%' }}>
-          <FormControl fullWidth size="small" sx={{ mr: 3 }}>
+          <IconButton edge="start" color="inherit" onClick={onClose}>
+            <ArrowBackIosNewRounded sx={{ color: 'text.secondary' }} />
+          </IconButton>
+
+          <FormControl fullWidth size="small">
             <OutlinedInput
               placeholder={t('search.placeholder')}
               inputProps={{ sx: { pl: 1.5 } }}
-              value={searchInput || ''}
-              onChange={onSearchChange}
-              startAdornment={<SearchRounded sx={{ color: 'text.secondary' }} />}
+              value={inputValue || ''}
+              onChange={onChange}
+              autoFocus
+              startAdornment={
+                <SearchRounded sx={{ color: 'action.disabled', cursor: 'pointer' }} />
+              }
+              endAdornment={
+                (inputValue || '').length > 0 && (
+                  <CloseRounded
+                    sx={{ color: 'text.secondary', cursor: 'pointer' }}
+                    onClick={onClear}
+                  />
+                )
+              }
+              sx={{
+                borderRadius: 40,
+                bgcolor: 'background.paper',
+              }}
             />
           </FormControl>
-
-          <IconButton edge="start" color="inherit" onClick={onClose}>
-            <CloseRounded sx={{ color: 'text.secondary' }} />
-          </IconButton>
         </Toolbar>
       </Box>
 
@@ -75,18 +91,18 @@ export function SearchMobile(props: SearchMobileProps) {
 
           <Typography variant="body2" color="textSecondary" sx={{ flexGrow: 1 }}>
             {!loading &&
-              (searchInput || '').length > 0 &&
+              (inputValue || '').length > 0 &&
               t('search.result', {
-                count: searchResultList?.length,
-                searchTerm: searchInput,
+                count: result?.length,
+                searchTerm: inputValue,
               })}
           </Typography>
         </Box>
 
         <List disablePadding>
-          {(searchInput || '').length > 1 &&
-            searchResultList &&
-            searchResultList.map((post) => (
+          {(inputValue || '').length > 1 &&
+            result &&
+            result.map((post) => (
               <ListItem key={post._id} disablePadding>
                 <ListItemButton disableRipple onClick={() => gotoPost(post)}>
                   <Box display="flex" alignItems="center">

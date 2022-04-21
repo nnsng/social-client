@@ -53,14 +53,14 @@ export function CreateEditPage() {
       ? await postApi.create(data)
       : await postApi.update(data)) as unknown as Post;
 
-    navigate(`/blog/${savedPost.slug}`);
+    navigate(`/blog/post/${savedPost.slug}`);
   };
 
   return (
     <>
       <PageTitle title={isNewPost ? t('pageTitle.create') : t('pageTitle.edit')} />
 
-      <Box mt={3}>
+      <Box>
         <CreateEditForm
           defaultValues={defaultValues}
           onSubmit={handleFormSubmit}

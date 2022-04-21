@@ -8,9 +8,8 @@ const configPalette = (mode: PaletteMode = 'light', color: string = '#7575FF') =
     ...(mode === 'light'
       ? {
           primary: {
-            // main: '#ff652f',
             main: color,
-            contrastText: '#FFF',
+            contrastText: '#FFFFFF',
           },
           text: {
             primary: 'rgba(0, 0, 0, 0.87)',
@@ -25,24 +24,23 @@ const configPalette = (mode: PaletteMode = 'light', color: string = '#7575FF') =
             disabledBackground: 'rgba(0, 0, 0, 0.12)',
           },
           background: {
-            default: '#FFF',
-            paper: '#FFF',
+            default: '#FFFFFF',
+            paper: '#FFFFFF',
           },
           divider: 'rgba(0, 0, 0, 0.12)',
         }
       : {
           primary: {
-            // main: '#ff652f',
             main: color,
             contrastText: 'rgba(0, 0, 0, 0.87)',
           },
           text: {
-            primary: '#FFF',
+            primary: '#FFFFFF',
             secondary: 'rgba(255, 255, 255, 0.7)',
             disabled: 'rgba(255, 255, 255, 0.5)',
           },
           action: {
-            active: '#FFF',
+            active: '#FFFFFF',
             hover: 'rgba(255, 255, 255, 0.08)',
             selected: 'rgba(255, 255, 255, 0.16)',
             disabled: 'rgba(255, 255, 255, 0.3)',

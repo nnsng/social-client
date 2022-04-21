@@ -30,10 +30,7 @@ export default function PostReact(props: PostReactProps) {
   return (
     <Box
       sx={{
-        position: { xs: 'relative', lg: 'sticky' },
-        top: { xs: 0, lg: 120 },
-        mb: 5,
-        width: { xs: '100%', lg: 197 },
+        position: { lg: 'absolute' },
       }}
     >
       <Typography
@@ -53,11 +50,9 @@ export default function PostReact(props: PostReactProps) {
       >
         {post?.author?.name}
       </Typography>
-
       <Typography variant="body2" fontSize={16} lineHeight={1.8} py={1}>
         {post?.author?.bio}
       </Typography>
-
       <Stack alignItems="center">
         <Button
           color="inherit"
@@ -79,7 +74,6 @@ export default function PostReact(props: PostReactProps) {
         >
           {post?.likes?.length}
         </Button>
-
         <Button
           color="inherit"
           sx={{
@@ -95,7 +89,6 @@ export default function PostReact(props: PostReactProps) {
           {post.commentCount}
         </Button>
       </Stack>
-
       <Stack flexWrap="wrap" mt={2}>
         {post.keywords &&
           post.keywords.map((keyword, idx) => (

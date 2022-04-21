@@ -1,5 +1,5 @@
 import { Theme } from '@mui/material';
-import { Box, SxProps } from '@mui/system';
+import { Box } from '@mui/system';
 import MarkdownIt from 'markdown-it';
 import React from 'react';
 import Editor from 'react-markdown-editor-lite';
@@ -55,6 +55,7 @@ export default function MdEditor(props: MdEditorProps) {
 
 const configMdSx = (readOnly: boolean) => ({
   height: '100%',
+  overflow: 'hidden',
 
   '& .rc-md-editor': {
     height: '100%',
@@ -63,25 +64,26 @@ const configMdSx = (readOnly: boolean) => ({
 
     '& .editor-container .sec-md .input, .editor-container .sec-html .html-wrap': {
       bgcolor: 'transparent',
-      color: (theme: Theme) => theme.palette.text.primary,
+      color: 'text.primary',
+      overflow: readOnly ? 'hidden' : 'auto',
     },
 
     '& .header-list .list-item': {
-      color: (theme: Theme) => theme.palette.text.primary,
+      color: 'text.primary',
       '&:hover': {
-        bgcolor: (theme: Theme) => theme.palette.action.hover,
+        bgcolor: 'action.hover',
       },
     },
 
     '& .drop-wrap': {
-      bgcolor: (theme: Theme) => theme.palette.background.default,
-      borderColor: (theme: Theme) => theme.palette.divider,
+      bgcolor: 'background.default',
+      borderColor: 'divider',
     },
 
     '& .table-list.wrap .list-item': {
-      bgcolor: (theme: Theme) => theme.palette.action.focus,
+      bgcolor: 'action.focus',
       '&.active': {
-        bgcolor: (theme: Theme) => theme.palette.action.disabled,
+        bgcolor: 'action.disabled',
       },
     },
 
@@ -94,12 +96,12 @@ const configMdSx = (readOnly: boolean) => ({
       bgcolor: 'transparent',
 
       '& .button-wrap .button': {
-        color: (theme: Theme) => theme.palette.text.secondary,
+        color: 'text.secondary',
         '&:hover': {
-          color: (theme: Theme) => theme.palette.text.primary,
+          color: 'text.primary',
         },
         '&.disabled': {
-          color: (theme: Theme) => theme.palette.action.disabled,
+          color: 'action.disabled',
         },
       },
     },
@@ -114,16 +116,16 @@ const configMdSx = (readOnly: boolean) => ({
   },
 
   '& .md-preview': {
-    m: readOnly ? '-15px' : 0,
-    color: (theme: Theme) => theme.palette.text.primary,
+    m: readOnly ? -2 : 0,
+    color: 'text.primary',
 
     '& table': {
       '& thead th': {
-        bgcolor: (theme: Theme) => theme.palette.action.hover,
-        borderColor: (theme: Theme) => theme.palette.divider,
+        bgcolor: 'action.hover',
+        borderColor: 'divider',
       },
       '& tbody td': {
-        borderColor: (theme: Theme) => theme.palette.divider,
+        borderColor: 'divider',
       },
     },
 
@@ -143,14 +145,14 @@ const configMdSx = (readOnly: boolean) => ({
       borderRadius: '2px',
       fontSize: readOnly ? 16 : 14,
       lineHeight: readOnly ? 1.8 : 1.6,
-      bgcolor: (theme: Theme) => theme.palette.action.hover,
-      color: (theme: Theme) => theme.palette.text.primary,
+      bgcolor: 'action.hover',
+      color: 'text.primary',
     },
 
     '& pre': {
       borderRadius: 1,
-      bgcolor: (theme: Theme) => theme.palette.action.hover,
-      color: (theme: Theme) => theme.palette.text.primary,
+      bgcolor: 'action.hover',
+      color: 'text.primary',
       '& code': {
         bgcolor: 'transparent',
       },
@@ -159,8 +161,8 @@ const configMdSx = (readOnly: boolean) => ({
     '& blockquote': {
       borderLeft: 4,
       borderColor: 'primary.main',
-      bgcolor: (theme: Theme) => theme.palette.action.hover,
-      color: (theme: Theme) => theme.palette.text.primary,
+      bgcolor: 'action.hover',
+      color: 'text.primary',
     },
 
     '& a': {
@@ -168,7 +170,7 @@ const configMdSx = (readOnly: boolean) => ({
     },
 
     '& hr': {
-      borderColor: (theme: Theme) => theme.palette.divider,
+      borderColor: 'divider',
     },
   },
 });

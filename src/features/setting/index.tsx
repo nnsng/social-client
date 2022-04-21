@@ -14,9 +14,9 @@ export default function Setting() {
       <PageTitle title={t('pageTitle')} />
       <Header />
 
-      <Box component="main">
+      <Box component="main" pt={3}>
         <Container maxWidth="md">
-          <Box mt={3}>
+          <Box>
             <Typography variant="h4" fontWeight={500}>
               {t('pageTitle')}
             </Typography>

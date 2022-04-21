@@ -13,5 +13,6 @@
   "text": {
     "hadAccount": "Already have an account?",
     "noAccount": "Don't have an account yet?"
-  }
+  },
+  "forgotPassword": "Forgot password?"
 }

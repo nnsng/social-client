@@ -175,7 +175,7 @@ export default function AuthForm(props: AuthFormProps) {
               textAlign="center"
               sx={{ cursor: 'pointer' }}
             >
-              Quên mật khẩu?
+              {t('forgotPassword')}
             </Typography>
           )}
         </Stack>

@@ -13,5 +13,6 @@
   "text": {
     "hadAccount": "Đã có tài khoản?",
     "noAccount": "Chưa có tài khoản?"
-  }
+  },
+  "forgotPassword": "Quên mật khẩu?"
 }

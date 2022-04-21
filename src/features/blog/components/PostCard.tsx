@@ -95,11 +95,12 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
       <Card
         sx={{
           width: '100%',
-          p: 3,
+          p: 2,
           mb: 2,
           borderRadius: 2,
           bgcolor: 'background.paper',
-          boxShadow: themeVariables.boxShadow,
+          border: 1,
+          borderColor: 'divider',
         }}
       >
         <CardHeader

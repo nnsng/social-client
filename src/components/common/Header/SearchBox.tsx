@@ -1,4 +1,4 @@
-import { SearchRounded } from '@mui/icons-material';
+import { CloseRounded, SearchRounded } from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -42,12 +42,10 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
   const [showSearchResult, setShowSearchResult] = useState<boolean>(false);
 
   useEffect(() => {
-    if (searchInput.length > 0) {
-      setShowSearchResult(true);
-    } else {
-      setShowSearchResult(false);
-    }
+    setShowSearchResult(searchInput.length > 0);
   }, [searchInput]);
+
+  const clearSearchInput = () => setSearchInput('');
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -57,7 +55,7 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
 
   const gotoPost = (post: Post) => {
     navigate(`/blog/post/${post.slug}`);
-    setSearchInput('');
+    clearSearchInput();
   };
 
   return (
@@ -78,9 +76,17 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
           <OutlinedInput
             placeholder={t('search.placeholder')}
             inputProps={{ sx: { pl: 1.5 } }}
-            value={searchInput}
+            value={searchInput || ''}
             onChange={handleSearchChange}
-            startAdornment={<SearchRounded sx={{ color: 'text.secondary' }} />}
+            startAdornment={<SearchRounded sx={{ color: 'action.disabled' }} />}
+            endAdornment={
+              (searchInput || '').length > 0 && (
+                <CloseRounded
+                  sx={{ color: 'text.secondary', cursor: 'pointer' }}
+                  onClick={clearSearchInput}
+                />
+              )
+            }
             sx={{
               borderRadius: 40,
               bgcolor: 'background.paper',
@@ -129,7 +135,7 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
                                 width: 32,
                                 height: 32,
                                 mr: 1,
-                                bgcolor: 'grey.200',
+                                bgcolor: 'action.selected',
                               }}
                             >
                               <Box />
@@ -157,9 +163,10 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
         open={openSearchMobile}
         onClose={toggleSearchMobile}
         loading={loading}
-        searchInput={searchInput}
-        onSearchChange={handleSearchChange}
-        searchResultList={searchResultList}
+        inputValue={searchInput}
+        result={searchResultList}
+        onChange={handleSearchChange}
+        onClear={clearSearchInput}
       />
     </>
   );

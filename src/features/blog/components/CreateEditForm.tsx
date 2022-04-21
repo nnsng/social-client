@@ -55,7 +55,6 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     control,
     handleSubmit,
     setValue,
-    getValues,
     reset,
     watch,
     formState: { errors, isSubmitting },
@@ -83,7 +82,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     if (isSubmitting) return;
 
     const errorValues: any = Object.values(errors);
-    if (errorValues.length === 0) return;
+    if (errorValues?.length === 0) return;
 
     for (const error of errorValues) {
       toast.error(error.message);
@@ -111,9 +110,9 @@ export default function CreateEditForm(props: CreateEditFormProps) {
         direction="column"
         height={`calc(100vh - ${themeVariables.headerHeight} * 2 + 36px)`}
         sx={{
-          mt: 3,
           borderRadius: 2,
-          boxShadow: themeVariables.boxShadow,
+          border: 1,
+          borderColor: 'divider',
           bgcolor: 'background.paper',
         }}
       >
@@ -143,15 +142,15 @@ export default function CreateEditForm(props: CreateEditFormProps) {
       <Dialog
         open={open}
         onClose={closeDialog}
-        sx={(theme) => ({
+        sx={{
           '& .MuiPaper-root': {
             width: 800,
           },
-        })}
+        }}
       >
         <Typography
           variant="h6"
-          color={title.length > 0 ? 'text.primary' : 'text.disabled'}
+          color={title?.length > 0 ? 'text.primary' : 'text.disabled'}
           component="div"
           sx={{
             px: 3,
@@ -168,7 +167,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
             sx={{
               maxWidth: 400,
               height: 200,
-              bgcolor: (theme) => theme.palette.action.hover,
+              bgcolor: 'action.hover',
               backgroundImage: `url('${thumbnail}')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',

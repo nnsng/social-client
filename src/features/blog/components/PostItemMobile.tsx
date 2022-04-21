@@ -86,7 +86,17 @@ export function PostItemMobile(props: PostItemMobileProps) {
   ];
 
   return (
-    <ListItem disablePadding sx={{ my: 2 }}>
+    <ListItem
+      disablePadding
+      sx={{
+        my: 2,
+        p: 1,
+        bgcolor: 'background.paper',
+        borderRadius: 2,
+        border: 1,
+        borderColor: 'divider',
+      }}
+    >
       <Stack width="100%" alignItems="center">
         <Box flexShrink={0} component={Link} to={`/blog/post/${post.slug}`}>
           <Avatar
@@ -96,7 +106,7 @@ export function PostItemMobile(props: PostItemMobileProps) {
               width: 100,
               height: 80,
               mr: 2,
-              bgcolor: 'grey.200',
+              bgcolor: 'action.hover',
             }}
           >
             <Box />
@@ -129,7 +139,7 @@ export function PostItemMobile(props: PostItemMobileProps) {
               display="flex"
               alignItems="center"
             >
-              {t('author', { author: post.author?.name })}
+              {post.author?.name}
             </Typography>
           )}
 
@@ -150,20 +160,23 @@ export function PostItemMobile(props: PostItemMobileProps) {
           </IconButton>
 
           <ActionMenu open={openMenu} onClose={closeMenu}>
-            {menuItemList.map(({ label, icon: Icon, onClick }, idx) => (
-              <MenuItem
-                key={idx}
-                sx={{
-                  py: 1.5,
-                  px: 2.5,
-                  fontSize: 15,
-                }}
-                onClick={() => handleMenuItemClick(onClick)}
-              >
-                <Icon sx={{ fontSize: 20, mr: 2 }} />
-                {label}
-              </MenuItem>
-            ))}
+            {menuItemList.map(
+              ({ label, icon: Icon, onClick, show }, idx) =>
+                show && (
+                  <MenuItem
+                    key={idx}
+                    sx={{
+                      py: 1.5,
+                      px: 2.5,
+                      fontSize: 15,
+                    }}
+                    onClick={() => handleMenuItemClick(onClick)}
+                  >
+                    <Icon sx={{ fontSize: 20, mr: 2 }} />
+                    {label}
+                  </MenuItem>
+                )
+            )}
           </ActionMenu>
         </Box>
       </Stack>

@@ -47,7 +47,7 @@ export function MyPostListPage() {
     <>
       <PageTitle title={t('pageTitle')} />
 
-      <Box mt={3}>
+      <Box>
         <Typography variant="h4" fontWeight={500}>
           {t('pageTitle')}
         </Typography>

@@ -1,4 +1,4 @@
-import { Box, Drawer, Grid } from '@mui/material';
+import { Box, Drawer, Grid, Stack } from '@mui/material';
 import commentApi from 'api/commentApi';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
@@ -85,34 +85,34 @@ export function PostDetailPage() {
       <PageTitle title={loading ? APP_NAME : `${post?.title} | ${post?.author?.name}`} />
 
       {!loading && post && (
-        <Box mx={-2}>
-          <Grid
-            container
+        <Box>
+          <Stack
             sx={{
-              contain: 'content',
-              minHeight: `calc(100vh - ${themeVariables.headerHeight} - 24px)`,
+              flexDirection: { xs: 'column', lg: 'row' },
+              position: 'relative',
             }}
           >
-            <Grid item xs={12} md={10} lg={7} mt={3} mx="auto">
-              <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
-            </Grid>
-
-            <Grid
-              item
-              xs={12}
-              md={10}
-              lg={2}
-              mx="auto"
+            <Box
               sx={{
-                position: { lg: 'fixed' },
-                right: { lg: 0 },
+                width: { xs: '100%', md: '80%', lg: '60%' },
+                mx: 'auto',
+              }}
+            >
+              <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
+            </Box>
+
+            <Box
+              sx={{
+                position: { lg: 'absolute' },
                 top: 0,
-                bottom: 0,
+                right: { lg: 0 },
+                width: { xs: '100%', md: '80%', lg: 200 },
+                mx: { xs: 'auto', lg: 0 },
               }}
             >
               <PostReact post={post} onOpenComment={openComment} onLikePost={handleLikePost} />
-            </Grid>
-          </Grid>
+            </Box>
+          </Stack>
 
           <Drawer anchor="right" open={showComment} onClose={closeComment}>
             <PostComment
