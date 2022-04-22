@@ -223,7 +223,13 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
             </Box>
 
             {post.thumbnail && (
-              <Box width={{ xs: '100%', sm: 'auto' }} mt={{ xs: 2, sm: 0 }} ml={{ xs: 0, sm: 2 }}>
+              <Box
+                sx={{
+                  width: { xs: '100%', sm: 'auto' },
+                  mt: { xs: 2, sm: 0 },
+                  ml: { xs: 0, sm: 2 },
+                }}
+              >
                 <CardMedia
                   component={Link}
                   to={`/blog/post/${post.slug}`}

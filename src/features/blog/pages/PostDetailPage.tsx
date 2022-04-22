@@ -1,4 +1,4 @@
-import { Box, Drawer, Grid, Stack } from '@mui/material';
+import { Box, Drawer, Grid } from '@mui/material';
 import commentApi from 'api/commentApi';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
@@ -9,7 +9,6 @@ import { Comment, Post } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
-import { themeVariables } from 'utils/theme';
 import { blogActions, selectPostDetail, selectPostLoading } from '../blogSlice';
 import PostComment from '../components/PostComment';
 import PostDetail from '../components/PostDetail';
@@ -86,33 +85,19 @@ export function PostDetailPage() {
 
       {!loading && post && (
         <Box>
-          <Stack
-            sx={{
-              flexDirection: { xs: 'column', lg: 'row' },
-              position: 'relative',
-            }}
-          >
-            <Box
-              sx={{
-                width: { xs: '100%', md: '80%', lg: '60%' },
-                mx: 'auto',
-              }}
-            >
-              <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
-            </Box>
+          <Grid container spacing={{ xs: 2, lg: 8 }}>
+            <Grid item xs={12} md={10} lg mx="auto">
+              <Box>
+                <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
+              </Box>
+            </Grid>
 
-            <Box
-              sx={{
-                position: { lg: 'absolute' },
-                top: 0,
-                right: { lg: 0 },
-                width: { xs: '100%', md: '80%', lg: 200 },
-                mx: { xs: 'auto', lg: 0 },
-              }}
-            >
-              <PostReact post={post} onOpenComment={openComment} onLikePost={handleLikePost} />
-            </Box>
-          </Stack>
+            <Grid item xs={12} md={10} lg={4} mx="auto">
+              <Box position="sticky" top={96}>
+                <PostReact post={post} onOpenComment={openComment} onLikePost={handleLikePost} />
+              </Box>
+            </Grid>
+          </Grid>
 
           <Drawer anchor="right" open={showComment} onClose={closeComment}>
             <PostComment

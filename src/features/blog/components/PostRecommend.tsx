@@ -2,7 +2,7 @@ import { Box, Chip, Stack, Theme, Typography, useMediaQuery } from '@mui/materia
 import { Keyword } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { slugifyString } from 'utils/common';
+import { createKeywordObject } from 'utils/common';
 
 const keywordList: Keyword[] = [
   'Front-end',
@@ -11,10 +11,7 @@ const keywordList: Keyword[] = [
   'Design',
   'DevOps',
   'Others',
-].map((keyword) => ({
-  name: keyword,
-  value: slugifyString(keyword),
-}));
+].map((name) => createKeywordObject(name));
 
 export interface PostRecommendProps {
   keywordActive: string | undefined;
@@ -82,6 +79,19 @@ export default function PostRecommend(props: PostRecommendProps) {
             }}
           />
         ))}
+        {keywordActive && keywordList.every((keyword) => keyword.value !== keywordActive) && (
+          <Chip
+            color="primary"
+            label={keywordActive}
+            onClick={() => handleKeywordClick?.(createKeywordObject(keywordActive))}
+            sx={{
+              mt: 1,
+              mr: 1,
+              fontSize: { lg: 16 },
+              color: 'common.white',
+            }}
+          />
+        )}
         {/* {keywordActive && (
           <Chip
             label={<DeleteForeverRounded sx={{ display: 'flex', alignItems: 'center' }} />}

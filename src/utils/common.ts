@@ -4,7 +4,7 @@ import 'dayjs/locale/vi';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { ConfigKey } from 'features/common/configSlice';
 import i18next from 'i18next';
-import { Post, UserConfig } from 'models';
+import { Keyword, Post, UserConfig } from 'models';
 import { toast } from 'react-toastify';
 import slugify from 'slugify';
 import { CONFIG } from './constants';
@@ -37,6 +37,13 @@ export const copyPostLink = (post: Post) => {
   const { toast: toastTranslation } = useTranslateFiles('toast');
   navigator.clipboard.writeText(`${window.location.origin}/blog/post/${post.slug}`);
   toast.success(toastTranslation.copyLinkSuccess);
+};
+
+export const createKeywordObject = (name: string): Keyword => {
+  return {
+    name,
+    value: slugifyString(name),
+  };
 };
 
 export const localConfig = {

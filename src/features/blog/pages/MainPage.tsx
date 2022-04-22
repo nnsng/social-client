@@ -52,16 +52,10 @@ export function MainPage() {
       <Box>
         <Grid
           container
-          item
-          xs
-          md={10}
-          lg
-          sx={{
-            flexDirection: { xs: 'column-reverse', lg: 'row' },
-            mx: 'auto',
-          }}
+          spacing={{ xs: 2, lg: 8 }}
+          flexDirection={{ xs: 'column-reverse', lg: 'row' }}
         >
-          <Grid item xs sx={{ width: '100%', mx: 'auto' }}>
+          <Grid item xs={12} md={10} lg mx="auto">
             <Box component="section">
               <PostList
                 postList={postList}
@@ -73,16 +67,13 @@ export function MainPage() {
             </Box>
           </Grid>
 
-          <Grid item xs="auto">
+          <Grid item xs={12} md={10} lg={4.5} mx="auto">
             <Box
               component="section"
               sx={{
                 position: 'sticky',
                 top: 96,
-                maxWidth: { lg: 350 },
-                ml: { lg: 8 },
                 mt: { xs: -2, lg: 0 },
-                mb: { xs: 2, lg: 0 },
               }}
             >
               <PostRecommend keywordActive={filter.keyword} onKeywordClick={handleKeywordClick} />

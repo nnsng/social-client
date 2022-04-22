@@ -28,11 +28,7 @@ export default function PostReact(props: PostReactProps) {
   };
 
   return (
-    <Box
-      sx={{
-        position: { lg: 'absolute' },
-      }}
-    >
+    <Box>
       <Typography
         variant="body1"
         sx={{
