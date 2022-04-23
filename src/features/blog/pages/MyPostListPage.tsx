@@ -5,28 +5,45 @@ import { PageTitle } from 'components/common';
 import { Post } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { blogActions, selectPostList, selectTotalPages } from '../blogSlice';
 import { PostItemMobile } from '../components/PostItemMobile';
 import PostTable from '../components/PostTable';
 
+export interface MyPostListPageProps {
+  type?: 'myPostList' | 'saved';
+}
+
 export function MyPostListPage() {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  const { t } = useTranslation('myPostList');
+  const isSavedPage = location.pathname === '/blog/saved';
 
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
   const totalPage = useAppSelector(selectTotalPages);
 
+  const [type, setType] = useState<string>('');
   const [filters, setFilters] = useState({
     page: 1,
     limit: 10,
   });
 
+  const { t } = useTranslation(type);
+
   useEffect(() => {
-    dispatch(blogActions.fetchMyPostList(filters));
+    if (isSavedPage) {
+      dispatch(blogActions.fetchSavedPostList(filters));
+    } else {
+      dispatch(blogActions.fetchMyPostList(filters));
+    }
   }, [dispatch, filters]);
+
+  const handleUnSavePost = async (post: Post) => {
+    await postApi.unSave(post._id as string);
+    dispatch(blogActions.fetchSavedPostList(filters));
+  };
 
   const handleEditPost = (post: Post) => {
     navigate(`/blog/edit/${post._id}`);
@@ -37,7 +54,7 @@ export function MyPostListPage() {
     dispatch(blogActions.fetchMyPostList(filters));
   };
 
-  const handleChangePagination = (event: ChangeEvent<unknown>, page: number) => {
+  const handlePaginationChange = (event: ChangeEvent<unknown>, page: number) => {
     setFilters({ ...filters, page });
   };
 
@@ -54,7 +71,13 @@ export function MyPostListPage() {
 
         {hideOnMobile ? (
           <Box mt={2}>
-            <PostTable postList={postList} onEdit={handleEditPost} onRemove={handleRemovePost} />
+            <PostTable
+              postList={postList}
+              saved={isSavedPage}
+              onUnSave={handleUnSavePost}
+              onEdit={handleEditPost}
+              onRemove={handleRemovePost}
+            />
           </Box>
         ) : (
           <List>
@@ -62,6 +85,8 @@ export function MyPostListPage() {
               <PostItemMobile
                 key={post._id}
                 post={post}
+                saved={isSavedPage}
+                onUnSave={handleUnSavePost}
                 onEdit={handleEditPost}
                 onRemove={handleRemovePost}
               />
@@ -77,7 +102,7 @@ export function MyPostListPage() {
               count={totalPage}
               page={filters.page}
               sx={{ m: 'auto' }}
-              onChange={handleChangePagination}
+              onChange={handlePaginationChange}
             />
           </Stack>
         )}

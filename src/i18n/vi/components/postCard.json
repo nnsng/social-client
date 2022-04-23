@@ -4,5 +4,10 @@
     "delete": "Xóa",
     "copyLink": "Sao chép liên kết",
     "report": "Báo cáo"
+  },
+  "statistics": {
+    "likeCount": "Thích",
+    "commentCount": "Bình luận",
+    "viewCount": "Lượt xem"
   }
 }

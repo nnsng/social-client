@@ -125,11 +125,13 @@ export default function PostTable(props: PostTableProps) {
                 </TableCell>
 
                 {saved ? (
-                  <TableCell align="center">
-                    <Link to={`/blog?username=${post?.author?.username}`}>{post.author?.name}</Link>
+                  <TableCell align="center" sx={{ color: 'text.primary' }}>
+                    <Link to={`/blog/user/${post.author?.username}`} style={{ color: 'inherit' }}>
+                      {post.author?.name}
+                    </Link>
                   </TableCell>
                 ) : (
-                  <TableCell align="center">{post?.likes?.length}</TableCell>
+                  <TableCell align="center">{post.statistics?.likeCount}</TableCell>
                 )}
 
                 <TableCell align="center">{formatTime(post.createdAt)}</TableCell>

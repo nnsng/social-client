@@ -4,10 +4,10 @@ import 'dayjs/locale/vi';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { ConfigKey } from 'features/common/configSlice';
 import i18next from 'i18next';
-import { Keyword, Post, UserConfig } from 'models';
+import { Post, UserConfig } from 'models';
 import { toast } from 'react-toastify';
 import slugify from 'slugify';
-import { CONFIG } from './constants';
+import { CONFIG, REGEX } from './constants';
 import { useTranslateFiles } from './translation';
 
 export const formatTime = (timestamp: any) => {
@@ -39,11 +39,19 @@ export const copyPostLink = (post: Post) => {
   toast.success(toastTranslation.copyLinkSuccess);
 };
 
-export const createKeywordObject = (name: string): Keyword => {
-  return {
-    name,
-    value: slugifyString(name),
-  };
+export const formatKeyword = (keyword: string) => {
+  const formattedKeyword = keyword.toLowerCase().trim();
+  const isValid = REGEX.keyword.test(formattedKeyword);
+  return isValid ? formattedKeyword : '';
+};
+
+export const delay = async (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+export const hasItemInArray = (array: any[], item: any, callback?: (element: any) => boolean) => {
+  const findFunc = callback ? callback : (element: any) => element === item;
+  return array.findIndex(findFunc) !== -1;
 };
 
 export const localConfig = {

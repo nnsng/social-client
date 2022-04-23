@@ -6,7 +6,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  Grid,
   Stack,
   Typography,
 } from '@mui/material';
@@ -23,6 +22,8 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { delay } from 'utils/common';
+import { REGEX } from 'utils/constants';
 import { mixins, themeVariables } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
@@ -43,12 +44,15 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     title: yup.string().required(validate.title.required),
     content: yup.string().required(validate.content.required).min(50, validate.content.min(50)),
     thumbnail: yup.string(),
-    keywords: yup.array().of(
-      yup.object().shape({
-        name: yup.string().required(),
-        value: yup.string().required(),
-      })
-    ),
+    keywords: yup
+      .array()
+      .of(
+        yup
+          .string()
+          .min(3, validate.keywords.min(3))
+          .max(20, validate.keywords.max(20))
+          .matches(REGEX.keyword, validate.keywords.valid)
+      ),
   });
 
   const {
@@ -79,14 +83,18 @@ export default function CreateEditForm(props: CreateEditFormProps) {
   }, [defaultValues]);
 
   useEffect(() => {
-    if (isSubmitting) return;
+    (async () => {
+      if (isSubmitting) return;
 
-    const errorValues: any = Object.values(errors);
-    if (errorValues?.length === 0) return;
+      const keywordErrors = (errors.keywords || []).filter((x) => !!x);
+      const errorValues: any = Object.values(errors).concat(keywordErrors);
+      if (errorValues?.length === 0) return;
 
-    for (const error of errorValues) {
-      toast.error(error.message);
-    }
+      for (const error of errorValues) {
+        toast.error(error.message);
+        await delay(200);
+      }
+    })();
   }, [isSubmitting]);
 
   const removeThumbnail = () => {

@@ -6,10 +6,10 @@ export interface Post {
   content: string;
   thumbnail: string;
   authorId: string;
-  keywords: Keyword[];
+  keywords: string[];
   author?: User;
   likes?: string[];
-  commentCount?: number;
+  statistics?: PostStatistics;
   slug?: string;
   createdAt?: string;
 }
@@ -24,7 +24,8 @@ export interface Comment {
   createdAt?: string;
 }
 
-export interface Keyword {
-  name: string;
-  value: string;
+export interface PostStatistics {
+  likeCount: number;
+  commentCount: number;
+  viewCount: number;
 }

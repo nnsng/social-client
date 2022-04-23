@@ -3,7 +3,7 @@ import auth from './pages/auth.json';
 import createEditPost from './pages/createEditPost.json';
 import myPostList from './pages/myPostList.json';
 import saved from './pages/saved.json';
-import setting from './pages/setting.json';
+import setting from './pages/settings.json';
 import notFound from './pages/notFound.json';
 
 // components

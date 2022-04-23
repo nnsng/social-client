@@ -1,2 +1,2 @@
-export * from './EditProfilePage';
 export * from './ChangePasswordPage';
+export * from './EditProfilePage';

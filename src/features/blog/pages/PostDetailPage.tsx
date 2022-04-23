@@ -24,11 +24,10 @@ export function PostDetailPage() {
 
   const socket = useAppSelector(selectSocket);
 
-  const [showComment, setShowComment] = useState(false);
+  const [showComment, setShowComment] = useState<boolean>(false);
 
   useEffect(() => {
     if (!slug) return;
-
     dispatch(blogActions.fetchPostDetail(slug));
   }, [dispatch, slug]);
 
@@ -46,7 +45,7 @@ export function PostDetailPage() {
     if (showComment) {
       dispatch(commentActions.fetchPostComments(post?._id as string));
     } else {
-      dispatch(blogActions.updateCommentCount(postComments.length));
+      dispatch(blogActions.updateStatistics({ commentCount: postComments.length || 0 }));
     }
   }, [showComment]);
 
@@ -85,14 +84,14 @@ export function PostDetailPage() {
 
       {!loading && post && (
         <Box>
-          <Grid container spacing={{ xs: 2, lg: 8 }}>
-            <Grid item xs={12} md={10} lg mx="auto">
+          <Grid container>
+            <Grid item xs={12} md={10} lg={7} mx="auto">
               <Box>
                 <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
               </Box>
             </Grid>
 
-            <Grid item xs={12} md={10} lg={4} mx="auto">
+            <Grid item xs={12} md={10} lg={3} mx={{ xs: 'auto', lg: 0 }}>
               <Box position="sticky" top={96}>
                 <PostReact post={post} onOpenComment={openComment} onLikePost={handleLikePost} />
               </Box>

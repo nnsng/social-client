@@ -1,5 +1,4 @@
-export * from './MainPage';
 export * from './CreateEditPage';
-export * from './PostDetailPage';
+export * from './MainPage';
 export * from './MyPostListPage';
-export * from './SavedPage';
+export * from './PostDetailPage';

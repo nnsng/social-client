@@ -1,22 +1,20 @@
 import authApi from 'api/authApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { BackdropLoading, NotFound, PrivateRoute } from 'components/common';
+import { NotFound, PrivateRoute } from 'components/common';
+import Auth from 'features/auth';
 import { authActions, selectCurrentUser } from 'features/auth/authSlice';
+import Blog from 'features/blog';
 import { selectLanguage } from 'features/common/configSlice';
+import Settings from 'features/settings';
+import SocketClient from 'features/socket';
 import { selectSocket, socketActions } from 'features/socket/socketSlice';
 import i18next from 'i18next';
 import { User } from 'models';
-import React, { Suspense, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { ACCESS_TOKEN } from 'utils/constants';
 import { env, variables } from 'utils/env';
-
-// dynamic import
-const Auth = React.lazy(() => import('features/auth'));
-const Blog = React.lazy(() => import('features/blog'));
-const Setting = React.lazy(() => import('features/setting'));
-const SocketClient = React.lazy(() => import('features/socket'));
 
 function App() {
   const navigate = useNavigate();
@@ -69,7 +67,7 @@ function App() {
   }, [language]);
 
   return (
-    <Suspense fallback={<BackdropLoading open={true} />}>
+    <>
       <SocketClient />
 
       <Routes>
@@ -88,7 +86,7 @@ function App() {
           path="/settings/*"
           element={
             <PrivateRoute>
-              <Setting />
+              <Settings />
             </PrivateRoute>
           }
         />
@@ -98,7 +96,7 @@ function App() {
         <Route path="/active" element={<Auth mode="active" />} />
 
         <Route
-          path=":404"
+          path="*"
           element={
             <PrivateRoute>
               <NotFound showHeader />
@@ -106,7 +104,7 @@ function App() {
           }
         />
       </Routes>
-    </Suspense>
+    </>
   );
 }
 

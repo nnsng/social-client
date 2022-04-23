@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Avatar, Box, Button, CircularProgress, Grid, Stack, Typography } from '@mui/material';
+import { Avatar, Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { FileInputField, MuiTextField } from 'components/formFields';
 import { selectUploading } from 'features/common/uploadSlice';
@@ -8,6 +8,7 @@ import { User } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { REGEX } from 'utils/constants';
 import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
@@ -31,7 +32,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
       .required(validate.username.required)
       .min(6, validate.username.min(6))
       .max(50, validate.username.max(20))
-      .matches(/^(?![_.])[a-zA-Z0-9._]+(?<![_.])$/, validate.username.valid),
+      .matches(REGEX.username, validate.username.valid),
     email: yup.string().email().required(),
     bio: yup.string(),
   });

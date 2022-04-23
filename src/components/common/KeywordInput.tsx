@@ -1,30 +1,32 @@
 import { Box, Chip, Stack, TextField } from '@mui/material';
-import { Keyword } from 'models';
 import React, { useState } from 'react';
-import { slugifyString } from 'utils/common';
 
 export interface KeywordInputProps {
   name?: string;
-  value?: Keyword[];
+  value?: string[];
   maxKeywords?: number;
   placeholder?: string;
   maxKeywordsError?: string;
-  onChange?: (keywordList: Keyword[]) => void;
+  onChange?: (keywordList: string[]) => void;
 }
 
 export function KeywordInput(props: KeywordInputProps) {
   const { name, value, maxKeywords = 5, placeholder, maxKeywordsError } = props;
 
   const [inputText, setInputText] = useState<string>('');
-  const [keywordList, setKeywordList] = useState<Keyword[]>(value || []);
+  const [keywordList, setKeywordList] = useState<string[]>(value || []);
+
+  const updateKeywordList = (newKeywordList: string[]) => {
+    setKeywordList(newKeywordList);
+    props.onChange?.(newKeywordList);
+  };
 
   const handleAddKeyword = (e: any) => {
     if (e.key !== 'Enter') return;
 
-    const newKeyword = {
-      name: inputText,
-      value: slugifyString(inputText),
-    };
+    const newKeyword = inputText.toLowerCase().trim();
+    if (!newKeyword) return;
+
     const newKeywordList = [...keywordList, newKeyword];
 
     updateKeywordList(newKeywordList);
@@ -37,11 +39,6 @@ export function KeywordInput(props: KeywordInputProps) {
 
   const handleDelete = (index: number) => {
     updateKeywordList(keywordList.filter((keyword, idx) => idx !== index));
-  };
-
-  const updateKeywordList = (newKeywordList: Keyword[]) => {
-    setKeywordList(newKeywordList);
-    props.onChange?.(newKeywordList);
   };
 
   return (
@@ -62,7 +59,7 @@ export function KeywordInput(props: KeywordInputProps) {
         {keywordList.map((keyword, idx) => (
           <Chip
             key={idx}
-            label={keyword.name}
+            label={keyword}
             onDelete={() => handleDelete(idx)}
             sx={{ fontSize: 14 }}
           />

@@ -25,6 +25,10 @@ export function Header() {
     setOpenSearchMobile(!openSearchMobile);
   };
 
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <Box
       component="header"
@@ -56,22 +60,23 @@ export function Header() {
               </Link>
 
               {location.pathname === '/blog' ? (
-                <Typography
-                  variant="h6"
-                  color="primary"
-                  sx={{
-                    fontWeight: 600,
-                    letterSpacing: 1,
-                    cursor: 'default',
-                  }}
-                >
-                  {APP_NAME}
-                </Typography>
+                <Link to="/">
+                  <Typography
+                    variant="h6"
+                    color="primary"
+                    sx={{
+                      fontWeight: 600,
+                      letterSpacing: 1,
+                    }}
+                  >
+                    {APP_NAME}
+                  </Typography>
+                </Link>
               ) : (
                 <Button
                   variant="text"
                   startIcon={<ArrowBackIosNewRounded />}
-                  onClick={() => navigate(-1)}
+                  onClick={goBack}
                   sx={{
                     fontWeight: 600,
                     fontSize: 12,

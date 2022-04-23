@@ -1,7 +1,15 @@
-import { BookmarkBorderRounded, MoreHorizRounded } from '@mui/icons-material';
+import {
+  BookmarkBorderRounded,
+  ChatBubbleOutlineRounded,
+  FavoriteBorderRounded,
+  FavoriteRounded,
+  MoreHorizRounded,
+  VisibilityOutlined,
+} from '@mui/icons-material';
 import {
   Avatar,
   Box,
+  Button,
   Card,
   CardContent,
   CardHeader,
@@ -9,6 +17,7 @@ import {
   IconButton,
   MenuItem,
   Stack,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
@@ -20,7 +29,7 @@ import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { formatTime } from 'utils/common';
+import { formatTime, hasItemInArray } from 'utils/common';
 import { mixins, themeVariables } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 
@@ -30,7 +39,9 @@ export interface PostCardProps {
   onRemove?: (post: Post) => void;
 }
 
-export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
+export default function PostCard(props: PostCardProps) {
+  const { post, onSave, onRemove } = props;
+
   const navigate = useNavigate();
 
   const { t } = useTranslation('postCard');
@@ -90,6 +101,24 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
     t,
   });
 
+  const statistics = [
+    {
+      icon: <FavoriteBorderRounded />,
+      text: t('statistics.likeCount'),
+      count: post.statistics?.likeCount || 0,
+    },
+    {
+      icon: <ChatBubbleOutlineRounded />,
+      text: t('statistics.commentCount'),
+      count: post.statistics?.commentCount || 0,
+    },
+    {
+      icon: <VisibilityOutlined />,
+      text: t('statistics.viewCount'),
+      count: post.statistics?.viewCount || 0,
+    },
+  ];
+
   return (
     <>
       <Card
@@ -105,7 +134,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
       >
         <CardHeader
           avatar={
-            <Link to={`/blog?username=${post?.author?.username}`}>
+            <Link to={`/blog/user/${post?.author?.username}`}>
               <Avatar src={post?.author?.avatar} />
             </Link>
           }
@@ -175,7 +204,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
               color="text.primary"
               fontWeight={600}
               component={Link}
-              to={`/blog?username=${post?.author?.username}`}
+              to={`/blog/user/${post?.author?.username}`}
             >
               {post?.author?.name}
             </Typography>
@@ -220,6 +249,27 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
               <Typography variant="body1" m={0} sx={{ ...mixins.truncate(2) }}>
                 {post.content}
               </Typography>
+
+              <Stack
+                component={Link}
+                to={`/blog/post/${post.slug}`}
+                sx={{
+                  mt: 1,
+                  color: 'text.secondary',
+                  '& button:hover': {
+                    color: 'text.primary',
+                    bgcolor: 'transparent',
+                  },
+                }}
+              >
+                {statistics.map(({ icon, text, count }, idx) => (
+                  <Tooltip key={idx} title={text}>
+                    <Button color="inherit" size="small" startIcon={icon}>
+                      {count}
+                    </Button>
+                  </Tooltip>
+                ))}
+              </Stack>
             </Box>
 
             {post.thumbnail && (

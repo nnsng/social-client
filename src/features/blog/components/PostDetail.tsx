@@ -99,7 +99,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
 
         <CardHeader
           avatar={
-            <Link to={`/blog?username=${post?.author?.username}`}>
+            <Link to={`/blog/user/${post?.author?.username}`}>
               <Avatar src={post?.author?.avatar} />
             </Link>
           }
@@ -169,7 +169,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
               color="text.primary"
               fontWeight={600}
               component={Link}
-              to={`/blog?username=${post?.author?.username}`}
+              to={`/blog/user/${post?.author?.username}`}
             >
               {post?.author?.name}
             </Typography>
