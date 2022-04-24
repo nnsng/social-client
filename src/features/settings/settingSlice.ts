@@ -11,7 +11,7 @@ const initialState: SettingState = {
 };
 
 const settingSlice = createSlice({
-  name: 'setting',
+  name: 'settings',
   initialState,
   reducers: {
     updateProfile(state, action: PayloadAction<User>) {
@@ -25,7 +25,7 @@ const settingSlice = createSlice({
 
 export const settingActions = settingSlice.actions;
 
-export const selectSettingSubmitting = (state: RootState) => state.setting.submitting;
+export const selectSettingSubmitting = (state: RootState) => state.settings.submitting;
 
 const settingReducer = settingSlice.reducer;
 export default settingReducer;

@@ -1,6 +1,6 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { ListParams, ListResponse, PaginationParams, Post } from 'models';
+import { ListParams, ListResponse, PaginationParams, Post, PostStatistics } from 'models';
 
 export interface BlogState {
   loading: boolean;
@@ -82,8 +82,15 @@ const blogSlice = createSlice({
     },
 
     updateCommentCount(state, action: PayloadAction<number>) {
-      if (state.detail) {
-        state.detail.commentCount = action.payload;
+      if (state.detail?.statistics) state.detail.statistics.commentCount = action.payload;
+    },
+
+    updateStatistics(state, action: PayloadAction<Partial<PostStatistics>>) {
+      if (state.detail?.statistics) {
+        state.detail.statistics = {
+          ...state.detail?.statistics,
+          ...action.payload,
+        };
       }
     },
 

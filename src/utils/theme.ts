@@ -1,7 +1,6 @@
 import { PaletteMode } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { SxProps } from '@mui/system';
-import { SupportedThemeColor } from 'models';
 
 const configPalette = (mode: PaletteMode = 'light', color: string = '#7575FF') => {
   return {
@@ -9,9 +8,8 @@ const configPalette = (mode: PaletteMode = 'light', color: string = '#7575FF') =
     ...(mode === 'light'
       ? {
           primary: {
-            // main: '#ff652f',
             main: color,
-            contrastText: '#FFF',
+            contrastText: '#FFFFFF',
           },
           text: {
             primary: 'rgba(0, 0, 0, 0.87)',
@@ -26,24 +24,23 @@ const configPalette = (mode: PaletteMode = 'light', color: string = '#7575FF') =
             disabledBackground: 'rgba(0, 0, 0, 0.12)',
           },
           background: {
-            default: '#FFF',
-            paper: '#FFF',
+            default: '#FFFFFF',
+            paper: '#FFFFFF',
           },
           divider: 'rgba(0, 0, 0, 0.12)',
         }
       : {
           primary: {
-            // main: '#ff652f',
             main: color,
             contrastText: 'rgba(0, 0, 0, 0.87)',
           },
           text: {
-            primary: '#FFF',
+            primary: '#FFFFFF',
             secondary: 'rgba(255, 255, 255, 0.7)',
             disabled: 'rgba(255, 255, 255, 0.5)',
           },
           action: {
-            active: '#FFF',
+            active: '#FFFFFF',
             hover: 'rgba(255, 255, 255, 0.08)',
             selected: 'rgba(255, 255, 255, 0.16)',
             disabled: 'rgba(255, 255, 255, 0.3)',
@@ -58,13 +55,20 @@ const configPalette = (mode: PaletteMode = 'light', color: string = '#7575FF') =
   };
 };
 
-export const getTheme = (mode?: PaletteMode, color?: SupportedThemeColor) =>
+export const getTheme = (mode?: PaletteMode, color?: string) =>
   createTheme({
     palette: configPalette(mode, color),
     typography: {
-      fontFamily: `'Montserrat', Arial, Helvetica, sans-serif`,
+      fontFamily: 'Montserrat, Arial, Helvetica, sans-serif',
     },
     components: {
+      MuiChip: {
+        styleOverrides: {
+          root: {
+            fontSize: 14,
+          },
+        },
+      },
       MuiStack: {
         defaultProps: {
           direction: 'row',
@@ -78,9 +82,6 @@ export const getTheme = (mode?: PaletteMode, color?: SupportedThemeColor) =>
         styleOverrides: {
           root: {
             textTransform: 'none',
-          },
-          contained: {
-            color: '#FFF',
           },
         },
       },
@@ -125,7 +126,7 @@ export const getTheme = (mode?: PaletteMode, color?: SupportedThemeColor) =>
     },
   });
 
-export const supportedThemeColors: SupportedThemeColor[] = [
+export const supportedThemeColors: string[] = [
   '#7575FF',
   '#FF652F',
   '#00CC6A',
@@ -133,7 +134,7 @@ export const supportedThemeColors: SupportedThemeColor[] = [
   '#C239B3',
 ];
 
-export const themeConstants = {
+export const themeVariables = {
   headerHeight: '72px',
   boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
 };

@@ -2,7 +2,7 @@ import { Box, Grid } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
-import { Keyword, ListParams, Post } from 'models';
+import { ListParams, Post } from 'models';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -28,8 +28,8 @@ export function MainPage() {
     dispatch(blogActions.fetchPostList(filter));
   }, [dispatch, filter]);
 
-  const handleKeywordClick = (keyword: Keyword) => {
-    setFilter({ ...filter, keyword: keyword.value, page: 1 });
+  const handleKeywordClick = (keyword: string) => {
+    setFilter({ ...filter, keyword, page: 1 });
   };
 
   const handlePageChange = (page: number) => {
@@ -52,16 +52,10 @@ export function MainPage() {
       <Box>
         <Grid
           container
-          item
-          xs
-          md={10}
-          lg
-          sx={{
-            flexDirection: { xs: 'column-reverse', lg: 'row' },
-            mx: 'auto',
-          }}
+          spacing={{ xs: 2, lg: 8 }}
+          flexDirection={{ xs: 'column-reverse', lg: 'row' }}
         >
-          <Grid item xs sx={{ width: '100%', mx: 'auto' }}>
+          <Grid item xs={12} md={10} lg width="100%" mx="auto">
             <Box component="section">
               <PostList
                 postList={postList}
@@ -73,16 +67,13 @@ export function MainPage() {
             </Box>
           </Grid>
 
-          <Grid item xs="auto">
+          <Grid item xs={12} md={10} lg={4} width="100%" mx="auto">
             <Box
               component="section"
               sx={{
                 position: 'sticky',
                 top: 96,
-                maxWidth: { lg: 350 },
-                ml: { lg: 8 },
                 mt: { xs: -2, lg: 0 },
-                mb: { xs: 2, lg: 0 },
               }}
             >
               <PostRecommend keywordActive={filter.keyword} onKeywordClick={handleKeywordClick} />

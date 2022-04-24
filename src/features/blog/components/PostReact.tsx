@@ -6,9 +6,10 @@ import {
 import { Box, Button, Chip, Stack, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { Keyword, Post } from 'models';
+import { Post } from 'models';
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { hasItemInArray } from 'utils/common';
 
 export interface PostReactProps {
   post: Post;
@@ -23,18 +24,12 @@ export default function PostReact(props: PostReactProps) {
 
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const filterByKeyword = (keyword: Keyword) => {
-    navigate(`/blog?keyword=${keyword.value}`);
+  const filterByKeyword = (keyword: string) => {
+    navigate(`/blog?keyword=${keyword}`);
   };
 
   return (
-    <Box
-      sx={{
-        position: { xs: 'relative', lg: 'sticky' },
-        top: { xs: 0, lg: 120 },
-        mb: 5,
-      }}
-    >
+    <Box>
       <Typography
         variant="body1"
         sx={{
@@ -48,7 +43,7 @@ export default function PostReact(props: PostReactProps) {
           fontWeight: 600,
         }}
         component={Link}
-        to={`/blog?username=${post?.author?.username}`}
+        to={`/blog/user/${post?.author?.username}`}
       >
         {post?.author?.name}
       </Typography>
@@ -68,7 +63,7 @@ export default function PostReact(props: PostReactProps) {
             },
           }}
           startIcon={
-            post?.likes?.includes(currentUser?._id as string) ? (
+            hasItemInArray(currentUser?._id, post?.likes || []) ? (
               <FavoriteRounded sx={{ color: 'error.main' }} />
             ) : (
               <FavoriteBorderRounded />
@@ -76,7 +71,7 @@ export default function PostReact(props: PostReactProps) {
           }
           onClick={onLikePost}
         >
-          {post?.likes?.length}
+          {post.statistics?.likeCount}
         </Button>
 
         <Button
@@ -91,7 +86,7 @@ export default function PostReact(props: PostReactProps) {
           startIcon={<ChatBubbleOutlineRounded />}
           onClick={onOpenComment}
         >
-          {post.commentCount}
+          {post.statistics?.commentCount}
         </Button>
       </Stack>
 
@@ -100,12 +95,11 @@ export default function PostReact(props: PostReactProps) {
           post.keywords.map((keyword, idx) => (
             <Chip
               key={idx}
-              label={keyword.name}
+              label={keyword}
               onClick={() => filterByKeyword(keyword)}
               sx={{
                 mb: 1,
                 mr: 1,
-                fontSize: 16,
               }}
             />
           ))}

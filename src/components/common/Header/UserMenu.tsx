@@ -1,13 +1,27 @@
-import { Avatar, Box, Divider, MenuItem, Stack, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Divider,
+  Drawer,
+  MenuItem,
+  MenuList,
+  SxProps,
+  Typography,
+} from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
+import { IMenuItem, User } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { PopperMenu } from '..';
 import { GetUserMenu } from '../Menu';
 
-export default function UserMenu() {
+export interface UserMenuProps {
+  isOnMobile?: boolean;
+}
+
+export default function UserMenu({ isOnMobile }: UserMenuProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('header');
@@ -15,15 +29,15 @@ export default function UserMenu() {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const [openMenu, setOpenMenu] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
   const anchorRef = useRef<HTMLElement | null>(null);
 
-  const toggleMenu = () => setOpenMenu(!openMenu);
-  const closeMenu = () => setOpenMenu(false);
+  const toggleMenu = () => setOpen(!open);
+  const closeMenu = () => setOpen(false);
 
-  const handleMenuItemClick = (onMenuItemClick?: () => void) => {
+  const handleMenuItemClick = (callback?: () => void) => {
     closeMenu();
-    onMenuItemClick?.();
+    callback?.();
   };
 
   const { userMenu, dividers } = GetUserMenu({ navigate, dispatch, t });
@@ -35,57 +49,121 @@ export default function UserMenu() {
         sx={{
           width: 28,
           height: 28,
-          ml: 2,
+          ml: 1.5,
           cursor: 'pointer',
         }}
         ref={anchorRef as any}
         onClick={toggleMenu}
       />
 
-      <PopperMenu
-        open={openMenu}
-        anchorEl={anchorRef.current}
-        paperSx={{
-          minWidth: 280,
-          mt: 2,
-          p: 0.8,
-        }}
-        zIndex={(theme) => (theme.zIndex as any).appBar + 1}
-        onClose={closeMenu}
-      >
-        <Stack alignItems="center" p={1}>
-          <Avatar src={currentUser?.avatar} sx={{ width: 40, height: 40 }} />
+      {isOnMobile ? (
+        <Drawer anchor="right" open={open} onClose={closeMenu}>
+          <MenuList
+            sx={{
+              width: '75vw',
+              maxWidth: 300,
+              height: '100vh',
+            }}
+          >
+            <UserMenuChildren
+              isOnMobile={isOnMobile}
+              menuList={userMenu}
+              user={currentUser}
+              dividers={dividers}
+              onMenuItemClick={handleMenuItemClick}
+            />
+          </MenuList>
+        </Drawer>
+      ) : (
+        <PopperMenu
+          open={open}
+          anchorEl={anchorRef.current}
+          paperSx={{
+            minWidth: 280,
+            mt: 2,
+            p: 0.8,
+          }}
+          zIndex={(theme) => (theme.zIndex as any).appBar + 1}
+          onClose={closeMenu}
+        >
+          <UserMenuChildren
+            isOnMobile={isOnMobile}
+            menuList={userMenu}
+            user={currentUser}
+            dividers={dividers}
+            onMenuItemClick={handleMenuItemClick}
+          />
+        </PopperMenu>
+      )}
+    </>
+  );
+}
 
-          <Box ml={2}>
-            <Typography variant="body1" fontWeight={600}>
-              {currentUser?.name}
-            </Typography>
+interface UserMenuChildrenProps {
+  isOnMobile?: boolean;
+  menuList?: IMenuItem[];
+  user?: User | null;
+  dividers?: number[];
+  onMenuItemClick?: (callback?: () => void) => void;
+}
 
-            <Typography variant="body2">{currentUser?.email}</Typography>
-          </Box>
-        </Stack>
+function UserMenuChildren(props: UserMenuChildrenProps) {
+  const { isOnMobile, menuList, user, dividers, onMenuItemClick } = props;
 
-        <Divider />
+  const boxSx: SxProps = !!isOnMobile
+    ? {
+        ml: 4,
+        py: 4,
+      }
+    : {
+        display: 'flex',
+        alignItems: 'center',
+        p: 1,
+      };
 
-        {userMenu.map(({ label, icon: Icon, onClick }, idx) => (
+  return (
+    <>
+      <Box sx={boxSx}>
+        <Avatar
+          src={user?.avatar}
+          sx={{
+            width: { xs: 60, sm: 40 },
+            height: { xs: 60, sm: 40 },
+          }}
+        />
+
+        <Box ml={{ xs: 0, sm: 2 }}>
+          <Typography variant="body1" fontSize={16} fontWeight={600}>
+            {user?.name}
+          </Typography>
+
+          <Typography variant="body2" fontSize={14}>
+            {user?.email}
+          </Typography>
+        </Box>
+      </Box>
+
+      <Divider />
+
+      {menuList &&
+        menuList.map(({ label, icon: Icon, onClick }, idx) => (
           <Box key={idx}>
             <MenuItem
               sx={{
                 py: 1.5,
-                px: 2,
+                px: { xs: 4, sm: 2 },
                 borderRadius: 1,
                 fontSize: 15,
               }}
-              onClick={() => handleMenuItemClick(onClick)}
+              onClick={() => onMenuItemClick?.(onClick)}
             >
               <Icon fontSize="small" sx={{ mr: 2 }} />
               {label}
             </MenuItem>
 
-            {dividers.includes(idx) && <Divider />}
+            {(dividers || []).includes(idx) && <Divider />}
           </Box>
         ))}
-      </PopperMenu>
     </>
   );
 }

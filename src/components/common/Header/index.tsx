@@ -1,21 +1,32 @@
-import { Box, Container, Grid, LinearProgress, Stack, Typography } from '@mui/material';
+import { ArrowBackIosNewRounded } from '@mui/icons-material';
+import { Box, Button, Container, Grid, LinearProgress, Stack, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { selectPostLoading } from 'features/blog/blogSlice';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
-import { themeConstants } from 'utils/theme';
+import { themeVariables } from 'utils/theme';
 import { Logo } from '..';
 import { HeaderMenu } from './HeaderMenu';
 import { SearchBox } from './SearchBox';
 
 export function Header() {
+  const { t } = useTranslation('header');
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const loading = useAppSelector(selectPostLoading);
 
   const [openSearchMobile, setOpenSearchMobile] = useState<boolean>(false);
 
   const toggleSearchMobile = () => {
     setOpenSearchMobile(!openSearchMobile);
+  };
+
+  const goBack = () => {
+    navigate(-1);
   };
 
   return (
@@ -25,11 +36,11 @@ export function Header() {
         position: 'sticky',
         top: 0,
         zIndex: 'appBar',
-        height: themeConstants.headerHeight,
+        height: themeVariables.headerHeight,
         py: 2,
         bgcolor: 'background.paper',
         boxShadow: (theme) =>
-          theme.palette.mode === 'light' ? themeConstants.boxShadow : undefined,
+          theme.palette.mode === 'light' ? themeVariables.boxShadow : undefined,
         borderBottom: (theme) => (theme.palette.mode === 'dark' ? 1 : undefined),
         borderColor: (theme) => (theme.palette.mode === 'dark' ? 'divider' : undefined),
       }}
@@ -43,12 +54,48 @@ export function Header() {
       <Container>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item xs="auto" mr={2}>
-            <Stack alignItems="center" component={Link} to="/blog">
-              <Logo />
+            <Stack alignItems="center" spacing={1}>
+              <Link to="/">
+                <Logo />
+              </Link>
 
-              <Typography variant="h6" color="primary" fontWeight={600} letterSpacing={1} ml={1}>
-                {APP_NAME}
-              </Typography>
+              {location.pathname === '/blog' ? (
+                <Link to="/">
+                  <Typography
+                    variant="h6"
+                    color="primary"
+                    sx={{
+                      fontWeight: 600,
+                      letterSpacing: 1,
+                    }}
+                  >
+                    {APP_NAME}
+                  </Typography>
+                </Link>
+              ) : (
+                <Button
+                  variant="text"
+                  startIcon={<ArrowBackIosNewRounded />}
+                  onClick={goBack}
+                  sx={{
+                    fontWeight: 600,
+                    fontSize: 12,
+                    textTransform: 'uppercase',
+                    color: 'text.primary',
+                    cursor: 'pointer',
+                    ':hover': {
+                      bgcolor: 'transparent',
+                      textDecoration: 'underline',
+                    },
+                    '& .MuiSvgIcon-root': {
+                      fontSize: '12px !important',
+                      mr: -0.5,
+                    },
+                  }}
+                >
+                  {t('back')}
+                </Button>
+              )}
             </Stack>
           </Grid>
 

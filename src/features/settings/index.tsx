@@ -6,8 +6,8 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import SettingTabs from './components/SettingTabs';
 import { ChangePasswordPage, EditProfilePage } from './pages';
 
-export default function Setting() {
-  const { t } = useTranslation('setting');
+export default function Settings() {
+  const { t } = useTranslation('settings');
 
   return (
     <>

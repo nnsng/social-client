@@ -41,6 +41,11 @@ const validate = {
     required: 'Please enter content',
     min: (n: number) => `Content must be at least ${n} characters`,
   },
+  keywords: {
+    min: (n: number) => `Keywords must be at least ${n} characters`,
+    max: (n: number) => `Keywords must be at most ${n} characters`,
+    valid: 'Keywords: Only A-Z, a-z, 0-9, - are allowed',
+  },
 };
 
 export default validate;

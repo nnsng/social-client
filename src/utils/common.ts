@@ -7,7 +7,7 @@ import i18next from 'i18next';
 import { Post, UserConfig } from 'models';
 import { toast } from 'react-toastify';
 import slugify from 'slugify';
-import { CONFIG } from './constants';
+import { CONFIG, REGEX } from './constants';
 import { useTranslateFiles } from './translation';
 
 export const formatTime = (timestamp: any) => {
@@ -35,8 +35,23 @@ export const getImageUrlFromCDN = async (image: File) => {
 
 export const copyPostLink = (post: Post) => {
   const { toast: toastTranslation } = useTranslateFiles('toast');
-  navigator.clipboard.writeText(`${window.location.origin}/blog/${post.slug}`);
+  navigator.clipboard.writeText(`${window.location.origin}/blog/post/${post.slug}`);
   toast.success(toastTranslation.copyLinkSuccess);
+};
+
+export const formatKeyword = (keyword: string) => {
+  return keyword.toLowerCase().trim().replace(/\s+/g, '-');
+};
+
+export const delay = async (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+export const hasItemInArray = (item: any, array: any, callback?: (element: any) => boolean) => {
+  if (!Array.isArray(array) || array.length === 0) return false;
+
+  const findFunc = callback ? callback : (element: any) => element === item;
+  return array.findIndex(findFunc) !== -1;
 };
 
 export const localConfig = {

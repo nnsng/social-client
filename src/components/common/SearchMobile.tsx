@@ -1,4 +1,4 @@
-import { CloseRounded, SearchRounded } from '@mui/icons-material';
+import { ArrowBackIosNewRounded, CloseRounded, SearchRounded } from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -17,26 +17,27 @@ import { Post } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { mixins, themeConstants } from 'utils/theme';
+import { mixins, themeVariables } from 'utils/theme';
 
 export interface SearchMobileProps {
   loading?: boolean;
   open?: boolean;
   onClose?: () => void;
-  searchResultList?: Post[];
-  searchInput?: string;
-  onSearchChange?: (e: any) => void;
+  result?: Post[];
+  inputValue?: string;
+  onChange?: (e: any) => void;
+  onClear?: () => void;
 }
 
 export function SearchMobile(props: SearchMobileProps) {
-  const { loading, open, onClose, searchResultList, searchInput, onSearchChange } = props;
+  const { loading, open, onClose, result, inputValue, onChange, onClear } = props;
 
   const navigate = useNavigate();
 
   const { t } = useTranslation('header');
 
   const gotoPost = (post: Post) => {
-    navigate(`/blog/${post.slug}`);
+    navigate(`/blog/post/${post.slug}`);
     onClose?.();
   };
 
@@ -47,25 +48,40 @@ export function SearchMobile(props: SearchMobileProps) {
           position: 'sticky',
           top: 0,
           zIndex: 1,
-          height: themeConstants.headerHeight,
+          height: themeVariables.headerHeight,
           backgroundColor: 'background.default',
-          boxShadow: themeConstants.boxShadow,
+          boxShadow: themeVariables.boxShadow,
         }}
       >
         <Toolbar sx={{ height: '100%' }}>
-          <FormControl fullWidth size="small" sx={{ mr: 3 }}>
+          <IconButton edge="start" color="inherit" onClick={onClose}>
+            <ArrowBackIosNewRounded sx={{ color: 'text.secondary' }} />
+          </IconButton>
+
+          <FormControl fullWidth size="small">
             <OutlinedInput
               placeholder={t('search.placeholder')}
               inputProps={{ sx: { pl: 1.5 } }}
-              value={searchInput || ''}
-              onChange={onSearchChange}
-              startAdornment={<SearchRounded sx={{ color: 'text.secondary' }} />}
+              value={inputValue || ''}
+              onChange={onChange}
+              autoFocus
+              startAdornment={
+                <SearchRounded sx={{ color: 'action.disabled', cursor: 'pointer' }} />
+              }
+              endAdornment={
+                (inputValue || '').length > 0 && (
+                  <CloseRounded
+                    sx={{ color: 'text.secondary', cursor: 'pointer' }}
+                    onClick={onClear}
+                  />
+                )
+              }
+              sx={{
+                borderRadius: 40,
+                bgcolor: 'background.paper',
+              }}
             />
           </FormControl>
-
-          <IconButton edge="start" color="inherit" onClick={onClose}>
-            <CloseRounded sx={{ color: 'text.secondary' }} />
-          </IconButton>
         </Toolbar>
       </Box>
 
@@ -75,18 +91,18 @@ export function SearchMobile(props: SearchMobileProps) {
 
           <Typography variant="body2" color="textSecondary" sx={{ flexGrow: 1 }}>
             {!loading &&
-              (searchInput || '').length > 0 &&
+              (inputValue || '').length > 0 &&
               t('search.result', {
-                count: searchResultList?.length,
-                searchTerm: searchInput,
+                count: result?.length,
+                searchTerm: inputValue,
               })}
           </Typography>
         </Box>
 
         <List disablePadding>
-          {(searchInput || '').length > 1 &&
-            searchResultList &&
-            searchResultList.map((post) => (
+          {(inputValue || '').length > 1 &&
+            result &&
+            result.map((post) => (
               <ListItem key={post._id} disablePadding>
                 <ListItemButton disableRipple onClick={() => gotoPost(post)}>
                   <Box display="flex" alignItems="center">

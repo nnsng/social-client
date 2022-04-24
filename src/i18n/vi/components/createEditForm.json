@@ -1,9 +1,14 @@
 {
-  "placeholder": {
-    "title": "Tiêu đề",
-    "content": "Nhập nội dung bài viết...",
-    "keyword": "Thêm tối đa {{maxKeywords}} từ khóa liên quan đến bài viết",
-    "maxKeywordsError": "Số từ khóa tối đa là {{maxKeywords}}"
+  "title": {
+    "placeholder": "Tiêu đề"
+  },
+  "content": {
+    "placeholder": "Nhập nội dung bài viết..."
+  },
+  "keyword": {
+    "label": "Thêm tối đa {{max}} từ khóa liên quan đến bài viết (Enter để thêm):",
+    "placeholder": "Nhập từ khóa",
+    "error": "Đã thêm tối đa từ khóa"
   },
   "noTitle": "Chưa có tiêu đề",
   "btnLabel": {

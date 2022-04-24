@@ -1,4 +1,10 @@
-import { BookmarkBorderRounded, MoreHorizRounded } from '@mui/icons-material';
+import {
+  BookmarkBorderRounded,
+  ChatBubbleOutlineRounded,
+  FavoriteBorderRounded,
+  MoreHorizRounded,
+  VisibilityOutlined,
+} from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -18,10 +24,12 @@ import { selectCurrentUser } from 'features/auth/authSlice';
 import { Post } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import ReactMarkdown from 'react-markdown';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import remarkGfm from 'remark-gfm';
 import { formatTime } from 'utils/common';
-import { mixins, themeConstants } from 'utils/theme';
+import { mixins, themeVariables } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 
 export interface PostCardProps {
@@ -30,7 +38,9 @@ export interface PostCardProps {
   onRemove?: (post: Post) => void;
 }
 
-export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
+export default function PostCard(props: PostCardProps) {
+  const { post, onSave, onRemove } = props;
+
   const navigate = useNavigate();
 
   const { t } = useTranslation('postCard');
@@ -90,23 +100,39 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
     t,
   });
 
+  const statistics = [
+    {
+      icon: <FavoriteBorderRounded />,
+      count: post.statistics?.likeCount || 0,
+    },
+    {
+      icon: <ChatBubbleOutlineRounded />,
+      count: post.statistics?.commentCount || 0,
+    },
+    {
+      icon: <VisibilityOutlined />,
+      count: post.statistics?.viewCount || 0,
+    },
+  ];
+
   return (
     <>
       <Card
         sx={{
           width: '100%',
-          p: 3,
+          p: 2,
           mb: 2,
           borderRadius: 2,
           bgcolor: 'background.paper',
-          boxShadow: themeConstants.boxShadow,
+          border: 1,
+          borderColor: 'divider',
         }}
       >
         <CardHeader
           avatar={
-            <Link to={`/blog?username=${post?.author?.username}`}>
-              <Avatar src={post?.author?.avatar} />
-            </Link>
+            // <Link to={`/blog/user/${post?.author?.username}`}>
+            <Avatar src={post?.author?.avatar} />
+            // </Link>
           }
           action={
             <Box>
@@ -146,7 +172,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
               <ActionMenu
                 open={openMenu}
                 anchorEl={anchorRef.current}
-                paperSx={{ boxShadow: themeConstants.boxShadow, overflow: 'hidden' }}
+                paperSx={{ boxShadow: themeVariables.boxShadow, overflow: 'hidden' }}
                 onClose={closeMenu}
               >
                 {postMenu.map(({ label, icon: Icon, onClick, show }, idx) =>
@@ -174,7 +200,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
               color="text.primary"
               fontWeight={600}
               component={Link}
-              to={`/blog?username=${post?.author?.username}`}
+              to={`/blog/user/${post?.author?.username}`}
             >
               {post?.author?.name}
             </Typography>
@@ -188,7 +214,7 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
             display: 'flex',
             alignItems: 'center',
             p: 0,
-            mb: post.thumbnail ? 0 : 2,
+            mb: 1,
             '& .MuiCardHeader-action': {
               m: 0,
             },
@@ -197,16 +223,18 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
 
         <CardContent sx={{ '&:last-child': { p: 0 } }}>
           <Stack
-            justifyContent="space-between"
-            flexDirection={{ sm: 'row', xs: 'column' }}
-            alignItems={{ sm: 'center', xs: 'flex-start' }}
+            component={Link}
+            to={`/blog/post/${post.slug}`}
+            sx={{
+              flexDirection: { sm: 'row', xs: 'column' },
+              alignItems: { sm: 'center', xs: 'flex-start' },
+              justifyContent: 'space-between',
+            }}
           >
             <Box flexGrow={1}>
               <Typography
                 variant="h6"
                 color="text.primary"
-                component={Link}
-                to={`/blog/${post.slug}`}
                 sx={{
                   ...mixins.truncate(2),
                   mb: 1,
@@ -216,16 +244,34 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
                 {post.title}
               </Typography>
 
-              <Typography variant="body1" m={0} sx={{ ...mixins.truncate(2) }}>
-                {post.content}
+              <Typography
+                variant="body1"
+                color="text.secondary"
+                sx={{
+                  ...mixins.truncate(2),
+                  m: 0,
+                  '& *': { maxWidth: '100%' },
+                }}
+              >
+                <ReactMarkdown
+                  children={post.content}
+                  remarkPlugins={[remarkGfm]}
+                  disallowedElements={['table']}
+                />
               </Typography>
             </Box>
 
             {post.thumbnail && (
-              <Box width={{ xs: '100%', sm: 'auto' }} mt={{ xs: 2, sm: 0 }} ml={{ xs: 0, sm: 2 }}>
+              <Box
+                sx={{
+                  width: { xs: '100%', sm: 'auto' },
+                  mt: { xs: 2, sm: 0 },
+                  ml: { xs: 0, sm: 2 },
+                }}
+              >
                 <CardMedia
                   component={Link}
-                  to={`/blog/${post.slug}`}
+                  to={`/blog/post/${post.slug}`}
                   image={post.thumbnail}
                   title={post.title}
                   sx={{
@@ -233,11 +279,32 @@ export default function PostCard({ post, onSave, onRemove }: PostCardProps) {
                     width: { xs: '100%', sm: 200 },
                     height: { xs: 200, sm: 100 },
                     borderRadius: 2,
-                    bgcolor: 'grey.200',
+                    bgcolor: 'action.hover',
                   }}
                 />
               </Box>
             )}
+          </Stack>
+
+          <Stack mt={1}>
+            {statistics.map(({ icon, count }, idx) => (
+              <Typography
+                key={idx}
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  color: 'text.secondary',
+                  fontSize: 14,
+                  mr: 2,
+                  '& svg': {
+                    mr: 1,
+                  },
+                }}
+              >
+                {icon}
+                {count}
+              </Typography>
+            ))}
           </Stack>
         </CardContent>
       </Card>

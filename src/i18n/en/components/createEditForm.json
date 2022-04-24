@@ -1,9 +1,14 @@
 {
-  "placeholder": {
-    "title": "Title",
-    "content": "Type content here...",
-    "keyword": "Add up to {{maxKeywords}} keywords relevant to the post",
-    "maxKeywordsError": "Max number of keywords is {{maxKeywords}}"
+  "title": {
+    "placeholder": "Title"
+  },
+  "content": {
+    "placeholder": "Type content here..."
+  },
+  "keyword": {
+    "label": "Add up to {{max}} keywords relevant to the post (Enter to add):",
+    "placeholder": "Keyword",
+    "error": "Added maximum of keywords"
   },
   "noTitle": "No title",
   "btnLabel": {

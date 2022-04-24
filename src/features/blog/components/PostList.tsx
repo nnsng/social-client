@@ -25,11 +25,7 @@ export default function PostList(props: PostListProps) {
   };
 
   return (
-    <Box
-      sx={{
-        width: '100%',
-      }}
-    >
+    <Box sx={{ width: '100%' }}>
       <List
         disablePadding
         sx={{

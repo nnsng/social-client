@@ -90,7 +90,7 @@ export default function CommentItem(props: CommentItemProps) {
       <ListItem disableGutters sx={{ mb: 2.5 }}>
         <Grid container spacing={2}>
           <Grid item xs="auto">
-            <Link to={`/blog?username=${comment?.user?.username}`}>
+            <Link to={`/blog/user/${comment?.user?.username}`}>
               <Avatar src={comment?.user?.avatar} sx={{ width: 36, height: 36 }} />
             </Link>
           </Grid>
@@ -139,7 +139,7 @@ export default function CommentItem(props: CommentItemProps) {
                   color="text.primary"
                   fontWeight={600}
                   component={Link}
-                  to={`/blog?username=${comment?.user?.username}`}
+                  to={`/blog/user/${comment?.user?.username}`}
                 >
                   {comment?.user?.name}
                 </Typography>

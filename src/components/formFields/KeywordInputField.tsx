@@ -6,9 +6,10 @@ import { Control, useController } from 'react-hook-form';
 export interface KeywordInputFieldProps {
   name: string;
   control: Control<any>;
-  maxKeywords?: number;
+  max?: number;
+  label?: string;
   placeholder?: string;
-  maxKeywordsError?: string;
+  errorText?: string;
 }
 
 export function KeywordInputField(props: KeywordInputFieldProps) {

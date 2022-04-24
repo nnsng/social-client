@@ -62,10 +62,11 @@ function* fetchPostDetail(action: PayloadAction<string>) {
   }
 }
 
-function* likePost(action: PayloadAction<string>) {
+function* handleLikePost(action: PayloadAction<string>) {
   try {
     const post: Post = yield call(postApi.like, action.payload);
     yield put(blogActions.likePostSuccess(post));
+    yield put(blogActions.updateStatistics({ likeCount: post.statistics?.likeCount }));
   } catch (error) {
     console.log('Failed to like post:', error);
   }
@@ -91,7 +92,7 @@ export default function* postSaga() {
   yield takeLatest(blogActions.fetchSavedPostList.type, fetchSavedPostList);
   yield takeLatest(blogActions.fetchPostDetail.type, fetchPostDetail);
 
-  yield takeLatest(blogActions.likePost.type, likePost);
+  yield takeLatest(blogActions.likePost.type, handleLikePost);
 
   yield debounce(500, blogActions.searchWithDebounce.type, handleSearchWithDebounce);
 }

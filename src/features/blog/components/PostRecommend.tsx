@@ -1,24 +1,22 @@
 import { Box, Chip, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
-import { Keyword } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { slugifyString } from 'utils/common';
+import { formatKeyword } from 'utils/common';
 
-const keywordList: Keyword[] = [
+const recommendKeywords: string[] = [
   'Front-end',
   'Back-end',
-  'Mobile app',
+  'Mobile',
   'Design',
   'DevOps',
   'Others',
-].map((keyword) => ({
-  name: keyword,
-  value: slugifyString(keyword),
-}));
+]
+  .map(formatKeyword)
+  .filter((x) => !!x);
 
 export interface PostRecommendProps {
   keywordActive: string | undefined;
-  onKeywordClick?: (keyword: Keyword) => void;
+  onKeywordClick?: (keyword: string) => void;
 }
 
 export default function PostRecommend(props: PostRecommendProps) {
@@ -26,13 +24,13 @@ export default function PostRecommend(props: PostRecommendProps) {
 
   const { t } = useTranslation('postRecommend');
 
-  const handleKeywordClick = (keyword: Keyword) => {
-    if (keyword.value === keywordActive) return clearKeyword();
+  const handleKeywordClick = (keyword: string) => {
+    if (keyword === keywordActive) return clearKeyword();
     onKeywordClick?.(keyword);
   };
 
   const clearKeyword = () => {
-    onKeywordClick?.({} as Keyword);
+    onKeywordClick?.('');
   };
 
   const isOnPC = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
@@ -68,20 +66,33 @@ export default function PostRecommend(props: PostRecommendProps) {
             : {}
         }
       >
-        {keywordList.map((keyword, idx) => (
+        {recommendKeywords.map((keyword, idx) => (
           <Chip
             key={idx}
-            color={keywordActive === keyword.value ? 'primary' : undefined}
-            label={keyword.name}
+            color={keywordActive === keyword ? 'primary' : undefined}
+            label={keyword}
             onClick={() => handleKeywordClick?.(keyword)}
             sx={{
               mt: 1,
               mr: 1,
-              fontSize: 16,
-              color: keywordActive === keyword.value ? 'common.white' : 'text.secondary',
+              fontSize: { lg: 16 },
+              color: keywordActive === keyword ? 'common.white' : 'text.secondary',
             }}
           />
         ))}
+        {keywordActive && recommendKeywords.every((keyword) => keyword !== keywordActive) && (
+          <Chip
+            color="primary"
+            label={keywordActive}
+            onClick={clearKeyword}
+            sx={{
+              mt: 1,
+              mr: 1,
+              fontSize: { lg: 16 },
+              color: 'common.white',
+            }}
+          />
+        )}
         {/* {keywordActive && (
           <Chip
             label={<DeleteForeverRounded sx={{ display: 'flex', alignItems: 'center' }} />}

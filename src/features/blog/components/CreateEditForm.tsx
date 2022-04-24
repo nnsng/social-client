@@ -6,7 +6,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  Grid,
   Stack,
   Typography,
 } from '@mui/material';
@@ -23,7 +22,9 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { mixins, themeConstants } from 'utils/theme';
+import { delay } from 'utils/common';
+import { REGEX } from 'utils/constants';
+import { mixins, themeVariables } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
@@ -43,19 +44,21 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     title: yup.string().required(validate.title.required),
     content: yup.string().required(validate.content.required).min(50, validate.content.min(50)),
     thumbnail: yup.string(),
-    keywords: yup.array().of(
-      yup.object().shape({
-        name: yup.string().required(),
-        value: yup.string().required(),
-      })
-    ),
+    keywords: yup
+      .array()
+      .of(
+        yup
+          .string()
+          .min(3, validate.keywords.min(3))
+          .max(20, validate.keywords.max(20))
+          .matches(REGEX.keyword, validate.keywords.valid)
+      ),
   });
 
   const {
     control,
     handleSubmit,
     setValue,
-    getValues,
     reset,
     watch,
     formState: { errors, isSubmitting },
@@ -66,7 +69,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
 
   const title = watch('title');
   const thumbnail = watch('thumbnail');
-  const maxKeywords = 5;
+  const maxKeyword = 5;
 
   const uploading = useAppSelector(selectUploading);
 
@@ -80,14 +83,18 @@ export default function CreateEditForm(props: CreateEditFormProps) {
   }, [defaultValues]);
 
   useEffect(() => {
-    if (isSubmitting) return;
+    (async () => {
+      if (isSubmitting) return;
 
-    const errorValues: any = Object.values(errors);
-    if (errorValues.length === 0) return;
+      const keywordErrors = (errors.keywords || []).filter((x) => !!x);
+      const errorValues: any = Object.values(errors).concat(keywordErrors);
+      if (errorValues?.length === 0) return;
 
-    for (const error of errorValues) {
-      toast.error(error.message);
-    }
+      for (const error of errorValues) {
+        toast.error(error.message);
+        await delay(200);
+      }
+    })();
   }, [isSubmitting]);
 
   const removeThumbnail = () => {
@@ -109,11 +116,11 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     <form>
       <Stack
         direction="column"
-        height={`calc(100vh - ${themeConstants.headerHeight} * 2 + 36px)`}
+        height={`calc(100vh - ${themeVariables.headerHeight} * 2 + 36px)`}
         sx={{
-          mt: 3,
           borderRadius: 2,
-          boxShadow: themeConstants.boxShadow,
+          border: 1,
+          borderColor: 'divider',
           bgcolor: 'background.paper',
         }}
       >
@@ -121,7 +128,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
           <InputField
             name="title"
             control={control}
-            placeholder={t('placeholder.title')}
+            placeholder={t('title.placeholder')}
             spellCheck={false}
             autoFocus
             sx={{
@@ -137,21 +144,21 @@ export default function CreateEditForm(props: CreateEditFormProps) {
           </Button>
         </Stack>
 
-        <MdEditorField name="content" control={control} placeholder={t('placeholder.content')} />
+        <MdEditorField name="content" control={control} placeholder={t('content.placeholder')} />
       </Stack>
 
       <Dialog
         open={open}
         onClose={closeDialog}
-        sx={(theme) => ({
+        sx={{
           '& .MuiPaper-root': {
             width: 800,
           },
-        })}
+        }}
       >
         <Typography
           variant="h6"
-          color={title.length > 0 ? 'text.primary' : 'text.disabled'}
+          color={title?.length > 0 ? 'text.primary' : 'text.disabled'}
           component="div"
           sx={{
             px: 3,
@@ -168,7 +175,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
             sx={{
               maxWidth: 400,
               height: 200,
-              bgcolor: (theme) => theme.palette.action.hover,
+              bgcolor: 'action.hover',
               backgroundImage: `url('${thumbnail}')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
@@ -184,7 +191,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
               htmlFor="thumbnail-input"
               disabled={uploading}
               startIcon={uploading && <CircularProgress size={20} />}
-              sx={{ fontWeight: 400 }}
+              sx={{ fontWeight: 500 }}
             >
               <FileInputField name="thumbnail" control={control} id="thumbnail-input" />
               {t('btnLabel.addThumbnail')}
@@ -207,9 +214,10 @@ export default function CreateEditForm(props: CreateEditFormProps) {
           <KeywordInputField
             name="keywords"
             control={control}
-            maxKeywords={maxKeywords}
-            placeholder={t('placeholder.keyword', { maxKeywords })}
-            maxKeywordsError={t('placeholder.maxKeywordsError', { maxKeywords })}
+            max={maxKeyword}
+            label={t('keyword.label', { max: maxKeyword })}
+            placeholder={t('keyword.placeholder')}
+            errorText={t('keyword.error')}
           />
         </DialogContent>
 

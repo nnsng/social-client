@@ -2,35 +2,24 @@ import { SearchRounded } from '@mui/icons-material';
 import { Stack, Theme, useMediaQuery } from '@mui/material';
 import React from 'react';
 import AppearanceDialog from './AppearanceDialog';
-import DrawerMobile from './DrawerMobile';
 import HeaderIconButton from './HeaderIconButton';
 import Notification from './Notification';
-import ThemeSwitch from './ThemeSwitch';
 import UserMenu from './UserMenu';
 
 export interface HeaderMenuProps {
   toggleSearchMobile?: () => void;
 }
 
-export function HeaderMenu(props: HeaderMenuProps) {
-  const { toggleSearchMobile } = props;
-
-  const hideOnMobile = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
+export function HeaderMenu({ toggleSearchMobile }: HeaderMenuProps) {
+  const isOnMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   return (
     <Stack alignItems="center" ml="auto">
-      {hideOnMobile ? (
-        <>
-          <Notification />
-          <UserMenu />
-        </>
-      ) : (
-        <>
-          <HeaderIconButton icon={<SearchRounded />} onClick={toggleSearchMobile} />
-          <Notification />
-          <DrawerMobile />
-        </>
-      )}
+      {isOnMobile && <HeaderIconButton icon={<SearchRounded />} onClick={toggleSearchMobile} />}
+
+      <Notification />
+
+      <UserMenu isOnMobile={isOnMobile} />
 
       <AppearanceDialog />
     </Stack>

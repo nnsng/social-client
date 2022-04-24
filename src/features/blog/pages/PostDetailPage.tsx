@@ -9,7 +9,6 @@ import { Comment, Post } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
-import { themeConstants } from 'utils/theme';
 import { blogActions, selectPostDetail, selectPostLoading } from '../blogSlice';
 import PostComment from '../components/PostComment';
 import PostDetail from '../components/PostDetail';
@@ -25,11 +24,10 @@ export function PostDetailPage() {
 
   const socket = useAppSelector(selectSocket);
 
-  const [showComment, setShowComment] = useState(false);
+  const [showComment, setShowComment] = useState<boolean>(false);
 
   useEffect(() => {
     if (!slug) return;
-
     dispatch(blogActions.fetchPostDetail(slug));
   }, [dispatch, slug]);
 
@@ -47,7 +45,7 @@ export function PostDetailPage() {
     if (showComment) {
       dispatch(commentActions.fetchPostComments(post?._id as string));
     } else {
-      dispatch(blogActions.updateCommentCount(postComments.length));
+      dispatch(blogActions.updateStatistics({ commentCount: postComments.length || 0 }));
     }
   }, [showComment]);
 
@@ -85,30 +83,18 @@ export function PostDetailPage() {
       <PageTitle title={loading ? APP_NAME : `${post?.title} | ${post?.author?.name}`} />
 
       {!loading && post && (
-        <Box mx={-2}>
-          <Grid
-            container
-            sx={{
-              contain: 'content',
-              minHeight: `calc(100vh - ${themeConstants.headerHeight})`,
-            }}
-          >
+        <Box>
+          <Grid container>
             <Grid item xs={12} md={10} lg={7} mx="auto">
-              <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
+              <Box>
+                <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
+              </Box>
             </Grid>
 
-            <Grid
-              item
-              xs={12}
-              md={10}
-              lg={2}
-              mx="auto"
-              sx={{
-                position: { lg: 'fixed' },
-                right: { lg: 0 },
-              }}
-            >
-              <PostReact post={post} onOpenComment={openComment} onLikePost={handleLikePost} />
+            <Grid item xs={12} md={10} lg={3} mx={{ xs: 'auto', lg: 0 }}>
+              <Box position="sticky" top={96}>
+                <PostReact post={post} onOpenComment={openComment} onLikePost={handleLikePost} />
+              </Box>
             </Grid>
           </Grid>
 

@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { formatTime } from 'utils/common';
-import { themeConstants } from 'utils/theme';
+import { themeVariables } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 import MdEditor from './MdEditor';
 
@@ -92,23 +92,14 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
 
   return (
     <>
-      <Card
-        sx={{
-          p: 3,
-          mx: 2,
-          mb: 3,
-          bgcolor: 'background.paper',
-          borderRadius: 2,
-          boxShadow: themeConstants.boxShadow,
-        }}
-      >
-        <Typography variant="h1" fontSize={40} fontWeight={600} mb={2}>
+      <Card sx={{ mb: 3, bgcolor: 'background.default' }}>
+        <Typography variant="h1" fontSize={40} fontWeight={600} mb={0}>
           {post.title}
         </Typography>
 
         <CardHeader
           avatar={
-            <Link to={`/blog?username=${post?.author?.username}`}>
+            <Link to={`/blog/user/${post?.author?.username}`}>
               <Avatar src={post?.author?.avatar} />
             </Link>
           }
@@ -150,7 +141,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
               <ActionMenu
                 open={openMenu}
                 anchorEl={anchorRef.current}
-                paperSx={{ boxShadow: themeConstants.boxShadow, overflow: 'hidden' }}
+                paperSx={{ boxShadow: themeVariables.boxShadow, overflow: 'hidden' }}
                 onClose={closeMenu}
               >
                 {postMenu.map(({ label, icon: Icon, onClick, show }, idx) =>
@@ -178,7 +169,7 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
               color="text.primary"
               fontWeight={600}
               component={Link}
-              to={`/blog?username=${post?.author?.username}`}
+              to={`/blog/user/${post?.author?.username}`}
             >
               {post?.author?.name}
             </Typography>
@@ -191,7 +182,8 @@ export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) 
           sx={{
             display: 'flex',
             alignItems: 'center',
-            my: 4,
+            mt: 2,
+            mb: 3,
             mx: 0,
             p: 0,
 
