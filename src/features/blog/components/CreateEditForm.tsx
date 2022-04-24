@@ -69,7 +69,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
 
   const title = watch('title');
   const thumbnail = watch('thumbnail');
-  const maxKeywords = 5;
+  const maxKeyword = 5;
 
   const uploading = useAppSelector(selectUploading);
 
@@ -128,7 +128,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
           <InputField
             name="title"
             control={control}
-            placeholder={t('placeholder.title')}
+            placeholder={t('title.placeholder')}
             spellCheck={false}
             autoFocus
             sx={{
@@ -144,7 +144,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
           </Button>
         </Stack>
 
-        <MdEditorField name="content" control={control} placeholder={t('placeholder.content')} />
+        <MdEditorField name="content" control={control} placeholder={t('content.placeholder')} />
       </Stack>
 
       <Dialog
@@ -191,7 +191,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
               htmlFor="thumbnail-input"
               disabled={uploading}
               startIcon={uploading && <CircularProgress size={20} />}
-              sx={{ fontWeight: 400 }}
+              sx={{ fontWeight: 500 }}
             >
               <FileInputField name="thumbnail" control={control} id="thumbnail-input" />
               {t('btnLabel.addThumbnail')}
@@ -214,9 +214,10 @@ export default function CreateEditForm(props: CreateEditFormProps) {
           <KeywordInputField
             name="keywords"
             control={control}
-            maxKeywords={maxKeywords}
-            placeholder={t('placeholder.keyword', { maxKeywords })}
-            maxKeywordsError={t('placeholder.maxKeywordsError', { maxKeywords })}
+            max={maxKeyword}
+            label={t('keyword.label', { max: maxKeyword })}
+            placeholder={t('keyword.placeholder')}
+            errorText={t('keyword.error')}
           />
         </DialogContent>
 

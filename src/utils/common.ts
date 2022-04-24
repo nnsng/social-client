@@ -40,16 +40,16 @@ export const copyPostLink = (post: Post) => {
 };
 
 export const formatKeyword = (keyword: string) => {
-  const formattedKeyword = keyword.toLowerCase().trim();
-  const isValid = REGEX.keyword.test(formattedKeyword);
-  return isValid ? formattedKeyword : '';
+  return keyword.toLowerCase().trim().replace(/\s+/g, '-');
 };
 
 export const delay = async (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
-export const hasItemInArray = (array: any[], item: any, callback?: (element: any) => boolean) => {
+export const hasItemInArray = (item: any, array: any, callback?: (element: any) => boolean) => {
+  if (!Array.isArray(array) || array.length === 0) return false;
+
   const findFunc = callback ? callback : (element: any) => element === item;
   return array.findIndex(findFunc) !== -1;
 };

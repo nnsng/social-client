@@ -1,17 +1,19 @@
-import { Box, Chip, Stack, TextField } from '@mui/material';
+import { Box, Chip, FormHelperText, Stack, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import { formatKeyword } from 'utils/common';
 
 export interface KeywordInputProps {
   name?: string;
   value?: string[];
-  maxKeywords?: number;
+  max?: number;
+  label?: string;
   placeholder?: string;
-  maxKeywordsError?: string;
+  errorText?: string;
   onChange?: (keywordList: string[]) => void;
 }
 
 export function KeywordInput(props: KeywordInputProps) {
-  const { name, value, maxKeywords = 5, placeholder, maxKeywordsError } = props;
+  const { name, value, max = 5, label, placeholder, errorText } = props;
 
   const [inputText, setInputText] = useState<string>('');
   const [keywordList, setKeywordList] = useState<string[]>(value || []);
@@ -24,7 +26,7 @@ export function KeywordInput(props: KeywordInputProps) {
   const handleAddKeyword = (e: any) => {
     if (e.key !== 'Enter') return;
 
-    const newKeyword = inputText.toLowerCase().trim();
+    const newKeyword = formatKeyword(inputText);
     if (!newKeyword) return;
 
     const newKeywordList = [...keywordList, newKeyword];
@@ -43,17 +45,23 @@ export function KeywordInput(props: KeywordInputProps) {
 
   return (
     <Box>
+      <Typography component="p" fontSize={14} color="text.secondary" mb={0.5}>
+        {label}
+      </Typography>
+
       <TextField
         name={name}
         value={inputText}
         variant="standard"
         size="small"
         fullWidth
-        placeholder={keywordList.length >= maxKeywords ? maxKeywordsError : placeholder}
-        disabled={keywordList.length >= maxKeywords}
+        placeholder={placeholder}
+        disabled={keywordList.length >= max}
         onChange={handleChange}
         onKeyUp={handleAddKeyword}
       />
+
+      {keywordList.length >= max && <FormHelperText error>{errorText}</FormHelperText>}
 
       <Stack mt={1} spacing={0.5}>
         {keywordList.map((keyword, idx) => (

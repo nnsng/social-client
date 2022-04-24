@@ -63,7 +63,7 @@ export default function PostReact(props: PostReactProps) {
             },
           }}
           startIcon={
-            hasItemInArray(post?.likes || [], currentUser?._id) ? (
+            hasItemInArray(currentUser?._id, post?.likes || []) ? (
               <FavoriteRounded sx={{ color: 'error.main' }} />
             ) : (
               <FavoriteBorderRounded />
