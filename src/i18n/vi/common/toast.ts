@@ -24,9 +24,7 @@ const toast = {
   settingSaga: {
     updateProfileSuccess: 'Cập nhật thông tin thành công.',
   },
-  changePasswordPage: {
-    forgotPassword: 'Đang cập nhật.',
-  },
+  changePasswordPage: {},
   changePasswordForm: {
     success: 'Đổi mật khẩu thành công',
   },
@@ -57,6 +55,7 @@ const toast = {
   },
 
   copyLinkSuccess: 'Đã sao chép.',
+  comingSoon: 'Đang cập nhật.',
 };
 
 export default toast;

@@ -33,7 +33,7 @@ export function ApplyTheme({ children }: ApplyThemeProps) {
   return (
     <ThemeProvider theme={theme}>
       {children}
-      <ToastContainer theme={themeMode} autoClose={3000} />
+      <ToastContainer theme={themeMode} autoClose={2000} />
     </ThemeProvider>
   );
 }

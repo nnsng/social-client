@@ -24,9 +24,7 @@ const toast = {
   settingSaga: {
     updateProfileSuccess: 'Update profile successfully.',
   },
-  changePasswordPage: {
-    forgotPassword: 'Coming soon.',
-  },
+  changePasswordPage: {},
   changePasswordForm: {
     success: 'Change password successfully.',
   },
@@ -57,6 +55,7 @@ const toast = {
   },
 
   copyLinkSuccess: 'Copied.',
+  comingSoon: 'Coming soon.',
 };
 
 export default toast;

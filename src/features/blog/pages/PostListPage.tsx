@@ -5,32 +5,37 @@ import { PageTitle } from 'components/common';
 import { Post } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { blogActions, selectPostList, selectTotalPages } from '../blogSlice';
 import { PostItemMobile } from '../components/PostItemMobile';
 import PostTable from '../components/PostTable';
 
-export interface MyPostListPageProps {
-  type?: 'myPostList' | 'saved';
+export interface PostListPageProps {
+  mode?: 'my' | 'saved';
 }
 
-export function MyPostListPage() {
+export function PostListPage({ mode }: PostListPageProps) {
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const isSavedPage = location.pathname === '/blog/saved';
+  const { t } = useTranslation('postList');
 
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
   const totalPage = useAppSelector(selectTotalPages);
 
-  const [type, setType] = useState<string>('');
   const [filters, setFilters] = useState({
     page: 1,
     limit: 10,
   });
 
-  const { t } = useTranslation(type);
+  const isSavedPage = mode === 'saved';
+
+  useEffect(() => {
+    setFilters({
+      page: 1,
+      limit: 10,
+    });
+  }, [mode]);
 
   useEffect(() => {
     if (isSavedPage) {
@@ -62,11 +67,11 @@ export function MyPostListPage() {
 
   return (
     <>
-      <PageTitle title={t('pageTitle')} />
+      <PageTitle title={t(`pageTitle.${mode}`)} />
 
       <Box>
         <Typography variant="h4" fontWeight={500}>
-          {t('pageTitle')}
+          {t(`pageTitle.${mode}`)}
         </Typography>
 
         {hideOnMobile ? (

@@ -18,7 +18,7 @@ import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { formatTime } from 'utils/common';
+import { formatTime, showToastComingSoon } from 'utils/common';
 import { useTranslateFiles } from 'utils/translation';
 
 export interface CommentItemProps {
@@ -69,8 +69,13 @@ export default function CommentItem(props: CommentItemProps) {
     onLike?.(comment);
   };
 
+  const handleMenuItemClick = (callback?: () => void) => {
+    closeMenu();
+    callback?.();
+  };
+
   const isAuthorized = currentUser?._id === comment.userId || currentUser?.role === 'admin';
-  const menuItems: IMenuItem[] = [
+  const menuItemList: IMenuItem[] = [
     {
       label: t('menu.delete'),
       icon: DeleteRounded,
@@ -80,7 +85,7 @@ export default function CommentItem(props: CommentItemProps) {
     {
       label: t('menu.report'),
       icon: FlagRounded,
-      onClick: () => {},
+      onClick: showToastComingSoon,
       show: true,
     },
   ];
@@ -192,7 +197,7 @@ export default function CommentItem(props: CommentItemProps) {
                 zIndex={(theme) => (theme.zIndex as any).drawer + 1}
                 onClose={closeMenu}
               >
-                {menuItems.map(({ label, icon: Icon, onClick, show }, idx) =>
+                {menuItemList.map(({ label, icon: Icon, onClick, show }, idx) =>
                   show ? (
                     <MenuItem
                       key={idx}
@@ -201,7 +206,7 @@ export default function CommentItem(props: CommentItemProps) {
                         px: 2.5,
                         fontSize: 15,
                       }}
-                      onClick={onClick}
+                      onClick={() => handleMenuItemClick(onClick)}
                     >
                       <Icon sx={{ mr: 2 }} />
                       {label}

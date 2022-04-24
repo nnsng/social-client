@@ -1,6 +1,6 @@
 import { BorderColorRounded, DeleteRounded, FlagRounded, LinkRounded } from '@mui/icons-material';
 import { IMenuItem, Post } from 'models';
-import { copyPostLink } from 'utils/common';
+import { copyPostLink, showToastComingSoon } from 'utils/common';
 import { GetMenuProps } from '.';
 
 export interface GetPostMenuProps extends GetMenuProps {
@@ -34,7 +34,7 @@ export function GetPostMenu(props: GetPostMenuProps) {
     {
       label: t('menu.report'),
       icon: FlagRounded,
-      onClick: () => {},
+      onClick: showToastComingSoon,
       show: true,
     },
   ];

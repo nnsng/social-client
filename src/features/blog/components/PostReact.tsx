@@ -52,12 +52,18 @@ export default function PostReact(props: PostReactProps) {
         {post?.author?.bio}
       </Typography>
 
-      <Stack alignItems="center">
+      <Stack
+        sx={{
+          alignItem: 'center',
+          '& button': {
+            fontSize: 16,
+            color: 'text.secondary',
+          },
+        }}
+      >
         <Button
           color="inherit"
           sx={{
-            color: 'text.secondary',
-            fontSize: 16,
             ':hover': {
               color: 'error.main',
             },
@@ -77,8 +83,6 @@ export default function PostReact(props: PostReactProps) {
         <Button
           color="inherit"
           sx={{
-            color: 'text.secondary',
-            fontSize: 16,
             ':hover': {
               color: 'primary.main',
             },

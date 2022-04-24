@@ -68,3 +68,8 @@ export const localConfig = {
     return config;
   },
 };
+
+export const showToastComingSoon = () => {
+  const { toast: toastTranslation } = useTranslateFiles('toast');
+  toast.info(toastTranslation.comingSoon);
+};

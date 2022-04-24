@@ -1,9 +1,8 @@
 // pages
 import auth from './pages/auth.json';
 import createEditPost from './pages/createEditPost.json';
-import myPostList from './pages/myPostList.json';
-import saved from './pages/saved.json';
-import setting from './pages/settings.json';
+import postList from './pages/postList.json';
+import settings from './pages/settings.json';
 import notFound from './pages/notFound.json';
 
 // components
@@ -28,9 +27,8 @@ export default {
   // pages
   auth,
   createEditPost,
-  myPostList,
-  saved,
-  setting,
+  postList,
+  settings,
   notFound,
 
   // components
