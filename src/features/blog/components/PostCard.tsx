@@ -226,8 +226,8 @@ export default function PostCard(props: PostCardProps) {
             component={Link}
             to={`/blog/post/${post.slug}`}
             sx={{
-              flexDirection: { sm: 'row', xs: 'column' },
-              alignItems: { sm: 'center', xs: 'flex-start' },
+              flexDirection: { xs: 'column', sm: 'row' },
+              alignItems: { xs: 'flex-start', sm: 'center' },
               justifyContent: 'space-between',
             }}
           >
@@ -286,7 +286,7 @@ export default function PostCard(props: PostCardProps) {
             )}
           </Stack>
 
-          <Stack mt={1}>
+          <Stack mt={{ xs: 2, sm: 1 }}>
             {statistics.map(({ icon, count }, idx) => (
               <Typography
                 key={idx}
