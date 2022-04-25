@@ -1,9 +1,9 @@
 import { useAppDispatch } from 'app/hooks';
 import { commentActions } from 'features/blog/commentSlice';
 import { useEffect } from 'react';
-import { SocketProps } from '..';
+import { ISocketProps } from '..';
 
-export default function CommentSocket({ socket }: SocketProps) {
+export default function CommentSocket({ socket }: ISocketProps) {
   const dispatch = useAppDispatch();
 
   // Create comment

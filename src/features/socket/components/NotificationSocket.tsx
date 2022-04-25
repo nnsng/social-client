@@ -1,8 +1,8 @@
 import { useAppDispatch } from 'app/hooks';
 import { useEffect } from 'react';
-import { SocketProps } from '..';
+import { ISocketProps } from '..';
 
-export default function NotificationSocket({ socket }: SocketProps) {
+export default function NotificationSocket({ socket }: ISocketProps) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
