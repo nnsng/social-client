@@ -14,12 +14,12 @@ const recommendKeywords: string[] = [
   .map(formatKeyword)
   .filter((x) => !!x);
 
-export interface PostRecommendProps {
+export interface IPostRecommendProps {
   keywordActive: string | undefined;
   onKeywordClick?: (keyword: string) => void;
 }
 
-export default function PostRecommend(props: PostRecommendProps) {
+export default function PostRecommend(props: IPostRecommendProps) {
   const { keywordActive, onKeywordClick } = props;
 
   const { t } = useTranslation('postRecommend');

@@ -13,30 +13,30 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import { Post } from 'models';
+import { IPost } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { mixins, themeVariables } from 'utils/theme';
 
-export interface SearchMobileProps {
+export interface ISearchMobileProps {
   loading?: boolean;
   open?: boolean;
   onClose?: () => void;
-  result?: Post[];
+  result?: IPost[];
   inputValue?: string;
   onChange?: (e: any) => void;
   onClear?: () => void;
 }
 
-export function SearchMobile(props: SearchMobileProps) {
+export function SearchMobile(props: ISearchMobileProps) {
   const { loading, open, onClose, result, inputValue, onChange, onClear } = props;
 
   const navigate = useNavigate();
 
   const { t } = useTranslation('header');
 
-  const gotoPost = (post: Post) => {
+  const gotoPost = (post: IPost) => {
     navigate(`/blog/post/${post.slug}`);
     onClose?.();
   };

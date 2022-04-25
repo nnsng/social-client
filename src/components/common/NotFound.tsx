@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { Header } from './Header';
 import { PageTitle } from './PageTitle';
 
-export interface NotFoundProps {
+export interface INotFoundProps {
   showHeader?: boolean;
 }
 
-export function NotFound({ showHeader = false }: NotFoundProps) {
+export function NotFound({ showHeader = false }: INotFoundProps) {
   const { t } = useTranslation('notFound');
 
   return (

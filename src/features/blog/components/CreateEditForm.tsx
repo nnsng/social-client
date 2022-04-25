@@ -17,7 +17,7 @@ import {
   MdEditorField,
 } from 'components/formFields';
 import { selectUploading } from 'features/common/uploadSlice';
-import { Post } from 'models';
+import { IPost } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -28,13 +28,13 @@ import { mixins, themeVariables } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
-export interface CreateEditFormProps {
-  defaultValues: Post;
-  onSubmit?: (data: Post) => void;
+export interface ICreateEditFormProps {
+  defaultValues: IPost;
+  onSubmit?: (data: IPost) => void;
   isNewPost?: boolean;
 }
 
-export default function CreateEditForm(props: CreateEditFormProps) {
+export default function CreateEditForm(props: ICreateEditFormProps) {
   const { defaultValues, onSubmit, isNewPost } = props;
 
   const { t } = useTranslation('createEditForm');
@@ -101,7 +101,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     setValue('thumbnail', '');
   };
 
-  const handleFormSubmit = async (data: Post) => {
+  const handleFormSubmit = async (data: IPost) => {
     try {
       await onSubmit?.(data);
     } catch (error) {

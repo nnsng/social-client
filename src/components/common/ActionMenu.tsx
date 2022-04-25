@@ -1,10 +1,10 @@
 import { Drawer, MenuList, Theme, useMediaQuery } from '@mui/material';
 import React from 'react';
-import { PopperMenu, PopperMenuProps } from '.';
+import { PopperMenu, IPopperMenuProps } from '.';
 
-export interface ActionMenuProps extends PopperMenuProps {}
+export interface IActionMenuProps extends IPopperMenuProps {}
 
-export function ActionMenu(props: ActionMenuProps) {
+export function ActionMenu(props: IActionMenuProps) {
   const { open, anchorEl, onClose, children, paperSx, zIndex } = props;
 
   const hideOnMobile = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));

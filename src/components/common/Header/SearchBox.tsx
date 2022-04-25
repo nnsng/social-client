@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { blogActions, selectSearchLoading, selectSearchResultList } from 'features/blog/blogSlice';
-import { Post } from 'models';
+import { IPost } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -24,12 +24,12 @@ import { slugifyString } from 'utils/common';
 import { mixins, themeVariables } from 'utils/theme';
 import { SearchMobile } from '../SearchMobile';
 
-export interface SearchBoxProps {
+export interface ISearchBoxProps {
   openSearchMobile?: boolean;
   toggleSearchMobile?: () => void;
 }
 
-export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxProps) {
+export function SearchBox({ openSearchMobile, toggleSearchMobile }: ISearchBoxProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('header');
@@ -53,7 +53,7 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: SearchBoxPro
     dispatch(blogActions.searchWithDebounce(slugifyString(value)));
   };
 
-  const gotoPost = (post: Post) => {
+  const gotoPost = (post: IPost) => {
     navigate(`/blog/post/${post.slug}`);
     clearSearchInput();
   };

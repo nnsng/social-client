@@ -2,20 +2,20 @@ import { Box, List, ListItem, Pagination, Stack, Theme } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { NoPost } from 'components/common';
 import { selectTotalPages } from 'features/blog/blogSlice';
-import { Post } from 'models';
+import { IPost } from 'models';
 import React from 'react';
 import PostCard from './PostCard';
 
-export interface PostListProps {
-  postList: Post[];
+export interface IPostListProps {
+  postList: IPost[];
   page?: number;
   onPageChange?: (page: number) => void;
 
-  onSave?: (post: Post) => void;
-  onRemove?: (post: Post) => void;
+  onSave?: (post: IPost) => void;
+  onRemove?: (post: IPost) => void;
 }
 
-export default function PostList(props: PostListProps) {
+export default function PostList(props: IPostListProps) {
   const { postList, page, onPageChange, onSave, onRemove } = props;
 
   const totalPage = useAppSelector(selectTotalPages);

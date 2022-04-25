@@ -23,11 +23,11 @@ import { supportedThemeColors } from 'utils/theme';
 import { supportedLanguages } from 'utils/translation';
 import ThemeSwitch from './ThemeSwitch';
 
-interface ColorRatioProps extends RadioProps {
+interface IColorRatioProps extends RadioProps {
   iconColor: string;
 }
 
-function ColorRadio({ iconColor, ...otherProps }: ColorRatioProps) {
+function ColorRadio({ iconColor, ...otherProps }: IColorRatioProps) {
   return (
     <Radio
       sx={{

@@ -10,7 +10,7 @@ import {
 import React from 'react';
 import { useTranslateFiles } from 'utils/translation';
 
-export interface ConfirmDialogProps {
+export interface IConfirmDialogProps {
   open: boolean;
   onClose: () => void;
   title: string;
@@ -19,7 +19,7 @@ export interface ConfirmDialogProps {
   loading?: boolean;
 }
 
-export function ConfirmDialog(props: ConfirmDialogProps) {
+export function ConfirmDialog(props: IConfirmDialogProps) {
   const { open, onClose, title, content, onConfirm, loading } = props;
 
   const { dialog: dialogTranslation } = useTranslateFiles('dialog');

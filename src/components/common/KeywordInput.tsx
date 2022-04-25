@@ -2,7 +2,7 @@ import { Box, Chip, FormHelperText, Stack, TextField, Typography } from '@mui/ma
 import React, { useState } from 'react';
 import { formatKeyword } from 'utils/common';
 
-export interface KeywordInputProps {
+export interface IKeywordInputProps {
   name?: string;
   value?: string[];
   max?: number;
@@ -12,7 +12,7 @@ export interface KeywordInputProps {
   onChange?: (keywordList: string[]) => void;
 }
 
-export function KeywordInput(props: KeywordInputProps) {
+export function KeywordInput(props: IKeywordInputProps) {
   const { name, value, max = 5, label, placeholder, errorText } = props;
 
   const [inputText, setInputText] = useState<string>('');

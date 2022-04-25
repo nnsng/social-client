@@ -1,25 +1,25 @@
 import { Stack } from '@mui/material';
 import { useAppDispatch } from 'app/hooks';
 import { PageTitle } from 'components/common';
-import { AuthFormValues } from 'models';
+import { IAuthFormValues } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { authActions } from '../authSlice';
 import AuthForm from './AuthForm';
 
-export interface FormLayoutProps {
+export interface IAuthLayoutProps {
   mode: 'login' | 'register';
 }
 
-export default function FormLayout({ mode }: FormLayoutProps) {
+export default function AuthLayout({ mode }: IAuthLayoutProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('auth');
 
   const dispatch = useAppDispatch();
 
-  const defaultValues: AuthFormValues = {
+  const defaultValues: IAuthFormValues = {
     mode,
     email: '',
     password: '',
@@ -35,7 +35,7 @@ export default function FormLayout({ mode }: FormLayoutProps) {
     }
   };
 
-  const handleFormSubmit = (formValues: AuthFormValues) => {
+  const handleFormSubmit = (formValues: IAuthFormValues) => {
     dispatch(authActions[mode]({ formValues, navigate }));
   };
 

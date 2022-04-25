@@ -9,7 +9,7 @@ import {
   TableRow,
 } from '@mui/material';
 import { ConfirmDialog, NoPost } from 'components/common';
-import { Post } from 'models';
+import { IPost } from 'models';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -17,16 +17,16 @@ import { toast } from 'react-toastify';
 import { formatTime } from 'utils/common';
 import { useTranslateFiles } from 'utils/translation';
 
-export interface PostTableProps {
-  postList: Post[];
-  onEdit?: (post: Post) => void;
-  onRemove?: (post: Post) => void;
+export interface IPostTableProps {
+  postList: IPost[];
+  onEdit?: (post: IPost) => void;
+  onRemove?: (post: IPost) => void;
 
   saved?: boolean;
-  onUnSave?: (post: Post) => void;
+  onUnSave?: (post: IPost) => void;
 }
 
-export default function PostTable(props: PostTableProps) {
+export default function PostTable(props: IPostTableProps) {
   const { postList, onEdit, onRemove, saved, onUnSave } = props;
 
   const { t } = useTranslation('postTable');
@@ -35,17 +35,17 @@ export default function PostTable(props: PostTableProps) {
     'dialog'
   );
 
-  const [selectedPost, setSelectedPost] = useState<Post>({} as Post);
+  const [selectedPost, setSelectedPost] = useState<IPost>({} as IPost);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
   const closeDialog = () => setOpenDialog(false);
 
-  const handleEditPost = (post: Post) => {
+  const handleEditPost = (post: IPost) => {
     onEdit?.(post);
   };
 
-  const handleSelectPost = (post: Post) => {
+  const handleSelectPost = (post: IPost) => {
     setSelectedPost(post);
     setOpenDialog(true);
   };

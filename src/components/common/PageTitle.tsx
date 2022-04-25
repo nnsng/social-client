@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 
-export interface ITitleProps {
+export interface IPageTitleProps {
   title: string;
 }
 
-export function PageTitle({ title }: ITitleProps) {
+export function PageTitle({ title }: IPageTitleProps) {
   useEffect(() => {
     document.title = title;
   });

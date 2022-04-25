@@ -1,16 +1,16 @@
 import { PaletteMode } from '@mui/material';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { UserConfig } from 'models';
+import { IUserConfig } from 'models';
 import { localConfig } from 'utils/common';
 
-export type ConfigKey = keyof UserConfig;
+export type ConfigKey = keyof IUserConfig;
 
-interface ConfigState extends UserConfig {
+interface IConfigState extends IUserConfig {
   showConfig: boolean;
 }
 
-const initialState: ConfigState = {
+const initialState: IConfigState = {
   showConfig: false,
   theme: 'light',
   color: '#7575FF',

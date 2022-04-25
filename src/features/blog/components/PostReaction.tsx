@@ -6,19 +6,22 @@ import {
 import { Box, Button, Chip, Stack, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { Post } from 'models';
+import { IPost } from 'models';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { hasItemInArray } from 'utils/common';
 
-export interface PostReactProps {
-  post: Post;
+export interface IPostReactionProps {
+  post: IPost;
   onOpenComment?: () => void;
   onLikePost?: () => void;
 }
 
-export default function PostReact(props: PostReactProps) {
+export default function PostReaction(props: IPostReactionProps) {
   const { post, onOpenComment, onLikePost } = props;
+
+  const { t } = useTranslation('postReaction');
 
   const navigate = useNavigate();
 
@@ -48,7 +51,7 @@ export default function PostReact(props: PostReactProps) {
         {post?.author?.name}
       </Typography>
 
-      <Typography variant="body2" fontSize={16} lineHeight={1.8} py={1}>
+      <Typography variant="body2" fontSize={16} lineHeight={1.8} pt={1}>
         {post?.author?.bio}
       </Typography>
 
@@ -94,7 +97,7 @@ export default function PostReact(props: PostReactProps) {
         </Button>
       </Stack>
 
-      <Stack flexWrap="wrap" mt={2}>
+      <Stack flexWrap="wrap" my={1}>
         {post.keywords &&
           post.keywords.map((keyword, idx) => (
             <Chip
@@ -108,6 +111,10 @@ export default function PostReact(props: PostReactProps) {
             />
           ))}
       </Stack>
+
+      <Typography variant="subtitle2" color="text.secondary">
+        {t('view')}: {post.statistics?.viewCount}
+      </Typography>
     </Box>
   );
 }

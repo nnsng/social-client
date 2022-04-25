@@ -1,11 +1,11 @@
 import React from 'react';
 
-export interface GoogleIconProps {
+export interface IGoogleIconProps {
   width?: number;
   height?: number;
 }
 
-export function GoogleIcon({ width, height }: GoogleIconProps) {
+export function GoogleIcon({ width, height }: IGoogleIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

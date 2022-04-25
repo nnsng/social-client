@@ -1,12 +1,12 @@
 import { Avatar, SxProps } from '@mui/material';
 import React from 'react';
 
-export interface LogoProps {
+export interface ILogoProps {
   variant?: 'rounded' | 'square' | 'circular';
   sx?: SxProps;
 }
 
-export function Logo({ variant, sx }: LogoProps) {
+export function Logo({ variant, sx }: ILogoProps) {
   return (
     <Avatar
       variant={variant ?? 'rounded'}

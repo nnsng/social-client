@@ -1,4 +1,4 @@
-import { Comment } from 'models';
+import { IComment } from 'models';
 import axiosClient from './axiosClient';
 
 const commentApi = {
@@ -6,7 +6,7 @@ const commentApi = {
     const url = '/comments';
     return axiosClient.get(url, { params: { postId } });
   },
-  create(data: Comment) {
+  create(data: IComment) {
     const url = '/comments';
     return axiosClient.post(url, data);
   },

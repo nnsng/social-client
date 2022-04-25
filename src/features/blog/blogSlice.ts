@@ -1,18 +1,18 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { ListParams, ListResponse, PaginationParams, Post, PostStatistics } from 'models';
+import { IListParams, IListResponse, IPaginationParams, IPost, IPostStatistics } from 'models';
 
-export interface BlogState {
+export interface IBlogState {
   loading: boolean;
-  list: Post[];
-  pagination: PaginationParams | null;
-  detail: Post | null;
+  list: IPost[];
+  pagination: IPaginationParams | null;
+  detail: IPost | null;
 
-  searchResultList: Post[];
+  searchResultList: IPost[];
   searchLoading: boolean;
 }
 
-const initialState: BlogState = {
+const initialState: IBlogState = {
   loading: false,
   list: [],
   pagination: null,
@@ -26,10 +26,10 @@ const blogSlice = createSlice({
   name: 'blog',
   initialState,
   reducers: {
-    fetchPostList(state, action: PayloadAction<ListParams>) {
+    fetchPostList(state, action: PayloadAction<IListParams>) {
       state.loading = true;
     },
-    fetchPostListSuccess(state, action: PayloadAction<ListResponse<Post>>) {
+    fetchPostListSuccess(state, action: PayloadAction<IListResponse<IPost>>) {
       state.loading = false;
       state.list = action.payload.data;
       state.pagination = action.payload.pagination;
@@ -38,11 +38,11 @@ const blogSlice = createSlice({
       state.loading = false;
     },
 
-    fetchMyPostList(state, action: PayloadAction<ListParams>) {
+    fetchMyPostList(state, action: PayloadAction<IListParams>) {
       state.loading = true;
       state.list = [];
     },
-    fetchMyPostListSuccess(state, action: PayloadAction<ListResponse<Post>>) {
+    fetchMyPostListSuccess(state, action: PayloadAction<IListResponse<IPost>>) {
       state.loading = false;
       state.list = action.payload.data;
       state.pagination = action.payload.pagination;
@@ -51,11 +51,11 @@ const blogSlice = createSlice({
       state.loading = false;
     },
 
-    fetchSavedPostList(state, action: PayloadAction<ListParams>) {
+    fetchSavedPostList(state, action: PayloadAction<IListParams>) {
       state.loading = true;
       state.list = [];
     },
-    fetchSavedPostListSuccess(state, action: PayloadAction<ListResponse<Post>>) {
+    fetchSavedPostListSuccess(state, action: PayloadAction<IListResponse<IPost>>) {
       state.loading = false;
       state.list = action.payload.data;
       state.pagination = action.payload.pagination;
@@ -68,7 +68,7 @@ const blogSlice = createSlice({
       state.loading = true;
       state.detail = null;
     },
-    fetchPostDetailSuccess(state, action: PayloadAction<Post>) {
+    fetchPostDetailSuccess(state, action: PayloadAction<IPost>) {
       state.loading = false;
       state.detail = action.payload;
     },
@@ -77,7 +77,7 @@ const blogSlice = createSlice({
     },
 
     likePost(state, action: PayloadAction<string>) {},
-    likePostSuccess(state, action: PayloadAction<Post>) {
+    likePostSuccess(state, action: PayloadAction<IPost>) {
       state.detail = action.payload;
     },
 
@@ -85,7 +85,7 @@ const blogSlice = createSlice({
       if (state.detail?.statistics) state.detail.statistics.commentCount = action.payload;
     },
 
-    updateStatistics(state, action: PayloadAction<Partial<PostStatistics>>) {
+    updateStatistics(state, action: PayloadAction<Partial<IPostStatistics>>) {
       if (state.detail?.statistics) {
         state.detail.statistics = {
           ...state.detail?.statistics,
@@ -98,7 +98,7 @@ const blogSlice = createSlice({
       state.searchLoading = true;
       state.searchResultList = [];
     },
-    searchWithDebounceSuccess(state, action: PayloadAction<Post[]>) {
+    searchWithDebounceSuccess(state, action: PayloadAction<IPost[]>) {
       state.searchLoading = false;
       state.searchResultList = action.payload;
     },

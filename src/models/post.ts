@@ -1,30 +1,30 @@
-import { User } from './auth';
+import { IUser } from './auth';
 
-export interface Post {
+export interface IPost {
   _id?: string;
   title: string;
   content: string;
   thumbnail: string;
   authorId: string;
   keywords: string[];
-  author?: User;
+  author?: IUser;
   likes?: string[];
-  statistics?: PostStatistics;
+  statistics?: IPostStatistics;
   slug?: string;
   createdAt?: string;
 }
 
-export interface Comment {
+export interface IComment {
   _id?: string;
   postId: string;
   content: string;
   userId: string;
-  user?: User;
+  user?: IUser;
   likes?: string[];
   createdAt?: string;
 }
 
-export interface PostStatistics {
+export interface IPostStatistics {
   likeCount: number;
   commentCount: number;
   viewCount: number;

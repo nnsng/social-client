@@ -4,7 +4,7 @@ import { GoogleIcon } from 'components/common';
 import { MuiTextField } from 'components/formFields';
 import useLoginWithGoogle from 'hooks/useLoginWithGoogle';
 import i18next from 'i18next';
-import { AuthFormValues } from 'models';
+import { IAuthFormValues } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -19,13 +19,13 @@ function AuthButton({ children, ...props }: ButtonProps) {
   );
 }
 
-export interface AuthFormProps {
-  defaultValues: AuthFormValues;
+export interface IAuthFormProps {
+  defaultValues: IAuthFormValues;
   switchMode?: () => void;
-  onSubmit?: (formValues: AuthFormValues) => void;
+  onSubmit?: (formValues: IAuthFormValues) => void;
 }
 
-export default function AuthForm(props: AuthFormProps) {
+export default function AuthForm(props: IAuthFormProps) {
   const { defaultValues, switchMode, onSubmit } = props;
   const isRegisterMode = defaultValues.mode === 'register';
 
@@ -71,7 +71,7 @@ export default function AuthForm(props: AuthFormProps) {
     switchMode?.();
   };
 
-  const handleFormSubmit = (formValues: AuthFormValues) => {
+  const handleFormSubmit = (formValues: IAuthFormValues) => {
     onSubmit?.(formValues);
   };
 

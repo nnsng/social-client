@@ -6,13 +6,13 @@ import Editor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import { getImageUrlFromCDN } from 'utils/common';
 
-export interface MdEditorOnChange {
+export interface IMdEditorChange {
   html: string;
   text: string;
 }
 
-export interface MdEditorProps {
-  onEditorChange?: (value: MdEditorOnChange) => void;
+export interface IMdEditorProps {
+  onEditorChange?: (value: IMdEditorChange) => void;
   readOnly?: boolean;
   value?: string;
   placeholder?: string;
@@ -20,7 +20,7 @@ export interface MdEditorProps {
 
 const mdParser = new MarkdownIt();
 
-export default function MdEditor(props: MdEditorProps) {
+export default function MdEditor(props: IMdEditorProps) {
   const { onEditorChange, readOnly, value, placeholder } = props;
 
   const otherProps = readOnly && {

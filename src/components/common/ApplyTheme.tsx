@@ -7,11 +7,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { getTheme } from 'utils/theme';
 
-export interface ApplyThemeProps {
+export interface IApplyThemeProps {
   children: any;
 }
 
-export function ApplyTheme({ children }: ApplyThemeProps) {
+export function ApplyTheme({ children }: IApplyThemeProps) {
   const themeMode = useAppSelector(selectThemeMode);
   const themeColor = useAppSelector(selectThemeColor);
 

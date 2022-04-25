@@ -2,14 +2,14 @@ import { OutlinedTextFieldProps, Stack, TextField, Typography } from '@mui/mater
 import React from 'react';
 import { Control, useController } from 'react-hook-form';
 
-export interface MuiTextFieldProps extends OutlinedTextFieldProps {
+export interface IMuiTextFieldProps extends OutlinedTextFieldProps {
   name: string;
   control: Control<any>;
   label?: string;
   title?: string;
 }
 
-export function MuiTextField(props: MuiTextFieldProps) {
+export function MuiTextField(props: IMuiTextFieldProps) {
   const { name, control, label, title, ...restProps } = props;
   const { sx } = restProps;
 

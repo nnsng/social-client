@@ -9,9 +9,9 @@ import {
 import { authActions } from 'features/auth/authSlice';
 import { configActions } from 'features/common/configSlice';
 import { IMenuItem } from 'models';
-import { GetMenuProps } from '.';
+import { IGetMenuProps } from '.';
 
-export function GetUserMenu(props: GetMenuProps) {
+export function GetUserMenu(props: IGetMenuProps) {
   const { navigate, dispatch, t } = props;
 
   const showAppearanceDialog = () => {

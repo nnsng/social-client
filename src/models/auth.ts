@@ -1,7 +1,7 @@
 import { PaletteMode } from '@mui/material';
 import { NavigateFunction } from 'react-router-dom';
 
-export interface User {
+export interface IUser {
   _id: string;
   name: string;
   email: string;
@@ -13,12 +13,12 @@ export interface User {
   createdAt?: string;
 }
 
-export interface AuthResponse {
-  user: User;
+export interface IAuthResponse {
+  user: IUser;
   token: string;
 }
 
-export interface AuthFormValues {
+export interface IAuthFormValues {
   mode: 'login' | 'register';
   email: string;
   password: string;
@@ -26,20 +26,20 @@ export interface AuthFormValues {
   username?: string;
 }
 
-export interface ChangePasswordFormValues {
+export interface IChangePasswordFormValues {
   userId: string;
   currentPassword: string;
   newPassword: string;
   confirmPassword?: string;
 }
 
-export interface AuthPayload {
-  formValues?: AuthFormValues;
+export interface IAuthPayload {
+  formValues?: IAuthFormValues;
   token?: string;
   navigate?: NavigateFunction;
 }
 
-export interface UserConfig {
+export interface IUserConfig {
   theme: PaletteMode;
   color: string;
   lang: string;

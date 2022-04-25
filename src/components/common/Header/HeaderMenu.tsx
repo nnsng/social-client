@@ -6,11 +6,11 @@ import HeaderIconButton from './HeaderIconButton';
 import Notification from './Notification';
 import UserMenu from './UserMenu';
 
-export interface HeaderMenuProps {
+export interface IHeaderMenuProps {
   toggleSearchMobile?: () => void;
 }
 
-export function HeaderMenu({ toggleSearchMobile }: HeaderMenuProps) {
+export function HeaderMenu({ toggleSearchMobile }: IHeaderMenuProps) {
   const isOnMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   return (

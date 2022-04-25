@@ -13,7 +13,7 @@ import { useAppSelector } from 'app/hooks';
 import { ActionMenu, ConfirmDialog } from 'components/common';
 import { GetPostMenu } from 'components/common/Menu';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { Post } from 'models';
+import { IPost } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
@@ -23,13 +23,13 @@ import { themeVariables } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 import MdEditor from './MdEditor';
 
-export interface PostDetailProps {
-  post: Post;
-  onSave?: (post: Post) => void;
-  onRemove?: (post: Post) => void;
+export interface IPostDetailProps {
+  post: IPost;
+  onSave?: (post: IPost) => void;
+  onRemove?: (post: IPost) => void;
 }
 
-export default function PostDetail({ post, onSave, onRemove }: PostDetailProps) {
+export default function PostDetail({ post, onSave, onRemove }: IPostDetailProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('postDetail');

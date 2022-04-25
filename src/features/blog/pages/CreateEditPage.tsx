@@ -3,7 +3,7 @@ import postApi from 'api/postApi';
 import { useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { Post } from 'models';
+import { IPost } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -37,7 +37,7 @@ export function CreateEditPage() {
     })();
   }, [postId, navigate]);
 
-  const defaultValues: Post = isNewPost
+  const defaultValues: IPost = isNewPost
     ? {
         title: '',
         content: '',
@@ -48,10 +48,10 @@ export function CreateEditPage() {
       }
     : editedPost;
 
-  const handleFormSubmit = async (data: Post) => {
+  const handleFormSubmit = async (data: IPost) => {
     const savedPost = (isNewPost
       ? await postApi.create(data)
-      : await postApi.update(data)) as unknown as Post;
+      : await postApi.update(data)) as unknown as IPost;
 
     navigate(`/blog/post/${savedPost.slug}`);
   };

@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { AuthPayload, User } from 'models';
+import { IAuthPayload, IUser } from 'models';
 
-export interface AuthState {
-  currentUser: User | null;
+export interface IAuthState {
+  currentUser: IUser | null;
 }
 
-const initialState: AuthState = {
+const initialState: IAuthState = {
   currentUser: null,
 };
 
@@ -14,19 +14,19 @@ const authSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    register(state, action: PayloadAction<AuthPayload>) {},
+    register(state, action: PayloadAction<IAuthPayload>) {},
 
-    login(state, action: PayloadAction<AuthPayload>) {},
+    login(state, action: PayloadAction<IAuthPayload>) {},
 
-    googleLogin(state, action: PayloadAction<AuthPayload>) {},
+    googleLogin(state, action: PayloadAction<IAuthPayload>) {},
 
-    activeAccount(state, action: PayloadAction<AuthPayload>) {},
+    activeAccount(state, action: PayloadAction<IAuthPayload>) {},
 
-    logout(state, action: PayloadAction<AuthPayload>) {
+    logout(state, action: PayloadAction<IAuthPayload>) {
       state.currentUser = null;
     },
 
-    setCurrentUser(state, action: PayloadAction<User>) {
+    setCurrentUser(state, action: PayloadAction<IUser>) {
       state.currentUser = action.payload;
     },
   },

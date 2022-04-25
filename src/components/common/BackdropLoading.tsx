@@ -1,12 +1,12 @@
 import { Backdrop, CircularProgress } from '@mui/material';
 import React from 'react';
 
-export interface BackdropLoadingProps {
+export interface IBackdropLoadingProps {
   open: boolean;
   onClose?: () => void;
 }
 
-export function BackdropLoading(props: BackdropLoadingProps) {
+export function BackdropLoading(props: IBackdropLoadingProps) {
   const { open, onClose } = props;
 
   return (

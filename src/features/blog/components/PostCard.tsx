@@ -21,7 +21,7 @@ import { useAppSelector } from 'app/hooks';
 import { ActionMenu, ConfirmDialog } from 'components/common';
 import { GetPostMenu } from 'components/common/Menu';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { Post } from 'models';
+import { IPost } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
@@ -32,13 +32,13 @@ import { formatTime } from 'utils/common';
 import { mixins, themeVariables } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 
-export interface PostCardProps {
-  post: Post;
-  onSave?: (post: Post) => void;
-  onRemove?: (post: Post) => void;
+export interface IPostCardProps {
+  post: IPost;
+  onSave?: (post: IPost) => void;
+  onRemove?: (post: IPost) => void;
 }
 
-export default function PostCard(props: PostCardProps) {
+export default function PostCard(props: IPostCardProps) {
   const { post, onSave, onRemove } = props;
 
   const navigate = useNavigate();

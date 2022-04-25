@@ -12,6 +12,7 @@ import createEditForm from './components/createEditForm.json';
 import postCard from './components/postCard.json';
 import postRecommend from './components/postRecommend.json';
 import postDetail from './components/postDetail.json';
+import postReaction from './components/postReaction.json';
 import postComment from './components/postComment.json';
 import postItemMobile from './components/postItemMobile.json';
 import postTable from './components/postTable.json';
@@ -38,6 +39,7 @@ export default {
   postCard,
   postRecommend,
   postDetail,
+  postReaction,
   postComment,
   postItemMobile,
   postTable,

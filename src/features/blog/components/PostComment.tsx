@@ -11,7 +11,7 @@ import {
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { selectCommentLoading } from 'features/blog/commentSlice';
-import { Comment } from 'models';
+import { IComment } from 'models';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -19,16 +19,16 @@ import { toast } from 'react-toastify';
 import { useTranslateFiles } from 'utils/translation';
 import CommentItem from './CommentItem';
 
-export interface PostCommentProps {
-  commentList: Comment[];
+export interface IPostCommentProps {
+  commentList: IComment[];
   postId: string;
   onClose?: () => void;
-  onCreate?: (comment: Comment) => void;
-  onRemove?: (comment: Comment) => void;
-  onLike?: (comment: Comment) => void;
+  onCreate?: (comment: IComment) => void;
+  onRemove?: (comment: IComment) => void;
+  onLike?: (comment: IComment) => void;
 }
 
-export default function PostComment(props: PostCommentProps) {
+export default function PostComment(props: IPostCommentProps) {
   const { commentList, postId, onClose, onCreate, onRemove, onLike } = props;
 
   const { t } = useTranslation('postComment');
@@ -37,7 +37,7 @@ export default function PostComment(props: PostCommentProps) {
   const loading = useAppSelector(selectCommentLoading);
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const defaultValues: Comment = {
+  const defaultValues: IComment = {
     postId,
     userId: currentUser?._id as string,
     content: '',
@@ -52,7 +52,7 @@ export default function PostComment(props: PostCommentProps) {
     defaultValues,
   });
 
-  const handleSubmitComment = async (comment: Comment) => {
+  const handleSubmitComment = async (comment: IComment) => {
     try {
       await onCreate?.(comment);
       setValue('content', '');

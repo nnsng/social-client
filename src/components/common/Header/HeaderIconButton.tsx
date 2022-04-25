@@ -1,13 +1,13 @@
 import { IconButton } from '@mui/material';
 import React from 'react';
 
-export interface HeaderIconButtonProps {
+export interface IHeaderIconButtonProps {
   icon: React.ReactElement;
   active?: boolean;
   onClick?: () => void;
 }
 
-function HeaderIconButton(props: HeaderIconButtonProps, ref?: any) {
+function HeaderIconButton(props: IHeaderIconButtonProps, ref?: any) {
   const { icon, active, onClick } = props;
 
   return (

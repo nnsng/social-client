@@ -2,7 +2,7 @@ import { Box, List, Pagination, Stack, Theme, Typography, useMediaQuery } from '
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
-import { Post } from 'models';
+import { IPost } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -10,11 +10,11 @@ import { blogActions, selectPostList, selectTotalPages } from '../blogSlice';
 import { PostItemMobile } from '../components/PostItemMobile';
 import PostTable from '../components/PostTable';
 
-export interface PostListPageProps {
+export interface IPostListPageProps {
   mode?: 'my' | 'saved';
 }
 
-export function PostListPage({ mode }: PostListPageProps) {
+export function PostListPage({ mode }: IPostListPageProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('postList');
@@ -45,16 +45,16 @@ export function PostListPage({ mode }: PostListPageProps) {
     }
   }, [dispatch, filters]);
 
-  const handleUnSavePost = async (post: Post) => {
+  const handleUnSavePost = async (post: IPost) => {
     await postApi.unSave(post._id as string);
     dispatch(blogActions.fetchSavedPostList(filters));
   };
 
-  const handleEditPost = (post: Post) => {
+  const handleEditPost = (post: IPost) => {
     navigate(`/blog/edit/${post._id}`);
   };
 
-  const handleRemovePost = async (post: Post) => {
+  const handleRemovePost = async (post: IPost) => {
     await postApi.remove(post._id as string);
     dispatch(blogActions.fetchMyPostList(filters));
   };

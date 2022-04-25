@@ -9,7 +9,7 @@ import Settings from 'features/settings';
 import SocketClient from 'features/socket';
 import { selectSocket, socketActions } from 'features/socket/socketSlice';
 import i18next from 'i18next';
-import { User } from 'models';
+import { IUser } from 'models';
 import React, { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
@@ -33,7 +33,7 @@ function App() {
         const user = await authApi.getCurrentUser();
         if (!user) throw new Error();
 
-        dispatch(authActions.setCurrentUser(user as unknown as User));
+        dispatch(authActions.setCurrentUser(user as unknown as IUser));
       } catch (error) {
         console.log('Failed to get current user', error);
         dispatch(authActions.logout({ navigate }));

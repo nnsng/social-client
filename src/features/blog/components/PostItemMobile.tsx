@@ -7,7 +7,7 @@ import {
 } from '@mui/icons-material';
 import { Avatar, Box, IconButton, ListItem, MenuItem, Stack, Typography } from '@mui/material';
 import { ActionMenu } from 'components/common';
-import { IMenuItem, Post } from 'models';
+import { IMenuItem, IPost } from 'models';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -16,15 +16,15 @@ import { copyPostLink, formatTime } from 'utils/common';
 import { mixins } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 
-export interface PostItemMobileProps {
-  post: Post;
-  onEdit?: (post: Post) => void;
-  onRemove?: (post: Post) => void;
+export interface IPostItemMobileProps {
+  post: IPost;
+  onEdit?: (post: IPost) => void;
+  onRemove?: (post: IPost) => void;
   saved?: boolean;
-  onUnSave?: (post: Post) => void;
+  onUnSave?: (post: IPost) => void;
 }
 
-export function PostItemMobile(props: PostItemMobileProps) {
+export function PostItemMobile(props: IPostItemMobileProps) {
   const { post, onEdit, onRemove, saved, onUnSave } = props;
 
   const { t } = useTranslation('postItemMobile');

@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { Comment } from 'models';
+import { IComment } from 'models';
 
-export interface CommentState {
+export interface ICommentState {
   loading: boolean;
-  postComments: Comment[];
+  postComments: IComment[];
 }
 
-const initialState: CommentState = {
+const initialState: ICommentState = {
   loading: false,
   postComments: [],
 };
@@ -19,7 +19,7 @@ const commentSlice = createSlice({
     fetchPostComments(state, action: PayloadAction<string>) {
       state.loading = true;
     },
-    fetchPostCommentsSuccess(state, action: PayloadAction<Comment[]>) {
+    fetchPostCommentsSuccess(state, action: PayloadAction<IComment[]>) {
       state.loading = false;
       state.postComments = action.payload;
     },
@@ -27,7 +27,7 @@ const commentSlice = createSlice({
       state.loading = false;
     },
 
-    createComment(state, action: PayloadAction<Comment>) {
+    createComment(state, action: PayloadAction<IComment>) {
       state.postComments = [action.payload, ...state.postComments];
     },
 
@@ -36,7 +36,7 @@ const commentSlice = createSlice({
     },
 
     likeComment(state, action: PayloadAction<string>) {},
-    likeCommentSuccess(state, action: PayloadAction<Comment>) {
+    likeCommentSuccess(state, action: PayloadAction<IComment>) {
       const likedComment = action.payload;
       state.postComments = state.postComments.map((comment) =>
         comment._id === likedComment._id ? likedComment : comment

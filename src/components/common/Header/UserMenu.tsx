@@ -10,18 +10,18 @@ import {
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { IMenuItem, User } from 'models';
+import { IMenuItem, IUser } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { PopperMenu } from '..';
 import { GetUserMenu } from '../Menu';
 
-export interface UserMenuProps {
+export interface IUserMenuProps {
   isOnMobile?: boolean;
 }
 
-export default function UserMenu({ isOnMobile }: UserMenuProps) {
+export default function UserMenu({ isOnMobile }: IUserMenuProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('header');
@@ -65,7 +65,7 @@ export default function UserMenu({ isOnMobile }: UserMenuProps) {
               height: '100vh',
             }}
           >
-            <UserMenuChildren
+            <Children
               isOnMobile={isOnMobile}
               menuList={userMenu}
               user={currentUser}
@@ -86,7 +86,7 @@ export default function UserMenu({ isOnMobile }: UserMenuProps) {
           zIndex={(theme) => (theme.zIndex as any).appBar + 1}
           onClose={closeMenu}
         >
-          <UserMenuChildren
+          <Children
             isOnMobile={isOnMobile}
             menuList={userMenu}
             user={currentUser}
@@ -99,15 +99,15 @@ export default function UserMenu({ isOnMobile }: UserMenuProps) {
   );
 }
 
-interface UserMenuChildrenProps {
+interface IChildrenProps {
   isOnMobile?: boolean;
   menuList?: IMenuItem[];
-  user?: User | null;
+  user?: IUser | null;
   dividers?: number[];
   onMenuItemClick?: (callback?: () => void) => void;
 }
 
-function UserMenuChildren(props: UserMenuChildrenProps) {
+function Children(props: IChildrenProps) {
   const { isOnMobile, menuList, user, dividers, onMenuItemClick } = props;
 
   const boxSx: SxProps = !!isOnMobile

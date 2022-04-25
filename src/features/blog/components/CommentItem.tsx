@@ -13,7 +13,7 @@ import {
 import { useAppSelector } from 'app/hooks';
 import { ActionMenu, ConfirmDialog } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { Comment, IMenuItem } from 'models';
+import { IComment, IMenuItem } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -21,13 +21,13 @@ import { toast } from 'react-toastify';
 import { formatTime, showToastComingSoon } from 'utils/common';
 import { useTranslateFiles } from 'utils/translation';
 
-export interface CommentItemProps {
-  comment: Comment;
-  onRemove?: (comment: Comment) => void;
-  onLike?: (comment: Comment) => void;
+export interface ICommentItemProps {
+  comment: IComment;
+  onRemove?: (comment: IComment) => void;
+  onLike?: (comment: IComment) => void;
 }
 
-export default function CommentItem(props: CommentItemProps) {
+export default function CommentItem(props: ICommentItemProps) {
   const { comment, onRemove, onLike } = props;
 
   const { t } = useTranslation('postComment');

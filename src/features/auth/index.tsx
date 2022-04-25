@@ -2,7 +2,7 @@ import queryString from 'query-string';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import ActiveAccount from './components/ActiveAccount';
-import FormLayout from './components/FormLayout';
+import AuthLayout from './components/AuthLayout';
 
 export interface AuthPageProps {
   mode: 'login' | 'register' | 'active';
@@ -16,5 +16,5 @@ export default function Auth({ mode }: AuthPageProps) {
     return <ActiveAccount token={activeToken} />;
   }
 
-  return <FormLayout mode={mode} />;
+  return <AuthLayout mode={mode} />;
 }

@@ -4,12 +4,14 @@ import React, { InputHTMLAttributes } from 'react';
 import { Control, useController } from 'react-hook-form';
 import { getImageUrlFromCDN } from 'utils/common';
 
-export interface FileInputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface IFileInputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   control: Control<any>;
 }
 
-export function FileInputField({ name, control, ...inputProps }: FileInputFieldProps) {
+export function FileInputField(props: IFileInputFieldProps) {
+  const { name, control, ...inputProps } = props;
+
   const {
     field: { onChange },
   } = useController({ name, control });

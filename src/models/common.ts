@@ -1,21 +1,15 @@
-export interface TokenDecoded {
-  _id: string;
-  iat: number | string;
-  exp: number | string;
-}
-
-export interface PaginationParams {
+export interface IPaginationParams {
   page: number;
   limit: number;
   totalRows: number;
 }
 
-export interface ListResponse<T> {
+export interface IListResponse<T> {
   data: T[];
-  pagination: PaginationParams;
+  pagination: IPaginationParams;
 }
 
-export interface ListParams {
+export interface IListParams {
   page?: number;
   limit?: number;
   sort?: string;
@@ -29,10 +23,4 @@ export interface IMenuItem {
   icon?: any;
   onClick?: () => void;
   show?: boolean;
-}
-
-export interface Token {
-  _id: string;
-  iat: number;
-  exp: number;
 }

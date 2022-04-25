@@ -3,7 +3,7 @@ import { SxProps, Theme } from '@mui/system';
 import React from 'react';
 import { themeVariables } from 'utils/theme';
 
-export interface PopperMenuProps {
+export interface IPopperMenuProps {
   open: boolean;
   anchorEl?: HTMLElement | null;
   onClose?: () => void;
@@ -12,7 +12,7 @@ export interface PopperMenuProps {
   zIndex?: number | ((theme: Theme) => number);
 }
 
-export function PopperMenu(props: PopperMenuProps) {
+export function PopperMenu(props: IPopperMenuProps) {
   const { open, anchorEl, onClose, children, paperSx, zIndex } = props;
 
   return (

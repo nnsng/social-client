@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
 
-export interface UploadState {
+export interface IUploadState {
   uploading: boolean;
 }
 
-const initialState: UploadState = {
+const initialState: IUploadState = {
   uploading: false,
 };
 

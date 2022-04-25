@@ -5,14 +5,14 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { NotFound, PageTitle } from 'components/common';
 import { commentActions, selectPostComments } from 'features/blog/commentSlice';
 import { selectSocket } from 'features/socket/socketSlice';
-import { Comment, Post } from 'models';
+import { IComment, IPost } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
 import { blogActions, selectPostDetail, selectPostLoading } from '../blogSlice';
 import PostComment from '../components/PostComment';
 import PostDetail from '../components/PostDetail';
-import PostReact from '../components/PostReact';
+import PostReaction from '../components/PostReaction';
 
 export function PostDetailPage() {
   const { slug } = useParams();
@@ -52,11 +52,11 @@ export function PostDetailPage() {
   const openComment = () => setShowComment(true);
   const closeComment = () => setShowComment(false);
 
-  const handleSavePost = async (post: Post) => {
+  const handleSavePost = async (post: IPost) => {
     await postApi.save(post._id as string);
   };
 
-  const handleRemovePost = async (post: Post) => {
+  const handleRemovePost = async (post: IPost) => {
     await postApi.remove(post._id as string);
   };
 
@@ -64,15 +64,15 @@ export function PostDetailPage() {
     dispatch(blogActions.likePost(post?._id as string));
   };
 
-  const handleCreateComment = async (comment: Comment) => {
+  const handleCreateComment = async (comment: IComment) => {
     await commentApi.create(comment);
   };
 
-  const handleRemoveComment = async (comment: Comment) => {
+  const handleRemoveComment = async (comment: IComment) => {
     await commentApi.remove(comment._id as string);
   };
 
-  const handleLikeComment = (comment: Comment) => {
+  const handleLikeComment = (comment: IComment) => {
     dispatch(commentActions.likeComment(comment._id as string));
   };
 
@@ -93,7 +93,7 @@ export function PostDetailPage() {
 
             <Grid item xs={12} md={10} lg={3} mx={{ xs: 'auto', lg: 0 }}>
               <Box position="sticky" top={96}>
-                <PostReact post={post} onOpenComment={openComment} onLikePost={handleLikePost} />
+                <PostReaction post={post} onOpenComment={openComment} onLikePost={handleLikePost} />
               </Box>
             </Grid>
           </Grid>

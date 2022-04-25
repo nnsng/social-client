@@ -4,7 +4,7 @@ import 'dayjs/locale/vi';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { ConfigKey } from 'features/common/configSlice';
 import i18next from 'i18next';
-import { Post, UserConfig } from 'models';
+import { IPost, IUserConfig } from 'models';
 import { toast } from 'react-toastify';
 import slugify from 'slugify';
 import { CONFIG, REGEX } from './constants';
@@ -33,7 +33,7 @@ export const getImageUrlFromCDN = async (image: File) => {
   }
 };
 
-export const copyPostLink = (post: Post) => {
+export const copyPostLink = (post: IPost) => {
   const { toast: toastTranslation } = useTranslateFiles('toast');
   navigator.clipboard.writeText(`${window.location.origin}/blog/post/${post.slug}`);
   toast.success(toastTranslation.copyLinkSuccess);
@@ -55,7 +55,7 @@ export const hasItemInArray = (item: any, array: any, callback?: (element: any) 
 };
 
 export const localConfig = {
-  set(config: UserConfig) {
+  set(config: IUserConfig) {
     localStorage.setItem(CONFIG, JSON.stringify(config));
   },
   setProperty(key: ConfigKey, value: string) {

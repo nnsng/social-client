@@ -3,11 +3,11 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authActions } from '../authSlice';
 
-export interface ActiveAccountProps {
+export interface IActiveAccountProps {
   token: string;
 }
 
-export default function ActiveAccount({ token }: ActiveAccountProps) {
+export default function ActiveAccount({ token }: IActiveAccountProps) {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();

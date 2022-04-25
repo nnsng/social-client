@@ -1,15 +1,15 @@
 import { BorderColorRounded, DeleteRounded, FlagRounded, LinkRounded } from '@mui/icons-material';
-import { IMenuItem, Post } from 'models';
+import { IMenuItem, IPost } from 'models';
 import { copyPostLink, showToastComingSoon } from 'utils/common';
-import { GetMenuProps } from '.';
+import { IGetMenuProps } from '.';
 
-export interface GetPostMenuProps extends GetMenuProps {
-  post: Post;
+export interface IGetPostMenuProps extends IGetMenuProps {
+  post: IPost;
   isAuthorized: boolean;
   onRemovePost?: () => void;
 }
 
-export function GetPostMenu(props: GetPostMenuProps) {
+export function GetPostMenu(props: IGetPostMenuProps) {
   const { post, isAuthorized, onRemovePost, navigate, t } = props;
 
   const menu: IMenuItem[] = [

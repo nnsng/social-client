@@ -4,7 +4,7 @@ import { useAppSelector } from 'app/hooks';
 import { FileInputField, MuiTextField } from 'components/formFields';
 import { selectUploading } from 'features/common/uploadSlice';
 import i18next from 'i18next';
-import { User } from 'models';
+import { IUser } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -12,13 +12,13 @@ import { REGEX } from 'utils/constants';
 import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
-export interface EditProfileFromProps {
+export interface IEditProfileFromProps {
   submitting: boolean;
-  defaultValues: User;
-  onSubmit: (formValues: User) => void;
+  defaultValues: IUser;
+  onSubmit: (formValues: IUser) => void;
 }
 
-export default function EditProfileFrom(props: EditProfileFromProps) {
+export default function EditProfileFrom(props: IEditProfileFromProps) {
   const { submitting, defaultValues, onSubmit } = props;
 
   const { t } = useTranslation('editProfileForm');

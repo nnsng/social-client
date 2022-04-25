@@ -1,18 +1,18 @@
 import { call, debounce, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import postApi from 'api/postApi';
-import { ListParams, ListResponse, Post } from 'models';
+import { IListParams, IListResponse, IPost } from 'models';
 import { blogActions } from './blogSlice';
 
-function* fetchPostList(action: PayloadAction<ListParams>) {
-  const params: ListParams = {
+function* fetchPostList(action: PayloadAction<IListParams>) {
+  const params: IListParams = {
     page: 1,
     limit: 10,
     ...action.payload,
   };
 
   try {
-    const response: ListResponse<Post> = yield call(postApi.getAll, params);
+    const response: IListResponse<IPost> = yield call(postApi.getAll, params);
     yield put(blogActions.fetchPostListSuccess(response));
   } catch (error) {
     yield put(blogActions.fetchPostListFailure());
@@ -20,15 +20,15 @@ function* fetchPostList(action: PayloadAction<ListParams>) {
   }
 }
 
-function* fetchMyPostList(action: PayloadAction<ListParams>) {
-  const params: ListParams = {
+function* fetchMyPostList(action: PayloadAction<IListParams>) {
+  const params: IListParams = {
     page: 1,
     limit: 10,
     ...action.payload,
   };
 
   try {
-    const response: ListResponse<Post> = yield call(postApi.getMyPosts, params);
+    const response: IListResponse<IPost> = yield call(postApi.getMyPosts, params);
     yield put(blogActions.fetchMyPostListSuccess(response));
   } catch (error) {
     yield put(blogActions.fetchMyPostListFailure());
@@ -36,15 +36,15 @@ function* fetchMyPostList(action: PayloadAction<ListParams>) {
   }
 }
 
-function* fetchSavedPostList(action: PayloadAction<ListParams>) {
-  const params: ListParams = {
+function* fetchSavedPostList(action: PayloadAction<IListParams>) {
+  const params: IListParams = {
     page: 1,
     limit: 10,
     ...action.payload,
   };
 
   try {
-    const response: ListResponse<Post> = yield call(postApi.getSavedPosts, params);
+    const response: IListResponse<IPost> = yield call(postApi.getSavedPosts, params);
     yield put(blogActions.fetchSavedPostListSuccess(response));
   } catch (error) {
     yield put(blogActions.fetchSavedPostListFailure());
@@ -54,7 +54,7 @@ function* fetchSavedPostList(action: PayloadAction<ListParams>) {
 
 function* fetchPostDetail(action: PayloadAction<string>) {
   try {
-    const post: Post = yield call(postApi.getBySlug, action.payload);
+    const post: IPost = yield call(postApi.getBySlug, action.payload);
     yield put(blogActions.fetchPostDetailSuccess(post));
   } catch (error) {
     yield put(blogActions.fetchPostDetailFailure());
@@ -64,7 +64,7 @@ function* fetchPostDetail(action: PayloadAction<string>) {
 
 function* handleLikePost(action: PayloadAction<string>) {
   try {
-    const post: Post = yield call(postApi.like, action.payload);
+    const post: IPost = yield call(postApi.like, action.payload);
     yield put(blogActions.likePostSuccess(post));
     yield put(blogActions.updateStatistics({ likeCount: post.statistics?.likeCount }));
   } catch (error) {
@@ -75,7 +75,7 @@ function* handleLikePost(action: PayloadAction<string>) {
 function* handleSearchWithDebounce(action: PayloadAction<string>) {
   try {
     if (action.payload.length > 1) {
-      const response: Post[] = yield call(postApi.searchPosts, action.payload);
+      const response: IPost[] = yield call(postApi.searchPosts, action.payload);
       yield put(blogActions.searchWithDebounceSuccess(response));
     } else {
       yield put(blogActions.searchWithDebounceSuccess([]));

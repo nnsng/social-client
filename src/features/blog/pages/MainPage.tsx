@@ -2,7 +2,7 @@ import { Box, Grid } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
-import { ListParams, Post } from 'models';
+import { IListParams, IPost } from 'models';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -18,7 +18,7 @@ export function MainPage() {
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
 
-  const [filter, setFilter] = useState<ListParams>(() => {
+  const [filter, setFilter] = useState<IListParams>(() => {
     const params = queryString.parse(location.search);
     return { page: 1, ...params };
   });
@@ -36,11 +36,11 @@ export function MainPage() {
     setFilter({ ...filter, page });
   };
 
-  const handleSavePost = async (post: Post) => {
+  const handleSavePost = async (post: IPost) => {
     await postApi.save(post._id as string);
   };
 
-  const handleRemovePost = async (post: Post) => {
+  const handleRemovePost = async (post: IPost) => {
     await postApi.remove(post._id as string);
     dispatch(blogActions.fetchPostList(filter));
   };
