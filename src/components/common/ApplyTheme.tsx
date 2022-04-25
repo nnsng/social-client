@@ -16,7 +16,7 @@ export function ApplyTheme({ children }: IApplyThemeProps) {
   const themeColor = useAppSelector(selectThemeColor);
 
   const [theme, setTheme] = useState<Theme>(getTheme(themeMode, themeColor));
-  // console.log('~ theme', theme);
+  console.log('~ theme', theme);
 
   useEffect(() => {
     setTheme(getTheme(themeMode, themeColor));

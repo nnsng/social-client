@@ -1,31 +1,44 @@
-import { IconButton } from '@mui/material';
+import { Badge, IconButton } from '@mui/material';
 import React from 'react';
 
 export interface IHeaderIconButtonProps {
   icon: React.ReactElement;
   active?: boolean;
   onClick?: () => void;
+  showBadge?: boolean;
 }
 
 function HeaderIconButton(props: IHeaderIconButtonProps, ref?: any) {
-  const { icon, active, onClick } = props;
+  const { icon, active, onClick, showBadge } = props;
 
   return (
-    <IconButton
-      ref={ref ?? null}
-      onClick={onClick}
+    <Badge
+      variant="dot"
+      color="primary"
+      invisible={!showBadge}
       sx={{
-        color: active ? 'text.primary' : 'text.secondary',
-        '.MuiSvgIcon-root': {
-          fontSize: 24,
-        },
-        ':hover': {
-          color: 'text.primary',
+        '& .MuiBadge-badge': {
+          top: 10,
+          right: 10,
         },
       }}
     >
-      {icon}
-    </IconButton>
+      <IconButton
+        ref={ref ?? null}
+        onClick={onClick}
+        sx={{
+          color: active ? 'text.primary' : 'text.secondary',
+          '.MuiSvgIcon-root': {
+            fontSize: 24,
+          },
+          ':hover': {
+            color: 'text.primary',
+          },
+        }}
+      >
+        {icon}
+      </IconButton>
+    </Badge>
   );
 }
 

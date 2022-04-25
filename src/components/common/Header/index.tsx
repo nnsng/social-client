@@ -1,5 +1,14 @@
 import { ArrowBackIosNewRounded } from '@mui/icons-material';
-import { Box, Button, Container, Grid, LinearProgress, Stack, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Grid,
+  LinearProgress,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { selectPostLoading } from 'features/blog/blogSlice';
 import React, { useState } from 'react';
@@ -7,7 +16,6 @@ import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
 import { themeVariables } from 'utils/theme';
-import { Logo } from '..';
 import { HeaderMenu } from './HeaderMenu';
 import { SearchBox } from './SearchBox';
 
@@ -56,7 +64,16 @@ export function Header() {
           <Grid item xs="auto" mr={2}>
             <Stack alignItems="center" spacing={1}>
               <Link to="/">
-                <Logo />
+                <Avatar
+                  variant="rounded"
+                  sx={{
+                    bgcolor: 'primary.main',
+                    fontSize: 28,
+                    fontWeight: 600,
+                  }}
+                >
+                  1
+                </Avatar>
               </Link>
 
               {location.pathname === '/blog' ? (

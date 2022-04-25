@@ -6,8 +6,11 @@
   "notification": {
     "label": "Notifications",
     "markAsRead": "Mark all as read",
-    "welcome1": "Welcome ",
-    "welcome2": "to "
+    "type": {
+      "welcome": "Welcome {{name}} to 1social.",
+      "like": "{{name}} liked your post.",
+      "comment": "{{name}} commented on your post."
+    }
   },
   "menu": {
     "create": "Create a new post",
