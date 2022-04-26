@@ -6,11 +6,7 @@
   "notification": {
     "label": "Thông báo",
     "markAsRead": "Đánh dấu tất cả là đã đọc",
-    "type": {
-      "welcome": "Chào mừng {{name}} đến với 1social.",
-      "like": "{{name}} đã thích bài viết của bạn.",
-      "comment": "{{name}} đã bình luận bài viết của bạn."
-    }
+    "welcomeText": "Chào mừng {{name}} đến với {{appName}}."
   },
   "menu": {
     "create": "Tạo bài viết",

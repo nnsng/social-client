@@ -129,11 +129,7 @@ export default function PostCard(props: IPostCardProps) {
         }}
       >
         <CardHeader
-          avatar={
-            // <Link to={`/blog/user/${post?.author?.username}`}>
-            <Avatar src={post?.author?.avatar} />
-            // </Link>
-          }
+          avatar={<Avatar src={post?.author?.avatar} />}
           action={
             <Box>
               <IconButton
@@ -195,13 +191,7 @@ export default function PostCard(props: IPostCardProps) {
             </Box>
           }
           title={
-            <Typography
-              variant="subtitle2"
-              color="text.primary"
-              fontWeight={600}
-              component={Link}
-              to={`/blog/user/${post?.author?.username}`}
-            >
+            <Typography variant="subtitle2" color="text.primary" fontWeight={600}>
               {post?.author?.name}
             </Typography>
           }
@@ -223,8 +213,6 @@ export default function PostCard(props: IPostCardProps) {
 
         <CardContent sx={{ '&:last-child': { p: 0 } }}>
           <Stack
-            component={Link}
-            to={`/blog/post/${post.slug}`}
             sx={{
               flexDirection: { xs: 'column', sm: 'row' },
               alignItems: { xs: 'flex-start', sm: 'center' },
@@ -240,12 +228,15 @@ export default function PostCard(props: IPostCardProps) {
                   mb: 1,
                   fontWeight: 600,
                 }}
+                component={Link}
+                to={`post/${post.slug}`}
               >
                 {post.title}
               </Typography>
 
               <Typography
                 variant="body1"
+                component="div"
                 color="text.secondary"
                 sx={{
                   ...mixins.truncate(2),
@@ -270,8 +261,6 @@ export default function PostCard(props: IPostCardProps) {
                 }}
               >
                 <CardMedia
-                  component={Link}
-                  to={`/blog/post/${post.slug}`}
                   image={post.thumbnail}
                   title={post.title}
                   sx={{
@@ -281,6 +270,8 @@ export default function PostCard(props: IPostCardProps) {
                     borderRadius: 2,
                     bgcolor: 'action.hover',
                   }}
+                  component={Link}
+                  to={`post/${post.slug}`}
                 />
               </Box>
             )}

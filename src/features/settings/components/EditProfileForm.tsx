@@ -8,7 +8,6 @@ import { IUser } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { REGEX } from 'utils/constants';
 import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
@@ -32,7 +31,7 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
       .required(validate.username.required)
       .min(6, validate.username.min(6))
       .max(50, validate.username.max(20))
-      .matches(REGEX.username, validate.username.valid),
+      .matches(/^(?![_.])[a-zA-Z0-9._]+(?<![_.])$/, validate.username.valid),
     email: yup.string().email().required(),
     bio: yup.string(),
   });

@@ -2,26 +2,25 @@ import authApi from 'api/authApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { NotFound, PrivateRoute } from 'components/common';
 import Auth from 'features/auth';
-import { authActions, selectCurrentUser } from 'features/auth/authSlice';
+import { authActions } from 'features/auth/authSlice';
 import Blog from 'features/blog';
 import { selectLanguage } from 'features/common/configSlice';
 import Settings from 'features/settings';
 import SocketClient from 'features/socket';
-import { selectSocket, socketActions } from 'features/socket/socketSlice';
+import { socketActions } from 'features/socket/socketSlice';
 import i18next from 'i18next';
 import { IUser } from 'models';
 import React, { useEffect } from 'react';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { ACCESS_TOKEN } from 'utils/constants';
 import { env, variables } from 'utils/env';
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const dispatch = useAppDispatch();
-  const currentUser = useAppSelector(selectCurrentUser);
-  const socket = useAppSelector(selectSocket);
   const language = useAppSelector(selectLanguage);
 
   useEffect(() => {
@@ -53,14 +52,8 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!socket || !currentUser) return;
-
-    socket.emit('joinSocial', { userId: currentUser._id });
-
-    return () => {
-      socket.emit('leaveSocial', { userId: currentUser._id });
-    };
-  }, [socket, currentUser]);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location.pathname]);
 
   useEffect(() => {
     i18next.changeLanguage(language);

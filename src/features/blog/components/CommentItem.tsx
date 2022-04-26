@@ -18,7 +18,7 @@ import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { formatTime, showToastComingSoon } from 'utils/common';
+import { formatTime, showComingSoonToast } from 'utils/common';
 import { useTranslateFiles } from 'utils/translation';
 
 export interface ICommentItemProps {
@@ -85,7 +85,7 @@ export default function CommentItem(props: ICommentItemProps) {
     {
       label: t('menu.report'),
       icon: FlagRounded,
-      onClick: showToastComingSoon,
+      onClick: showComingSoonToast,
       show: true,
     },
   ];

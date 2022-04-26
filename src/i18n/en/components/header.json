@@ -1,16 +1,12 @@
 {
   "search": {
-    "placeholder": "Search for post...",
+    "placeholder": "Search posts...",
     "result": "{{count}} results for \"{{searchTerm}}\""
   },
   "notification": {
     "label": "Notifications",
     "markAsRead": "Mark all as read",
-    "type": {
-      "welcome": "Welcome {{name}} to 1social.",
-      "like": "{{name}} liked your post.",
-      "comment": "{{name}} commented on your post."
-    }
+    "welcomeText": "Welcome {{name}} to {{appName}}."
   },
   "menu": {
     "create": "Create a new post",

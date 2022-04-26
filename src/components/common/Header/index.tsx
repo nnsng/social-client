@@ -1,14 +1,4 @@
-import { ArrowBackIosNewRounded } from '@mui/icons-material';
-import {
-  Avatar,
-  Box,
-  Button,
-  Container,
-  Grid,
-  LinearProgress,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Avatar, Box, Container, Grid, LinearProgress, Stack, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { selectPostLoading } from 'features/blog/blogSlice';
 import React, { useState } from 'react';
@@ -31,10 +21,6 @@ export function Header() {
 
   const toggleSearchMobile = () => {
     setOpenSearchMobile(!openSearchMobile);
-  };
-
-  const goBack = () => {
-    navigate(-1);
   };
 
   return (
@@ -62,57 +48,28 @@ export function Header() {
       <Container>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item xs="auto" mr={2}>
-            <Stack alignItems="center" spacing={1}>
-              <Link to="/">
-                <Avatar
-                  variant="rounded"
-                  sx={{
-                    bgcolor: 'primary.main',
-                    fontSize: 28,
-                    fontWeight: 600,
-                  }}
-                >
-                  1
-                </Avatar>
-              </Link>
+            <Stack alignItems="center" spacing={1} component={Link} to="/">
+              <Avatar
+                variant="rounded"
+                sx={{
+                  bgcolor: 'primary.main',
+                  fontSize: 28,
+                  fontWeight: 600,
+                }}
+              >
+                {APP_NAME[0]}
+              </Avatar>
 
-              {location.pathname === '/blog' ? (
-                <Link to="/">
-                  <Typography
-                    variant="h6"
-                    color="primary"
-                    sx={{
-                      fontWeight: 600,
-                      letterSpacing: 1,
-                    }}
-                  >
-                    {APP_NAME}
-                  </Typography>
-                </Link>
-              ) : (
-                <Button
-                  variant="text"
-                  startIcon={<ArrowBackIosNewRounded />}
-                  onClick={goBack}
-                  sx={{
-                    fontWeight: 600,
-                    fontSize: 12,
-                    textTransform: 'uppercase',
-                    color: 'text.primary',
-                    cursor: 'pointer',
-                    ':hover': {
-                      bgcolor: 'transparent',
-                      textDecoration: 'underline',
-                    },
-                    '& .MuiSvgIcon-root': {
-                      fontSize: '12px !important',
-                      mr: -0.5,
-                    },
-                  }}
-                >
-                  {t('back')}
-                </Button>
-              )}
+              <Typography
+                variant="h6"
+                color="primary"
+                sx={{
+                  fontWeight: 600,
+                  letterSpacing: 1,
+                }}
+              >
+                {APP_NAME}
+              </Typography>
             </Stack>
           </Grid>
 

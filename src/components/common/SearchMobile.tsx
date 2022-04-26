@@ -10,6 +10,7 @@ import {
   ListItem,
   ListItemButton,
   OutlinedInput,
+  Stack,
   Toolbar,
   Typography,
 } from '@mui/material';
@@ -49,12 +50,20 @@ export function SearchMobile(props: ISearchMobileProps) {
           top: 0,
           zIndex: 1,
           height: themeVariables.headerHeight,
-          backgroundColor: 'background.default',
           boxShadow: themeVariables.boxShadow,
         }}
       >
-        <Toolbar sx={{ height: '100%' }}>
-          <IconButton edge="start" color="inherit" onClick={onClose}>
+        <Toolbar
+          sx={{
+            height: '100%',
+            bgcolor: 'background.paper',
+            boxShadow: (theme) =>
+              theme.palette.mode === 'light' ? themeVariables.boxShadow : undefined,
+            borderBottom: (theme) => (theme.palette.mode === 'dark' ? 1 : undefined),
+            borderColor: (theme) => (theme.palette.mode === 'dark' ? 'divider' : undefined),
+          }}
+        >
+          <IconButton edge="start" color="inherit" onClick={onClose} sx={{ mr: 1 }}>
             <ArrowBackIosNewRounded sx={{ color: 'text.secondary' }} />
           </IconButton>
 
@@ -85,8 +94,12 @@ export function SearchMobile(props: ISearchMobileProps) {
         </Toolbar>
       </Box>
 
-      <Box position="relative">
-        <Box display="flex" alignItems="center" p={2}>
+      <Box
+        position="relative"
+        bgcolor="background.default"
+        minHeight={`calc(100vh - ${themeVariables.headerHeight})`}
+      >
+        <Stack alignItems="center" p={2}>
           {loading && <CircularProgress size={20} color="primary" sx={{ flexShrink: 0, mr: 1 }} />}
 
           <Typography variant="body2" color="textSecondary" sx={{ flexGrow: 1 }}>
@@ -97,7 +110,7 @@ export function SearchMobile(props: ISearchMobileProps) {
                 searchTerm: inputValue,
               })}
           </Typography>
-        </Box>
+        </Stack>
 
         <List disablePadding>
           {(inputValue || '').length > 1 &&

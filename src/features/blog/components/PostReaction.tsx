@@ -10,7 +10,6 @@ import { IPost } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { hasItemInArray } from 'utils/common';
 
 export interface IPostReactionProps {
   post: IPost;
@@ -72,7 +71,7 @@ export default function PostReaction(props: IPostReactionProps) {
             },
           }}
           startIcon={
-            hasItemInArray(currentUser?._id, post?.likes || []) ? (
+            (post?.likes || []).includes(currentUser?._id as string) ? (
               <FavoriteRounded sx={{ color: 'error.main' }} />
             ) : (
               <FavoriteBorderRounded />

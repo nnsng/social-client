@@ -23,7 +23,6 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { delay } from 'utils/common';
-import { REGEX } from 'utils/constants';
 import { mixins, themeVariables } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
@@ -44,15 +43,13 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
     title: yup.string().required(validate.title.required),
     content: yup.string().required(validate.content.required).min(50, validate.content.min(50)),
     thumbnail: yup.string(),
-    keywords: yup
-      .array()
-      .of(
-        yup
-          .string()
-          .min(3, validate.keywords.min(3))
-          .max(20, validate.keywords.max(20))
-          .matches(REGEX.keyword, validate.keywords.valid)
-      ),
+    keywords: yup.array().of(
+      yup
+        .string()
+        .min(3, validate.keywords.min(3))
+        .max(20, validate.keywords.max(20))
+        .matches(/^(?![_-])[a-zA-Z0-9-]+(?<![_-])$/, validate.keywords.valid)
+    ),
   });
 
   const {

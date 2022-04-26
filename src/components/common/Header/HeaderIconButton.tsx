@@ -27,9 +27,13 @@ function HeaderIconButton(props: IHeaderIconButtonProps, ref?: any) {
         ref={ref ?? null}
         onClick={onClick}
         sx={{
+          width: 36,
+          height: 36,
+          ml: 2,
+          bgcolor: 'action.hover',
           color: active ? 'text.primary' : 'text.secondary',
           '.MuiSvgIcon-root': {
-            fontSize: 24,
+            fontSize: 20,
           },
           ':hover': {
             color: 'text.primary',

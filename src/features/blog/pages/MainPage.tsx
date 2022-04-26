@@ -56,28 +56,17 @@ export function MainPage() {
           flexDirection={{ xs: 'column-reverse', lg: 'row' }}
         >
           <Grid item xs={12} md={10} lg width="100%" mx="auto">
-            <Box component="section">
-              <PostList
-                postList={postList}
-                onSave={handleSavePost}
-                onRemove={handleRemovePost}
-                page={Number(filter.page) || 1}
-                onPageChange={handlePageChange}
-              />
-            </Box>
+            <PostList
+              postList={postList}
+              onSave={handleSavePost}
+              onRemove={handleRemovePost}
+              page={Number(filter.page) || 1}
+              onPageChange={handlePageChange}
+            />
           </Grid>
 
           <Grid item xs={12} md={10} lg={4} width="100%" mx="auto">
-            <Box
-              component="section"
-              sx={{
-                position: 'sticky',
-                top: 96,
-                mt: { xs: -2, lg: 0 },
-              }}
-            >
-              <PostRecommend keywordActive={filter.keyword} onKeywordClick={handleKeywordClick} />
-            </Box>
+            <PostRecommend keywordActive={filter.keyword} onKeywordClick={handleKeywordClick} />
           </Grid>
         </Grid>
       </Box>

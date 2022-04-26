@@ -1,6 +1,6 @@
 import { BorderColorRounded, DeleteRounded, FlagRounded, LinkRounded } from '@mui/icons-material';
 import { IMenuItem, IPost } from 'models';
-import { copyPostLink, showToastComingSoon } from 'utils/common';
+import { copyPostLink, showComingSoonToast } from 'utils/common';
 import { IGetMenuProps } from '.';
 
 export interface IGetPostMenuProps extends IGetMenuProps {
@@ -34,7 +34,7 @@ export function GetPostMenu(props: IGetPostMenuProps) {
     {
       label: t('menu.report'),
       icon: FlagRounded,
-      onClick: showToastComingSoon,
+      onClick: showComingSoonToast,
       show: true,
     },
   ];

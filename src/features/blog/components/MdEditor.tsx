@@ -66,6 +66,7 @@ const configMdSx = (readOnly: boolean) => ({
       bgcolor: 'transparent',
       color: 'text.primary',
       overflow: readOnly ? 'hidden' : 'auto',
+      p: readOnly ? 0 : 'auto',
     },
 
     '& .header-list .list-item': {
@@ -116,7 +117,7 @@ const configMdSx = (readOnly: boolean) => ({
   },
 
   '& .md-preview': {
-    m: readOnly ? -2 : 0,
+    m: 0,
     color: 'text.primary',
 
     '& table': {

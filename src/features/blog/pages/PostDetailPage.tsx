@@ -76,6 +76,7 @@ export function PostDetailPage() {
     dispatch(commentActions.likeComment(comment._id as string));
   };
 
+  if (loading) return null;
   if (!loading && !post) return <NotFound />;
 
   return (

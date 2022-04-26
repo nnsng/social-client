@@ -5,7 +5,7 @@ import { selectThemeColor, selectThemeMode } from 'features/common/configSlice';
 import React, { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
-import { getTheme } from 'utils/theme';
+import { generateTheme, themeVariables } from 'utils/theme';
 
 export interface IApplyThemeProps {
   children: any;
@@ -15,11 +15,11 @@ export function ApplyTheme({ children }: IApplyThemeProps) {
   const themeMode = useAppSelector(selectThemeMode);
   const themeColor = useAppSelector(selectThemeColor);
 
-  const [theme, setTheme] = useState<Theme>(getTheme(themeMode, themeColor));
+  const [theme, setTheme] = useState<Theme>(generateTheme(themeMode, themeColor));
   console.log('~ theme', theme);
 
   useEffect(() => {
-    setTheme(getTheme(themeMode, themeColor));
+    setTheme(generateTheme(themeMode, themeColor));
   }, [themeMode, themeColor]);
 
   useEffect(() => {
@@ -33,7 +33,11 @@ export function ApplyTheme({ children }: IApplyThemeProps) {
   return (
     <ThemeProvider theme={theme}>
       {children}
-      <ToastContainer theme={themeMode} autoClose={2000} />
+      <ToastContainer
+        theme={themeMode}
+        autoClose={2000}
+        style={{ top: themeVariables.headerHeight }}
+      />
     </ThemeProvider>
   );
 }

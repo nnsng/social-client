@@ -1,6 +1,5 @@
 import { useAppSelector } from 'app/hooks';
 import CommentSocket from './components/CommentSocket';
-import NotificationSocket from './components/NotificationSocket';
 import { selectSocket } from './socketSlice';
 
 export interface ISocketProps {
@@ -10,7 +9,7 @@ export interface ISocketProps {
 export default function SocketClient() {
   const socket = useAppSelector(selectSocket);
 
-  const SocketComponents = [NotificationSocket, CommentSocket];
+  const SocketComponents = [CommentSocket];
 
   return (
     <>

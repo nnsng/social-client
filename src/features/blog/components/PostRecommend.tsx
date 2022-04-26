@@ -1,16 +1,9 @@
-import { Box, Chip, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
+import { Box, Chip, Stack, SxProps, Theme, Typography, useMediaQuery } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatKeyword } from 'utils/common';
 
-const recommendKeywords: string[] = [
-  'Front-end',
-  'Back-end',
-  'Mobile',
-  'Design',
-  'DevOps',
-  'Others',
-]
+const recommendKeywords: string[] = ['Front-end', 'Back-end', 'Mobile', 'Design', 'DevOps']
   .map(formatKeyword)
   .filter((x) => !!x);
 
@@ -35,8 +28,30 @@ export default function PostRecommend(props: IPostRecommendProps) {
 
   const isOnPC = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
+  const keywordWrapperSx: SxProps = isOnPC
+    ? {
+        mt: '1.5px',
+        borderTop: 1,
+        borderColor: 'divider',
+      }
+    : {
+        flexWrap: 'nowrap',
+        overflowX: 'auto',
+        '-ms-overflow-style': 'none',
+        'scrollbar-width': 'none',
+        '&::-webkit-scrollbar': {
+          display: 'none',
+        },
+      };
+
   return (
-    <Box>
+    <Box
+      sx={{
+        position: 'sticky',
+        top: 96,
+        mt: { xs: -2, lg: 0 },
+      }}
+    >
       {isOnPC && (
         <Typography
           variant="button"
@@ -54,18 +69,7 @@ export default function PostRecommend(props: IPostRecommendProps) {
         </Typography>
       )}
 
-      <Stack
-        flexWrap="wrap"
-        sx={
-          isOnPC
-            ? {
-                mt: '1.5px',
-                borderTop: 1,
-                borderColor: 'divider',
-              }
-            : {}
-        }
-      >
+      <Stack flexWrap="wrap" sx={keywordWrapperSx}>
         {recommendKeywords.map((keyword, idx) => (
           <Chip
             key={idx}
@@ -80,7 +84,7 @@ export default function PostRecommend(props: IPostRecommendProps) {
             }}
           />
         ))}
-        {keywordActive && recommendKeywords.every((keyword) => keyword !== keywordActive) && (
+        {keywordActive && !recommendKeywords.includes(keywordActive) && (
           <Chip
             color="primary"
             label={keywordActive}

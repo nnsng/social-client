@@ -7,7 +7,7 @@ import i18next from 'i18next';
 import { IPost, IUserConfig } from 'models';
 import { toast } from 'react-toastify';
 import slugify from 'slugify';
-import { CONFIG, REGEX } from './constants';
+import { CONFIG } from './constants';
 import { useTranslateFiles } from './translation';
 
 export const formatTime = (timestamp: any) => {
@@ -47,13 +47,6 @@ export const delay = async (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
-export const hasItemInArray = (item: any, array: any, callback?: (element: any) => boolean) => {
-  if (!Array.isArray(array) || array.length === 0) return false;
-
-  const findFunc = callback ? callback : (element: any) => element === item;
-  return array.findIndex(findFunc) !== -1;
-};
-
 export const localConfig = {
   set(config: IUserConfig) {
     localStorage.setItem(CONFIG, JSON.stringify(config));
@@ -69,7 +62,7 @@ export const localConfig = {
   },
 };
 
-export const showToastComingSoon = () => {
+export const showComingSoonToast = () => {
   const { toast: toastTranslation } = useTranslateFiles('toast');
   toast.info(toastTranslation.comingSoon);
 };

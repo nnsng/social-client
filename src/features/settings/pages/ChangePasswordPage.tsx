@@ -3,7 +3,7 @@ import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { IChangePasswordFormValues } from 'models';
 import React from 'react';
-import { showToastComingSoon } from 'utils/common';
+import { showComingSoonToast } from 'utils/common';
 import ChangePasswordForm from '../components/ChangePasswordForm';
 
 export function ChangePasswordPage() {
@@ -21,7 +21,7 @@ export function ChangePasswordPage() {
   };
 
   const handleForgotPassword = () => {
-    showToastComingSoon();
+    showComingSoonToast();
   };
 
   return (

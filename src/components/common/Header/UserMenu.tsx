@@ -47,9 +47,9 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
       <Avatar
         src={currentUser?.avatar}
         sx={{
-          width: 28,
-          height: 28,
-          ml: 1.5,
+          width: 36,
+          height: 36,
+          ml: 2,
           cursor: 'pointer',
         }}
         ref={anchorRef as any}
