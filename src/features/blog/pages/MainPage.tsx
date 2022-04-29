@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
@@ -46,30 +46,28 @@ export function MainPage() {
   };
 
   return (
-    <>
+    <Container>
       <PageTitle title={APP_NAME} />
 
-      <Box>
-        <Grid
-          container
-          spacing={{ xs: 2, lg: 8 }}
-          flexDirection={{ xs: 'column-reverse', lg: 'row' }}
-        >
-          <Grid item xs={12} md={10} lg width="100%" mx="auto">
-            <PostList
-              postList={postList}
-              onSave={handleSavePost}
-              onRemove={handleRemovePost}
-              page={Number(filter.page) || 1}
-              onPageChange={handlePageChange}
-            />
-          </Grid>
-
-          <Grid item xs={12} md={10} lg={4} width="100%" mx="auto">
-            <PostRecommend keywordActive={filter.keyword} onKeywordClick={handleKeywordClick} />
-          </Grid>
+      <Grid
+        container
+        spacing={{ xs: 2, lg: 8 }}
+        flexDirection={{ xs: 'column-reverse', lg: 'row' }}
+      >
+        <Grid item xs={12} md={10} lg width="100%" mx="auto">
+          <PostList
+            postList={postList}
+            onSave={handleSavePost}
+            onRemove={handleRemovePost}
+            page={Number(filter.page) || 1}
+            onPageChange={handlePageChange}
+          />
         </Grid>
-      </Box>
-    </>
+
+        <Grid item xs={12} md={10} lg={4} width="100%" mx="auto">
+          <PostRecommend keywordActive={filter.keyword} onKeywordClick={handleKeywordClick} />
+        </Grid>
+      </Grid>
+    </Container>
   );
 }

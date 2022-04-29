@@ -14,8 +14,7 @@ import postRecommend from './components/postRecommend.json';
 import postDetail from './components/postDetail.json';
 import postReaction from './components/postReaction.json';
 import postComment from './components/postComment.json';
-import postItemMobile from './components/postItemMobile.json';
-import postTable from './components/postTable.json';
+import postItem from './components/postItem.json';
 import settingTabs from './components/settingTabs.json';
 import editProfileForm from './components/editProfileForm.json';
 import changePasswordForm from './components/changePasswordForm.json';
@@ -41,8 +40,7 @@ export default {
   postDetail,
   postReaction,
   postComment,
-  postItemMobile,
-  postTable,
+  postItem,
   settingTabs,
   editProfileForm,
   changePasswordForm,

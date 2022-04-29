@@ -16,10 +16,9 @@ const toast = {
     saveSuccess: 'Đã lưu.',
     deleteSuccess: 'Xóa bài viết thành công.',
   },
-  postTable: {
+  postItem: {
     deleteSuccess: 'Xóa bài viết thành công.',
     unsaveSuccess: 'Bỏ lưu bài viết thành công.',
-    unsaveError: 'Bỏ lưu bài viết thất bại.',
   },
   settingSaga: {
     updateProfileSuccess: 'Cập nhật thông tin thành công.',

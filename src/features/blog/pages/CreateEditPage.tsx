@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
@@ -57,7 +57,7 @@ export function CreateEditPage() {
   };
 
   return (
-    <>
+    <Container>
       <PageTitle title={isNewPost ? t('pageTitle.create') : t('pageTitle.edit')} />
 
       <Box>
@@ -67,6 +67,6 @@ export function CreateEditPage() {
           isNewPost={isNewPost}
         />
       </Box>
-    </>
+    </Container>
   );
 }

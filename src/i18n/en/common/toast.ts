@@ -16,10 +16,9 @@ const toast = {
     saveSuccess: 'Saved.',
     deleteSuccess: 'Deleted.',
   },
-  postTable: {
+  postItem: {
     deleteSuccess: 'Deleted.',
     unsaveSuccess: 'Unsaved.',
-    unsaveError: 'Unsave error.',
   },
   settingSaga: {
     updateProfileSuccess: 'Update profile successfully.',

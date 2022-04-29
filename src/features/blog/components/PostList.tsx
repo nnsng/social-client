@@ -1,9 +1,10 @@
-import { Box, List, ListItem, Pagination, Stack, Theme } from '@mui/material';
+import { Box, List, ListItem, Pagination, Stack, Theme, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { NoPost } from 'components/common';
 import { selectTotalPages } from 'features/blog/blogSlice';
 import { IPost } from 'models';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import PostCard from './PostCard';
 
 export interface IPostListProps {
@@ -17,6 +18,8 @@ export interface IPostListProps {
 
 export default function PostList(props: IPostListProps) {
   const { postList, page, onPageChange, onSave, onRemove } = props;
+
+  const { t } = useTranslation('postList');
 
   const totalPage = useAppSelector(selectTotalPages);
 

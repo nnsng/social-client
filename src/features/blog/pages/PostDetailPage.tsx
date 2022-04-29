@@ -1,4 +1,4 @@
-import { Box, Drawer, Grid } from '@mui/material';
+import { Box, Container, Drawer, Grid } from '@mui/material';
 import commentApi from 'api/commentApi';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
@@ -80,7 +80,7 @@ export function PostDetailPage() {
   if (!loading && !post) return <NotFound />;
 
   return (
-    <>
+    <Container>
       <PageTitle title={loading ? APP_NAME : `${post?.title} | ${post?.author?.name}`} />
 
       {!loading && post && (
@@ -111,6 +111,6 @@ export function PostDetailPage() {
           </Drawer>
         </Box>
       )}
-    </>
+    </Container>
   );
 }

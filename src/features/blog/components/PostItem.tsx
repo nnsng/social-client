@@ -8,29 +8,33 @@ import {
 import { Avatar, Box, IconButton, ListItem, MenuItem, Stack, Typography } from '@mui/material';
 import { ActionMenu } from 'components/common';
 import { IMenuItem, IPost } from 'models';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import remarkGfm from 'remark-gfm';
 import { copyPostLink, formatTime } from 'utils/common';
-import { mixins } from 'utils/theme';
+import { mixins, themeVariables } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 
-export interface IPostItemMobileProps {
+export interface IPostItemProps {
   post: IPost;
-  onEdit?: (post: IPost) => void;
-  onRemove?: (post: IPost) => void;
   saved?: boolean;
   onUnSave?: (post: IPost) => void;
+  onEdit?: (post: IPost) => void;
+  onRemove?: (post: IPost) => void;
 }
 
-export function PostItemMobile(props: IPostItemMobileProps) {
+export function PostItem(props: IPostItemProps) {
   const { post, onEdit, onRemove, saved, onUnSave } = props;
 
-  const { t } = useTranslation('postItemMobile');
+  const { t } = useTranslation('postItem');
   const { toast: toastTranslation } = useTranslateFiles('toast');
 
   const [openMenu, setOpenMenu] = useState<boolean>(false);
+
+  const anchorRef = useRef<HTMLElement | null>(null);
 
   const toggleOpenMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
@@ -38,6 +42,7 @@ export function PostItemMobile(props: IPostItemMobileProps) {
   const handleRemovePost = async () => {
     try {
       await onRemove?.(post);
+      toast.success(toastTranslation.postItem.deleteSuccess);
     } catch (error: any) {
       const errorName = error?.response?.data?.name || 'somethingWrong';
       toast.error(toastTranslation.errors[errorName]);
@@ -47,6 +52,7 @@ export function PostItemMobile(props: IPostItemMobileProps) {
   const handleUnSavePost = async () => {
     try {
       await onUnSave?.(post);
+      toast.success(toastTranslation.postItem.unsaveSuccess);
     } catch (error: any) {
       const errorName = error?.response?.data?.name || 'somethingWrong';
       toast.error(toastTranslation.errors[errorName]);
@@ -103,10 +109,11 @@ export function PostItemMobile(props: IPostItemMobileProps) {
             variant="rounded"
             src={post.thumbnail}
             sx={{
-              width: 100,
-              height: 80,
+              width: { xs: 100, sm: 200 },
+              height: { xs: 80, sm: 100 },
               mr: 2,
               bgcolor: 'action.hover',
+              borderRadius: 2,
             }}
           >
             <Box />
@@ -123,43 +130,63 @@ export function PostItemMobile(props: IPostItemMobileProps) {
           <Typography
             variant="h6"
             color="text.primary"
-            fontSize={16}
             fontWeight={600}
-            lineHeight={1.4}
-            sx={{ ...mixins.truncate(2) }}
+            sx={{ ...mixins.truncate(1) }}
           >
             {post.title}
           </Typography>
 
-          {saved && (
-            <Typography
-              variant="body2"
-              fontSize={12}
-              color="text.secondary"
-              display="flex"
-              alignItems="center"
-            >
-              {post.author?.name}
-            </Typography>
-          )}
-
           <Typography
-            variant="body2"
-            fontSize={12}
+            variant="body1"
+            component="div"
             color="text.secondary"
-            display="flex"
-            alignItems="center"
+            sx={{
+              ...mixins.truncate(1),
+              mb: 0.5,
+              '& *': { maxWidth: '100%' },
+            }}
           >
-            {formatTime(post.createdAt)}
+            <ReactMarkdown
+              children={post.content}
+              remarkPlugins={[remarkGfm]}
+              disallowedElements={['table']}
+            />
           </Typography>
+
+          <Stack alignItems="center" color="text.secondary">
+            {saved && (
+              <Typography
+                variant="body2"
+                fontSize={12}
+                color="inherit"
+                sx={{
+                  '&::after': {
+                    content: "'-'",
+                    mx: 1,
+                  },
+                }}
+              >
+                {post.author?.name}
+              </Typography>
+            )}
+
+            <Typography variant="body2" fontSize={12} color="inherit">
+              {formatTime(post.createdAt)}
+            </Typography>
+          </Stack>
         </Stack>
 
         <Box flexShrink={0} ml={2}>
-          <IconButton size="small" onClick={toggleOpenMenu}>
+          <IconButton size="small" ref={anchorRef as any} onClick={toggleOpenMenu}>
             <MoreHorizRounded />
           </IconButton>
 
-          <ActionMenu open={openMenu} onClose={closeMenu}>
+          <ActionMenu
+            open={openMenu}
+            anchorEl={anchorRef.current}
+            paperSx={{ boxShadow: themeVariables.boxShadow, overflow: 'hidden' }}
+            onClose={closeMenu}
+          >
             {menuItemList.map(
               ({ label, icon: Icon, onClick, show }, idx) =>
                 show && (

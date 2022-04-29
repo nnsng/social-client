@@ -1,20 +1,21 @@
-import { Box, List, Pagination, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
+import { Box, Container, List, Pagination, Stack, Typography } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
-import { IPost } from 'models';
+import { IListParams, IPost } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { blogActions, selectPostList, selectTotalPages } from '../blogSlice';
-import { PostItemMobile } from '../components/PostItemMobile';
-import PostTable from '../components/PostTable';
+import { PostItem } from '../components/PostItem';
 
-export interface IPostListPageProps {
+export interface IMyPostListPageProps {
   mode?: 'my' | 'saved';
 }
 
-export function PostListPage({ mode }: IPostListPageProps) {
+export function MyPostListPage({ mode }: IMyPostListPageProps) {
+  const isSavedPage = mode === 'saved';
+
   const navigate = useNavigate();
 
   const { t } = useTranslation('postList');
@@ -23,12 +24,7 @@ export function PostListPage({ mode }: IPostListPageProps) {
   const postList = useAppSelector(selectPostList);
   const totalPage = useAppSelector(selectTotalPages);
 
-  const [filters, setFilters] = useState({
-    page: 1,
-    limit: 10,
-  });
-
-  const isSavedPage = mode === 'saved';
+  const [filters, setFilters] = useState<IListParams>({});
 
   useEffect(() => {
     setFilters({
@@ -38,6 +34,8 @@ export function PostListPage({ mode }: IPostListPageProps) {
   }, [mode]);
 
   useEffect(() => {
+    if (Object.keys(filters).length === 0) return;
+
     if (isSavedPage) {
       dispatch(blogActions.fetchSavedPostList(filters));
     } else {
@@ -63,10 +61,8 @@ export function PostListPage({ mode }: IPostListPageProps) {
     setFilters({ ...filters, page });
   };
 
-  const hideOnMobile = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
-
   return (
-    <>
+    <Container maxWidth="md">
       <PageTitle title={t(`pageTitle.${mode}`)} />
 
       <Box>
@@ -74,33 +70,21 @@ export function PostListPage({ mode }: IPostListPageProps) {
           {t(`pageTitle.${mode}`)}
         </Typography>
 
-        {hideOnMobile ? (
-          <Box mt={2}>
-            <PostTable
-              postList={postList}
+        <List>
+          {postList.map((post) => (
+            <PostItem
+              key={post._id}
+              post={post}
               saved={isSavedPage}
               onUnSave={handleUnSavePost}
               onEdit={handleEditPost}
               onRemove={handleRemovePost}
             />
-          </Box>
-        ) : (
-          <List>
-            {postList.map((post) => (
-              <PostItemMobile
-                key={post._id}
-                post={post}
-                saved={isSavedPage}
-                onUnSave={handleUnSavePost}
-                onEdit={handleEditPost}
-                onRemove={handleRemovePost}
-              />
-            ))}
-          </List>
-        )}
+          ))}
+        </List>
 
         {totalPage > 1 && (
-          <Stack my={2}>
+          <Stack mb={2}>
             <Pagination
               shape="rounded"
               color="primary"
@@ -112,6 +96,6 @@ export function PostListPage({ mode }: IPostListPageProps) {
           </Stack>
         )}
       </Box>
-    </>
+    </Container>
   );
 }

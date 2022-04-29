@@ -40,7 +40,6 @@ const blogSlice = createSlice({
 
     fetchMyPostList(state, action: PayloadAction<IListParams>) {
       state.loading = true;
-      state.list = [];
     },
     fetchMyPostListSuccess(state, action: PayloadAction<IListResponse<IPost>>) {
       state.loading = false;
@@ -53,7 +52,6 @@ const blogSlice = createSlice({
 
     fetchSavedPostList(state, action: PayloadAction<IListParams>) {
       state.loading = true;
-      state.list = [];
     },
     fetchSavedPostListSuccess(state, action: PayloadAction<IListResponse<IPost>>) {
       state.loading = false;
