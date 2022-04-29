@@ -113,7 +113,7 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
     <form>
       <Stack
         direction="column"
-        height={`calc(100vh - ${themeVariables.headerHeight} * 2 + 36px)`}
+        height={`calc(100vh - ${themeVariables.headerHeight}px * 2 + 36px)`}
         sx={{
           borderRadius: 2,
           border: 1,

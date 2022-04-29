@@ -55,7 +55,7 @@ export default function SettingTabs() {
           borderColor: 'divider',
         },
         '& .MuiTabs-flexContainer': {
-          height: `calc(100vh - (82px + ${themeVariables.headerHeight}))`,
+          height: `calc(100vh - (82px + ${themeVariables.headerHeight}px))`,
         },
       }}
       onChange={handleChangeTab}

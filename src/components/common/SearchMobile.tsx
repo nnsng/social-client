@@ -97,7 +97,7 @@ export function SearchMobile(props: ISearchMobileProps) {
       <Box
         position="relative"
         bgcolor="background.default"
-        minHeight={`calc(100vh - ${themeVariables.headerHeight})`}
+        minHeight={`calc(100vh - ${themeVariables.headerHeight}px)`}
       >
         <Stack alignItems="center" p={2}>
           {loading && <CircularProgress size={20} color="primary" sx={{ flexShrink: 0, mr: 1 }} />}

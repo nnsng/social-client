@@ -14,7 +14,7 @@ export default function Settings() {
       <PageTitle title={t('pageTitle')} />
       <Header />
 
-      <Box component="main" pt={3}>
+      <Box component="main" pt={2}>
         <Container maxWidth="md">
           <Box>
             <Typography variant="h4" fontWeight={500}>

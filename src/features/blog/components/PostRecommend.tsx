@@ -2,6 +2,7 @@ import { Box, Chip, Stack, SxProps, Theme, Typography, useMediaQuery } from '@mu
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatKeyword } from 'utils/common';
+import { themeVariables } from 'utils/theme';
 
 const recommendKeywords: string[] = ['Front-end', 'Back-end', 'Mobile', 'Design', 'DevOps']
   .map(formatKeyword)
@@ -48,7 +49,7 @@ export default function PostRecommend(props: IPostRecommendProps) {
     <Box
       sx={{
         position: 'sticky',
-        top: 96,
+        top: themeVariables.headerHeight + 16, // 16 = 8 * 2 (paddingTop)
         mt: { xs: -2, lg: 0 },
       }}
     >

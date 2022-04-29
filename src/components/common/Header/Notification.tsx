@@ -50,7 +50,7 @@ export default function Notification() {
         open={open}
         anchorEl={anchorRef.current}
         paperSx={{
-          width: { xs: `calc(100vw - ${themeVariables.scrollbarWidth})`, sm: 400 },
+          width: { xs: `calc(100vw - ${themeVariables.scrollbarWidth}px)`, sm: 400 },
           mt: 1,
           borderRadius: 1,
         }}

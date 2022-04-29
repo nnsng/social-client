@@ -135,8 +135,8 @@ export const supportedThemeColors: string[] = [
 ];
 
 export const themeVariables = {
-  headerHeight: '72px',
-  scrollbarWidth: '6px',
+  headerHeight: 72,
+  scrollbarWidth: 6,
   boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
 };
 
