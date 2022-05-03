@@ -1,7 +1,7 @@
 import { Theme } from '@mui/material';
 import { Box } from '@mui/system';
 import MarkdownIt from 'markdown-it';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Editor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import { getImageUrlFromCDN } from 'utils/common';
@@ -23,25 +23,33 @@ const mdParser = new MarkdownIt();
 export default function MdEditor(props: IMdEditorProps) {
   const { onEditorChange, readOnly, value, placeholder } = props;
 
-  const otherProps = readOnly && {
-    view: { menu: false, md: false, html: true },
-    style: { border: 'none' },
-    readOnly: true,
-  };
+  const ref = useRef(null);
+
+  // add scrollbar to MDEditor
+  useEffect(() => {
+    const sectionContainers = (ref.current as any).querySelectorAll('.section-container');
+    for (const container of sectionContainers) {
+      container.classList.add('default-scrollbar');
+    }
+  }, []);
 
   const handleImageUpload = async (file: File) => {
     const imageUrl = await getImageUrlFromCDN(file);
     return imageUrl;
   };
 
-  const mdWrapperSx = configMdSx(!!readOnly);
+  const otherProps = readOnly && {
+    view: { menu: false, md: false, html: true },
+    style: { border: 'none' },
+    readOnly: true,
+  };
 
   return (
-    <Box sx={mdWrapperSx}>
+    <Box ref={ref} sx={configStyles(!!readOnly)}>
       <Editor
         markdownClass="md-editor"
         htmlClass="custom-html-style md-preview"
-        renderHTML={(text) => mdParser.render(text)}
+        renderHTML={(text: string) => mdParser.render(text)}
         onChange={onEditorChange}
         onImageUpload={handleImageUpload}
         value={value}
@@ -53,7 +61,7 @@ export default function MdEditor(props: IMdEditorProps) {
   );
 }
 
-const configMdSx = (readOnly: boolean) => ({
+const configStyles = (readOnly: boolean) => ({
   height: '100%',
   overflow: 'hidden',
 
@@ -77,7 +85,7 @@ const configMdSx = (readOnly: boolean) => ({
     },
 
     '& .drop-wrap': {
-      bgcolor: 'background.default',
+      bgcolor: 'background.paper',
       borderColor: 'divider',
     },
 

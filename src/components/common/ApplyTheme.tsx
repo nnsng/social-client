@@ -1,19 +1,21 @@
 import { Theme, ThemeProvider } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import favicons, { blackFavicon } from 'assets/favicons';
-import { selectThemeColor, selectThemeMode } from 'features/common/configSlice';
+import { selectLanguage, selectThemeColor, selectThemeMode } from 'features/common/configSlice';
+import i18next from 'i18next';
 import React, { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { generateTheme, themeVariables } from 'utils/theme';
 
 export interface IApplyThemeProps {
-  children: any;
+  children?: React.ReactNode;
 }
 
 export function ApplyTheme({ children }: IApplyThemeProps) {
   const themeMode = useAppSelector(selectThemeMode);
   const themeColor = useAppSelector(selectThemeColor);
+  const language = useAppSelector(selectLanguage);
 
   const [theme, setTheme] = useState<Theme>(generateTheme(themeMode, themeColor));
   console.log('~ theme', theme);
@@ -24,11 +26,14 @@ export function ApplyTheme({ children }: IApplyThemeProps) {
 
   useEffect(() => {
     document.documentElement.style.setProperty('--color-primary', themeColor);
-    document.documentElement.style.setProperty('--color-primary', themeColor);
 
     const faviconElement = document.getElementById('favicon') as any;
     faviconElement.href = favicons[themeColor] ?? blackFavicon;
   }, [themeColor]);
+
+  useEffect(() => {
+    i18next.changeLanguage(language);
+  }, [language]);
 
   return (
     <ThemeProvider theme={theme}>

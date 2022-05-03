@@ -1,27 +1,23 @@
 import authApi from 'api/authApi';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { NotFound, PrivateRoute } from 'components/common';
+import { useAppDispatch } from 'app/hooks';
+import { CustomScrollbar, NotFound, PrivateRoute } from 'components/common';
 import Auth from 'features/auth';
 import { authActions } from 'features/auth/authSlice';
 import Blog from 'features/blog';
-import { selectLanguage } from 'features/common/configSlice';
 import Settings from 'features/settings';
 import SocketClient from 'features/socket';
 import { socketActions } from 'features/socket/socketSlice';
-import i18next from 'i18next';
 import { IUser } from 'models';
 import React, { useEffect } from 'react';
-import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { ACCESS_TOKEN } from 'utils/constants';
 import { env, variables } from 'utils/env';
 
 function App() {
   const navigate = useNavigate();
-  const location = useLocation();
 
   const dispatch = useAppDispatch();
-  const language = useAppSelector(selectLanguage);
 
   useEffect(() => {
     (async () => {
@@ -51,16 +47,8 @@ function App() {
     };
   }, [dispatch]);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [location.pathname]);
-
-  useEffect(() => {
-    i18next.changeLanguage(language);
-  }, [language]);
-
   return (
-    <>
+    <CustomScrollbar>
       <SocketClient />
 
       <Routes>
@@ -97,7 +85,7 @@ function App() {
           }
         />
       </Routes>
-    </>
+    </CustomScrollbar>
   );
 }
 

@@ -2,6 +2,7 @@ export * from './ActionMenu';
 export * from './ApplyTheme';
 export * from './BackdropLoading';
 export * from './ConfirmDialog';
+export * from './CustomScrollbar';
 export * from './GoogleIcon';
 export * from './Header';
 export * from './KeywordInput';
