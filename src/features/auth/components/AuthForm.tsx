@@ -4,20 +4,12 @@ import { GoogleIcon } from 'components/common';
 import { MuiTextField } from 'components/formFields';
 import useLoginWithGoogle from 'hooks/useLoginWithGoogle';
 import i18next from 'i18next';
-import { IAuthFormValues } from 'models';
+import { IAuthFormValues, IField } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
-
-function AuthButton({ children, ...props }: ButtonProps) {
-  return (
-    <Button color="primary" fullWidth sx={{ fontSize: '1rem', height: 48 }} {...props}>
-      {children}
-    </Button>
-  );
-}
 
 export interface IAuthFormProps {
   defaultValues: IAuthFormValues;
@@ -75,6 +67,31 @@ export default function AuthForm(props: IAuthFormProps) {
     onSubmit?.(formValues);
   };
 
+  const fieldList: IField[] = [
+    {
+      name: 'name',
+      show: isRegisterMode,
+      props: {},
+    },
+    {
+      name: 'username',
+      show: isRegisterMode,
+      props: {},
+    },
+    {
+      name: 'email',
+      show: true,
+      props: {},
+    },
+    {
+      name: 'password',
+      show: true,
+      props: {
+        type: 'password',
+      },
+    },
+  ];
+
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} style={{ width: '100%' }}>
       <Box
@@ -84,7 +101,7 @@ export default function AuthForm(props: IAuthFormProps) {
           px: 4,
           m: 'auto',
           bgcolor: 'background.paper',
-          borderRadius: 3,
+          borderRadius: 2,
           boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
         }}
       >
@@ -92,53 +109,33 @@ export default function AuthForm(props: IAuthFormProps) {
           <Typography
             variant="h4"
             color="primary"
-            mb={2}
-            fontSize={48}
-            fontWeight={600}
-            textAlign="center"
+            sx={{
+              mb: 2,
+              fontSize: 48,
+              fontWeight: 600,
+              textAlign: 'center',
+            }}
           >
-            {`${isRegisterMode ? t('title.register') : t('title.login')}`.toUpperCase()}
+            {t(`title.${defaultValues.mode}`).toUpperCase()}
           </Typography>
 
-          {isRegisterMode && (
-            <>
-              <MuiTextField
-                name="name"
-                control={control}
-                label={t('label.name')}
-                variant="outlined"
-                size="medium"
-              />
-
-              <MuiTextField
-                name="username"
-                control={control}
-                label={t('label.username')}
-                variant="outlined"
-                size="medium"
-              />
-            </>
+          {fieldList.map(
+            ({ name, show, props }) =>
+              show && (
+                <MuiTextField
+                  key={name}
+                  name={name}
+                  control={control}
+                  label={t(`label.${name}`)}
+                  variant="outlined"
+                  size="medium"
+                  {...props}
+                />
+              )
           )}
 
-          <MuiTextField
-            name="email"
-            control={control}
-            label={t('label.email')}
-            variant="outlined"
-            size="medium"
-          />
-
-          <MuiTextField
-            name="password"
-            control={control}
-            label={t('label.password')}
-            variant="outlined"
-            type="password"
-            size="medium"
-          />
-
           <AuthButton type="submit" variant="contained">
-            {isRegisterMode ? t('title.register') : t('title.login')}
+            {t(`title.${defaultValues.mode}`)}
           </AuthButton>
 
           {!isRegisterMode && (
@@ -163,7 +160,7 @@ export default function AuthForm(props: IAuthFormProps) {
               sx={{ cursor: 'pointer' }}
               onClick={handleSwitchMode}
             >
-              {isRegisterMode ? t('title.login') : t('title.register')}
+              {t(`title.${defaultValues.mode}`)}
             </Typography>
           </Box>
 
@@ -181,5 +178,13 @@ export default function AuthForm(props: IAuthFormProps) {
         </Stack>
       </Box>
     </form>
+  );
+}
+
+function AuthButton({ children, ...props }: ButtonProps) {
+  return (
+    <Button color="primary" fullWidth sx={{ fontSize: '1rem', height: 48 }} {...props}>
+      {children}
+    </Button>
   );
 }

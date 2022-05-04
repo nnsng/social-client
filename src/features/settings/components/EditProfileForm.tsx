@@ -4,7 +4,7 @@ import { useAppSelector } from 'app/hooks';
 import { FileInputField, MuiTextField } from 'components/formFields';
 import { selectUploading } from 'features/common/uploadSlice';
 import i18next from 'i18next';
-import { IUser } from 'models';
+import { IField, IUser } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -36,10 +36,11 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
     bio: yup.string(),
   });
 
-  const { control, handleSubmit, getValues, reset, clearErrors } = useForm({
+  const { control, handleSubmit, watch, setValue, reset, clearErrors } = useForm({
     defaultValues,
     resolver: yupResolver(schema),
   });
+  const avatarUrl = watch('avatar');
 
   const uploading = useAppSelector(selectUploading);
 
@@ -51,90 +52,118 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
     reset(defaultValues);
   }, [defaultValues]);
 
+  const removeAvatar = () => {
+    setValue('avatar', '');
+  };
+
+  const avatarComponent = (
+    <Stack direction="column" key="avatar">
+      <Typography
+        variant="h6"
+        sx={{
+          width: 160,
+          mb: 0.5,
+          fontSize: 18,
+          fontWeight: 500,
+        }}
+      >
+        {t('label.avatar')}
+      </Typography>
+
+      <Stack alignItems="flex-end" spacing={2}>
+        <Box
+          component="label"
+          htmlFor="avatar-upload"
+          sx={{
+            position: 'relative',
+            display: 'inline-block',
+            width: 68,
+            height: 68,
+          }}
+        >
+          <Avatar
+            src={avatarUrl}
+            sx={{
+              width: '100%',
+              height: '100%',
+              cursor: 'pointer',
+            }}
+          />
+          <FileInputField name="avatar" control={control} id="avatar-upload" disabled={uploading} />
+
+          {uploading && (
+            <Stack
+              sx={{
+                position: 'absolute',
+                inset: '0',
+                alignItems: 'center',
+                justifyContent: 'center',
+                bgcolor: 'action.disabled',
+                borderRadius: '50%',
+              }}
+            >
+              <CircularProgress size={24} />
+            </Stack>
+          )}
+        </Box>
+
+        {!!avatarUrl && (
+          <Button variant="outlined" color="error" size="small" onClick={removeAvatar}>
+            {t('removeAvatar')}
+          </Button>
+        )}
+      </Stack>
+    </Stack>
+  );
+
+  const fieldList: IField[] = [
+    {
+      name: 'name',
+      props: {},
+    },
+    {
+      name: 'avatar',
+      props: {},
+    },
+    {
+      name: 'username',
+      props: {},
+    },
+    {
+      name: 'email',
+      props: {
+        disabled: true,
+      },
+    },
+    {
+      name: 'bio',
+      props: {
+        multiline: true,
+        rows: 3,
+      },
+    },
+  ];
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Box pb={3}>
         <Stack direction="column" spacing={2}>
-          <MuiTextField
-            name="name"
-            control={control}
-            variant="outlined"
-            placeholder={t('label.name')}
-            title={t('label.name')}
-            sx={{ maxWidth: 400 }}
-          />
-
-          <Stack direction="column">
-            <Typography variant="h6" fontSize={18} fontWeight={500} mb={0.5} width={160}>
-              {t('label.avatar')}
-            </Typography>
-
-            <Box
-              component="label"
-              htmlFor="avatar-upload"
-              sx={{
-                position: 'relative',
-                display: 'inline-block',
-                width: 68,
-                height: 68,
-              }}
-            >
-              <Avatar
-                src={getValues('avatar')}
-                sx={{
-                  width: 68,
-                  height: 68,
-                  cursor: 'pointer',
-                }}
+          {fieldList.map(({ name, props }) =>
+            name !== 'avatar' ? (
+              <MuiTextField
+                key={name}
+                name={name}
+                control={control}
+                variant="outlined"
+                placeholder={t(`label.${name}`)}
+                title={t(`label.${name}`)}
+                sx={{ maxWidth: 400 }}
+                {...props}
               />
-              <FileInputField name="avatar" control={control} id="avatar-upload" />
-
-              {uploading && (
-                <Stack
-                  sx={{
-                    position: 'absolute',
-                    inset: '0',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    bgcolor: 'rgba(0, 0, 0, 0.3)',
-                    borderRadius: '50%',
-                  }}
-                >
-                  <CircularProgress size={24} />
-                </Stack>
-              )}
-            </Box>
-          </Stack>
-
-          <MuiTextField
-            name="username"
-            control={control}
-            variant="outlined"
-            placeholder={t('label.username')}
-            title={t('label.username')}
-            sx={{ maxWidth: 400 }}
-          />
-
-          <MuiTextField
-            name="email"
-            control={control}
-            variant="outlined"
-            placeholder={t('label.email')}
-            title={t('label.email')}
-            sx={{ maxWidth: 400 }}
-            disabled
-          />
-
-          <MuiTextField
-            name="bio"
-            control={control}
-            variant="outlined"
-            placeholder={t('label.bio')}
-            title={t('label.bio')}
-            sx={{ maxWidth: 400 }}
-            multiline
-            rows={3}
-          />
+            ) : (
+              avatarComponent
+            )
+          )}
 
           <Box>
             <Button

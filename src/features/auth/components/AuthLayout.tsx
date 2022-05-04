@@ -41,14 +41,16 @@ export default function AuthLayout({ mode }: IAuthLayoutProps) {
 
   return (
     <>
-      <PageTitle title={mode === 'login' ? t('pageTitle.login') : t('pageTitle.register')} />
+      <PageTitle title={t(`pageTitle.${mode}`)} />
 
       <Stack
         direction="column"
-        alignItems="center"
-        justifyContent="center"
-        minHeight="100vh"
-        bgcolor="primary.main"
+        sx={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '100vh',
+          bgcolor: 'background.default',
+        }}
       >
         <AuthForm
           defaultValues={defaultValues}

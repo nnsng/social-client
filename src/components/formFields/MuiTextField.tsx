@@ -11,7 +11,6 @@ export interface IMuiTextFieldProps extends OutlinedTextFieldProps {
 
 export function MuiTextField(props: IMuiTextFieldProps) {
   const { name, control, label, title, ...restProps } = props;
-  const { sx } = restProps;
 
   const {
     field: { value, onChange, onBlur, ref },
@@ -21,7 +20,7 @@ export function MuiTextField(props: IMuiTextFieldProps) {
   return (
     <Stack direction="column">
       {title && (
-        <Typography variant="h6" fontSize={18} fontWeight={500} mb={0.5}>
+        <Typography variant="h6" sx={{ mb: 0.5, fontSize: 18, fontWeight: 500 }}>
           {title}
         </Typography>
       )}
@@ -39,7 +38,12 @@ export function MuiTextField(props: IMuiTextFieldProps) {
         fullWidth
         spellCheck={false}
         {...restProps}
-        sx={{ ...sx, bgcolor: 'background.paper' }}
+        sx={{
+          ...restProps.sx,
+          '& .MuiInputBase-root': {
+            bgcolor: 'background.paper',
+          },
+        }}
       />
     </Stack>
   );

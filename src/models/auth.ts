@@ -44,3 +44,9 @@ export interface IUserConfig {
   color: string;
   lang: string;
 }
+
+export interface IField {
+  name: string;
+  show?: boolean;
+  props?: object;
+}

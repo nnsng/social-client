@@ -1,9 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, CircularProgress, Grid, Stack, Typography } from '@mui/material';
+import { Button, CircularProgress, Stack } from '@mui/material';
 import { Box } from '@mui/system';
 import { MuiTextField } from 'components/formFields';
 import i18next from 'i18next';
-import { IChangePasswordFormValues } from 'models';
+import { IChangePasswordFormValues, IField } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -64,35 +64,27 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
     }
   };
 
-  const formControlItems = [
-    {
-      label: t('label.currentPassword'),
-      name: 'currentPassword',
-    },
-    {
-      label: t('label.newPassword'),
-      name: 'newPassword',
-    },
-    {
-      label: t('label.confirmPassword'),
-      name: 'confirmPassword',
-    },
+  const fieldList: IField[] = [
+    { name: 'currentPassword', props: {} },
+    { name: 'newPassword', props: {} },
+    { name: 'confirmPassword', props: {} },
   ];
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
       <Box pb={3}>
         <Stack direction="column" spacing={2}>
-          {formControlItems.map(({ label, name }, idx) => (
+          {fieldList.map(({ name, props }) => (
             <MuiTextField
-              key={idx}
+              key={name}
               name={name}
               control={control}
               type="password"
               variant="outlined"
-              placeholder={label}
-              title={label}
+              placeholder={t(`label.${name}`)}
+              title={t(`label.${name}`)}
               sx={{ maxWidth: 400 }}
+              {...props}
             />
           ))}
 
