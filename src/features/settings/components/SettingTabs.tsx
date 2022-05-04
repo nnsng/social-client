@@ -84,7 +84,7 @@ export default function SettingTabs() {
       variant="fullWidth"
       sx={{
         position: 'relative',
-        '::after': {
+        '&::after': {
           content: '""',
           position: 'absolute',
           bottom: 0,

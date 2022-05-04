@@ -138,7 +138,7 @@ export default function PostCard(props: IPostCardProps) {
                 sx={{
                   mx: 0.5,
                   color: 'text.secondary',
-                  ':hover': {
+                  '&:hover': {
                     bgcolor: 'transparent',
                     color: 'text.primary',
                   },
@@ -154,9 +154,9 @@ export default function PostCard(props: IPostCardProps) {
                 sx={{
                   mx: 0.5,
                   color: 'text.secondary',
-                  ':hover': {
-                    bgcolor: 'transparent',
+                  '&:hover': {
                     color: 'text.primary',
+                    bgcolor: 'transparent',
                   },
                 }}
                 ref={anchorRef as any}
@@ -225,7 +225,7 @@ export default function PostCard(props: IPostCardProps) {
                 color="text.primary"
                 sx={{
                   ...mixins.truncate(2),
-                  mb: 1,
+                  display: 'inline-block',
                   fontWeight: 600,
                 }}
                 component={Link}

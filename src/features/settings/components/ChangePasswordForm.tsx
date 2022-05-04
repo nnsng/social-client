@@ -112,7 +112,7 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
               size="small"
               sx={{
                 ml: { xs: 2, sm: 3 },
-                ':hover': { bgcolor: 'transparent' },
+                '&:hover': { bgcolor: 'transparent' },
               }}
               onClick={forgotPassword}
             >

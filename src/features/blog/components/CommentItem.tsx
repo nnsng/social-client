@@ -173,7 +173,7 @@ export default function CommentItem(props: ICommentItemProps) {
                   color: 'text.secondary',
                   mr: 1,
 
-                  '::before': {
+                  '&::before': {
                     width: 2,
                     height: 2,
                     content: '""',

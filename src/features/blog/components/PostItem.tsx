@@ -120,18 +120,16 @@ export function PostItem(props: IPostItemProps) {
           </Avatar>
         </Box>
 
-        <Stack
-          direction="column"
-          flexGrow={1}
-          justifyContent="center"
-          component={Link}
-          to={`/blog/post/${post.slug}`}
-        >
+        <Stack direction="column" flexGrow={1} justifyContent="center">
           <Typography
             variant="h6"
             color="text.primary"
-            fontWeight={600}
-            sx={{ ...mixins.truncate(1) }}
+            sx={{
+              ...mixins.truncate(1),
+              fontWeight: 600,
+            }}
+            component={Link}
+            to={`/blog/post/${post.slug}`}
           >
             {post.title}
           </Typography>
@@ -177,7 +175,17 @@ export function PostItem(props: IPostItemProps) {
         </Stack>
 
         <Box flexShrink={0} ml={2}>
-          <IconButton size="small" ref={anchorRef as any} onClick={toggleOpenMenu}>
+          <IconButton
+            size="small"
+            ref={anchorRef as any}
+            onClick={toggleOpenMenu}
+            sx={{
+              color: 'text.secondary',
+              '&:hover': {
+                color: 'text.primary',
+              },
+            }}
+          >
             <MoreHorizRounded />
           </IconButton>
 

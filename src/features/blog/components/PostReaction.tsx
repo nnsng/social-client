@@ -66,7 +66,7 @@ export default function PostReaction(props: IPostReactionProps) {
         <Button
           color="inherit"
           sx={{
-            ':hover': {
+            '&:hover': {
               color: 'error.main',
             },
           }}
@@ -85,7 +85,7 @@ export default function PostReaction(props: IPostReactionProps) {
         <Button
           color="inherit"
           sx={{
-            ':hover': {
+            '&:hover': {
               color: 'primary.main',
             },
           }}

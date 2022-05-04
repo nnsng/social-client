@@ -111,7 +111,7 @@ export default function PostDetail({ post, onSave, onRemove }: IPostDetailProps)
                 sx={{
                   ml: 1,
                   color: 'text.secondary',
-                  ':hover': {
+                  '&:hover': {
                     bgcolor: 'transparent',
                     color: 'text.primary',
                   },
@@ -127,7 +127,7 @@ export default function PostDetail({ post, onSave, onRemove }: IPostDetailProps)
                 sx={{
                   ml: 1,
                   color: 'text.secondary',
-                  ':hover': {
+                  '&:hover': {
                     bgcolor: 'transparent',
                     color: 'text.primary',
                   },

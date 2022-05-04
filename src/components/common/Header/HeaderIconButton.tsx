@@ -35,7 +35,7 @@ function HeaderIconButton(props: IHeaderIconButtonProps, ref?: any) {
           '.MuiSvgIcon-root': {
             fontSize: 20,
           },
-          ':hover': {
+          '&:hover': {
             color: 'text.primary',
           },
         }}
