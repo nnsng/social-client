@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
@@ -10,9 +10,15 @@ export interface ICustomScrollbarProps {
 export function CustomScrollbar({ children }: ICustomScrollbarProps) {
   const location = useLocation();
 
+  const ref = useRef(null);
+
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    (ref.current as any).scrollTop = 0;
   }, [location.pathname]);
 
-  return <SimpleBar style={{ maxHeight: '100vh' }}>{children}</SimpleBar>;
+  return (
+    <SimpleBar scrollableNodeProps={{ ref }} style={{ maxHeight: '100vh' }}>
+      {children}
+    </SimpleBar>
+  );
 }

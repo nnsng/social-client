@@ -108,7 +108,13 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
         </Box>
 
         {!!avatarUrl && (
-          <Button variant="outlined" color="error" size="small" onClick={removeAvatar}>
+          <Button
+            variant="outlined"
+            color="error"
+            size="small"
+            onClick={removeAvatar}
+            disabled={uploading}
+          >
             {t('removeAvatar')}
           </Button>
         )}

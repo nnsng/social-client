@@ -23,9 +23,9 @@ const toast = {
   settingSaga: {
     updateProfileSuccess: 'Update profile successfully.',
   },
-  changePasswordPage: {},
   changePasswordForm: {
     success: 'Change password successfully.',
+    info: 'Please check your email.',
   },
 
   errors: {

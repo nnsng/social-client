@@ -30,6 +30,10 @@ const authApi = {
     const url = '/auth/change-password';
     return axiosClient.post(url, data);
   },
+  forgotPassword(email: string) {
+    const url = '/auth/forgot-password';
+    return axiosClient.post(url, { email });
+  },
 };
 
 export default authApi;

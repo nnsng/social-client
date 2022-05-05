@@ -160,7 +160,7 @@ export default function AuthForm(props: IAuthFormProps) {
               sx={{ cursor: 'pointer' }}
               onClick={handleSwitchMode}
             >
-              {t(`title.${defaultValues.mode}`)}
+              {isRegisterMode ? t('title.login') : t('title.register')}
             </Typography>
           </Box>
 

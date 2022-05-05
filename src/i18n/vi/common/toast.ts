@@ -23,9 +23,9 @@ const toast = {
   settingSaga: {
     updateProfileSuccess: 'Cập nhật thông tin thành công.',
   },
-  changePasswordPage: {},
   changePasswordForm: {
-    success: 'Đổi mật khẩu thành công',
+    success: 'Đổi mật khẩu thành công.',
+    info: 'Vui lòng kiểm tra email của bạn.',
   },
 
   errors: {

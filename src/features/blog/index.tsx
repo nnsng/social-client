@@ -9,7 +9,7 @@ export default function Blog() {
     <Box>
       <Header />
 
-      <Box component="main" pt={2}>
+      <Box component="main">
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="my" element={<MyPostListPage mode="my" />} />
