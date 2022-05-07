@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { IAuthPayload, IUser } from 'models';
+import { IAuthPayload, IResetPasswordFormValues, IUser } from 'models';
 
 export interface IAuthState {
   currentUser: IUser | null;

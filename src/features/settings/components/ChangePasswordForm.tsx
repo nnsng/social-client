@@ -20,12 +20,13 @@ export interface IChangePasswordFormProps {
 
 export default function ChangePasswordForm(props: IChangePasswordFormProps) {
   const { fieldList, defaultValues, onSubmit, forgotPassword } = props;
+  const isChangeMode = !!forgotPassword;
 
   const { t } = useTranslation('changePasswordForm');
   const { validate, toast: toastTranslation } = useTranslateFiles('validate', 'toast');
 
   const schema = yup.object().shape({
-    currentPassword: !!forgotPassword
+    currentPassword: isChangeMode
       ? yup.string().required(validate.currentPassword.required).min(6, validate.password.min(6))
       : yup.string().notRequired(),
     newPassword: yup
@@ -57,7 +58,7 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
     try {
       await onSubmit(formValues);
       reset();
-      toast.success(toastTranslation.changePasswordForm.success);
+      isChangeMode && toast.success(toastTranslation.changePasswordForm.success);
     } catch (error: any) {
       const errorName = error?.response?.data?.name || 'somethingWrong';
       toast.error(toastTranslation.errors[errorName]);
@@ -100,10 +101,10 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
               disabled={isSubmitting}
               startIcon={isSubmitting && <CircularProgress size={20} />}
             >
-              {t('btnLabel.changePassword')}
+              {isChangeMode ? t('btnLabel.changePassword') : t('btnLabel.resetPassword')}
             </Button>
 
-            {!!forgotPassword && (
+            {isChangeMode && (
               <Button
                 color="primary"
                 size="small"
