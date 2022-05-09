@@ -33,10 +33,11 @@ export interface IAuthFormValues {
 }
 
 export interface IChangePasswordFormValues {
-  userId: string;
+  userId?: string;
   currentPassword?: string;
   newPassword: string;
   confirmPassword: string;
+  token?: string;
 }
 
 export interface IAuthPayload {

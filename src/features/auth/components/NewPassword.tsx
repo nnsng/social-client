@@ -2,8 +2,7 @@ import { Box, Container, Typography } from '@mui/material';
 import authApi from 'api/authApi';
 import { PageTitle } from 'components/common';
 import ChangePasswordForm from 'features/settings/components/ChangePasswordForm';
-import jwtDecode from 'jwt-decode';
-import { IChangePasswordFormValues, IDecodedToken, IField } from 'models';
+import { IChangePasswordFormValues, IField } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -15,15 +14,12 @@ export interface INewPasswordProps {
 export function NewPassword({ token }: INewPasswordProps) {
   if (!token) return null;
 
-  const decoded: IDecodedToken = jwtDecode(token);
-  if (!decoded) return null;
-
   const navigate = useNavigate();
 
   const { t } = useTranslation('auth');
 
   const defaultValues: IChangePasswordFormValues = {
-    userId: decoded._id,
+    token,
     newPassword: '',
     confirmPassword: '',
   };
