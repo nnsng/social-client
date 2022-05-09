@@ -31,6 +31,7 @@ export default function Settings() {
                   <Route path="/" element={<Navigate to="edit-profile" replace={true} />} />
                   <Route path="edit-profile" element={<EditProfilePage />} />
                   <Route path="change-password" element={<ChangePasswordPage />} />
+                  <Route path="*" element={<Navigate to="edit-profile" replace={true} />} />
                 </Routes>
               </Box>
             </Stack>
