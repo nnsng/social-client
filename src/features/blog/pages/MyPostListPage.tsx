@@ -1,7 +1,7 @@
 import { Box, Container, List, Pagination, Stack, Typography } from '@mui/material';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { PageTitle } from 'components/common';
+import { NoPost, PageTitle } from 'components/common';
 import { IListParams, IPost } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -71,16 +71,22 @@ export function MyPostListPage({ mode }: IMyPostListPageProps) {
         </Typography>
 
         <List>
-          {postList.map((post) => (
-            <PostItem
-              key={post._id}
-              post={post}
-              saved={isSavedPage}
-              onUnSave={handleUnSavePost}
-              onEdit={handleEditPost}
-              onRemove={handleRemovePost}
-            />
-          ))}
+          {postList.length > 0 ? (
+            postList.map((post) => (
+              <PostItem
+                key={post._id}
+                post={post}
+                saved={isSavedPage}
+                onUnSave={handleUnSavePost}
+                onEdit={handleEditPost}
+                onRemove={handleRemovePost}
+              />
+            ))
+          ) : (
+            <NoPost createText={!isSavedPage ? t('noPost.createText') : ''}>
+              {isSavedPage ? t('noPost.saved') : t('noPost.my')}
+            </NoPost>
+          )}
         </List>
 
         {totalPage > 1 && (

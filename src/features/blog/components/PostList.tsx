@@ -43,7 +43,7 @@ export default function PostList(props: IPostListProps) {
             </ListItem>
           ))
         ) : (
-          <NoPost createText="Viết bài">Chưa có bài viết.</NoPost>
+          <NoPost createText={t('noPost.createText')}>{t('noPost.my')}</NoPost>
         )}
       </List>
 

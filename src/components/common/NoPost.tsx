@@ -16,8 +16,8 @@ export function NoPost({ children, createText }: INoPostProps) {
         p: 2,
       }}
     >
-      {children}&nbsp;
-      {createText && (
+      {children}{' '}
+      {!!createText && (
         <Link to="/blog/create">
           <Typography component="span" sx={{ color: 'primary.main', textDecoration: 'underline' }}>
             {createText}
