@@ -23,29 +23,31 @@ const toast = {
   settingSaga: {
     updateProfileSuccess: 'Cập nhật thông tin thành công.',
   },
-  changePasswordPage: {},
   changePasswordForm: {
-    success: 'Đổi mật khẩu thành công',
+    success: 'Đổi mật khẩu thành công.',
+    info: 'Vui lòng kiểm tra email của bạn.',
   },
 
   errors: {
-    // authCtrl
+    // auth
+    accessDenied: 'Bạn không được phép truy cập.',
+    invalidToken: 'Token không hợp lệ.',
+    invalidAuthen: 'Xác minh thất bại.',
+
+    userNotFound: 'Không tìm thấy người dùng.',
     emailNotRegister: 'Email chưa được đăng ký.',
     emailExist: 'Email đã tồn tại.',
-    userNotFound: 'Không tìm thấy người dùng.',
-    accountAlreadyActive: 'Tài khoản đã được kích hoạt.',
+    activeAccount: 'Vui lòng kích hoạt tài khoản.',
+    accountActive: 'Tài khoản đã được kích hoạt.',
     usernameExist: 'Tên người dùng đã tồn tại.',
     passwordNotCorrect: 'Mật khẩu không đúng.',
-    activeAccount: 'Vui lòng kích hoạt tài khoản.',
 
-    // postCtrl
+    // post / comment
     postNotFound: 'Không tìm thấy bài viết.',
-    notAllowedEditPost: 'Bạn không được phép chỉnh sửa bài viết này.',
-    notAllowedDeletePost: 'Bạn không được phép xóa bài viết này.',
     postSaved: 'Bài viết đã được lưu.',
     postNotSaved: 'Bài viết chưa được lưu.',
-
-    // commentCtrl
+    notAllowedEditPost: 'Bạn không được phép chỉnh sửa bài viết này.',
+    notAllowedDeletePost: 'Bạn không được phép xóa bài viết này.',
     commentNotFound: 'Bình luận không tồn tài.',
     notAllowedDeleteComment: 'Bạn không được phép xóa bình luận này.',
 

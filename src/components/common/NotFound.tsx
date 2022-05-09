@@ -8,48 +8,47 @@ export interface INotFoundProps {
   showHeader?: boolean;
 }
 
-export function NotFound({ showHeader = false }: INotFoundProps) {
+export function NotFound({ showHeader }: INotFoundProps) {
   const { t } = useTranslation('notFound');
 
   return (
     <>
       <PageTitle title={t('pageTitle')} />
 
-      {showHeader && <Header />}
+      {!!showHeader && <Header />}
 
       <Stack
         direction="column"
         sx={{
           position: 'fixed',
           inset: 0,
-          backgroundColor: 'background.default',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
-        <Box m="auto" textAlign="center">
-          <Typography
-            component="div"
-            sx={{
-              fontSize: 120,
-              fontWeight: 600,
-              color: 'primary.main',
-              letterSpacing: 20,
-            }}
-          >
-            4&#9785;4
-          </Typography>
+        <Typography
+          component="div"
+          color="primary.main"
+          sx={{
+            fontSize: 120,
+            fontWeight: 600,
+            letterSpacing: 20,
+          }}
+        >
+          4&#9785;4
+        </Typography>
 
-          <Typography
-            component="div"
-            sx={{
-              fontSize: 20,
-              fontWeight: 600,
-              color: 'primary.main',
-              letterSpacing: 2,
-            }}
-          >
-            {t('content')}
-          </Typography>
-        </Box>
+        <Typography
+          component="div"
+          color="primary.main"
+          sx={{
+            fontSize: 20,
+            fontWeight: 600,
+            letterSpacing: 2,
+          }}
+        >
+          {t('content')}
+        </Typography>
       </Stack>
     </>
   );

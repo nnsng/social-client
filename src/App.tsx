@@ -75,6 +75,8 @@ function App() {
         <Route path="/login" element={<Auth mode="login" />} />
         <Route path="/register" element={<Auth mode="register" />} />
         <Route path="/active" element={<Auth mode="active" />} />
+        <Route path="/reset-password" element={<Auth mode="resetPassword" />} />
+        <Route path="/create-password" element={<Auth mode="createPassword" />} />
 
         <Route
           path="*"

@@ -1,6 +1,8 @@
 import { Stack } from '@mui/material';
+import authApi from 'api/authApi';
 import { useAppDispatch } from 'app/hooks';
 import { PageTitle } from 'components/common';
+import useLoginWithGoogle from 'hooks/useLoginWithGoogle';
 import { IAuthFormValues } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +20,8 @@ export default function AuthLayout({ mode }: IAuthLayoutProps) {
   const { t } = useTranslation('auth');
 
   const dispatch = useAppDispatch();
+
+  const googleLogin = useLoginWithGoogle();
 
   const defaultValues: IAuthFormValues = {
     mode,
@@ -39,6 +43,10 @@ export default function AuthLayout({ mode }: IAuthLayoutProps) {
     dispatch(authActions[mode]({ formValues, navigate }));
   };
 
+  const handleForgotPassword = async (email: string) => {
+    await authApi.forgotPassword(email);
+  };
+
   return (
     <>
       <PageTitle title={t(`pageTitle.${mode}`)} />
@@ -56,6 +64,8 @@ export default function AuthLayout({ mode }: IAuthLayoutProps) {
           defaultValues={defaultValues}
           switchMode={switchMode}
           onSubmit={handleFormSubmit}
+          onGoogleLogin={googleLogin}
+          onForgotPassword={handleForgotPassword}
         />
       </Stack>
     </>

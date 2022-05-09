@@ -45,6 +45,10 @@ function* handleGoogleLogin(action: PayloadAction<IAuthPayload>) {
 
   try {
     const response: IAuthResponse = yield call(authApi.googleLogin, token as string);
+    if (response.activeToken) {
+      navigate?.(`/create-password?token=${response.activeToken}`);
+      return;
+    }
     yield put(authActions.setCurrentUser(response.user));
     localStorage.setItem(ACCESS_TOKEN, response.token);
     navigate?.('/', { replace: true });

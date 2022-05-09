@@ -1,5 +1,5 @@
-import { Tab, Tabs, Theme, useMediaQuery } from '@mui/material';
-import React, { SyntheticEvent, useState } from 'react';
+import { SxProps, Tab, Tabs, Theme, useMediaQuery } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { themeVariables } from 'utils/theme';
@@ -9,8 +9,15 @@ export default function SettingTabs() {
 
   const { t } = useTranslation('settingTabs');
 
-  const [tab, setTab] = useState<number>(() => {
-    switch (location.pathname) {
+  const [activeTab, setActiveTab] = useState<number>(0);
+
+  useEffect(() => {
+    const tab = checkTab(location.pathname);
+    setActiveTab(tab);
+  }, [location.pathname]);
+
+  const checkTab = (pathname: string) => {
+    switch (pathname) {
       case '/settings/edit-profile':
         return 0;
       case '/settings/change-password':
@@ -18,10 +25,6 @@ export default function SettingTabs() {
       default:
         return 0;
     }
-  });
-
-  const handleChangeTab = (event: SyntheticEvent, newValue: number) => {
-    setTab(newValue);
   };
 
   const tabItemList = [
@@ -39,11 +42,8 @@ export default function SettingTabs() {
 
   const hideOnMobile = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
 
-  return hideOnMobile ? (
-    <Tabs
-      orientation="vertical"
-      value={tab}
-      sx={{
+  const tabsSx: SxProps = hideOnMobile
+    ? {
         position: 'relative',
         '&::after': {
           content: '""',
@@ -57,32 +57,8 @@ export default function SettingTabs() {
         '& .MuiTabs-flexContainer': {
           height: `calc(100vh - (82px + ${themeVariables.headerHeight}px))`,
         },
-      }}
-      onChange={handleChangeTab}
-    >
-      {tabItemList.map(({ label, linkTo }, idx) => (
-        <Tab
-          key={idx}
-          label={label}
-          component={Link}
-          to={linkTo}
-          replace={true}
-          sx={{
-            alignItems: 'flex-start',
-            pr: 4,
-            fontSize: 18,
-            fontWeight: 500,
-            textTransform: 'none',
-          }}
-        />
-      ))}
-    </Tabs>
-  ) : (
-    <Tabs
-      orientation="horizontal"
-      value={tab}
-      variant="fullWidth"
-      sx={{
+      }
+    : {
         position: 'relative',
         '&::after': {
           content: '""',
@@ -93,13 +69,19 @@ export default function SettingTabs() {
           height: '1px',
           bgcolor: 'divider',
         },
-      }}
-      onChange={handleChangeTab}
+      };
+
+  return (
+    <Tabs
+      value={activeTab}
+      orientation={hideOnMobile ? 'vertical' : 'horizontal'}
+      variant={hideOnMobile ? 'standard' : 'fullWidth'}
+      sx={tabsSx}
     >
-      {tabItemList.map(({ mobileLabel, linkTo }, idx) => (
+      {tabItemList.map(({ label, mobileLabel, linkTo }, idx) => (
         <Tab
           key={idx}
-          label={mobileLabel}
+          label={hideOnMobile ? label : mobileLabel}
           component={Link}
           to={linkTo}
           replace={true}
@@ -107,6 +89,12 @@ export default function SettingTabs() {
             fontSize: 18,
             fontWeight: 500,
             textTransform: 'none',
+            ...(hideOnMobile
+              ? {
+                  alignItems: 'flex-start',
+                  pr: 4,
+                }
+              : {}),
           }}
         />
       ))}

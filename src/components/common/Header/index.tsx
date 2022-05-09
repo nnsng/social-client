@@ -2,19 +2,13 @@ import { Avatar, Box, Container, Grid, LinearProgress, Stack, Typography } from 
 import { useAppSelector } from 'app/hooks';
 import { selectPostLoading } from 'features/blog/blogSlice';
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
 import { themeVariables } from 'utils/theme';
 import { HeaderMenu } from './HeaderMenu';
 import { SearchBox } from './SearchBox';
 
 export function Header() {
-  const { t } = useTranslation('header');
-
-  const navigate = useNavigate();
-  const location = useLocation();
-
   const loading = useAppSelector(selectPostLoading);
 
   const [openSearchMobile, setOpenSearchMobile] = useState<boolean>(false);
@@ -31,6 +25,7 @@ export function Header() {
         top: 0,
         zIndex: 'appBar',
         height: themeVariables.headerHeight,
+        mb: 3,
         py: 2,
         bgcolor: 'background.paper',
         boxShadow: (theme) =>

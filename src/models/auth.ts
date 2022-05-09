@@ -1,6 +1,12 @@
 import { PaletteMode } from '@mui/material';
 import { NavigateFunction } from 'react-router-dom';
 
+export interface IDecodedToken {
+  _id: string;
+  exp: number;
+  iat: number;
+}
+
 export interface IUser {
   _id: string;
   name: string;
@@ -16,6 +22,7 @@ export interface IUser {
 export interface IAuthResponse {
   user: IUser;
   token: string;
+  activeToken?: string;
 }
 
 export interface IAuthFormValues {
@@ -27,10 +34,11 @@ export interface IAuthFormValues {
 }
 
 export interface IChangePasswordFormValues {
-  userId: string;
-  currentPassword: string;
+  userId?: string;
+  currentPassword?: string;
   newPassword: string;
-  confirmPassword?: string;
+  confirmPassword: string;
+  token?: string;
 }
 
 export interface IAuthPayload {

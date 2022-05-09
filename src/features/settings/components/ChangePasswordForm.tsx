@@ -12,22 +12,24 @@ import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
 export interface IChangePasswordFormProps {
+  fieldList: IField[];
   defaultValues: IChangePasswordFormValues;
   onSubmit: (formValues: IChangePasswordFormValues) => void;
   forgotPassword?: () => void;
+  submitButtonLabel?: string;
 }
 
 export default function ChangePasswordForm(props: IChangePasswordFormProps) {
-  const { defaultValues, onSubmit, forgotPassword } = props;
+  const { fieldList, defaultValues, onSubmit, forgotPassword, submitButtonLabel } = props;
+  const isChangeMode = !!forgotPassword;
 
   const { t } = useTranslation('changePasswordForm');
   const { validate, toast: toastTranslation } = useTranslateFiles('validate', 'toast');
 
   const schema = yup.object().shape({
-    currentPassword: yup
-      .string()
-      .required(validate.currentPassword.required)
-      .min(6, validate.password.min(6)),
+    currentPassword: isChangeMode
+      ? yup.string().required(validate.currentPassword.required).min(6, validate.password.min(6))
+      : yup.string().notRequired(),
     newPassword: yup
       .string()
       .required(validate.newPassword.required)
@@ -57,18 +59,22 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
     try {
       await onSubmit(formValues);
       reset();
-      toast.success(toastTranslation.changePasswordForm.success);
+      isChangeMode && toast.success(toastTranslation.changePasswordForm.success);
     } catch (error: any) {
       const errorName = error?.response?.data?.name || 'somethingWrong';
       toast.error(toastTranslation.errors[errorName]);
     }
   };
 
-  const fieldList: IField[] = [
-    { name: 'currentPassword', props: {} },
-    { name: 'newPassword', props: {} },
-    { name: 'confirmPassword', props: {} },
-  ];
+  const handleForgotPassword = async () => {
+    try {
+      forgotPassword?.();
+      toast.info(toastTranslation.changePasswordForm.info);
+    } catch (error: any) {
+      const errorName = error?.response?.data?.name || 'somethingWrong';
+      toast.error(toastTranslation.errors[errorName]);
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -96,20 +102,22 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
               disabled={isSubmitting}
               startIcon={isSubmitting && <CircularProgress size={20} />}
             >
-              {t('btnLabel.changePassword')}
+              {submitButtonLabel ?? t('btnLabel.changePassword')}
             </Button>
 
-            <Button
-              color="primary"
-              size="small"
-              sx={{
-                ml: { xs: 2, sm: 3 },
-                '&:hover': { bgcolor: 'transparent' },
-              }}
-              onClick={forgotPassword}
-            >
-              {t('btnLabel.forgotPassword')}
-            </Button>
+            {isChangeMode && (
+              <Button
+                color="primary"
+                size="small"
+                sx={{
+                  ml: { xs: 2, sm: 3 },
+                  '&:hover': { bgcolor: 'transparent' },
+                }}
+                onClick={handleForgotPassword}
+              >
+                {t('btnLabel.forgotPassword')}
+              </Button>
+            )}
           </Stack>
         </Stack>
       </Box>

@@ -2,12 +2,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, ButtonProps, Stack, Typography } from '@mui/material';
 import { GoogleIcon } from 'components/common';
 import { MuiTextField } from 'components/formFields';
-import useLoginWithGoogle from 'hooks/useLoginWithGoogle';
 import i18next from 'i18next';
 import { IAuthFormValues, IField } from 'models';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { validateEmail } from 'utils/common';
 import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
@@ -15,14 +16,16 @@ export interface IAuthFormProps {
   defaultValues: IAuthFormValues;
   switchMode?: () => void;
   onSubmit?: (formValues: IAuthFormValues) => void;
+  onGoogleLogin?: () => void;
+  onForgotPassword?: (email: string) => void;
 }
 
 export default function AuthForm(props: IAuthFormProps) {
-  const { defaultValues, switchMode, onSubmit } = props;
+  const { defaultValues, switchMode, onSubmit, onGoogleLogin, onForgotPassword } = props;
   const isRegisterMode = defaultValues.mode === 'register';
 
   const { t } = useTranslation('authForm');
-  const { validate } = useTranslateFiles('validate');
+  const { validate, toast: toastTranslation } = useTranslateFiles('validate', 'toast');
 
   const schema = yup.object().shape({
     email: yup.string().required(validate.email.required).email(validate.email.email),
@@ -47,7 +50,7 @@ export default function AuthForm(props: IAuthFormProps) {
     }),
   });
 
-  const { control, handleSubmit, reset, clearErrors } = useForm({
+  const { control, handleSubmit, getValues, reset, clearErrors } = useForm({
     defaultValues,
     resolver: yupResolver(schema),
   });
@@ -56,8 +59,6 @@ export default function AuthForm(props: IAuthFormProps) {
     clearErrors();
   }, [i18next.language]);
 
-  const googleLogin = useLoginWithGoogle();
-
   const handleSwitchMode = () => {
     reset();
     switchMode?.();
@@ -65,6 +66,25 @@ export default function AuthForm(props: IAuthFormProps) {
 
   const handleFormSubmit = (formValues: IAuthFormValues) => {
     onSubmit?.(formValues);
+  };
+
+  const handleForgotPassword = async () => {
+    try {
+      const email = getValues('email');
+      if (email.trim().length === 0) {
+        toast.error(validate.email.required);
+        return;
+      }
+      if (!validateEmail(email)) {
+        toast.error(validate.email.email);
+        return;
+      }
+      await onForgotPassword?.(email);
+      toast.info(toastTranslation.changePasswordForm.info);
+    } catch (error: any) {
+      const errorName = error?.response?.data?.name || 'somethingWrong';
+      toast.error(toastTranslation.errors[errorName]);
+    }
   };
 
   const fieldList: IField[] = [
@@ -142,7 +162,7 @@ export default function AuthForm(props: IAuthFormProps) {
             <AuthButton
               variant="outlined"
               startIcon={<GoogleIcon width={24} height={24} />}
-              onClick={googleLogin}
+              onClick={onGoogleLogin}
             >
               {t('googleLogin')}
             </AuthButton>
@@ -160,7 +180,7 @@ export default function AuthForm(props: IAuthFormProps) {
               sx={{ cursor: 'pointer' }}
               onClick={handleSwitchMode}
             >
-              {t(`title.${defaultValues.mode}`)}
+              {isRegisterMode ? t('title.login') : t('title.register')}
             </Typography>
           </Box>
 
@@ -171,6 +191,7 @@ export default function AuthForm(props: IAuthFormProps) {
               color="primary"
               textAlign="center"
               sx={{ cursor: 'pointer' }}
+              onClick={handleForgotPassword}
             >
               {t('forgotPassword')}
             </Typography>

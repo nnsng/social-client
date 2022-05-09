@@ -14,7 +14,7 @@ export default function Settings() {
       <PageTitle title={t('pageTitle')} />
       <Header />
 
-      <Box component="main" pt={2}>
+      <Box component="main">
         <Container maxWidth="md">
           <Box>
             <Typography variant="h4" fontWeight={500}>
@@ -31,6 +31,7 @@ export default function Settings() {
                   <Route path="/" element={<Navigate to="edit-profile" replace={true} />} />
                   <Route path="edit-profile" element={<EditProfilePage />} />
                   <Route path="change-password" element={<ChangePasswordPage />} />
+                  <Route path="*" element={<Navigate to="edit-profile" replace={true} />} />
                 </Routes>
               </Box>
             </Stack>
