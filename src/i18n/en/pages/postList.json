@@ -7,5 +7,11 @@
     "my": "No post yet.",
     "saved": "You have not saved any post yet.",
     "createText": "Create"
+  },
+  "text": {
+    "newest": "Newest",
+    "search": "Search: {{value}}",
+    "username": "Username: {{value}}",
+    "hashtag": "Hashtag: {{value}}"
   }
 }

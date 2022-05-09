@@ -24,12 +24,18 @@ export function MainPage() {
   });
 
   useEffect(() => {
-    navigate(`?${queryString.stringify(filter)}`, { replace: true });
+    const params = queryString.parse(location.search);
+    setFilter({ page: 1, ...params });
+  }, [location.search]);
+
+  useEffect(() => {
+    const { page, ...rest } = filter;
+    navigate(`?${queryString.stringify(rest)}`, { replace: true });
     dispatch(blogActions.fetchPostList(filter));
   }, [dispatch, filter]);
 
-  const handleKeywordClick = (keyword: string) => {
-    setFilter({ ...filter, keyword, page: 1 });
+  const handleHashtagClick = (hashtag: string) => {
+    setFilter({ ...filter, hashtag, page: 1, username: undefined });
   };
 
   const handlePageChange = (page: number) => {
@@ -61,11 +67,12 @@ export function MainPage() {
             onRemove={handleRemovePost}
             page={Number(filter.page) || 1}
             onPageChange={handlePageChange}
+            filter={filter}
           />
         </Grid>
 
         <Grid item xs={12} md={10} lg={4} width="100%" mx="auto">
-          <PostRecommend keywordActive={filter.keyword} onKeywordClick={handleKeywordClick} />
+          <PostRecommend hashtagActive={filter.hashtag} onHashtagClick={handleHashtagClick} />
         </Grid>
       </Grid>
     </Container>

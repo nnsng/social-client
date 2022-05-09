@@ -41,10 +41,10 @@ const validate = {
     required: 'Vui lòng nhập nội dung',
     min: (n: number) => `Nội dung tối thiểu ${n} ký tự`,
   },
-  keywords: {
-    min: (n: number) => `Từ khóa tối thiểu ${n} ký tự`,
-    max: (n: number) => `Từ khóa tối đa ${n} ký tự`,
-    valid: 'Từ khóa chỉ chấp nhận A-Z, a-z, 0-9, -',
+  hashtags: {
+    min: (n: number) => `Hashtag tối thiểu ${n} ký tự`,
+    max: (n: number) => `Hashtag tối đa ${n} ký tự`,
+    valid: 'Hashtag chỉ chấp nhận A-Z, a-z, 0-9, -',
   },
 };
 

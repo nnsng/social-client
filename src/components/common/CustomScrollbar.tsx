@@ -17,7 +17,7 @@ export function CustomScrollbar({ children }: ICustomScrollbarProps) {
   }, [location.pathname]);
 
   return (
-    <SimpleBar scrollableNodeProps={{ ref }} style={{ maxHeight: '100vh' }}>
+    <SimpleBar scrollableNodeProps={{ ref }} style={{ height: '100vh' }}>
       {children}
     </SimpleBar>
   );

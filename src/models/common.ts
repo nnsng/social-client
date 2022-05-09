@@ -14,8 +14,9 @@ export interface IListParams {
   limit?: number;
   sort?: string;
   order?: 'asc' | 'desc';
-  keyword?: string;
+  search?: string;
   username?: string;
+  hashtag?: string;
 }
 
 export interface IMenuItem {

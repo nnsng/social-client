@@ -27,7 +27,7 @@ export function CreateEditPage() {
 
     (async () => {
       try {
-        const post = await postApi.getPostForEdit(postId);
+        const post = await postApi.getForEdit(postId);
         setEditedPost(post);
       } catch (error: any) {
         const errorName = error?.response?.data?.name || 'somethingWrong';
@@ -43,7 +43,7 @@ export function CreateEditPage() {
         content: '',
         description: '',
         thumbnail: '',
-        keywords: [],
+        hashtags: [],
         authorId: currentUser?._id as string,
       }
     : editedPost;

@@ -14,28 +14,37 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import { IPost } from 'models';
+import { IPost, ISearchObj } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { mixins, themeVariables } from 'utils/theme';
+import { ISearchResult } from './Header/SearchBox';
 
 export interface ISearchMobileProps {
   loading?: boolean;
   open?: boolean;
   onClose?: () => void;
-  result?: IPost[];
-  inputValue?: string;
+  result: ISearchResult;
+  searchObj?: ISearchObj;
+  searchInput?: string;
   onChange?: (e: any) => void;
   onClear?: () => void;
+  onViewMore?: () => void;
 }
 
 export function SearchMobile(props: ISearchMobileProps) {
-  const { loading, open, onClose, result, inputValue, onChange, onClear } = props;
+  const { loading, open, onClose, result, searchObj, searchInput, onChange, onClear, onViewMore } =
+    props;
 
   const navigate = useNavigate();
 
   const { t } = useTranslation('header');
+
+  const handleViewMore = () => {
+    onViewMore?.();
+    onClose?.();
+  };
 
   const gotoPost = (post: IPost) => {
     navigate(`/blog/post/${post.slug}`);
@@ -71,14 +80,14 @@ export function SearchMobile(props: ISearchMobileProps) {
             <OutlinedInput
               placeholder={t('search.placeholder')}
               inputProps={{ sx: { pl: 1.5 } }}
-              value={inputValue || ''}
+              value={searchInput || ''}
               onChange={onChange}
               autoFocus
               startAdornment={
                 <SearchRounded sx={{ color: 'action.disabled', cursor: 'pointer' }} />
               }
               endAdornment={
-                (inputValue || '').length > 0 && (
+                (searchInput || '').length > 0 && (
                   <CloseRounded
                     sx={{ color: 'text.secondary', cursor: 'pointer' }}
                     onClick={onClear}
@@ -104,40 +113,62 @@ export function SearchMobile(props: ISearchMobileProps) {
 
           <Typography variant="body2" color="textSecondary" sx={{ flexGrow: 1 }}>
             {!loading &&
-              (inputValue || '').length > 0 &&
+              (searchInput || '').length > 0 &&
               t('search.result', {
-                count: result?.length,
-                searchTerm: inputValue,
+                count: result.length,
+                searchFor: searchObj?.searchFor,
+                searchTerm: searchObj?.searchTerm,
               })}
           </Typography>
         </Stack>
 
         <List disablePadding>
-          {(inputValue || '').length > 1 &&
-            result &&
-            result.map((post) => (
-              <ListItem key={post._id} disablePadding>
-                <ListItemButton disableRipple onClick={() => gotoPost(post)}>
-                  <Box display="flex" alignItems="center">
-                    <Avatar
-                      src={post.thumbnail}
-                      sx={{
-                        width: 32,
-                        height: 32,
-                        mr: 1,
-                        bgcolor: 'grey.200',
-                      }}
-                    >
-                      <Box />
-                    </Avatar>
+          {(searchInput || '').length > 1 && (
+            <>
+              {result.list.map((post) => (
+                <ListItem key={post._id} disablePadding>
+                  <ListItemButton disableRipple onClick={() => gotoPost(post)}>
+                    <Box display="flex" alignItems="center">
+                      <Avatar
+                        src={post.thumbnail}
+                        sx={{
+                          width: 32,
+                          height: 32,
+                          mr: 1,
+                          bgcolor: 'grey.200',
+                        }}
+                      >
+                        <Box />
+                      </Avatar>
 
-                    <Typography variant="subtitle2" fontSize={15} sx={{ ...mixins.truncate(2) }}>
-                      {post.title}
-                    </Typography>
-                  </Box>
-                </ListItemButton>
-              </ListItem>
-            ))}
+                      <Typography variant="subtitle2" fontSize={15} sx={{ ...mixins.truncate(2) }}>
+                        {post.title}
+                      </Typography>
+                    </Box>
+                  </ListItemButton>
+                </ListItem>
+              ))}
+
+              {result.isMore && (
+                <Stack>
+                  <Typography
+                    variant="subtitle2"
+                    color="primary"
+                    sx={{
+                      display: 'inline-block',
+                      textAlign: 'center',
+                      mx: 'auto',
+                      py: 0.8,
+                      cursor: 'pointer',
+                    }}
+                    onClick={handleViewMore}
+                  >
+                    {t('search.viewMore')}
+                  </Typography>
+                </Stack>
+              )}
+            </>
+          )}
         </List>
       </Box>
     </Dialog>

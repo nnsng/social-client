@@ -1,7 +1,8 @@
 {
   "search": {
-    "placeholder": "Search posts...",
-    "result": "{{count}} results for \"{{searchTerm}}\""
+    "placeholder": "Search",
+    "result": "{{count}} posts for {{searchFor}} \"{{searchTerm}}\"",
+    "viewMore": "View more"
   },
   "notification": {
     "label": "Notifications",

@@ -5,10 +5,10 @@
   "content": {
     "placeholder": "Nhập nội dung bài viết..."
   },
-  "keyword": {
-    "label": "Thêm tối đa {{max}} từ khóa liên quan đến bài viết (Enter để thêm):",
-    "placeholder": "Nhập từ khóa",
-    "error": "Đã thêm tối đa từ khóa"
+  "hashtag": {
+    "label": "Thêm tối đa {{max}} hashtag liên quan đến bài viết (Enter để thêm):",
+    "placeholder": "Nhập hashtag",
+    "error": "Đã thêm tối đa hashtag"
   },
   "noTitle": "Chưa có tiêu đề",
   "btnLabel": {

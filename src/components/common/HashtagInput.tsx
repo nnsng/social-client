@@ -1,37 +1,37 @@
 import { Box, Chip, FormHelperText, Stack, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { formatKeyword } from 'utils/common';
+import { formatHashtag } from 'utils/common';
 
-export interface IKeywordInputProps {
+export interface IHashtagInputProps {
   name?: string;
   value?: string[];
   max?: number;
   label?: string;
   placeholder?: string;
   errorText?: string;
-  onChange?: (keywordList: string[]) => void;
+  onChange?: (hashtagList: string[]) => void;
 }
 
-export function KeywordInput(props: IKeywordInputProps) {
+export function HashtagInput(props: IHashtagInputProps) {
   const { name, value, max = 5, label, placeholder, errorText } = props;
 
   const [inputText, setInputText] = useState<string>('');
-  const [keywordList, setKeywordList] = useState<string[]>(value || []);
+  const [hashtagList, setHashtagList] = useState<string[]>(value || []);
 
-  const updateKeywordList = (newKeywordList: string[]) => {
-    setKeywordList(newKeywordList);
-    props.onChange?.(newKeywordList);
+  const updateHashtagList = (newHashtagList: string[]) => {
+    setHashtagList(newHashtagList);
+    props.onChange?.(newHashtagList);
   };
 
-  const handleAddKeyword = (e: any) => {
+  const handleAddHashtag = (e: any) => {
     if (e.key !== 'Enter') return;
 
-    const newKeyword = formatKeyword(inputText);
-    if (!newKeyword) return;
+    const newHashtag = formatHashtag(inputText);
+    if (!newHashtag) return;
 
-    const newKeywordList = [...keywordList, newKeyword];
+    const newHashtagList = [...hashtagList, newHashtag];
 
-    updateKeywordList(newKeywordList);
+    updateHashtagList(newHashtagList);
     setInputText('');
   };
 
@@ -40,7 +40,7 @@ export function KeywordInput(props: IKeywordInputProps) {
   };
 
   const handleDelete = (index: number) => {
-    updateKeywordList(keywordList.filter((keyword, idx) => idx !== index));
+    updateHashtagList(hashtagList.filter((hashtag, idx) => idx !== index));
   };
 
   return (
@@ -56,18 +56,18 @@ export function KeywordInput(props: IKeywordInputProps) {
         size="small"
         fullWidth
         placeholder={placeholder}
-        disabled={keywordList.length >= max}
+        disabled={hashtagList.length >= max}
         onChange={handleChange}
-        onKeyUp={handleAddKeyword}
+        onKeyUp={handleAddHashtag}
       />
 
-      {keywordList.length >= max && <FormHelperText error>{errorText}</FormHelperText>}
+      {hashtagList.length >= max && <FormHelperText error>{errorText}</FormHelperText>}
 
       <Stack mt={1} spacing={0.5}>
-        {keywordList.map((keyword, idx) => (
+        {hashtagList.map((hashtag, idx) => (
           <Chip
             key={idx}
-            label={keyword}
+            label={hashtag}
             onDelete={() => handleDelete(idx)}
             sx={{ fontSize: 14 }}
           />

@@ -25,7 +25,7 @@ export function Header() {
         top: 0,
         zIndex: 'appBar',
         height: themeVariables.headerHeight,
-        mb: 3,
+        mb: 2,
         py: 2,
         bgcolor: 'background.paper',
         boxShadow: (theme) =>
@@ -43,7 +43,7 @@ export function Header() {
       <Container>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item xs="auto" mr={2}>
-            <Stack alignItems="center" spacing={1} component={Link} to="/">
+            <Stack alignItems="center" spacing={1} component={Link} to="/blog">
               <Avatar
                 variant="rounded"
                 sx={{

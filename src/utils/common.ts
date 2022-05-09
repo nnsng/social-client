@@ -39,8 +39,8 @@ export const copyPostLink = (post: IPost) => {
   toast.success(toastTranslation.copyLinkSuccess);
 };
 
-export const formatKeyword = (keyword: string) => {
-  return keyword.toLowerCase().trim().replace(/\s+/g, '-');
+export const formatHashtag = (hashtag: string) => {
+  return hashtag.toLowerCase().trim().replace(/\s+/g, '-');
 };
 
 export const delay = async (ms: number) => {

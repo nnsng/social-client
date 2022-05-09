@@ -6,7 +6,7 @@ export interface IPost {
   content: string;
   thumbnail: string;
   authorId: string;
-  keywords: string[];
+  hashtags: string[];
   author?: IUser;
   likes?: string[];
   statistics?: IPostStatistics;
@@ -28,4 +28,10 @@ export interface IPostStatistics {
   likeCount: number;
   commentCount: number;
   viewCount: number;
+}
+
+export type ISearchFor = 'search' | 'username' | 'hashtag';
+export interface ISearchObj {
+  searchFor: ISearchFor;
+  searchTerm: string;
 }

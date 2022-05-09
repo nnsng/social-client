@@ -16,13 +16,20 @@ import {
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { blogActions, selectSearchLoading, selectSearchResultList } from 'features/blog/blogSlice';
-import { IPost } from 'models';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import { IPost, ISearchFor, ISearchObj } from 'models';
+import queryString from 'query-string';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { slugifyString } from 'utils/common';
 import { mixins, themeVariables } from 'utils/theme';
 import { SearchMobile } from '../SearchMobile';
+
+export interface ISearchResult {
+  list: IPost[];
+  length: number;
+  isMore: boolean;
+}
 
 export interface ISearchBoxProps {
   openSearchMobile?: boolean;
@@ -31,6 +38,7 @@ export interface ISearchBoxProps {
 
 export function SearchBox({ openSearchMobile, toggleSearchMobile }: ISearchBoxProps) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { t } = useTranslation('header');
 
@@ -39,18 +47,66 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: ISearchBoxPr
   const searchResultList = useAppSelector(selectSearchResultList);
 
   const [searchInput, setSearchInput] = useState<string>('');
+  const [result, setResult] = useState<ISearchResult>({ list: [], length: 0, isMore: false });
   const [showSearchResult, setShowSearchResult] = useState<boolean>(false);
 
+  const inputRef = useRef(null);
+
   useEffect(() => {
-    setShowSearchResult(searchInput.length > 0);
+    setShowSearchResult(searchInput.length > 0 && inputRef?.current === document.activeElement);
   }, [searchInput]);
 
+  useEffect(() => {
+    const { search, username, hashtag } = queryString.parse(location.search);
+    clearSearchInput();
+    if (!!search) setSearchInput(search as string);
+    if (!!username) setSearchInput(`@${username}`);
+    if (!!hashtag) setSearchInput(`#${hashtag}`);
+  }, [location.search]);
+
+  useEffect(() => {
+    const MAX_ITEMS = 5;
+
+    setResult({
+      list: searchResultList.slice(0, MAX_ITEMS),
+      length: searchResultList.length,
+      isMore: searchResultList.length > MAX_ITEMS,
+    });
+  }, [searchResultList]);
+
+  const closeSearchResult = () => setShowSearchResult(false);
   const clearSearchInput = () => setSearchInput('');
 
-  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const splitSearchInput = (searchInput: string): ISearchObj => {
+    let searchFor: ISearchFor = 'search'; // default = title
+    let searchTerm = searchInput;
+    if (searchInput[0] === '@') {
+      searchFor = 'username';
+      searchTerm = searchInput.slice(1);
+    }
+    if (searchInput[0] === '#') {
+      searchFor = 'hashtag';
+      searchTerm = searchInput.slice(1);
+    }
+
+    return { searchFor, searchTerm };
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
+    const { searchFor, searchTerm } = splitSearchInput(value);
     setSearchInput(value);
-    dispatch(blogActions.searchWithDebounce(slugifyString(value)));
+    dispatch(blogActions.searchWithDebounce({ searchFor, searchTerm: slugifyString(searchTerm) }));
+  };
+
+  const handleViewMore = () => {
+    const { searchFor, searchTerm } = splitSearchInput(searchInput);
+    closeSearchResult();
+    navigate(`/blog?${searchFor}=${searchTerm}`);
+  };
+
+  const handleInputKeyUp = (e: any) => {
+    if (e.key === 'Enter') handleViewMore();
   };
 
   const gotoPost = (post: IPost) => {
@@ -75,9 +131,10 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: ISearchBoxPr
         >
           <OutlinedInput
             placeholder={t('search.placeholder')}
-            inputProps={{ sx: { pl: 1.5 } }}
+            inputProps={{ ref: inputRef, sx: { pl: 1.5 } }}
             value={searchInput || ''}
             onChange={handleSearchChange}
+            onKeyUp={handleInputKeyUp}
             startAdornment={<SearchRounded sx={{ color: 'action.disabled' }} />}
             endAdornment={
               (searchInput || '').length > 0 && (
@@ -93,7 +150,7 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: ISearchBoxPr
             }}
           />
 
-          <ClickAwayListener onClickAway={() => setShowSearchResult(false)}>
+          <ClickAwayListener onClickAway={closeSearchResult}>
             <Grow in={showSearchResult}>
               <Paper
                 sx={{
@@ -117,41 +174,70 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: ISearchBoxPr
                   <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
                     {!loading &&
                       t('search.result', {
-                        count: searchResultList.length,
-                        searchTerm: searchInput,
+                        count: result.length,
+                        searchFor:
+                          splitSearchInput(searchInput).searchFor !== 'search'
+                            ? splitSearchInput(searchInput).searchFor
+                            : '',
+                        searchTerm: splitSearchInput(searchInput).searchTerm,
                       })}
                   </Typography>
                 </Box>
 
                 <List disablePadding>
-                  {searchInput.length > 1 &&
-                    searchResultList.map((post) => (
-                      <ListItem key={post._id} disablePadding>
-                        <ListItemButton disableRipple onClick={() => gotoPost(post)}>
-                          <Stack alignItems="center">
-                            <Avatar
-                              src={post.thumbnail}
-                              sx={{
-                                width: 32,
-                                height: 32,
-                                mr: 1,
-                                bgcolor: 'action.selected',
-                              }}
-                            >
-                              <Box />
-                            </Avatar>
+                  {searchInput.length > 1 && (
+                    <>
+                      {result.list.map((post) => (
+                        <ListItem key={post._id} disablePadding>
+                          <ListItemButton disableRipple onClick={() => gotoPost(post)}>
+                            <Stack alignItems="center">
+                              <Avatar
+                                src={post.thumbnail}
+                                sx={{
+                                  width: 32,
+                                  height: 32,
+                                  mr: 1,
+                                  bgcolor: 'action.selected',
+                                }}
+                              >
+                                <Box />
+                              </Avatar>
 
-                            <Typography
-                              variant="subtitle2"
-                              fontSize={15}
-                              sx={{ ...mixins.truncate(2) }}
-                            >
-                              {post.title}
-                            </Typography>
-                          </Stack>
-                        </ListItemButton>
-                      </ListItem>
-                    ))}
+                              <Typography
+                                variant="subtitle2"
+                                fontSize={15}
+                                sx={{ ...mixins.truncate(2) }}
+                              >
+                                {post.title}
+                              </Typography>
+                            </Stack>
+                          </ListItemButton>
+                        </ListItem>
+                      ))}
+
+                      {result.isMore && (
+                        <Stack>
+                          <Typography
+                            variant="subtitle2"
+                            color="text.secondary"
+                            sx={{
+                              display: 'inline-block',
+                              textAlign: 'center',
+                              mx: 'auto',
+                              py: 0.8,
+                              cursor: 'pointer',
+                              '&:hover': {
+                                color: 'primary.main',
+                              },
+                            }}
+                            onClick={handleViewMore}
+                          >
+                            {t('search.viewMore')}
+                          </Typography>
+                        </Stack>
+                      )}
+                    </>
+                  )}
                 </List>
               </Paper>
             </Grow>
@@ -163,10 +249,12 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: ISearchBoxPr
         open={openSearchMobile}
         onClose={toggleSearchMobile}
         loading={loading}
-        inputValue={searchInput}
-        result={searchResultList}
+        searchInput={searchInput}
+        result={result}
+        searchObj={splitSearchInput(searchInput)}
         onChange={handleSearchChange}
         onClear={clearSearchInput}
+        onViewMore={handleViewMore}
       />
     </>
   );

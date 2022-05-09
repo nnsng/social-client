@@ -7,5 +7,11 @@
     "my": "Chưa có bài viết.",
     "saved": "Bạn chưa lưu bài viết nào.",
     "createText": "Viết bài"
+  },
+  "text": {
+    "newest": "Mới nhất",
+    "search": "Tìm kiếm: {{value}}",
+    "username": "Username: {{value}}",
+    "hashtag": "Hashtag: {{value}}"
   }
 }

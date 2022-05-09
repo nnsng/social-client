@@ -1,9 +1,9 @@
 import { Grid } from '@mui/material';
-import { KeywordInput } from 'components/common';
+import { HashtagInput } from 'components/common';
 import React from 'react';
 import { Control, useController } from 'react-hook-form';
 
-export interface IKeywordInputFieldProps {
+export interface IHashtagInputFieldProps {
   name: string;
   control: Control<any>;
   max?: number;
@@ -12,8 +12,8 @@ export interface IKeywordInputFieldProps {
   errorText?: string;
 }
 
-export function KeywordInputField(props: IKeywordInputFieldProps) {
-  const { name, control, ...keywordInputProps } = props;
+export function HashtagInputField(props: IHashtagInputFieldProps) {
+  const { name, control, ...hashtagInputProps } = props;
 
   const {
     field: { value, onChange },
@@ -21,7 +21,7 @@ export function KeywordInputField(props: IKeywordInputFieldProps) {
 
   return (
     <Grid item xs>
-      <KeywordInput name={name} value={value} onChange={onChange} {...keywordInputProps} />
+      <HashtagInput name={name} value={value} onChange={onChange} {...hashtagInputProps} />
     </Grid>
   );
 }

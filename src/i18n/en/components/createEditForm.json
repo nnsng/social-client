@@ -5,10 +5,10 @@
   "content": {
     "placeholder": "Type content here..."
   },
-  "keyword": {
-    "label": "Add up to {{max}} keywords relevant to the post (Enter to add):",
-    "placeholder": "Keyword",
-    "error": "Added maximum of keywords"
+  "hashtag": {
+    "label": "Add up to {{max}} hashtags relevant to the post (Enter to add):",
+    "placeholder": "Hashtag",
+    "error": "Added maximum of hashtags"
   },
   "noTitle": "No title",
   "btnLabel": {

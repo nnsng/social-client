@@ -1,6 +1,13 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { IListParams, IListResponse, IPaginationParams, IPost, IPostStatistics } from 'models';
+import {
+  IListParams,
+  IListResponse,
+  IPaginationParams,
+  IPost,
+  IPostStatistics,
+  ISearchObj,
+} from 'models';
 
 export interface IBlogState {
   loading: boolean;
@@ -95,7 +102,7 @@ const blogSlice = createSlice({
       }
     },
 
-    searchWithDebounce(state, action: PayloadAction<string>) {
+    searchWithDebounce(state, action: PayloadAction<ISearchObj>) {
       state.searchLoading = true;
       state.searchResultList = [];
     },

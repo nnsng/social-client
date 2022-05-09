@@ -26,8 +26,8 @@ export default function PostReaction(props: IPostReactionProps) {
 
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const filterByKeyword = (keyword: string) => {
-    navigate(`/blog?keyword=${keyword}`);
+  const filterByHashtag = (hashtag: string) => {
+    navigate(`/blog?hashtag=${hashtag}`);
   };
 
   return (
@@ -97,12 +97,12 @@ export default function PostReaction(props: IPostReactionProps) {
       </Stack>
 
       <Stack flexWrap="wrap" my={1}>
-        {post.keywords &&
-          post.keywords.map((keyword, idx) => (
+        {post.hashtags &&
+          post.hashtags.map((hashtag, idx) => (
             <Chip
               key={idx}
-              label={keyword}
-              onClick={() => filterByKeyword(keyword)}
+              label={hashtag}
+              onClick={() => filterByHashtag(hashtag)}
               sx={{
                 mb: 1,
                 mr: 1,

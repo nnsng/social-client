@@ -1,35 +1,35 @@
 import { Box, Chip, Stack, SxProps, Theme, Typography, useMediaQuery } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { formatKeyword } from 'utils/common';
+import { formatHashtag } from 'utils/common';
 import { themeVariables } from 'utils/theme';
 
-const recommendKeywords: string[] = ['Front-end', 'Back-end', 'Mobile', 'Design', 'DevOps']
-  .map(formatKeyword)
+const recommendHashtags: string[] = ['Front-end', 'Back-end', 'Mobile', 'Design', 'DevOps']
+  .map(formatHashtag)
   .filter((x) => !!x);
 
 export interface IPostRecommendProps {
-  keywordActive: string | undefined;
-  onKeywordClick?: (keyword: string) => void;
+  hashtagActive: string | undefined;
+  onHashtagClick?: (hashtag: string) => void;
 }
 
 export default function PostRecommend(props: IPostRecommendProps) {
-  const { keywordActive, onKeywordClick } = props;
+  const { hashtagActive, onHashtagClick } = props;
 
   const { t } = useTranslation('postRecommend');
 
-  const handleKeywordClick = (keyword: string) => {
-    if (keyword === keywordActive) return clearKeyword();
-    onKeywordClick?.(keyword);
+  const handleHashtagClick = (hashtag: string) => {
+    if (hashtag === hashtagActive) return clearHashtag();
+    onHashtagClick?.(hashtag);
   };
 
-  const clearKeyword = () => {
-    onKeywordClick?.('');
+  const clearHashtag = () => {
+    onHashtagClick?.('');
   };
 
   const isOnPC = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 
-  const keywordWrapperSx: SxProps = isOnPC
+  const hashtagWrapperSx: SxProps = isOnPC
     ? {
         mt: '1.5px',
         borderTop: 1,
@@ -51,6 +51,7 @@ export default function PostRecommend(props: IPostRecommendProps) {
         position: 'sticky',
         top: themeVariables.headerHeight + 16, // 16 = 8 * 2 (paddingTop)
         mt: { xs: -2, lg: 0 },
+        mb: -1,
       }}
     >
       {isOnPC && (
@@ -70,26 +71,26 @@ export default function PostRecommend(props: IPostRecommendProps) {
         </Typography>
       )}
 
-      <Stack flexWrap="wrap" sx={keywordWrapperSx}>
-        {recommendKeywords.map((keyword, idx) => (
+      <Stack flexWrap="wrap" sx={hashtagWrapperSx}>
+        {recommendHashtags.map((hashtag, idx) => (
           <Chip
             key={idx}
-            color={keywordActive === keyword ? 'primary' : undefined}
-            label={keyword}
-            onClick={() => handleKeywordClick?.(keyword)}
+            color={hashtagActive === hashtag ? 'primary' : undefined}
+            label={hashtag}
+            onClick={() => handleHashtagClick?.(hashtag)}
             sx={{
               mt: 1,
               mr: 1,
               fontSize: { lg: 16 },
-              color: keywordActive === keyword ? 'common.white' : 'text.secondary',
+              color: hashtagActive === hashtag ? 'common.white' : 'text.secondary',
             }}
           />
         ))}
-        {keywordActive && !recommendKeywords.includes(keywordActive) && (
+        {hashtagActive && !recommendHashtags.includes(hashtagActive) && (
           <Chip
             color="primary"
-            label={keywordActive}
-            onClick={clearKeyword}
+            label={hashtagActive}
+            onClick={clearHashtag}
             sx={{
               mt: 1,
               mr: 1,
@@ -98,18 +99,6 @@ export default function PostRecommend(props: IPostRecommendProps) {
             }}
           />
         )}
-        {/* {keywordActive && (
-          <Chip
-            label={<DeleteForeverRounded sx={{ display: 'flex', alignItems: 'center' }} />}
-            color="error"
-            onClick={clearKeyword}
-            sx={{
-              mt: 1,
-              mr: 1,
-              fontSize: 16,
-            }}
-          />
-        )} */}
       </Stack>
     </Box>
   );

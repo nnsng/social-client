@@ -12,8 +12,8 @@ import {
 import { useAppSelector } from 'app/hooks';
 import {
   FileInputField,
+  HashtagInputField,
   InputField,
-  KeywordInputField,
   MdEditorField,
 } from 'components/formFields';
 import { selectUploading } from 'features/common/uploadSlice';
@@ -41,14 +41,14 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
 
   const schema = yup.object().shape({
     title: yup.string().required(validate.title.required),
-    content: yup.string().required(validate.content.required).min(50, validate.content.min(50)),
+    content: yup.string().required(validate.content.required).min(5, validate.content.min(50)),
     thumbnail: yup.string(),
-    keywords: yup.array().of(
+    hashtags: yup.array().of(
       yup
         .string()
-        .min(3, validate.keywords.min(3))
-        .max(20, validate.keywords.max(20))
-        .matches(/^(?![_-])[a-zA-Z0-9-]+(?<![_-])$/, validate.keywords.valid)
+        .min(3, validate.hashtags.min(3))
+        .max(20, validate.hashtags.max(20))
+        .matches(/^(?![_-])[a-zA-Z0-9-]+(?<![_-])$/, validate.hashtags.valid)
     ),
   });
 
@@ -66,7 +66,7 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
 
   const title = watch('title');
   const thumbnail = watch('thumbnail');
-  const maxKeyword = 5;
+  const MAX_HASHTAGS = 5;
 
   const uploading = useAppSelector(selectUploading);
 
@@ -83,8 +83,8 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
     (async () => {
       if (isSubmitting) return;
 
-      const keywordErrors = (errors.keywords || []).filter((x) => !!x);
-      const errorValues: any = Object.values(errors).concat(keywordErrors);
+      const hashtagErrors = (errors.hashtags || []).filter((x) => !!x);
+      const errorValues: any = Object.values(errors).concat(hashtagErrors);
       if (errorValues?.length === 0) return;
 
       for (const error of errorValues) {
@@ -208,13 +208,13 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
             )}
           </Stack>
 
-          <KeywordInputField
-            name="keywords"
+          <HashtagInputField
+            name="hashtags"
             control={control}
-            max={maxKeyword}
-            label={t('keyword.label', { max: maxKeyword })}
-            placeholder={t('keyword.placeholder')}
-            errorText={t('keyword.error')}
+            max={MAX_HASHTAGS}
+            label={t('hashtag.label', { max: MAX_HASHTAGS })}
+            placeholder={t('hashtag.placeholder')}
+            errorText={t('hashtag.error')}
           />
         </DialogContent>
 

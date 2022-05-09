@@ -1,7 +1,7 @@
 import { call, debounce, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import postApi from 'api/postApi';
-import { IListParams, IListResponse, IPost } from 'models';
+import { IListParams, IListResponse, IPost, ISearchObj } from 'models';
 import { blogActions } from './blogSlice';
 
 function* fetchPostList(action: PayloadAction<IListParams>) {
@@ -28,7 +28,7 @@ function* fetchMyPostList(action: PayloadAction<IListParams>) {
   };
 
   try {
-    const response: IListResponse<IPost> = yield call(postApi.getMyPosts, params);
+    const response: IListResponse<IPost> = yield call(postApi.getMyList, params);
     yield put(blogActions.fetchMyPostListSuccess(response));
   } catch (error) {
     yield put(blogActions.fetchMyPostListFailure());
@@ -44,7 +44,7 @@ function* fetchSavedPostList(action: PayloadAction<IListParams>) {
   };
 
   try {
-    const response: IListResponse<IPost> = yield call(postApi.getSavedPosts, params);
+    const response: IListResponse<IPost> = yield call(postApi.getSaved, params);
     yield put(blogActions.fetchSavedPostListSuccess(response));
   } catch (error) {
     yield put(blogActions.fetchSavedPostListFailure());
@@ -72,10 +72,12 @@ function* handleLikePost(action: PayloadAction<string>) {
   }
 }
 
-function* handleSearchWithDebounce(action: PayloadAction<string>) {
+function* handleSearchWithDebounce(action: PayloadAction<ISearchObj>) {
+  const searchObj = action.payload;
+
   try {
-    if (action.payload.length > 1) {
-      const response: IPost[] = yield call(postApi.searchPosts, action.payload);
+    if (searchObj.searchTerm.length > 1) {
+      const response: IPost[] = yield call(postApi.search, searchObj);
       yield put(blogActions.searchWithDebounceSuccess(response));
     } else {
       yield put(blogActions.searchWithDebounceSuccess([]));
