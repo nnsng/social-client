@@ -6,7 +6,7 @@ import AuthLayout from './components/AuthLayout';
 import { NewPassword } from './components/NewPassword';
 
 export interface AuthPageProps {
-  mode: 'login' | 'register' | 'active' | 'password';
+  mode: 'login' | 'register' | 'active' | 'createPassword' | 'resetPassword';
 }
 
 export default function Auth({ mode }: AuthPageProps) {
@@ -23,8 +23,9 @@ export default function Auth({ mode }: AuthPageProps) {
       return <ActiveAccount token={activeToken} />;
     }
 
-    case 'password': {
-      return <NewPassword token={activeToken} />;
+    case 'createPassword':
+    case 'resetPassword': {
+      return <NewPassword token={activeToken} mode={mode} />;
     }
 
     default: {

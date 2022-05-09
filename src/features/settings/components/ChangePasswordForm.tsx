@@ -16,10 +16,11 @@ export interface IChangePasswordFormProps {
   defaultValues: IChangePasswordFormValues;
   onSubmit: (formValues: IChangePasswordFormValues) => void;
   forgotPassword?: () => void;
+  submitButtonLabel?: string;
 }
 
 export default function ChangePasswordForm(props: IChangePasswordFormProps) {
-  const { fieldList, defaultValues, onSubmit, forgotPassword } = props;
+  const { fieldList, defaultValues, onSubmit, forgotPassword, submitButtonLabel } = props;
   const isChangeMode = !!forgotPassword;
 
   const { t } = useTranslation('changePasswordForm');
@@ -101,7 +102,7 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
               disabled={isSubmitting}
               startIcon={isSubmitting && <CircularProgress size={20} />}
             >
-              {isChangeMode ? t('btnLabel.changePassword') : t('btnLabel.resetPassword')}
+              {submitButtonLabel ?? t('btnLabel.changePassword')}
             </Button>
 
             {isChangeMode && (

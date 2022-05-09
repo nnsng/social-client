@@ -29,23 +29,25 @@ const toast = {
   },
 
   errors: {
-    // authCtrl
+    // auth
+    accessDenied: 'Access denied.',
+    invalidToken: 'Invalid token.',
+    invalidAuthen: 'Invalid authentication.',
+
+    userNotFound: 'User not found.',
     emailNotRegister: 'Email have not registered yet.',
     emailExist: 'Email already exist.',
-    userNotFound: 'User not found.',
-    accountAlreadyActive: 'Account is already active.',
-    usernameExist: 'Username already exist.',
-    passwordNotCorrect: 'Password is not correct.',
     activeAccount: 'Please active your account.',
+    accountActive: 'Account already active.',
+    usernameExist: 'Username already exist.',
+    passwordNotCorrect: 'Password not correct.',
 
-    // postCtrl
+    // post / comment
     postNotFound: 'Post not found.',
+    postSaved: 'Post already saved.',
+    postNotSaved: 'Post have not saved yet.',
     notAllowedEditPost: 'You are not allowed to edit this post.',
     notAllowedDeletePost: 'You are not allowed to delete this post.',
-    postSaved: 'Post is saved.',
-    postNotSaved: 'Post have not saved yet.',
-
-    // commentCtrl
     commentNotFound: 'Comment not found.',
     notAllowedDeleteComment: 'You are not allowed to delete this comment.',
 

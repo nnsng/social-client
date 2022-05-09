@@ -9,9 +9,10 @@ import { useNavigate } from 'react-router-dom';
 
 export interface INewPasswordProps {
   token: string;
+  mode: 'createPassword' | 'resetPassword';
 }
 
-export function NewPassword({ token }: INewPasswordProps) {
+export function NewPassword({ token, mode }: INewPasswordProps) {
   if (!token) return null;
 
   const navigate = useNavigate();
@@ -42,18 +43,19 @@ export function NewPassword({ token }: INewPasswordProps) {
 
   return (
     <>
-      <PageTitle title={t('pageTitle.resetPassword')} />
+      <PageTitle title={t(`pageTitle.${mode}`)} />
 
       <Container maxWidth="md">
         <Box mt={3}>
           <Typography variant="h4" fontWeight={500} mb={2}>
-            {t('pageTitle.resetPassword')}
+            {t(`pageTitle.${mode}`)}
           </Typography>
 
           <ChangePasswordForm
             fieldList={fieldList}
             defaultValues={defaultValues}
             onSubmit={handleSubmit}
+            submitButtonLabel={t(`btnLabel.${mode}`)}
           />
         </Box>
       </Container>

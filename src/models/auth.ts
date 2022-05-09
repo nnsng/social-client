@@ -22,6 +22,7 @@ export interface IUser {
 export interface IAuthResponse {
   user: IUser;
   token: string;
+  activeToken?: string;
 }
 
 export interface IAuthFormValues {
