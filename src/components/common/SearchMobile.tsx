@@ -18,7 +18,7 @@ import { IPost, ISearchObj } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { mixins, themeVariables } from 'utils/theme';
+import { themeMixins, themeVariables } from 'utils/theme';
 import { ISearchResult } from './Header/SearchBox';
 
 export interface ISearchMobileProps {
@@ -64,12 +64,9 @@ export function SearchMobile(props: ISearchMobileProps) {
       >
         <Toolbar
           sx={{
+            ...themeMixins.paperBorder('bottom'),
             height: '100%',
             bgcolor: 'background.paper',
-            boxShadow: (theme) =>
-              theme.palette.mode === 'light' ? themeVariables.boxShadow : undefined,
-            borderBottom: (theme) => (theme.palette.mode === 'dark' ? 1 : undefined),
-            borderColor: (theme) => (theme.palette.mode === 'dark' ? 'divider' : undefined),
           }}
         >
           <IconButton edge="start" color="inherit" onClick={onClose} sx={{ mr: 1 }}>
@@ -141,7 +138,11 @@ export function SearchMobile(props: ISearchMobileProps) {
                         <Box />
                       </Avatar>
 
-                      <Typography variant="subtitle2" fontSize={15} sx={{ ...mixins.truncate(2) }}>
+                      <Typography
+                        variant="subtitle2"
+                        fontSize={15}
+                        sx={{ ...themeMixins.truncate(2) }}
+                      >
                         {post.title}
                       </Typography>
                     </Box>

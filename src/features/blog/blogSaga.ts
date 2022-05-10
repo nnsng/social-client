@@ -76,7 +76,7 @@ function* handleSearchWithDebounce(action: PayloadAction<ISearchObj>) {
   const searchObj = action.payload;
 
   try {
-    if (searchObj.searchTerm.length > 1) {
+    if (searchObj.searchTerm.length > 2) {
       const response: IPost[] = yield call(postApi.search, searchObj);
       yield put(blogActions.searchWithDebounceSuccess(response));
     } else {

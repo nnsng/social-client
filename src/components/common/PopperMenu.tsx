@@ -1,7 +1,8 @@
+// @ts-nocheck
 import { ClickAwayListener, Grow, MenuList, Paper, Popper } from '@mui/material';
 import { SxProps, Theme } from '@mui/system';
 import React from 'react';
-import { themeVariables } from 'utils/theme';
+import { themeMixins } from 'utils/theme';
 
 export interface IPopperMenuProps {
   open: boolean;
@@ -21,11 +22,9 @@ export function PopperMenu(props: IPopperMenuProps) {
         <Grow {...TransitionProps}>
           <Paper
             sx={{
-              border: (theme) => (theme.palette.mode === 'dark' ? 1 : 0),
-              borderColor: 'divider',
-              boxShadow: themeVariables.boxShadow,
-              overflow: 'hidden',
+              ...themeMixins.paperBorder(),
               ...paperSx,
+              overflow: 'hidden',
             }}
           >
             <ClickAwayListener onClickAway={() => onClose?.()}>

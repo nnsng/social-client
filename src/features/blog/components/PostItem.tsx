@@ -15,7 +15,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import remarkGfm from 'remark-gfm';
 import { copyPostLink, formatTime } from 'utils/common';
-import { mixins, themeVariables } from 'utils/theme';
+import { themeMixins, themeVariables } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 
 export interface IPostItemProps {
@@ -124,10 +124,8 @@ export function PostItem(props: IPostItemProps) {
           <Typography
             variant="h6"
             color="text.primary"
-            sx={{
-              ...mixins.truncate(1),
-              fontWeight: 600,
-            }}
+            fontWeight={600}
+            sx={{ ...themeMixins.truncate(1) }}
             component={Link}
             to={`/blog/post/${post.slug}`}
           >
@@ -139,7 +137,7 @@ export function PostItem(props: IPostItemProps) {
             component="div"
             color="text.secondary"
             sx={{
-              ...mixins.truncate(1),
+              ...themeMixins.truncate(1),
               mb: 0.5,
               '& *': { maxWidth: '100%' },
             }}
@@ -192,7 +190,7 @@ export function PostItem(props: IPostItemProps) {
           <ActionMenu
             open={openMenu}
             anchorEl={anchorRef.current}
-            paperSx={{ boxShadow: themeVariables.boxShadow, overflow: 'hidden' }}
+            paperSx={{ boxShadow: themeVariables.boxShadow }}
             onClose={closeMenu}
           >
             {menuItemList.map(

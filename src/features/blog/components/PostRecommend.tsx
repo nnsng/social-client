@@ -50,7 +50,7 @@ export default function PostRecommend(props: IPostRecommendProps) {
       sx={{
         position: 'sticky',
         top: themeVariables.headerHeight + 16, // 16 = 8 * 2 (paddingTop)
-        mt: { xs: -2, lg: 0 },
+        mt: { xs: -1, lg: 0 },
         mb: -1,
       }}
     >

@@ -16,13 +16,13 @@ import {
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { blogActions, selectSearchLoading, selectSearchResultList } from 'features/blog/blogSlice';
-import { IPost, ISearchFor, ISearchObj } from 'models';
+import { IPost, ISearchObj } from 'models';
 import queryString from 'query-string';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { slugifyString } from 'utils/common';
-import { mixins, themeVariables } from 'utils/theme';
+import { themeMixins } from 'utils/theme';
 import { SearchMobile } from '../SearchMobile';
 
 export interface ISearchResult {
@@ -59,9 +59,9 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: ISearchBoxPr
   useEffect(() => {
     const { search, username, hashtag } = queryString.parse(location.search);
     clearSearchInput();
-    if (!!search) setSearchInput(search as string);
-    if (!!username) setSearchInput(`@${username}`);
-    if (!!hashtag) setSearchInput(`#${hashtag}`);
+    if (search) setSearchInput(search as string);
+    if (username) setSearchInput(`@${username}`);
+    if (hashtag) setSearchInput(`#${hashtag}`);
   }, [location.search]);
 
   useEffect(() => {
@@ -77,26 +77,34 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: ISearchBoxPr
   const closeSearchResult = () => setShowSearchResult(false);
   const clearSearchInput = () => setSearchInput('');
 
-  const splitSearchInput = (searchInput: string): ISearchObj => {
-    let searchFor: ISearchFor = 'search'; // default = title
-    let searchTerm = searchInput;
+  const splitSearchInput = (searchInput: string) => {
+    const searchObj: ISearchObj = {
+      searchFor: 'search', // default = search
+      searchTerm: searchInput,
+    };
+
     if (searchInput[0] === '@') {
-      searchFor = 'username';
-      searchTerm = searchInput.slice(1);
+      searchObj.searchFor = 'username';
+      searchObj.searchTerm = searchInput.slice(1);
     }
     if (searchInput[0] === '#') {
-      searchFor = 'hashtag';
-      searchTerm = searchInput.slice(1);
+      searchObj.searchFor = 'hashtag';
+      searchObj.searchTerm = searchInput.slice(1);
     }
 
-    return { searchFor, searchTerm };
+    return searchObj;
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const { searchFor, searchTerm } = splitSearchInput(value);
     setSearchInput(value);
-    dispatch(blogActions.searchWithDebounce({ searchFor, searchTerm: slugifyString(searchTerm) }));
+    dispatch(
+      blogActions.searchWithDebounce({
+        searchFor,
+        searchTerm: slugifyString(searchTerm),
+      })
+    );
   };
 
   const handleViewMore = () => {
@@ -154,26 +162,21 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: ISearchBoxPr
             <Grow in={showSearchResult}>
               <Paper
                 sx={{
+                  ...themeMixins.paperBorder(),
                   position: 'absolute',
                   inset: '100% 0 auto',
                   maxHeight: 450,
                   mt: 1,
                   bgcolor: 'background.paper',
                   overflow: 'auto',
-                  boxShadow: (theme) =>
-                    theme.palette.mode === 'light' ? themeVariables.boxShadow : undefined,
-                  border: (theme) => (theme.palette.mode === 'dark' ? 1 : undefined),
-                  borderColor: (theme) => (theme.palette.mode === 'dark' ? 'divider' : undefined),
                 }}
               >
                 <Box display="flex" alignItems="center" p={2}>
-                  {loading && (
+                  {loading || searchInput.length < 2 ? (
                     <CircularProgress size={20} color="primary" sx={{ flexShrink: 0, mr: 1 }} />
-                  )}
-
-                  <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
-                    {!loading &&
-                      t('search.result', {
+                  ) : (
+                    <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
+                      {t('search.result', {
                         count: result.length,
                         searchFor:
                           splitSearchInput(searchInput).searchFor !== 'search'
@@ -181,62 +184,59 @@ export function SearchBox({ openSearchMobile, toggleSearchMobile }: ISearchBoxPr
                             : '',
                         searchTerm: splitSearchInput(searchInput).searchTerm,
                       })}
-                  </Typography>
+                    </Typography>
+                  )}
                 </Box>
 
                 <List disablePadding>
-                  {searchInput.length > 1 && (
-                    <>
-                      {result.list.map((post) => (
-                        <ListItem key={post._id} disablePadding>
-                          <ListItemButton disableRipple onClick={() => gotoPost(post)}>
-                            <Stack alignItems="center">
-                              <Avatar
-                                src={post.thumbnail}
-                                sx={{
-                                  width: 32,
-                                  height: 32,
-                                  mr: 1,
-                                  bgcolor: 'action.selected',
-                                }}
-                              >
-                                <Box />
-                              </Avatar>
+                  {result.list.map((post) => (
+                    <ListItem key={post._id} disablePadding>
+                      <ListItemButton disableRipple onClick={() => gotoPost(post)}>
+                        <Stack alignItems="center">
+                          <Avatar
+                            src={post.thumbnail}
+                            sx={{
+                              width: 32,
+                              height: 32,
+                              mr: 1,
+                              bgcolor: 'action.selected',
+                            }}
+                          >
+                            <Box />
+                          </Avatar>
 
-                              <Typography
-                                variant="subtitle2"
-                                fontSize={15}
-                                sx={{ ...mixins.truncate(2) }}
-                              >
-                                {post.title}
-                              </Typography>
-                            </Stack>
-                          </ListItemButton>
-                        </ListItem>
-                      ))}
-
-                      {result.isMore && (
-                        <Stack>
                           <Typography
                             variant="subtitle2"
-                            color="text.secondary"
-                            sx={{
-                              display: 'inline-block',
-                              textAlign: 'center',
-                              mx: 'auto',
-                              py: 0.8,
-                              cursor: 'pointer',
-                              '&:hover': {
-                                color: 'primary.main',
-                              },
-                            }}
-                            onClick={handleViewMore}
+                            fontSize={15}
+                            sx={{ ...themeMixins.truncate(2) }}
                           >
-                            {t('search.viewMore')}
+                            {post.title}
                           </Typography>
                         </Stack>
-                      )}
-                    </>
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+
+                  {result.isMore && (
+                    <Stack>
+                      <Typography
+                        variant="subtitle2"
+                        color="text.secondary"
+                        sx={{
+                          display: 'inline-block',
+                          textAlign: 'center',
+                          mx: 'auto',
+                          py: 0.8,
+                          cursor: 'pointer',
+                          '&:hover': {
+                            color: 'primary.main',
+                          },
+                        }}
+                        onClick={handleViewMore}
+                      >
+                        {t('search.viewMore')}
+                      </Typography>
+                    </Stack>
                   )}
                 </List>
               </Paper>

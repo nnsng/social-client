@@ -1,4 +1,4 @@
-import { PaletteMode } from '@mui/material';
+import { PaletteMode, Theme } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { SxProps } from '@mui/system';
 
@@ -140,7 +140,12 @@ export const themeVariables = {
   boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
 };
 
-export const mixins = {
+interface IMixins {
+  [key: string]: (props?: any) => SxProps<Theme>;
+}
+type BorderType = '' | 'top' | 'bottom' | 'left' | 'right';
+
+export const themeMixins: IMixins = {
   truncate: (maxLine: number): SxProps => ({
     display: '-webkit-box',
     WebkitLineClamp: maxLine,
@@ -148,4 +153,13 @@ export const mixins = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   }),
+  paperBorder: (type: BorderType = '') => {
+    const borderType = type ? `border${type[0].toUpperCase()}${type.slice(1)}` : 'border';
+
+    return {
+      boxShadow: (theme) => (theme.palette.mode === 'light' ? themeVariables.boxShadow : undefined),
+      [borderType]: (theme) => (theme.palette.mode === 'dark' ? 1 : 0),
+      borderColor: 'divider',
+    };
+  },
 };

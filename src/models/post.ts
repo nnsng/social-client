@@ -29,9 +29,13 @@ export interface IPostStatistics {
   commentCount: number;
   viewCount: number;
 }
-
-export type ISearchFor = 'search' | 'username' | 'hashtag';
 export interface ISearchObj {
-  searchFor: ISearchFor;
+  searchFor: 'search' | 'username' | 'hashtag';
   searchTerm: string;
+}
+
+export interface ISearchFilter {
+  search?: string;
+  username?: string;
+  hashtag?: string;
 }

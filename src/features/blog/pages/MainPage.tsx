@@ -7,7 +7,7 @@ import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
-import { blogActions, selectPostList } from '../blogSlice';
+import { blogActions, selectPostList, selectPostLoading } from '../blogSlice';
 import PostList from '../components/PostList';
 import PostRecommend from '../components/PostRecommend';
 
@@ -17,6 +17,7 @@ export function MainPage() {
 
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
+  const loading = useAppSelector(selectPostLoading);
 
   const [filter, setFilter] = useState<IListParams>(() => {
     const params = queryString.parse(location.search);
@@ -62,6 +63,7 @@ export function MainPage() {
       >
         <Grid item xs={12} md={10} lg width="100%" mx="auto">
           <PostList
+            loading={loading}
             postList={postList}
             onSave={handleSavePost}
             onRemove={handleRemovePost}

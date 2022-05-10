@@ -141,7 +141,7 @@ export default function PostDetail({ post, onSave, onRemove }: IPostDetailProps)
               <ActionMenu
                 open={openMenu}
                 anchorEl={anchorRef.current}
-                paperSx={{ boxShadow: themeVariables.boxShadow, overflow: 'hidden' }}
+                paperSx={{ boxShadow: themeVariables.boxShadow }}
                 onClose={closeMenu}
               >
                 {postMenu.map(({ label, icon: Icon, onClick, show }, idx) =>

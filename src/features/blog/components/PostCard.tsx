@@ -29,7 +29,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import remarkGfm from 'remark-gfm';
 import { formatTime } from 'utils/common';
-import { mixins, themeVariables } from 'utils/theme';
+import { themeMixins, themeVariables } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 
 export interface IPostCardProps {
@@ -168,7 +168,7 @@ export default function PostCard(props: IPostCardProps) {
               <ActionMenu
                 open={openMenu}
                 anchorEl={anchorRef.current}
-                paperSx={{ boxShadow: themeVariables.boxShadow, overflow: 'hidden' }}
+                paperSx={{ boxShadow: themeVariables.boxShadow }}
                 onClose={closeMenu}
               >
                 {postMenu.map(({ label, icon: Icon, onClick, show }, idx) =>
@@ -224,7 +224,7 @@ export default function PostCard(props: IPostCardProps) {
                 variant="h6"
                 color="text.primary"
                 sx={{
-                  ...mixins.truncate(2),
+                  ...themeMixins.truncate(2),
                   display: 'inline-block',
                   fontWeight: 600,
                 }}
@@ -239,7 +239,7 @@ export default function PostCard(props: IPostCardProps) {
                 component="div"
                 color="text.secondary"
                 sx={{
-                  ...mixins.truncate(2),
+                  ...themeMixins.truncate(2),
                   m: 0,
                   '& *': { maxWidth: '100%' },
                 }}

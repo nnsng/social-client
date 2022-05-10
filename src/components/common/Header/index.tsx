@@ -4,7 +4,7 @@ import { selectPostLoading } from 'features/blog/blogSlice';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
-import { themeVariables } from 'utils/theme';
+import { themeMixins, themeVariables } from 'utils/theme';
 import { HeaderMenu } from './HeaderMenu';
 import { SearchBox } from './SearchBox';
 
@@ -21,6 +21,7 @@ export function Header() {
     <Box
       component="header"
       sx={{
+        ...themeMixins.paperBorder('bottom'),
         position: 'sticky',
         top: 0,
         zIndex: 'appBar',
@@ -28,10 +29,6 @@ export function Header() {
         mb: 2,
         py: 2,
         bgcolor: 'background.paper',
-        boxShadow: (theme) =>
-          theme.palette.mode === 'light' ? themeVariables.boxShadow : undefined,
-        borderBottom: (theme) => (theme.palette.mode === 'dark' ? 1 : undefined),
-        borderColor: (theme) => (theme.palette.mode === 'dark' ? 'divider' : undefined),
       }}
     >
       {loading && (

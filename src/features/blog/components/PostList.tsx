@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import PostCard from './PostCard';
 
 export interface IPostListProps {
+  loading?: boolean;
   postList: IPost[];
   page?: number;
   onPageChange?: (page: number) => void;
@@ -17,8 +18,9 @@ export interface IPostListProps {
 }
 
 export default function PostList(props: IPostListProps) {
-  const { postList, page, onPageChange, onSave, onRemove, filter } = props;
+  const { loading, postList, page, onPageChange, onSave, onRemove, filter } = props;
   const { search, username, hashtag } = filter || {};
+  const searchFilter = { search, username, hashtag };
 
   const { t } = useTranslation('postList');
 
@@ -28,11 +30,15 @@ export default function PostList(props: IPostListProps) {
     onPageChange?.(page);
   };
 
-  const checkFilter = () => {
-    if (!!search) return { key: 'search', value: search };
-    if (!!username) return { key: 'username', value: username };
-    if (!!hashtag) return { key: 'hashtag', value: hashtag };
-    return {};
+  const generateFilterText = () => {
+    type SearchFilterKeyType = keyof typeof searchFilter;
+
+    const filterKey = Object.keys(searchFilter).find(
+      (x) => !!searchFilter[x as SearchFilterKeyType]
+    );
+    if (!filterKey) return t('text.newest');
+
+    return t(`text.${filterKey}`, { value: searchFilter[filterKey as SearchFilterKeyType] });
   };
 
   return (
@@ -41,28 +47,24 @@ export default function PostList(props: IPostListProps) {
         variant="button"
         sx={{
           display: 'inline-block',
-          borderBottom: 1,
+          // borderBottom: 1,
           borderColor: 'text.primary',
           color: 'text.primary',
           fontWeight: 600,
           cursor: 'default',
         }}
       >
-        {checkFilter().key
-          ? t(`text.${checkFilter().key}`, { value: checkFilter().value })
-          : t('text.newest')}
+        {generateFilterText()}
       </Typography>
 
-      <List disablePadding sx={{ mt: 1 }}>
-        {postList.length > 0 ? (
-          postList.map((post) => (
-            <ListItem disablePadding key={post._id}>
-              <PostCard post={post} onSave={onSave} onRemove={onRemove} />
-            </ListItem>
-          ))
-        ) : (
-          <NoPost createText={t('noPost.createText')}>{t('noPost.my')}</NoPost>
-        )}
+      <List disablePadding>
+        {postList.length > 0
+          ? postList.map((post) => (
+              <ListItem disablePadding key={post._id}>
+                <PostCard post={post} onSave={onSave} onRemove={onRemove} />
+              </ListItem>
+            ))
+          : !loading && <NoPost createText={t('noPost.createText')}>{t('noPost.my')}</NoPost>}
       </List>
 
       {totalPage > 1 && (

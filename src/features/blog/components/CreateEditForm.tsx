@@ -23,7 +23,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { delay } from 'utils/common';
-import { mixins, themeVariables } from 'utils/theme';
+import { themeMixins, themeVariables } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
@@ -158,10 +158,10 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
           color={title?.length > 0 ? 'text.primary' : 'text.disabled'}
           component="div"
           sx={{
+            ...themeMixins.truncate(1),
             px: 3,
             py: 2,
             fontWeight: 600,
-            ...mixins.truncate(1),
           }}
         >
           {title || t('noTitle')}

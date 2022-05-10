@@ -107,7 +107,7 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
           )}
         </Box>
 
-        {!!avatarUrl && (
+        {avatarUrl && (
           <Button
             variant="outlined"
             color="error"
