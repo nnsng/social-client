@@ -14,6 +14,7 @@ export interface IUser {
   username: string;
   avatar?: string;
   bio?: string;
+  following?: string[];
   role: string;
   type: string;
   createdAt?: string;

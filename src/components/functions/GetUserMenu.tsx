@@ -9,9 +9,15 @@ import {
 import { authActions } from 'features/auth/authSlice';
 import { configActions } from 'features/common/configSlice';
 import { IMenuItem } from 'models';
-import { IGetMenuProps } from '.';
+import { NavigateFunction } from 'react-router-dom';
 
-export function GetUserMenu(props: IGetMenuProps) {
+export interface IGetUserMenuProps {
+  navigate?: NavigateFunction;
+  dispatch?: any;
+  t?: any;
+}
+
+export function GetUserMenu(props: IGetUserMenuProps) {
   const { navigate, dispatch, t } = props;
 
   const showAppearanceDialog = () => {

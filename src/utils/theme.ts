@@ -83,6 +83,9 @@ export const generateTheme = (mode?: PaletteMode, color?: string) =>
           root: {
             textTransform: 'none',
           },
+          contained: {
+            color: '#ffffff',
+          },
         },
       },
       MuiIconButton: {

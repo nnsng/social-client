@@ -10,10 +10,10 @@ export interface ICustomScrollbarProps {
 export function CustomScrollbar({ children }: ICustomScrollbarProps) {
   const location = useLocation();
 
-  const ref = useRef(null);
+  const ref = useRef<any>(null);
 
   useEffect(() => {
-    (ref.current as any).scrollTop = 0;
+    ref.current.scrollTop = 0;
   }, [location.pathname]);
 
   return (

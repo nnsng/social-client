@@ -34,7 +34,7 @@ export function PostItem(props: IPostItemProps) {
 
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
-  const anchorRef = useRef<HTMLElement | null>(null);
+  const anchorRef = useRef<any>(null);
 
   const toggleOpenMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
@@ -59,9 +59,9 @@ export function PostItem(props: IPostItemProps) {
     }
   };
 
-  const handleMenuItemClick = (onMenuItemClick?: () => void) => {
+  const handleMenuItemClick = (callback?: () => void) => {
     closeMenu();
-    onMenuItemClick?.();
+    callback?.();
   };
 
   const menuItemList: IMenuItem[] = [
@@ -175,7 +175,7 @@ export function PostItem(props: IPostItemProps) {
         <Box flexShrink={0} ml={2}>
           <IconButton
             size="small"
-            ref={anchorRef as any}
+            ref={anchorRef}
             onClick={toggleOpenMenu}
             sx={{
               color: 'text.secondary',
@@ -187,12 +187,7 @@ export function PostItem(props: IPostItemProps) {
             <MoreHorizRounded />
           </IconButton>
 
-          <ActionMenu
-            open={openMenu}
-            anchorEl={anchorRef.current}
-            paperSx={{ boxShadow: themeVariables.boxShadow }}
-            onClose={closeMenu}
-          >
+          <ActionMenu open={openMenu} anchorEl={anchorRef.current} onClose={closeMenu}>
             {menuItemList.map(
               ({ label, icon: Icon, onClick, show }, idx) =>
                 show && (

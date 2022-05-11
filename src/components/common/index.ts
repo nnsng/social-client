@@ -9,6 +9,7 @@ export * from './Header';
 export * from './NoPost';
 export * from './NotFound';
 export * from './PageTitle';
-export * from './PopperMenu';
+export * from './PopperPopup';
 export * from './PrivateRoute';
 export * from './SearchMobile';
+export * from './UserInfoPopup';

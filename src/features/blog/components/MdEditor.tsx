@@ -23,11 +23,11 @@ const mdParser = new MarkdownIt();
 export default function MdEditor(props: IMdEditorProps) {
   const { onEditorChange, readOnly, value, placeholder } = props;
 
-  const ref = useRef(null);
+  const ref = useRef<any>(null);
 
   // add scrollbar to MDEditor
   useEffect(() => {
-    const sectionContainers = (ref.current as any).querySelectorAll('.section-container');
+    const sectionContainers = ref.current.querySelectorAll('.section-container');
     for (const container of sectionContainers) {
       container.classList.add('default-scrollbar');
     }

@@ -1,18 +1,18 @@
 import { Drawer, MenuList, Theme, useMediaQuery } from '@mui/material';
 import React from 'react';
-import { PopperMenu, IPopperMenuProps } from '.';
+import { PopperPopup, IPopperPopupProps } from '.';
 
-export interface IActionMenuProps extends IPopperMenuProps {}
+export interface IActionMenuProps extends IPopperPopupProps {}
 
 export function ActionMenu(props: IActionMenuProps) {
-  const { open, anchorEl, onClose, children, paperSx, zIndex } = props;
+  const { open, anchorEl, onClose, children, sx } = props;
 
   const hideOnMobile = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
 
   return hideOnMobile ? (
-    <PopperMenu open={open} anchorEl={anchorEl} paperSx={paperSx} zIndex={zIndex} onClose={onClose}>
-      {children}
-    </PopperMenu>
+    <PopperPopup open={open} anchorEl={anchorEl} sx={sx} onClose={onClose}>
+      <MenuList disablePadding>{children}</MenuList>
+    </PopperPopup>
   ) : (
     <Drawer
       anchor="bottom"

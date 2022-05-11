@@ -1,6 +1,6 @@
 {
   "search": {
-    "placeholder": "Tìm kiếm.",
+    "placeholder": "Tìm kiếm",
     "result": "{{count}} bài viết cho {{searchFor}} \"{{searchTerm}}\"",
     "viewMore": "Xem thêm"
   },

@@ -9,13 +9,13 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { GetUserMenu } from 'components/functions';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { IMenuItem, IUser } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { PopperMenu } from '..';
-import { GetUserMenu } from '../Menu';
+import { PopperPopup } from '..';
 
 export interface IUserMenuProps {
   isOnMobile?: boolean;
@@ -30,7 +30,7 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
   const currentUser = useAppSelector(selectCurrentUser);
 
   const [open, setOpen] = useState<boolean>(false);
-  const anchorRef = useRef<HTMLElement | null>(null);
+  const anchorRef = useRef<any>(null);
 
   const toggleMenu = () => setOpen(!open);
   const closeMenu = () => setOpen(false);
@@ -52,7 +52,7 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
           ml: 2,
           cursor: 'pointer',
         }}
-        ref={anchorRef as any}
+        ref={anchorRef}
         onClick={toggleMenu}
       />
 
@@ -75,15 +75,15 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
           </MenuList>
         </Drawer>
       ) : (
-        <PopperMenu
+        <PopperPopup
           open={open}
           anchorEl={anchorRef.current}
-          paperSx={{
+          sx={{
             minWidth: 280,
-            mt: 2,
+            mt: 1,
             p: 0.8,
+            zIndex: (theme) => theme.zIndex.appBar + 1,
           }}
-          zIndex={(theme) => (theme.zIndex as any).appBar + 1}
           onClose={closeMenu}
         >
           <Children
@@ -93,7 +93,7 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
             dividers={dividers}
             onMenuItemClick={handleMenuItemClick}
           />
-        </PopperMenu>
+        </PopperPopup>
       )}
     </>
   );

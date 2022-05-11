@@ -1,9 +1,9 @@
 import { BorderColorRounded, DeleteRounded, FlagRounded, LinkRounded } from '@mui/icons-material';
 import { IMenuItem, IPost } from 'models';
 import { copyPostLink, showComingSoonToast } from 'utils/common';
-import { IGetMenuProps } from '.';
+import { IGetUserMenuProps } from './GetUserMenu';
 
-export interface IGetPostMenuProps extends IGetMenuProps {
+export interface IGetPostMenuProps extends IGetUserMenuProps {
   post: IPost;
   isAuthorized: boolean;
   onRemovePost?: () => void;

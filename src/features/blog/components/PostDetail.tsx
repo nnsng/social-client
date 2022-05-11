@@ -1,27 +1,13 @@
-import { BookmarkBorderRounded, MoreHorizRounded } from '@mui/icons-material';
-import {
-  Avatar,
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  IconButton,
-  MenuItem,
-  Typography,
-} from '@mui/material';
-import { useAppSelector } from 'app/hooks';
-import { ActionMenu, ConfirmDialog } from 'components/common';
-import { GetPostMenu } from 'components/common/Menu';
-import { selectCurrentUser } from 'features/auth/authSlice';
+import { Card, CardContent, Typography } from '@mui/material';
+import { ConfirmDialog } from 'components/common';
 import { IPost } from 'models';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { formatTime } from 'utils/common';
-import { themeVariables } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
 import MdEditor from './MdEditor';
+import PostCardHeader from './PostCardHeader';
 
 export interface IPostDetailProps {
   post: IPost;
@@ -29,7 +15,9 @@ export interface IPostDetailProps {
   onRemove?: (post: IPost) => void;
 }
 
-export default function PostDetail({ post, onSave, onRemove }: IPostDetailProps) {
+export default function PostDetail(props: IPostDetailProps) {
+  const { post, onSave, onRemove } = props;
+
   const navigate = useNavigate();
 
   const { t } = useTranslation('postDetail');
@@ -38,16 +26,9 @@ export default function PostDetail({ post, onSave, onRemove }: IPostDetailProps)
     'dialog'
   );
 
-  const currentUser = useAppSelector(selectCurrentUser);
-
-  const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const anchorRef = useRef<HTMLElement | null>(null);
-
-  const toggleMenu = () => setOpenMenu(!openMenu);
-  const closeMenu = () => setOpenMenu(false);
   const closeDialog = () => setOpenDialog(false);
 
   const handleSavePost = async () => {
@@ -61,7 +42,7 @@ export default function PostDetail({ post, onSave, onRemove }: IPostDetailProps)
   };
 
   const handleRemovePost = async () => {
-    setLoading((prev) => true);
+    setLoading(() => true);
 
     try {
       await onRemove?.(post);
@@ -72,23 +53,9 @@ export default function PostDetail({ post, onSave, onRemove }: IPostDetailProps)
       toast.error(toastTranslation.errors[errorName]);
     }
 
-    setLoading((prev) => false);
+    setLoading(() => false);
     closeDialog();
   };
-
-  const handleMenuItemClick = (onMenuItemClick?: () => void) => {
-    closeMenu();
-    onMenuItemClick?.();
-  };
-
-  const isAuthorized = currentUser?._id === post.authorId || currentUser?.role === 'admin';
-  const postMenu = GetPostMenu({
-    post,
-    isAuthorized,
-    onRemovePost: () => setOpenDialog(true),
-    navigate,
-    t,
-  });
 
   return (
     <>
@@ -97,98 +64,17 @@ export default function PostDetail({ post, onSave, onRemove }: IPostDetailProps)
           {post.title}
         </Typography>
 
-        <CardHeader
-          avatar={
-            <Link to={`/blog/user/${post?.author?.username}`}>
-              <Avatar src={post?.author?.avatar} />
-            </Link>
-          }
-          action={
-            <Box>
-              <IconButton
-                disableTouchRipple
-                size="small"
-                sx={{
-                  ml: 1,
-                  color: 'text.secondary',
-                  '&:hover': {
-                    bgcolor: 'transparent',
-                    color: 'text.primary',
-                  },
-                }}
-                onClick={handleSavePost}
-              >
-                <BookmarkBorderRounded />
-              </IconButton>
-
-              <IconButton
-                disableTouchRipple
-                size="small"
-                sx={{
-                  ml: 1,
-                  color: 'text.secondary',
-                  '&:hover': {
-                    bgcolor: 'transparent',
-                    color: 'text.primary',
-                  },
-                }}
-                ref={anchorRef as any}
-                onClick={toggleMenu}
-              >
-                <MoreHorizRounded />
-              </IconButton>
-
-              <ActionMenu
-                open={openMenu}
-                anchorEl={anchorRef.current}
-                paperSx={{ boxShadow: themeVariables.boxShadow }}
-                onClose={closeMenu}
-              >
-                {postMenu.map(({ label, icon: Icon, onClick, show }, idx) =>
-                  show ? (
-                    <MenuItem
-                      key={idx}
-                      sx={{
-                        py: 1.5,
-                        px: 2.5,
-                        fontSize: 15,
-                      }}
-                      onClick={() => handleMenuItemClick(onClick)}
-                    >
-                      <Icon sx={{ fontSize: { xs: 20, sm: 18 }, mr: 2 }} />
-                      {label}
-                    </MenuItem>
-                  ) : null
-                )}
-              </ActionMenu>
-            </Box>
-          }
-          title={
-            <Typography
-              variant="subtitle2"
-              color="text.primary"
-              fontWeight={600}
-              component={Link}
-              to={`/blog/user/${post?.author?.username}`}
-            >
-              {post?.author?.name}
-            </Typography>
-          }
-          subheader={
-            <Typography variant="subtitle2" fontWeight="400">
-              {formatTime(post.createdAt)}
-            </Typography>
-          }
+        <PostCardHeader
+          post={post}
+          onSavePost={handleSavePost}
+          onRemovePost={() => setOpenDialog(true)}
+          t={t}
           sx={{
-            display: 'flex',
-            alignItems: 'center',
             mt: 2,
             mb: 3,
             mx: 0,
-            p: 0,
-
-            '& .MuiCardHeader-action': {
-              m: 0,
+            '& .icon-button': {
+              ml: 1,
             },
           }}
         />

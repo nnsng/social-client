@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 import { formatTime } from 'utils/common';
 import { APP_NAME } from 'utils/constants';
 import { themeVariables } from 'utils/theme';
-import { PopperMenu } from '..';
+import { PopperPopup } from '..';
 import HeaderIconButton from './HeaderIconButton';
 
 export default function Notification() {
@@ -46,15 +46,15 @@ export default function Notification() {
         <Backdrop open={open} sx={{ zIndex: (theme) => theme.zIndex.appBar + 1 }}></Backdrop>
       )}
 
-      <PopperMenu
+      <PopperPopup
         open={open}
         anchorEl={anchorRef.current}
-        paperSx={{
+        sx={{
           width: { xs: `calc(100vw - ${themeVariables.scrollbarWidth}px)`, sm: 400 },
           mt: 1,
           borderRadius: 1,
+          zIndex: (theme) => theme.zIndex.appBar + 1,
         }}
-        zIndex={(theme) => (theme.zIndex as any).appBar + 1}
         onClose={closeNoti}
       >
         <Stack alignItems="center" justifyContent="space-between" px={2} py={1}>
@@ -107,7 +107,7 @@ export default function Notification() {
             </Box>
           </MenuItem>
         </Box>
-      </PopperMenu>
+      </PopperPopup>
     </>
   );
 }

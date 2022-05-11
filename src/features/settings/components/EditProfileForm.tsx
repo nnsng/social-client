@@ -33,7 +33,7 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
       .max(50, validate.username.max(20))
       .matches(/^(?![_.])[a-zA-Z0-9._]+(?<![_.])$/, validate.username.valid),
     email: yup.string().email().required(),
-    bio: yup.string(),
+    bio: yup.string().max(100, validate.bio.max(100)),
   });
 
   const { control, handleSubmit, watch, setValue, reset, clearErrors } = useForm({

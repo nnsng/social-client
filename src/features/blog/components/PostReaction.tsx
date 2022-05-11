@@ -45,13 +45,13 @@ export default function PostReaction(props: IPostReactionProps) {
           fontWeight: 600,
         }}
         component={Link}
-        to={`/blog/user/${post?.author?.username}`}
+        to={`/blog/user/${post.author?.username}`}
       >
-        {post?.author?.name}
+        {post.author?.name}
       </Typography>
 
       <Typography variant="body2" fontSize={16} lineHeight={1.8} pt={1}>
-        {post?.author?.bio}
+        {post.author?.bio}
       </Typography>
 
       <Stack
@@ -71,7 +71,7 @@ export default function PostReaction(props: IPostReactionProps) {
             },
           }}
           startIcon={
-            (post?.likes || []).includes(currentUser?._id as string) ? (
+            (post.likes || []).includes(currentUser?._id as string) ? (
               <FavoriteRounded sx={{ color: 'error.main' }} />
             ) : (
               <FavoriteBorderRounded />

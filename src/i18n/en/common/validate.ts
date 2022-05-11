@@ -19,8 +19,8 @@ const validate = {
     max: (n: number) => `Username must be at most ${n} characters`,
     valid: 'Only A-Z, a-z, 0-9, -, . are allowed',
   },
-  phone: {
-    valid: 'Phone number is invalid',
+  bio: {
+    max: (n: number) => `Bio must be at most ${n} characters`,
   },
   currentPassword: {
     required: 'Current password is required',

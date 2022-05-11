@@ -1,36 +1,20 @@
 import {
-  BookmarkBorderRounded,
   ChatBubbleOutlineRounded,
   FavoriteBorderRounded,
-  MoreHorizRounded,
   VisibilityOutlined,
 } from '@mui/icons-material';
-import {
-  Avatar,
-  Box,
-  Card,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  IconButton,
-  MenuItem,
-  Stack,
-  Typography,
-} from '@mui/material';
-import { useAppSelector } from 'app/hooks';
-import { ActionMenu, ConfirmDialog } from 'components/common';
-import { GetPostMenu } from 'components/common/Menu';
-import { selectCurrentUser } from 'features/auth/authSlice';
+import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
+import { ConfirmDialog } from 'components/common';
 import { IPost } from 'models';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import remarkGfm from 'remark-gfm';
-import { formatTime } from 'utils/common';
-import { themeMixins, themeVariables } from 'utils/theme';
+import { themeMixins } from 'utils/theme';
 import { useTranslateFiles } from 'utils/translation';
+import PostCardHeader from './PostCardHeader';
 
 export interface IPostCardProps {
   post: IPost;
@@ -41,24 +25,15 @@ export interface IPostCardProps {
 export default function PostCard(props: IPostCardProps) {
   const { post, onSave, onRemove } = props;
 
-  const navigate = useNavigate();
-
   const { t } = useTranslation('postCard');
   const { toast: toastTranslation, dialog: dialogTranslation } = useTranslateFiles(
     'toast',
     'dialog'
   );
 
-  const currentUser = useAppSelector(selectCurrentUser);
-
-  const [openMenu, setOpenMenu] = useState<boolean>(false);
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
 
-  const anchorRef = useRef<HTMLElement | null>(null);
-
-  const toggleMenu = () => setOpenMenu(!openMenu);
-  const closeMenu = () => setOpenMenu(false);
   const closeDialog = () => setOpenDialog(false);
 
   const handleSavePost = async () => {
@@ -72,7 +47,7 @@ export default function PostCard(props: IPostCardProps) {
   };
 
   const handleRemovePost = async () => {
-    setLoading((prev) => true);
+    setLoading(() => true);
 
     try {
       await onRemove?.(post);
@@ -82,23 +57,9 @@ export default function PostCard(props: IPostCardProps) {
       toast.error(toastTranslation.errors[errorName]);
     }
 
-    setLoading((prev) => false);
+    setLoading(() => false);
     closeDialog();
   };
-
-  const handleMenuItemClick = (onMenuItemClick?: () => void) => {
-    closeMenu();
-    onMenuItemClick?.();
-  };
-
-  const isAuthorized = currentUser?._id === post.authorId || currentUser?.role === 'admin';
-  const postMenu = GetPostMenu({
-    post,
-    isAuthorized,
-    onRemovePost: () => setOpenDialog(true),
-    navigate,
-    t,
-  });
 
   const statistics = [
     {
@@ -128,85 +89,15 @@ export default function PostCard(props: IPostCardProps) {
           borderColor: 'divider',
         }}
       >
-        <CardHeader
-          avatar={<Avatar src={post?.author?.avatar} />}
-          action={
-            <Box>
-              <IconButton
-                disableTouchRipple
-                size="small"
-                sx={{
-                  mx: 0.5,
-                  color: 'text.secondary',
-                  '&:hover': {
-                    bgcolor: 'transparent',
-                    color: 'text.primary',
-                  },
-                }}
-                onClick={handleSavePost}
-              >
-                <BookmarkBorderRounded />
-              </IconButton>
-
-              <IconButton
-                disableTouchRipple
-                size="small"
-                sx={{
-                  mx: 0.5,
-                  color: 'text.secondary',
-                  '&:hover': {
-                    color: 'text.primary',
-                    bgcolor: 'transparent',
-                  },
-                }}
-                ref={anchorRef as any}
-                onClick={toggleMenu}
-              >
-                <MoreHorizRounded />
-              </IconButton>
-
-              <ActionMenu
-                open={openMenu}
-                anchorEl={anchorRef.current}
-                paperSx={{ boxShadow: themeVariables.boxShadow }}
-                onClose={closeMenu}
-              >
-                {postMenu.map(({ label, icon: Icon, onClick, show }, idx) =>
-                  show ? (
-                    <MenuItem
-                      key={idx}
-                      sx={{
-                        py: 1.5,
-                        px: 2.5,
-                        fontSize: 15,
-                      }}
-                      onClick={() => handleMenuItemClick(onClick)}
-                    >
-                      <Icon sx={{ fontSize: { xs: 20, sm: 18 }, mr: 2 }} />
-                      {label}
-                    </MenuItem>
-                  ) : null
-                )}
-              </ActionMenu>
-            </Box>
-          }
-          title={
-            <Typography variant="subtitle2" color="text.primary" fontWeight={600}>
-              {post?.author?.name}
-            </Typography>
-          }
-          subheader={
-            <Typography variant="subtitle2" fontWeight="400">
-              {formatTime(post.createdAt)}
-            </Typography>
-          }
+        <PostCardHeader
+          post={post}
+          onSavePost={handleSavePost}
+          onRemovePost={() => setOpenDialog(true)}
+          t={t}
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            p: 0,
             mb: 1,
-            '& .MuiCardHeader-action': {
-              m: 0,
+            '& .icon-button': {
+              mx: 0.5,
             },
           }}
         />

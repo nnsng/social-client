@@ -19,8 +19,8 @@ const validate = {
     max: (n: number) => `Tên người dùng tối đa ${n} ký tự`,
     valid: 'Chỉ chấp nhận A-Z, a-z, 0-9, -, .',
   },
-  phone: {
-    valid: 'Số điện thoại không hợp lệ',
+  bio: {
+    max: (n: number) => `Mô tả tối đa ${n} ký tự`,
   },
   currentPassword: {
     required: 'Vui lòng nhập mật khẩu hiện tại',

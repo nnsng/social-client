@@ -67,7 +67,7 @@ export default function PostList(props: IPostListProps) {
           : !loading && <NoPost createText={t('noPost.createText')}>{t('noPost.my')}</NoPost>}
       </List>
 
-      {totalPage > 1 && (
+      {totalPage > 1 && !loading && (
         <Stack mb={2}>
           <Pagination
             shape="rounded"

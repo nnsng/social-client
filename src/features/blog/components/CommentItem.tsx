@@ -11,12 +11,12 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
-import { ActionMenu, ConfirmDialog } from 'components/common';
+import { ActionMenu, ConfirmDialog, UserInfoPopup } from 'components/common';
+import { GetUserInfoPopupEvent } from 'components/functions';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { IComment, IMenuItem } from 'models';
+import { IComment, IMenuItem, IUser } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { formatTime, showComingSoonToast } from 'utils/common';
 import { useTranslateFiles } from 'utils/translation';
@@ -38,17 +38,20 @@ export default function CommentItem(props: ICommentItemProps) {
 
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const anchorRef = useRef<HTMLElement | null>(null);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const [openPopup, setOpenPopup] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const anchorRef = useRef<any>(null);
+  const userInfoRef = useRef<any>(null);
 
   const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
   const closeDialog = () => setOpenDialog(false);
 
   const handleRemoveComment = async () => {
-    setLoading((prevState) => true);
+    setLoading(() => true);
 
     try {
       await onRemove?.(comment);
@@ -57,7 +60,7 @@ export default function CommentItem(props: ICommentItemProps) {
       toast.error(toastTranslation.errors[errorName]);
     }
 
-    setLoading((prevState) => false);
+    setLoading(() => false);
   };
 
   const confirmRemoveComment = () => {
@@ -73,6 +76,8 @@ export default function CommentItem(props: ICommentItemProps) {
     closeMenu();
     callback?.();
   };
+
+  const { onMouseEnter, onMouseLeave } = GetUserInfoPopupEvent({ setOpenPopup });
 
   const isAuthorized = currentUser?._id === comment.userId || currentUser?.role === 'admin';
   const menuItemList: IMenuItem[] = [
@@ -95,9 +100,13 @@ export default function CommentItem(props: ICommentItemProps) {
       <ListItem disableGutters sx={{ mb: 2.5 }}>
         <Grid container spacing={2}>
           <Grid item xs="auto">
-            <Link to={`/blog/user/${comment?.user?.username}`}>
-              <Avatar src={comment?.user?.avatar} sx={{ width: 36, height: 36 }} />
-            </Link>
+            <Avatar
+              ref={userInfoRef}
+              src={comment.user?.avatar}
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseEnter}
+              sx={{ width: 36, height: 36, cursor: 'pointer' }}
+            />
           </Grid>
 
           <Grid item xs>
@@ -107,7 +116,7 @@ export default function CommentItem(props: ICommentItemProps) {
                 vertical: 'bottom',
                 horizontal: 'right',
               }}
-              invisible={!comment?.likes?.length}
+              invisible={!comment.likes?.length}
               sx={{
                 '& .MuiBadge-badge': {
                   bottom: 2,
@@ -123,8 +132,9 @@ export default function CommentItem(props: ICommentItemProps) {
               badgeContent={
                 <Stack alignItems="center" p={0.3}>
                   <FavoriteRounded sx={{ color: 'primary.main', fontSize: 18 }} />
+
                   <Typography variant="subtitle2" color="text.primary" ml={0.5}>
-                    {comment?.likes?.length || 0}
+                    {comment.likes?.length || 0}
                   </Typography>
                 </Stack>
               }
@@ -143,10 +153,11 @@ export default function CommentItem(props: ICommentItemProps) {
                   variant="subtitle2"
                   color="text.primary"
                   fontWeight={600}
-                  component={Link}
-                  to={`/blog/user/${comment?.user?.username}`}
+                  onMouseEnter={onMouseEnter}
+                  onMouseLeave={onMouseLeave}
+                  sx={{ cursor: 'pointer' }}
                 >
-                  {comment?.user?.name}
+                  {comment.user?.name}
                 </Typography>
 
                 <Typography variant="body1" color="text.primary">
@@ -162,7 +173,7 @@ export default function CommentItem(props: ICommentItemProps) {
                 sx={{ cursor: 'pointer' }}
                 onClick={handleLikeComment}
               >
-                {comment?.likes?.includes(currentUser?._id as string) ? t('unlike') : t('like')}
+                {comment.likes?.includes(currentUser?._id || '') ? t('unlike') : t('like')}
               </Typography>
 
               <Typography
@@ -187,14 +198,14 @@ export default function CommentItem(props: ICommentItemProps) {
                 {formatTime(comment.createdAt)}
               </Typography>
 
-              <IconButton size="small" disableRipple ref={anchorRef as any} onClick={toggleMenu}>
+              <IconButton size="small" disableRipple ref={anchorRef} onClick={toggleMenu}>
                 <MoreHorizRounded />
               </IconButton>
 
               <ActionMenu
                 open={openMenu}
                 anchorEl={anchorRef.current}
-                zIndex={(theme) => (theme.zIndex as any).drawer + 1}
+                sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
                 onClose={closeMenu}
               >
                 {menuItemList.map(({ label, icon: Icon, onClick, show }, idx) =>
@@ -226,6 +237,13 @@ export default function CommentItem(props: ICommentItemProps) {
         content={dialogTranslation.comment.delete.content}
         onConfirm={handleRemoveComment}
         loading={loading}
+      />
+
+      <UserInfoPopup
+        user={comment.user as Partial<IUser>}
+        open={openPopup}
+        anchorEl={userInfoRef.current}
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       />
     </>
   );

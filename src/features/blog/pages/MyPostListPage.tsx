@@ -6,7 +6,7 @@ import { IListParams, IPost } from 'models';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { blogActions, selectPostList, selectTotalPages } from '../blogSlice';
+import { blogActions, selectPostList, selectPostLoading, selectTotalPages } from '../blogSlice';
 import { PostItem } from '../components/PostItem';
 
 export interface IMyPostListPageProps {
@@ -23,6 +23,7 @@ export function MyPostListPage({ mode }: IMyPostListPageProps) {
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
   const totalPage = useAppSelector(selectTotalPages);
+  const loading = useAppSelector(selectPostLoading);
 
   const [filters, setFilters] = useState<IListParams>({});
 
@@ -70,7 +71,7 @@ export function MyPostListPage({ mode }: IMyPostListPageProps) {
           {t(`pageTitle.${mode}`)}
         </Typography>
 
-        <List>
+        <List disablePadding>
           {postList.length > 0 ? (
             postList.map((post) => (
               <PostItem
@@ -89,7 +90,7 @@ export function MyPostListPage({ mode }: IMyPostListPageProps) {
           )}
         </List>
 
-        {totalPage > 1 && (
+        {totalPage > 1 && !loading && (
           <Stack mb={2}>
             <Pagination
               shape="rounded"
