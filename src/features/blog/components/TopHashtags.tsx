@@ -1,30 +1,26 @@
 import { Box, Chip, Stack, SxProps, Theme, Typography, useMediaQuery } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { formatHashtag } from 'utils/common';
 import { themeVariables } from 'utils/theme';
 
-const recommendHashtags: string[] = ['Front-end', 'Back-end', 'Mobile', 'Design', 'DevOps']
-  .map(formatHashtag)
-  .filter((x) => !!x);
-
-export interface IPostRecommendProps {
-  hashtagActive: string | undefined;
-  onHashtagClick?: (hashtag: string) => void;
+export interface ITopHashtagsProps {
+  list: string[];
+  active: string | undefined;
+  onClick?: (hashtag: string) => void;
 }
 
-export default function PostRecommend(props: IPostRecommendProps) {
-  const { hashtagActive, onHashtagClick } = props;
+export default function TopHashtags(props: ITopHashtagsProps) {
+  const { list, active, onClick } = props;
 
-  const { t } = useTranslation('postRecommend');
+  const { t } = useTranslation('topHashtags');
 
   const handleHashtagClick = (hashtag: string) => {
-    if (hashtag === hashtagActive) return clearHashtag();
-    onHashtagClick?.(hashtag);
+    if (hashtag === active) return clearHashtag();
+    onClick?.(hashtag);
   };
 
   const clearHashtag = () => {
-    onHashtagClick?.('');
+    onClick?.('');
   };
 
   const isOnPC = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
@@ -72,24 +68,24 @@ export default function PostRecommend(props: IPostRecommendProps) {
       )}
 
       <Stack flexWrap="wrap" sx={hashtagWrapperSx}>
-        {recommendHashtags.map((hashtag, idx) => (
+        {list.map((hashtag, idx) => (
           <Chip
             key={idx}
-            color={hashtagActive === hashtag ? 'primary' : undefined}
+            color={active === hashtag ? 'primary' : undefined}
             label={hashtag}
             onClick={() => handleHashtagClick?.(hashtag)}
             sx={{
               mt: 1,
               mr: 1,
               fontSize: { lg: 16 },
-              color: hashtagActive === hashtag ? 'common.white' : 'text.secondary',
+              color: active === hashtag ? 'common.white' : 'text.secondary',
             }}
           />
         ))}
-        {hashtagActive && !recommendHashtags.includes(hashtagActive) && (
+        {active && !list.includes(active) && (
           <Chip
             color="primary"
-            label={hashtagActive}
+            label={active}
             onClick={clearHashtag}
             sx={{
               mt: 1,

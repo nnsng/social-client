@@ -9,7 +9,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
 import { blogActions, selectPostList, selectPostLoading } from '../blogSlice';
 import PostList from '../components/PostList';
-import PostRecommend from '../components/PostRecommend';
+import TopHashtags from '../components/TopHashtags';
+import configApi from 'api/configApi';
 
 export function MainPage() {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ export function MainPage() {
     const params = queryString.parse(location.search);
     return { page: 1, ...params };
   });
+  const [hashtagList, setHashtagList] = useState<string[]>([]);
 
   useEffect(() => {
     const params = queryString.parse(location.search);
@@ -34,6 +36,13 @@ export function MainPage() {
     navigate(`?${queryString.stringify(rest)}`, { replace: true });
     dispatch(blogActions.fetchPostList(filter));
   }, [dispatch, filter]);
+
+  useEffect(() => {
+    (async () => {
+      const topHashtags = (await configApi.getTopHashtags()) as unknown as string[];
+      setHashtagList(topHashtags);
+    })();
+  }, []);
 
   const handleHashtagClick = (hashtag: string) => {
     setFilter({ ...filter, hashtag, page: 1, username: undefined });
@@ -74,7 +83,7 @@ export function MainPage() {
         </Grid>
 
         <Grid item xs={12} md={10} lg={4} width="100%" mx="auto">
-          <PostRecommend hashtagActive={filter.hashtag} onHashtagClick={handleHashtagClick} />
+          <TopHashtags list={hashtagList} active={filter.hashtag} onClick={handleHashtagClick} />
         </Grid>
       </Grid>
     </Container>

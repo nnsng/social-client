@@ -10,7 +10,7 @@ import header from './components/header.json';
 import authForm from './components/authForm.json';
 import createEditForm from './components/createEditForm.json';
 import postCard from './components/postCard.json';
-import postRecommend from './components/postRecommend.json';
+import topHashtags from './components/topHashtags.json';
 import postDetail from './components/postDetail.json';
 import postReaction from './components/postReaction.json';
 import postComment from './components/postComment.json';
@@ -37,7 +37,7 @@ export default {
   authForm,
   createEditForm,
   postCard,
-  postRecommend,
+  topHashtags,
   postDetail,
   postReaction,
   postComment,
