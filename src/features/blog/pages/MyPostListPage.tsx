@@ -50,7 +50,7 @@ export function MyPostListPage({ mode }: IMyPostListPageProps) {
   };
 
   const handleEditPost = (post: IPost) => {
-    navigate(`/blog/edit/${post._id}`);
+    navigate(`/blog/edit/${post._id}`, { state: { hideHeaderMenu: true } });
   };
 
   const handleRemovePost = async (post: IPost) => {

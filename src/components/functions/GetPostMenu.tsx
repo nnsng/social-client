@@ -16,7 +16,7 @@ export function GetPostMenu(props: IGetPostMenuProps) {
     {
       label: t('menu.edit'),
       icon: BorderColorRounded,
-      onClick: () => navigate?.(`/blog/edit/${post._id}`),
+      onClick: () => navigate?.(`/blog/edit/${post._id}`, { state: { hideHeaderMenu: true } }),
       show: isAuthorized,
     },
     {

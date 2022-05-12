@@ -32,7 +32,7 @@ export function CreateEditPage() {
       } catch (error: any) {
         const errorName = error?.response?.data?.name || 'somethingWrong';
         toast.error(toastTranslation.errors[errorName]);
-        navigate('/blog/create');
+        navigate('/blog/create', { state: { hideHeaderMenu: true } });
       }
     })();
   }, [postId, navigate]);

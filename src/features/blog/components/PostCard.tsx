@@ -116,7 +116,6 @@ export default function PostCard(props: IPostCardProps) {
                 color="text.primary"
                 sx={{
                   ...themeMixins.truncate(2),
-                  display: 'inline-block',
                   fontWeight: 600,
                 }}
                 component={Link}

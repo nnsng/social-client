@@ -7,7 +7,9 @@ import {
   DialogActions,
   DialogContent,
   Stack,
+  Theme,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import {
@@ -109,6 +111,8 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
     }
   };
 
+  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
+
   return (
     <form>
       <Stack
@@ -121,7 +125,7 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
           bgcolor: 'background.paper',
         }}
       >
-        <Stack alignItems="center" spacing={1} px={2}>
+        <Stack alignItems="center" justifyContent="flex-end" px={2}>
           <InputField
             name="title"
             control={control}
@@ -136,7 +140,21 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
             }}
           />
 
-          <Button variant="outlined" size="large" onClick={openDialog} sx={{ flexShrink: 0 }}>
+          <Button
+            variant="outlined"
+            size="large"
+            onClick={openDialog}
+            sx={
+              mdUp
+                ? { flexShrink: 0, ml: 2 }
+                : {
+                    position: 'fixed',
+                    zIndex: (theme) => theme.zIndex.appBar + 1,
+                    top: themeVariables.headerHeight / 2,
+                    transform: 'translate(16px, -50%)', // 16px = 2 * 8px (px of Stack parent)
+                  }
+            }
+          >
             {isNewPost ? t('btnLabel.create') : t('btnLabel.edit')}
           </Button>
         </Stack>

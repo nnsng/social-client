@@ -32,7 +32,7 @@ export function GetUserMenu(props: IGetUserMenuProps) {
     {
       label: t('menu.create'),
       icon: AddCircleOutlineOutlined,
-      onClick: () => navigate?.('/blog/create'),
+      onClick: () => navigate?.('/blog/create', { state: { hideHeaderMenu: true } }),
     },
     {
       label: t('menu.myPosts'),

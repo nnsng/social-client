@@ -18,7 +18,7 @@ export function NoPost({ children, createText }: INoPostProps) {
     >
       {children}{' '}
       {createText && (
-        <Link to="/blog/create">
+        <Link to="/blog/create" state={{ hideHeaderMenu: true }}>
           <Typography component="span" sx={{ color: 'primary.main', textDecoration: 'underline' }}>
             {createText}
           </Typography>

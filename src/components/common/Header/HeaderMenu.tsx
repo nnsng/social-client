@@ -1,6 +1,7 @@
 import { SearchRounded } from '@mui/icons-material';
 import { Stack, Theme, useMediaQuery } from '@mui/material';
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import AppearanceDialog from './AppearanceDialog';
 import HeaderIconButton from './HeaderIconButton';
 import Notification from './Notification';
@@ -11,11 +12,17 @@ export interface IHeaderMenuProps {
 }
 
 export function HeaderMenu({ toggleSearchMobile }: IHeaderMenuProps) {
-  const isOnMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+  const location = useLocation();
+  const isShow = !(location.state as any)?.hideHeaderMenu;
 
-  return (
+  const isOnMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
+
+  return isShow || mdUp ? (
     <Stack alignItems="center" ml="auto">
-      {isOnMobile && <HeaderIconButton icon={<SearchRounded />} onClick={toggleSearchMobile} />}
+      {isOnMobile && location.pathname === '/blog' && (
+        <HeaderIconButton icon={<SearchRounded />} onClick={toggleSearchMobile} />
+      )}
 
       <Notification />
 
@@ -23,5 +30,5 @@ export function HeaderMenu({ toggleSearchMobile }: IHeaderMenuProps) {
 
       <AppearanceDialog />
     </Stack>
-  );
+  ) : null;
 }
