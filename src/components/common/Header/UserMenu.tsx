@@ -1,20 +1,10 @@
-import {
-  Avatar,
-  Box,
-  Divider,
-  Drawer,
-  MenuItem,
-  MenuList,
-  Theme,
-  Typography,
-  useMediaQuery,
-} from '@mui/material';
+import { Avatar, Box, Divider, Drawer, MenuItem, MenuList, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { GetUserMenu } from 'components/functions';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { PopperPopup } from '..';
 
 export interface IUserMenuProps {
@@ -40,19 +30,23 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
     callback?.();
   };
 
+  const gotoProfile = () => {
+    closeMenu();
+    navigate(`/user/${currentUser?.username}`);
+  };
+
   const { userMenu, dividers } = GetUserMenu({ navigate, dispatch, t });
 
   const menuItemsComponent = (
-    <>
+    <Box>
       <Box
         sx={{
           display: { xs: 'block', sm: 'flex' },
           alignItems: 'center',
           p: { xs: '32px 0 16px 32px', sm: 1 }, // xs: [4, 0, 2, 4]
-          color: 'text.primary',
+          cursor: 'pointer',
         }}
-        component={Link}
-        to={`/user/${currentUser?.username}`}
+        onClick={gotoProfile}
       >
         <Avatar
           src={currentUser?.avatar}
@@ -94,7 +88,7 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
           {dividers.includes(idx) && <Divider />}
         </Box>
       ))}
-    </>
+    </Box>
   );
 
   return (

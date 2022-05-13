@@ -1,4 +1,4 @@
-import { Avatar, Box, Stack, Typography } from '@mui/material';
+import { Avatar, Box, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
 import { FollowGroupButton } from 'components/common';
 import { IUser } from 'models';
 import React from 'react';
@@ -15,10 +15,12 @@ export default function UserInfo(props: IUserInfoProps) {
 
   const { t } = useTranslation('profile');
 
+  const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
+
   return (
     <Box
       sx={{
-        p: 2,
+        p: { xs: 1, sm: 2 },
         mb: 2,
         borderRadius: 2,
         ...themeMixins.paperBorder(),
@@ -28,36 +30,51 @@ export default function UserInfo(props: IUserInfoProps) {
         <Avatar
           src={userInfo.avatar}
           sx={{
-            width: 120,
-            height: 120,
+            width: { xs: 60, sm: 100 },
+            height: { xs: 60, sm: 100 },
             bgcolor: 'action.hover',
             flexShrink: 0,
           }}
         />
 
         <Box ml={2} flexGrow={1}>
-          <Typography fontSize={32} fontWeight={600} mb={0}>
+          <Typography
+            component="div"
+            sx={{
+              fontSize: { xs: 20, sm: 28 },
+              fontWeight: 600,
+              mb: 0,
+            }}
+          >
             {userInfo.name}
           </Typography>
 
-          <Typography fontSize={20} mt={-0.5}>
+          <Typography
+            component="p"
+            sx={{
+              fontSize: { xs: 16, sm: 18 },
+              mt: -0.5,
+            }}
+          >
             @{userInfo.username}
           </Typography>
 
-          <Stack mt={1}>
-            <Typography variant="subtitle2" fontWeight={400}>
+          <Stack fontSize={{ xs: 14, sm: 16 }}>
+            <Typography component="span" fontSize="inherit" fontWeight={400}>
               <b>{userInfo.following?.length || 0}</b> {t('following')}
             </Typography>
 
-            <Typography variant="subtitle2" fontWeight={400} ml={3}>
+            <Typography component="span" fontSize="inherit" fontWeight={400} ml={3}>
               <b>{userInfo.followers?.length || 0}</b> {t('followers')}
             </Typography>
           </Stack>
         </Box>
 
-        <Box position="absolute" bottom={0} right={0}>
-          <FollowGroupButton selectedUser={userInfo} updateUser={updateUser} />
-        </Box>
+        {smUp && (
+          <Box position="absolute" bottom={0} right={0}>
+            <FollowGroupButton selectedUser={userInfo} updateUser={updateUser} />
+          </Box>
+        )}
       </Stack>
 
       {userInfo.bio && (
@@ -77,6 +94,8 @@ export default function UserInfo(props: IUserInfoProps) {
           {userInfo.bio}
         </Typography>
       )}
+
+      {!smUp && <FollowGroupButton selectedUser={userInfo} updateUser={updateUser} />}
     </Box>
   );
 }

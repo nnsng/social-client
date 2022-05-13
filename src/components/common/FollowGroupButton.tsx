@@ -55,7 +55,7 @@ export function FollowGroupButton(props: IFollowGroupButtonProps) {
   };
 
   return (
-    <Stack alignItems="center" spacing={1} mt={2}>
+    <Stack alignItems="center" spacing={1} mt={{ xs: 1, sm: 2 }}>
       {currentUser?._id === userId ? (
         <Button
           startIcon={<EditRounded />}
