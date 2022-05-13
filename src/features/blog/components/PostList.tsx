@@ -8,17 +8,29 @@ import { useTranslation } from 'react-i18next';
 import PostCard from './PostCard';
 
 export interface IPostListProps {
-  loading?: boolean;
   postList: IPost[];
+  loading?: boolean;
   page?: number;
   onPageChange?: (page: number) => void;
   onSave?: (post: IPost) => void;
   onRemove?: (post: IPost) => void;
   filter?: Partial<IListParams>;
+  showTitle?: boolean;
+  showPopup?: boolean;
 }
 
 export default function PostList(props: IPostListProps) {
-  const { loading, postList, page, onPageChange, onSave, onRemove, filter } = props;
+  const {
+    loading,
+    postList,
+    page,
+    onPageChange,
+    onSave,
+    onRemove,
+    filter,
+    showTitle = true,
+    showPopup = true,
+  } = props;
   const { search, username, hashtag } = filter || {};
   const searchFilter = { search, username, hashtag };
 
@@ -43,28 +55,29 @@ export default function PostList(props: IPostListProps) {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Typography
-        variant="button"
-        sx={{
-          display: 'inline-block',
-          // borderBottom: 1,
-          borderColor: 'text.primary',
-          color: 'text.primary',
-          fontWeight: 600,
-          cursor: 'default',
-        }}
-      >
-        {generateFilterText()}
-      </Typography>
+      {showTitle && (
+        <Typography
+          variant="button"
+          sx={{
+            display: 'inline-block',
+            borderColor: 'text.primary',
+            color: 'text.primary',
+            fontWeight: 600,
+            cursor: 'default',
+          }}
+        >
+          {generateFilterText()}
+        </Typography>
+      )}
 
       <List disablePadding>
         {postList.length > 0
           ? postList.map((post) => (
               <ListItem disablePadding key={post._id}>
-                <PostCard post={post} onSave={onSave} onRemove={onRemove} />
+                <PostCard post={post} onSave={onSave} onRemove={onRemove} showPopup={showPopup} />
               </ListItem>
             ))
-          : !loading && <NoPost createText={t('noPost.createText')}>{t('noPost.my')}</NoPost>}
+          : !loading && <NoPost createText={t('noPost.createText')}>{t('noPost.text')}</NoPost>}
       </List>
 
       {totalPage > 1 && !loading && (

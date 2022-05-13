@@ -1,6 +1,7 @@
 import { BorderColorRounded, DeleteRounded, FlagRounded, LinkRounded } from '@mui/icons-material';
 import { IMenuItem, IPost } from 'models';
-import { copyPostLink, showComingSoonToast } from 'utils/common';
+import { copyPostLink } from 'utils/common';
+import { showComingSoonToast } from 'utils/toast';
 import { IGetUserMenuProps } from './GetUserMenu';
 
 export interface IGetPostMenuProps extends IGetUserMenuProps {

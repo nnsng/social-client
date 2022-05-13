@@ -1,10 +1,9 @@
 import {
-  AddCircleOutlineOutlined,
-  BookmarkBorderOutlined,
+  AddCircleRounded,
+  BookmarkRounded,
   DarkModeRounded,
-  ListAltOutlined,
   LogoutOutlined,
-  SettingsOutlined,
+  Settings,
 } from '@mui/icons-material';
 import { authActions } from 'features/auth/authSlice';
 import { configActions } from 'features/common/configSlice';
@@ -31,17 +30,12 @@ export function GetUserMenu(props: IGetUserMenuProps) {
   const userMenu: IMenuItem[] = [
     {
       label: t('menu.create'),
-      icon: AddCircleOutlineOutlined,
+      icon: AddCircleRounded,
       onClick: () => navigate?.('/blog/create', { state: { hideHeaderMenu: true } }),
     },
     {
-      label: t('menu.myPosts'),
-      icon: ListAltOutlined,
-      onClick: () => navigate?.('/blog/my'),
-    },
-    {
       label: t('menu.saved'),
-      icon: BookmarkBorderOutlined,
+      icon: BookmarkRounded,
       onClick: () => navigate?.('/blog/saved'),
     },
     {
@@ -51,7 +45,7 @@ export function GetUserMenu(props: IGetUserMenuProps) {
     },
     {
       label: t('menu.settings'),
-      icon: SettingsOutlined,
+      icon: Settings,
       onClick: () => navigate?.('/settings'),
     },
     {
@@ -61,7 +55,7 @@ export function GetUserMenu(props: IGetUserMenuProps) {
     },
   ];
 
-  const dividers: number[] = [1, 2, 4];
+  const dividers: number[] = [0, 1, 3];
 
   return { userMenu, dividers };
 }

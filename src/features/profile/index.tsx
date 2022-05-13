@@ -1,109 +1,82 @@
-import { MoreHorizRounded, PersonAddRounded, PersonRemoveRounded } from '@mui/icons-material';
-import { Avatar, Box, Button, Container, Paper, Stack, Typography } from '@mui/material';
+import { Box, Container } from '@mui/material';
+import postApi from 'api/postApi';
 import userApi from 'api/userApi';
-import { useAppSelector } from 'app/hooks';
-import { ContainedGrayButton, Header, NotFound, PageTitle } from 'components/common';
-import { selectCurrentUser } from 'features/auth/authSlice';
-import { IUser } from 'models';
-import React, { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { Header, NotFound, PageTitle } from 'components/common';
+import { blogActions, selectPostList, selectPostLoading } from 'features/blog/blogSlice';
+import PostList from 'features/blog/components/PostList';
+import { IPost, IUser } from 'models';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { themeVariables } from 'utils/theme';
+import { toast } from 'react-toastify';
+import { getErrorMessage } from 'utils/toast';
+import UserInfo from './components/UserInfo';
 
 export interface IProfileProps {}
 
 export default function ProfilePage(props: IProfileProps) {
   const { username } = useParams();
 
-  const { t } = useTranslation('profile');
+  const dispatch = useAppDispatch();
+  const postList = useAppSelector(selectPostList);
+  const loading = useAppSelector(selectPostLoading);
 
-  const currentUser = useAppSelector(selectCurrentUser);
+  const [page, setPage] = useState<number>(1);
 
-  const [userInfo, setUserInfo] = React.useState<Partial<IUser> | null>(null);
+  const [userInfo, setUserInfo] = useState<Partial<IUser> | null>(null);
 
   useEffect(() => {
     if (!username) return;
 
     (async () => {
-      const user = (await userApi.getUserInfo(username)) as unknown as Partial<IUser>;
-      setUserInfo(user);
+      try {
+        const user = (await userApi.getUserInfo(username)) as unknown as Partial<IUser>;
+        setUserInfo(user);
+      } catch (error) {
+        toast.error(getErrorMessage(error));
+      }
     })();
   }, [username]);
 
+  useEffect(() => {
+    fetchUserPostList(page);
+  }, [page]);
+
+  const fetchUserPostList = (page: number) => {
+    dispatch(blogActions.fetchPostList({ page, username }));
+  };
+
+  const handleSavePost = async (post: IPost) => {
+    await postApi.save(post._id as string);
+  };
+
+  const handleRemovePost = async (post: IPost) => {
+    await postApi.remove(post._id as string);
+    fetchUserPostList(page);
+  };
+
+  if (loading) return <Header />;
   if (!userInfo) return <NotFound showHeader />;
 
   return (
     <>
-      <PageTitle title="Profile" />
+      <PageTitle title={userInfo.name ?? ''} />
       <Header />
 
       <Box component="main">
         <Container maxWidth="md">
-          <Paper
-            sx={{
-              p: 2,
-              bgcolor: 'action.hover',
-              borderRadius: 2,
-            }}
-          >
-            <Stack alignItems="center">
-              <Avatar
-                src={userInfo.avatar}
-                sx={{
-                  width: 120,
-                  height: 120,
-                  bgcolor: 'action.hover',
-                  flexShrink: 0,
-                }}
-              />
+          <UserInfo userInfo={userInfo} />
 
-              <Box ml={2} flexGrow={1} position="relative">
-                <Typography fontSize={32} fontWeight={600} mb={0}>
-                  {userInfo.name}
-                </Typography>
-
-                <Typography fontSize={20} mt={-0.5}>
-                  @{userInfo.username}
-                </Typography>
-
-                <Stack>
-                  <Typography variant="subtitle2">
-                    <b>100</b> Following
-                  </Typography>
-                  <Typography variant="subtitle2">
-                    <b>100</b> Follower
-                  </Typography>
-                </Stack>
-
-                {(currentUser?._id !== userInfo._id || true) && (
-                  <Stack
-                    alignItems="center"
-                    spacing={1}
-                    sx={{
-                      position: 'absolute',
-                      right: 0,
-                      bottom: 0,
-                      mt: 1,
-                    }}
-                  >
-                    {(currentUser?.following || []).includes(userInfo._id || '') ? (
-                      <ContainedGrayButton variant="contained" startIcon={<PersonRemoveRounded />}>
-                        {t('buttonLabel.unfollow')}
-                      </ContainedGrayButton>
-                    ) : (
-                      <Button variant="contained" startIcon={<PersonAddRounded />}>
-                        {t('buttonLabel.follow')}
-                      </Button>
-                    )}
-
-                    <ContainedGrayButton sx={{ width: '25%' }}>
-                      <MoreHorizRounded />
-                    </ContainedGrayButton>
-                  </Stack>
-                )}
-              </Box>
-            </Stack>
-          </Paper>
+          <PostList
+            postList={postList}
+            page={page}
+            onPageChange={setPage}
+            loading={loading}
+            onSave={handleSavePost}
+            onRemove={handleRemovePost}
+            showTitle={false}
+            showPopup={false}
+          />
         </Container>
       </Box>
     </>

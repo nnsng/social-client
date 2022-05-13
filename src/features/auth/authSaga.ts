@@ -4,13 +4,12 @@ import authApi from 'api/authApi';
 import { IAuthFormValues, IAuthPayload, IAuthResponse } from 'models';
 import { toast } from 'react-toastify';
 import { ACCESS_TOKEN } from 'utils/constants';
+import { getErrorMessage } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
 import { authActions } from './authSlice';
 
 function* handleLogin(action: PayloadAction<IAuthPayload>) {
   const { formValues, navigate } = action.payload;
-
-  const { toast: toastTranslation } = useTranslateFiles('toast');
 
   try {
     const response: IAuthResponse = yield call(authApi.login, formValues as IAuthFormValues);
@@ -18,8 +17,7 @@ function* handleLogin(action: PayloadAction<IAuthPayload>) {
     localStorage.setItem(ACCESS_TOKEN, response.token);
     navigate?.('/', { replace: true });
   } catch (error: any) {
-    const errorName = error?.response?.data?.name || 'somethingWrong';
-    toast.error(toastTranslation.errors[errorName]);
+    toast.error(getErrorMessage(error));
   }
 }
 
@@ -33,15 +31,12 @@ function* handleRegister(action: PayloadAction<IAuthPayload>) {
     navigate?.('/login', { replace: true });
     toast.info(toastTranslation.auth.activeAccount);
   } catch (error: any) {
-    const errorName = error?.response?.data?.name || 'somethingWrong';
-    toast.error(toastTranslation.errors[errorName]);
+    toast.error(getErrorMessage(error));
   }
 }
 
 function* handleGoogleLogin(action: PayloadAction<IAuthPayload>) {
   const { token, navigate } = action.payload;
-
-  const { toast: toastTranslation } = useTranslateFiles('toast');
 
   try {
     const response: IAuthResponse = yield call(authApi.googleLogin, token as string);
@@ -53,8 +48,7 @@ function* handleGoogleLogin(action: PayloadAction<IAuthPayload>) {
     localStorage.setItem(ACCESS_TOKEN, response.token);
     navigate?.('/', { replace: true });
   } catch (error: any) {
-    const errorName = error?.response?.data?.name || 'somethingWrong';
-    toast.error(toastTranslation.errors[errorName]);
+    toast.error(getErrorMessage(error));
   }
 }
 
@@ -70,8 +64,7 @@ function* handleActiveAccount(action: PayloadAction<IAuthPayload>) {
     navigate?.('/', { replace: true });
     toast.success(toastTranslation.auth.activeSuccess);
   } catch (error: any) {
-    const errorName = error?.response?.data?.name || 'somethingWrong';
-    toast.error(toastTranslation.errors[errorName]);
+    toast.error(getErrorMessage(error));
   }
 }
 

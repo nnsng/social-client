@@ -32,8 +32,7 @@ export function MainPage() {
   }, [location.search]);
 
   useEffect(() => {
-    const { page, ...rest } = filter;
-    navigate(`?${queryString.stringify(rest)}`, { replace: true });
+    navigate(`?${queryString.stringify(filter)}`, { replace: true });
     dispatch(blogActions.fetchPostList(filter));
   }, [dispatch, filter]);
 
@@ -45,7 +44,7 @@ export function MainPage() {
   }, []);
 
   const handleHashtagClick = (hashtag: string) => {
-    setFilter({ ...filter, hashtag, page: 1, username: undefined });
+    setFilter({ ...filter, hashtag, page: 1 });
   };
 
   const handlePageChange = (page: number) => {

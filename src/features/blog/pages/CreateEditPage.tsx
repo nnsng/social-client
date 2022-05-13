@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useTranslateFiles } from 'utils/translation';
+import { getErrorMessage } from 'utils/toast';
 import CreateEditForm from '../components/CreateEditForm';
 
 export function CreateEditPage() {
@@ -17,7 +17,6 @@ export function CreateEditPage() {
   const isNewPost = !postId;
 
   const { t } = useTranslation('createEditPost');
-  const { toast: toastTranslation } = useTranslateFiles('toast');
 
   const currentUser = useAppSelector(selectCurrentUser);
   const [editedPost, setEditedPost] = useState<any>(null);
@@ -30,8 +29,7 @@ export function CreateEditPage() {
         const post = await postApi.getForEdit(postId);
         setEditedPost(post);
       } catch (error: any) {
-        const errorName = error?.response?.data?.name || 'somethingWrong';
-        toast.error(toastTranslation.errors[errorName]);
+        toast.error(getErrorMessage(error));
         navigate('/blog/create', { state: { hideHeaderMenu: true } });
       }
     })();

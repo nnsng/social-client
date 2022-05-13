@@ -1,25 +1,17 @@
-import { MoreHorizRounded, PersonAddRounded, PersonRemoveRounded } from '@mui/icons-material';
-import { Avatar, Box, Button, Stack, Typography } from '@mui/material';
-import { useAppSelector } from 'app/hooks';
-import { selectCurrentUser } from 'features/auth/authSlice';
+import { Avatar, Box, Stack, Typography } from '@mui/material';
 import { IUser } from 'models';
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { ContainedGrayButton } from './ContainedGrayButton';
+import { FollowGroupButton } from './FollowGroupButton';
 import { IPopperPopupProps, PopperPopup } from './PopperPopup';
 
 export interface IUserInfoPopupProps extends IPopperPopupProps {
-  user: Partial<IUser>;
+  selectedUser: Partial<IUser>;
 }
 
 export function UserInfoPopup(props: IUserInfoPopupProps) {
-  const { user, open, anchorEl, sx } = props;
-
-  const { t } = useTranslation('userInfoPopup');
+  const { selectedUser, open, anchorEl, sx } = props;
 
   const [isOpen, setIsOpen] = useState(open);
-
-  const currentUser = useAppSelector(selectCurrentUser);
 
   return (
     <PopperPopup
@@ -32,15 +24,15 @@ export function UserInfoPopup(props: IUserInfoPopupProps) {
     >
       <Box p={2} width={350}>
         <Stack alignItems="center">
-          <Avatar src={user.avatar} sx={{ width: 60, height: 60 }} />
+          <Avatar src={selectedUser.avatar} sx={{ width: 60, height: 60 }} />
 
           <Box ml={2}>
             <Typography variant="subtitle1" color="text.primary" fontWeight={600} pb={0}>
-              {user.name}
+              {selectedUser.name}
             </Typography>
 
             <Typography variant="subtitle2" color="text.secondary" fontWeight={400}>
-              @{user.username}
+              @{selectedUser.username}
             </Typography>
           </Box>
         </Stack>
@@ -57,30 +49,10 @@ export function UserInfoPopup(props: IUserInfoPopupProps) {
             borderColor: 'primary.main',
           }}
         >
-          {user.bio}
+          {selectedUser.bio}
         </Typography>
 
-        {currentUser?._id !== user._id && (
-          <Stack alignItems="center" spacing={1} mt={2}>
-            {(currentUser?.following || []).includes(user._id || '') ? (
-              <ContainedGrayButton
-                variant="contained"
-                startIcon={<PersonRemoveRounded />}
-                fullWidth
-              >
-                {t('buttonLabel.unfollow')}
-              </ContainedGrayButton>
-            ) : (
-              <Button variant="contained" startIcon={<PersonAddRounded />} fullWidth>
-                {t('buttonLabel.follow')}
-              </Button>
-            )}
-
-            <ContainedGrayButton sx={{ width: '25%' }}>
-              <MoreHorizRounded />
-            </ContainedGrayButton>
-          </Stack>
-        )}
+        <FollowGroupButton selectedUser={selectedUser} />
       </Box>
     </PopperPopup>
   );

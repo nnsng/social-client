@@ -15,8 +15,8 @@ export interface IListParams {
   sort?: string;
   order?: 'asc' | 'desc';
   search?: string;
-  username?: string;
   hashtag?: string;
+  username?: string;
 }
 
 export interface IMenuItem {
@@ -24,4 +24,8 @@ export interface IMenuItem {
   icon?: any;
   onClick?: () => void;
   show?: boolean;
+}
+
+export interface ILocationState {
+  hideHeaderMenu?: boolean;
 }
