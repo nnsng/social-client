@@ -84,7 +84,7 @@ export const generateTheme = (mode?: PaletteMode, color?: string) =>
             textTransform: 'none',
           },
           contained: {
-            color: '#ffffff',
+            color: '#FFFFFF',
           },
         },
       },
@@ -111,8 +111,8 @@ export const generateTheme = (mode?: PaletteMode, color?: string) =>
       MuiDivider: {
         styleOverrides: {
           root: {
-            marginTop: 6,
-            marginBottom: 6,
+            marginTop: '6px !important',
+            marginBottom: '6px !important',
           },
         },
       },
@@ -160,6 +160,7 @@ export const themeMixins: IMixins = {
     const borderType = type ? `border${type[0].toUpperCase()}${type.slice(1)}` : 'border';
 
     return {
+      bgcolor: 'background.paper',
       boxShadow: (theme) => (theme.palette.mode === 'light' ? themeVariables.boxShadow : undefined),
       [borderType]: (theme) => (theme.palette.mode === 'dark' ? 1 : 0),
       borderColor: 'divider',

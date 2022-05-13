@@ -1,11 +1,6 @@
 {
-  "pageTitle": {
-    "my": "Bài viết của tôi",
-    "saved": "Đã lưu"
-  },
   "noPost": {
     "my": "Chưa có bài viết.",
-    "saved": "Bạn chưa lưu bài viết nào.",
     "createText": "Viết bài"
   },
   "text": {

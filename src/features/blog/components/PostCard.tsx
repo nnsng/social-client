@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import remarkGfm from 'remark-gfm';
 import { themeMixins } from 'utils/theme';
+import { getErrorMessage } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
 import PostCardHeader from './PostCardHeader';
 
@@ -20,10 +21,11 @@ export interface IPostCardProps {
   post: IPost;
   onSave?: (post: IPost) => void;
   onRemove?: (post: IPost) => void;
+  showPopup?: boolean;
 }
 
 export default function PostCard(props: IPostCardProps) {
-  const { post, onSave, onRemove } = props;
+  const { post, onSave, onRemove, showPopup = true } = props;
 
   const { t } = useTranslation('postCard');
   const { toast: toastTranslation, dialog: dialogTranslation } = useTranslateFiles(
@@ -41,23 +43,21 @@ export default function PostCard(props: IPostCardProps) {
       await onSave?.(post);
       toast.success(toastTranslation.postCard.saveSuccess);
     } catch (error: any) {
-      const errorName = error?.response?.data?.name || 'somethingWrong';
-      toast.error(toastTranslation.errors[errorName]);
+      toast.error(getErrorMessage(error));
     }
   };
 
   const handleRemovePost = async () => {
-    setLoading(() => true);
+    setLoading(true);
 
     try {
       await onRemove?.(post);
       toast.success(toastTranslation.postCard.deleteSuccess);
     } catch (error: any) {
-      const errorName = error?.response?.data?.name || 'somethingWrong';
-      toast.error(toastTranslation.errors[errorName]);
+      toast.error(getErrorMessage(error));
     }
 
-    setLoading(() => false);
+    setLoading(false);
     closeDialog();
   };
 
@@ -100,6 +100,7 @@ export default function PostCard(props: IPostCardProps) {
               mx: 0.5,
             },
           }}
+          showPopup={showPopup}
         />
 
         <CardContent sx={{ '&:last-child': { p: 0 } }}>
@@ -119,7 +120,7 @@ export default function PostCard(props: IPostCardProps) {
                   fontWeight: 600,
                 }}
                 component={Link}
-                to={`post/${post.slug}`}
+                to={`/blog/post/${post.slug}`}
               >
                 {post.title}
               </Typography>
@@ -161,7 +162,7 @@ export default function PostCard(props: IPostCardProps) {
                     bgcolor: 'action.hover',
                   }}
                   component={Link}
-                  to={`post/${post.slug}`}
+                  to={`/blog/post/${post.slug}`}
                 />
               </Box>
             )}

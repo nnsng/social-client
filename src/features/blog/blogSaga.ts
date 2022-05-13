@@ -20,7 +20,7 @@ function* fetchPostList(action: PayloadAction<IListParams>) {
   }
 }
 
-function* fetchMyPostList(action: PayloadAction<IListParams>) {
+function* fetchSavedList(action: PayloadAction<IListParams>) {
   const params: IListParams = {
     page: 1,
     limit: 10,
@@ -28,26 +28,10 @@ function* fetchMyPostList(action: PayloadAction<IListParams>) {
   };
 
   try {
-    const response: IListResponse<IPost> = yield call(postApi.getMyList, params);
-    yield put(blogActions.fetchMyPostListSuccess(response));
+    const response: IListResponse<IPost> = yield call(postApi.getSavedList, params);
+    yield put(blogActions.fetchSavedListSuccess(response));
   } catch (error) {
-    yield put(blogActions.fetchMyPostListFailure());
-    console.log('Failed to fetch my post list:', error);
-  }
-}
-
-function* fetchSavedPostList(action: PayloadAction<IListParams>) {
-  const params: IListParams = {
-    page: 1,
-    limit: 10,
-    ...action.payload,
-  };
-
-  try {
-    const response: IListResponse<IPost> = yield call(postApi.getSaved, params);
-    yield put(blogActions.fetchSavedPostListSuccess(response));
-  } catch (error) {
-    yield put(blogActions.fetchSavedPostListFailure());
+    yield put(blogActions.fetchSavedFailure());
     console.log('Failed to fetch saved post list:', error);
   }
 }
@@ -90,8 +74,7 @@ function* handleSearchWithDebounce(action: PayloadAction<ISearchObj>) {
 
 export default function* postSaga() {
   yield takeLatest(blogActions.fetchPostList.type, fetchPostList);
-  yield takeLatest(blogActions.fetchMyPostList.type, fetchMyPostList);
-  yield takeLatest(blogActions.fetchSavedPostList.type, fetchSavedPostList);
+  yield takeLatest(blogActions.fetchSavedList.type, fetchSavedList);
   yield takeLatest(blogActions.fetchPostDetail.type, fetchPostDetail);
 
   yield takeLatest(blogActions.likePost.type, handleLikePost);

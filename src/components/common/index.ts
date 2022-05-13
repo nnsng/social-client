@@ -3,6 +3,7 @@ export * from './ApplyTheme';
 export * from './BackdropLoading';
 export * from './ConfirmDialog';
 export * from './CustomScrollbar';
+export * from './FollowGroupButton';
 export * from './GoogleIcon';
 export * from './HashtagInput';
 export * from './Header';

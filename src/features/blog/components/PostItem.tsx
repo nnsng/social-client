@@ -1,10 +1,4 @@
-import {
-  BookmarkRemoveRounded,
-  BorderColorRounded,
-  DeleteRounded,
-  LinkRounded,
-  MoreHorizRounded,
-} from '@mui/icons-material';
+import { BookmarkRemoveRounded, LinkRounded, MoreHorizRounded } from '@mui/icons-material';
 import { Avatar, Box, IconButton, ListItem, MenuItem, Stack, Typography } from '@mui/material';
 import { ActionMenu } from 'components/common';
 import { IMenuItem, IPost } from 'models';
@@ -15,19 +9,17 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import remarkGfm from 'remark-gfm';
 import { copyPostLink, formatTime } from 'utils/common';
-import { themeMixins, themeVariables } from 'utils/theme';
+import { themeMixins } from 'utils/theme';
+import { getErrorMessage } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
 
 export interface IPostItemProps {
   post: IPost;
-  saved?: boolean;
   onUnSave?: (post: IPost) => void;
-  onEdit?: (post: IPost) => void;
-  onRemove?: (post: IPost) => void;
 }
 
 export function PostItem(props: IPostItemProps) {
-  const { post, onEdit, onRemove, saved, onUnSave } = props;
+  const { post, onUnSave } = props;
 
   const { t } = useTranslation('postItem');
   const { toast: toastTranslation } = useTranslateFiles('toast');
@@ -39,23 +31,12 @@ export function PostItem(props: IPostItemProps) {
   const toggleOpenMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
 
-  const handleRemovePost = async () => {
-    try {
-      await onRemove?.(post);
-      toast.success(toastTranslation.postItem.deleteSuccess);
-    } catch (error: any) {
-      const errorName = error?.response?.data?.name || 'somethingWrong';
-      toast.error(toastTranslation.errors[errorName]);
-    }
-  };
-
   const handleUnSavePost = async () => {
     try {
       await onUnSave?.(post);
       toast.success(toastTranslation.postItem.unsaveSuccess);
     } catch (error: any) {
-      const errorName = error?.response?.data?.name || 'somethingWrong';
-      toast.error(toastTranslation.errors[errorName]);
+      toast.error(getErrorMessage(error));
     }
   };
 
@@ -69,25 +50,11 @@ export function PostItem(props: IPostItemProps) {
       label: t('unsave'),
       icon: BookmarkRemoveRounded,
       onClick: handleUnSavePost,
-      show: saved,
-    },
-    {
-      label: t('edit'),
-      icon: BorderColorRounded,
-      onClick: () => onEdit?.(post),
-      show: !saved,
-    },
-    {
-      label: t('delete'),
-      icon: DeleteRounded,
-      onClick: handleRemovePost,
-      show: !saved,
     },
     {
       label: t('copyLink'),
       icon: LinkRounded,
       onClick: () => copyPostLink(post),
-      show: true,
     },
   ];
 
@@ -96,8 +63,7 @@ export function PostItem(props: IPostItemProps) {
       disablePadding
       sx={{
         my: 2,
-        p: 1,
-        bgcolor: 'background.paper',
+        p: 2,
         borderRadius: 2,
         border: 1,
         borderColor: 'divider',
@@ -150,21 +116,19 @@ export function PostItem(props: IPostItemProps) {
           </Typography>
 
           <Stack alignItems="center" color="text.secondary">
-            {saved && (
-              <Typography
-                variant="body2"
-                fontSize={12}
-                color="inherit"
-                sx={{
-                  '&::after': {
-                    content: "'-'",
-                    mx: 1,
-                  },
-                }}
-              >
-                {post.author?.name}
-              </Typography>
-            )}
+            <Typography
+              variant="body2"
+              fontSize={12}
+              color="inherit"
+              sx={{
+                '&::after': {
+                  content: "'-'",
+                  mx: 1,
+                },
+              }}
+            >
+              {post.author?.name}
+            </Typography>
 
             <Typography variant="body2" fontSize={12} color="inherit">
               {formatTime(post.createdAt)}
@@ -188,23 +152,20 @@ export function PostItem(props: IPostItemProps) {
           </IconButton>
 
           <ActionMenu open={openMenu} anchorEl={anchorRef.current} onClose={closeMenu}>
-            {menuItemList.map(
-              ({ label, icon: Icon, onClick, show }, idx) =>
-                show && (
-                  <MenuItem
-                    key={idx}
-                    sx={{
-                      py: 1.5,
-                      px: 2.5,
-                      fontSize: 15,
-                    }}
-                    onClick={() => handleMenuItemClick(onClick)}
-                  >
-                    <Icon sx={{ fontSize: 20, mr: 2 }} />
-                    {label}
-                  </MenuItem>
-                )
-            )}
+            {menuItemList.map(({ label, icon: Icon, onClick }, idx) => (
+              <MenuItem
+                key={idx}
+                sx={{
+                  py: 1.5,
+                  px: 2.5,
+                  fontSize: 15,
+                }}
+                onClick={() => handleMenuItemClick(onClick)}
+              >
+                <Icon sx={{ fontSize: 20, mr: 2 }} />
+                {label}
+              </MenuItem>
+            ))}
           </ActionMenu>
         </Box>
       </Stack>

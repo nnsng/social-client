@@ -15,10 +15,11 @@ export interface IPostCardHeaderProps {
   onRemovePost?: () => void;
   t?: any; // TFunction
   sx?: SxProps;
+  showPopup?: boolean;
 }
 
 export default function PostCardHeader(props: IPostCardHeaderProps) {
-  const { post, onSavePost, onRemovePost, t, sx } = props;
+  const { post, onSavePost, onRemovePost, t, sx, showPopup = true } = props;
 
   const navigate = useNavigate();
 
@@ -34,7 +35,7 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
   const closeMenu = () => setOpenMenu(false);
 
   const handleAuthorClick = () => {
-    navigate(`/blog?username=${post.author?.username}`);
+    navigate(`/user/${post.author?.username}`);
   };
 
   const handleMenuItemClick = (callback?: () => void) => {
@@ -154,8 +155,8 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
       />
 
       <UserInfoPopup
-        user={post.author as Partial<IUser>}
-        open={openPopup}
+        selectedUser={post.author as Partial<IUser>}
+        open={showPopup && openPopup}
         anchorEl={userInfoRef.current}
       />
     </>

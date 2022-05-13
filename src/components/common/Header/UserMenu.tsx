@@ -1,24 +1,14 @@
-import {
-  Avatar,
-  Box,
-  Divider,
-  Drawer,
-  MenuItem,
-  MenuList,
-  SxProps,
-  Typography,
-} from '@mui/material';
+import { Avatar, Box, Divider, Drawer, MenuItem, MenuList, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { GetUserMenu } from 'components/functions';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { IMenuItem, IUser } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { PopperPopup } from '..';
 
 export interface IUserMenuProps {
-  isOnMobile?: boolean;
+  isOnMobile: boolean;
 }
 
 export default function UserMenu({ isOnMobile }: IUserMenuProps) {
@@ -40,7 +30,66 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
     callback?.();
   };
 
+  const gotoProfile = () => {
+    closeMenu();
+    navigate(`/user/${currentUser?.username}`);
+  };
+
   const { userMenu, dividers } = GetUserMenu({ navigate, dispatch, t });
+
+  const menuItemsComponent = (
+    <Box>
+      <Box
+        sx={{
+          display: { xs: 'block', sm: 'flex' },
+          alignItems: 'center',
+          p: { xs: '32px 0 16px 32px', sm: 1 }, // xs: [4, 0, 2, 4]
+          cursor: 'pointer',
+        }}
+        onClick={gotoProfile}
+      >
+        <Avatar
+          src={currentUser?.avatar}
+          sx={{
+            width: { xs: 60, sm: 40 },
+            height: { xs: 60, sm: 40 },
+            mb: { xs: 1, sm: 0 },
+          }}
+        />
+
+        <Box ml={{ xs: 0, sm: 2 }}>
+          <Typography variant="body1" fontSize={16} fontWeight={600}>
+            {currentUser?.name}
+          </Typography>
+
+          <Typography variant="body2" fontSize={14}>
+            @{currentUser?.username}
+          </Typography>
+        </Box>
+      </Box>
+
+      <Divider />
+
+      {userMenu.map(({ label, icon: Icon, onClick }, idx) => (
+        <Box key={idx}>
+          <MenuItem
+            sx={{
+              py: 1.5,
+              px: { xs: 4, sm: 2 },
+              borderRadius: 1,
+              fontSize: 15,
+            }}
+            onClick={() => handleMenuItemClick?.(onClick)}
+          >
+            <Icon fontSize="small" sx={{ mr: 2 }} />
+            {label}
+          </MenuItem>
+
+          {dividers.includes(idx) && <Divider />}
+        </Box>
+      ))}
+    </Box>
+  );
 
   return (
     <>
@@ -63,15 +112,11 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
               width: '75vw',
               maxWidth: 300,
               height: '100vh',
+              p: 0,
+              m: 0,
             }}
           >
-            <Children
-              isOnMobile={isOnMobile}
-              menuList={userMenu}
-              user={currentUser}
-              dividers={dividers}
-              onMenuItemClick={handleMenuItemClick}
-            />
+            {menuItemsComponent}
           </MenuList>
         </Drawer>
       ) : (
@@ -86,84 +131,9 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
           }}
           onClose={closeMenu}
         >
-          <Children
-            isOnMobile={isOnMobile}
-            menuList={userMenu}
-            user={currentUser}
-            dividers={dividers}
-            onMenuItemClick={handleMenuItemClick}
-          />
+          {menuItemsComponent}
         </PopperPopup>
       )}
-    </>
-  );
-}
-
-interface IChildrenProps {
-  isOnMobile?: boolean;
-  menuList?: IMenuItem[];
-  user?: IUser | null;
-  dividers?: number[];
-  onMenuItemClick?: (callback?: () => void) => void;
-}
-
-function Children(props: IChildrenProps) {
-  const { isOnMobile, menuList, user, dividers, onMenuItemClick } = props;
-
-  const boxSx: SxProps = !!isOnMobile
-    ? {
-        ml: 4,
-        py: 4,
-      }
-    : {
-        display: 'flex',
-        alignItems: 'center',
-        p: 1,
-      };
-
-  return (
-    <>
-      <Box sx={boxSx}>
-        <Avatar
-          src={user?.avatar}
-          sx={{
-            width: { xs: 60, sm: 40 },
-            height: { xs: 60, sm: 40 },
-          }}
-        />
-
-        <Box ml={{ xs: 0, sm: 2 }}>
-          <Typography variant="body1" fontSize={16} fontWeight={600}>
-            {user?.name}
-          </Typography>
-
-          <Typography variant="body2" fontSize={14}>
-            {user?.email}
-          </Typography>
-        </Box>
-      </Box>
-
-      <Divider />
-
-      {menuList &&
-        menuList.map(({ label, icon: Icon, onClick }, idx) => (
-          <Box key={idx}>
-            <MenuItem
-              sx={{
-                py: 1.5,
-                px: { xs: 4, sm: 2 },
-                borderRadius: 1,
-                fontSize: 15,
-              }}
-              onClick={() => onMenuItemClick?.(onClick)}
-            >
-              <Icon fontSize="small" sx={{ mr: 2 }} />
-              {label}
-            </MenuItem>
-
-            {(dividers || []).includes(idx) && <Divider />}
-          </Box>
-        ))}
     </>
   );
 }

@@ -17,8 +17,10 @@ import { selectCurrentUser } from 'features/auth/authSlice';
 import { IComment, IMenuItem, IUser } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { formatTime, showComingSoonToast } from 'utils/common';
+import { formatTime } from 'utils/common';
+import { getErrorMessage, showComingSoonToast } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
 
 export interface ICommentItemProps {
@@ -30,11 +32,10 @@ export interface ICommentItemProps {
 export default function CommentItem(props: ICommentItemProps) {
   const { comment, onRemove, onLike } = props;
 
+  const navigate = useNavigate();
+
   const { t } = useTranslation('postComment');
-  const { toast: toastTranslation, dialog: dialogTranslation } = useTranslateFiles(
-    'toast',
-    'dialog'
-  );
+  const { dialog: dialogTranslation } = useTranslateFiles('dialog');
 
   const currentUser = useAppSelector(selectCurrentUser);
 
@@ -50,17 +51,20 @@ export default function CommentItem(props: ICommentItemProps) {
   const closeMenu = () => setOpenMenu(false);
   const closeDialog = () => setOpenDialog(false);
 
+  const handleUserClick = () => {
+    navigate(`/user/${comment.user?.username}`);
+  };
+
   const handleRemoveComment = async () => {
-    setLoading(() => true);
+    setLoading(true);
 
     try {
       await onRemove?.(comment);
     } catch (error: any) {
-      const errorName = error?.response?.data?.name || 'somethingWrong';
-      toast.error(toastTranslation.errors[errorName]);
+      toast.error(getErrorMessage(error));
     }
 
-    setLoading(() => false);
+    setLoading(false);
   };
 
   const confirmRemoveComment = () => {
@@ -103,6 +107,7 @@ export default function CommentItem(props: ICommentItemProps) {
             <Avatar
               ref={userInfoRef}
               src={comment.user?.avatar}
+              onClick={handleUserClick}
               onMouseEnter={onMouseEnter}
               onMouseLeave={onMouseEnter}
               sx={{ width: 36, height: 36, cursor: 'pointer' }}
@@ -153,6 +158,7 @@ export default function CommentItem(props: ICommentItemProps) {
                   variant="subtitle2"
                   color="text.primary"
                   fontWeight={600}
+                  onClick={handleUserClick}
                   onMouseEnter={onMouseEnter}
                   onMouseLeave={onMouseLeave}
                   sx={{ cursor: 'pointer' }}
@@ -240,7 +246,7 @@ export default function CommentItem(props: ICommentItemProps) {
       />
 
       <UserInfoPopup
-        user={comment.user as Partial<IUser>}
+        selectedUser={comment.user as Partial<IUser>}
         open={openPopup}
         anchorEl={userInfoRef.current}
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}

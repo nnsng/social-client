@@ -12,6 +12,7 @@ import {
 export interface IBlogState {
   loading: boolean;
   list: IPost[];
+  saved: IPost[];
   pagination: IPaginationParams | null;
   detail: IPost | null;
 
@@ -22,6 +23,7 @@ export interface IBlogState {
 const initialState: IBlogState = {
   loading: false,
   list: [],
+  saved: [],
   pagination: null,
   detail: null,
 
@@ -46,29 +48,16 @@ const blogSlice = createSlice({
       state.loading = false;
     },
 
-    fetchMyPostList(state, action: PayloadAction<IListParams>) {
+    fetchSavedList(state, action: PayloadAction<IListParams>) {
       state.loading = true;
-      state.list = [];
+      state.saved = [];
     },
-    fetchMyPostListSuccess(state, action: PayloadAction<IListResponse<IPost>>) {
+    fetchSavedListSuccess(state, action: PayloadAction<IListResponse<IPost>>) {
       state.loading = false;
-      state.list = action.payload.data;
+      state.saved = action.payload.data;
       state.pagination = action.payload.pagination;
     },
-    fetchMyPostListFailure(state) {
-      state.loading = false;
-    },
-
-    fetchSavedPostList(state, action: PayloadAction<IListParams>) {
-      state.loading = true;
-      state.list = [];
-    },
-    fetchSavedPostListSuccess(state, action: PayloadAction<IListResponse<IPost>>) {
-      state.loading = false;
-      state.list = action.payload.data;
-      state.pagination = action.payload.pagination;
-    },
-    fetchSavedPostListFailure(state) {
+    fetchSavedFailure(state) {
       state.loading = false;
     },
 
@@ -120,6 +109,7 @@ export const blogActions = blogSlice.actions;
 
 export const selectPostLoading = (state: RootState) => state.blog.loading;
 export const selectPostList = (state: RootState) => state.blog.list;
+export const selectSavedList = (state: RootState) => state.blog.saved;
 export const selectPostDetail = (state: RootState) => state.blog.detail;
 export const selectPostPagination = (state: RootState) => state.blog.pagination;
 

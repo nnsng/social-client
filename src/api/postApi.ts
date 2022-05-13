@@ -6,11 +6,7 @@ const postApi = {
     const url = '/posts';
     return axiosClient.get(url, { params });
   },
-  getMyList(params: IListParams) {
-    const url = '/posts/my';
-    return axiosClient.get(url, { params });
-  },
-  getSaved(params: IListParams) {
+  getSavedList(params: IListParams) {
     const url = '/posts/saved';
     return axiosClient.get(url, { params });
   },

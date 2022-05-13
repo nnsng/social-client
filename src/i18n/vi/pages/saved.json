@@ -1,0 +1,10 @@
+{
+  "pageTitle": "Đã lưu",
+  "noPost": "Không có bài viết nào được lưu.",
+  "postItem": {
+    "unsave": "Bỏ lưu",
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa",
+    "copyLink": "Sao chép liên kết"
+  }
+}

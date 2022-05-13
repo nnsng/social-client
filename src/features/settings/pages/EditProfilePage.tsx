@@ -10,14 +10,22 @@ export function EditProfilePage() {
   const currentUser = useAppSelector(selectCurrentUser);
   const submitting = useAppSelector(selectSettingSubmitting);
 
-  const handleFormSubmit = (formValues: IUser) => {
+  const handleFormSubmit = (formValues: Partial<IUser>) => {
     dispatch(settingActions.updateProfile(formValues));
+  };
+
+  const defaultValues: Partial<IUser> = {
+    name: currentUser?.name,
+    avatar: currentUser?.avatar,
+    username: currentUser?.username,
+    email: currentUser?.email,
+    bio: currentUser?.bio,
   };
 
   return (
     <EditProfileForm
       submitting={submitting}
-      defaultValues={currentUser as IUser}
+      defaultValues={defaultValues}
       onSubmit={handleFormSubmit}
     />
   );

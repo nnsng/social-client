@@ -1,11 +1,6 @@
 {
-  "pageTitle": {
-    "my": "My post list",
-    "saved": "Saved"
-  },
   "noPost": {
-    "my": "No post yet.",
-    "saved": "You have not saved any post yet.",
+    "text": "No post yet.",
     "createText": "Create"
   },
   "text": {

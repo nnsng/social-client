@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { validateEmail } from 'utils/common';
+import { getErrorMessage } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
@@ -82,8 +83,7 @@ export default function AuthForm(props: IAuthFormProps) {
       await onForgotPassword?.(email);
       toast.info(toastTranslation.changePasswordForm.info);
     } catch (error: any) {
-      const errorName = error?.response?.data?.name || 'somethingWrong';
-      toast.error(toastTranslation.errors[errorName]);
+      toast.error(getErrorMessage(error));
     }
   };
 

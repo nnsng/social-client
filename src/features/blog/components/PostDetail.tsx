@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { getErrorMessage } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
 import MdEditor from './MdEditor';
 import PostCardHeader from './PostCardHeader';
@@ -36,24 +37,22 @@ export default function PostDetail(props: IPostDetailProps) {
       await onSave?.(post);
       toast.success(toastTranslation.postDetail.saveSuccess);
     } catch (error: any) {
-      const errorName = error?.response?.data?.name || 'somethingWrong';
-      toast.error(toastTranslation.errors[errorName]);
+      toast.error(getErrorMessage(error));
     }
   };
 
   const handleRemovePost = async () => {
-    setLoading(() => true);
+    setLoading(true);
 
     try {
       await onRemove?.(post);
       toast.success(toastTranslation.postDetail.deleteSuccess);
       navigate('/blog');
     } catch (error: any) {
-      const errorName = error?.response?.data?.name || 'somethingWrong';
-      toast.error(toastTranslation.errors[errorName]);
+      toast.error(getErrorMessage(error));
     }
 
-    setLoading(() => false);
+    setLoading(false);
     closeDialog();
   };
 
