@@ -1,4 +1,4 @@
-import { Avatar, Box, Stack, Typography } from '@mui/material';
+import { Avatar, Box, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
 import { IUser } from 'models';
 import React, { useState } from 'react';
 import { FollowGroupButton } from './FollowGroupButton';
@@ -13,9 +13,11 @@ export function UserInfoPopup(props: IUserInfoPopupProps) {
 
   const [isOpen, setIsOpen] = useState(open);
 
+  const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+
   return (
     <PopperPopup
-      open={!!open || isOpen}
+      open={(!!open || isOpen) && lgUp}
       anchorEl={anchorEl}
       placement="bottom-start"
       onMouseEnter={() => setIsOpen(true)}
