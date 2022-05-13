@@ -32,6 +32,7 @@ export default function ProfilePage(props: IProfileProps) {
       try {
         const user = (await userApi.getUserInfo(username)) as unknown as Partial<IUser>;
         setUserInfo(user);
+        fetchUserPostList({ page: 1 });
       } catch (error) {
         toast.error(getErrorMessage(error));
       }
@@ -39,10 +40,10 @@ export default function ProfilePage(props: IProfileProps) {
   }, [username]);
 
   useEffect(() => {
-    fetchUserPostList(page);
+    fetchUserPostList({ page });
   }, [page]);
 
-  const fetchUserPostList = (page: number) => {
+  const fetchUserPostList = ({ page }: { page: number }) => {
     dispatch(blogActions.fetchPostList({ page, username }));
   };
 
@@ -52,7 +53,7 @@ export default function ProfilePage(props: IProfileProps) {
 
   const handleRemovePost = async (post: IPost) => {
     await postApi.remove(post._id as string);
-    fetchUserPostList(page);
+    fetchUserPostList({ page });
   };
 
   const updateUser = (user: Partial<IUser>) => {
