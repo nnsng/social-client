@@ -18,24 +18,16 @@ const authApi = {
     const url = '/auth/active';
     return axiosClient.post(url, { token });
   },
-  getCurrentUser() {
-    const url = '/auth/me';
-    return axiosClient.get(url);
-  },
-  updateProfile(data: IUser) {
-    const url = '/auth/update-profile';
-    return axiosClient.post(url, data);
-  },
   changePassword(data: IChangePasswordFormValues) {
-    const url = '/auth/change-password';
+    const url = '/auth/password/change';
     return axiosClient.post(url, data);
   },
   forgotPassword(email: string) {
-    const url = '/auth/forgot-password';
+    const url = '/auth/password/forgot';
     return axiosClient.post(url, { email });
   },
   resetPassword(data: IChangePasswordFormValues) {
-    const url = '/auth/reset-password';
+    const url = '/auth/password/reset';
     return axiosClient.post(url, data);
   },
 };

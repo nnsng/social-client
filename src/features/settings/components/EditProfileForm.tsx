@@ -13,8 +13,8 @@ import * as yup from 'yup';
 
 export interface IEditProfileFromProps {
   submitting: boolean;
-  defaultValues: IUser;
-  onSubmit: (formValues: IUser) => void;
+  defaultValues: Partial<IUser>;
+  onSubmit: (formValues: Partial<IUser>) => void;
 }
 
 export default function EditProfileFrom(props: IEditProfileFromProps) {

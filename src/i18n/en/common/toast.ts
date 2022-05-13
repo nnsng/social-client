@@ -41,6 +41,7 @@ const toast = {
     accountActive: 'Account already active.',
     usernameExist: 'Username already exist.',
     passwordNotCorrect: 'Password not correct.',
+    cannotChangeEmail: 'Cannot change email.',
 
     // post / comment
     postNotFound: 'Post not found.',

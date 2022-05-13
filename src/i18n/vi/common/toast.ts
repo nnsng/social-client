@@ -41,6 +41,7 @@ const toast = {
     accountActive: 'Tài khoản đã được kích hoạt.',
     usernameExist: 'Tên người dùng đã tồn tại.',
     passwordNotCorrect: 'Mật khẩu không đúng.',
+    cannotChangeEmail: 'Không thể thay đổi email.',
 
     // post / comment
     postNotFound: 'Không tìm thấy bài viết.',

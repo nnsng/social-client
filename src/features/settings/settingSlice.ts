@@ -14,7 +14,7 @@ const settingSlice = createSlice({
   name: 'settings',
   initialState,
   reducers: {
-    updateProfile(state, action: PayloadAction<IUser>) {
+    updateProfile(state, action: PayloadAction<Partial<IUser>>) {
       state.submitting = true;
     },
     updateProfileFinished(state) {

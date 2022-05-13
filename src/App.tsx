@@ -1,9 +1,10 @@
-import authApi from 'api/authApi';
+import userApi from 'api/userApi';
 import { useAppDispatch } from 'app/hooks';
 import { CustomScrollbar, NotFound, PrivateRoute } from 'components/common';
 import Auth from 'features/auth';
 import { authActions } from 'features/auth/authSlice';
 import Blog from 'features/blog';
+import ProfilePage from 'features/profile';
 import Settings from 'features/settings';
 import SocketClient from 'features/socket';
 import { socketActions } from 'features/socket/socketSlice';
@@ -25,7 +26,7 @@ function App() {
         const token = localStorage.getItem(ACCESS_TOKEN) || '';
         if (!token) return;
 
-        const user = await authApi.getCurrentUser();
+        const user = await userApi.getCurrentUser();
         if (!user) throw new Error();
 
         dispatch(authActions.setCurrentUser(user as unknown as IUser));
@@ -77,6 +78,15 @@ function App() {
         <Route path="/active" element={<Auth mode="active" />} />
         <Route path="/reset-password" element={<Auth mode="resetPassword" />} />
         <Route path="/create-password" element={<Auth mode="createPassword" />} />
+
+        <Route
+          path="user/:username"
+          element={
+            <PrivateRoute>
+              <ProfilePage />
+            </PrivateRoute>
+          }
+        />
 
         <Route
           path="*"

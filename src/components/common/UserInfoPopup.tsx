@@ -5,6 +5,7 @@ import { selectCurrentUser } from 'features/auth/authSlice';
 import { IUser } from 'models';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ContainedGrayButton } from './ContainedGrayButton';
 import { IPopperPopupProps, PopperPopup } from './PopperPopup';
 
 export interface IUserInfoPopupProps extends IPopperPopupProps {
@@ -62,38 +63,22 @@ export function UserInfoPopup(props: IUserInfoPopupProps) {
         {currentUser?._id !== user._id && (
           <Stack alignItems="center" spacing={1} mt={2}>
             {(currentUser?.following || []).includes(user._id || '') ? (
-              <Button
+              <ContainedGrayButton
                 variant="contained"
                 startIcon={<PersonRemoveRounded />}
                 fullWidth
-                sx={{
-                  color: 'text.primary',
-                  bgcolor: 'action.hover',
-                  '&:hover': {
-                    bgcolor: 'action.selected',
-                  },
-                }}
               >
                 {t('buttonLabel.unfollow')}
-              </Button>
+              </ContainedGrayButton>
             ) : (
               <Button variant="contained" startIcon={<PersonAddRounded />} fullWidth>
                 {t('buttonLabel.follow')}
               </Button>
             )}
 
-            <Button
-              sx={{
-                width: '25%',
-                color: 'text.primary',
-                bgcolor: 'action.hover',
-                '&:hover': {
-                  bgcolor: 'action.selected',
-                },
-              }}
-            >
+            <ContainedGrayButton sx={{ width: '25%' }}>
               <MoreHorizRounded />
-            </Button>
+            </ContainedGrayButton>
           </Stack>
         )}
       </Box>
