@@ -42,6 +42,8 @@ const toast = {
     usernameExist: 'Tên người dùng đã tồn tại.',
     passwordNotCorrect: 'Mật khẩu không đúng.',
     cannotChangeEmail: 'Không thể thay đổi email.',
+    alreadyFollow: 'Bạn đã theo dõi người dùng này.',
+    notFollow: 'Bạn chưa theo dõi người dùng này.',
 
     // post / comment
     postNotFound: 'Không tìm thấy bài viết.',
