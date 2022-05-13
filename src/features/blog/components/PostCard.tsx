@@ -48,7 +48,7 @@ export default function PostCard(props: IPostCardProps) {
   };
 
   const handleRemovePost = async () => {
-    setLoading(() => true);
+    setLoading(true);
 
     try {
       await onRemove?.(post);
@@ -57,7 +57,7 @@ export default function PostCard(props: IPostCardProps) {
       toast.error(getErrorMessage(error));
     }
 
-    setLoading(() => false);
+    setLoading(false);
     closeDialog();
   };
 

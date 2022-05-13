@@ -37,20 +37,22 @@ export function UserInfoPopup(props: IUserInfoPopupProps) {
           </Box>
         </Stack>
 
-        <Typography
-          variant="body2"
-          sx={{
-            mt: 2,
-            p: 1,
-            fontStyle: 'italic',
-            bgcolor: 'action.hover',
-            borderRadius: 0.5,
-            borderLeft: 4,
-            borderColor: 'primary.main',
-          }}
-        >
-          {selectedUser.bio}
-        </Typography>
+        {selectedUser.bio && (
+          <Typography
+            variant="body2"
+            sx={{
+              mt: 2,
+              p: 1,
+              fontStyle: 'italic',
+              bgcolor: 'action.hover',
+              borderRadius: 0.5,
+              borderLeft: 4,
+              borderColor: 'primary.main',
+            }}
+          >
+            {selectedUser.bio}
+          </Typography>
+        )}
 
         <FollowGroupButton selectedUser={selectedUser} />
       </Box>

@@ -14,6 +14,14 @@ const userApi = {
     const url = '/users/update-profile';
     return axiosClient.post(url, data);
   },
+  follow(userId: string) {
+    const url = '/users/follow';
+    return axiosClient.post(url, { userId });
+  },
+  unfollow(userId: string) {
+    const url = '/users/unfollow';
+    return axiosClient.post(url, { userId });
+  },
 };
 
 export default userApi;

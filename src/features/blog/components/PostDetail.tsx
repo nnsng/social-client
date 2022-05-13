@@ -42,7 +42,7 @@ export default function PostDetail(props: IPostDetailProps) {
   };
 
   const handleRemovePost = async () => {
-    setLoading(() => true);
+    setLoading(true);
 
     try {
       await onRemove?.(post);
@@ -52,7 +52,7 @@ export default function PostDetail(props: IPostDetailProps) {
       toast.error(getErrorMessage(error));
     }
 
-    setLoading(() => false);
+    setLoading(false);
     closeDialog();
   };
 

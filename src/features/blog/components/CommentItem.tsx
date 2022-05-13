@@ -56,7 +56,7 @@ export default function CommentItem(props: ICommentItemProps) {
   };
 
   const handleRemoveComment = async () => {
-    setLoading(() => true);
+    setLoading(true);
 
     try {
       await onRemove?.(comment);
@@ -64,7 +64,7 @@ export default function CommentItem(props: ICommentItemProps) {
       toast.error(getErrorMessage(error));
     }
 
-    setLoading(() => false);
+    setLoading(false);
   };
 
   const confirmRemoveComment = () => {

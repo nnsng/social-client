@@ -55,6 +55,10 @@ export default function ProfilePage(props: IProfileProps) {
     fetchUserPostList(page);
   };
 
+  const updateUser = (user: Partial<IUser>) => {
+    setUserInfo(user);
+  };
+
   if (loading) return <Header />;
   if (!userInfo) return <NotFound showHeader />;
 
@@ -65,7 +69,7 @@ export default function ProfilePage(props: IProfileProps) {
 
       <Box component="main">
         <Container maxWidth="md">
-          <UserInfo userInfo={userInfo} />
+          <UserInfo userInfo={userInfo} updateUser={updateUser} />
 
           <PostList
             postList={postList}

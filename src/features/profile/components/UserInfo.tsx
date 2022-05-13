@@ -7,9 +7,12 @@ import { themeMixins } from 'utils/theme';
 
 export interface IUserInfoProps {
   userInfo: Partial<IUser>;
+  updateUser?: (user: Partial<IUser>) => void;
 }
 
-export default function UserInfo({ userInfo }: IUserInfoProps) {
+export default function UserInfo(props: IUserInfoProps) {
+  const { userInfo, updateUser } = props;
+
   const { t } = useTranslation('profile');
 
   return (
@@ -43,17 +46,17 @@ export default function UserInfo({ userInfo }: IUserInfoProps) {
 
           <Stack mt={1}>
             <Typography variant="subtitle2" fontWeight={400}>
-              <b>{userInfo.following || 0}</b> {t('following')}
+              <b>{userInfo.following?.length || 0}</b> {t('following')}
             </Typography>
 
             <Typography variant="subtitle2" fontWeight={400} ml={3}>
-              <b>{userInfo.followers || 0}</b> {t('followers')}
+              <b>{userInfo.followers?.length || 0}</b> {t('followers')}
             </Typography>
           </Stack>
         </Box>
 
         <Box position="absolute" bottom={0} right={0}>
-          <FollowGroupButton selectedUser={userInfo} />
+          <FollowGroupButton selectedUser={userInfo} updateUser={updateUser} />
         </Box>
       </Stack>
 

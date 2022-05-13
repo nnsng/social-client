@@ -126,15 +126,6 @@ export const generateTheme = (mode?: PaletteMode, color?: string) =>
           fontSize: 'small',
         },
       },
-      MuiPaginationItem: {
-        styleOverrides: {
-          root: {
-            '&.Mui-selected': {
-              color: '#FFFFFF',
-            },
-          },
-        },
-      },
     },
   });
 
