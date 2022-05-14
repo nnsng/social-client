@@ -52,7 +52,7 @@ export function HashtagInput(props: IHashtagInputProps) {
       <TextField
         name={name}
         value={inputText}
-        variant="standard"
+        variant="outlined"
         size="small"
         fullWidth
         placeholder={placeholder}

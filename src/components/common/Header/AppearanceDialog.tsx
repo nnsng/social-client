@@ -66,99 +66,102 @@ export default function AppearanceDialog() {
   };
 
   return (
-    <div>
-      <Dialog onClose={closeDialog} open={showConfig}>
-        <DialogTitle sx={{ m: 0, px: 3, py: 2 }}>
-          <Typography variant="h6" component="div" fontWeight={600}>
-            {t('appearanceDialog.title')}
-          </Typography>
+    <Dialog open={showConfig} onClose={closeDialog} fullWidth>
+      <DialogTitle sx={{ m: 0, px: 3, py: 2 }}>
+        <Typography variant="h6" component="div" fontWeight={600}>
+          {t('appearanceDialog.title')}
+        </Typography>
 
-          <IconButton
-            onClick={closeDialog}
-            sx={{
-              position: 'absolute',
-              right: 8,
-              top: 8,
-              color: 'text.secondary',
-            }}
-          >
-            <CloseRounded />
-          </IconButton>
-        </DialogTitle>
-
-        <DialogContent
-          dividers
+        <IconButton
+          onClick={closeDialog}
           sx={{
-            px: 3,
-            py: 3,
-            '& .MuiTypography-root': {
-              width: 120,
-              mr: 2,
-            },
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: 'text.secondary',
           }}
         >
-          <Stack direction="column" spacing={3}>
-            <Stack
-              sx={{
-                flexFlow: { xs: 'column', sm: 'row' },
-                alignItems: { sm: 'center' },
-              }}
-            >
-              <Typography fontWeight={500}>{t('appearanceDialog.darkMode')}</Typography>
-              <ThemeSwitch sx={{ ml: '2px' }} />
-            </Stack>
+          <CloseRounded />
+        </IconButton>
+      </DialogTitle>
 
-            <Stack
-              alignItems="center"
-              sx={{
-                flexFlow: { xs: 'column', sm: 'row' },
-                alignItems: { sm: 'center' },
-                '& .MuiSvgIcon-root': {
-                  fontSize: 28,
-                },
-              }}
-            >
-              <Typography fontWeight={500}>{t('appearanceDialog.themeColor')}</Typography>
-              <Stack sx={{ ml: '-3px' }}>
-                {supportedThemeColors.map((color) => (
-                  <ColorRadio
-                    key={color}
-                    value={color}
-                    iconColor={color}
-                    checked={themeColor === color}
-                    onChange={handleColorChange}
-                  />
-                ))}
-              </Stack>
-            </Stack>
+      <DialogContent
+        dividers
+        sx={{
+          px: 3,
+          py: 3,
+          '& .MuiTypography-root': {
+            width: 120,
+            mr: 2,
+          },
+        }}
+      >
+        <Stack direction="column" spacing={3}>
+          <Stack
+            sx={{
+              flexFlow: { xs: 'column', sm: 'row' },
+              alignItems: { sm: 'center' },
+            }}
+          >
+            <Typography fontWeight={500}>{t('appearanceDialog.darkMode')}</Typography>
+            <ThemeSwitch sx={{ ml: '2px' }} />
+          </Stack>
 
-            <Stack
-              sx={{
-                flexFlow: { xs: 'column', sm: 'row' },
-                alignItems: { sm: 'center' },
-              }}
-            >
-              <Typography fontWeight={500}>{t('appearanceDialog.language')}</Typography>
-
-              <Stack ml={1}>
-                {supportedLanguages.map(({ code, name }) => (
-                  <FormControlLabel
-                    key={code}
-                    control={
-                      <Radio
-                        value={code}
-                        checked={language === code}
-                        onChange={handleLanguageChange}
-                      />
-                    }
-                    label={name}
-                  />
-                ))}
-              </Stack>
+          <Stack
+            alignItems="center"
+            sx={{
+              flexFlow: { xs: 'column', sm: 'row' },
+              alignItems: { sm: 'center' },
+              '& .MuiSvgIcon-root': {
+                fontSize: 28,
+              },
+            }}
+          >
+            <Typography fontWeight={500}>{t('appearanceDialog.themeColor')}</Typography>
+            <Stack sx={{ ml: '-3px' }}>
+              {supportedThemeColors.map((color) => (
+                <ColorRadio
+                  key={color}
+                  value={color}
+                  iconColor={color}
+                  checked={themeColor === color}
+                  onChange={handleColorChange}
+                />
+              ))}
             </Stack>
           </Stack>
-        </DialogContent>
-      </Dialog>
-    </div>
+
+          <Stack
+            sx={{
+              flexFlow: { xs: 'column', sm: 'row' },
+              alignItems: { sm: 'center' },
+            }}
+          >
+            <Typography fontWeight={500}>{t('appearanceDialog.language')}</Typography>
+
+            <Stack
+              sx={{
+                ml: 1,
+                flexFlow: { xs: 'column', sm: 'row' },
+              }}
+            >
+              {supportedLanguages.map(({ code, name }) => (
+                <FormControlLabel
+                  key={code}
+                  control={
+                    <Radio
+                      value={code}
+                      checked={language === code}
+                      onChange={handleLanguageChange}
+                    />
+                  }
+                  label={name}
+                />
+              ))}
+            </Stack>
+          </Stack>
+        </Stack>
+      </DialogContent>
+    </Dialog>
   );
 }

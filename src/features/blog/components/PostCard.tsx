@@ -155,9 +155,8 @@ export default function PostCard(props: IPostCardProps) {
                   image={post.thumbnail}
                   title={post.title}
                   sx={{
-                    maxWidth: { xs: 400, sm: 200 },
-                    width: { xs: '100%', sm: 200 },
-                    height: { xs: 200, sm: 100 },
+                    minWidth: 200,
+                    aspectRatio: '2',
                     borderRadius: 2,
                     bgcolor: 'action.hover',
                   }}

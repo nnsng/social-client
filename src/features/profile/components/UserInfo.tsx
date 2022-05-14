@@ -59,14 +59,37 @@ export default function UserInfo(props: IUserInfoProps) {
             @{userInfo.username}
           </Typography>
 
-          <Stack fontSize={{ xs: 14, sm: 16 }}>
-            <Typography component="span" fontSize="inherit" fontWeight={400}>
-              <b>{userInfo.following?.length || 0}</b> {t('following')}
-            </Typography>
+          <Stack
+            sx={{
+              fontSize: { xs: 14, sm: 16 },
+              '& > span:first-of-type': {
+                ml: 0,
+              },
+            }}
+          >
+            {['following', 'followers'].map((x) => (
+              <Typography
+                key={x}
+                component="span"
+                fontSize="inherit"
+                fontWeight={400}
+                sx={{
+                  ml: 3,
+                  textAlign: { xs: 'center', sm: 'unset' },
+                }}
+              >
+                {smUp && <b>{(userInfo as any)[x]?.length || 0} </b>}
 
-            <Typography component="span" fontSize="inherit" fontWeight={400} ml={3}>
-              <b>{userInfo.followers?.length || 0}</b> {t('followers')}
-            </Typography>
+                {t(x)}
+
+                {!smUp && (
+                  <>
+                    <br />
+                    <b>{(userInfo as any)[x]?.length || 0}</b>
+                  </>
+                )}
+              </Typography>
+            ))}
           </Stack>
         </Box>
 
@@ -81,7 +104,7 @@ export default function UserInfo(props: IUserInfoProps) {
         <Typography
           variant="body1"
           sx={{
-            mt: 2,
+            mt: { xs: 1, sm: 2 },
             p: 1,
             textAlign: 'center',
             fontStyle: 'italic',

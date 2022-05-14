@@ -93,7 +93,7 @@ export function PostDetailPage() {
             </Grid>
 
             <Grid item xs={12} md={10} lg={3} mx={{ xs: 'auto', lg: 0 }}>
-              <Box position="sticky" top={96}>
+              <Box position="sticky" top={96} mb={3}>
                 <PostReaction post={post} onOpenComment={openComment} onLikePost={handleLikePost} />
               </Box>
             </Grid>

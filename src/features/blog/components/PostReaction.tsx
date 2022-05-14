@@ -45,7 +45,7 @@ export default function PostReaction(props: IPostReactionProps) {
           fontWeight: 600,
         }}
         component={Link}
-        to={`/blog/user/${post.author?.username}`}
+        to={`/user/${post.author?.username}`}
       >
         {post.author?.name}
       </Typography>

@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from '@mui/material';
+import { Card, CardContent, Divider, Typography } from '@mui/material';
 import { ConfirmDialog } from 'components/common';
 import { IPost } from 'models';
 import React, { useState } from 'react';
@@ -58,7 +58,7 @@ export default function PostDetail(props: IPostDetailProps) {
 
   return (
     <>
-      <Card sx={{ mb: 3, bgcolor: 'background.default' }}>
+      <Card sx={{ mb: 1, bgcolor: 'background.default' }}>
         <Typography variant="h1" fontSize={40} fontWeight={600} mb={0}>
           {post.title}
         </Typography>
@@ -80,6 +80,14 @@ export default function PostDetail(props: IPostDetailProps) {
 
         <CardContent sx={{ '&:last-child': { p: 0 } }}>
           <MdEditor value={post.content} readOnly />
+
+          <Divider
+            sx={{
+              display: { xs: 'block', lg: 'none' },
+              borderColor: 'primary.main',
+              borderWidth: 'thin',
+            }}
+          />
         </CardContent>
       </Card>
 

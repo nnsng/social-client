@@ -162,34 +162,32 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
         <MdEditorField name="content" control={control} placeholder={t('content.placeholder')} />
       </Stack>
 
-      <Dialog
-        open={open}
-        onClose={closeDialog}
-        sx={{
-          '& .MuiPaper-root': {
-            width: 800,
-          },
-        }}
-      >
+      <Dialog open={open} onClose={closeDialog} fullWidth>
         <Typography
           variant="h6"
           color={title?.length > 0 ? 'text.primary' : 'text.disabled'}
           component="div"
           sx={{
             ...themeMixins.truncate(1),
-            px: 3,
-            py: 2,
+            py: { xs: 1, sm: 2 },
+            px: { xs: 1, sm: 3 },
             fontWeight: 600,
           }}
         >
           {title || t('noTitle')}
         </Typography>
 
-        <DialogContent dividers>
+        <DialogContent
+          dividers
+          sx={{
+            py: { xs: 1, sm: 2 },
+            px: { xs: 1, sm: 3 },
+          }}
+        >
           <Box
             sx={{
               maxWidth: 400,
-              height: 200,
+              aspectRatio: '2',
               bgcolor: 'action.hover',
               backgroundImage: `url('${thumbnail}')`,
               backgroundSize: 'cover',
@@ -236,7 +234,7 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
           />
         </DialogContent>
 
-        <DialogActions sx={{ px: 2 }}>
+        <DialogActions sx={{ px: { xs: 1, sm: 2 } }}>
           <Button variant="text" size="large" onClick={closeDialog}>
             {t('btnLabel.cancel')}
           </Button>
