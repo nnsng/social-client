@@ -38,8 +38,12 @@ export function MainPage() {
 
   useEffect(() => {
     (async () => {
-      const topHashtags = (await configApi.getTopHashtags()) as unknown as string[];
-      setHashtagList(topHashtags);
+      try {
+        const topHashtags = (await configApi.getTopHashtags()) as unknown as string[];
+        setHashtagList(topHashtags);
+      } catch (error) {
+        setHashtagList([]);
+      }
     })();
   }, []);
 
@@ -66,7 +70,7 @@ export function MainPage() {
 
       <Grid
         container
-        spacing={{ xs: 2, lg: 8 }}
+        spacing={{ xs: hashtagList.length ? 2 : 0, lg: 8 }}
         flexDirection={{ xs: 'column-reverse', lg: 'row' }}
       >
         <Grid item xs={12} md={10} lg width="100%" mx="auto">
@@ -75,7 +79,7 @@ export function MainPage() {
             postList={postList}
             onSave={handleSavePost}
             onRemove={handleRemovePost}
-            page={Number(filter.page) || 1}
+            page={filter.page || 1}
             onPageChange={handlePageChange}
             filter={filter}
           />

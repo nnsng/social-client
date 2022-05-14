@@ -77,7 +77,7 @@ export default function PostList(props: IPostListProps) {
                 <PostCard post={post} onSave={onSave} onRemove={onRemove} showPopup={showPopup} />
               </ListItem>
             ))
-          : !loading && <NoPost createText={t('noPost.createText')}>{t('noPost.text')}</NoPost>}
+          : !loading && <NoPost />}
       </List>
 
       {totalPage > 1 && !loading && (

@@ -1,8 +1,4 @@
 {
-  "noPost": {
-    "text": "No post yet.",
-    "createText": "Create"
-  },
   "text": {
     "newest": "Newest",
     "search": "Search: {{value}}",

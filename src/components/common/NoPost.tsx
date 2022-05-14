@@ -1,29 +1,21 @@
-import { Box, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
-export interface INoPostProps {
-  children?: string;
-  createText?: string;
-}
+export interface INoPostProps {}
 
-export function NoPost({ children, createText }: INoPostProps) {
+export function NoPost(props: INoPostProps) {
+  const { t } = useTranslation('noPost');
+
   return (
-    <Box
+    <Typography
       sx={{
         textAlign: 'center',
         color: 'text.secondary',
         p: 2,
       }}
     >
-      {children}{' '}
-      {createText && (
-        <Link to="/blog/create" state={{ hideHeaderMenu: true }}>
-          <Typography component="span" sx={{ color: 'primary.main', textDecoration: 'underline' }}>
-            {createText}
-          </Typography>
-        </Link>
-      )}
-    </Box>
+      {t('text')}
+    </Typography>
   );
 }

@@ -52,7 +52,7 @@ export function MySavedPage(props: IMySavedPageProps) {
               <PostItem key={post._id} post={post} onUnSave={handleUnSavePost} />
             ))
           ) : (
-            <NoPost>{t('noPost')}</NoPost>
+            <NoPost />
           )}
         </List>
 
