@@ -50,7 +50,6 @@ function* handleLikePost(action: PayloadAction<string>) {
   try {
     const post: IPost = yield call(postApi.like, action.payload);
     yield put(blogActions.likePostSuccess(post));
-    yield put(blogActions.updateStatistics({ likeCount: post.statistics?.likeCount }));
   } catch (error) {
     console.log('Failed to like post:', error);
   }

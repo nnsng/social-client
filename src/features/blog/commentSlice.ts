@@ -27,16 +27,16 @@ const commentSlice = createSlice({
       state.loading = false;
     },
 
-    createComment(state, action: PayloadAction<IComment>) {
+    create(state, action: PayloadAction<IComment>) {
       state.postComments = [action.payload, ...state.postComments];
     },
 
-    removeComment(state, action: PayloadAction<string>) {
+    remove(state, action: PayloadAction<string>) {
       state.postComments = state.postComments.filter((comment) => comment._id !== action.payload);
     },
 
-    likeComment(state, action: PayloadAction<string>) {},
-    likeCommentSuccess(state, action: PayloadAction<IComment>) {
+    like(state, action: PayloadAction<string>) {},
+    likeSuccess(state, action: PayloadAction<IComment>) {
       const likedComment = action.payload;
       state.postComments = state.postComments.map((comment) =>
         comment._id === likedComment._id ? likedComment : comment

@@ -11,10 +11,10 @@ export default function CommentSocket({ socket }: ISocketProps) {
     if (!socket) return;
 
     socket.on('createComment', ({ comment }: { comment: IComment }) => {
-      dispatch(commentActions.createComment(comment));
+      dispatch(commentActions.create(comment));
     });
     socket.on('removeComment', ({ id }: { id: string }) => {
-      dispatch(commentActions.removeComment(id));
+      dispatch(commentActions.remove(id));
     });
 
     return () => {

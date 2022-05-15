@@ -17,7 +17,7 @@ function* fetchPostComments(action: PayloadAction<string>) {
 function* likeComment(action: PayloadAction<string>) {
   try {
     const comment: IComment = yield call(commentApi.like, action.payload);
-    yield put(commentActions.likeCommentSuccess(comment));
+    yield put(commentActions.likeSuccess(comment));
   } catch (error) {
     console.log('Failed to like comment:', error);
   }
@@ -25,5 +25,5 @@ function* likeComment(action: PayloadAction<string>) {
 
 export default function* commentSaga() {
   yield takeLatest(commentActions.fetchPostComments.type, fetchPostComments);
-  yield takeLatest(commentActions.likeComment.type, likeComment);
+  yield takeLatest(commentActions.like.type, likeComment);
 }

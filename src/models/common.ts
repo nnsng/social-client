@@ -28,4 +28,5 @@ export interface IMenuItem {
 
 export interface ILocationState {
   hideHeaderMenu?: boolean;
+  openComment?: boolean;
 }

@@ -4,10 +4,5 @@
     "delete": "Delete",
     "copyLink": "Copy link",
     "report": "Report"
-  },
-  "statistics": {
-    "likeCount": "Like",
-    "commentCount": "Comment",
-    "viewCount": "View"
   }
 }

@@ -1,0 +1,7 @@
+{
+  "message": {
+    "follow": "{{name}} đang theo dõi bạn.",
+    "like": "{{name}} thích bài viết của bạn.",
+    "comment": "{{name}} đã bình luận về bài viết của bạn."
+  }
+}

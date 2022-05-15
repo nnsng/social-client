@@ -1,5 +1,8 @@
 import { useAppSelector } from 'app/hooks';
+import { selectCurrentUser } from 'features/auth/authSlice';
+import { useEffect } from 'react';
 import CommentSocket from './components/CommentSocket';
+import NotiSocket from './components/NotiSocket';
 import { selectSocket } from './socketSlice';
 
 export interface ISocketProps {
@@ -8,8 +11,18 @@ export interface ISocketProps {
 
 export default function SocketClient() {
   const socket = useAppSelector(selectSocket);
+  const currentUser = useAppSelector(selectCurrentUser);
 
-  const SocketComponents = [CommentSocket];
+  useEffect(() => {
+    if (!socket || !currentUser) return;
+    socket.emit('joinSocial', { userId: currentUser._id });
+
+    return () => {
+      socket.emit('leaveSocial', { userId: currentUser._id });
+    };
+  }, [socket, currentUser]);
+
+  const SocketComponents = [NotiSocket, CommentSocket];
 
   return (
     <>

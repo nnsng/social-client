@@ -14,7 +14,6 @@ import postList from './components/postList.json';
 import postCard from './components/postCard.json';
 import topHashtags from './components/topHashtags.json';
 import postDetail from './components/postDetail.json';
-import postReaction from './components/postReaction.json';
 import postComment from './components/postComment.json';
 import postItem from './components/postItem.json';
 import settingTabs from './components/settingTabs.json';
@@ -22,6 +21,7 @@ import editProfileForm from './components/editProfileForm.json';
 import changePasswordForm from './components/changePasswordForm.json';
 import followGroupButton from './components/followGroupButton.json';
 import noPost from './components/noPost.json';
+import notiSocket from './components/notiSocket.json';
 
 import validate from './common/validate';
 import toast from './common/toast';
@@ -44,7 +44,6 @@ export default {
   postCard,
   topHashtags,
   postDetail,
-  postReaction,
   postComment,
   postItem,
   settingTabs,
@@ -52,6 +51,7 @@ export default {
   changePasswordForm,
   followGroupButton,
   noPost,
+  notiSocket,
 
   validate,
   toast,

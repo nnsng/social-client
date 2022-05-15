@@ -5,9 +5,9 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { NotFound, PageTitle } from 'components/common';
 import { commentActions, selectPostComments } from 'features/blog/commentSlice';
 import { selectSocket } from 'features/socket/socketSlice';
-import { IComment, IPost } from 'models';
+import { IComment, ILocationState, IPost } from 'models';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
 import { blogActions, selectPostDetail, selectPostLoading } from '../blogSlice';
 import PostComment from '../components/PostComment';
@@ -16,6 +16,8 @@ import PostReaction from '../components/PostReaction';
 
 export function PostDetailPage() {
   const { slug } = useParams();
+  const location = useLocation();
+  const initOpenComment = !!(location.state as ILocationState)?.openComment;
 
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectPostLoading);
@@ -24,7 +26,7 @@ export function PostDetailPage() {
 
   const socket = useAppSelector(selectSocket);
 
-  const [showComment, setShowComment] = useState<boolean>(false);
+  const [openComment, setOpenComment] = useState<boolean>(initOpenComment);
 
   useEffect(() => {
     if (!slug) return;
@@ -42,26 +44,25 @@ export function PostDetailPage() {
   }, [socket, post]);
 
   useEffect(() => {
-    if (showComment) {
-      dispatch(commentActions.fetchPostComments(post?._id as string));
-    } else {
-      dispatch(blogActions.updateStatistics({ commentCount: postComments.length || 0 }));
-    }
-  }, [showComment]);
+    if (!post) return;
 
-  const openComment = () => setShowComment(true);
-  const closeComment = () => setShowComment(false);
+    if (openComment) {
+      dispatch(commentActions.fetchPostComments(post?._id || ''));
+    }
+  }, [openComment, post]);
+
+  const closeComment = () => setOpenComment(false);
 
   const handleSavePost = async (post: IPost) => {
-    await postApi.save(post._id as string);
+    await postApi.save(post._id || '');
   };
 
   const handleRemovePost = async (post: IPost) => {
-    await postApi.remove(post._id as string);
+    await postApi.remove(post._id || '');
   };
 
   const handleLikePost = () => {
-    dispatch(blogActions.likePost(post?._id as string));
+    dispatch(blogActions.likePost(post?._id || ''));
   };
 
   const handleCreateComment = async (comment: IComment) => {
@@ -73,7 +74,11 @@ export function PostDetailPage() {
   };
 
   const handleLikeComment = (comment: IComment) => {
-    dispatch(commentActions.likeComment(comment._id as string));
+    dispatch(commentActions.like(comment._id as string));
+  };
+
+  const updateCommentCount = (count: number) => {
+    dispatch(blogActions.updateCommentCount(count));
   };
 
   if (loading) return null;
@@ -94,12 +99,16 @@ export function PostDetailPage() {
 
             <Grid item xs={12} md={10} lg={3} mx={{ xs: 'auto', lg: 0 }}>
               <Box position="sticky" top={96} mb={3}>
-                <PostReaction post={post} onOpenComment={openComment} onLikePost={handleLikePost} />
+                <PostReaction
+                  post={post}
+                  onOpenComment={() => setOpenComment(true)}
+                  onLikePost={handleLikePost}
+                />
               </Box>
             </Grid>
           </Grid>
 
-          <Drawer anchor="right" open={showComment} onClose={closeComment}>
+          <Drawer anchor="right" open={openComment} onClose={closeComment}>
             <PostComment
               commentList={postComments}
               postId={post?._id || ''}
@@ -107,6 +116,7 @@ export function PostDetailPage() {
               onCreate={handleCreateComment}
               onRemove={handleRemoveComment}
               onLike={handleLikeComment}
+              updateCommentCount={updateCommentCount}
             />
           </Drawer>
         </Box>
