@@ -12,7 +12,7 @@ import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { selectCommentLoading } from 'features/blog/commentSlice';
 import { IComment } from 'models';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
@@ -26,15 +26,20 @@ export interface IPostCommentProps {
   onCreate?: (comment: IComment) => void;
   onRemove?: (comment: IComment) => void;
   onLike?: (comment: IComment) => void;
+  updateCommentCount?: (count: number) => void;
 }
 
 export default function PostComment(props: IPostCommentProps) {
-  const { commentList, postId, onClose, onCreate, onRemove, onLike } = props;
+  const { commentList, postId, onClose, onCreate, onRemove, onLike, updateCommentCount } = props;
 
   const { t } = useTranslation('postComment');
 
   const loading = useAppSelector(selectCommentLoading);
   const currentUser = useAppSelector(selectCurrentUser);
+
+  useEffect(() => {
+    updateCommentCount?.(commentList.length);
+  }, [commentList.length]);
 
   const defaultValues: IComment = {
     postId,
@@ -95,7 +100,7 @@ export default function PostComment(props: IPostCommentProps) {
           {loading ? (
             <CircularProgress size={20} color="primary" sx={{ mr: 1 }} />
           ) : (
-            commentList?.length
+            commentList.length || 0
           )}
           {t('comment')}
         </Typography>

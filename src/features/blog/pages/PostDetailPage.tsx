@@ -47,24 +47,22 @@ export function PostDetailPage() {
     if (!post) return;
 
     if (openComment) {
-      dispatch(commentActions.fetchPostComments(post?._id as string));
-    } else {
-      dispatch(blogActions.updateStatistics({ commentCount: postComments.length || 0 }));
+      dispatch(commentActions.fetchPostComments(post?._id || ''));
     }
   }, [openComment, post]);
 
   const closeComment = () => setOpenComment(false);
 
   const handleSavePost = async (post: IPost) => {
-    await postApi.save(post._id as string);
+    await postApi.save(post._id || '');
   };
 
   const handleRemovePost = async (post: IPost) => {
-    await postApi.remove(post._id as string);
+    await postApi.remove(post._id || '');
   };
 
   const handleLikePost = () => {
-    dispatch(blogActions.likePost(post?._id as string));
+    dispatch(blogActions.likePost(post?._id || ''));
   };
 
   const handleCreateComment = async (comment: IComment) => {
@@ -77,6 +75,10 @@ export function PostDetailPage() {
 
   const handleLikeComment = (comment: IComment) => {
     dispatch(commentActions.like(comment._id as string));
+  };
+
+  const updateCommentCount = (count: number) => {
+    dispatch(blogActions.updateCommentCount(count));
   };
 
   if (loading) return null;
@@ -114,6 +116,7 @@ export function PostDetailPage() {
               onCreate={handleCreateComment}
               onRemove={handleRemoveComment}
               onLike={handleLikeComment}
+              updateCommentCount={updateCommentCount}
             />
           </Drawer>
         </Box>

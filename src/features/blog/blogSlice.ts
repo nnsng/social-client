@@ -1,13 +1,6 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import {
-  IListParams,
-  IListResponse,
-  IPaginationParams,
-  IPost,
-  IPostStatistics,
-  ISearchObj,
-} from 'models';
+import { IListParams, IListResponse, IPaginationParams, IPost, ISearchObj } from 'models';
 
 export interface IBlogState {
   loading: boolean;
@@ -79,16 +72,7 @@ const blogSlice = createSlice({
     },
 
     updateCommentCount(state, action: PayloadAction<number>) {
-      if (state.detail?.statistics) state.detail.statistics.commentCount = action.payload;
-    },
-
-    updateStatistics(state, action: PayloadAction<Partial<IPostStatistics>>) {
-      if (state.detail?.statistics) {
-        state.detail.statistics = {
-          ...state.detail?.statistics,
-          ...action.payload,
-        };
-      }
+      if (state.detail) state.detail.commentCount = action.payload;
     },
 
     searchWithDebounce(state, action: PayloadAction<ISearchObj>) {

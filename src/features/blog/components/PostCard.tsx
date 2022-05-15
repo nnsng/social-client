@@ -1,8 +1,3 @@
-import {
-  ChatBubbleOutlineRounded,
-  FavoriteBorderRounded,
-  VisibilityOutlined,
-} from '@mui/icons-material';
 import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 import { ConfirmDialog } from 'components/common';
 import { IPost } from 'models';
@@ -60,21 +55,6 @@ export default function PostCard(props: IPostCardProps) {
     setLoading(false);
     closeDialog();
   };
-
-  const statistics = [
-    {
-      icon: <FavoriteBorderRounded />,
-      count: post.statistics?.likeCount || 0,
-    },
-    {
-      icon: <ChatBubbleOutlineRounded />,
-      count: post.statistics?.commentCount || 0,
-    },
-    {
-      icon: <VisibilityOutlined />,
-      count: post.statistics?.viewCount || 0,
-    },
-  ];
 
   return (
     <>
@@ -165,27 +145,6 @@ export default function PostCard(props: IPostCardProps) {
                 />
               </Box>
             )}
-          </Stack>
-
-          <Stack mt={{ xs: 2, sm: 1 }}>
-            {statistics.map(({ icon, count }, idx) => (
-              <Typography
-                key={idx}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  color: 'text.secondary',
-                  fontSize: 14,
-                  mr: 2,
-                  '& svg': {
-                    mr: 1,
-                  },
-                }}
-              >
-                {icon}
-                {count}
-              </Typography>
-            ))}
           </Stack>
         </CardContent>
       </Card>

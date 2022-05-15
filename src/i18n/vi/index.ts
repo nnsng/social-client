@@ -14,7 +14,6 @@ import postList from './components/postList.json';
 import postCard from './components/postCard.json';
 import topHashtags from './components/topHashtags.json';
 import postDetail from './components/postDetail.json';
-import postReaction from './components/postReaction.json';
 import postComment from './components/postComment.json';
 import postItem from './components/postItem.json';
 import settingTabs from './components/settingTabs.json';
@@ -45,7 +44,6 @@ export default {
   postCard,
   topHashtags,
   postDetail,
-  postReaction,
   postComment,
   postItem,
   settingTabs,

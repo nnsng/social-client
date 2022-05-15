@@ -8,7 +8,6 @@ import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { IPost } from 'models';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
 export interface IPostReactionProps {
@@ -19,8 +18,6 @@ export interface IPostReactionProps {
 
 export default function PostReaction(props: IPostReactionProps) {
   const { post, onOpenComment, onLikePost } = props;
-
-  const { t } = useTranslation('postReaction');
 
   const navigate = useNavigate();
 
@@ -79,7 +76,7 @@ export default function PostReaction(props: IPostReactionProps) {
           }
           onClick={onLikePost}
         >
-          {post.statistics?.likeCount}
+          {post.likeCount}
         </Button>
 
         <Button
@@ -92,7 +89,7 @@ export default function PostReaction(props: IPostReactionProps) {
           startIcon={<ChatBubbleOutlineRounded />}
           onClick={onOpenComment}
         >
-          {post.statistics?.commentCount}
+          {post.commentCount}
         </Button>
       </Stack>
 
@@ -110,10 +107,6 @@ export default function PostReaction(props: IPostReactionProps) {
             />
           ))}
       </Stack>
-
-      <Typography variant="subtitle2" color="text.secondary">
-        {t('view')}: {post.statistics?.viewCount}
-      </Typography>
     </Box>
   );
 }

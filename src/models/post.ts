@@ -9,7 +9,8 @@ export interface IPost {
   hashtags: string[];
   author?: IUser;
   likes?: string[];
-  statistics?: IPostStatistics;
+  likeCount?: number;
+  commentCount?: number;
   slug?: string;
   createdAt?: string;
 }
@@ -22,12 +23,6 @@ export interface IComment {
   user?: IUser;
   likes?: string[];
   createdAt?: string;
-}
-
-export interface IPostStatistics {
-  likeCount: number;
-  commentCount: number;
-  viewCount: number;
 }
 export interface ISearchObj {
   searchFor: 'search' | 'username' | 'hashtag';
