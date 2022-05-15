@@ -10,10 +10,10 @@ import slugify from 'slugify';
 import { CONFIG } from './constants';
 import { useTranslateFiles } from './translation';
 
-export const formatTime = (timestamp: any) => {
+export const formatTime = (timestamp: any, template?: string) => {
   dayjs.extend(relativeTime);
   dayjs.locale(i18next.language);
-  return dayjs(timestamp).fromNow();
+  return template ? dayjs(timestamp).format(template) : dayjs(timestamp).fromNow();
 };
 
 export const slugifyString = (str: string) => {

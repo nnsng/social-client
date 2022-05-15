@@ -6,6 +6,7 @@ import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { PopperPopup } from '..';
+import AppearanceDialog from './AppearanceDialog';
 
 export interface IUserMenuProps {
   isOnMobile: boolean;
@@ -134,6 +135,8 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
           {menuItemsComponent}
         </PopperPopup>
       )}
+
+      <AppearanceDialog />
     </>
   );
 }

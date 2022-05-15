@@ -1,22 +1,11 @@
 import { BookmarkRemoveRounded, LinkRounded, MoreHorizRounded } from '@mui/icons-material';
-import {
-  Avatar,
-  Box,
-  CardMedia,
-  IconButton,
-  ListItem,
-  MenuItem,
-  Stack,
-  Typography,
-} from '@mui/material';
-import { ActionMenu } from 'components/common';
+import { Box, CardMedia, IconButton, ListItem, MenuItem, Stack, Typography } from '@mui/material';
+import { ActionMenu, TimeTooltip } from 'components/common';
 import { IMenuItem, IPost } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import remarkGfm from 'remark-gfm';
 import { copyPostLink, formatTime } from 'utils/common';
 import { themeMixins } from 'utils/theme';
 import { getErrorMessage } from 'utils/toast';
@@ -107,13 +96,15 @@ export function PostItem(props: IPostItemProps) {
             {post.title}
           </Typography>
 
-          <Typography variant="body2" fontSize={12} color="text.secondary">
+          <Typography variant="body2" color="text.secondary" fontSize={12}>
             {post.author?.name}
           </Typography>
 
-          <Typography variant="body2" fontSize={12} color="text.secondary">
-            {formatTime(post.createdAt)}
-          </Typography>
+          <TimeTooltip timestamp={post.createdAt}>
+            <Typography variant="body2" color="text.secondary" fontSize={12} width="fit-content">
+              {formatTime(post.createdAt)}
+            </Typography>
+          </TimeTooltip>
         </Stack>
 
         <Box flexShrink={0} ml={2}>

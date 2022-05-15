@@ -11,7 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
-import { ActionMenu, ConfirmDialog, UserInfoPopup } from 'components/common';
+import { ActionMenu, ConfirmDialog, TimeTooltip, UserInfoPopup } from 'components/common';
 import { GetUserInfoPopupEvent } from 'components/functions';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { IComment, IMenuItem, IUser } from 'models';
@@ -182,27 +182,29 @@ export default function CommentItem(props: ICommentItemProps) {
                 {comment.likes?.includes(currentUser?._id || '') ? t('unlike') : t('like')}
               </Typography>
 
-              <Typography
-                variant="subtitle2"
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  color: 'text.secondary',
-                  mr: 1,
+              <TimeTooltip timestamp={comment.createdAt}>
+                <Typography
+                  variant="subtitle2"
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: 'text.secondary',
+                    mr: 1,
 
-                  '&::before': {
-                    width: 2,
-                    height: 2,
-                    content: '""',
-                    bgcolor: 'grey.500',
-                    borderRadius: '50%',
-                    display: 'block',
-                    mx: 1,
-                  },
-                }}
-              >
-                {formatTime(comment.createdAt)}
-              </Typography>
+                    '&::before': {
+                      width: 2,
+                      height: 2,
+                      content: '""',
+                      bgcolor: 'grey.500',
+                      borderRadius: '50%',
+                      display: 'block',
+                      mx: 1,
+                    },
+                  }}
+                >
+                  {formatTime(comment.createdAt)}
+                </Typography>
+              </TimeTooltip>
 
               <IconButton size="small" disableRipple ref={anchorRef} onClick={toggleMenu}>
                 <MoreHorizRounded />

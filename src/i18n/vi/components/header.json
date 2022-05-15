@@ -10,7 +10,7 @@
     "welcomeText": "Chào mừng {{name}} đến với {{appName}}."
   },
   "menu": {
-    "create": "Tạo bài viết",
+    "create": "Viết bài",
     "myPosts": "Bài viết của tôi",
     "saved": "Đã lưu",
     "appearance": "Giao diện & Ngôn ngữ",

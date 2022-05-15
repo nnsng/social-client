@@ -1,7 +1,7 @@
 import { BookmarkBorderRounded, MoreHorizRounded } from '@mui/icons-material';
 import { Avatar, Box, CardHeader, IconButton, MenuItem, SxProps, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
-import { ActionMenu, UserInfoPopup } from 'components/common';
+import { ActionMenu, TimeTooltip, UserInfoPopup } from 'components/common';
 import { GetPostMenu, GetUserInfoPopupEvent } from 'components/functions';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { IPost, IUser } from 'models';
@@ -139,9 +139,19 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
           </Typography>
         }
         subheader={
-          <Typography variant="subtitle2" color="text.secondary" fontSize="0.8rem" fontWeight={400}>
-            {formatTime(post.createdAt)}
-          </Typography>
+          <TimeTooltip timestamp={post.createdAt}>
+            <Typography
+              variant="subtitle2"
+              color="text.secondary"
+              sx={{
+                fontSize: '0.8rem',
+                fontWeight: 400,
+                display: 'inline-block',
+              }}
+            >
+              {formatTime(post.createdAt)}
+            </Typography>
+          </TimeTooltip>
         }
         sx={{
           display: 'flex',

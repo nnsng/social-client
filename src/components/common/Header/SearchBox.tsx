@@ -36,7 +36,9 @@ export interface ISearchBoxProps {
   toggleSearchMobile?: () => void;
 }
 
-export function SearchBox({ openSearchMobile, toggleSearchMobile }: ISearchBoxProps) {
+export default function SearchBox(props: ISearchBoxProps) {
+  const { openSearchMobile, toggleSearchMobile } = props;
+
   const navigate = useNavigate();
   const location = useLocation();
 

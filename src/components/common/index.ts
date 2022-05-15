@@ -13,4 +13,5 @@ export * from './PageTitle';
 export * from './PopperPopup';
 export * from './PrivateRoute';
 export * from './SearchMobile';
+export * from './TimeTooltip';
 export * from './UserInfoPopup';
