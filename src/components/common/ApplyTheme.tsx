@@ -3,6 +3,7 @@ import { useAppSelector } from 'app/hooks';
 import favicons, { blackFavicon } from 'assets/favicons';
 import { selectLanguage, selectThemeColor, selectThemeMode } from 'features/common/configSlice';
 import i18next from 'i18next';
+import { SnackbarProvider } from 'notistack';
 import React, { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -37,7 +38,19 @@ export function ApplyTheme({ children }: IApplyThemeProps) {
 
   return (
     <ThemeProvider theme={theme}>
-      {children}
+      <SnackbarProvider
+        maxSnack={3}
+        autoHideDuration={2000}
+        preventDuplicate
+        style={{
+          color: theme.palette.common.white,
+          backgroundColor: theme.palette.primary.main,
+          cursor: 'pointer',
+        }}
+      >
+        {children}
+      </SnackbarProvider>
+
       <ToastContainer
         theme={themeMode}
         autoClose={2000}

@@ -1,0 +1,7 @@
+{
+  "message": {
+    "follow": "{{name}} is following you.",
+    "like": "{{name}} likes your post.",
+    "comment": "{{name}} commented on your post."
+  }
+}

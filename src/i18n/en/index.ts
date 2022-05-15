@@ -22,6 +22,7 @@ import editProfileForm from './components/editProfileForm.json';
 import changePasswordForm from './components/changePasswordForm.json';
 import followGroupButton from './components/followGroupButton.json';
 import noPost from './components/noPost.json';
+import notiSocket from './components/notiSocket.json';
 
 import validate from './common/validate';
 import toast from './common/toast';
@@ -52,6 +53,7 @@ export default {
   changePasswordForm,
   followGroupButton,
   noPost,
+  notiSocket,
 
   validate,
   toast,

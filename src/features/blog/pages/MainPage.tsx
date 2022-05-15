@@ -79,7 +79,7 @@ export function MainPage() {
             postList={postList}
             onSave={handleSavePost}
             onRemove={handleRemovePost}
-            page={filter.page || 1}
+            page={Number(filter.page) || 1}
             onPageChange={handlePageChange}
             filter={filter}
           />

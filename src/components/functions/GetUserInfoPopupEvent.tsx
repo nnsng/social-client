@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export interface IGetUserInfoPopupEventProps {
   setOpenPopup: (open: boolean) => void;
@@ -6,6 +6,12 @@ export interface IGetUserInfoPopupEventProps {
 
 export function GetUserInfoPopupEvent({ setOpenPopup }: IGetUserInfoPopupEventProps) {
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | undefined>();
+
+  useEffect(() => {
+    return () => {
+      timeoutId && clearTimeout(timeoutId);
+    };
+  }, []);
 
   const onMouseEnter = () => {
     const id = setTimeout(() => {
