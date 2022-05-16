@@ -13,6 +13,7 @@ import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
 export interface IChangePasswordFormProps {
+  fieldList: IField[];
   defaultValues: IChangePasswordFormValues;
   onSubmit: (formValues: IChangePasswordFormValues) => void;
   forgotPassword?: () => void;
@@ -20,7 +21,7 @@ export interface IChangePasswordFormProps {
 }
 
 export default function ChangePasswordForm(props: IChangePasswordFormProps) {
-  const { defaultValues, onSubmit, forgotPassword, submitButtonLabel } = props;
+  const { fieldList, defaultValues, onSubmit, forgotPassword, submitButtonLabel } = props;
   const isChangeMode = !!forgotPassword;
 
   const { t } = useTranslation('changePasswordForm');
@@ -73,12 +74,6 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
       toast.error(getErrorMessage(error));
     }
   };
-
-  const fieldList: IField[] = [
-    { name: 'currentPassword', props: {} },
-    { name: 'newPassword', props: {} },
-    { name: 'confirmPassword', props: {} },
-  ];
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
