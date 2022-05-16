@@ -42,12 +42,12 @@ export function Header() {
       sx={{
         ...themeMixins.paperBorder('bottom'),
         position: 'sticky',
-        top: 0,
         zIndex: 'appBar',
+        top: 0,
         height: themeVariables.headerHeight,
         mb: 2,
         py: 2,
-        bgcolor: 'background.paper',
+        borderRadius: 0,
       }}
     >
       {loading && (

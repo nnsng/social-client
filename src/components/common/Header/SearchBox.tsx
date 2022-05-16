@@ -169,7 +169,7 @@ export default function SearchBox(props: ISearchBoxProps) {
                   inset: '100% 0 auto',
                   maxHeight: 450,
                   mt: 1,
-                  bgcolor: 'background.paper',
+                  borderRadius: 0,
                   overflow: 'auto',
                 }}
               >

@@ -66,7 +66,7 @@ export function SearchMobile(props: ISearchMobileProps) {
           sx={{
             ...themeMixins.paperBorder('bottom'),
             height: '100%',
-            bgcolor: 'background.paper',
+            borderRadius: 0,
           }}
         >
           <IconButton edge="start" color="inherit" onClick={onClose} sx={{ mr: 1 }}>

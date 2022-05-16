@@ -20,10 +20,9 @@ export default function UserInfo(props: IUserInfoProps) {
   return (
     <Box
       sx={{
+        ...themeMixins.paperBorder(),
         p: { xs: 1, sm: 2 },
         mb: 2,
-        borderRadius: 2,
-        ...themeMixins.paperBorder(),
       }}
     >
       <Stack alignItems="center" position="relative">
@@ -37,7 +36,7 @@ export default function UserInfo(props: IUserInfoProps) {
           }}
         />
 
-        <Box ml={2} flexGrow={1}>
+        <Box ml={3} flexGrow={1}>
           <Typography
             component="div"
             sx={{

@@ -60,13 +60,10 @@ export default function PostCard(props: IPostCardProps) {
     <>
       <Card
         sx={{
+          ...themeMixins.paperBorder(),
           width: '100%',
           p: 2,
           mb: 2,
-          borderRadius: 2,
-          bgcolor: 'background.paper',
-          border: 1,
-          borderColor: 'divider',
         }}
       >
         <PostCardHeader

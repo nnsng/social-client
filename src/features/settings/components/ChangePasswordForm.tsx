@@ -13,7 +13,6 @@ import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
 export interface IChangePasswordFormProps {
-  fieldList: IField[];
   defaultValues: IChangePasswordFormValues;
   onSubmit: (formValues: IChangePasswordFormValues) => void;
   forgotPassword?: () => void;
@@ -21,7 +20,7 @@ export interface IChangePasswordFormProps {
 }
 
 export default function ChangePasswordForm(props: IChangePasswordFormProps) {
-  const { fieldList, defaultValues, onSubmit, forgotPassword, submitButtonLabel } = props;
+  const { defaultValues, onSubmit, forgotPassword, submitButtonLabel } = props;
   const isChangeMode = !!forgotPassword;
 
   const { t } = useTranslation('changePasswordForm');
@@ -75,9 +74,15 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
     }
   };
 
+  const fieldList: IField[] = [
+    { name: 'currentPassword', props: {} },
+    { name: 'newPassword', props: {} },
+    { name: 'confirmPassword', props: {} },
+  ];
+
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
-      <Box pb={3}>
+      <Box>
         <Stack direction="column" spacing={2}>
           {fieldList.map(({ name, props }) => (
             <MuiTextField

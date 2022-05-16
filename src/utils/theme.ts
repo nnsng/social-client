@@ -24,7 +24,7 @@ const configThemePalette = (mode: PaletteMode = 'light', color: string = '#7575F
             disabledBackground: 'rgba(0, 0, 0, 0.12)',
           },
           background: {
-            default: '#FFFFFF',
+            default: '#F9F9F9',
             paper: '#FFFFFF',
           },
           divider: 'rgba(0, 0, 0, 0.12)',
@@ -143,12 +143,9 @@ export const themeVariables = {
   boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
 };
 
-interface IMixins {
-  [key: string]: (props?: any) => SxProps<Theme>;
-}
 type BorderType = '' | 'top' | 'bottom' | 'left' | 'right';
 
-export const themeMixins: IMixins = {
+export const themeMixins = {
   truncate: (maxLine: number): SxProps => ({
     display: '-webkit-box',
     WebkitLineClamp: maxLine,
@@ -156,7 +153,7 @@ export const themeMixins: IMixins = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   }),
-  paperBorder: (type: BorderType = '') => {
+  paperBorder: (type: BorderType = ''): SxProps<Theme> => {
     const borderType = type ? `border${type[0].toUpperCase()}${type.slice(1)}` : 'border';
 
     return {
@@ -164,6 +161,7 @@ export const themeMixins: IMixins = {
       boxShadow: (theme) => (theme.palette.mode === 'light' ? themeVariables.boxShadow : undefined),
       [borderType]: (theme) => (theme.palette.mode === 'dark' ? 1 : 0),
       borderColor: 'divider',
+      borderRadius: 2,
     };
   },
 };

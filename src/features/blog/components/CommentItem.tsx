@@ -109,7 +109,7 @@ export default function CommentItem(props: ICommentItemProps) {
               src={comment.user?.avatar}
               onClick={handleUserClick}
               onMouseEnter={onMouseEnter}
-              onMouseLeave={onMouseEnter}
+              onMouseLeave={onMouseLeave}
               sx={{ width: 36, height: 36, cursor: 'pointer' }}
             />
           </Grid>

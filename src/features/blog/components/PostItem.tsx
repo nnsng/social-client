@@ -60,12 +60,9 @@ export function PostItem(props: IPostItemProps) {
     <ListItem
       disablePadding
       sx={{
+        ...themeMixins.paperBorder(),
         my: 2,
         p: 1,
-        borderRadius: 2,
-        border: 1,
-        borderColor: 'divider',
-        bgcolor: 'background.paper',
       }}
     >
       <Stack width="100%" alignItems="center">
@@ -112,7 +109,6 @@ export function PostItem(props: IPostItemProps) {
             size="small"
             ref={anchorRef}
             onClick={toggleOpenMenu}
-            disableRipple={false}
             sx={{
               color: 'text.secondary',
               '&:hover': {

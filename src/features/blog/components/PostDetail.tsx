@@ -1,10 +1,11 @@
-import { Card, CardContent, Divider, Typography } from '@mui/material';
+import { Card, CardContent, Typography } from '@mui/material';
 import { ConfirmDialog } from 'components/common';
 import { IPost } from 'models';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { themeMixins } from 'utils/theme';
 import { getErrorMessage } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
 import MdEditor from './MdEditor';
@@ -58,7 +59,13 @@ export default function PostDetail(props: IPostDetailProps) {
 
   return (
     <>
-      <Card sx={{ mb: 1, bgcolor: 'background.default' }}>
+      <Card
+        sx={{
+          ...themeMixins.paperBorder(),
+          mb: 2,
+          p: 2,
+        }}
+      >
         <Typography variant="h1" fontSize={40} fontWeight={600} mb={0}>
           {post.title}
         </Typography>
@@ -80,14 +87,6 @@ export default function PostDetail(props: IPostDetailProps) {
 
         <CardContent sx={{ '&:last-child': { p: 0 } }}>
           <MdEditor value={post.content} readOnly />
-
-          <Divider
-            sx={{
-              display: { xs: 'block', lg: 'none' },
-              borderColor: 'primary.main',
-              borderWidth: 'thin',
-            }}
-          />
         </CardContent>
       </Card>
 

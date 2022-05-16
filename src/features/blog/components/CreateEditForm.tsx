@@ -119,10 +119,7 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
         direction="column"
         height={`calc(100vh - ${themeVariables.headerHeight}px * 2 + 36px)`}
         sx={{
-          borderRadius: 2,
-          border: 1,
-          borderColor: 'divider',
-          bgcolor: 'background.paper',
+          ...themeMixins.paperBorder(),
         }}
       >
         <Stack alignItems="center" justifyContent="flex-end" px={2}>

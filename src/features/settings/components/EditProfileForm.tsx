@@ -152,7 +152,7 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Box pb={3}>
+      <Box>
         <Stack direction="column" spacing={2}>
           {fieldList.map(({ name, props }) =>
             name !== 'avatar' ? (

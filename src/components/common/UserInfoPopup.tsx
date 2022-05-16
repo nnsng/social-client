@@ -11,7 +11,7 @@ export interface IUserInfoPopupProps extends IPopperPopupProps {
 export function UserInfoPopup(props: IUserInfoPopupProps) {
   const { selectedUser, open, anchorEl, sx } = props;
 
-  const [isOpen, setIsOpen] = useState(open);
+  const [isOpen, setIsOpen] = useState<boolean>(open);
 
   const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
 

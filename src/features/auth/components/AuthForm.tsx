@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { validateEmail } from 'utils/common';
+import { themeMixins } from 'utils/theme';
 import { getErrorMessage } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
@@ -114,24 +115,23 @@ export default function AuthForm(props: IAuthFormProps) {
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} style={{ width: '100%' }}>
-      <Box
+      <Stack
+        direction="column"
         sx={{
+          ...themeMixins.paperBorder(),
           maxWidth: 450,
+          height: { xs: '100vh', sm: 'auto' },
           py: 5,
           px: 4,
           m: 'auto',
-          bgcolor: 'background.paper',
-          borderRadius: 2,
-          boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
         }}
       >
-        <Stack direction="column" spacing={2}>
+        <Stack direction="column" spacing={2} my="auto">
           <Typography
-            variant="h4"
             color="primary"
             sx={{
               mb: 2,
-              fontSize: 48,
+              fontSize: '2.4rem',
               fontWeight: 600,
               textAlign: 'center',
             }}
@@ -197,7 +197,7 @@ export default function AuthForm(props: IAuthFormProps) {
             </Typography>
           )}
         </Stack>
-      </Box>
+      </Stack>
     </form>
   );
 }

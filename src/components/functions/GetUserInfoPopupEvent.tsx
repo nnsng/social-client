@@ -8,9 +8,7 @@ export function GetUserInfoPopupEvent({ setOpenPopup }: IGetUserInfoPopupEventPr
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | undefined>();
 
   useEffect(() => {
-    return () => {
-      timeoutId && clearTimeout(timeoutId);
-    };
+    return onMouseLeave;
   }, []);
 
   const onMouseEnter = () => {
