@@ -1,45 +1,51 @@
-import { Box, List, ListItem, Pagination, Stack, Theme, Typography } from '@mui/material';
+import {
+  Box,
+  List,
+  ListItem,
+  MenuItem,
+  Pagination,
+  Select,
+  SelectChangeEvent,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { NoPost } from 'components/common';
-import { selectTotalPages } from 'features/blog/blogSlice';
-import { IListParams, IPost } from 'models';
+import { selectPostLoading, selectTotalPages } from 'features/blog/blogSlice';
+import { IListParams, IPost, PostByType } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import PostCard from './PostCard';
 
 export interface IPostListProps {
   postList: IPost[];
-  loading?: boolean;
   page?: number;
-  onPageChange?: (page: number) => void;
+  filter?: Partial<IListParams>;
+  onFilterChange?: (newFilter: IListParams) => void;
+  isHomePage?: boolean;
+
+  // postCardProps
   onSave?: (post: IPost) => void;
   onRemove?: (post: IPost) => void;
-  filter?: Partial<IListParams>;
-  showTitle?: boolean;
-  showPopup?: boolean;
 }
 
 export default function PostList(props: IPostListProps) {
-  const {
-    loading,
-    postList,
-    page,
-    onPageChange,
-    onSave,
-    onRemove,
-    filter,
-    showTitle = true,
-    showPopup = true,
-  } = props;
+  const { postList, page, filter, onFilterChange, isHomePage = true, ...postCardProps } = props;
   const { search, username, hashtag } = filter || {};
   const searchFilter = { search, username, hashtag };
 
   const { t } = useTranslation('postList');
 
   const totalPage = useAppSelector(selectTotalPages);
+  const loading = useAppSelector(selectPostLoading);
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    onPageChange?.(page);
+    onFilterChange?.({ page });
+  };
+
+  const handleByFilterChange = (e: SelectChangeEvent<string>) => {
+    const by = e.target.value as PostByType;
+    onFilterChange?.({ by });
   };
 
   const generateFilterText = () => {
@@ -55,26 +61,54 @@ export default function PostList(props: IPostListProps) {
 
   return (
     <Box sx={{ width: '100%' }}>
-      {showTitle && (
-        <Typography
-          variant="button"
-          sx={{
-            display: 'inline-block',
-            borderColor: 'text.primary',
-            color: 'text.primary',
-            fontWeight: 600,
-            cursor: 'default',
-          }}
-        >
-          {generateFilterText()}
-        </Typography>
+      {isHomePage && (
+        <Stack alignItems="center" justifyContent="space-between">
+          <Typography
+            variant="button"
+            sx={{
+              display: 'inline-block',
+              borderColor: 'text.primary',
+              color: 'text.primary',
+              fontWeight: 600,
+              cursor: 'default',
+            }}
+          >
+            {generateFilterText()}
+          </Typography>
+
+          <Select
+            size="small"
+            variant="standard"
+            value={filter?.by ?? 'all'}
+            sx={{
+              '&::before, &::after': {
+                content: 'unset',
+              },
+
+              '& .MuiSelect-select': {
+                bgcolor: 'transparent !important',
+                fontSize: '0.875rem',
+                fontWeight: 600,
+                py: 0,
+                textTransform: 'uppercase',
+              },
+            }}
+            onChange={handleByFilterChange}
+          >
+            {['all', 'following'].map((by) => (
+              <MenuItem key={by} value={by}>
+                {t(`filter.${by}`)}
+              </MenuItem>
+            ))}
+          </Select>
+        </Stack>
       )}
 
       <List disablePadding>
         {postList.length > 0
           ? postList.map((post) => (
               <ListItem disablePadding key={post._id}>
-                <PostCard post={post} onSave={onSave} onRemove={onRemove} showPopup={showPopup} />
+                <PostCard post={post} showPopup={isHomePage} {...postCardProps} />
               </ListItem>
             ))
           : !loading && <NoPost />}

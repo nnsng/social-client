@@ -6,21 +6,21 @@ import { themeVariables } from 'utils/theme';
 export interface ITopHashtagsProps {
   list: string[];
   active: string | undefined;
-  onClick?: (hashtag: string) => void;
+  onHashtagClick?: (hashtag: string) => void;
 }
 
 export default function TopHashtags(props: ITopHashtagsProps) {
-  const { list, active, onClick } = props;
+  const { list, active, onHashtagClick } = props;
 
   const { t } = useTranslation('topHashtags');
 
   const handleHashtagClick = (hashtag: string) => {
     if (hashtag === active) return clearHashtag();
-    onClick?.(hashtag);
+    onHashtagClick?.(hashtag);
   };
 
   const clearHashtag = () => {
-    onClick?.('');
+    onHashtagClick?.('');
   };
 
   const isOnPC = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));

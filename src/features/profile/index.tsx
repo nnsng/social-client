@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { Header, NotFound, PageTitle } from 'components/common';
 import { blogActions, selectPostList, selectPostLoading } from 'features/blog/blogSlice';
 import PostList from 'features/blog/components/PostList';
-import { IPost, IUser } from 'models';
+import { IListParams, IPost, IUser } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -47,6 +47,10 @@ export default function ProfilePage(props: IProfileProps) {
     dispatch(blogActions.fetchPostList({ page, username }));
   };
 
+  const handlePageChange = ({ page }: IListParams) => {
+    setPage(page ?? 1);
+  };
+
   const handleSavePost = async (post: IPost) => {
     await postApi.save(post._id as string);
   };
@@ -75,12 +79,10 @@ export default function ProfilePage(props: IProfileProps) {
           <PostList
             postList={postList}
             page={page}
-            onPageChange={setPage}
-            loading={loading}
+            onFilterChange={handlePageChange}
             onSave={handleSavePost}
             onRemove={handleRemovePost}
-            showTitle={false}
-            showPopup={false}
+            isHomePage={false}
           />
         </Container>
       </Box>

@@ -4,5 +4,9 @@
     "search": "Search: {{value}}",
     "username": "Username: {{value}}",
     "hashtag": "Hashtag: {{value}}"
+  },
+  "filter": {
+    "all": "All",
+    "following": "Following"
   }
 }

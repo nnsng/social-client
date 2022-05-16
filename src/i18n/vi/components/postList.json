@@ -4,5 +4,9 @@
     "search": "Tìm kiếm: {{value}}",
     "username": "Username: {{value}}",
     "hashtag": "Hashtag: {{value}}"
+  },
+  "filter": {
+    "all": "Tất cả",
+    "following": "Đang theo dõi"
   }
 }

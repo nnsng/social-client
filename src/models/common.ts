@@ -9,6 +9,7 @@ export interface IListResponse<T> {
   pagination: IPaginationParams;
 }
 
+export type PostByType = 'all' | 'following';
 export interface IListParams {
   page?: number;
   limit?: number;
@@ -17,6 +18,7 @@ export interface IListParams {
   search?: string;
   hashtag?: string;
   username?: string;
+  by?: PostByType;
 }
 
 export interface IMenuItem {

@@ -1,4 +1,5 @@
 import { Container, Grid } from '@mui/material';
+import configApi from 'api/configApi';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
@@ -7,10 +8,9 @@ import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
-import { blogActions, selectPostList, selectPostLoading } from '../blogSlice';
+import { blogActions, selectPostList } from '../blogSlice';
 import PostList from '../components/PostList';
 import TopHashtags from '../components/TopHashtags';
-import configApi from 'api/configApi';
 
 export function MainPage() {
   const navigate = useNavigate();
@@ -18,7 +18,6 @@ export function MainPage() {
 
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
-  const loading = useAppSelector(selectPostLoading);
 
   const [filter, setFilter] = useState<IListParams>(() => {
     const params = queryString.parse(location.search);
@@ -28,11 +27,12 @@ export function MainPage() {
 
   useEffect(() => {
     const params = queryString.parse(location.search);
-    setFilter({ page: 1, ...params });
+    setFilter({ ...filter, page: 1, ...params });
   }, [location.search]);
 
   useEffect(() => {
-    navigate(`?${queryString.stringify(filter)}`, { replace: true });
+    const { by, ...rest } = filter;
+    navigate(`?${queryString.stringify(rest)}`, { replace: true });
     dispatch(blogActions.fetchPostList(filter));
   }, [dispatch, filter]);
 
@@ -47,12 +47,8 @@ export function MainPage() {
     })();
   }, []);
 
-  const handleHashtagClick = (hashtag: string) => {
-    setFilter({ ...filter, hashtag, page: 1 });
-  };
-
-  const handlePageChange = (page: number) => {
-    setFilter({ ...filter, page });
+  const handleFilterChange = (newFilter: IListParams) => {
+    setFilter({ ...filter, page: 1, ...newFilter });
   };
 
   const handleSavePost = async (post: IPost) => {
@@ -75,18 +71,21 @@ export function MainPage() {
       >
         <Grid item xs={12} md={10} lg width="100%" mx="auto">
           <PostList
-            loading={loading}
             postList={postList}
+            page={Number(filter.page) || 1}
+            filter={filter}
+            onFilterChange={handleFilterChange}
             onSave={handleSavePost}
             onRemove={handleRemovePost}
-            page={Number(filter.page) || 1}
-            onPageChange={handlePageChange}
-            filter={filter}
           />
         </Grid>
 
         <Grid item xs={12} md={10} lg={4} width="100%" mx="auto">
-          <TopHashtags list={hashtagList} active={filter.hashtag} onClick={handleHashtagClick} />
+          <TopHashtags
+            list={hashtagList}
+            active={filter.hashtag}
+            onHashtagClick={(hashtag) => handleFilterChange({ hashtag })}
+          />
         </Grid>
       </Grid>
     </Container>
