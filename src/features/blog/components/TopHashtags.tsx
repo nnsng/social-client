@@ -6,7 +6,7 @@ import { themeVariables } from 'utils/theme';
 export interface ITopHashtagsProps {
   list: string[];
   active: string | undefined;
-  onHashtagClick?: (hashtag: string) => void;
+  onHashtagClick?: (hashtag: string | undefined) => void;
 }
 
 export default function TopHashtags(props: ITopHashtagsProps) {
@@ -20,7 +20,7 @@ export default function TopHashtags(props: ITopHashtagsProps) {
   };
 
   const clearHashtag = () => {
-    onHashtagClick?.('');
+    onHashtagClick?.(undefined);
   };
 
   const isOnPC = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));

@@ -4,11 +4,6 @@
     "result": "{{count}} bài viết cho {{searchFor}} \"{{searchTerm}}\"",
     "viewMore": "Xem thêm"
   },
-  "notification": {
-    "label": "Thông báo",
-    "markAsRead": "Đánh dấu tất cả là đã đọc",
-    "welcomeText": "Chào mừng {{name}} đến với {{appName}}."
-  },
   "menu": {
     "create": "Viết bài",
     "myPosts": "Bài viết của tôi",

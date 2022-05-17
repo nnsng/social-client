@@ -4,11 +4,6 @@
     "result": "{{count}} posts for {{searchFor}} \"{{searchTerm}}\"",
     "viewMore": "View more"
   },
-  "notification": {
-    "label": "Notifications",
-    "markAsRead": "Mark all as read",
-    "welcomeText": "Welcome {{name}} to {{appName}}."
-  },
   "menu": {
     "create": "Create a new post",
     "myPosts": "My post list",

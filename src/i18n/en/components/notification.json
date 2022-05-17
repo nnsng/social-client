@@ -1,4 +1,9 @@
 {
+  "label": {
+    "title": "Notifications",
+    "markAsRead": "Mark all as read",
+    "empty": "No notifications"
+  },
   "message": {
     "follow": "{{name}} is following you.",
     "like": "{{name}} likes your post.",

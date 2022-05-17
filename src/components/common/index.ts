@@ -1,4 +1,5 @@
 export * from './ActionMenu';
+export * from './AppearanceDialog';
 export * from './ApplyTheme';
 export * from './BackdropLoading';
 export * from './ConfirmDialog';
@@ -13,5 +14,6 @@ export * from './PageTitle';
 export * from './PopperPopup';
 export * from './PrivateRoute';
 export * from './SearchMobile';
+export * from './ThemeSwitch';
 export * from './TimeTooltip';
 export * from './UserInfoPopup';

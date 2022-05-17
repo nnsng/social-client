@@ -52,7 +52,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export default function ThemeSwitch(props: SwitchProps) {
+export function ThemeSwitch(props: SwitchProps) {
   const dispatch = useAppDispatch();
   const themeMode = useAppSelector(selectThemeMode);
 

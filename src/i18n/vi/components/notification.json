@@ -1,4 +1,9 @@
 {
+  "label": {
+    "title": "Thông báo",
+    "markAsRead": "Đánh dấu tất cả là đã đọc",
+    "empty": "Không có thông báo"
+  },
   "message": {
     "follow": "{{name}} đang theo dõi bạn.",
     "like": "{{name}} thích bài viết của bạn.",

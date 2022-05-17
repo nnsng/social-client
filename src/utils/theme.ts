@@ -108,14 +108,6 @@ export const generateTheme = (mode?: PaletteMode, color?: string) =>
           },
         },
       },
-      MuiDivider: {
-        styleOverrides: {
-          root: {
-            marginTop: '6px !important',
-            marginBottom: '6px !important',
-          },
-        },
-      },
       MuiButtonBase: {
         defaultProps: {
           disableRipple: true,

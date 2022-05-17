@@ -5,8 +5,7 @@ import { selectCurrentUser } from 'features/auth/authSlice';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { PopperPopup } from '..';
-import AppearanceDialog from './AppearanceDialog';
+import { AppearanceDialog, PopperPopup } from '..';
 
 export interface IUserMenuProps {
   isOnMobile: boolean;
@@ -69,7 +68,7 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
         </Box>
       </Box>
 
-      <Divider />
+      <Divider sx={{ my: '6px !important' }} />
 
       {userMenu.map(({ label, icon: Icon, onClick }, idx) => (
         <Box key={idx}>
@@ -86,7 +85,7 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
             {label}
           </MenuItem>
 
-          {dividers.includes(idx) && <Divider />}
+          {dividers.includes(idx) && <Divider sx={{ my: '6px !important' }} />}
         </Box>
       ))}
     </Box>
