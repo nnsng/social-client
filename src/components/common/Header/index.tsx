@@ -18,6 +18,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
 import { themeMixins, themeVariables } from 'utils/theme';
 import HeaderIconButton from './HeaderIconButton';
+import Notification from './Notification';
 import SearchBox from './SearchBox';
 import UserMenu from './UserMenu';
 
@@ -97,6 +98,8 @@ export function Header() {
                 {smDown && location.pathname === '/blog' && (
                   <HeaderIconButton icon={<SearchRounded />} onClick={toggleSearchMobile} />
                 )}
+
+                <Notification />
 
                 <UserMenu isOnMobile={smDown} />
               </Stack>

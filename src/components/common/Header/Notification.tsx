@@ -10,20 +10,24 @@ import {
   Typography,
   useMediaQuery,
 } from '@mui/material';
-import { useAppSelector } from 'app/hooks';
-import { selectCurrentUser } from 'features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { notiActions, selectNotiList } from 'features/common/notiSlice';
+import { INotification } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { formatTime } from 'utils/common';
-import { APP_NAME } from 'utils/constants';
 import { themeVariables } from 'utils/theme';
 import { PopperPopup } from '..';
 import HeaderIconButton from './HeaderIconButton';
 
 export default function Notification() {
-  const { t } = useTranslation('header');
+  const navigate = useNavigate();
 
-  const currentUser = useAppSelector(selectCurrentUser);
+  const { t } = useTranslation('notification');
+
+  const dispatch = useAppDispatch();
+  const notiList = useAppSelector(selectNotiList);
 
   const [open, setOpen] = useState<boolean>(false);
   const anchorRef = useRef<HTMLElement | null>(null);
@@ -31,7 +35,25 @@ export default function Notification() {
   const toggleNoti = () => setOpen(!open);
   const closeNoti = () => setOpen(false);
 
-  const showBackdrop = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+  const markAsRead = (notiList: INotification[]) => {
+    dispatch(notiActions.markAsRead(notiList));
+  };
+
+  const handleCommentClick = (noti: INotification) => {
+    const { type, postSlug, user } = noti;
+
+    closeNoti();
+
+    if (type === 'follow') {
+      navigate(`/user/${user.username}`);
+    } else {
+      navigate(`/blog/post/${postSlug}`, { state: { openComment: type === 'comment' } });
+    }
+
+    markAsRead([noti]);
+  };
+
+  const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   return (
     <>
@@ -39,10 +61,11 @@ export default function Notification() {
         ref={anchorRef}
         icon={<NotificationsRounded />}
         active={open}
+        showBadge={notiList.some((noti) => !noti.read)}
         onClick={toggleNoti}
       />
 
-      {showBackdrop && (
+      {smDown && (
         <Backdrop open={open} sx={{ zIndex: (theme) => theme.zIndex.appBar + 1 }}></Backdrop>
       )}
 
@@ -58,11 +81,11 @@ export default function Notification() {
         onClose={closeNoti}
       >
         <Stack alignItems="center" justifyContent="space-between" px={2} py={1}>
-          <Typography variant="h6" fontWeight={600} sx={{ cursor: 'default' }}>
-            {t('notification.label')}
+          <Typography fontSize="1.2rem" fontWeight={600} sx={{ cursor: 'default' }}>
+            {t('label.title')}
           </Typography>
 
-          {/* <Typography
+          <Typography
             variant="body2"
             fontSize={12}
             fontWeight={500}
@@ -72,41 +95,46 @@ export default function Notification() {
                 color: 'primary.main',
               },
             }}
+            onClick={() => markAsRead(notiList)}
           >
-            {t('notification.markAsRead')}
-          </Typography> */}
+            {t('label.markAsRead')}
+          </Typography>
         </Stack>
 
         <Divider sx={{ m: 0 }} />
 
-        <Box p={0.8} mb={-0.8} width="100%">
-          <MenuItem
-            sx={{
-              borderRadius: 1,
-              mb: 0.8,
-            }}
-          >
-            <Avatar src={currentUser?.avatar} sx={{ width: 40, height: 40 }} />
-
-            <Box flexGrow={1} ml={2}>
-              <Typography
-                fontSize={15}
-                variant="body1"
+        <Stack direction="column" spacing={0.8} p={0.8} width="100%">
+          {notiList.length > 0 ? (
+            notiList.map((noti, idx) => (
+              <MenuItem
                 sx={{
-                  color: 'text.primary',
-                  fontWeight: 500,
-                  whiteSpace: 'normal',
+                  borderRadius: 1,
+                  bgcolor: !noti.read ? 'action.hover' : 'transparent',
                 }}
+                onClick={() => handleCommentClick(noti)}
               >
-                {t('notification.welcomeText', { name: currentUser?.name, appName: APP_NAME })}
-              </Typography>
+                <Avatar src={noti.user.avatar} sx={{ width: 40, height: 40 }} />
 
-              <Typography variant="subtitle2" color="text.secondary" fontWeight="400">
-                {formatTime(currentUser?.createdAt)}
-              </Typography>
-            </Box>
-          </MenuItem>
-        </Box>
+                <Box flexGrow={1} ml={2}>
+                  <Typography color="text.primary" fontSize={15} whiteSpace="normal">
+                    <Typography component="span" fontWeight={500}>
+                      {noti.user.name}
+                    </Typography>
+                    {t(`message.${noti.type}`, { name: '' })}
+                  </Typography>
+
+                  <Typography color="text.secondary" fontSize={13} fontWeight="400">
+                    {formatTime(noti.createdAt)}
+                  </Typography>
+                </Box>
+              </MenuItem>
+            ))
+          ) : (
+            <Typography color="text.secondary" fontSize={14} mx="auto">
+              {t('label.empty')}
+            </Typography>
+          )}
+        </Stack>
       </PopperPopup>
     </>
   );

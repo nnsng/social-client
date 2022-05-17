@@ -49,7 +49,7 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
   }, [i18next.language]);
 
   useEffect(() => {
-    reset(defaultValues);
+    if (!submitting) reset(defaultValues);
   }, [defaultValues]);
 
   const removeAvatar = () => {

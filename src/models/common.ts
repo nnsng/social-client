@@ -16,7 +16,7 @@ export interface IListParams {
   sort?: string;
   order?: 'asc' | 'desc';
   search?: string;
-  hashtag?: string;
+  hashtag?: string | undefined;
   username?: string;
   by?: PostByType;
 }
@@ -31,4 +31,18 @@ export interface IMenuItem {
 export interface ILocationState {
   hideHeaderMenu?: boolean;
   openComment?: boolean;
+}
+
+export type NotiType = 'like' | 'comment' | 'follow' | 'report';
+export interface INotification {
+  _id: string;
+  type: NotiType;
+  postSlug: string;
+  user: {
+    name: string;
+    username: string;
+    avatar: string;
+  };
+  read?: boolean;
+  createdAt?: string;
 }

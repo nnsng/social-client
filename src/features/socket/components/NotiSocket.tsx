@@ -1,22 +1,16 @@
 import { useAppDispatch } from 'app/hooks';
-import { IPost, IUser } from 'models';
+import { notiActions } from 'features/common/notiSlice';
+import { INotification } from 'models';
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ISocketProps } from '..';
 
-type NotiType = 'like' | 'comment' | 'follow';
-export interface INotifySocketPayload {
-  type: NotiType;
-  data: IPost | null;
-  user: Partial<IUser>;
-}
-
 export default function NotiSocket({ socket }: ISocketProps) {
   const navigate = useNavigate();
 
-  const { t } = useTranslation('notiSocket');
+  const { t } = useTranslation('notification');
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
@@ -25,9 +19,10 @@ export default function NotiSocket({ socket }: ISocketProps) {
   useEffect(() => {
     if (!socket) return;
 
-    socket.on('notify', (payload: INotifySocketPayload) => {
+    socket.on('notify', (payload: INotification) => {
       const { type, user } = payload;
       const message = t(`message.${type}`, { name: user.name });
+      dispatch(notiActions.add(payload));
       enqueueSnackbar(message, { onClick: () => handleSnackbarClick(payload) });
     });
 
@@ -36,12 +31,12 @@ export default function NotiSocket({ socket }: ISocketProps) {
     };
   }, [socket, dispatch]);
 
-  const handleSnackbarClick = ({ type, data, user }: INotifySocketPayload) => {
+  const handleSnackbarClick = ({ type, postSlug, user }: INotification) => {
     if (type === 'follow') {
       navigate(`/user/${user.username}`);
       return;
     }
-    navigate(`/blog/post/${data?.slug}`, { state: { openComment: type === 'comment' } });
+    navigate(`/blog/post/${postSlug}`, { state: { openComment: type === 'comment' } });
 
     closeSnackbar();
   };

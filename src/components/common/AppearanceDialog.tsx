@@ -21,7 +21,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { supportedThemeColors } from 'utils/theme';
 import { supportedLanguages } from 'utils/translation';
-import ThemeSwitch from './ThemeSwitch';
+import { ThemeSwitch } from '.';
 
 interface IColorRatioProps extends RadioProps {
   iconColor: string;
@@ -43,7 +43,7 @@ function ColorRadio({ iconColor, ...otherProps }: IColorRatioProps) {
   );
 }
 
-export default function AppearanceDialog() {
+export function AppearanceDialog() {
   const { t } = useTranslation('header');
 
   const dispatch = useAppDispatch();

@@ -18,8 +18,11 @@ function HeaderIconButton(props: IHeaderIconButtonProps, ref?: any) {
       invisible={!showBadge}
       sx={{
         '& .MuiBadge-badge': {
-          top: 10,
-          right: 10,
+          top: 6,
+          right: 6,
+          minWidth: 10,
+          height: 10,
+          borderRadius: 40,
         },
       }}
     >
