@@ -60,9 +60,9 @@ export function Header() {
       <Container>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item xs="auto" mr={2}>
-            <Stack alignItems="center" spacing={1} component={Link} to="/blog">
+            <Stack alignItems="center" spacing={0.8} component={Link} to="/blog">
               <Avatar
-                variant="rounded"
+                // variant="rounded"
                 sx={{
                   bgcolor: 'primary.main',
                   fontSize: 28,
@@ -73,11 +73,10 @@ export function Header() {
               </Avatar>
 
               <Typography
-                variant="h6"
                 color="primary"
                 sx={{
+                  fontSize: 26,
                   fontWeight: 600,
-                  letterSpacing: 1,
                 }}
               >
                 {APP_NAME}

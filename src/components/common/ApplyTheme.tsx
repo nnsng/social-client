@@ -1,6 +1,6 @@
 import { Theme, ThemeProvider } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
-import favicons, { blackFavicon } from 'assets/favicons';
+import favicons from 'assets/favicons';
 import { selectLanguage, selectThemeColor, selectThemeMode } from 'features/common/configSlice';
 import i18next from 'i18next';
 import { SnackbarProvider } from 'notistack';
@@ -26,10 +26,9 @@ export function ApplyTheme({ children }: IApplyThemeProps) {
   }, [themeMode, themeColor]);
 
   useEffect(() => {
-    document.documentElement.style.setProperty('--color-primary', themeColor);
-
     const faviconElement = document.getElementById('favicon') as any;
-    faviconElement.href = favicons[themeColor] ?? blackFavicon;
+    faviconElement.href = favicons[themeColor] ?? favicons.rainbow;
+    document.documentElement.style.setProperty('--color-primary', themeColor);
   }, [themeColor]);
 
   useEffect(() => {
