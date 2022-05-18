@@ -13,7 +13,9 @@ import {
   OutlinedInput,
   Paper,
   Stack,
+  Theme,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
@@ -39,7 +41,7 @@ export interface ISearchResult {
 }
 
 export interface ISearchBoxProps {
-  openSearchMobile?: boolean;
+  openSearchMobile: boolean;
   toggleSearchMobile?: () => void;
 }
 
@@ -147,6 +149,8 @@ export default function SearchBox(props: ISearchBoxProps) {
     navigate(url);
   };
 
+  const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+
   return (
     <>
       <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
@@ -211,35 +215,36 @@ export default function SearchBox(props: ISearchBoxProps) {
                 {result.list.length > 0 && <Divider />}
 
                 <List disablePadding>
-                  {result.list.map((data) => (
-                    <ListItem key={data._id} disablePadding>
-                      <ListItemButton disableRipple onClick={() => goto(data.url)}>
-                        <Stack alignItems="center">
-                          <Avatar
-                            src={data.image}
-                            sx={{
-                              width: 32,
-                              height: 32,
-                              mr: 1,
-                              bgcolor: 'action.selected',
-                            }}
-                          >
-                            <Box />
-                          </Avatar>
+                  {searchInput.length > 1 &&
+                    result.list.map((data) => (
+                      <ListItem key={data._id} disablePadding>
+                        <ListItemButton disableRipple onClick={() => goto(data.url)}>
+                          <Stack alignItems="center">
+                            <Avatar
+                              src={data.image}
+                              sx={{
+                                width: 32,
+                                height: 32,
+                                mr: 1,
+                                bgcolor: 'action.selected',
+                              }}
+                            >
+                              <Box />
+                            </Avatar>
 
-                          <Typography
-                            variant="subtitle2"
-                            fontSize={15}
-                            sx={{ ...themeMixins.truncate(2) }}
-                          >
-                            {data.name}
-                          </Typography>
-                        </Stack>
-                      </ListItemButton>
-                    </ListItem>
-                  ))}
+                            <Typography
+                              variant="subtitle2"
+                              fontSize={15}
+                              sx={{ ...themeMixins.truncate(2) }}
+                            >
+                              {data.name}
+                            </Typography>
+                          </Stack>
+                        </ListItemButton>
+                      </ListItem>
+                    ))}
 
-                  {result.isMore && (
+                  {result.isMore && searchInput.length > 1 && (
                     <>
                       <Divider />
 
@@ -271,17 +276,19 @@ export default function SearchBox(props: ISearchBoxProps) {
         </FormControl>
       </Box>
 
-      <SearchMobile
-        open={openSearchMobile}
-        onClose={toggleSearchMobile}
-        loading={loading}
-        searchInput={searchInput}
-        result={result}
-        searchObj={searchObj}
-        onChange={handleSearchChange}
-        onClear={clearSearchInput}
-        onViewMore={handleViewMore}
-      />
+      {smDown && (
+        <SearchMobile
+          open={openSearchMobile}
+          onClose={toggleSearchMobile}
+          loading={loading}
+          searchInput={searchInput}
+          result={result}
+          searchObj={searchObj}
+          onChange={handleSearchChange}
+          onClear={clearSearchInput}
+          onViewMore={handleViewMore}
+        />
+      )}
     </>
   );
 }

@@ -22,12 +22,12 @@ import { themeMixins, themeVariables } from 'utils/theme';
 import { ISearchResult } from './Header/SearchBox';
 
 export interface ISearchMobileProps {
-  loading?: boolean;
-  open?: boolean;
+  loading: boolean;
+  open: boolean;
   onClose?: () => void;
   result: ISearchResult;
-  searchObj?: ISearchObj;
-  searchInput?: string;
+  searchObj: ISearchObj;
+  searchInput: string;
   onChange?: (e: any) => void;
   onClear?: () => void;
   onViewMore?: () => void;
@@ -52,7 +52,7 @@ export function SearchMobile(props: ISearchMobileProps) {
   };
 
   return (
-    <Dialog fullScreen open={!!open}>
+    <Dialog fullScreen open={open}>
       <Box
         sx={{
           position: 'sticky',
@@ -106,16 +106,16 @@ export function SearchMobile(props: ISearchMobileProps) {
         minHeight={`calc(100vh - ${themeVariables.headerHeight}px)`}
       >
         <Stack alignItems="center" p={2}>
-          {loading && <CircularProgress size={20} color="primary" sx={{ flexShrink: 0, mr: 1 }} />}
-
-          <Typography variant="body2" color="textSecondary" sx={{ flexGrow: 1 }}>
-            {!loading &&
-              (searchInput || '').length > 0 &&
-              t('search.result', {
+          {loading || searchInput.length < 2 ? (
+            <CircularProgress size={20} color="primary" sx={{ flexShrink: 0, mr: 1 }} />
+          ) : (
+            <Typography variant="body2" color="textSecondary" sx={{ flexGrow: 1 }}>
+              {t('search.result', {
                 count: result.length,
                 ...searchObj,
               })}
-          </Typography>
+            </Typography>
+          )}
         </Stack>
 
         <List disablePadding>
@@ -149,7 +149,7 @@ export function SearchMobile(props: ISearchMobileProps) {
                 </ListItem>
               ))}
 
-              {result.isMore && (
+              {result.isMore && searchInput.length > 1 && (
                 <Stack>
                   <Typography
                     variant="subtitle2"
