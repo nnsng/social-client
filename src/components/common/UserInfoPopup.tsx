@@ -29,7 +29,7 @@ export function UserInfoPopup(props: IUserInfoPopupProps) {
           <Avatar src={selectedUser.avatar} sx={{ width: 60, height: 60 }} />
 
           <Box ml={2}>
-            <Typography variant="subtitle1" color="text.primary" fontWeight={600} pb={0}>
+            <Typography variant="subtitle1" fontWeight={600} pb={0}>
               {selectedUser.name}
             </Typography>
 

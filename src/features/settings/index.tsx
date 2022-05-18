@@ -18,7 +18,7 @@ export default function Settings() {
       <Box component="main">
         <Container maxWidth="md">
           <Box>
-            <Typography fontSize="1.6rem" fontWeight={600} textTransform="uppercase">
+            <Typography fontSize={24} fontWeight={600} textTransform="uppercase">
               {t('pageTitle')}
             </Typography>
 
@@ -30,7 +30,15 @@ export default function Settings() {
               }}
             >
               <Stack sx={{ flexDirection: { xs: 'column', sm: 'row' } }}>
-                <Box flexShrink={0} mr={{ sm: 6 }} mb={{ xs: 2, sm: 0 }}>
+                <Box
+                  sx={{
+                    flexShrink: 0,
+                    mr: { sm: 6 },
+                    mb: { xs: 2, sm: 0 },
+                    borderRight: { sm: 1 },
+                    borderColor: { sm: 'divider' },
+                  }}
+                >
                   <SettingTabs />
                 </Box>
 

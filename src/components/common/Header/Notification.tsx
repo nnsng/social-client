@@ -83,7 +83,7 @@ export default function Notification() {
         onClose={closeNoti}
       >
         <Stack alignItems="center" justifyContent="space-between" px={2} py={1}>
-          <Typography fontSize="1.2rem" fontWeight={600} sx={{ cursor: 'default' }}>
+          <Typography fontSize={18} fontWeight={600} sx={{ cursor: 'default' }}>
             {t('label.title')}
           </Typography>
 
@@ -118,7 +118,7 @@ export default function Notification() {
                 <Avatar src={noti.user.avatar} sx={{ width: 40, height: 40 }} />
 
                 <Box flexGrow={1} ml={2}>
-                  <Typography color="text.primary" fontSize={15} whiteSpace="normal">
+                  <Typography fontSize={15} whiteSpace="normal">
                     <Typography component="span" fontWeight={500}>
                       {noti.user.name}
                     </Typography>

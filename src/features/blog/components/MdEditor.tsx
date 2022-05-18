@@ -70,11 +70,13 @@ const configStyles = (readOnly: boolean) => ({
     border: 'none',
     bgcolor: 'transparent',
 
-    '& .editor-container .sec-md .input, .editor-container .sec-html .html-wrap': {
-      bgcolor: 'transparent',
-      color: 'text.primary',
-      overflow: readOnly ? 'hidden' : 'auto',
-      p: readOnly ? 0 : 'auto',
+    '& .editor-container': {
+      '& .sec-md .input, & .sec-html .html-wrap': {
+        bgcolor: 'transparent',
+        color: 'text.primary',
+        overflow: readOnly ? 'hidden' : 'auto',
+        p: readOnly ? 0 : 'auto',
+      },
     },
 
     '& .header-list .list-item': {

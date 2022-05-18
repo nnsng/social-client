@@ -1,10 +1,11 @@
-import { SxProps, Tab, Tabs, Theme, useMediaQuery } from '@mui/material';
+import { Tab, Tabs, Theme, useMediaQuery } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
-import { themeVariables } from 'utils/theme';
 
-export default function SettingTabs() {
+export interface ISettingTabsProps {}
+
+export default function SettingTabs(props: ISettingTabsProps) {
   const location = useLocation();
 
   const { t } = useTranslation('settingTabs');
@@ -40,48 +41,29 @@ export default function SettingTabs() {
     },
   ];
 
-  const hideOnMobile = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
-
-  const tabsSx: SxProps = hideOnMobile
-    ? {
-        position: 'relative',
-        '&::after': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          height: '100%',
-          borderRight: 1,
-          borderColor: 'divider',
-        },
-        '& .MuiTabs-flexContainer': {
-          height: `calc(100vh - (82px + ${themeVariables.headerHeight}px))`,
-        },
-      }
-    : {
-        position: 'relative',
-        '&::after': {
-          content: '""',
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          width: '100%',
-          height: '1px',
-          bgcolor: 'divider',
-        },
-      };
+  const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
 
   return (
     <Tabs
       value={activeTab}
-      orientation={hideOnMobile ? 'vertical' : 'horizontal'}
-      variant={hideOnMobile ? 'standard' : 'fullWidth'}
-      sx={tabsSx}
+      orientation={smUp ? 'vertical' : 'horizontal'}
+      variant={smUp ? 'standard' : 'fullWidth'}
+      sx={{
+        position: 'relative',
+        '&::after': {
+          content: '""',
+          position: 'absolute',
+          inset: { xs: 'auto auto 0 0', sm: '0 0 auto auto' },
+          width: { xs: '100%', sm: 'auto' },
+          height: { xs: '1px', sm: 'auto' },
+          bgcolor: { xs: 'divider', sm: 'transparent' },
+        },
+      }}
     >
       {tabItemList.map(({ label, mobileLabel, linkTo }, idx) => (
         <Tab
           key={idx}
-          label={hideOnMobile ? label : mobileLabel}
+          label={smUp ? label : mobileLabel}
           component={Link}
           to={linkTo}
           replace={true}
@@ -89,12 +71,8 @@ export default function SettingTabs() {
             fontSize: 18,
             fontWeight: 500,
             textTransform: 'none',
-            ...(hideOnMobile
-              ? {
-                  alignItems: 'flex-start',
-                  pr: 4,
-                }
-              : {}),
+            alignItems: { sm: 'flex-start' },
+            pr: { sm: 4 },
           }}
         />
       ))}

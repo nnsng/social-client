@@ -11,8 +11,12 @@
   },
   "googleLogin": "Tiếp tục với Google",
   "text": {
-    "hadAccount": "Đã có tài khoản?",
-    "noAccount": "Chưa có tài khoản?"
+    "login": "Chưa có tài khoản?",
+    "register": "Đã có tài khoản?"
+  },
+  "switch": {
+    "login": "Đăng ký",
+    "register": "Đăng nhập"
   },
   "forgotPassword": "Quên mật khẩu?"
 }

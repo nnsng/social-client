@@ -129,10 +129,10 @@ export default function AuthForm(props: IAuthFormProps) {
         <Stack direction="column" spacing={2} my="auto">
           <Typography
             color="primary"
+            fontSize={32}
+            fontWeight={600}
             sx={{
               mb: 2,
-              fontSize: '2.4rem',
-              fontWeight: 600,
               textAlign: 'center',
             }}
           >
@@ -169,28 +169,30 @@ export default function AuthForm(props: IAuthFormProps) {
           )}
 
           <Box textAlign="center">
-            <Typography variant="subtitle2" component="span" sx={{ cursor: 'default' }}>
-              {isRegisterMode ? t('text.hadAccount') : t('text.noAccount')}&nbsp;
+            <Typography component="span" variant="subtitle2" sx={{ cursor: 'default' }}>
+              {t(`text.${defaultValues.mode}`)}{' '}
             </Typography>
 
             <Typography
-              variant="subtitle2"
               component="span"
+              variant="subtitle2"
               color="primary"
               sx={{ cursor: 'pointer' }}
               onClick={handleSwitchMode}
             >
-              {isRegisterMode ? t('title.login') : t('title.register')}
+              {t(`switch.${defaultValues.mode}`)}
             </Typography>
           </Box>
 
           {!isRegisterMode && (
             <Typography
-              variant="subtitle2"
               component="span"
+              variant="subtitle2"
               color="primary"
-              textAlign="center"
-              sx={{ cursor: 'pointer' }}
+              sx={{
+                textAlign: 'center',
+                cursor: 'pointer',
+              }}
               onClick={handleForgotPassword}
             >
               {t('forgotPassword')}

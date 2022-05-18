@@ -62,7 +62,6 @@ export function Header() {
           <Grid item xs="auto" mr={2}>
             <Stack alignItems="center" spacing={0.8} component={Link} to="/blog">
               <Avatar
-                // variant="rounded"
                 sx={{
                   bgcolor: 'primary.main',
                   fontSize: 28,
@@ -72,13 +71,7 @@ export function Header() {
                 {APP_NAME[0]}
               </Avatar>
 
-              <Typography
-                color="primary"
-                sx={{
-                  fontSize: 26,
-                  fontWeight: 600,
-                }}
-              >
+              <Typography color="primary" fontSize={26} fontWeight={600}>
                 {APP_NAME}
               </Typography>
             </Stack>

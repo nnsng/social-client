@@ -20,7 +20,7 @@ export function MuiTextField(props: IMuiTextFieldProps) {
   return (
     <Stack direction="column">
       {title && (
-        <Typography variant="h6" sx={{ mb: 0.5, fontSize: 18, fontWeight: 500 }}>
+        <Typography fontSize={16} fontWeight={500} sx={{ mb: 0.5 }}>
           {title}
         </Typography>
       )}

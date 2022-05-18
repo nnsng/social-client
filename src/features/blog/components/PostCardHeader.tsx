@@ -43,7 +43,7 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
     callback?.();
   };
 
-  const { onMouseEnter, onMouseLeave } = GetUserInfoPopupEvent({ setOpenPopup });
+  const mouseEvents = GetUserInfoPopupEvent({ setOpenPopup });
 
   const isAuthorized = currentUser?._id === post.authorId || currentUser?.role === 'admin';
   const postMenu = GetPostMenu({
@@ -61,10 +61,9 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
           <Avatar
             ref={userInfoRef}
             src={post.author?.avatar}
-            onClick={handleAuthorClick}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
             sx={{ cursor: 'pointer' }}
+            onClick={handleAuthorClick}
+            {...mouseEvents}
           />
         }
         action={
@@ -127,13 +126,12 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
             variant="subtitle2"
             color="text.primary"
             fontWeight={600}
-            onClick={handleAuthorClick}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
             sx={{
               display: 'inline-block',
               cursor: 'pointer',
             }}
+            onClick={handleAuthorClick}
+            {...mouseEvents}
           >
             {post.author?.name}
           </Typography>
@@ -143,9 +141,8 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
             <Typography
               variant="subtitle2"
               color="text.secondary"
+              fontSize={12}
               sx={{
-                fontSize: '0.8rem',
-                fontWeight: 400,
                 display: 'inline-block',
               }}
             >
@@ -157,6 +154,9 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
           display: 'flex',
           alignItems: 'center',
           p: 0,
+          '& .MuiCardHeader-subheader': {
+            mt: -0.5,
+          },
           '& .MuiCardHeader-action': {
             m: 0,
           },

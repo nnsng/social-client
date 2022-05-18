@@ -90,12 +90,10 @@ export default function PostCard(props: IPostCardProps) {
           >
             <Box flexGrow={1}>
               <Typography
-                variant="h6"
                 color="text.primary"
-                sx={{
-                  ...themeMixins.truncate(2),
-                  fontWeight: 600,
-                }}
+                fontSize={20}
+                fontWeight={600}
+                sx={{ ...themeMixins.truncate(2) }}
                 component={Link}
                 to={`/blog/post/${post.slug}`}
               >
@@ -103,8 +101,8 @@ export default function PostCard(props: IPostCardProps) {
               </Typography>
 
               <Typography
-                variant="body1"
                 component="div"
+                variant="body1"
                 color="text.secondary"
                 sx={{
                   ...themeMixins.truncate(2),

@@ -105,11 +105,11 @@ export function SearchMobile(props: ISearchMobileProps) {
         bgcolor="background.default"
         minHeight={`calc(100vh - ${themeVariables.headerHeight}px)`}
       >
-        <Stack alignItems="center" p={2}>
+        <Stack alignItems="center" px={2} py={1}>
           {loading || searchInput.length < 2 ? (
             <CircularProgress size={20} color="primary" sx={{ flexShrink: 0, mr: 1 }} />
           ) : (
-            <Typography variant="body2" color="textSecondary" sx={{ flexGrow: 1 }}>
+            <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
               {t('search.result', {
                 count: result.length,
                 ...searchObj,
@@ -137,11 +137,7 @@ export function SearchMobile(props: ISearchMobileProps) {
                         <Box />
                       </Avatar>
 
-                      <Typography
-                        variant="subtitle2"
-                        fontSize={15}
-                        sx={{ ...themeMixins.truncate(2) }}
-                      >
+                      <Typography fontSize={15} sx={{ ...themeMixins.truncate(2) }}>
                         {data.name}
                       </Typography>
                     </Box>
@@ -153,12 +149,12 @@ export function SearchMobile(props: ISearchMobileProps) {
                 <Stack>
                   <Typography
                     variant="subtitle2"
-                    color="primary"
+                    color="text.secondary"
                     sx={{
                       display: 'inline-block',
                       textAlign: 'center',
                       mx: 'auto',
-                      py: 0.8,
+                      py: 1,
                       cursor: 'pointer',
                     }}
                     onClick={handleViewMore}

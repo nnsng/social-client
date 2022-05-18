@@ -47,7 +47,7 @@ export function NewPassword({ token, mode }: INewPasswordProps) {
 
       <Container maxWidth="md">
         <Box mt={3}>
-          <Typography variant="h4" fontWeight={500} mb={2}>
+          <Typography fontSize={24} fontWeight={500} mb={2}>
             {t(`pageTitle.${mode}`)}
           </Typography>
 

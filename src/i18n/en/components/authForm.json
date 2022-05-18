@@ -11,8 +11,12 @@
   },
   "googleLogin": "Continue with Google",
   "text": {
-    "hadAccount": "Already have an account?",
-    "noAccount": "Don't have an account yet?"
+    "login": "Don't have an account yet?",
+    "register": "Already have an account?"
+  },
+  "switch": {
+    "login": "Register",
+    "register": "Login"
   },
   "forgotPassword": "Forgot password?"
 }

@@ -43,7 +43,7 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
 
   const schema = yup.object().shape({
     title: yup.string().required(validate.title.required),
-    content: yup.string().required(validate.content.required).min(5, validate.content.min(50)),
+    content: yup.string().required(validate.content.required).min(50, validate.content.min(50)),
     thumbnail: yup.string(),
     hashtags: yup.array().of(
       yup

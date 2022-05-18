@@ -42,7 +42,7 @@ export function MySavedPage(props: IMySavedPageProps) {
       <PageTitle title={t('pageTitle')} />
 
       <Box>
-        <Typography fontSize="1.6rem" fontWeight={600} textTransform="uppercase">
+        <Typography fontSize={24} fontWeight={600} textTransform="uppercase">
           {t('pageTitle')}
         </Typography>
 

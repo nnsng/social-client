@@ -81,7 +81,7 @@ export default function CommentItem(props: ICommentItemProps) {
     callback?.();
   };
 
-  const { onMouseEnter, onMouseLeave } = GetUserInfoPopupEvent({ setOpenPopup });
+  const mouseEvents = GetUserInfoPopupEvent({ setOpenPopup });
 
   const isAuthorized = currentUser?._id === comment.userId || currentUser?.role === 'admin';
   const menuItemList: IMenuItem[] = [
@@ -107,10 +107,9 @@ export default function CommentItem(props: ICommentItemProps) {
             <Avatar
               ref={userInfoRef}
               src={comment.user?.avatar}
-              onClick={handleUserClick}
-              onMouseEnter={onMouseEnter}
-              onMouseLeave={onMouseLeave}
               sx={{ width: 36, height: 36, cursor: 'pointer' }}
+              onClick={handleUserClick}
+              {...mouseEvents}
             />
           </Grid>
 
@@ -158,10 +157,9 @@ export default function CommentItem(props: ICommentItemProps) {
                   variant="subtitle2"
                   color="text.primary"
                   fontWeight={600}
-                  onClick={handleUserClick}
-                  onMouseEnter={onMouseEnter}
-                  onMouseLeave={onMouseLeave}
                   sx={{ cursor: 'pointer' }}
+                  onClick={handleUserClick}
+                  {...mouseEvents}
                 >
                   {comment.user?.name}
                 </Typography>
