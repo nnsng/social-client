@@ -4,6 +4,7 @@ import {
   Box,
   CircularProgress,
   ClickAwayListener,
+  Divider,
   FormControl,
   Grow,
   List,
@@ -15,18 +16,24 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { blogActions, selectSearchLoading, selectSearchResultList } from 'features/blog/blogSlice';
-import { IPost, ISearchObj } from 'models';
+import {
+  blogActions,
+  ISearchResultItem,
+  selectFormattedSearchResult,
+  selectSearchLoading,
+} from 'features/blog/blogSlice';
+import { ISearchObj } from 'models';
 import queryString from 'query-string';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { slugifyString } from 'utils/common';
 import { themeMixins } from 'utils/theme';
+import { showComingSoonToast } from 'utils/toast';
 import { SearchMobile } from '../SearchMobile';
 
 export interface ISearchResult {
-  list: IPost[];
+  list: ISearchResultItem[];
   length: number;
   isMore: boolean;
 }
@@ -46,82 +53,98 @@ export default function SearchBox(props: ISearchBoxProps) {
 
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectSearchLoading);
-  const searchResultList = useAppSelector(selectSearchResultList);
+  const searchResult = useAppSelector(selectFormattedSearchResult);
 
   const [searchInput, setSearchInput] = useState<string>('');
   const [result, setResult] = useState<ISearchResult>({ list: [], length: 0, isMore: false });
   const [showSearchResult, setShowSearchResult] = useState<boolean>(false);
+  const [searchObj, setSearchObj] = useState<ISearchObj>({
+    searchFor: 'search',
+    searchTerm: searchInput,
+  });
 
   const inputRef = useRef(null);
 
   useEffect(() => {
-    setShowSearchResult(searchInput.length > 0 && inputRef?.current === document.activeElement);
-  }, [searchInput]);
-
-  useEffect(() => {
-    const { search, username, hashtag } = queryString.parse(location.search);
     clearSearchInput();
+
+    const { search, username, hashtag } = queryString.parse(location.search);
     if (search) setSearchInput(search as string);
     if (username) setSearchInput(`@${username}`);
     if (hashtag) setSearchInput(`#${hashtag}`);
   }, [location.search]);
 
   useEffect(() => {
-    const MAX_ITEMS = 5;
+    setShowSearchResult(searchInput.length > 0 && inputRef?.current === document.activeElement);
 
-    setResult({
-      list: searchResultList.slice(0, MAX_ITEMS),
-      length: searchResultList.length,
-      isMore: searchResultList.length > MAX_ITEMS,
-    });
-  }, [searchResultList]);
+    let searchFor = searchObj.searchFor;
+    let searchTerm = searchInput.trim();
 
-  const closeSearchResult = () => setShowSearchResult(false);
-  const clearSearchInput = () => setSearchInput('');
-
-  const splitSearchInput = (searchInput: string) => {
-    const searchObj: ISearchObj = {
-      searchFor: 'search', // default = search
-      searchTerm: searchInput,
-    };
-
-    if (searchInput[0] === '@') {
-      searchObj.searchFor = 'username';
-      searchObj.searchTerm = searchInput.slice(1);
-    }
-    if (searchInput[0] === '#') {
-      searchObj.searchFor = 'hashtag';
-      searchObj.searchTerm = searchInput.slice(1);
+    switch (searchInput[0]) {
+      case '#': {
+        searchFor = 'hashtag';
+        searchTerm = searchInput.slice(1);
+        break;
+      }
+      case '@': {
+        searchFor = 'username';
+        searchTerm = searchInput.slice(1);
+        break;
+      }
+      default: {
+        searchFor = 'search';
+        searchTerm = searchInput;
+      }
     }
 
-    return searchObj;
-  };
+    setSearchObj({ searchFor, searchTerm });
+  }, [searchInput]);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    const { searchFor, searchTerm } = splitSearchInput(value);
-    setSearchInput(value);
+  useEffect(() => {
+    const { searchFor, searchTerm } = searchObj;
     dispatch(
       blogActions.searchWithDebounce({
         searchFor,
         searchTerm: slugifyString(searchTerm),
       })
     );
+  }, [searchObj]);
+
+  useEffect(() => {
+    const MAX_ITEMS = 5;
+
+    setResult({
+      list: searchResult.slice(0, MAX_ITEMS),
+      length: searchResult.length,
+      isMore: searchResult.length > MAX_ITEMS,
+    });
+  }, [searchResult]);
+
+  const closeSearchResult = () => setShowSearchResult(false);
+  const clearSearchInput = () => setSearchInput('');
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value);
   };
 
   const handleViewMore = () => {
-    const { searchFor, searchTerm } = splitSearchInput(searchInput);
+    if (searchObj.searchFor === 'username') {
+      showComingSoonToast();
+      return;
+    }
+
     closeSearchResult();
-    navigate(`/blog?${searchFor}=${searchTerm}`);
+    const { searchFor, searchTerm } = searchObj;
+    navigate(`/blog?${searchFor}=${searchTerm}`, { replace: true });
   };
 
   const handleInputKeyUp = (e: any) => {
     if (e.key === 'Enter') handleViewMore();
   };
 
-  const gotoPost = (post: IPost) => {
-    navigate(`/blog/post/${post.slug}`);
+  const goto = (url: string) => {
     clearSearchInput();
+    navigate(url);
   };
 
   return (
@@ -169,34 +192,31 @@ export default function SearchBox(props: ISearchBoxProps) {
                   inset: '100% 0 auto',
                   maxHeight: 450,
                   mt: 1,
-                  borderRadius: 0,
                   overflow: 'auto',
                 }}
               >
-                <Box display="flex" alignItems="center" p={2}>
+                <Stack alignItems="center" px={2} py={1}>
                   {loading || searchInput.length < 2 ? (
-                    <CircularProgress size={20} color="primary" sx={{ flexShrink: 0, mr: 1 }} />
+                    <CircularProgress size={20} color="primary" />
                   ) : (
-                    <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
+                    <Typography variant="body2" color="text.secondary">
                       {t('search.result', {
                         count: result.length,
-                        searchFor:
-                          splitSearchInput(searchInput).searchFor !== 'search'
-                            ? splitSearchInput(searchInput).searchFor
-                            : '',
-                        searchTerm: splitSearchInput(searchInput).searchTerm,
+                        ...searchObj,
                       })}
                     </Typography>
                   )}
-                </Box>
+                </Stack>
+
+                {result.list.length > 0 && <Divider />}
 
                 <List disablePadding>
-                  {result.list.map((post) => (
-                    <ListItem key={post._id} disablePadding>
-                      <ListItemButton disableRipple onClick={() => gotoPost(post)}>
+                  {result.list.map((data) => (
+                    <ListItem key={data._id} disablePadding>
+                      <ListItemButton disableRipple onClick={() => goto(data.url)}>
                         <Stack alignItems="center">
                           <Avatar
-                            src={post.thumbnail}
+                            src={data.image}
                             sx={{
                               width: 32,
                               height: 32,
@@ -212,7 +232,7 @@ export default function SearchBox(props: ISearchBoxProps) {
                             fontSize={15}
                             sx={{ ...themeMixins.truncate(2) }}
                           >
-                            {post.title}
+                            {data.name}
                           </Typography>
                         </Stack>
                       </ListItemButton>
@@ -220,25 +240,29 @@ export default function SearchBox(props: ISearchBoxProps) {
                   ))}
 
                   {result.isMore && (
-                    <Stack>
-                      <Typography
-                        variant="subtitle2"
-                        color="text.secondary"
-                        sx={{
-                          display: 'inline-block',
-                          textAlign: 'center',
-                          mx: 'auto',
-                          py: 0.8,
-                          cursor: 'pointer',
-                          '&:hover': {
-                            color: 'primary.main',
-                          },
-                        }}
-                        onClick={handleViewMore}
-                      >
-                        {t('search.viewMore')}
-                      </Typography>
-                    </Stack>
+                    <>
+                      <Divider />
+
+                      <Stack>
+                        <Typography
+                          variant="subtitle2"
+                          color="text.secondary"
+                          sx={{
+                            display: 'inline-block',
+                            textAlign: 'center',
+                            mx: 'auto',
+                            py: 0.8,
+                            cursor: 'pointer',
+                            '&:hover': {
+                              color: 'text.primary',
+                            },
+                          }}
+                          onClick={handleViewMore}
+                        >
+                          {t('search.viewMore')}
+                        </Typography>
+                      </Stack>
+                    </>
                   )}
                 </List>
               </Paper>
@@ -253,7 +277,7 @@ export default function SearchBox(props: ISearchBoxProps) {
         loading={loading}
         searchInput={searchInput}
         result={result}
-        searchObj={splitSearchInput(searchInput)}
+        searchObj={searchObj}
         onChange={handleSearchChange}
         onClear={clearSearchInput}
         onViewMore={handleViewMore}

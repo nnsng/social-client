@@ -27,7 +27,17 @@ export function MainPage() {
 
   useEffect(() => {
     const params = queryString.parse(location.search);
-    setFilter({ ...filter, page: 1, ...params });
+    const clearSearchFilter: IListParams = {
+      search: undefined,
+      hashtag: undefined,
+    };
+    setFilter({
+      ...filter,
+      page: 1,
+      ...clearSearchFilter,
+      ...params,
+      username: undefined,
+    });
   }, [location.search]);
 
   useEffect(() => {
@@ -84,7 +94,7 @@ export function MainPage() {
           <TopHashtags
             list={hashtagList}
             active={filter.hashtag}
-            onHashtagClick={(hashtag) => handleFilterChange({ hashtag })}
+            onHashtagClick={(hashtag) => handleFilterChange({ hashtag, search: undefined })}
           />
         </Grid>
       </Grid>

@@ -53,6 +53,8 @@ export default function Notification() {
     markAsRead([noti]);
   };
 
+  const hasUnreadNoti = () => notiList.some((noti) => !noti.read);
+
   const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   return (
@@ -61,7 +63,7 @@ export default function Notification() {
         ref={anchorRef}
         icon={<NotificationsRounded />}
         active={open}
-        showBadge={notiList.some((noti) => !noti.read)}
+        showBadge={hasUnreadNoti()}
         onClick={toggleNoti}
       />
 
@@ -86,13 +88,13 @@ export default function Notification() {
           </Typography>
 
           <Typography
-            variant="body2"
             fontSize={12}
             fontWeight={500}
             sx={{
+              color: 'text.secondary',
               cursor: 'pointer',
               '&:hover': {
-                color: 'primary.main',
+                color: 'text.primary',
               },
             }}
             onClick={() => markAsRead(notiList)}
