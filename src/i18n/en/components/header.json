@@ -1,7 +1,7 @@
 {
   "search": {
     "placeholder": "Search",
-    "result": "{{count}} posts for {{searchFor}} \"{{searchTerm}}\"",
+    "result": "{{count}} result with {{searchFor}} \"{{searchTerm}}\"",
     "viewMore": "View more"
   },
   "menu": {

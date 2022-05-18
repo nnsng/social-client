@@ -15,7 +15,7 @@ export interface IListParams {
   limit?: number;
   sort?: string;
   order?: 'asc' | 'desc';
-  search?: string;
+  search?: string | undefined;
   hashtag?: string | undefined;
   username?: string;
   by?: PostByType;
@@ -46,3 +46,5 @@ export interface INotification {
   read?: boolean;
   createdAt?: string;
 }
+
+export type SearchForType = 'search' | 'hashtag' | 'username';

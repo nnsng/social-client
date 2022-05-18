@@ -1,7 +1,8 @@
 import { call, debounce, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import postApi from 'api/postApi';
-import { IListParams, IListResponse, IPost, ISearchObj } from 'models';
+import userApi from 'api/userApi';
+import { IListParams, IListResponse, IPost, ISearchObj, IUser } from 'models';
 import { blogActions } from './blogSlice';
 
 function* fetchPostList(action: PayloadAction<IListParams>) {
@@ -59,12 +60,18 @@ function* handleSearchWithDebounce(action: PayloadAction<ISearchObj>) {
   const searchObj = action.payload;
 
   try {
-    if (searchObj.searchTerm.length > 2) {
-      const response: IPost[] = yield call(postApi.search, searchObj);
-      yield put(blogActions.searchWithDebounceSuccess(response));
-    } else {
+    if (searchObj.searchTerm.length === 0) {
       yield put(blogActions.searchWithDebounceSuccess([]));
+      return;
     }
+
+    let response: IPost[] | Partial<IUser>[] = [];
+    if (searchObj.searchFor === 'username') {
+      response = yield call(userApi.search, searchObj.searchTerm);
+    } else {
+      response = yield call(postApi.search, searchObj);
+    }
+    yield put(blogActions.searchWithDebounceSuccess(response));
   } catch (error) {
     console.log('Failed to fetch post list with search debounce:', error);
     yield put(blogActions.searchWithDebounceFailure());

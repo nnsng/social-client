@@ -1,6 +1,13 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { IListParams, IListResponse, IPaginationParams, IPost, ISearchObj } from 'models';
+import { IListParams, IListResponse, IPaginationParams, IPost, ISearchObj, IUser } from 'models';
+
+export interface ISearchResultItem {
+  _id: string;
+  name: string;
+  image: string;
+  url: string;
+}
 
 export interface IBlogState {
   loading: boolean;
@@ -9,7 +16,7 @@ export interface IBlogState {
   pagination: IPaginationParams | null;
   detail: IPost | null;
 
-  searchResultList: IPost[];
+  searchResult: IPost[] | Partial<IUser>[];
   searchLoading: boolean;
 }
 
@@ -20,7 +27,7 @@ const initialState: IBlogState = {
   pagination: null,
   detail: null,
 
-  searchResultList: [],
+  searchResult: [],
   searchLoading: false,
 };
 
@@ -77,11 +84,11 @@ const blogSlice = createSlice({
 
     searchWithDebounce(state, action: PayloadAction<ISearchObj>) {
       state.searchLoading = true;
-      state.searchResultList = [];
+      state.searchResult = [];
     },
-    searchWithDebounceSuccess(state, action: PayloadAction<IPost[]>) {
+    searchWithDebounceSuccess(state, action: PayloadAction<IPost[] | Partial<IUser>[]>) {
       state.searchLoading = false;
-      state.searchResultList = action.payload;
+      state.searchResult = action.payload;
     },
     searchWithDebounceFailure(state) {
       state.searchLoading = false;
@@ -97,12 +104,23 @@ export const selectSavedList = (state: RootState) => state.blog.saved;
 export const selectPostDetail = (state: RootState) => state.blog.detail;
 export const selectPostPagination = (state: RootState) => state.blog.pagination;
 
-export const selectSearchResultList = (state: RootState) => state.blog.searchResultList;
+export const selectSearchResult = (state: RootState) => state.blog.searchResult;
 export const selectSearchLoading = (state: RootState) => state.blog.searchLoading;
 
 export const selectTotalPages = createSelector(selectPostPagination, (pagination) =>
   pagination ? Math.ceil(pagination?.totalRows / pagination?.limit) : 1
 );
+
+export const selectFormattedSearchResult = createSelector(selectSearchResult, (searchResult) => {
+  return searchResult.map(
+    (data: any): ISearchResultItem => ({
+      _id: data._id,
+      name: data.title ? data.title : data.name,
+      image: data.thumbnail ? data.thumbnail : data.avatar,
+      url: data.slug ? `blog/post/${data.slug}` : `/user/${data.username}`,
+    })
+  );
+});
 
 const blogReducer = blogSlice.reducer;
 export default blogReducer;

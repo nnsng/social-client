@@ -14,7 +14,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import { IPost, ISearchObj } from 'models';
+import { ISearchObj } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -46,8 +46,8 @@ export function SearchMobile(props: ISearchMobileProps) {
     onClose?.();
   };
 
-  const gotoPost = (post: IPost) => {
-    navigate(`/blog/post/${post.slug}`);
+  const goto = (url: string) => {
+    navigate(url);
     onClose?.();
   };
 
@@ -113,8 +113,7 @@ export function SearchMobile(props: ISearchMobileProps) {
               (searchInput || '').length > 0 &&
               t('search.result', {
                 count: result.length,
-                searchFor: searchObj?.searchFor,
-                searchTerm: searchObj?.searchTerm,
+                ...searchObj,
               })}
           </Typography>
         </Stack>
@@ -122,12 +121,12 @@ export function SearchMobile(props: ISearchMobileProps) {
         <List disablePadding>
           {(searchInput || '').length > 1 && (
             <>
-              {result.list.map((post) => (
-                <ListItem key={post._id} disablePadding>
-                  <ListItemButton disableRipple onClick={() => gotoPost(post)}>
+              {result.list.map((data) => (
+                <ListItem key={data._id} disablePadding>
+                  <ListItemButton disableRipple onClick={() => goto(data.url)}>
                     <Box display="flex" alignItems="center">
                       <Avatar
-                        src={post.thumbnail}
+                        src={data.image}
                         sx={{
                           width: 32,
                           height: 32,
@@ -143,7 +142,7 @@ export function SearchMobile(props: ISearchMobileProps) {
                         fontSize={15}
                         sx={{ ...themeMixins.truncate(2) }}
                       >
-                        {post.title}
+                        {data.name}
                       </Typography>
                     </Box>
                   </ListItemButton>

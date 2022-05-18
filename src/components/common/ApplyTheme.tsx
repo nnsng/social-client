@@ -40,7 +40,7 @@ export function ApplyTheme({ children }: IApplyThemeProps) {
     <ThemeProvider theme={theme}>
       <SnackbarProvider
         maxSnack={3}
-        autoHideDuration={2000}
+        autoHideDuration={3000}
         preventDuplicate
         style={{
           color: theme.palette.common.white,
