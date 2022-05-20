@@ -1,18 +1,22 @@
-import { DeleteRounded, FavoriteRounded, FlagRounded, MoreHorizRounded } from '@mui/icons-material';
+import { EditRounded, FavoriteRounded, MoreHorizRounded } from '@mui/icons-material';
 import {
   Avatar,
   Badge,
   Box,
+  Button,
+  CircularProgress,
   Grid,
   IconButton,
   ListItem,
   MenuItem,
   Stack,
+  TextField,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { ActionMenu, ConfirmDialog, TimeTooltip, UserInfoPopup } from 'components/common';
-import { GetUserInfoPopupEvent } from 'components/functions';
+import { GetCommentItemMenu, GetUserInfoPopupEvent } from 'components/functions';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { IComment, IMenuItem, IUser } from 'models';
 import React, { useRef, useState } from 'react';
@@ -20,17 +24,18 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { formatTime } from 'utils/common';
-import { getErrorMessage, showComingSoonToast } from 'utils/toast';
+import { getErrorMessage } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
 
 export interface ICommentItemProps {
   comment: IComment;
+  onEdit?: (comment: IComment) => void;
   onRemove?: (comment: IComment) => void;
   onLike?: (comment: IComment) => void;
 }
 
 export default function CommentItem(props: ICommentItemProps) {
-  const { comment, onRemove, onLike } = props;
+  const { comment, onEdit, onRemove, onLike } = props;
 
   const navigate = useNavigate();
 
@@ -43,6 +48,8 @@ export default function CommentItem(props: ICommentItemProps) {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [openPopup, setOpenPopup] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [content, setContent] = useState<string>(comment.content);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const anchorRef = useRef<any>(null);
   const userInfoRef = useRef<any>(null);
@@ -53,6 +60,33 @@ export default function CommentItem(props: ICommentItemProps) {
 
   const handleUserClick = () => {
     navigate(`/user/${comment.user?.username}`);
+  };
+
+  const handleChange = (e: any) => {
+    setContent(e.target.value);
+  };
+
+  const cancelEdit = () => {
+    setIsEdit(false);
+    setContent(comment.content);
+  };
+
+  const handleEdit = async () => {
+    setLoading(true);
+
+    try {
+      const editedComment: IComment = {
+        ...comment,
+        content: content.trim(),
+      };
+
+      await onEdit?.(editedComment);
+      setIsEdit(false);
+    } catch (error) {
+      toast.error(getErrorMessage(error));
+    }
+
+    setLoading(false);
   };
 
   const handleRemoveComment = async () => {
@@ -83,26 +117,18 @@ export default function CommentItem(props: ICommentItemProps) {
 
   const mouseEvents = GetUserInfoPopupEvent({ setOpenPopup });
 
-  const isAllowed = currentUser?._id === comment.userId || currentUser?.role === 'admin';
-  const menuItemList: IMenuItem[] = [
-    {
-      label: t('menu.delete'),
-      icon: DeleteRounded,
-      onClick: confirmRemoveComment,
-      show: isAllowed,
-    },
-    {
-      label: t('menu.report'),
-      icon: FlagRounded,
-      onClick: showComingSoonToast,
-      show: true,
-    },
-  ];
+  const menuItemList: IMenuItem[] = GetCommentItemMenu({
+    comment,
+    currentUser,
+    onEdit: () => setIsEdit(true),
+    onRemove: confirmRemoveComment,
+    t,
+  });
 
   return (
     <>
-      <ListItem disableGutters sx={{ mb: 2.5 }}>
-        <Grid container spacing={2}>
+      <ListItem disableGutters>
+        <Grid container spacing={2} sx={{ flexWrap: 'nowrap' }}>
           <Grid item xs="auto">
             <Avatar
               ref={userInfoRef}
@@ -122,6 +148,7 @@ export default function CommentItem(props: ICommentItemProps) {
               }}
               invisible={!comment.likes?.length}
               sx={{
+                width: isEdit ? '100%' : 'unset',
                 '& .MuiBadge-badge': {
                   bottom: 2,
                   right: 6,
@@ -146,27 +173,69 @@ export default function CommentItem(props: ICommentItemProps) {
               <Box
                 sx={{
                   position: 'relative',
-                  width: 'fit-content',
+                  width: isEdit ? '100%' : 'fit-content',
                   py: 1,
                   px: 2,
-                  bgcolor: 'action.hover',
+                  bgcolor: 'action.selected',
                   borderRadius: 4,
                 }}
               >
-                <Typography
-                  variant="subtitle2"
-                  color="text.primary"
-                  fontWeight={600}
-                  sx={{ cursor: 'pointer' }}
-                  onClick={handleUserClick}
-                  {...mouseEvents}
-                >
-                  {comment.user?.name}
-                </Typography>
+                <Stack alignItems="center">
+                  <Typography
+                    variant="subtitle2"
+                    color="text.primary"
+                    fontWeight={600}
+                    sx={{ cursor: 'pointer' }}
+                    onClick={handleUserClick}
+                    {...mouseEvents}
+                  >
+                    {comment.user?.name}
+                  </Typography>
 
-                <Typography variant="body1" color="text.primary">
-                  {comment.content}
-                </Typography>
+                  {comment.edited && (
+                    <Tooltip title={t('edited')} placement="top" arrow>
+                      <EditRounded
+                        sx={{
+                          color: 'text.secondary',
+                          fontSize: 12,
+                          ml: 0.8,
+                        }}
+                      />
+                    </Tooltip>
+                  )}
+                </Stack>
+
+                {isEdit ? (
+                  <Stack direction="column">
+                    <TextField
+                      variant="standard"
+                      fullWidth
+                      autoFocus
+                      value={content}
+                      onChange={handleChange}
+                    />
+
+                    <Box mt={1} ml="auto">
+                      <Button size="small" disabled={loading} onClick={cancelEdit}>
+                        {t('edit.cancel')}
+                      </Button>
+
+                      <Button
+                        size="small"
+                        variant="contained"
+                        disabled={loading || content.trim().length === 0}
+                        startIcon={loading && <CircularProgress size={16} />}
+                        onClick={handleEdit}
+                      >
+                        {t('edit.confirm')}
+                      </Button>
+                    </Box>
+                  </Stack>
+                ) : (
+                  <Typography variant="body1" color="text.primary">
+                    {content}
+                  </Typography>
+                )}
               </Box>
             </Badge>
 

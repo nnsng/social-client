@@ -10,6 +10,10 @@ const commentApi = {
     const url = '/comments';
     return axiosClient.post(url, data);
   },
+  edit(data: IComment) {
+    const url = `/comments/${data._id}`;
+    return axiosClient.patch(url, data);
+  },
   remove(id: string) {
     const url = `/comments/${id}`;
     return axiosClient.delete(url);

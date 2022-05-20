@@ -1,19 +1,18 @@
-import { CloseRounded } from '@mui/icons-material';
+import { CloseRounded, SendRounded } from '@mui/icons-material';
 import {
   Avatar,
   CircularProgress,
   IconButton,
   List,
+  OutlinedInput,
   Stack,
-  TextField,
   Typography,
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { selectCommentLoading } from 'features/blog/commentSlice';
 import { IComment } from 'models';
-import React, { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { getErrorMessage } from 'utils/toast';
@@ -24,45 +23,50 @@ export interface IPostCommentProps {
   postId: string;
   onClose?: () => void;
   onCreate?: (comment: IComment) => void;
+  updateCommentCount?: (count: number) => void;
+
+  // commentItemProps
+  onEdit?: (comment: IComment) => void;
   onRemove?: (comment: IComment) => void;
   onLike?: (comment: IComment) => void;
-  updateCommentCount?: (count: number) => void;
 }
 
 export default function PostComment(props: IPostCommentProps) {
-  const { commentList, postId, onClose, onCreate, onRemove, onLike, updateCommentCount } = props;
+  const { commentList, postId, onClose, onCreate, updateCommentCount, ...commentItemProps } = props;
 
   const { t } = useTranslation('postComment');
 
   const loading = useAppSelector(selectCommentLoading);
   const currentUser = useAppSelector(selectCurrentUser);
 
+  const [submitting, setSubmitting] = useState<boolean>(false);
+  const [input, setInput] = useState<string>('');
+
   useEffect(() => {
     updateCommentCount?.(commentList.length);
   }, [commentList.length]);
 
-  const defaultValues: IComment = {
-    postId,
-    userId: currentUser?._id as string,
-    content: '',
+  const handleInputChange = (e: any) => {
+    setInput(e.target.value);
   };
 
-  const {
-    register,
-    setValue,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = useForm({
-    defaultValues,
-  });
+  const handleSubmitComment = async () => {
+    setSubmitting(true);
 
-  const handleSubmitComment = async (comment: IComment) => {
     try {
+      const comment: IComment = {
+        postId,
+        userId: currentUser?._id || '',
+        content: input.trim(),
+      };
+
       await onCreate?.(comment);
-      setValue('content', '');
+      setInput('');
     } catch (error: any) {
       toast.error(getErrorMessage(error));
     }
+
+    setSubmitting(false);
   };
 
   return (
@@ -105,33 +109,46 @@ export default function PostComment(props: IPostCommentProps) {
           {t('comment')}
         </Typography>
 
-        <form noValidate autoComplete="off" onSubmit={handleSubmit(handleSubmitComment)}>
-          <Stack pt={6} pb={3} bgcolor="background.paper">
-            <Avatar
-              src={currentUser?.avatar}
-              sx={{
-                width: 36,
-                height: 36,
-                flexGrow: 0,
-                mr: 3,
-              }}
-            />
+        <Stack alignItems="center" pt={6} pb={3} bgcolor="background.paper">
+          <Avatar
+            src={currentUser?.avatar}
+            sx={{
+              width: 36,
+              height: 36,
+              flexGrow: 0,
+              mr: 2,
+            }}
+          />
 
-            <TextField
-              variant="standard"
-              placeholder={t('placeholder')}
-              fullWidth
-              autoFocus
-              disabled={loading || isSubmitting}
-              {...register('content')}
-            />
-          </Stack>
-        </form>
+          <OutlinedInput
+            size="small"
+            placeholder={t('placeholder')}
+            fullWidth
+            autoFocus
+            disabled={loading || submitting}
+            value={input}
+            endAdornment={
+              <SendRounded
+                color="primary"
+                onClick={handleSubmitComment}
+                sx={{ ml: 1, cursor: 'pointer' }}
+              />
+            }
+            sx={{
+              borderRadius: 40,
+              bgcolor: 'action.selected',
+              '& fieldset': {
+                border: '0 !important',
+              },
+            }}
+            onChange={handleInputChange}
+          />
+        </Stack>
       </Stack>
 
       <List>
         {commentList?.map((comment) => (
-          <CommentItem key={comment._id} comment={comment} onRemove={onRemove} onLike={onLike} />
+          <CommentItem key={comment._id} comment={comment} {...commentItemProps} />
         ))}
       </List>
     </Stack>

@@ -70,6 +70,10 @@ export function PostDetailPage() {
     await commentApi.create(comment);
   };
 
+  const handleEditComment = async (comment: IComment) => {
+    await commentApi.edit(comment);
+  };
+
   const handleRemoveComment = async (comment: IComment) => {
     await commentApi.remove(comment._id as string);
   };
@@ -121,9 +125,10 @@ export function PostDetailPage() {
             postId={post?._id || ''}
             onClose={closeComment}
             onCreate={handleCreateComment}
+            updateCommentCount={updateCommentCount}
+            onEdit={handleEditComment}
             onRemove={handleRemoveComment}
             onLike={handleLikeComment}
-            updateCommentCount={updateCommentCount}
           />
         </Drawer>
       </Box>

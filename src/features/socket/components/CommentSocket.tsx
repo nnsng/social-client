@@ -13,12 +13,16 @@ export default function CommentSocket({ socket }: ISocketProps) {
     socket.on('createComment', ({ comment }: { comment: IComment }) => {
       dispatch(commentActions.create(comment));
     });
+    socket.on('editComment', ({ comment }: { comment: IComment }) => {
+      dispatch(commentActions.edit(comment));
+    });
     socket.on('removeComment', ({ id }: { id: string }) => {
       dispatch(commentActions.remove(id));
     });
 
     return () => {
       socket.off('createComment');
+      socket.off('editComment');
       socket.off('removeComment');
     };
   }, [socket, dispatch]);

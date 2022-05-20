@@ -31,6 +31,14 @@ const commentSlice = createSlice({
       state.postComments = [action.payload, ...state.postComments];
     },
 
+    edit(state, action: PayloadAction<IComment>) {
+      const editedComment = action.payload;
+
+      state.postComments = state.postComments.map((comment) =>
+        comment._id === editedComment._id ? editedComment : comment
+      );
+    },
+
     remove(state, action: PayloadAction<string>) {
       state.postComments = state.postComments.filter((comment) => comment._id !== action.payload);
     },

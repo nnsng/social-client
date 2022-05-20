@@ -3,8 +3,14 @@
   "placeholder": "Type comment...",
   "like": "Like",
   "unlike": "Unlike",
+  "edited": "Edited",
   "menu": {
+    "edit": "Edit",
     "delete": "Delete",
     "report": "Report"
+  },
+  "edit": {
+    "confirm": "Edit",
+    "cancel": "Cancel"
   }
 }
