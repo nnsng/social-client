@@ -72,8 +72,8 @@ export default function PostDetail(props: IPostDetailProps) {
 
         <PostCardHeader
           post={post}
-          onSavePost={handleSavePost}
-          onRemovePost={() => setOpenDialog(true)}
+          onSave={handleSavePost}
+          onRemove={() => setOpenDialog(true)}
           t={t}
           sx={{
             mt: 2,
