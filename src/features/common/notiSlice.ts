@@ -11,7 +11,7 @@ const initialState: INotiState = {
 };
 
 const checkNotiEqual = (a: INotification, b: INotification) => {
-  return a.type === b.type && a.postSlug === b.postSlug && a.user.username === b.user.username;
+  return a.type === b.type && a.post.slug === b.post.slug && a.user.username === b.user.username;
 };
 
 const notiSlice = createSlice({

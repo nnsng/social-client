@@ -37,7 +37,10 @@ export type NotiType = 'like' | 'comment' | 'follow' | 'report';
 export interface INotification {
   _id: string;
   type: NotiType;
-  postSlug: string;
+  post: {
+    _id: string;
+    slug: string;
+  };
   user: {
     name: string;
     username: string;

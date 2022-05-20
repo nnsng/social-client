@@ -31,14 +31,18 @@ export default function NotiSocket({ socket }: ISocketProps) {
     };
   }, [socket, dispatch]);
 
-  const handleSnackbarClick = ({ type, postSlug, user }: INotification) => {
+  const handleSnackbarClick = (payload: INotification) => {
+    const { type, post, user } = payload;
+
     if (type === 'follow') {
       navigate(`/user/${user.username}`);
       return;
     }
-    navigate(`/blog/post/${postSlug}`, { state: { openComment: type === 'comment' } });
+    navigate(`/blog/post/${post.slug}`, { state: { openComment: type === 'comment' } });
 
     closeSnackbar();
+
+    dispatch(notiActions.markAsRead([payload]));
   };
 
   return null;
