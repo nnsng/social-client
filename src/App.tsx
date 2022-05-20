@@ -5,7 +5,7 @@ import Auth from 'features/auth';
 import { authActions } from 'features/auth/authSlice';
 import Blog from 'features/blog';
 import ProfilePage from 'features/profile';
-import Settings from 'features/settings';
+import Setting from 'features/setting';
 import SocketClient from 'features/socket';
 import { socketActions } from 'features/socket/socketSlice';
 import { IUser } from 'models';
@@ -68,7 +68,7 @@ function App() {
           path="/settings/*"
           element={
             <PrivateRoute>
-              <Settings />
+              <Setting />
             </PrivateRoute>
           }
         />

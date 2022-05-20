@@ -4,7 +4,7 @@ import commentReducer from 'features/blog/commentSlice';
 import configReducer from 'features/common/configSlice';
 import notiReducer from 'features/common/notiSlice';
 import uploadReducer from 'features/common/uploadSlice';
-import settingReducer from 'features/settings/settingSlice';
+import settingReducer from 'features/setting/settingSlice';
 import socketReducer from 'features/socket/socketSlice';
 import { combineReducers } from 'redux';
 
