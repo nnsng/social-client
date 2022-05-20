@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { NoPost } from 'components/common';
+import { PostCardSkeleton } from 'components/skeletons';
 import { selectPostLoading, selectTotalPages } from 'features/blog/blogSlice';
 import { IListParams, IPost, PostByType } from 'models';
 import React from 'react';
@@ -105,27 +106,37 @@ export default function PostList(props: IPostListProps) {
       )}
 
       <List disablePadding>
-        {postList.length > 0
-          ? postList.map((post) => (
-              <ListItem disablePadding key={post._id}>
-                <PostCard post={post} showPopup={isHomePage} {...postCardProps} />
-              </ListItem>
-            ))
-          : !loading && <NoPost />}
-      </List>
+        {loading ? (
+          <ListItem disablePadding>
+            <PostCardSkeleton />
+          </ListItem>
+        ) : (
+          <>
+            {postList.length > 0 ? (
+              postList.map((post) => (
+                <ListItem key={post._id} disablePadding>
+                  <PostCard post={post} showPopup={isHomePage} {...postCardProps} />
+                </ListItem>
+              ))
+            ) : (
+              <NoPost />
+            )}
 
-      {totalPage > 1 && !loading && (
-        <Stack mb={2}>
-          <Pagination
-            shape="rounded"
-            color="primary"
-            count={totalPage}
-            page={page}
-            sx={{ m: 'auto' }}
-            onChange={handlePageChange}
-          />
-        </Stack>
-      )}
+            {totalPage > 1 && (
+              <Stack mb={2}>
+                <Pagination
+                  shape="rounded"
+                  color="primary"
+                  count={totalPage}
+                  page={page}
+                  sx={{ m: 'auto' }}
+                  onChange={handlePageChange}
+                />
+              </Stack>
+            )}
+          </>
+        )}
+      </List>
     </Box>
   );
 }

@@ -3,6 +3,7 @@ import commentApi from 'api/commentApi';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { NotFound, PageTitle } from 'components/common';
+import { PostDetailSkeleton } from 'components/skeletons';
 import { commentActions, selectPostComments } from 'features/blog/commentSlice';
 import { selectSocket } from 'features/socket/socketSlice';
 import { IComment, ILocationState, IPost } from 'models';
@@ -81,46 +82,51 @@ export function PostDetailPage() {
     dispatch(blogActions.updateCommentCount(count));
   };
 
-  if (loading) return null;
   if (!loading && !post) return <NotFound />;
 
   return (
     <Container>
       <PageTitle title={loading ? APP_NAME : `${post?.title} | ${post?.author?.name}`} />
 
-      {!loading && post && (
-        <Box>
-          <Grid container>
-            <Grid item xs={12} md={10} lg={7} mx="auto">
-              <Box>
-                <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
-              </Box>
-            </Grid>
+      <Box>
+        <Grid container>
+          <Grid item xs={12} md={10} lg={7} mx="auto">
+            <Box>
+              {loading ? (
+                <PostDetailSkeleton />
+              ) : (
+                post && (
+                  <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
+                )
+              )}
+            </Box>
+          </Grid>
 
-            <Grid item xs={12} md={10} lg={3} mx={{ xs: 'auto', lg: 0 }}>
-              <Box position="sticky" top={96} mb={3}>
+          <Grid item xs={12} md={10} lg={3} mx={{ xs: 'auto', lg: 0 }}>
+            <Box position="sticky" top={96} mb={3}>
+              {!loading && post && (
                 <PostReaction
                   post={post}
                   onOpenComment={() => setOpenComment(true)}
                   onLikePost={handleLikePost}
                 />
-              </Box>
-            </Grid>
+              )}
+            </Box>
           </Grid>
+        </Grid>
 
-          <Drawer anchor="right" open={openComment} onClose={closeComment}>
-            <PostComment
-              commentList={postComments}
-              postId={post?._id || ''}
-              onClose={closeComment}
-              onCreate={handleCreateComment}
-              onRemove={handleRemoveComment}
-              onLike={handleLikeComment}
-              updateCommentCount={updateCommentCount}
-            />
-          </Drawer>
-        </Box>
-      )}
+        <Drawer anchor="right" open={openComment} onClose={closeComment}>
+          <PostComment
+            commentList={postComments}
+            postId={post?._id || ''}
+            onClose={closeComment}
+            onCreate={handleCreateComment}
+            onRemove={handleRemoveComment}
+            onLike={handleLikeComment}
+            updateCommentCount={updateCommentCount}
+          />
+        </Drawer>
+      </Box>
     </Container>
   );
 }
