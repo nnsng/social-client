@@ -3,8 +3,14 @@
   "placeholder": "Viết bình luận...",
   "like": "Thích",
   "unlike": "Bỏ thích",
+  "edited": "Đã chỉnh sửa",
   "menu": {
+    "edit": "Chỉnh sửa",
     "delete": "Xoá",
     "report": "Báo cáo"
+  },
+  "edit": {
+    "confirm": "Chỉnh sửa",
+    "cancel": "Hủy"
   }
 }

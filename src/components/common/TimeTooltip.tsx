@@ -9,7 +9,7 @@ export interface ITimeTooltipProps {
 
 export function TimeTooltip({ timestamp, children }: ITimeTooltipProps) {
   return (
-    <Tooltip title={formatTime(timestamp, 'DD/MM/YYYY HH:mm')} placement="right">
+    <Tooltip title={formatTime(timestamp, 'DD/MM/YYYY HH:mm')} placement="right" arrow>
       {children}
     </Tooltip>
   );

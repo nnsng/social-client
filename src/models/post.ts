@@ -22,6 +22,7 @@ export interface IComment {
   userId: string;
   user?: IUser;
   likes?: string[];
+  edited?: boolean;
   createdAt?: string;
 }
 export interface ISearchObj {
