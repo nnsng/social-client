@@ -68,8 +68,8 @@ export default function PostCard(props: IPostCardProps) {
       >
         <PostCardHeader
           post={post}
-          onSavePost={handleSavePost}
-          onRemovePost={() => setOpenDialog(true)}
+          onSave={handleSavePost}
+          onRemove={() => setOpenDialog(true)}
           t={t}
           sx={{
             mb: 1,

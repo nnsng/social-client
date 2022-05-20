@@ -11,15 +11,15 @@ import { formatTime } from 'utils/common';
 
 export interface IPostCardHeaderProps {
   post: IPost;
-  onSavePost?: () => void;
-  onRemovePost?: () => void;
+  onSave?: () => void;
+  onRemove?: () => void;
   t?: any; // TFunction
   sx?: SxProps;
   showPopup?: boolean;
 }
 
 export default function PostCardHeader(props: IPostCardHeaderProps) {
-  const { post, onSavePost, onRemovePost, t, sx, showPopup = true } = props;
+  const { post, onSave, onRemove, t, sx, showPopup = true } = props;
 
   const navigate = useNavigate();
 
@@ -45,11 +45,10 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
 
   const mouseEvents = GetUserInfoPopupEvent({ setOpenPopup });
 
-  const isAuthorized = currentUser?._id === post.authorId || currentUser?.role === 'admin';
   const postMenu = GetPostMenu({
     post,
-    isAuthorized,
-    onRemovePost,
+    currentUser,
+    onRemove,
     navigate,
     t,
   });
@@ -79,7 +78,7 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
                 },
               }}
               className="icon-button"
-              onClick={onSavePost}
+              onClick={onSave}
             >
               <BookmarkBorderRounded />
             </IconButton>

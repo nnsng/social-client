@@ -1,30 +1,33 @@
 import { BorderColorRounded, DeleteRounded, FlagRounded, LinkRounded } from '@mui/icons-material';
-import { IMenuItem, IPost } from 'models';
+import { IMenuItem, IPost, IUser } from 'models';
 import { copyPostLink } from 'utils/common';
 import { showComingSoonToast } from 'utils/toast';
 import { IGetUserMenuProps } from './GetUserMenu';
 
 export interface IGetPostMenuProps extends IGetUserMenuProps {
   post: IPost;
-  isAuthorized: boolean;
-  onRemovePost?: () => void;
+  currentUser: IUser | null;
+  onRemove?: () => void;
 }
 
 export function GetPostMenu(props: IGetPostMenuProps) {
-  const { post, isAuthorized, onRemovePost, navigate, t } = props;
+  const { post, currentUser, onRemove, navigate, t } = props;
+
+  const isAuthor = post.authorId === currentUser?._id;
+  const isAdmin = currentUser?.role === 'admin';
 
   const menu: IMenuItem[] = [
     {
       label: t('menu.edit'),
       icon: BorderColorRounded,
       onClick: () => navigate?.(`/blog/edit/${post._id}`, { state: { hideHeaderMenu: true } }),
-      show: isAuthorized,
+      show: isAuthor,
     },
     {
       label: t('menu.delete'),
       icon: DeleteRounded,
-      onClick: onRemovePost,
-      show: isAuthorized,
+      onClick: onRemove,
+      show: isAuthor || isAdmin,
     },
     {
       label: t('menu.copyLink'),

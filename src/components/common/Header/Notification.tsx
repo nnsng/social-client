@@ -40,14 +40,14 @@ export default function Notification() {
   };
 
   const handleCommentClick = (noti: INotification) => {
-    const { type, postSlug, user } = noti;
+    const { type, post, user } = noti;
 
     closeNoti();
 
     if (type === 'follow') {
       navigate(`/user/${user.username}`);
     } else {
-      navigate(`/blog/post/${postSlug}`, { state: { openComment: type === 'comment' } });
+      navigate(`/blog/post/${post.slug}`, { state: { openComment: type === 'comment' } });
     }
 
     markAsRead([noti]);

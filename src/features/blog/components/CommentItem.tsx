@@ -83,13 +83,13 @@ export default function CommentItem(props: ICommentItemProps) {
 
   const mouseEvents = GetUserInfoPopupEvent({ setOpenPopup });
 
-  const isAuthorized = currentUser?._id === comment.userId || currentUser?.role === 'admin';
+  const isAllowed = currentUser?._id === comment.userId || currentUser?.role === 'admin';
   const menuItemList: IMenuItem[] = [
     {
       label: t('menu.delete'),
       icon: DeleteRounded,
       onClick: confirmRemoveComment,
-      show: isAuthorized,
+      show: isAllowed,
     },
     {
       label: t('menu.report'),
