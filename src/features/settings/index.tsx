@@ -4,8 +4,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { themeMixins } from 'utils/theme';
+import SettingLayout from './components/SettingLayout';
 import SettingTabs from './components/SettingTabs';
-import { ChangePasswordPage, EditProfilePage } from './pages';
 
 export default function Settings() {
   const { t } = useTranslation('settings');
@@ -45,8 +45,12 @@ export default function Settings() {
                 <Box flexGrow={1} px={{ xs: 2, sm: 0 }}>
                   <Routes>
                     <Route path="/" element={<Navigate to="edit-profile" replace={true} />} />
-                    <Route path="edit-profile" element={<EditProfilePage />} />
-                    <Route path="change-password" element={<ChangePasswordPage />} />
+
+                    <Route path="edit-profile" element={<SettingLayout mode="edit-profile" />} />
+                    <Route
+                      path="change-password"
+                      element={<SettingLayout mode="change-password" />}
+                    />
                     <Route path="*" element={<Navigate to="edit-profile" replace={true} />} />
                   </Routes>
                 </Box>
