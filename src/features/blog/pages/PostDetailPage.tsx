@@ -86,8 +86,6 @@ export function PostDetailPage() {
     dispatch(blogActions.updateCommentCount(count));
   };
 
-  if (!loading && !post) return <NotFound />;
-
   return (
     <Container>
       <PageTitle title={loading ? APP_NAME : `${post?.title} | ${post?.author?.name}`} />
