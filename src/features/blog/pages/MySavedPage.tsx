@@ -2,6 +2,7 @@ import { Box, Container, List, Pagination, Stack, Typography } from '@mui/materi
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { NoPost, PageTitle } from 'components/common';
+import { PostItemSkeleton } from 'components/skeletons';
 import { IPost } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -47,27 +48,33 @@ export function MySavedPage(props: IMySavedPageProps) {
         </Typography>
 
         <List disablePadding>
-          {savedList.length > 0 ? (
-            savedList.map((post) => (
-              <PostItem key={post._id} post={post} onUnSave={handleUnSavePost} />
-            ))
+          {loading ? (
+            <PostItemSkeleton />
           ) : (
-            <NoPost />
+            <>
+              {savedList.length > 0 ? (
+                savedList.map((post) => (
+                  <PostItem key={post._id} post={post} onUnSave={handleUnSavePost} />
+                ))
+              ) : (
+                <NoPost />
+              )}
+
+              {totalPage > 1 && !loading && (
+                <Stack mb={2}>
+                  <Pagination
+                    shape="rounded"
+                    color="primary"
+                    count={totalPage}
+                    page={page}
+                    onChange={handlePageChange}
+                    sx={{ m: 'auto' }}
+                  />
+                </Stack>
+              )}
+            </>
           )}
         </List>
-
-        {totalPage > 1 && !loading && (
-          <Stack mb={2}>
-            <Pagination
-              shape="rounded"
-              color="primary"
-              count={totalPage}
-              page={page}
-              onChange={handlePageChange}
-              sx={{ m: 'auto' }}
-            />
-          </Stack>
-        )}
       </Box>
     </Container>
   );
