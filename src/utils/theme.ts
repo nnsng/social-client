@@ -24,7 +24,7 @@ const configThemePalette = (mode: PaletteMode = 'light', color: string = '#7575F
             disabledBackground: 'rgba(0, 0, 0, 0.12)',
           },
           background: {
-            default: '#F9F9F9',
+            default: '#F0F2F5',
             paper: '#FFFFFF',
           },
           divider: 'rgba(0, 0, 0, 0.12)',

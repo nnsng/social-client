@@ -4,6 +4,7 @@ import { CustomScrollbar, NotFound, PrivateRoute } from 'components/common';
 import Auth from 'features/auth';
 import { authActions } from 'features/auth/authSlice';
 import Blog from 'features/blog';
+import Chat from 'features/chat';
 import ProfilePage from 'features/profile';
 import Setting from 'features/setting';
 import SocketClient from 'features/socket';
@@ -97,6 +98,8 @@ function App() {
           }
         />
       </Routes>
+
+      <Chat />
     </CustomScrollbar>
   );
 }

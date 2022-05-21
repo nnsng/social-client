@@ -9,6 +9,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
+import { ContainedInput } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { selectCommentLoading } from 'features/blog/commentSlice';
 import { IComment } from 'models';
@@ -48,6 +49,12 @@ export default function PostComment(props: IPostCommentProps) {
 
   const handleInputChange = (e: any) => {
     setInput(e.target.value);
+  };
+
+  const handleKeyUp = (e: any) => {
+    if (e.key === 'Enter') {
+      handleSubmitComment();
+    }
   };
 
   const handleSubmitComment = async () => {
@@ -120,7 +127,7 @@ export default function PostComment(props: IPostCommentProps) {
             }}
           />
 
-          <OutlinedInput
+          <ContainedInput
             size="small"
             placeholder={t('placeholder')}
             fullWidth
@@ -134,14 +141,8 @@ export default function PostComment(props: IPostCommentProps) {
                 sx={{ ml: 1, cursor: 'pointer' }}
               />
             }
-            sx={{
-              borderRadius: 40,
-              bgcolor: 'action.selected',
-              '& fieldset': {
-                border: '0 !important',
-              },
-            }}
             onChange={handleInputChange}
+            onKeyUp={handleKeyUp}
           />
         </Stack>
       </Stack>

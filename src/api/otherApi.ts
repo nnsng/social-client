@@ -10,6 +10,10 @@ const otherApi = {
       },
     });
   },
+  chat(data: { group: string[]; text: string }) {
+    const url = '/chat';
+    return axiosClient.post(url, data);
+  },
 };
 
 export default otherApi;

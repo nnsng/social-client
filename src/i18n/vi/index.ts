@@ -19,7 +19,7 @@ import postItem from './components/postItem.json';
 import settingTabs from './components/settingTabs.json';
 import editProfileForm from './components/editProfileForm.json';
 import changePasswordForm from './components/changePasswordForm.json';
-import followGroupButton from './components/followGroupButton.json';
+import userInfoButtonGroup from './components/userInfoButtonGroup.json';
 import noPost from './components/noPost.json';
 import notification from './components/notification.json';
 
@@ -49,7 +49,7 @@ export default {
   settingTabs,
   editProfileForm,
   changePasswordForm,
-  followGroupButton,
+  userInfoButtonGroup,
   noPost,
   notification,
 

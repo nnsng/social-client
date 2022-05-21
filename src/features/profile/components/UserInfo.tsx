@@ -1,5 +1,5 @@
 import { Avatar, Box, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
-import { FollowGroupButton } from 'components/common';
+import { UserInfoButtonGroup } from 'components/common';
 import { IUser } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -94,7 +94,7 @@ export default function UserInfo(props: IUserInfoProps) {
 
         {smUp && (
           <Box position="absolute" bottom={0} right={0}>
-            <FollowGroupButton selectedUser={userInfo} updateUser={updateUser} />
+            <UserInfoButtonGroup selectedUser={userInfo} updateUser={updateUser} />
           </Box>
         )}
       </Stack>
@@ -117,7 +117,7 @@ export default function UserInfo(props: IUserInfoProps) {
         </Typography>
       )}
 
-      {!smUp && <FollowGroupButton selectedUser={userInfo} updateUser={updateUser} />}
+      {!smUp && <UserInfoButtonGroup selectedUser={userInfo} updateUser={updateUser} />}
     </Box>
   );
 }

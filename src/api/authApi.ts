@@ -1,4 +1,4 @@
-import { IAuthFormValues, IChangePasswordFormValues, IUser } from 'models';
+import { IAuthFormValues, IChangePasswordFormValues } from 'models';
 import axiosClient from './axiosClient';
 
 const authApi = {

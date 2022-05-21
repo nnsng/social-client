@@ -63,9 +63,10 @@ export function Header() {
             <Stack alignItems="center" spacing={0.8} component={Link} to="/blog">
               <Avatar
                 sx={{
-                  bgcolor: 'primary.main',
                   fontSize: 28,
                   fontWeight: 600,
+                  bgcolor: 'primary.main',
+                  color: 'common.white',
                 }}
               >
                 {APP_NAME[0]}

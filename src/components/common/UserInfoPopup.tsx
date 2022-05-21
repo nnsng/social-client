@@ -1,8 +1,8 @@
 import { Avatar, Box, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
 import { IUser } from 'models';
 import React, { useState } from 'react';
-import { FollowGroupButton } from './FollowGroupButton';
 import { IPopperPopupProps, PopperPopup } from './PopperPopup';
+import { UserInfoButtonGroup } from './UserInfoButtonGroup';
 
 export interface IUserInfoPopupProps extends IPopperPopupProps {
   selectedUser: Partial<IUser>;
@@ -56,7 +56,7 @@ export function UserInfoPopup(props: IUserInfoPopupProps) {
           </Typography>
         )}
 
-        <FollowGroupButton selectedUser={selectedUser} />
+        <UserInfoButtonGroup selectedUser={selectedUser} />
       </Box>
     </PopperPopup>
   );

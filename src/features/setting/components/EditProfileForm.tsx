@@ -24,13 +24,13 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
   const { validate } = useTranslateFiles('validate');
 
   const schema = yup.object().shape({
-    name: yup.string().required(validate.name.required).max(255, validate.name.max(255)),
+    name: yup.string().required(validate.name.required).max(50, validate.name.max(50)),
     avatar: yup.string(),
     username: yup
       .string()
       .required(validate.username.required)
       .min(6, validate.username.min(6))
-      .max(50, validate.username.max(20))
+      .max(20, validate.username.max(20))
       .matches(/^(?![_.])[a-zA-Z0-9._]+(?<![_.])$/, validate.username.valid),
     email: yup.string().email().required(),
     bio: yup.string().max(100, validate.bio.max(100)),

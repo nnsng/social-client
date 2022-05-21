@@ -75,7 +75,8 @@ export default function Notification() {
         open={open}
         anchorEl={anchorRef.current}
         sx={{
-          width: { xs: `calc(100vw - ${themeVariables.scrollbarWidth}px)`, sm: 400 },
+          width: { xs: `calc(100vw - 8px * 2)`, sm: 400 },
+          ml: { xs: 1, sm: 0 },
           mt: 1,
           borderRadius: 1,
           zIndex: (theme) => theme.zIndex.appBar + 1,

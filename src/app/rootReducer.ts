@@ -1,6 +1,7 @@
 import authReducer from 'features/auth/authSlice';
 import blogReducer from 'features/blog/blogSlice';
 import commentReducer from 'features/blog/commentSlice';
+import chatReducer from 'features/chat/chatSlice';
 import configReducer from 'features/common/configSlice';
 import notiReducer from 'features/common/notiSlice';
 import uploadReducer from 'features/common/uploadSlice';
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   socket: socketReducer,
   config: configReducer,
   noti: notiReducer,
+  chat: chatReducer,
 });
 
 export default rootReducer;
