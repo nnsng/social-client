@@ -3,12 +3,14 @@ import postApi from 'api/postApi';
 import userApi from 'api/userApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { Header, NotFound, PageTitle } from 'components/common';
+import { UserInfoSkeleton } from 'components/skeletons';
 import { blogActions, selectPostList, selectPostLoading } from 'features/blog/blogSlice';
 import PostList from 'features/blog/components/PostList';
 import { IListParams, IPost, IUser } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { APP_NAME } from 'utils/constants';
 import { getErrorMessage } from 'utils/toast';
 import UserInfo from './components/UserInfo';
 
@@ -64,26 +66,31 @@ export default function ProfilePage(props: IProfileProps) {
     setUserInfo(user);
   };
 
-  if (loading) return <Header />;
-  if (!userInfo) return <NotFound showHeader />;
-
   return (
     <>
-      <PageTitle title={userInfo.name ?? ''} />
+      <PageTitle title={userInfo?.name ?? APP_NAME} />
       <Header />
 
       <Box component="main">
         <Container maxWidth="md">
-          <UserInfo userInfo={userInfo} updateUser={updateUser} />
+          {loading ? (
+            <UserInfoSkeleton />
+          ) : userInfo ? (
+            <UserInfo userInfo={userInfo} updateUser={updateUser} />
+          ) : (
+            <NotFound />
+          )}
 
-          <PostList
-            postList={postList}
-            page={page}
-            onFilterChange={handlePageChange}
-            onSave={handleSavePost}
-            onRemove={handleRemovePost}
-            isHomePage={false}
-          />
+          {userInfo && (
+            <PostList
+              postList={postList}
+              page={page}
+              onFilterChange={handlePageChange}
+              onSave={handleSavePost}
+              onRemove={handleRemovePost}
+              isHomePage={false}
+            />
+          )}
         </Container>
       </Box>
     </>
