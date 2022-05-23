@@ -1,6 +1,7 @@
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { useEffect } from 'react';
+import ChatSocket from './components/ChatSocket';
 import CommentSocket from './components/CommentSocket';
 import NotiSocket from './components/NotiSocket';
 import { selectSocket } from './socketSlice';
@@ -22,7 +23,7 @@ export default function SocketClient() {
     };
   }, [socket, currentUser]);
 
-  const SocketComponents = [NotiSocket, CommentSocket];
+  const SocketComponents = [NotiSocket, CommentSocket, ChatSocket];
 
   return (
     <>

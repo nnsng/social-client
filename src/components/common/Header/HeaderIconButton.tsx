@@ -34,12 +34,12 @@ function HeaderIconButton(props: IHeaderIconButtonProps, ref?: any) {
           height: 36,
           ml: 2,
           bgcolor: 'action.hover',
-          color: active ? 'text.primary' : 'text.secondary',
+          color: active ? 'primary.main' : 'text.secondary',
           '.MuiSvgIcon-root': {
             fontSize: 20,
           },
           '&:hover': {
-            color: 'text.primary',
+            color: active ? 'primary.main' : 'text.primary',
           },
         }}
       >

@@ -1,4 +1,5 @@
 import {
+  ChatRounded,
   EditRounded,
   MoreHorizRounded,
   PersonAddRounded,
@@ -8,6 +9,7 @@ import { Button, CircularProgress, Stack } from '@mui/material';
 import userApi from 'api/userApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { authActions, selectCurrentUser } from 'features/auth/authSlice';
+import { chatActions } from 'features/chat/chatSlice';
 import { IUser } from 'models';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -22,18 +24,18 @@ export interface IFollowResponse {
   selectedUser: Partial<IUser>;
 }
 
-export interface IFollowGroupButtonProps {
+export interface IUserInfoButtonGroupProps {
   selectedUser?: Partial<IUser>;
   updateUser?: (user: Partial<IUser>) => void;
 }
 
-export function FollowGroupButton(props: IFollowGroupButtonProps) {
+export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
   const { selectedUser, updateUser } = props;
   const userId = selectedUser?._id as string;
 
   const BUTTON_HEIGHT = 36;
 
-  const { t } = useTranslation('followGroupButton');
+  const { t } = useTranslation('userInfoButtonGroup');
 
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
@@ -52,6 +54,10 @@ export function FollowGroupButton(props: IFollowGroupButtonProps) {
     }
 
     setLoading(false);
+  };
+
+  const startChat = () => {
+    selectedUser && dispatch(chatActions.startChat(selectedUser));
   };
 
   return (
@@ -105,6 +111,21 @@ export function FollowGroupButton(props: IFollowGroupButtonProps) {
               {t('follow')}
             </Button>
           )}
+
+          <Button
+            sx={{
+              height: BUTTON_HEIGHT,
+              px: 2,
+              color: 'text.primary',
+              bgcolor: 'action.hover',
+              '&:hover': {
+                bgcolor: 'action.selected',
+              },
+            }}
+            onClick={startChat}
+          >
+            <ChatRounded />
+          </Button>
 
           <Button
             sx={{

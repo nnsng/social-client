@@ -4,11 +4,17 @@ import 'dayjs/locale/vi';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { ConfigKey } from 'features/common/configSlice';
 import i18next from 'i18next';
-import { IPost, IUserConfig } from 'models';
+import jwtDecode from 'jwt-decode';
+import { IDecodedToken, IPost, IUserConfig } from 'models';
 import { toast } from 'react-toastify';
 import slugify from 'slugify';
-import { CONFIG } from './constants';
+import { ACCESS_TOKEN, CONFIG } from './constants';
 import { useTranslateFiles } from './translation';
+
+export const getCurrentUserId = () => {
+  const accessToken = localStorage.getItem(ACCESS_TOKEN);
+  return accessToken ? (jwtDecode(accessToken) as IDecodedToken)._id : '';
+};
 
 export const formatTime = (timestamp: any, template?: string) => {
   dayjs.extend(relativeTime);
@@ -18,6 +24,10 @@ export const formatTime = (timestamp: any, template?: string) => {
 
 export const slugifyString = (str: string) => {
   return slugify(str, { locale: 'vi', lower: true });
+};
+
+export const truncateText = (text: string, maxLength: number) => {
+  return text.length > maxLength ? `${text.slice(0, maxLength)}…` : text;
 };
 
 export const getImageUrlFromCDN = async (image: File) => {

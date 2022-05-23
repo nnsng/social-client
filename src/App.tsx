@@ -1,9 +1,10 @@
 import userApi from 'api/userApi';
-import { useAppDispatch } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { CustomScrollbar, NotFound, PrivateRoute } from 'components/common';
 import Auth from 'features/auth';
-import { authActions } from 'features/auth/authSlice';
+import { authActions, selectCurrentUser } from 'features/auth/authSlice';
 import Blog from 'features/blog';
+import Chat from 'features/chat';
 import ProfilePage from 'features/profile';
 import Setting from 'features/setting';
 import SocketClient from 'features/socket';
@@ -19,6 +20,7 @@ function App() {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
+  const currentUser = useAppSelector(selectCurrentUser);
 
   useEffect(() => {
     (async () => {
@@ -97,6 +99,8 @@ function App() {
           }
         />
       </Routes>
+
+      {currentUser && <Chat />}
     </CustomScrollbar>
   );
 }
