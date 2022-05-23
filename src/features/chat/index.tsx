@@ -1,5 +1,5 @@
 import { ChatRounded } from '@mui/icons-material';
-import { IconButton, Stack } from '@mui/material';
+import { IconButton, Stack, Theme, useMediaQuery } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { IChat } from 'models';
 import React, { useEffect, useRef, useState } from 'react';
@@ -7,9 +7,7 @@ import { chatActions, selectChatList, selectCurrentChat, selectShowCurrentChat }
 import ChatPopup from './components/ChatPopup';
 import CurrentChat from './components/CurrentChat';
 
-export interface IChatProps {}
-
-export default function Chat(props: IChatProps) {
+export default function Chat() {
   const dispatch = useAppDispatch();
   const chatList = useAppSelector(selectChatList);
   const currentChat = useAppSelector(selectCurrentChat);
@@ -38,6 +36,9 @@ export default function Chat(props: IChatProps) {
   const handleCloseCurrentConversation = () => {
     dispatch(chatActions.setCurrentChat(null));
   };
+
+  const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+  if (!lgUp) return null;
 
   return (
     <Stack

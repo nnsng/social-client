@@ -1,10 +1,11 @@
 import { Avatar, Box, Divider, MenuItem, Stack, Typography } from '@mui/material';
-import { useAppDispatch } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PopperPopup } from 'components/common/PopperPopup';
+import { selectCurrentUser } from 'features/auth/authSlice';
 import { IChat } from 'models';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { formatTime, getCurrentUserId, truncateText } from 'utils/common';
+import { formatTime, truncateText } from 'utils/common';
 import { chatActions } from '../chatSlice';
 
 export interface IChatPopupProps {
@@ -21,6 +22,7 @@ export default function ChatPopup(props: IChatPopupProps) {
   const { t } = useTranslation('chatPopup');
 
   const dispatch = useAppDispatch();
+  const { _id: currentUserId } = useAppSelector(selectCurrentUser) || {};
 
   useEffect(() => {
     dispatch(chatActions.removeEmptyChat());
@@ -76,7 +78,7 @@ export default function ChatPopup(props: IChatPopupProps) {
 
                   <Stack>
                     <Typography color="text.secondary" fontSize={12} fontWeight={400}>
-                      {lastMessage?.sentId === getCurrentUserId() && 'You: '}
+                      {lastMessage?.sentId === currentUserId && 'You: '}
                       {truncateText(lastMessage.text || '', 16)}
                     </Typography>
 

@@ -1,12 +1,13 @@
 import { CloseRounded, SendRounded } from '@mui/icons-material';
 import { Avatar, Box, IconButton, Stack, Typography } from '@mui/material';
 import otherApi from 'api/otherApi';
+import { useAppSelector } from 'app/hooks';
 import { ContainedInput } from 'components/common';
+import { selectCurrentUser } from 'features/auth/authSlice';
 import { IChat } from 'models';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { getCurrentUserId } from 'utils/common';
 import { themeMixins } from 'utils/theme';
 import { getErrorMessage } from 'utils/toast';
 import ChatMessage from './ChatMessage';
@@ -21,11 +22,13 @@ export interface ICurrentChatProps {
 export default function CurrentChat(props: ICurrentChatProps) {
   const { chat, show, onClose, toggleShow } = props;
 
+  const { _id: currentUserId } = useAppSelector(selectCurrentUser) || {};
+
   const endMessageRef = useRef<any>(null);
   const [message, setMessage] = useState<string>('');
 
   useEffect(() => {
-    endMessageRef.current?.scrollIntoView({});
+    endMessageRef.current?.scrollIntoView();
   }, [show, chat]);
 
   const handleMessageChange = (e: any) => {
@@ -104,8 +107,7 @@ export default function CurrentChat(props: ICurrentChatProps) {
             borderRadius: 0,
           }}
         >
-          <Stack
-            direction="column"
+          <Box
             className="default-scrollbar"
             sx={{
               flexGrow: 1,
@@ -117,11 +119,11 @@ export default function CurrentChat(props: ICurrentChatProps) {
               <ChatMessage
                 key={idx}
                 message={message.text}
-                isMe={message.sentId === getCurrentUserId()}
+                isMe={message.sentId === currentUserId}
               />
             ))}
             <Box ref={endMessageRef}></Box>
-          </Stack>
+          </Box>
 
           <Box
             sx={{
