@@ -1,12 +1,13 @@
 import { Tab, Tabs, Theme, useMediaQuery } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export interface ISettingTabsProps {}
 
 export default function SettingTabs(props: ISettingTabsProps) {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const { t } = useTranslation('settingTabs');
 
@@ -26,6 +27,10 @@ export default function SettingTabs(props: ISettingTabsProps) {
       default:
         return 0;
     }
+  };
+
+  const goto = (linkTo: string) => {
+    navigate(`/settings/${linkTo}`, { replace: true });
   };
 
   const tabItemList = [
@@ -64,9 +69,6 @@ export default function SettingTabs(props: ISettingTabsProps) {
         <Tab
           key={idx}
           label={smUp ? label : mobileLabel}
-          component={Link}
-          to={linkTo}
-          replace={true}
           sx={{
             fontSize: 18,
             fontWeight: 500,
@@ -74,6 +76,7 @@ export default function SettingTabs(props: ISettingTabsProps) {
             alignItems: { sm: 'flex-start' },
             pr: { sm: 4 },
           }}
+          onClick={() => goto(linkTo)}
         />
       ))}
     </Tabs>

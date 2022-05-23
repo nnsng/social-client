@@ -59,6 +59,7 @@ export default function PostComment(props: IPostCommentProps) {
 
   const handleSubmitComment = async () => {
     setSubmitting(true);
+    setInput('');
 
     try {
       const comment: IComment = {
@@ -68,7 +69,6 @@ export default function PostComment(props: IPostCommentProps) {
       };
 
       await onCreate?.(comment);
-      setInput('');
     } catch (error: any) {
       toast.error(getErrorMessage(error));
     }
