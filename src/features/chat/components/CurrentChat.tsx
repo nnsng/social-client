@@ -41,6 +41,8 @@ export default function CurrentChat(props: ICurrentChatProps) {
   const handleSendMessage = async () => {
     if (message.trim().length === 0) return;
 
+    setMessage('');
+
     try {
       const newMessage = {
         userId: chat.user?._id ?? '',
@@ -48,8 +50,6 @@ export default function CurrentChat(props: ICurrentChatProps) {
       };
 
       await otherApi.chat(newMessage);
-
-      setMessage('');
     } catch (error) {
       toast.error(getErrorMessage(error));
     }
