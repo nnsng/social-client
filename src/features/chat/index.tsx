@@ -1,15 +1,9 @@
 import { ChatRounded } from '@mui/icons-material';
 import { IconButton, Stack } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { selectCurrentUser } from 'features/auth/authSlice';
-import React, { useRef, useState } from 'react';
-import {
-  chatActions,
-  IConversation,
-  selectConversationList,
-  selectCurrentConversation,
-  selectShowCurrentConversation,
-} from './chatSlice';
+import { IChat } from 'models';
+import React, { useEffect, useRef, useState } from 'react';
+import { chatActions, selectChatList, selectCurrentChat, selectShowCurrentChat } from './chatSlice';
 import ChatPopup from './components/ChatPopup';
 import CurrentChat from './components/CurrentChat';
 
@@ -17,28 +11,32 @@ export interface IChatProps {}
 
 export default function Chat(props: IChatProps) {
   const dispatch = useAppDispatch();
-  const conversationList = useAppSelector(selectConversationList);
-  const currentConversation = useAppSelector(selectCurrentConversation);
-  const isShowConversation = useAppSelector(selectShowCurrentConversation);
+  const chatList = useAppSelector(selectChatList);
+  const currentChat = useAppSelector(selectCurrentChat);
+  const isShowChat = useAppSelector(selectShowCurrentChat);
 
   const ref = useRef<any>(null);
   const [openPopup, setOpenPopup] = useState<boolean>(false);
 
+  useEffect(() => {
+    openPopup && dispatch(chatActions.setCurrentChat(null));
+  }, [openPopup]);
+
   const toggleOpenPopup = () => setOpenPopup(!openPopup);
   const closePopup = () => setOpenPopup(false);
 
-  const toggleShowConversation = () => {
-    dispatch(chatActions.setShowCurrentConversation(!isShowConversation));
+  const toggleShowCurrentChat = () => {
+    dispatch(chatActions.setShowCurrentChat(!isShowChat));
   };
 
-  const handleChatClick = (conversation: IConversation) => {
+  const handleChatClick = (chat: IChat) => {
     closePopup();
-    dispatch(chatActions.setShowCurrentConversation(true));
-    dispatch(chatActions.setCurrentConversation(conversation));
+    dispatch(chatActions.setShowCurrentChat(true));
+    dispatch(chatActions.setCurrentChat(chat));
   };
 
   const handleCloseCurrentConversation = () => {
-    dispatch(chatActions.setCurrentConversation(null));
+    dispatch(chatActions.setCurrentChat(null));
   };
 
   return (
@@ -69,17 +67,17 @@ export default function Chat(props: IChatProps) {
       <ChatPopup
         open={openPopup}
         anchorEl={ref.current}
-        conversations={conversationList}
+        chatList={chatList}
         onClose={closePopup}
         onChatClick={handleChatClick}
       />
 
-      {!!currentConversation && (
+      {!!currentChat && (
         <CurrentChat
-          conversation={currentConversation}
-          show={isShowConversation}
+          chat={currentChat}
+          show={isShowChat}
           onClose={handleCloseCurrentConversation}
-          toggleShow={toggleShowConversation}
+          toggleShow={toggleShowCurrentChat}
         />
       )}
     </Stack>

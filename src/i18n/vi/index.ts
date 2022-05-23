@@ -22,6 +22,7 @@ import changePasswordForm from './components/changePasswordForm.json';
 import userInfoButtonGroup from './components/userInfoButtonGroup.json';
 import noPost from './components/noPost.json';
 import notification from './components/notification.json';
+import chatPopup from './components/chatPopup.json';
 
 import validate from './common/validate';
 import toast from './common/toast';
@@ -52,6 +53,7 @@ export default {
   userInfoButtonGroup,
   noPost,
   notification,
+  chatPopup,
 
   validate,
   toast,

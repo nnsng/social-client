@@ -1,36 +1,32 @@
 import { CloseRounded, SendRounded } from '@mui/icons-material';
 import { Avatar, Box, IconButton, Stack, Typography } from '@mui/material';
 import otherApi from 'api/otherApi';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { ContainedInput } from 'components/common';
-import { selectCurrentUser } from 'features/auth/authSlice';
+import { IChat } from 'models';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getCurrentUserId } from 'utils/common';
 import { themeMixins } from 'utils/theme';
 import { getErrorMessage } from 'utils/toast';
-import { chatActions, IConversation, IMessage } from '../chatSlice';
 import ChatMessage from './ChatMessage';
 
 export interface ICurrentChatProps {
-  conversation: IConversation;
+  chat: IChat;
   show: boolean;
   onClose?: () => void;
   toggleShow?: () => void;
 }
 
 export default function CurrentChat(props: ICurrentChatProps) {
-  const { conversation, show, onClose, toggleShow } = props;
-
-  const currentUser = useAppSelector(selectCurrentUser);
+  const { chat, show, onClose, toggleShow } = props;
 
   const endMessageRef = useRef<any>(null);
   const [message, setMessage] = useState<string>('');
 
   useEffect(() => {
     endMessageRef.current?.scrollIntoView({});
-  }, [show, conversation]);
+  }, [show, chat]);
 
   const handleMessageChange = (e: any) => {
     setMessage(e.target.value);
@@ -47,7 +43,7 @@ export default function CurrentChat(props: ICurrentChatProps) {
 
     try {
       const newMessage = {
-        group: [currentUser?._id ?? '', conversation.user?._id ?? ''],
+        userId: chat.user?._id ?? '',
         text: message.trim(),
       };
 
@@ -81,14 +77,14 @@ export default function CurrentChat(props: ICurrentChatProps) {
       >
         <Stack alignItems="center" spacing={1}>
           <Avatar
-            src={conversation.user?.avatar}
+            src={chat.user?.avatar}
             sx={{ width: 32, height: 32 }}
             component={Link}
-            to={`/user/${conversation.user?.username}`}
+            to={`/user/${chat.user?.username}`}
           />
 
-          <Typography variant="subtitle2" color="common.white" fontSize={16}>
-            {conversation.user?.name}
+          <Typography variant="subtitle2" color="common.white" fontSize={15}>
+            {chat.user?.name}
           </Typography>
         </Stack>
 
@@ -117,11 +113,11 @@ export default function CurrentChat(props: ICurrentChatProps) {
               overflow: 'auto',
             }}
           >
-            {conversation.messageList.map((message, idx) => (
+            {chat.messageList.map((message, idx) => (
               <ChatMessage
                 key={idx}
                 message={message.text}
-                isMe={message.sentUserId === getCurrentUserId()}
+                isMe={message.sentId === getCurrentUserId()}
               />
             ))}
             <Box ref={endMessageRef}></Box>
@@ -138,6 +134,7 @@ export default function CurrentChat(props: ICurrentChatProps) {
               size="small"
               placeholder="Aa"
               fullWidth
+              autoFocus
               value={message}
               endAdornment={
                 <SendRounded
@@ -148,6 +145,7 @@ export default function CurrentChat(props: ICurrentChatProps) {
               }
               sx={{
                 '& input': {
+                  fontSize: 14,
                   py: 0.8,
                 },
               }}
