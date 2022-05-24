@@ -33,14 +33,13 @@ export function ConfirmDialog(props: IConfirmDialogProps) {
       </DialogContent>
 
       <DialogActions>
-        <Button color="inherit" size="large" disabled={!!loading} onClick={onClose}>
+        <Button color="inherit" disabled={!!loading} onClick={onClose}>
           {dialogTranslation.button.cancel}
         </Button>
 
         <Button
           variant="contained"
           color="error"
-          size="large"
           disabled={!!loading}
           autoFocus
           startIcon={!!loading && <CircularProgress size={20} color="error" />}

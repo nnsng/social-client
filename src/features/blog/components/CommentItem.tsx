@@ -196,9 +196,12 @@ export default function CommentItem(props: ICommentItemProps) {
                     <Tooltip title={t('edited')} placement="top" arrow>
                       <EditRounded
                         sx={{
-                          color: 'text.secondary',
+                          ml: 0.5,
+                          p: '2px',
+                          borderRadius: '50%',
+                          bgcolor: 'text.secondary',
+                          color: 'background.default',
                           fontSize: 12,
-                          ml: 0.8,
                         }}
                       />
                     </Tooltip>

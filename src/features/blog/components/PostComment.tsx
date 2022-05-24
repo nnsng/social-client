@@ -1,13 +1,5 @@
 import { CloseRounded, SendRounded } from '@mui/icons-material';
-import {
-  Avatar,
-  CircularProgress,
-  IconButton,
-  List,
-  OutlinedInput,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Avatar, CircularProgress, IconButton, List, Stack, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { ContainedInput } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
@@ -40,7 +32,6 @@ export default function PostComment(props: IPostCommentProps) {
   const loading = useAppSelector(selectCommentLoading);
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const [submitting, setSubmitting] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
 
   useEffect(() => {
@@ -58,7 +49,6 @@ export default function PostComment(props: IPostCommentProps) {
   };
 
   const handleSubmitComment = async () => {
-    setSubmitting(true);
     setInput('');
 
     try {
@@ -72,8 +62,6 @@ export default function PostComment(props: IPostCommentProps) {
     } catch (error: any) {
       toast.error(getErrorMessage(error));
     }
-
-    setSubmitting(false);
   };
 
   return (
@@ -132,7 +120,7 @@ export default function PostComment(props: IPostCommentProps) {
             placeholder={t('placeholder')}
             fullWidth
             autoFocus
-            disabled={loading || submitting}
+            disabled={loading}
             value={input}
             endAdornment={
               <SendRounded

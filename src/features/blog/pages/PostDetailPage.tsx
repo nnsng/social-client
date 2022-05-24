@@ -92,7 +92,7 @@ export function PostDetailPage() {
 
       <Box>
         <Grid container>
-          <Grid item xs={12} md={10} lg={7} mx="auto">
+          <Grid item xs={12} md={10} lg={8} mx="auto">
             <Box>
               {loading ? (
                 <PostDetailSkeleton />
