@@ -19,7 +19,6 @@ export default function ChatMessage({ message, isMe }: IChatMessageProps) {
         ml: isMe ? 'auto' : 0,
         borderRadius: 2,
         bgcolor: isMe ? 'transparent' : 'action.selected',
-        overflow: 'hidden',
         '&:first-of-type': {
           mt: 1,
         },
@@ -45,7 +44,7 @@ export default function ChatMessage({ message, isMe }: IChatMessageProps) {
         sx={{
           position: 'relative',
           zIndex: 1,
-          flexWrap: 'wrap',
+          wordBreak: 'break-word',
         }}
       >
         {message}

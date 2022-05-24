@@ -78,8 +78,12 @@ export default function ChatPopup(props: IChatPopupProps) {
 
                   <Stack>
                     <Typography color="text.secondary" fontSize={12} fontWeight={400}>
-                      {lastMessage?.sentId === currentUserId && 'You: '}
-                      {truncateText(lastMessage.text || '', 16)}
+                      {truncateText(
+                        `${lastMessage?.sentId === currentUserId ? t('you') : ''}${
+                          lastMessage.text
+                        }`,
+                        18
+                      )}
                     </Typography>
 
                     <Typography
