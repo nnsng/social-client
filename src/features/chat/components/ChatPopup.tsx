@@ -36,7 +36,7 @@ export default function ChatPopup(props: IChatPopupProps) {
       placement="top-end"
       sx={{
         width: 350,
-        mb: 2,
+        mb: 1,
       }}
     >
       <Typography color="text.primary" fontSize={20} fontWeight={500} py={1} px={2}>

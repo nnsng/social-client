@@ -5,7 +5,6 @@ export * from './BackdropLoading';
 export * from './ConfirmDialog';
 export * from './ContainedInput';
 export * from './CustomScrollbar';
-export * from './GoogleIcon';
 export * from './HashtagInput';
 export * from './Header';
 export * from './NoPost';

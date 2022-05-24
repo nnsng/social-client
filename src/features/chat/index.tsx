@@ -1,6 +1,6 @@
-import { ChatRounded } from '@mui/icons-material';
 import { IconButton, Stack, Theme, useMediaQuery } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { ChatIcon } from 'components/icons';
 import { IChat } from 'models';
 import React, { useEffect, useRef, useState } from 'react';
 import { chatActions, selectChatList, selectCurrentChat, selectShowCurrentChat } from './chatSlice';
@@ -57,12 +57,11 @@ export default function Chat() {
           width: 52,
           height: 52,
           mb: 2,
-          bgcolor: 'action.selected',
-          color: 'text.primary',
+          bgcolor: 'primary.main',
         }}
         onClick={toggleOpenPopup}
       >
-        <ChatRounded fontSize="medium" />
+        <ChatIcon color="#FFFFFF" />
       </IconButton>
 
       <ChatPopup

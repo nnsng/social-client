@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, ButtonProps, Stack, Typography } from '@mui/material';
-import { GoogleIcon } from 'components/common';
+import { GoogleIcon } from 'components/icons';
 import { MuiTextField } from 'components/formFields';
 import i18next from 'i18next';
 import { IAuthFormValues, IField } from 'models';
@@ -161,7 +161,7 @@ export default function AuthForm(props: IAuthFormProps) {
           {!isRegisterMode && (
             <AuthButton
               variant="outlined"
-              startIcon={<GoogleIcon width={24} height={24} />}
+              startIcon={<GoogleIcon width={24} />}
               onClick={onGoogleLogin}
             >
               {t('googleLogin')}

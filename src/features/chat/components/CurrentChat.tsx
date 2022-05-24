@@ -1,9 +1,7 @@
 import { CloseRounded, SendRounded } from '@mui/icons-material';
 import { Avatar, Box, IconButton, Stack, Typography } from '@mui/material';
 import otherApi from 'api/otherApi';
-import { useAppSelector } from 'app/hooks';
 import { ContainedInput } from 'components/common';
-import { selectCurrentUser } from 'features/auth/authSlice';
 import { IChat } from 'models';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -21,8 +19,6 @@ export interface ICurrentChatProps {
 
 export default function CurrentChat(props: ICurrentChatProps) {
   const { chat, show, onClose, toggleShow } = props;
-
-  const { _id: currentUserId } = useAppSelector(selectCurrentUser) || {};
 
   const endMessageRef = useRef<any>(null);
   const [message, setMessage] = useState<string>('');
@@ -71,14 +67,13 @@ export default function CurrentChat(props: ICurrentChatProps) {
         alignItems="center"
         justifyContent="space-between"
         sx={{
-          height: 48,
           px: 1,
           bgcolor: 'primary.main',
           cursor: 'pointer',
         }}
         onClick={toggleShow}
       >
-        <Stack alignItems="center" spacing={1}>
+        <Stack alignItems="center" spacing={1} py={1}>
           <Avatar
             src={chat.user?.avatar}
             sx={{ width: 32, height: 32 }}
@@ -86,7 +81,7 @@ export default function CurrentChat(props: ICurrentChatProps) {
             to={`/user/${chat.user?.username}`}
           />
 
-          <Typography variant="subtitle2" color="common.white" fontSize={15}>
+          <Typography variant="subtitle2" color="common.white" fontSize={14}>
             {chat.user?.name}
           </Typography>
         </Stack>
@@ -116,11 +111,7 @@ export default function CurrentChat(props: ICurrentChatProps) {
             }}
           >
             {chat.messageList.map((message, idx) => (
-              <ChatMessage
-                key={idx}
-                message={message.text}
-                isMe={message.sentId === currentUserId}
-              />
+              <ChatMessage key={idx} message={message} />
             ))}
             <Box ref={endMessageRef}></Box>
           </Box>

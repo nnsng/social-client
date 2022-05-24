@@ -1,54 +1,66 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Stack, Tooltip, Typography } from '@mui/material';
+import { useAppSelector } from 'app/hooks';
+import { selectCurrentUser } from 'features/auth/authSlice';
+import { IMessage } from 'models';
 import React from 'react';
+import { formatTime } from 'utils/common';
 
 export interface IChatMessageProps {
-  message: string;
-  isMe: boolean;
+  message: IMessage;
 }
 
-export default function ChatMessage({ message, isMe }: IChatMessageProps) {
+export default function ChatMessage({ message }: IChatMessageProps) {
+  const { _id: currentUserId } = useAppSelector(selectCurrentUser) || {};
+  const isMe = message.sentId === currentUserId;
+
   return (
-    <Stack
-      sx={{
-        position: 'relative',
-        maxWidth: '75%',
-        width: 'fit-content',
-        mb: 1,
-        px: 1,
-        py: 0.5,
-        ml: isMe ? 'auto' : 0,
-        borderRadius: 2,
-        bgcolor: isMe ? 'transparent' : 'action.selected',
-        '&:first-of-type': {
-          mt: 1,
-        },
-        ...(isMe
-          ? {
-              '&::after': {
-                position: 'absolute',
-                content: '""',
-                zIndex: 0,
-                inset: 0,
-                bgcolor: 'primary.main',
-                opacity: 0.5,
-                borderRadius: 2,
-              },
-            }
-          : {}),
-      }}
+    <Tooltip
+      title={formatTime(message.createdAt, 'HH:mm')}
+      placement={isMe ? 'left' : 'right'}
+      arrow
     >
-      <Typography
-        component="div"
-        color="text.primary"
-        fontSize={14}
+      <Stack
         sx={{
           position: 'relative',
-          zIndex: 1,
-          wordBreak: 'break-word',
+          maxWidth: '75%',
+          width: 'fit-content',
+          mb: 1,
+          px: 1,
+          py: 0.5,
+          ml: isMe ? 'auto' : 0,
+          borderRadius: 2,
+          bgcolor: isMe ? 'transparent' : 'action.selected',
+          '&:first-of-type': {
+            mt: 1,
+          },
+          ...(isMe
+            ? {
+                '&::after': {
+                  position: 'absolute',
+                  content: '""',
+                  zIndex: 0,
+                  inset: 0,
+                  bgcolor: 'primary.main',
+                  opacity: 0.5,
+                  borderRadius: 2,
+                },
+              }
+            : {}),
         }}
       >
-        {message}
-      </Typography>
-    </Stack>
+        <Typography
+          component="div"
+          color="text.primary"
+          fontSize={14}
+          sx={{
+            position: 'relative',
+            zIndex: 1,
+            wordBreak: 'break-word',
+          }}
+        >
+          {message.text}
+        </Typography>
+      </Stack>
+    </Tooltip>
   );
 }

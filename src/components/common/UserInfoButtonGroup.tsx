@@ -1,5 +1,4 @@
 import {
-  ChatRounded,
   EditRounded,
   MoreHorizRounded,
   PersonAddRounded,
@@ -16,6 +15,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getErrorMessage } from 'utils/toast';
+import { ChatIcon } from '../icons';
 
 export type FollowModeType = 'follow' | 'unfollow';
 
@@ -124,7 +124,7 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
             }}
             onClick={startChat}
           >
-            <ChatRounded />
+            <ChatIcon width={18} />
           </Button>
 
           <Button
