@@ -6,7 +6,6 @@ import { IChat } from 'models';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { getCurrentUserId } from 'utils/common';
 import { themeMixins } from 'utils/theme';
 import { getErrorMessage } from 'utils/toast';
 import ChatMessage from './ChatMessage';
@@ -25,7 +24,7 @@ export default function CurrentChat(props: ICurrentChatProps) {
   const [message, setMessage] = useState<string>('');
 
   useEffect(() => {
-    endMessageRef.current?.scrollIntoView({});
+    endMessageRef.current?.scrollIntoView();
   }, [show, chat]);
 
   const handleMessageChange = (e: any) => {
@@ -68,14 +67,13 @@ export default function CurrentChat(props: ICurrentChatProps) {
         alignItems="center"
         justifyContent="space-between"
         sx={{
-          height: 48,
           px: 1,
           bgcolor: 'primary.main',
           cursor: 'pointer',
         }}
         onClick={toggleShow}
       >
-        <Stack alignItems="center" spacing={1}>
+        <Stack alignItems="center" spacing={1} py={1}>
           <Avatar
             src={chat.user?.avatar}
             sx={{ width: 32, height: 32 }}
@@ -83,7 +81,7 @@ export default function CurrentChat(props: ICurrentChatProps) {
             to={`/user/${chat.user?.username}`}
           />
 
-          <Typography variant="subtitle2" color="common.white" fontSize={15}>
+          <Typography variant="subtitle2" color="common.white" fontSize={14}>
             {chat.user?.name}
           </Typography>
         </Stack>
@@ -104,8 +102,7 @@ export default function CurrentChat(props: ICurrentChatProps) {
             borderRadius: 0,
           }}
         >
-          <Stack
-            direction="column"
+          <Box
             className="default-scrollbar"
             sx={{
               flexGrow: 1,
@@ -114,14 +111,10 @@ export default function CurrentChat(props: ICurrentChatProps) {
             }}
           >
             {chat.messageList.map((message, idx) => (
-              <ChatMessage
-                key={idx}
-                message={message.text}
-                isMe={message.sentId === getCurrentUserId()}
-              />
+              <ChatMessage key={idx} message={message} />
             ))}
             <Box ref={endMessageRef}></Box>
-          </Stack>
+          </Box>
 
           <Box
             sx={{

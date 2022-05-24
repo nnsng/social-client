@@ -59,6 +59,9 @@ const chatSlice = createSlice({
     removeEmptyChat(state) {
       state.chatList = state.chatList.filter((chat) => chat.messageList.length > 0);
     },
+    reset(state) {
+      state = initialState;
+    },
   },
 });
 

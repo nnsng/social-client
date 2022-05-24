@@ -4,17 +4,11 @@ import 'dayjs/locale/vi';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { ConfigKey } from 'features/common/configSlice';
 import i18next from 'i18next';
-import jwtDecode from 'jwt-decode';
-import { IDecodedToken, IPost, IUserConfig } from 'models';
+import { IPost, IUserConfig } from 'models';
 import { toast } from 'react-toastify';
 import slugify from 'slugify';
-import { ACCESS_TOKEN, CONFIG } from './constants';
+import { CONFIG } from './constants';
 import { useTranslateFiles } from './translation';
-
-export const getCurrentUserId = () => {
-  const accessToken = localStorage.getItem(ACCESS_TOKEN);
-  return accessToken ? (jwtDecode(accessToken) as IDecodedToken)._id : '';
-};
 
 export const formatTime = (timestamp: any, template?: string) => {
   dayjs.extend(relativeTime);

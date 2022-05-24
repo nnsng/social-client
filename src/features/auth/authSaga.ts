@@ -1,6 +1,7 @@
 import { call, delay, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import authApi from 'api/authApi';
+import { chatActions } from 'features/chat/chatSlice';
 import { IAuthFormValues, IAuthPayload, IAuthResponse } from 'models';
 import { toast } from 'react-toastify';
 import { ACCESS_TOKEN } from 'utils/constants';
@@ -72,6 +73,7 @@ function* handleLogout(action: PayloadAction<IAuthPayload>) {
   const { navigate } = action.payload;
 
   yield delay(500);
+  yield put(chatActions.reset());
   localStorage.removeItem(ACCESS_TOKEN);
   navigate?.('/login');
 }
