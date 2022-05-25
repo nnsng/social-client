@@ -121,18 +121,23 @@ export default function AuthForm(props: IAuthFormProps) {
           ...themeMixins.paperBorder(),
           maxWidth: 450,
           height: { xs: '100vh', sm: 'auto' },
-          py: 5,
-          px: 4,
+          p: 4,
           m: 'auto',
         }}
       >
-        <Stack direction="column" spacing={2} my="auto">
+        <Stack
+          direction="column"
+          spacing={2}
+          sx={{
+            my: 'auto',
+            transform: { xs: 'translateY(-20%)', sm: 'unset' },
+          }}
+        >
           <Typography
             color="primary"
             fontSize={32}
             fontWeight={600}
             sx={{
-              mb: 2,
               textAlign: 'center',
             }}
           >

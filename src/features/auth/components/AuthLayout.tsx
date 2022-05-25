@@ -52,7 +52,6 @@ export default function AuthLayout({ mode }: IAuthLayoutProps) {
       <PageTitle title={t(`pageTitle.${mode}`)} />
 
       <Stack
-        direction="column"
         sx={{
           alignItems: 'center',
           justifyContent: 'center',

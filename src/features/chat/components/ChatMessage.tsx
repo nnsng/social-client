@@ -36,8 +36,8 @@ export default function ChatMessage({ message }: IChatMessageProps) {
           ...(isMe
             ? {
                 '&::after': {
-                  position: 'absolute',
                   content: '""',
+                  position: 'absolute',
                   zIndex: 0,
                   inset: 0,
                   bgcolor: 'primary.main',

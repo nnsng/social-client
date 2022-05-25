@@ -21,10 +21,12 @@ export default function CurrentChat(props: ICurrentChatProps) {
   const { chat, show, onClose, toggleShow } = props;
 
   const endMessageRef = useRef<any>(null);
+  const inputRef = useRef<any>(null);
   const [message, setMessage] = useState<string>('');
 
   useEffect(() => {
     endMessageRef.current?.scrollIntoView();
+    inputRef.current?.focus();
   }, [show, chat]);
 
   const handleMessageChange = (e: any) => {
@@ -124,10 +126,10 @@ export default function CurrentChat(props: ICurrentChatProps) {
             }}
           >
             <ContainedInput
+              inputProps={{ ref: inputRef }}
               size="small"
               placeholder="Aa"
               fullWidth
-              autoFocus
               value={message}
               endAdornment={
                 <SendRounded

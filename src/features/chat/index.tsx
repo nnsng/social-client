@@ -2,8 +2,8 @@ import { IconButton, Stack, Theme, useMediaQuery } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { ChatIcon } from 'components/icons';
 import { IChat } from 'models';
-import React, { useEffect, useRef, useState } from 'react';
-import { chatActions, selectChatList, selectCurrentChat, selectShowCurrentChat } from './chatSlice';
+import React, { useRef, useState } from 'react';
+import { chatActions, selectChatList, selectCurrentChat, selectIsExpandChat } from './chatSlice';
 import ChatPopup from './components/ChatPopup';
 import CurrentChat from './components/CurrentChat';
 
@@ -11,25 +11,21 @@ export default function Chat() {
   const dispatch = useAppDispatch();
   const chatList = useAppSelector(selectChatList);
   const currentChat = useAppSelector(selectCurrentChat);
-  const isShowChat = useAppSelector(selectShowCurrentChat);
+  const isShowChat = useAppSelector(selectIsExpandChat);
 
   const ref = useRef<any>(null);
   const [openPopup, setOpenPopup] = useState<boolean>(false);
-
-  useEffect(() => {
-    openPopup && dispatch(chatActions.setCurrentChat(null));
-  }, [openPopup]);
 
   const toggleOpenPopup = () => setOpenPopup(!openPopup);
   const closePopup = () => setOpenPopup(false);
 
   const toggleShowCurrentChat = () => {
-    dispatch(chatActions.setShowCurrentChat(!isShowChat));
+    dispatch(chatActions.setIsExpandChat(!isShowChat));
   };
 
   const handleChatClick = (chat: IChat) => {
     closePopup();
-    dispatch(chatActions.setShowCurrentChat(true));
+    dispatch(chatActions.setIsExpandChat(true));
     dispatch(chatActions.setCurrentChat(chat));
   };
 
@@ -48,7 +44,7 @@ export default function Chat() {
       sx={{
         position: 'fixed',
         bottom: 0,
-        right: 20,
+        right: 0,
       }}
     >
       <IconButton
@@ -56,7 +52,8 @@ export default function Chat() {
         sx={{
           width: 52,
           height: 52,
-          mb: 2,
+          mb: 3,
+          mr: 3,
           bgcolor: 'primary.main',
         }}
         onClick={toggleOpenPopup}

@@ -196,12 +196,13 @@ export default function CommentItem(props: ICommentItemProps) {
                     <Tooltip title={t('edited')} placement="top" arrow>
                       <EditRounded
                         sx={{
-                          ml: 0.5,
+                          ml: 1,
                           p: '2px',
                           borderRadius: '50%',
                           bgcolor: 'text.secondary',
                           color: 'background.default',
                           fontSize: 12,
+                          opacity: 0.6,
                         }}
                       />
                     </Tooltip>
@@ -226,7 +227,11 @@ export default function CommentItem(props: ICommentItemProps) {
                       <Button
                         size="small"
                         variant="contained"
-                        disabled={loading || content.trim().length === 0}
+                        disabled={
+                          loading ||
+                          content.trim().length === 0 ||
+                          content.trim() === comment.content
+                        }
                         startIcon={loading && <CircularProgress size={16} />}
                         onClick={handleEdit}
                       >
