@@ -1,5 +1,9 @@
 {
   "follow": "Follow",
   "unfollow": "Unfollow",
-  "editProfile": "Edit profile"
+  "editProfile": "Edit profile",
+  "menu": {
+    "block": "Block",
+    "report": "Report"
+  }
 }

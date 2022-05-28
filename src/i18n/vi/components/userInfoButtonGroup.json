@@ -1,5 +1,9 @@
 {
   "follow": "Theo dõi",
   "unfollow": "Bỏ theo dõi",
-  "editProfile": "Chỉnh sửa thông tin"
+  "editProfile": "Chỉnh sửa thông tin",
+  "menu": {
+    "block": "Chặn",
+    "report": "Báo cáo"
+  }
 }

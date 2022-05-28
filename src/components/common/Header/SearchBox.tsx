@@ -61,7 +61,7 @@ export default function SearchBox(props: ISearchBoxProps) {
   const [result, setResult] = useState<ISearchResult>({ list: [], length: 0, isMore: false });
   const [showSearchResult, setShowSearchResult] = useState<boolean>(false);
   const [searchObj, setSearchObj] = useState<ISearchObj>({
-    searchFor: 'search',
+    searchFor: 'title',
     searchTerm: searchInput,
   });
 
@@ -94,7 +94,7 @@ export default function SearchBox(props: ISearchBoxProps) {
         break;
       }
       default: {
-        searchFor = 'search';
+        searchFor = 'title';
         searchTerm = searchInput;
       }
     }
@@ -204,9 +204,9 @@ export default function SearchBox(props: ISearchBoxProps) {
                     <CircularProgress size={20} color="primary" />
                   ) : (
                     <Typography variant="body2" color="text.secondary">
-                      {t('search.result', {
+                      {t(`search.${searchObj.searchFor}.result${result.length > 1 ? 's' : ''}`, {
                         count: result.length,
-                        ...searchObj,
+                        searchTerm: searchObj.searchTerm,
                       })}
                     </Typography>
                   )}

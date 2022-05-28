@@ -1,7 +1,18 @@
 {
   "search": {
     "placeholder": "Search",
-    "result": "{{count}} result with {{searchFor}} \"{{searchTerm}}\"",
+    "title": {
+      "result": "{{count}} post with title \"{{searchTerm}}\"",
+      "results": "{{count}} posts with title \"{{searchTerm}}\""
+    },
+    "hashtag": {
+      "result": "{{count}} post with hashtag \"{{searchTerm}}\"",
+      "results": "{{count}} posts with hashtag \"{{searchTerm}}\""
+    },
+    "username": {
+      "result": "{{count}} user with username \"{{searchTerm}}\"",
+      "results": "{{count}} users with username \"{{searchTerm}}\""
+    },
     "viewMore": "View more"
   },
   "menu": {

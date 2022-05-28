@@ -39,7 +39,7 @@ const toast = {
     emailExist: 'Email đã tồn tại.',
     activeAccount: 'Vui lòng kích hoạt tài khoản.',
     accountActive: 'Tài khoản đã được kích hoạt.',
-    usernameExist: 'Tên người dùng đã tồn tại.',
+    usernameExist: 'Username đã tồn tại.',
     passwordNotCorrect: 'Mật khẩu không đúng.',
     cannotChangeEmail: 'Không thể thay đổi email.',
     alreadyFollow: 'Bạn đã theo dõi người dùng này.',

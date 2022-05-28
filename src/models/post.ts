@@ -26,7 +26,7 @@ export interface IComment {
   createdAt?: string;
 }
 export interface ISearchObj {
-  searchFor: 'search' | 'username' | 'hashtag';
+  searchFor: 'title' | 'username' | 'hashtag';
   searchTerm: string;
 }
 

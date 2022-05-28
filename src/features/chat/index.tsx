@@ -54,11 +54,11 @@ export default function Chat() {
           height: 52,
           mb: 3,
           mr: 3,
-          bgcolor: 'primary.main',
+          bgcolor: 'action.selected',
         }}
         onClick={toggleOpenPopup}
       >
-        <ChatIcon color="#FFFFFF" />
+        <ChatIcon />
       </IconButton>
 
       <ChatPopup

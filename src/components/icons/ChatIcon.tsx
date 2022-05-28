@@ -2,9 +2,9 @@ import { Box } from '@mui/material';
 import React from 'react';
 import { IIconProps } from '.';
 
-export function ChatIcon({ width, height = width, color }: IIconProps) {
+export function ChatIcon({ width, height = width }: IIconProps) {
   return (
-    <Box sx={{ mt: '5px', '& svg path': { fill: (theme) => color ?? theme.palette.text.primary } }}>
+    <Box sx={{ mt: '5px', '& svg path': { fill: (theme) => theme.palette.text.primary } }}>
       <svg
         viewBox="0 0 1024 1024"
         version="1.1"

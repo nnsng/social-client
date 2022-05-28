@@ -14,9 +14,9 @@ const validate = {
     max: (n: number) => `Họ tên tối đa ${n} ký tự`,
   },
   username: {
-    required: 'Vui lòng nhập tên người dùng',
-    min: (n: number) => `Tên người dùng tối thiểu ${n} ký tự`,
-    max: (n: number) => `Tên người dùng tối đa ${n} ký tự`,
+    required: 'Vui lòng nhập username',
+    min: (n: number) => `Username tối thiểu ${n} ký tự`,
+    max: (n: number) => `Username tối đa ${n} ký tự`,
     valid: 'Chỉ chấp nhận A-Z, a-z, 0-9, -, .',
   },
   bio: {

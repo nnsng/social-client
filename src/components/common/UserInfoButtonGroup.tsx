@@ -4,18 +4,20 @@ import {
   PersonAddRounded,
   PersonRemoveRounded,
 } from '@mui/icons-material';
-import { Button, CircularProgress, Stack } from '@mui/material';
+import { Button, CircularProgress, MenuItem, Stack } from '@mui/material';
 import userApi from 'api/userApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { GetUserInfoMenu } from 'components/functions';
 import { authActions, selectCurrentUser } from 'features/auth/authSlice';
 import { chatActions } from 'features/chat/chatSlice';
 import { IUser } from 'models';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { getErrorMessage } from 'utils/toast';
 import { ChatIcon } from '../icons';
+import { ActionMenu } from './ActionMenu';
 
 export type FollowModeType = 'follow' | 'unfollow';
 
@@ -33,14 +35,17 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
   const { selectedUser, updateUser } = props;
   const userId = selectedUser?._id as string;
 
-  const BUTTON_HEIGHT = 36;
-
   const { t } = useTranslation('userInfoButtonGroup');
 
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
 
+  const anchorRef = useRef<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [openMenu, setOpenMenu] = useState<boolean>(false);
+
+  const toggleMenu = () => setOpenMenu(!openMenu);
+  const closeMenu = () => setOpenMenu(false);
 
   const handleFollow = async (mode: FollowModeType) => {
     setLoading(true);
@@ -59,6 +64,15 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
   const startChat = () => {
     selectedUser && dispatch(chatActions.startChat(selectedUser));
   };
+
+  const handleMenuItemClick = (callback?: () => void) => {
+    closeMenu();
+    callback?.();
+  };
+
+  const menu = GetUserInfoMenu({ t });
+
+  const BUTTON_HEIGHT = 36;
 
   return (
     <Stack alignItems="center" spacing={1} mt={{ xs: 1, sm: 2 }}>
@@ -128,6 +142,7 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
           </Button>
 
           <Button
+            ref={anchorRef}
             sx={{
               height: BUTTON_HEIGHT,
               px: 2,
@@ -137,9 +152,27 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
                 bgcolor: 'action.selected',
               },
             }}
+            onClick={toggleMenu}
           >
             <MoreHorizRounded />
           </Button>
+
+          <ActionMenu open={openMenu} anchorEl={anchorRef.current} onClose={closeMenu}>
+            {menu.map(({ label, icon: Icon, onClick }, idx) => (
+              <MenuItem
+                key={idx}
+                sx={{
+                  py: 1.5,
+                  px: 2.5,
+                  fontSize: 15,
+                }}
+                onClick={() => handleMenuItemClick(onClick)}
+              >
+                <Icon sx={{ fontSize: { xs: 20, sm: 18 }, mr: 2 }} />
+                {label}
+              </MenuItem>
+            ))}
+          </ActionMenu>
         </>
       )}
     </Stack>
