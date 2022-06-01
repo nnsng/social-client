@@ -1,13 +1,17 @@
 {
   "title": {
-    "login": "Đăng nhập",
-    "register": "Đăng ký"
+    "login": "Chào mừng đến với {{appName}}",
+    "register": "Đăng ký tài khoản"
   },
   "label": {
     "name": "Họ tên",
     "username": "Username",
     "email": "Email",
     "password": "Mật khẩu"
+  },
+  "button": {
+    "login": "Đăng nhập",
+    "register": "Đăng ký"
   },
   "googleLogin": "Tiếp tục với Google",
   "text": {

@@ -146,6 +146,12 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
       props: {
         multiline: true,
         rows: 3,
+        sx: {
+          maxWidth: 400,
+          '& .MuiInputBase-root': {
+            borderRadius: 4,
+          },
+        },
       },
     },
   ];
@@ -164,6 +170,7 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
                 placeholder={t(`label.${name}`)}
                 title={t(`label.${name}`)}
                 sx={{ maxWidth: 400 }}
+                rounded
                 {...props}
               />
             ) : (
@@ -178,6 +185,7 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
               color="primary"
               disabled={submitting || uploading}
               startIcon={submitting && <CircularProgress size={20} />}
+              sx={{ borderRadius: 40 }}
             >
               {t('save')}
             </Button>

@@ -12,7 +12,7 @@ interface IConfigState extends IUserConfig {
 
 const initialState: IConfigState = {
   showConfig: false,
-  theme: 'dark',
+  theme: 'light',
   color: '#7575FF',
   lang: 'vi',
   ...localConfig.get(),

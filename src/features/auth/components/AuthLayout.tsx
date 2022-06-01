@@ -1,6 +1,7 @@
 import { Stack } from '@mui/material';
 import authApi from 'api/authApi';
 import { useAppDispatch } from 'app/hooks';
+import background from 'assets/images/background.png';
 import { PageTitle } from 'components/common';
 import useLoginWithGoogle from 'hooks/useLoginWithGoogle';
 import { IAuthFormValues } from 'models';
@@ -53,10 +54,19 @@ export default function AuthLayout({ mode }: IAuthLayoutProps) {
 
       <Stack
         sx={{
+          position: 'relative',
           alignItems: 'center',
           justifyContent: 'center',
           minHeight: '100vh',
-          bgcolor: 'background.default',
+          backgroundImage: `url(${background})`,
+          backgroundSize: 'cover',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            inset: 0,
+            bgcolor: 'common.black',
+            opacity: 0.5,
+          },
         }}
       >
         <AuthForm

@@ -1,13 +1,17 @@
 {
   "title": {
-    "login": "Login",
-    "register": "Register"
+    "login": "Welcome to {{appName}}",
+    "register": "Register an account"
   },
   "label": {
     "name": "Full name",
     "username": "Username",
     "email": "Email",
     "password": "Password"
+  },
+  "button": {
+    "login": "Login",
+    "register": "Register"
   },
   "googleLogin": "Continue with Google",
   "text": {
