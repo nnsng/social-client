@@ -171,7 +171,7 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
             fontWeight: 600,
           }}
         >
-          {title || t('noTitle')}
+          {title || `(${t('noTitle')})`}
         </Typography>
 
         <DialogContent
@@ -204,7 +204,7 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
               sx={{ fontWeight: 500 }}
             >
               <FileInputField name="thumbnail" control={control} id="thumbnail-input" />
-              {t('btnLabel.addThumbnail')}
+              {thumbnail ? t('btnLabel.changeThumbnail') : t('btnLabel.addThumbnail')}
             </Button>
 
             {thumbnail && (

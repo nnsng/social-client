@@ -1,12 +1,6 @@
 import { PaletteMode } from '@mui/material';
 import { NavigateFunction } from 'react-router-dom';
 
-export interface IDecodedToken {
-  _id: string;
-  exp: number;
-  iat: number;
-}
-
 export interface IUser {
   _id: string;
   name: string;

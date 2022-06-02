@@ -52,17 +52,15 @@ export const delay = async (ms: number) => {
 };
 
 export const localConfig = {
-  set(config: IUserConfig) {
-    localStorage.setItem(CONFIG, JSON.stringify(config));
-  },
-  setProperty(key: ConfigKey, value: string) {
-    const prevConfig = JSON.parse(localStorage.getItem(CONFIG) || '{}');
-    localStorage.setItem(CONFIG, JSON.stringify({ ...prevConfig, [key]: value }));
-  },
   get(key?: ConfigKey) {
     const config = JSON.parse(localStorage.getItem(CONFIG) || '{}');
     if (key) return config?.[key] || '';
     return config;
+  },
+  update(newConfig: Partial<IUserConfig>) {
+    const config = this.get();
+    const updatedConfig = { ...config, ...newConfig };
+    localStorage.setItem(CONFIG, JSON.stringify(updatedConfig));
   },
 };
 

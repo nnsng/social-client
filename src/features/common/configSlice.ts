@@ -13,7 +13,7 @@ interface IConfigState extends IUserConfig {
 const initialState: IConfigState = {
   showConfig: false,
   theme: 'light',
-  color: '#7575FF',
+  color: '#FF652F',
   lang: 'vi',
   ...localConfig.get(),
 };
@@ -25,17 +25,15 @@ const configSlice = createSlice({
     setShowConfig: (state, action: PayloadAction<boolean>) => {
       state.showConfig = action.payload;
     },
-    changeThemeMode(state, action: PayloadAction<PaletteMode>) {
-      state.theme = action.payload;
-      localConfig.setProperty('theme', action.payload);
-    },
-    changeThemeColor(state, action: PayloadAction<string>) {
-      state.color = action.payload;
-      localConfig.setProperty('color', action.payload);
-    },
-    changeLanguage(state, action: PayloadAction<string>) {
-      state.lang = action.payload;
-      localConfig.setProperty('lang', action.payload);
+    update(state, action: PayloadAction<Partial<IUserConfig>>) {
+      const config = action.payload;
+      const keyList = Object.keys(config) as ConfigKey[];
+
+      for (const key of keyList) {
+        const value: any = config[key];
+        state[key] = value;
+        localConfig.update({ [key]: value });
+      }
     },
   },
 });

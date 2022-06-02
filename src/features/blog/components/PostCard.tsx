@@ -107,6 +107,7 @@ export default function PostCard(props: IPostCardProps) {
                 sx={{
                   ...themeMixins.truncate(2),
                   m: 0,
+                  mt: 0.5,
                   '& *': { maxWidth: '100%' },
                 }}
               >

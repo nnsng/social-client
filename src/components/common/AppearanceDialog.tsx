@@ -55,14 +55,9 @@ export function AppearanceDialog() {
     dispatch(configActions.setShowConfig(false));
   };
 
-  const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedColor = event.target.value;
-    dispatch(configActions.changeThemeColor(selectedColor));
-  };
-
-  const handleLanguageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedLanguage = event.target.value;
-    dispatch(configActions.changeLanguage(selectedLanguage));
+  const handleUpdateConfig = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    dispatch(configActions.update({ [name]: value }));
   };
 
   return (
@@ -122,10 +117,11 @@ export function AppearanceDialog() {
               {supportedThemeColors.map((color) => (
                 <ColorRadio
                   key={color}
+                  name="color"
                   value={color}
                   iconColor={color}
                   checked={themeColor === color}
-                  onChange={handleColorChange}
+                  onChange={handleUpdateConfig}
                 />
               ))}
             </Stack>
@@ -150,9 +146,10 @@ export function AppearanceDialog() {
                   key={code}
                   control={
                     <Radio
+                      name="lang"
                       value={code}
                       checked={language === code}
-                      onChange={handleLanguageChange}
+                      onChange={handleUpdateConfig}
                     />
                   }
                   label={name}

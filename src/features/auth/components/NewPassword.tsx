@@ -6,6 +6,7 @@ import { IChangePasswordFormValues, IField } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { themeMixins } from 'utils/theme';
 
 export interface INewPasswordProps {
   token: string;
@@ -45,8 +46,8 @@ export function NewPassword({ token, mode }: INewPasswordProps) {
     <>
       <PageTitle title={t(`pageTitle.${mode}`)} />
 
-      <Container maxWidth="md">
-        <Box mt={3}>
+      <Container maxWidth="sm">
+        <Box mt={3} p={3} sx={{ ...themeMixins.paperBorder() }}>
           <Typography fontSize={24} fontWeight={500} mb={2}>
             {t(`pageTitle.${mode}`)}
           </Typography>

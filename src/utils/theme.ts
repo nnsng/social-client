@@ -24,7 +24,7 @@ const configThemePalette = (mode: PaletteMode = 'light', color: string = '#7575F
             disabledBackground: 'rgba(0, 0, 0, 0.12)',
           },
           background: {
-            default: '#F0F2F5',
+            default: '#F9F9F9',
             paper: '#FFFFFF',
           },
           divider: 'rgba(0, 0, 0, 0.12)',
@@ -122,8 +122,8 @@ export const generateTheme = (mode?: PaletteMode, color?: string) =>
   });
 
 export const supportedThemeColors: string[] = [
-  '#7575FF',
   '#FF652F',
+  '#7575FF',
   '#00CC6A',
   '#FFB900',
   '#C239B3',
@@ -145,9 +145,9 @@ export const themeMixins = {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   }),
+
   paperBorder: (type: BorderType = ''): SxProps<Theme> => {
     const borderType = type ? `border${type[0].toUpperCase()}${type.slice(1)}` : 'border';
-
     return {
       bgcolor: 'background.paper',
       boxShadow: (theme) => (theme.palette.mode === 'light' ? themeVariables.boxShadow : undefined),
