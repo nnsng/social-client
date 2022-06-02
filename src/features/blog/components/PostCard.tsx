@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 import { ConfirmDialog } from 'components/common';
-import { IPost } from 'models';
+import { IPost, PostActionType } from 'models';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
@@ -14,13 +14,12 @@ import PostCardHeader from './PostCardHeader';
 
 export interface IPostCardProps {
   post: IPost;
-  onSave?: (post: IPost) => void;
-  onRemove?: (post: IPost) => void;
+  onPostAction?: (action: PostActionType, post: IPost) => void;
   showPopup?: boolean;
 }
 
 export default function PostCard(props: IPostCardProps) {
-  const { post, onSave, onRemove, showPopup = true } = props;
+  const { post, onPostAction, showPopup = true } = props;
 
   const { t } = useTranslation('postCard');
   const { toast: toastTranslation, dialog: dialogTranslation } = useTranslateFiles(
@@ -35,7 +34,7 @@ export default function PostCard(props: IPostCardProps) {
 
   const handleSavePost = async () => {
     try {
-      await onSave?.(post);
+      await onPostAction?.('save', post);
       toast.success(toastTranslation.postCard.saveSuccess);
     } catch (error: any) {
       toast.error(getErrorMessage(error));
@@ -46,7 +45,7 @@ export default function PostCard(props: IPostCardProps) {
     setLoading(true);
 
     try {
-      await onRemove?.(post);
+      await onPostAction?.('remove', post);
       toast.success(toastTranslation.postCard.deleteSuccess);
     } catch (error: any) {
       toast.error(getErrorMessage(error));

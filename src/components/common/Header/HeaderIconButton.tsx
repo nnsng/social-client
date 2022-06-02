@@ -3,13 +3,12 @@ import React from 'react';
 
 export interface IHeaderIconButtonProps {
   icon: React.ReactElement;
-  active?: boolean;
   onClick?: () => void;
   showBadge?: boolean;
 }
 
 function HeaderIconButton(props: IHeaderIconButtonProps, ref?: any) {
-  const { icon, active, onClick, showBadge } = props;
+  const { icon, onClick, showBadge } = props;
 
   return (
     <Badge
@@ -34,12 +33,12 @@ function HeaderIconButton(props: IHeaderIconButtonProps, ref?: any) {
           height: 36,
           ml: 2,
           bgcolor: 'action.hover',
-          color: active ? 'primary.main' : 'text.secondary',
+          color: 'text.secondary',
           '.MuiSvgIcon-root': {
             fontSize: 20,
           },
           '&:hover': {
-            color: active ? 'primary.main' : 'text.primary',
+            color: 'text.primary',
           },
         }}
       >

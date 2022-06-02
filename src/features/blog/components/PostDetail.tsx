@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography } from '@mui/material';
 import { ConfirmDialog } from 'components/common';
-import { IPost } from 'models';
+import { IPost, PostActionType } from 'models';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -13,12 +13,11 @@ import PostCardHeader from './PostCardHeader';
 
 export interface IPostDetailProps {
   post: IPost;
-  onSave?: (post: IPost) => void;
-  onRemove?: (post: IPost) => void;
+  onPostAction?: (action: PostActionType, post: IPost) => void;
 }
 
 export default function PostDetail(props: IPostDetailProps) {
-  const { post, onSave, onRemove } = props;
+  const { post, onPostAction } = props;
 
   const navigate = useNavigate();
 
@@ -35,7 +34,7 @@ export default function PostDetail(props: IPostDetailProps) {
 
   const handleSavePost = async () => {
     try {
-      await onSave?.(post);
+      await onPostAction?.('save', post);
       toast.success(toastTranslation.postDetail.saveSuccess);
     } catch (error: any) {
       toast.error(getErrorMessage(error));
@@ -46,7 +45,7 @@ export default function PostDetail(props: IPostDetailProps) {
     setLoading(true);
 
     try {
-      await onRemove?.(post);
+      await onPostAction?.('remove', post);
       toast.success(toastTranslation.postDetail.deleteSuccess);
       navigate('/blog');
     } catch (error: any) {

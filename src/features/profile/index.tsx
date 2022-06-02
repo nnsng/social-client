@@ -6,7 +6,7 @@ import { Header, NotFound, PageTitle } from 'components/common';
 import { UserInfoSkeleton } from 'components/skeletons';
 import { blogActions, selectPostList, selectPostLoading } from 'features/blog/blogSlice';
 import PostList from 'features/blog/components/PostList';
-import { IListParams, IPost, IUser } from 'models';
+import { IListParams, IPost, IUser, PostActionType } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -53,13 +53,11 @@ export default function ProfilePage(props: IProfileProps) {
     setPage(page ?? 1);
   };
 
-  const handleSavePost = async (post: IPost) => {
-    await postApi.save(post._id as string);
-  };
-
-  const handleRemovePost = async (post: IPost) => {
-    await postApi.remove(post._id as string);
-    fetchUserPostList({ page });
+  const handlePostAction = async (action: PostActionType, post: IPost) => {
+    await postApi[action](post._id || '');
+    if (action === 'remove') {
+      fetchUserPostList({ page });
+    }
   };
 
   const updateUser = (user: Partial<IUser>) => {
@@ -86,8 +84,7 @@ export default function ProfilePage(props: IProfileProps) {
               postList={postList}
               page={page}
               onFilterChange={handlePageChange}
-              onSave={handleSavePost}
-              onRemove={handleRemovePost}
+              onPostAction={handlePostAction}
               isHomePage={false}
             />
           )}

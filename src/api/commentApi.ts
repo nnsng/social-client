@@ -14,8 +14,8 @@ const commentApi = {
     const url = `/comments/${data._id}`;
     return axiosClient.patch(url, data);
   },
-  remove(id: string) {
-    const url = `/comments/${id}`;
+  remove(data: IComment) {
+    const url = `/comments/${data._id}`;
     return axiosClient.delete(url);
   },
   like(id: string) {

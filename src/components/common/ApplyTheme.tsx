@@ -27,7 +27,7 @@ export function ApplyTheme({ children }: IApplyThemeProps) {
 
   useEffect(() => {
     const faviconElement = document.getElementById('favicon') as any;
-    faviconElement.href = favicons[themeColor] ?? favicons.rainbow;
+    faviconElement.href = favicons[themeColor] ?? favicons['#000000'];
     document.documentElement.style.setProperty('--color-primary', themeColor);
   }, [themeColor]);
 

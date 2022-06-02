@@ -62,7 +62,7 @@ export function PostItem(props: IPostItemProps) {
       sx={{
         ...themeMixins.paperBorder(),
         my: 2,
-        p: 1,
+        p: { xs: 1, sm: 2 },
       }}
     >
       <Stack width="100%" alignItems="center">

@@ -4,7 +4,7 @@ import { useAppSelector } from 'app/hooks';
 import { ContainedInput } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { selectCommentLoading } from 'features/blog/commentSlice';
-import { IComment } from 'models';
+import { CommentActionType, IComment } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
@@ -15,17 +15,12 @@ export interface IPostCommentProps {
   commentList: IComment[];
   postId: string;
   onClose?: () => void;
-  onCreate?: (comment: IComment) => void;
   updateCommentCount?: (count: number) => void;
-
-  // commentItemProps
-  onEdit?: (comment: IComment) => void;
-  onRemove?: (comment: IComment) => void;
-  onLike?: (comment: IComment) => void;
+  onCommentAction?: (action: CommentActionType, comment: IComment) => void;
 }
 
 export default function PostComment(props: IPostCommentProps) {
-  const { commentList, postId, onClose, onCreate, updateCommentCount, ...commentItemProps } = props;
+  const { commentList, postId, onClose, updateCommentCount, onCommentAction } = props;
 
   const { t } = useTranslation('postComment');
 
@@ -58,7 +53,7 @@ export default function PostComment(props: IPostCommentProps) {
         content: input.trim(),
       };
 
-      await onCreate?.(comment);
+      await onCommentAction?.('create', comment);
     } catch (error: any) {
       toast.error(getErrorMessage(error));
     }
@@ -137,7 +132,7 @@ export default function PostComment(props: IPostCommentProps) {
 
       <List>
         {commentList?.map((comment) => (
-          <CommentItem key={comment._id} comment={comment} {...commentItemProps} />
+          <CommentItem key={comment._id} comment={comment} onCommentAction={onCommentAction} />
         ))}
       </List>
     </Stack>

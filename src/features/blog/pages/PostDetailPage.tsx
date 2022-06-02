@@ -2,11 +2,11 @@ import { Box, Container, Drawer, Grid } from '@mui/material';
 import commentApi from 'api/commentApi';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { NotFound, PageTitle } from 'components/common';
+import { PageTitle } from 'components/common';
 import { PostDetailSkeleton } from 'components/skeletons';
 import { commentActions, selectPostComments } from 'features/blog/commentSlice';
 import { selectSocket } from 'features/socket/socketSlice';
-import { IComment, ILocationState, IPost } from 'models';
+import { CommentActionType, IComment, ILocationState, IPost, PostActionType } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
@@ -54,32 +54,20 @@ export function PostDetailPage() {
 
   const closeComment = () => setOpenComment(false);
 
-  const handleSavePost = async (post: IPost) => {
-    await postApi.save(post._id || '');
-  };
-
-  const handleRemovePost = async (post: IPost) => {
-    await postApi.remove(post._id || '');
+  const handlePostAction = async (action: PostActionType, post: IPost) => {
+    await postApi[action](post._id || '');
   };
 
   const handleLikePost = () => {
     dispatch(blogActions.likePost(post?._id || ''));
   };
 
-  const handleCreateComment = async (comment: IComment) => {
-    await commentApi.create(comment);
-  };
-
-  const handleEditComment = async (comment: IComment) => {
-    await commentApi.edit(comment);
-  };
-
-  const handleRemoveComment = async (comment: IComment) => {
-    await commentApi.remove(comment._id as string);
-  };
-
-  const handleLikeComment = (comment: IComment) => {
-    dispatch(commentActions.like(comment._id as string));
+  const handleCommentAction = async (action: CommentActionType, comment: IComment) => {
+    if (action === 'like') {
+      dispatch(commentActions.like(comment._id || ''));
+      return;
+    }
+    await commentApi[action](comment);
   };
 
   const updateCommentCount = (count: number) => {
@@ -97,9 +85,7 @@ export function PostDetailPage() {
               {loading ? (
                 <PostDetailSkeleton />
               ) : (
-                post && (
-                  <PostDetail post={post} onSave={handleSavePost} onRemove={handleRemovePost} />
-                )
+                post && <PostDetail post={post} onPostAction={handlePostAction} />
               )}
             </Box>
           </Grid>
@@ -122,11 +108,8 @@ export function PostDetailPage() {
             commentList={postComments}
             postId={post?._id || ''}
             onClose={closeComment}
-            onCreate={handleCreateComment}
             updateCommentCount={updateCommentCount}
-            onEdit={handleEditComment}
-            onRemove={handleRemoveComment}
-            onLike={handleLikeComment}
+            onCommentAction={handleCommentAction}
           />
         </Drawer>
       </Box>

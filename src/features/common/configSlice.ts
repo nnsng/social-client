@@ -1,10 +1,7 @@
-import { PaletteMode } from '@mui/material';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { IUserConfig } from 'models';
+import { ConfigKey, IUserConfig } from 'models';
 import { localConfig } from 'utils/common';
-
-export type ConfigKey = keyof IUserConfig;
 
 interface IConfigState extends IUserConfig {
   showConfig: boolean;

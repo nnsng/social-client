@@ -30,6 +30,8 @@ export default function AuthForm(props: IAuthFormProps) {
   const { t } = useTranslation('authForm');
   const { validate, toast: toastTranslation } = useTranslateFiles('validate', 'toast');
 
+  const validateSchema = getValidateSchema(defaultValues.mode, validate);
+
   const schema = yup.object().shape({
     email: yup.string().required(validate.email.required).email(validate.email.email),
     password: yup
@@ -37,20 +39,9 @@ export default function AuthForm(props: IAuthFormProps) {
       .required(validate.password.required)
       .min(6, validate.password.min(6))
       .max(255, validate.password.max(255)),
-    mode: yup.string().required(),
-    name: yup.string().when('mode', {
-      is: 'register',
-      then: yup.string().required(validate.name.required).max(255, validate.name.max(255)),
-    }),
-    username: yup.string().when('mode', {
-      is: 'register',
-      then: yup
-        .string()
-        .required(validate.username.required)
-        .min(6, validate.username.min(6))
-        .max(50, validate.username.max(20))
-        .matches(/^[a-zA-Z0-9_\.]+$/, validate.username.valid),
-    }),
+    mode: yup.string().required().oneOf(['login', 'register']),
+    name: validateSchema.name,
+    username: validateSchema.username,
   });
 
   const { control, handleSubmit, getValues, reset, clearErrors } = useForm({
@@ -124,7 +115,8 @@ export default function AuthForm(props: IAuthFormProps) {
           position: 'relative',
           zIndex: 2,
           maxWidth: 640,
-          height: { xs: '100vh', sm: 600 },
+          height: { xs: '100vh', sm: 'fit-content' },
+          minHeight: 600,
           py: 6,
           m: 'auto',
         }}
@@ -144,7 +136,7 @@ export default function AuthForm(props: IAuthFormProps) {
             {APP_NAME[0]}
           </Avatar>
 
-          <Typography color="text.primary" fontSize={24} fontWeight={500}>
+          <Typography color="text.primary" fontSize={24} fontWeight={600}>
             {t(`title.${defaultValues.mode}`, { appName: APP_NAME })}
           </Typography>
         </Stack>
@@ -255,4 +247,23 @@ function AuthButton({ children, ...props }: ButtonProps) {
       {children}
     </Button>
   );
+}
+
+function getValidateSchema(mode: 'login' | 'register', translation: any) {
+  if (mode === 'login') {
+    return {
+      name: yup.string(),
+      username: yup.string(),
+    };
+  }
+
+  return {
+    name: yup.string().required(translation.name.required).max(255, translation.name.max(255)),
+    username: yup
+      .string()
+      .required(translation.username.required)
+      .min(6, translation.username.min(6))
+      .max(50, translation.username.max(20))
+      .matches(/^[a-zA-Z0-9_\.]+$/, translation.username.valid),
+  };
 }
