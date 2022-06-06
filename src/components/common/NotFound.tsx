@@ -24,6 +24,7 @@ export function NotFound({ showHeader }: INotFoundProps) {
           inset: 0,
           alignItems: 'center',
           justifyContent: 'center',
+          bgcolor: 'background.default',
         }}
       >
         <Typography

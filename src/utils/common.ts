@@ -2,9 +2,8 @@ import otherApi from 'api/otherApi';
 import dayjs from 'dayjs';
 import 'dayjs/locale/vi';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { ConfigKey } from 'features/common/configSlice';
 import i18next from 'i18next';
-import { IPost, IUserConfig } from 'models';
+import { ConfigKey, IPost, IUserConfig } from 'models';
 import { toast } from 'react-toastify';
 import slugify from 'slugify';
 import { CONFIG } from './constants';
@@ -52,17 +51,15 @@ export const delay = async (ms: number) => {
 };
 
 export const localConfig = {
-  set(config: IUserConfig) {
-    localStorage.setItem(CONFIG, JSON.stringify(config));
-  },
-  setProperty(key: ConfigKey, value: string) {
-    const prevConfig = JSON.parse(localStorage.getItem(CONFIG) || '{}');
-    localStorage.setItem(CONFIG, JSON.stringify({ ...prevConfig, [key]: value }));
-  },
   get(key?: ConfigKey) {
     const config = JSON.parse(localStorage.getItem(CONFIG) || '{}');
     if (key) return config?.[key] || '';
     return config;
+  },
+  update(newConfig: Partial<IUserConfig>) {
+    const config = this.get();
+    const updatedConfig = { ...config, ...newConfig };
+    localStorage.setItem(CONFIG, JSON.stringify(updatedConfig));
   },
 };
 

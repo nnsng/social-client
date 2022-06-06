@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Button, ButtonProps, Stack, Typography } from '@mui/material';
-import { GoogleIcon } from 'components/icons';
+import { Avatar, Box, Button, ButtonProps, Stack, Typography } from '@mui/material';
 import { MuiTextField } from 'components/formFields';
+import { GoogleIcon } from 'components/icons';
 import i18next from 'i18next';
 import { IAuthFormValues, IField } from 'models';
 import React, { useEffect } from 'react';
@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { validateEmail } from 'utils/common';
+import { APP_NAME } from 'utils/constants';
 import { themeMixins } from 'utils/theme';
 import { getErrorMessage } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
@@ -29,6 +30,8 @@ export default function AuthForm(props: IAuthFormProps) {
   const { t } = useTranslation('authForm');
   const { validate, toast: toastTranslation } = useTranslateFiles('validate', 'toast');
 
+  const validateSchema = getValidateSchema(defaultValues.mode, validate);
+
   const schema = yup.object().shape({
     email: yup.string().required(validate.email.required).email(validate.email.email),
     password: yup
@@ -36,20 +39,9 @@ export default function AuthForm(props: IAuthFormProps) {
       .required(validate.password.required)
       .min(6, validate.password.min(6))
       .max(255, validate.password.max(255)),
-    mode: yup.string().required(),
-    name: yup.string().when('mode', {
-      is: 'register',
-      then: yup.string().required(validate.name.required).max(255, validate.name.max(255)),
-    }),
-    username: yup.string().when('mode', {
-      is: 'register',
-      then: yup
-        .string()
-        .required(validate.username.required)
-        .min(6, validate.username.min(6))
-        .max(50, validate.username.max(20))
-        .matches(/^[a-zA-Z0-9_\.]+$/, validate.username.valid),
-    }),
+    mode: yup.string().required().oneOf(['login', 'register']),
+    name: validateSchema.name,
+    username: validateSchema.username,
   });
 
   const { control, handleSubmit, getValues, reset, clearErrors } = useForm({
@@ -119,31 +111,44 @@ export default function AuthForm(props: IAuthFormProps) {
         direction="column"
         sx={{
           ...themeMixins.paperBorder(),
-          maxWidth: 450,
-          height: { xs: '100vh', sm: 'auto' },
-          p: 4,
+          borderRadius: { xs: 0, sm: 4 },
+          position: 'relative',
+          zIndex: 2,
+          maxWidth: 640,
+          height: { xs: '100vh', sm: 'fit-content' },
+          minHeight: 600,
+          py: 6,
           m: 'auto',
         }}
       >
+        <Stack direction="column" alignItems="center" justifyContent="center">
+          <Avatar
+            sx={{
+              width: 48,
+              height: 48,
+              fontSize: 32,
+              fontWeight: 600,
+              bgcolor: 'primary.main',
+              color: 'common.white',
+              mb: 2,
+            }}
+          >
+            {APP_NAME[0]}
+          </Avatar>
+
+          <Typography color="text.primary" fontSize={24} fontWeight={600}>
+            {t(`title.${defaultValues.mode}`, { appName: APP_NAME })}
+          </Typography>
+        </Stack>
+
         <Stack
           direction="column"
           spacing={2}
           sx={{
-            my: 'auto',
-            transform: { xs: 'translateY(-20%)', sm: 'unset' },
+            mt: 4,
+            px: { xs: 4, sm: 16 },
           }}
         >
-          <Typography
-            color="primary"
-            fontSize={32}
-            fontWeight={600}
-            sx={{
-              textAlign: 'center',
-            }}
-          >
-            {t(`title.${defaultValues.mode}`).toUpperCase()}
-          </Typography>
-
           {fieldList.map(
             ({ name, show, props }) =>
               show && (
@@ -154,13 +159,24 @@ export default function AuthForm(props: IAuthFormProps) {
                   label={t(`label.${name}`)}
                   variant="outlined"
                   size="medium"
+                  rounded
                   {...props}
+                  sx={{
+                    '& input': {
+                      py: 1.5,
+                      fontSize: 14,
+                    },
+                    '& .MuiInputLabel-root:not(.Mui-focused):not(.MuiFormLabel-filled)': {
+                      top: -4,
+                      fontSize: 14,
+                    },
+                  }}
                 />
               )
           )}
 
-          <AuthButton type="submit" variant="contained">
-            {t(`title.${defaultValues.mode}`)}
+          <AuthButton type="submit" variant="contained" sx={{ fontSize: 16 }}>
+            {t(`button.${defaultValues.mode}`)}
           </AuthButton>
 
           {!isRegisterMode && (
@@ -174,7 +190,12 @@ export default function AuthForm(props: IAuthFormProps) {
           )}
 
           <Box textAlign="center">
-            <Typography component="span" variant="subtitle2" sx={{ cursor: 'default' }}>
+            <Typography
+              component="span"
+              variant="subtitle2"
+              fontWeight={400}
+              sx={{ cursor: 'default' }}
+            >
               {t(`text.${defaultValues.mode}`)}{' '}
             </Typography>
 
@@ -210,9 +231,39 @@ export default function AuthForm(props: IAuthFormProps) {
 }
 
 function AuthButton({ children, ...props }: ButtonProps) {
+  const { sx, ...restProps } = props;
+
   return (
-    <Button color="primary" fullWidth sx={{ fontSize: '1rem', height: 48 }} {...props}>
+    <Button
+      color="primary"
+      fullWidth
+      sx={{
+        height: 47,
+        borderRadius: 40,
+        ...sx,
+      }}
+      {...restProps}
+    >
       {children}
     </Button>
   );
+}
+
+function getValidateSchema(mode: 'login' | 'register', translation: any) {
+  if (mode === 'login') {
+    return {
+      name: yup.string(),
+      username: yup.string(),
+    };
+  }
+
+  return {
+    name: yup.string().required(translation.name.required).max(255, translation.name.max(255)),
+    username: yup
+      .string()
+      .required(translation.username.required)
+      .min(6, translation.username.min(6))
+      .max(50, translation.username.max(20))
+      .matches(/^[a-zA-Z0-9_\.]+$/, translation.username.valid),
+  };
 }

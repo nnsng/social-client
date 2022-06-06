@@ -13,7 +13,7 @@ import { useAppSelector } from 'app/hooks';
 import { NoPost } from 'components/common';
 import { PostCardSkeleton } from 'components/skeletons';
 import { selectPostLoading, selectTotalPages } from 'features/blog/blogSlice';
-import { IListParams, IPost, PostByType } from 'models';
+import { IListParams, IPost, PostActionType, PostByType } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import PostCard from './PostCard';
@@ -23,15 +23,12 @@ export interface IPostListProps {
   page?: number;
   filter?: Partial<IListParams>;
   onFilterChange?: (newFilter: IListParams) => void;
+  onPostAction?: (action: PostActionType, post: IPost) => void;
   isHomePage?: boolean;
-
-  // postCardProps
-  onSave?: (post: IPost) => void;
-  onRemove?: (post: IPost) => void;
 }
 
 export default function PostList(props: IPostListProps) {
-  const { postList, page, filter, onFilterChange, isHomePage = true, ...postCardProps } = props;
+  const { postList, page, filter, onFilterChange, onPostAction, isHomePage = true } = props;
   const { search, username, hashtag } = filter || {};
   const searchFilter = { search, username, hashtag };
 
@@ -115,7 +112,7 @@ export default function PostList(props: IPostListProps) {
             {postList.length > 0 ? (
               postList.map((post) => (
                 <ListItem key={post._id} disablePadding>
-                  <PostCard post={post} showPopup={isHomePage} {...postCardProps} />
+                  <PostCard post={post} showPopup={isHomePage} onPostAction={onPostAction} />
                 </ListItem>
               ))
             ) : (

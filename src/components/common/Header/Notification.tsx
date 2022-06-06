@@ -62,7 +62,6 @@ export default function Notification() {
       <HeaderIconButton
         ref={anchorRef}
         icon={<NotificationsRounded />}
-        active={open}
         showBadge={hasUnreadNoti()}
         onClick={toggleNoti}
       />

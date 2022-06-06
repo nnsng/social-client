@@ -89,6 +89,7 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
               placeholder={t(`label.${name}`)}
               title={t(`label.${name}`)}
               sx={{ maxWidth: 400 }}
+              rounded
               {...props}
             />
           ))}
@@ -100,6 +101,7 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
               color="primary"
               disabled={isSubmitting}
               startIcon={isSubmitting && <CircularProgress size={20} />}
+              sx={{ borderRadius: 40 }}
             >
               {submitButtonLabel ?? t('btnLabel.changePassword')}
             </Button>

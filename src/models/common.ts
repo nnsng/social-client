@@ -1,3 +1,5 @@
+import { NotiType, PostByType } from './types';
+
 export interface IPaginationParams {
   page: number;
   limit: number;
@@ -9,7 +11,6 @@ export interface IListResponse<T> {
   pagination: IPaginationParams;
 }
 
-export type PostByType = 'all' | 'following';
 export interface IListParams {
   page?: number;
   limit?: number;
@@ -33,7 +34,6 @@ export interface ILocationState {
   openComment?: boolean;
 }
 
-export type NotiType = 'like' | 'comment' | 'follow' | 'report';
 export interface INotification {
   _id: string;
   type: NotiType;
@@ -49,5 +49,3 @@ export interface INotification {
   read?: boolean;
   createdAt?: string;
 }
-
-export type SearchForType = 'search' | 'hashtag' | 'username';

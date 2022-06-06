@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { GetUserInfoMenu } from 'components/functions';
 import { authActions, selectCurrentUser } from 'features/auth/authSlice';
 import { chatActions } from 'features/chat/chatSlice';
-import { IUser } from 'models';
+import { FollowModeType, IUser } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -18,8 +18,6 @@ import { toast } from 'react-toastify';
 import { getErrorMessage } from 'utils/toast';
 import { ChatIcon } from '../icons';
 import { ActionMenu } from './ActionMenu';
-
-export type FollowModeType = 'follow' | 'unfollow';
 
 export interface IFollowResponse {
   currentUser: IUser;
@@ -47,11 +45,11 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
   const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
 
-  const handleFollow = async (mode: FollowModeType) => {
+  const handleFollow = async (action: FollowModeType) => {
     setLoading(true);
 
     try {
-      const updated = (await userApi[mode](userId)) as unknown as IFollowResponse;
+      const updated = (await userApi[action](userId)) as unknown as IFollowResponse;
       dispatch(authActions.setCurrentUser(updated.currentUser));
       updateUser?.(updated.selectedUser);
     } catch (error) {

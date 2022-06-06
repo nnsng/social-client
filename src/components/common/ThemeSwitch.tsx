@@ -57,8 +57,9 @@ export function ThemeSwitch(props: SwitchProps) {
   const themeMode = useAppSelector(selectThemeMode);
 
   const changeTheme = (e: any) => {
-    const darkMode = e.target.checked;
-    dispatch(configActions.changeThemeMode(darkMode ? 'dark' : 'light'));
+    const isDarkMode = e.target.checked;
+    const theme = isDarkMode ? 'dark' : 'light';
+    dispatch(configActions.update({ theme }));
   };
 
   return <MaterialUISwitch checked={themeMode === 'dark'} onChange={changeTheme} {...props} />;

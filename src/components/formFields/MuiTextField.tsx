@@ -7,10 +7,11 @@ export interface IMuiTextFieldProps extends OutlinedTextFieldProps {
   control: Control<any>;
   label?: string;
   title?: string;
+  rounded?: boolean;
 }
 
 export function MuiTextField(props: IMuiTextFieldProps) {
-  const { name, control, label, title, ...restProps } = props;
+  const { name, control, label, title, rounded, ...restProps } = props;
 
   const {
     field: { value, onChange, onBlur, ref },
@@ -39,10 +40,10 @@ export function MuiTextField(props: IMuiTextFieldProps) {
         spellCheck={false}
         {...restProps}
         sx={{
-          ...restProps.sx,
           '& .MuiInputBase-root': {
-            bgcolor: 'background.paper',
+            borderRadius: !!rounded ? 40 : 'auto',
           },
+          ...restProps.sx,
         }}
       />
     </Stack>

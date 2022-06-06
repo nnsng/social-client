@@ -18,7 +18,7 @@ import { useAppSelector } from 'app/hooks';
 import { ActionMenu, ConfirmDialog, TimeTooltip, UserInfoPopup } from 'components/common';
 import { GetCommentItemMenu, GetUserInfoPopupEvent } from 'components/functions';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { IComment, IMenuItem, IUser } from 'models';
+import { CommentActionType, IComment, IMenuItem, IUser } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -29,13 +29,11 @@ import { useTranslateFiles } from 'utils/translation';
 
 export interface ICommentItemProps {
   comment: IComment;
-  onEdit?: (comment: IComment) => void;
-  onRemove?: (comment: IComment) => void;
-  onLike?: (comment: IComment) => void;
+  onCommentAction?: (action: CommentActionType, comment: IComment) => void;
 }
 
 export default function CommentItem(props: ICommentItemProps) {
-  const { comment, onEdit, onRemove, onLike } = props;
+  const { comment, onCommentAction } = props;
 
   const navigate = useNavigate();
 
@@ -80,7 +78,7 @@ export default function CommentItem(props: ICommentItemProps) {
         content: content.trim(),
       };
 
-      await onEdit?.(editedComment);
+      await onCommentAction?.('edit', editedComment);
       setIsEdit(false);
     } catch (error) {
       toast.error(getErrorMessage(error));
@@ -93,7 +91,7 @@ export default function CommentItem(props: ICommentItemProps) {
     setLoading(true);
 
     try {
-      await onRemove?.(comment);
+      await onCommentAction?.('remove', comment);
     } catch (error: any) {
       toast.error(getErrorMessage(error));
     }
@@ -107,7 +105,7 @@ export default function CommentItem(props: ICommentItemProps) {
   };
 
   const handleLikeComment = () => {
-    onLike?.(comment);
+    onCommentAction?.('like', comment);
   };
 
   const handleMenuItemClick = (callback?: () => void) => {

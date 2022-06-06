@@ -3,7 +3,7 @@ import configApi from 'api/configApi';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
-import { IListParams, IPost } from 'models';
+import { IListParams, IPost, PostActionType } from 'models';
 import queryString from 'query-string';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -61,13 +61,11 @@ export function MainPage() {
     setFilter({ ...filter, page: 1, ...newFilter });
   };
 
-  const handleSavePost = async (post: IPost) => {
-    await postApi.save(post._id as string);
-  };
-
-  const handleRemovePost = async (post: IPost) => {
-    await postApi.remove(post._id as string);
-    dispatch(blogActions.fetchPostList(filter));
+  const handlePostAction = async (action: PostActionType, post: IPost) => {
+    await postApi[action](post._id || '');
+    if (action === 'remove') {
+      dispatch(blogActions.fetchPostList(filter));
+    }
   };
 
   return (
@@ -85,8 +83,7 @@ export function MainPage() {
             page={Number(filter.page) || 1}
             filter={filter}
             onFilterChange={handleFilterChange}
-            onSave={handleSavePost}
-            onRemove={handleRemovePost}
+            onPostAction={handlePostAction}
           />
         </Grid>
 

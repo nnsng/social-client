@@ -84,9 +84,17 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
           <Avatar
             src={avatarUrl}
             sx={{
+              position: 'relative',
               width: '100%',
               height: '100%',
               cursor: 'pointer',
+              '&:hover::before': {
+                content: '""',
+                position: 'absolute',
+                inset: 0,
+                bgcolor: 'common.black',
+                opacity: 0.3,
+              },
             }}
           />
           <FileInputField name="avatar" control={control} id="avatar-upload" disabled={uploading} />
@@ -146,6 +154,12 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
       props: {
         multiline: true,
         rows: 3,
+        sx: {
+          maxWidth: 400,
+          '& .MuiInputBase-root': {
+            borderRadius: 4,
+          },
+        },
       },
     },
   ];
@@ -164,6 +178,7 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
                 placeholder={t(`label.${name}`)}
                 title={t(`label.${name}`)}
                 sx={{ maxWidth: 400 }}
+                rounded
                 {...props}
               />
             ) : (
@@ -178,6 +193,7 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
               color="primary"
               disabled={submitting || uploading}
               startIcon={submitting && <CircularProgress size={20} />}
+              sx={{ borderRadius: 40 }}
             >
               {t('save')}
             </Button>
