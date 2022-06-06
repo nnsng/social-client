@@ -10,13 +10,13 @@ import { configActions } from 'features/common/configSlice';
 import { IMenuItem } from 'models';
 import { NavigateFunction } from 'react-router-dom';
 
-export interface IGetUserMenuProps {
+export interface IUseUserMenuProps {
   navigate?: NavigateFunction;
   dispatch?: any;
   t?: any;
 }
 
-export function GetUserMenu(props: IGetUserMenuProps) {
+export function useUserMenu(props: IUseUserMenuProps) {
   const { navigate, dispatch, t } = props;
 
   const showAppearanceDialog = () => {

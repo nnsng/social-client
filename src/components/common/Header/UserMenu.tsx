@@ -1,6 +1,6 @@
 import { Avatar, Box, Divider, Drawer, MenuItem, MenuList, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { GetUserMenu } from 'components/functions';
+import { useUserMenu } from 'hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -25,6 +25,8 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
   const toggleMenu = () => setOpen(!open);
   const closeMenu = () => setOpen(false);
 
+  const { userMenu, dividers } = useUserMenu({ navigate, dispatch, t });
+
   const handleMenuItemClick = (callback?: () => void) => {
     closeMenu();
     callback?.();
@@ -34,8 +36,6 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
     closeMenu();
     navigate(`/user/${currentUser?.username}`);
   };
-
-  const { userMenu, dividers } = GetUserMenu({ navigate, dispatch, t });
 
   const menuItemsComponent = (
     <Box>

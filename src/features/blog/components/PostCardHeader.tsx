@@ -2,7 +2,7 @@ import { BookmarkBorderRounded, MoreHorizRounded } from '@mui/icons-material';
 import { Avatar, Box, CardHeader, IconButton, MenuItem, SxProps, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { ActionMenu, TimeTooltip, UserInfoPopup } from 'components/common';
-import { GetPostMenu, GetUserInfoPopupEvent } from 'components/functions';
+import { usePostMenu, useUserInfoPopupMouseEvents } from 'hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { IPost, IUser } from 'models';
 import React, { useRef, useState } from 'react';
@@ -31,6 +31,16 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
   const anchorRef = useRef<any>(null);
   const userInfoRef = useRef<any>(null);
 
+  const mouseEvents = useUserInfoPopupMouseEvents({ setOpenPopup });
+
+  const postMenu = usePostMenu({
+    post,
+    currentUser,
+    onRemove,
+    navigate,
+    t,
+  });
+
   const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
 
@@ -42,16 +52,6 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
     closeMenu();
     callback?.();
   };
-
-  const mouseEvents = GetUserInfoPopupEvent({ setOpenPopup });
-
-  const postMenu = GetPostMenu({
-    post,
-    currentUser,
-    onRemove,
-    navigate,
-    t,
-  });
 
   return (
     <>

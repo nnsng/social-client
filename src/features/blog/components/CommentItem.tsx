@@ -1,4 +1,11 @@
-import { EditRounded, FavoriteRounded, MoreHorizRounded } from '@mui/icons-material';
+import {
+  BorderColorRounded,
+  DeleteRounded,
+  EditRounded,
+  FavoriteRounded,
+  FlagRounded,
+  MoreHorizRounded,
+} from '@mui/icons-material';
 import {
   Avatar,
   Badge,
@@ -16,15 +23,15 @@ import {
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { ActionMenu, ConfirmDialog, TimeTooltip, UserInfoPopup } from 'components/common';
-import { GetCommentItemMenu, GetUserInfoPopupEvent } from 'components/functions';
 import { selectCurrentUser } from 'features/auth/authSlice';
+import { useUserInfoPopupMouseEvents } from 'hooks';
 import { CommentActionType, IComment, IMenuItem, IUser } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { formatTime } from 'utils/common';
-import { getErrorMessage } from 'utils/toast';
+import { getErrorMessage, showComingSoonToast } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
 
 export interface ICommentItemProps {
@@ -51,6 +58,8 @@ export default function CommentItem(props: ICommentItemProps) {
 
   const anchorRef = useRef<any>(null);
   const userInfoRef = useRef<any>(null);
+
+  const mouseEvents = useUserInfoPopupMouseEvents({ setOpenPopup });
 
   const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
@@ -113,15 +122,28 @@ export default function CommentItem(props: ICommentItemProps) {
     callback?.();
   };
 
-  const mouseEvents = GetUserInfoPopupEvent({ setOpenPopup });
-
-  const menuItemList: IMenuItem[] = GetCommentItemMenu({
-    comment,
-    currentUser,
-    onEdit: () => setIsEdit(true),
-    onRemove: confirmRemoveComment,
-    t,
-  });
+  const isAuthor = comment.userId === currentUser?._id;
+  const isAdmin = currentUser?.role === 'admin';
+  const commentMenu: IMenuItem[] = [
+    {
+      label: t('menu.edit'),
+      icon: BorderColorRounded,
+      onClick: () => setIsEdit(true),
+      show: isAuthor,
+    },
+    {
+      label: t('menu.delete'),
+      icon: DeleteRounded,
+      onClick: confirmRemoveComment,
+      show: isAuthor || isAdmin,
+    },
+    {
+      label: t('menu.report'),
+      icon: FlagRounded,
+      onClick: showComingSoonToast,
+      show: true,
+    },
+  ];
 
   return (
     <>
@@ -289,7 +311,7 @@ export default function CommentItem(props: ICommentItemProps) {
                 sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
                 onClose={closeMenu}
               >
-                {menuItemList.map(({ label, icon: Icon, onClick, show }, idx) =>
+                {commentMenu.map(({ label, icon: Icon, onClick, show }, idx) =>
                   show ? (
                     <MenuItem
                       key={idx}

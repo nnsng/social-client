@@ -1,11 +1,11 @@
 import { FlagRounded, PersonOffRounded } from '@mui/icons-material';
 import { IMenuItem } from 'models';
 import { showComingSoonToast } from 'utils/toast';
-import { IGetUserMenuProps } from './GetUserMenu';
+import { IUseUserMenuProps } from './useUserMenu';
 
-export interface IGetUserInfoMenuProps extends IGetUserMenuProps {}
+export interface IUseUserInfoMenuProps extends IUseUserMenuProps {}
 
-export function GetUserInfoMenu(props: IGetUserInfoMenuProps) {
+export function useUserInfoMenu(props: IUseUserInfoMenuProps) {
   const { t } = props;
 
   const menu: IMenuItem[] = [

@@ -7,7 +7,7 @@ import {
 import { Button, CircularProgress, MenuItem, Stack } from '@mui/material';
 import userApi from 'api/userApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { GetUserInfoMenu } from 'components/functions';
+import { useUserInfoMenu } from 'hooks';
 import { authActions, selectCurrentUser } from 'features/auth/authSlice';
 import { chatActions } from 'features/chat/chatSlice';
 import { FollowModeType, IUser } from 'models';
@@ -42,6 +42,8 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
+  const menu = useUserInfoMenu({ t });
+
   const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
 
@@ -67,8 +69,6 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
     closeMenu();
     callback?.();
   };
-
-  const menu = GetUserInfoMenu({ t });
 
   const BUTTON_HEIGHT = 36;
 

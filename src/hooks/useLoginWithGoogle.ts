@@ -4,7 +4,7 @@ import { useGoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 import { env, variables } from 'utils/env';
 
-export default function useLoginWithGoogle() {
+export function useLoginWithGoogle() {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();

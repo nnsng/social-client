@@ -3,7 +3,7 @@ import authApi from 'api/authApi';
 import { useAppDispatch } from 'app/hooks';
 import background from 'assets/images/background.png';
 import { PageTitle } from 'components/common';
-import useLoginWithGoogle from 'hooks/useLoginWithGoogle';
+import { useLoginWithGoogle } from 'hooks';
 import { IAuthFormValues } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';

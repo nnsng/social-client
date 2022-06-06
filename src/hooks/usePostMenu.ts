@@ -2,15 +2,15 @@ import { BorderColorRounded, DeleteRounded, FlagRounded, LinkRounded } from '@mu
 import { IMenuItem, IPost, IUser } from 'models';
 import { copyPostLink } from 'utils/common';
 import { showComingSoonToast } from 'utils/toast';
-import { IGetUserMenuProps } from './GetUserMenu';
+import { IUseUserMenuProps } from './useUserMenu';
 
-export interface IGetPostMenuProps extends IGetUserMenuProps {
+export interface IUsePostMenuProps extends IUseUserMenuProps {
   post: IPost;
   currentUser: IUser | null;
   onRemove?: () => void;
 }
 
-export function GetPostMenu(props: IGetPostMenuProps) {
+export function usePostMenu(props: IUsePostMenuProps) {
   const { post, currentUser, onRemove, navigate, t } = props;
 
   const isAuthor = post.authorId === currentUser?._id;
