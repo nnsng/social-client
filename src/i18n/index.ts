@@ -1,10 +1,10 @@
-import i18next from 'i18next';
+import i18next, { Resource } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import en from './en';
 import vi from './vi';
 
 // translation catalog
-const resources = {
+const resources: Resource = {
   en,
   vi,
 };

@@ -45,10 +45,13 @@ export function PostCardSkeleton() {
           variant="rectangular"
           sx={{
             minWidth: 200,
+            maxWidth: { xs: '100%', sm: 200 },
+            width: '100%',
             height: 'unset',
             aspectRatio: '2',
             borderRadius: 2,
-            ml: 2,
+            mt: { xs: 2, sm: 0 },
+            ml: { xs: 0, sm: 2 },
           }}
         />
       </Stack>

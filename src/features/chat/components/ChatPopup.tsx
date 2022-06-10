@@ -40,7 +40,7 @@ export default function ChatPopup(props: IChatPopupProps) {
       }}
     >
       <Typography color="text.primary" fontSize={20} fontWeight={500} py={1} px={2}>
-        Chat
+        {t('title')}
       </Typography>
 
       <Divider />

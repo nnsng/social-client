@@ -15,7 +15,7 @@ export function useLoginWithGoogle() {
   };
 
   const onFailure = (res: any) => {
-    console.log('Failed', res);
+    console.log('Failed to login with Google', res);
   };
 
   const clientId = env(variables.googleClientId);
