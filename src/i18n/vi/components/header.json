@@ -1,7 +1,7 @@
 {
   "search": {
     "placeholder": "Tìm kiếm",
-    "title": {
+    "search": {
       "result": "{{count}} bài viết với tiêu đề \"{{searchTerm}}\"",
       "results": "{{count}} bài viết với tiêu đề \"{{searchTerm}}\""
     },

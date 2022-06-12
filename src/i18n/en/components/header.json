@@ -1,7 +1,7 @@
 {
   "search": {
     "placeholder": "Search",
-    "title": {
+    "search": {
       "result": "{{count}} post with title \"{{searchTerm}}\"",
       "results": "{{count}} posts with title \"{{searchTerm}}\""
     },
