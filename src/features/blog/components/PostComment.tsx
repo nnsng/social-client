@@ -96,7 +96,7 @@ export default function PostComment(props: IPostCommentProps) {
           ) : (
             commentList.length || 0
           )}
-          {t('comment')}
+          {t(`comment${commentList.length > 1 ? 's' : ''}`)}
         </Typography>
 
         <Stack alignItems="center" pt={6} pb={3} bgcolor="background.paper">

@@ -92,6 +92,7 @@ export default function PostCard(props: IPostCardProps) {
                 color="text.primary"
                 fontSize={20}
                 fontWeight={600}
+                lineHeight={1.2}
                 sx={{ ...themeMixins.truncate(2) }}
                 component={Link}
                 to={`/blog/post/${post.slug}`}

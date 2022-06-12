@@ -103,6 +103,7 @@ export default function PostReaction(props: IPostReactionProps) {
               sx={{
                 mb: 1,
                 mr: 1,
+                color: 'text.secondary',
               }}
             />
           ))}

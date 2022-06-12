@@ -1,5 +1,6 @@
 {
-  "comment": " comments",
+  "comment": " comment",
+  "comments": " comments",
   "placeholder": "Type comment...",
   "like": "Like",
   "unlike": "Unlike",
