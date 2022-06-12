@@ -27,7 +27,7 @@ export interface IComment {
 }
 
 export interface ISearchObj {
-  searchFor: 'title' | 'username' | 'hashtag';
+  searchFor: 'search' | 'username' | 'hashtag';
   searchTerm: string;
 }
 

@@ -61,7 +61,7 @@ export default function SearchBox(props: ISearchBoxProps) {
   const [result, setResult] = useState<ISearchResult>({ list: [], length: 0, isMore: false });
   const [showSearchResult, setShowSearchResult] = useState<boolean>(false);
   const [searchObj, setSearchObj] = useState<ISearchObj>({
-    searchFor: 'title',
+    searchFor: 'search',
     searchTerm: searchInput,
   });
 
@@ -71,7 +71,7 @@ export default function SearchBox(props: ISearchBoxProps) {
     clearSearchInput();
 
     const { search, username, hashtag } = queryString.parse(location.search);
-    if (search) setSearchInput(search as string);
+    if (search) setSearchInput(`${search}`);
     if (username) setSearchInput(`@${username}`);
     if (hashtag) setSearchInput(`#${hashtag}`);
   }, [location.search]);
@@ -94,7 +94,7 @@ export default function SearchBox(props: ISearchBoxProps) {
         break;
       }
       default: {
-        searchFor = 'title';
+        searchFor = 'search';
         searchTerm = searchInput;
       }
     }
