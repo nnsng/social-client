@@ -42,7 +42,7 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
   const { validate, toast: toastTranslation } = useTranslateFiles('validate', 'toast');
 
   const schema = yup.object().shape({
-    title: yup.string().required(validate.title.required),
+    title: yup.string().required(validate.title.required).max(30, validate.title.max(30)),
     content: yup.string().required(validate.content.required).min(50, validate.content.min(50)),
     thumbnail: yup.string(),
     hashtags: yup.array().of(
@@ -132,15 +132,14 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
             sx={{
               pt: 2,
               pb: 1,
-              fontSize: 28,
+              fontSize: { xs: 20, sm: 28 },
               fontWeight: 500,
             }}
           />
 
           <Button
             variant="outlined"
-            size="large"
-            onClick={openDialog}
+            size={mdUp ? 'large' : 'medium'}
             sx={
               mdUp
                 ? { flexShrink: 0, ml: 2 }
@@ -151,6 +150,7 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
                     transform: 'translate(16px, -50%)', // 16px = 2 * 8px (px of Stack parent)
                   }
             }
+            onClick={openDialog}
           >
             {isNewPost ? t('btnLabel.create') : t('btnLabel.edit')}
           </Button>
@@ -161,14 +161,13 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
 
       <Dialog open={open} onClose={closeDialog} fullWidth>
         <Typography
-          variant="h6"
           color={title?.length > 0 ? 'text.primary' : 'text.disabled'}
-          component="div"
+          fontSize={{ xs: 16, sm: 18 }}
+          fontWeight={600}
           sx={{
             ...themeMixins.truncate(1),
             py: { xs: 1, sm: 2 },
             px: { xs: 1, sm: 3 },
-            fontWeight: 600,
           }}
         >
           {title || `(${t('noTitle')})`}
@@ -201,7 +200,10 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
               htmlFor="thumbnail-input"
               disabled={uploading}
               startIcon={uploading && <CircularProgress size={20} />}
-              sx={{ fontWeight: 500 }}
+              sx={{
+                fontSize: 12,
+                fontWeight: 400,
+              }}
             >
               <FileInputField name="thumbnail" control={control} id="thumbnail-input" />
               {thumbnail ? t('btnLabel.changeThumbnail') : t('btnLabel.addThumbnail')}
@@ -213,7 +215,10 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
                 color="error"
                 size="small"
                 disabled={uploading}
-                sx={{ fontWeight: 400 }}
+                sx={{
+                  fontSize: 12,
+                  fontWeight: 400,
+                }}
                 onClick={removeThumbnail}
               >
                 {t('btnLabel.removeThumbnail')}
@@ -232,12 +237,12 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
         </DialogContent>
 
         <DialogActions sx={{ px: { xs: 1, sm: 2 } }}>
-          <Button variant="text" size="large" onClick={closeDialog}>
+          <Button variant="text" size={mdUp ? 'large' : 'medium'} onClick={closeDialog}>
             {t('btnLabel.cancel')}
           </Button>
           <Button
             variant="contained"
-            size="large"
+            size={mdUp ? 'large' : 'medium'}
             autoFocus
             disabled={isSubmitting || uploading}
             startIcon={isSubmitting && <CircularProgress size={20} />}

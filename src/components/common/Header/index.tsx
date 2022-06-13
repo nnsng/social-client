@@ -63,6 +63,7 @@ export function Header() {
             <Stack alignItems="center" spacing={0.8} component={Link} to="/blog">
               <Avatar
                 sx={{
+                  display: { xs: 'none', sm: 'inline-flex' },
                   fontSize: 28,
                   fontWeight: 600,
                   bgcolor: 'primary.main',
@@ -72,7 +73,7 @@ export function Header() {
                 {APP_NAME[0]}
               </Avatar>
 
-              <Typography color="primary" fontSize={26} fontWeight={600}>
+              <Typography color="primary" fontSize={24} fontWeight={600}>
                 {APP_NAME}
               </Typography>
             </Stack>

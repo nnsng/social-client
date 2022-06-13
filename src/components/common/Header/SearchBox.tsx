@@ -203,7 +203,7 @@ export default function SearchBox(props: ISearchBoxProps) {
                   {loading || searchInput.length < 2 ? (
                     <CircularProgress size={20} color="primary" />
                   ) : (
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography color="text.secondary" fontSize={14}>
                       {t(`search.${searchObj.searchFor}.result${result.length > 1 ? 's' : ''}`, {
                         count: result.length,
                         searchTerm: searchObj.searchTerm,
@@ -233,8 +233,8 @@ export default function SearchBox(props: ISearchBoxProps) {
                             </Avatar>
 
                             <Typography
-                              variant="subtitle2"
                               fontSize={15}
+                              fontWeight={500}
                               sx={{ ...themeMixins.truncate(2) }}
                             >
                               {data.name}

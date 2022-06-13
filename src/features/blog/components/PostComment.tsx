@@ -83,11 +83,11 @@ export default function PostComment(props: IPostCommentProps) {
         </IconButton>
 
         <Typography
-          variant="h6"
+          fontSize={18}
+          fontWeight={600}
           sx={{
             display: 'flex',
             alignItems: 'center',
-            fontWeight: 600,
             cursor: 'default',
           }}
         >

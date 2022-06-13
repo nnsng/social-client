@@ -1,6 +1,5 @@
 import { Box } from '@mui/material';
 import { Header, NotFound } from 'components/common';
-import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { CreateEditPage, MainPage, MySavedPage, PostDetailPage } from './pages';
 

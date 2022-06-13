@@ -63,11 +63,11 @@ export default function PostList(props: IPostListProps) {
         <Stack alignItems="center" justifyContent="space-between">
           <Typography
             variant="button"
+            color="text.primary"
+            fontWeight={600}
             sx={{
               display: 'inline-block',
               borderColor: 'text.primary',
-              color: 'text.primary',
-              fontWeight: 600,
               cursor: 'default',
             }}
           >
@@ -85,7 +85,7 @@ export default function PostList(props: IPostListProps) {
 
               '& .MuiSelect-select': {
                 bgcolor: 'transparent !important',
-                fontSize: '0.875rem',
+                fontSize: 14,
                 fontWeight: 600,
                 py: 0,
                 textTransform: 'uppercase',

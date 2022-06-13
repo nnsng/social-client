@@ -65,7 +65,7 @@ export default function PostDetail(props: IPostDetailProps) {
           p: 2,
         }}
       >
-        <Typography variant="h1" fontSize={40} fontWeight={600} mb={0}>
+        <Typography fontSize={{ xs: 24, sm: 40 }} fontWeight={600} lineHeight={1.2} mb={0}>
           {post.title}
         </Typography>
 

@@ -53,13 +53,14 @@ export default function TopHashtags(props: ITopHashtagsProps) {
       {isOnPC && (
         <Typography
           variant="button"
+          color="text.primary"
+          fontSize={14}
+          fontWeight={60}
           sx={{
             display: 'inline-block',
             mb: -1,
             borderBottom: 1,
             borderColor: 'text.primary',
-            color: 'text.primary',
-            fontWeight: 600,
             cursor: 'default',
           }}
         >

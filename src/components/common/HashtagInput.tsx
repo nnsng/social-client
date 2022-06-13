@@ -40,12 +40,12 @@ export function HashtagInput(props: IHashtagInputProps) {
   };
 
   const handleDelete = (index: number) => {
-    updateHashtagList(hashtagList.filter((hashtag, idx) => idx !== index));
+    updateHashtagList(hashtagList.filter((_, idx) => idx !== index));
   };
 
   return (
     <Box>
-      <Typography component="p" fontSize={14} color="text.secondary" mb={0.5}>
+      <Typography component="p" color="text.secondary" fontSize={14} mb={0.5}>
         {label}
       </Typography>
 
@@ -57,6 +57,11 @@ export function HashtagInput(props: IHashtagInputProps) {
         fullWidth
         placeholder={placeholder}
         disabled={hashtagList.length >= max}
+        sx={{
+          '& input': {
+            fontSize: 14,
+          },
+        }}
         onChange={handleChange}
         onKeyUp={handleAddHashtag}
       />
@@ -65,12 +70,7 @@ export function HashtagInput(props: IHashtagInputProps) {
 
       <Stack mt={1} spacing={0.5}>
         {hashtagList.map((hashtag, idx) => (
-          <Chip
-            key={idx}
-            label={hashtag}
-            onDelete={() => handleDelete(idx)}
-            sx={{ fontSize: 14 }}
-          />
+          <Chip key={idx} label={hashtag} onDelete={() => handleDelete(idx)} />
         ))}
       </Stack>
     </Box>

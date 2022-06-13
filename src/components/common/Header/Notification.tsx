@@ -88,10 +88,9 @@ export default function Notification() {
           </Typography>
 
           <Typography
+            color="text.secondary"
             fontSize={12}
-            fontWeight={500}
             sx={{
-              color: 'text.secondary',
               cursor: 'pointer',
               '&:hover': {
                 color: 'text.primary',
@@ -109,6 +108,7 @@ export default function Notification() {
           {notiList.length > 0 ? (
             notiList.map((noti, idx) => (
               <MenuItem
+                key={idx}
                 sx={{
                   borderRadius: 1,
                   bgcolor: !noti.read ? 'action.hover' : 'transparent',
@@ -119,7 +119,7 @@ export default function Notification() {
 
                 <Box flexGrow={1} ml={2}>
                   <Typography fontSize={15} whiteSpace="normal">
-                    <Typography component="span" fontWeight={500}>
+                    <Typography component="span" fontSize="inherit" fontWeight={500}>
                       {noti.user.name}
                     </Typography>
                     {t(`message.${noti.type}`, { name: '' })}

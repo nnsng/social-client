@@ -58,13 +58,11 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
         />
 
         <Box ml={{ xs: 0, sm: 2 }}>
-          <Typography variant="body1" fontSize={16} fontWeight={600}>
+          <Typography fontSize={16} fontWeight={500}>
             {currentUser?.name}
           </Typography>
 
-          <Typography variant="body2" fontSize={14}>
-            @{currentUser?.username}
-          </Typography>
+          <Typography fontSize={14}>@{currentUser?.username}</Typography>
         </Box>
       </Box>
 
@@ -81,7 +79,7 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
             }}
             onClick={() => handleMenuItemClick?.(onClick)}
           >
-            <Icon fontSize="small" sx={{ mr: 2 }} />
+            <Icon sx={{ mr: 2, fontSize: 18 }} />
             {label}
           </MenuItem>
 

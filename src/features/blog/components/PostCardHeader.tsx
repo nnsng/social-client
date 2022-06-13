@@ -2,12 +2,13 @@ import { BookmarkBorderRounded, MoreHorizRounded } from '@mui/icons-material';
 import { Avatar, Box, CardHeader, IconButton, MenuItem, SxProps, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { ActionMenu, TimeTooltip, UserInfoPopup } from 'components/common';
-import { usePostMenu, useUserInfoPopupMouseEvents } from 'hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
+import { usePostMenu, useUserInfoPopupMouseEvents } from 'hooks';
 import { IPost, IUser } from 'models';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { formatTime } from 'utils/common';
+import { themeMixins } from 'utils/theme';
 
 export interface IPostCardHeaderProps {
   post: IPost;
@@ -77,7 +78,6 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
                   color: 'text.primary',
                 },
               }}
-              className="icon-button"
               onClick={onSave}
             >
               <BookmarkBorderRounded />
@@ -93,7 +93,6 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
                   bgcolor: 'transparent',
                 },
               }}
-              className="icon-button"
               ref={anchorRef}
               onClick={toggleMenu}
             >
@@ -112,7 +111,7 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
                     }}
                     onClick={() => handleMenuItemClick(onClick)}
                   >
-                    <Icon sx={{ fontSize: { xs: 20, sm: 18 }, mr: 2 }} />
+                    <Icon sx={{ mr: 2, fontSize: 18 }} />
                     {label}
                   </MenuItem>
                 ) : null
@@ -124,9 +123,10 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
           <Typography
             variant="subtitle2"
             color="text.primary"
+            fontSize={14}
             fontWeight={600}
             sx={{
-              display: 'inline-block',
+              ...themeMixins.truncate(1),
               cursor: 'pointer',
             }}
             onClick={handleAuthorClick}
@@ -141,9 +141,7 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
               variant="subtitle2"
               color="text.secondary"
               fontSize={12}
-              sx={{
-                display: 'inline-block',
-              }}
+              sx={{ display: 'inline-block' }}
             >
               {formatTime(post.createdAt)}
             </Typography>

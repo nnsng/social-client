@@ -30,10 +30,10 @@ export function NotFound({ showHeader }: INotFoundProps) {
         <Typography
           color="primary.main"
           sx={{
+            mb: -2,
             fontSize: 120,
             fontWeight: 600,
             letterSpacing: 20,
-            mb: -2,
           }}
         >
           4&#9785;4

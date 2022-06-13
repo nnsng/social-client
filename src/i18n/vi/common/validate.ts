@@ -36,6 +36,7 @@ const validate = {
   // post
   title: {
     required: 'Vui lòng nhập tiêu đề',
+    max: (n: number) => `Tiêu đề tối đa ${n} ký tự`,
   },
   content: {
     required: 'Vui lòng nhập nội dung',

@@ -22,13 +22,13 @@ export interface IChangePasswordFormProps {
 
 export default function ChangePasswordForm(props: IChangePasswordFormProps) {
   const { fieldList, defaultValues, onSubmit, forgotPassword, submitButtonLabel } = props;
-  const isChangeMode = !!forgotPassword;
+  const isChangePasswordMode = !!forgotPassword;
 
   const { t } = useTranslation('changePasswordForm');
   const { validate, toast: toastTranslation } = useTranslateFiles('validate', 'toast');
 
   const schema = yup.object().shape({
-    currentPassword: isChangeMode
+    currentPassword: isChangePasswordMode
       ? yup.string().required(validate.currentPassword.required).min(6, validate.password.min(6))
       : yup.string().notRequired(),
     newPassword: yup
@@ -60,7 +60,7 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
     try {
       await onSubmit(formValues);
       reset();
-      isChangeMode && toast.success(toastTranslation.changePasswordForm.success);
+      isChangePasswordMode && toast.success(toastTranslation.changePasswordForm.success);
     } catch (error: any) {
       toast.error(getErrorMessage(error));
     }
@@ -94,24 +94,30 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
             />
           ))}
 
-          <Stack alignItems="center">
+          <Stack
+            sx={{
+              flexDirection: { xs: 'column', sm: 'row' },
+              alignItems: { xs: 'flex-start', sm: 'center' },
+            }}
+          >
             <Button
               type="submit"
               variant="contained"
               color="primary"
               disabled={isSubmitting}
               startIcon={isSubmitting && <CircularProgress size={20} />}
-              sx={{ borderRadius: 40 }}
+              sx={{ mr: 2, borderRadius: 40, fontSize: 13 }}
             >
               {submitButtonLabel ?? t('btnLabel.changePassword')}
             </Button>
 
-            {isChangeMode && (
+            {isChangePasswordMode && (
               <Button
                 color="primary"
                 size="small"
                 sx={{
-                  ml: { xs: 2, sm: 3 },
+                  mt: { xs: 1, sm: 0 },
+                  fontSize: 13,
                   '&:hover': { bgcolor: 'transparent' },
                 }}
                 onClick={handleForgotPassword}

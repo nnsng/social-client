@@ -65,7 +65,7 @@ export const generateTheme = (mode?: PaletteMode, color?: string) =>
       MuiChip: {
         styleOverrides: {
           root: {
-            fontSize: 14,
+            fontSize: 12,
           },
         },
       },

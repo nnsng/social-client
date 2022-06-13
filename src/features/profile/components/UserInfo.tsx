@@ -29,38 +29,23 @@ export default function UserInfo(props: IUserInfoProps) {
         <Avatar
           src={userInfo.avatar}
           sx={{
-            width: { xs: 60, sm: 100 },
-            height: { xs: 60, sm: 100 },
-            bgcolor: 'action.hover',
+            width: { xs: 60, sm: 80 },
+            height: { xs: 60, sm: 80 },
             flexShrink: 0,
           }}
         />
 
-        <Box ml={3} flexGrow={1}>
-          <Typography
-            component="div"
-            sx={{
-              fontSize: { xs: 20, sm: 28 },
-              fontWeight: 600,
-              mb: 0,
-            }}
-          >
+        <Box sx={{ ml: { xs: 1, sm: 2 }, flexGrow: 1 }}>
+          <Typography component="div" fontSize={{ xs: 20, sm: 24 }} fontWeight={600} mb={0}>
             {userInfo.name}
           </Typography>
 
-          <Typography
-            component="p"
-            sx={{
-              fontSize: { xs: 16, sm: 18 },
-              mt: -0.5,
-            }}
-          >
+          <Typography component="p" fontSize={{ xs: 14, sm: 16 }} mt={-0.5}>
             @{userInfo.username}
           </Typography>
 
           <Stack
             sx={{
-              fontSize: { xs: 14, sm: 16 },
               '& > span:first-of-type': {
                 ml: 0,
               },
@@ -70,8 +55,7 @@ export default function UserInfo(props: IUserInfoProps) {
               <Typography
                 key={x}
                 component="span"
-                fontSize="inherit"
-                fontWeight={400}
+                fontSize={{ xs: 12, sm: 14 }}
                 sx={{
                   ml: 3,
                   textAlign: { xs: 'center', sm: 'unset' },
@@ -101,7 +85,7 @@ export default function UserInfo(props: IUserInfoProps) {
 
       {userInfo.bio && (
         <Typography
-          variant="body1"
+          fontSize={14}
           sx={{
             mt: { xs: 1, sm: 2 },
             p: 1,

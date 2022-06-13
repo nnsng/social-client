@@ -85,7 +85,7 @@ export function PostItem(props: IPostItemProps) {
           <Typography
             color="text.primary"
             fontSize={{ sx: 16, sm: 20 }}
-            fontWeight={500}
+            fontWeight={600}
             sx={{ ...themeMixins.truncate(1) }}
             component={Link}
             to={`/blog/post/${post.slug}`}
@@ -93,12 +93,12 @@ export function PostItem(props: IPostItemProps) {
             {post.title}
           </Typography>
 
-          <Typography variant="body2" color="text.secondary" fontSize={12}>
+          <Typography color="text.secondary" fontSize={12}>
             {post.author?.name}
           </Typography>
 
           <TimeTooltip timestamp={post.createdAt}>
-            <Typography variant="body2" color="text.secondary" fontSize={12} width="fit-content">
+            <Typography color="text.secondary" fontSize={12} width="fit-content">
               {formatTime(post.createdAt)}
             </Typography>
           </TimeTooltip>
@@ -130,7 +130,7 @@ export function PostItem(props: IPostItemProps) {
                 }}
                 onClick={() => handleMenuItemClick(onClick)}
               >
-                <Icon sx={{ fontSize: 20, mr: 2 }} />
+                <Icon sx={{ mr: 2, fontSize: 18 }} />
                 {label}
               </MenuItem>
             ))}

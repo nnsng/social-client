@@ -1,6 +1,5 @@
 import { Grid } from '@mui/material';
 import { HashtagInput } from 'components/common';
-import React from 'react';
 import { Control, useController } from 'react-hook-form';
 
 export interface IHashtagInputFieldProps {

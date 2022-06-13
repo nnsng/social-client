@@ -70,7 +70,7 @@ export default function SettingTabs(props: ISettingTabsProps) {
           key={idx}
           label={smUp ? label : mobileLabel}
           sx={{
-            fontSize: 18,
+            fontSize: { xs: 16, sm: 18 },
             fontWeight: 500,
             textTransform: 'none',
             alignItems: { sm: 'flex-start' },

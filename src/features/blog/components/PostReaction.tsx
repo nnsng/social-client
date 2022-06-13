@@ -30,16 +30,15 @@ export default function PostReaction(props: IPostReactionProps) {
   return (
     <Box>
       <Typography
-        variant="body1"
+        color="text.primary"
+        fontSize={18}
+        fontWeight={600}
         sx={{
           display: 'inline-block',
           pb: 0.5,
           mb: -1,
           borderBottom: 1,
           borderColor: 'text.primary',
-          color: 'text.primary',
-          fontSize: 18,
-          fontWeight: 600,
         }}
         component={Link}
         to={`/user/${post.author?.username}`}
@@ -47,7 +46,7 @@ export default function PostReaction(props: IPostReactionProps) {
         {post.author?.name}
       </Typography>
 
-      <Typography variant="body2" fontSize={16} lineHeight={1.8} pt={1}>
+      <Typography fontSize={16} lineHeight={1.8} pt={1}>
         {post.author?.bio}
       </Typography>
 

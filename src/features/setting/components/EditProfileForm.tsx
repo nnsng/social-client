@@ -59,12 +59,11 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
   const avatarComponent = (
     <Stack direction="column" key="avatar">
       <Typography
-        variant="h6"
+        fontSize={{ xs: 14, sm: 16 }}
+        fontWeight={500}
         sx={{
           width: 160,
           mb: 0.5,
-          fontSize: 18,
-          fontWeight: 500,
         }}
       >
         {t('label.avatar')}
@@ -77,8 +76,8 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
           sx={{
             position: 'relative',
             display: 'inline-block',
-            width: 68,
-            height: 68,
+            width: { xs: 56, sm: 68 },
+            height: { xs: 56, sm: 68 },
           }}
         >
           <Avatar
@@ -120,8 +119,8 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
             variant="outlined"
             color="error"
             size="small"
-            onClick={removeAvatar}
             disabled={uploading}
+            onClick={removeAvatar}
           >
             {t('removeAvatar')}
           </Button>
@@ -193,7 +192,7 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
               color="primary"
               disabled={submitting || uploading}
               startIcon={submitting && <CircularProgress size={20} />}
-              sx={{ borderRadius: 40 }}
+              sx={{ borderRadius: 40, fontSize: 13 }}
             >
               {t('save')}
             </Button>

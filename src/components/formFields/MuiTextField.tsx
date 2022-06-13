@@ -21,7 +21,7 @@ export function MuiTextField(props: IMuiTextFieldProps) {
   return (
     <Stack direction="column">
       {title && (
-        <Typography fontSize={16} fontWeight={500} sx={{ mb: 0.5 }}>
+        <Typography fontSize={{ xs: 14, sm: 16 }} fontWeight={500} sx={{ mb: 0.5 }}>
           {title}
         </Typography>
       )}
@@ -41,6 +41,7 @@ export function MuiTextField(props: IMuiTextFieldProps) {
         {...restProps}
         sx={{
           '& .MuiInputBase-root': {
+            fontSize: { xs: 14, sm: 16 },
             borderRadius: !!rounded ? 40 : 'auto',
           },
           ...restProps.sx,

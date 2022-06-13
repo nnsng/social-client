@@ -166,7 +166,7 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
                 }}
                 onClick={() => handleMenuItemClick(onClick)}
               >
-                <Icon sx={{ fontSize: { xs: 20, sm: 18 }, mr: 2 }} />
+                <Icon sx={{ mr: 2, fontSize: 18 }} />
                 {label}
               </MenuItem>
             ))}

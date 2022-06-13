@@ -18,7 +18,7 @@ export default function Settings() {
       <Box component="main">
         <Container maxWidth="md">
           <Box>
-            <Typography fontSize={24} fontWeight={600} textTransform="uppercase">
+            <Typography fontSize={{ xs: 20, sm: 24 }} fontWeight={600} textTransform="uppercase">
               {t('pageTitle')}
             </Typography>
 
@@ -27,6 +27,7 @@ export default function Settings() {
                 ...themeMixins.paperBorder(),
                 my: 2,
                 p: 2,
+                pt: { xs: 0, sm: 2 },
               }}
             >
               <Stack sx={{ flexDirection: { xs: 'column', sm: 'row' } }}>

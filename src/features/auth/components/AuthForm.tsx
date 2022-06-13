@@ -164,11 +164,13 @@ export default function AuthForm(props: IAuthFormProps) {
                   sx={{
                     '& input': {
                       py: 1.5,
-                      fontSize: 14,
+                      fontSize: 16,
                     },
-                    '& .MuiInputLabel-root:not(.Mui-focused):not(.MuiFormLabel-filled)': {
-                      top: -4,
-                      fontSize: 14,
+                    '& .MuiInputLabel-root': {
+                      fontSize: 16,
+                      '&:not(.Mui-focused):not(.MuiFormLabel-filled)': {
+                        top: -4,
+                      },
                     },
                   }}
                 />
@@ -190,18 +192,14 @@ export default function AuthForm(props: IAuthFormProps) {
           )}
 
           <Box textAlign="center">
-            <Typography
-              component="span"
-              variant="subtitle2"
-              fontWeight={400}
-              sx={{ cursor: 'default' }}
-            >
+            <Typography component="span" fontSize={14} fontWeight={400} sx={{ cursor: 'default' }}>
               {t(`text.${defaultValues.mode}`)}{' '}
             </Typography>
 
             <Typography
               component="span"
-              variant="subtitle2"
+              fontSize={14}
+              fontWeight={500}
               color="primary"
               sx={{ cursor: 'pointer' }}
               onClick={handleSwitchMode}
@@ -213,7 +211,8 @@ export default function AuthForm(props: IAuthFormProps) {
           {!isRegisterMode && (
             <Typography
               component="span"
-              variant="subtitle2"
+              fontSize={14}
+              fontWeight={500}
               color="primary"
               sx={{
                 textAlign: 'center',

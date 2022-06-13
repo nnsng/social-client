@@ -36,6 +36,7 @@ const validate = {
   // post
   title: {
     required: 'Please enter a title',
+    max: (n: number) => `Title must be at most ${n} characters`,
   },
   content: {
     required: 'Please enter content',

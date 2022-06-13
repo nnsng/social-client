@@ -184,7 +184,7 @@ export default function CommentItem(props: ICommentItemProps) {
                 <Stack alignItems="center" p={0.3}>
                   <FavoriteRounded sx={{ color: 'primary.main', fontSize: 18 }} />
 
-                  <Typography variant="subtitle2" color="text.primary" ml={0.5}>
+                  <Typography color="text.primary" fontSize={14} fontWeight={500} ml={0.5}>
                     {comment.likes?.length || 0}
                   </Typography>
                 </Stack>
@@ -202,8 +202,8 @@ export default function CommentItem(props: ICommentItemProps) {
               >
                 <Stack alignItems="center">
                   <Typography
-                    variant="subtitle2"
                     color="text.primary"
+                    fontSize={14}
                     fontWeight={600}
                     sx={{ cursor: 'pointer' }}
                     onClick={handleUserClick}
@@ -260,7 +260,7 @@ export default function CommentItem(props: ICommentItemProps) {
                     </Box>
                   </Stack>
                 ) : (
-                  <Typography variant="body1" color="text.primary">
+                  <Typography color="text.primary" fontSize={16}>
                     {content}
                   </Typography>
                 )}
@@ -268,22 +268,17 @@ export default function CommentItem(props: ICommentItemProps) {
             </Badge>
 
             <Stack alignItems="center" mt={1}>
-              <Typography
-                variant="subtitle2"
-                color="primary"
-                sx={{ cursor: 'pointer' }}
-                onClick={handleLikeComment}
-              >
+              <Typography color="primary" sx={{ cursor: 'pointer' }} onClick={handleLikeComment}>
                 {comment.likes?.includes(currentUser?._id || '') ? t('unlike') : t('like')}
               </Typography>
 
               <TimeTooltip timestamp={comment.createdAt}>
                 <Typography
-                  variant="subtitle2"
+                  color="text.secondary"
+                  fontSize={14}
                   sx={{
                     display: 'flex',
                     alignItems: 'center',
-                    color: 'text.secondary',
                     mr: 1,
 
                     '&::before': {
@@ -322,7 +317,7 @@ export default function CommentItem(props: ICommentItemProps) {
                       }}
                       onClick={() => handleMenuItemClick(onClick)}
                     >
-                      <Icon sx={{ mr: 2 }} />
+                      <Icon sx={{ mr: 2, fontSize: 18 }} />
                       {label}
                     </MenuItem>
                   ) : null

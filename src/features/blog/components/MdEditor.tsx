@@ -1,4 +1,4 @@
-import { Theme } from '@mui/material';
+import { Theme, useMediaQuery } from '@mui/material';
 import { Box } from '@mui/system';
 import MarkdownIt from 'markdown-it';
 import React, { useEffect, useRef } from 'react';
@@ -61,127 +61,133 @@ export default function MdEditor(props: IMdEditorProps) {
   );
 }
 
-const configStyles = (readOnly: boolean) => ({
-  height: '100%',
-  overflow: 'hidden',
+const configStyles = (readOnly: boolean) => {
+  const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
-  '& .rc-md-editor': {
+  return {
     height: '100%',
-    border: 'none',
-    bgcolor: 'transparent',
+    overflow: 'hidden',
 
-    '& .editor-container': {
-      '& .sec-md .input, & .sec-html .html-wrap': {
-        bgcolor: 'transparent',
-        color: 'text.primary',
-        overflow: readOnly ? 'hidden' : 'auto',
-        p: readOnly ? 0 : 'auto',
-      },
-    },
-
-    '& .header-list .list-item': {
-      color: 'text.primary',
-      '&:hover': {
-        bgcolor: 'action.hover',
-      },
-    },
-
-    '& .drop-wrap': {
-      bgcolor: 'background.paper',
-      borderColor: 'divider',
-    },
-
-    '& .table-list.wrap .list-item': {
-      bgcolor: 'action.focus',
-      '&.active': {
-        bgcolor: 'action.disabled',
-      },
-    },
-
-    '&.full': {
-      zIndex: 9999,
-    },
-
-    '& .rc-md-navigation': {
+    '& .rc-md-editor': {
+      height: '100%',
       border: 'none',
       bgcolor: 'transparent',
 
-      '& .button-wrap .button': {
-        color: 'text.secondary',
-        '&:hover': {
+      '& .editor-container': {
+        '& .sec-md .input, & .sec-html .html-wrap': {
+          bgcolor: 'transparent',
           color: 'text.primary',
-        },
-        '&.disabled': {
-          color: 'action.disabled',
+          overflow: readOnly ? 'hidden' : 'auto',
+          p: readOnly ? 0 : 'auto',
         },
       },
-    },
-  },
 
-  '& .md-editor': {
-    fontSize: '16px !important',
-    lineHeight: '1.6 !important',
-    borderRight: (theme: Theme) => `1px solid ${theme.palette.divider} !important`,
-    scrollbarWidth: 'none',
-    msOverflowStyle: 'none',
-  },
+      '& .header-list .list-item': {
+        color: 'text.primary',
+        '&:hover': {
+          bgcolor: 'action.hover',
+        },
+      },
 
-  '& .md-preview': {
-    m: 0,
-    color: 'text.primary',
-
-    '& table': {
-      '& thead th': {
-        bgcolor: 'action.hover',
+      '& .drop-wrap': {
+        bgcolor: 'background.paper',
         borderColor: 'divider',
       },
-      '& tbody td': {
-        borderColor: 'divider',
+
+      '& .table-list.wrap .list-item': {
+        bgcolor: 'action.focus',
+        '&.active': {
+          bgcolor: 'action.disabled',
+        },
       },
-    },
 
-    '& p': {
-      fontSize: readOnly ? 18 : 16,
-      lineHeight: readOnly ? 1.8 : 1.6,
-    },
+      '&.full': {
+        zIndex: 9999,
+      },
 
-    '& li': {
-      fontSize: readOnly ? 18 : 16,
-      lineHeight: readOnly ? 1.8 : 1.6,
-    },
-
-    '& code': {
-      py: 0.25,
-      px: 0.5,
-      borderRadius: '2px',
-      fontSize: readOnly ? 16 : 14,
-      lineHeight: readOnly ? 1.8 : 1.6,
-      bgcolor: 'action.hover',
-      color: 'text.primary',
-    },
-
-    '& pre': {
-      borderRadius: 1,
-      bgcolor: 'action.hover',
-      color: 'text.primary',
-      '& code': {
+      '& .rc-md-navigation': {
+        border: 'none',
         bgcolor: 'transparent',
+
+        '& .button-wrap .button': {
+          color: 'text.secondary',
+          '&:hover': {
+            color: 'text.primary',
+          },
+          '&.disabled': {
+            color: 'action.disabled',
+          },
+        },
       },
     },
 
-    '& blockquote': {
-      borderLeft: 4,
-      borderColor: 'primary.main',
-      bgcolor: 'action.hover',
+    '& .md-editor': {
+      fontSize: '16px !important',
+      lineHeight: '1.6 !important',
+      borderRight: (theme: Theme) => `1px solid ${theme.palette.divider} !important`,
+      scrollbarWidth: 'none',
+      msOverflowStyle: 'none',
+    },
+
+    '& .md-preview': {
+      m: 0,
       color: 'text.primary',
-    },
 
-    '& a': {
-      color: 'primary.main',
-    },
+      '& table': {
+        '& thead th': {
+          bgcolor: 'action.hover',
+          borderColor: 'divider',
+        },
+        '& tbody td': {
+          borderColor: 'divider',
+        },
+      },
 
-    '& hr': {
-      borderColor: 'divider',
+      '& p': {
+        fontSize: !readOnly || smDown ? 16 : 18,
+        lineHeight: 1.4,
+      },
+
+      '& li': {
+        fontSize: !readOnly || smDown ? 16 : 18,
+        lineHeight: 1.4,
+      },
+
+      '& code': {
+        py: 0.25,
+        px: 0.5,
+        borderRadius: '2px',
+        fontSize: readOnly ? 16 : 14,
+        lineHeight: 1.4,
+        bgcolor: 'action.hover',
+        color: 'text.primary',
+      },
+
+      '& pre': {
+        borderRadius: 1,
+        bgcolor: 'action.hover',
+        color: 'text.primary',
+        '& code': {
+          bgcolor: 'transparent',
+        },
+      },
+
+      '& blockquote': {
+        borderLeft: 4,
+        borderColor: 'primary.main',
+        bgcolor: 'action.hover',
+        color: 'text.primary',
+        fontSize: !readOnly || smDown ? 16 : 18,
+      },
+
+      '& a': {
+        color: 'primary.main',
+        fontSize: !readOnly || smDown ? 16 : 18,
+      },
+
+      '& hr': {
+        borderColor: 'divider',
+      },
     },
-  },
-});
+  };
+};

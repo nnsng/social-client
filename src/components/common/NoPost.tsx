@@ -10,9 +10,9 @@ export function NoPost(props: INoPostProps) {
   return (
     <Typography
       sx={{
-        textAlign: 'center',
-        color: 'text.secondary',
         p: 2,
+        color: 'text.secondary',
+        textAlign: 'center',
       }}
     >
       {t('text')}
