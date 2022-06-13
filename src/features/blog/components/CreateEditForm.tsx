@@ -42,7 +42,7 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
   const { validate, toast: toastTranslation } = useTranslateFiles('validate', 'toast');
 
   const schema = yup.object().shape({
-    title: yup.string().required(validate.title.required).max(30, validate.title.max(30)),
+    title: yup.string().required(validate.title.required).max(100, validate.title.max(100)),
     content: yup.string().required(validate.content.required).min(50, validate.content.min(50)),
     thumbnail: yup.string(),
     hashtags: yup.array().of(
