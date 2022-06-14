@@ -28,7 +28,6 @@ export function MainPage() {
   const resetSearchFilter: IListParams = {
     search: undefined,
     hashtag: undefined,
-    username: undefined,
   };
 
   useEffect(() => {

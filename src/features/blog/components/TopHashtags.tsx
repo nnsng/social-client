@@ -55,7 +55,7 @@ export default function TopHashtags(props: ITopHashtagsProps) {
           variant="button"
           color="text.primary"
           fontSize={14}
-          fontWeight={60}
+          fontWeight={600}
           sx={{
             display: 'inline-block',
             mb: -1,

@@ -108,7 +108,11 @@ export default function PostCard(props: IPostCardProps) {
                   ...themeMixins.truncate(2),
                   m: 0,
                   mt: 0.5,
-                  '& *': { maxWidth: '100%' },
+                  '& *': {
+                    maxWidth: '100%',
+                    fontSize: 16,
+                    fontWeight: 400,
+                  },
                 }}
               >
                 <ReactMarkdown
