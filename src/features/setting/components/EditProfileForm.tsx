@@ -31,7 +31,7 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
       .required(validate.username.required)
       .min(6, validate.username.min(6))
       .max(20, validate.username.max(20))
-      .matches(/^(?![_.])[a-zA-Z0-9._]+(?<![_.])$/, validate.username.valid),
+      .matches(/^(?![-.])[a-zA-Z0-9.-]+(?<![-.])$/, validate.username.valid),
     email: yup.string().email().required(),
     bio: yup.string().max(100, validate.bio.max(100)),
   });
@@ -47,10 +47,6 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
   useEffect(() => {
     clearErrors();
   }, [i18next.language]);
-
-  useEffect(() => {
-    if (!submitting) reset(defaultValues);
-  }, [defaultValues]);
 
   const removeAvatar = () => {
     setValue('avatar', '');

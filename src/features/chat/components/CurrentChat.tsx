@@ -21,7 +21,7 @@ export default function CurrentChat(props: ICurrentChatProps) {
   const { chat, show, onClose, toggleShow } = props;
 
   const endMessageRef = useRef<any>(null);
-  const inputRef = useRef<any>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [message, setMessage] = useState<string>('');
 
   useEffect(() => {
@@ -60,6 +60,9 @@ export default function CurrentChat(props: ICurrentChatProps) {
     <Box
       width={320}
       sx={{
+        ...themeMixins.paperBorder(),
+        borderBottom: 0,
+        borderRadius: 0,
         borderTopRightRadius: 6,
         borderTopLeftRadius: 6,
         overflow: 'hidden',
@@ -94,16 +97,7 @@ export default function CurrentChat(props: ICurrentChatProps) {
       </Stack>
 
       {show && (
-        <Stack
-          direction="column"
-          height={400}
-          bgcolor="background.paper"
-          sx={{
-            ...themeMixins.paperBorder(),
-            borderTop: 0,
-            borderRadius: 0,
-          }}
-        >
+        <Stack direction="column" height={400} bgcolor="background.paper">
           <Box
             className="default-scrollbar"
             sx={{
@@ -126,18 +120,12 @@ export default function CurrentChat(props: ICurrentChatProps) {
             }}
           >
             <ContainedInput
-              inputProps={{ ref: inputRef }}
               size="small"
+              inputRef={inputRef}
               placeholder="Aa"
               fullWidth
               value={message}
-              endAdornment={
-                <SendRounded
-                  color="primary"
-                  sx={{ ml: 1, cursor: 'pointer' }}
-                  onClick={handleSendMessage}
-                />
-              }
+              onSubmit={handleSendMessage}
               sx={{
                 '& input': {
                   fontSize: 14,

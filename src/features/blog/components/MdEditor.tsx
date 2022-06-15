@@ -1,7 +1,7 @@
 import { Theme, useMediaQuery } from '@mui/material';
 import { Box } from '@mui/system';
 import MarkdownIt from 'markdown-it';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Editor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import { getImageUrlFromCDN } from 'utils/common';
@@ -131,9 +131,13 @@ const configStyles = (readOnly: boolean) => {
 
     '& .md-preview': {
       m: 0,
+      mt: readOnly ? -2 : 0,
+      mb: readOnly ? -1 : 0,
       color: 'text.primary',
 
       '& table': {
+        mt: 2,
+        mb: 1,
         '& thead th': {
           bgcolor: 'action.hover',
           borderColor: 'divider',
@@ -145,12 +149,12 @@ const configStyles = (readOnly: boolean) => {
 
       '& p': {
         fontSize: !readOnly || smDown ? 16 : 18,
-        lineHeight: 1.4,
+        lineHeight: 1.6,
       },
 
       '& li': {
         fontSize: !readOnly || smDown ? 16 : 18,
-        lineHeight: 1.4,
+        lineHeight: 1.6,
       },
 
       '& code': {
@@ -158,7 +162,7 @@ const configStyles = (readOnly: boolean) => {
         px: 0.5,
         borderRadius: '2px',
         fontSize: readOnly ? 16 : 14,
-        lineHeight: 1.4,
+        lineHeight: 1.6,
         bgcolor: 'action.hover',
         color: 'text.primary',
       },

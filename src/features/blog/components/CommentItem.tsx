@@ -26,7 +26,7 @@ import { ActionMenu, ConfirmDialog, TimeTooltip, UserInfoPopup } from 'component
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { useUserInfoPopupMouseEvents } from 'hooks';
 import { CommentActionType, IComment, IMenuItem, IUser } from 'models';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -268,7 +268,13 @@ export default function CommentItem(props: ICommentItemProps) {
             </Badge>
 
             <Stack alignItems="center" mt={1}>
-              <Typography color="primary" sx={{ cursor: 'pointer' }} onClick={handleLikeComment}>
+              <Typography
+                color="primary"
+                fontSize={14}
+                fontWeight={500}
+                sx={{ cursor: 'pointer' }}
+                onClick={handleLikeComment}
+              >
                 {comment.likes?.includes(currentUser?._id || '') ? t('unlike') : t('like')}
               </Typography>
 

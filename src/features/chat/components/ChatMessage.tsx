@@ -2,7 +2,6 @@ import { Stack, Tooltip, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { IMessage } from 'models';
-import React from 'react';
 import { formatTime } from 'utils/common';
 
 export interface IChatMessageProps {
@@ -24,7 +23,7 @@ export default function ChatMessage({ message }: IChatMessageProps) {
           position: 'relative',
           maxWidth: '75%',
           width: 'fit-content',
-          mb: 1,
+          mb: 0.5,
           px: 1,
           py: 0.5,
           ml: isMe ? 'auto' : 0,

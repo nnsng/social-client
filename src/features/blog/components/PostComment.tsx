@@ -5,7 +5,7 @@ import { ContainedInput } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { selectCommentLoading } from 'features/blog/commentSlice';
 import { CommentActionType, IComment } from 'models';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { getErrorMessage } from 'utils/toast';
@@ -27,7 +27,12 @@ export default function PostComment(props: IPostCommentProps) {
   const loading = useAppSelector(selectCommentLoading);
   const currentUser = useAppSelector(selectCurrentUser);
 
+  const inputRef = useRef<HTMLInputElement>();
   const [input, setInput] = useState<string>('');
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   useEffect(() => {
     updateCommentCount?.(commentList.length);
@@ -57,6 +62,8 @@ export default function PostComment(props: IPostCommentProps) {
     } catch (error: any) {
       toast.error(getErrorMessage(error));
     }
+
+    inputRef.current?.focus();
   };
 
   return (
@@ -112,18 +119,12 @@ export default function PostComment(props: IPostCommentProps) {
 
           <ContainedInput
             size="small"
+            inputRef={inputRef}
             placeholder={t('placeholder')}
             fullWidth
             autoFocus
-            disabled={loading}
             value={input}
-            endAdornment={
-              <SendRounded
-                color="primary"
-                onClick={handleSubmitComment}
-                sx={{ ml: 1, cursor: 'pointer' }}
-              />
-            }
+            onSubmit={handleSubmitComment}
             onChange={handleInputChange}
             onKeyUp={handleKeyUp}
           />

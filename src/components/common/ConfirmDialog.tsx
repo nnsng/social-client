@@ -26,9 +26,18 @@ export function ConfirmDialog(props: IConfirmDialogProps) {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle sx={{ fontWeight: 600, color: 'text.primary' }}>{title}</DialogTitle>
+      <DialogTitle
+        sx={{
+          py: 1.5,
+          color: 'text.primary',
+          fontSize: 18,
+          fontWeight: 600,
+        }}
+      >
+        {title}
+      </DialogTitle>
 
-      <DialogContent>
+      <DialogContent dividers>
         <DialogContentText sx={{ color: 'text.primary' }}>{content}</DialogContentText>
       </DialogContent>
 

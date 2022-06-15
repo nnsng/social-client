@@ -13,11 +13,10 @@ import {
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { notiActions, selectNotiList } from 'features/common/notiSlice';
 import { INotification } from 'models';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { formatTime } from 'utils/common';
-import { themeVariables } from 'utils/theme';
 import { PopperPopup } from '..';
 import HeaderIconButton from './HeaderIconButton';
 
@@ -104,7 +103,17 @@ export default function Notification() {
 
         <Divider sx={{ m: 0 }} />
 
-        <Stack direction="column" spacing={0.8} p={0.8} width="100%">
+        <Stack
+          direction="column"
+          spacing={0.8}
+          className="default-scrollbar"
+          sx={{
+            width: '100%',
+            maxHeight: 400,
+            p: 0.8,
+            overflowY: 'auto',
+          }}
+        >
           {notiList.length > 0 ? (
             notiList.map((noti, idx) => (
               <MenuItem

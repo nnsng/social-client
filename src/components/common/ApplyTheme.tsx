@@ -53,6 +53,7 @@ export function ApplyTheme({ children }: IApplyThemeProps) {
         theme={themeMode}
         autoClose={2000}
         style={{ top: themeVariables.headerHeight }}
+        toastStyle={{ backgroundColor: theme.palette.background.paper }}
       />
     </ThemeProvider>
   );
