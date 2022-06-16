@@ -135,6 +135,11 @@ const configStyles = (readOnly: boolean) => {
       mb: readOnly ? -1 : 0,
       color: 'text.primary',
 
+      '& img': {
+        mt: 2,
+        mb: 1,
+      },
+
       '& table': {
         mt: 2,
         mb: 1,
