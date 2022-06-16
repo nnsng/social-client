@@ -106,7 +106,7 @@ export default function ChatPopup(props: IChatPopupProps) {
           })
         ) : (
           <Typography color="text.secondary" fontSize={12} mx="auto">
-            {`(${t('empty')})`}
+            {t('empty')}
           </Typography>
         )}
       </Stack>

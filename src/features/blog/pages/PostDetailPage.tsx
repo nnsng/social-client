@@ -2,7 +2,7 @@ import { Box, Container, Drawer, Grid } from '@mui/material';
 import commentApi from 'api/commentApi';
 import postApi from 'api/postApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { PageTitle } from 'components/common';
+import { NotFound, PageTitle } from 'components/common';
 import { PostDetailSkeleton } from 'components/skeletons';
 import { commentActions, selectPostComments } from 'features/blog/commentSlice';
 import { selectSocket } from 'features/socket/socketSlice';
@@ -84,8 +84,10 @@ export function PostDetailPage() {
             <Box>
               {loading ? (
                 <PostDetailSkeleton />
+              ) : post ? (
+                <PostDetail post={post} onPostAction={handlePostAction} />
               ) : (
-                post && <PostDetail post={post} onPostAction={handlePostAction} />
+                <NotFound />
               )}
             </Box>
           </Grid>

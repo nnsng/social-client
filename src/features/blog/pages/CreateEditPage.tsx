@@ -4,11 +4,10 @@ import { useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { IPost } from 'models';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { getErrorMessage } from 'utils/toast';
+import { showErrorToast } from 'utils/toast';
 import CreateEditForm from '../components/CreateEditForm';
 
 export function CreateEditPage() {
@@ -28,8 +27,8 @@ export function CreateEditPage() {
       try {
         const post = await postApi.getForEdit(postId);
         setEditedPost(post);
-      } catch (error: any) {
-        toast.error(getErrorMessage(error));
+      } catch (error) {
+        showErrorToast(error);
         navigate('/blog/create', { state: { hideHeaderMenu: true } });
       }
     })();

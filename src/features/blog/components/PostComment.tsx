@@ -1,4 +1,4 @@
-import { CloseRounded, SendRounded } from '@mui/icons-material';
+import { CloseRounded } from '@mui/icons-material';
 import { Avatar, CircularProgress, IconButton, List, Stack, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { ContainedInput } from 'components/common';
@@ -7,8 +7,7 @@ import { selectCommentLoading } from 'features/blog/commentSlice';
 import { CommentActionType, IComment } from 'models';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import { getErrorMessage } from 'utils/toast';
+import { showErrorToast } from 'utils/toast';
 import CommentItem from './CommentItem';
 
 export interface IPostCommentProps {
@@ -59,8 +58,8 @@ export default function PostComment(props: IPostCommentProps) {
       };
 
       await onCommentAction?.('create', comment);
-    } catch (error: any) {
-      toast.error(getErrorMessage(error));
+    } catch (error) {
+      showErrorToast(error);
     }
 
     inputRef.current?.focus();

@@ -6,8 +6,9 @@ export const showComingSoonToast = () => {
   toast.info(toastTranslation.comingSoon);
 };
 
-export const getErrorMessage = (error: any) => {
+export const showErrorToast = (error: any) => {
   const { toast: toastTranslation } = useTranslateFiles('toast');
-  const errorName = error?.response?.data?.name || 'somethingWrong';
-  return toastTranslation.errors[errorName];
+  const name = error?.response?.data?.name || 'somethingWrong';
+  const message = toastTranslation.errors[name];
+  toast.error(message);
 };

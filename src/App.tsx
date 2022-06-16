@@ -10,11 +10,12 @@ import Setting from 'features/setting';
 import SocketClient from 'features/socket';
 import { socketActions } from 'features/socket/socketSlice';
 import { IUser } from 'models';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { ACCESS_TOKEN } from 'utils/constants';
 import { env, variables } from 'utils/env';
+import { showErrorToast } from 'utils/toast';
 
 function App() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ function App() {
 
         dispatch(authActions.setCurrentUser(user as unknown as IUser));
       } catch (error) {
-        console.log('Failed to get current user', error);
+        showErrorToast(error);
         dispatch(authActions.logout({ navigate }));
       }
     })();

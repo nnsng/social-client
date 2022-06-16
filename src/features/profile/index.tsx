@@ -7,11 +7,10 @@ import { UserInfoSkeleton } from 'components/skeletons';
 import { blogActions, selectPostList, selectPostLoading } from 'features/blog/blogSlice';
 import PostList from 'features/blog/components/PostList';
 import { IListParams, IPost, IUser, PostActionType } from 'models';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { APP_NAME } from 'utils/constants';
-import { getErrorMessage } from 'utils/toast';
+import { showErrorToast } from 'utils/toast';
 import UserInfo from './components/UserInfo';
 
 export interface IProfileProps {}
@@ -36,7 +35,7 @@ export default function ProfilePage(props: IProfileProps) {
         setUserInfo(user);
         fetchUserPostList({ page: 1 });
       } catch (error) {
-        toast.error(getErrorMessage(error));
+        showErrorToast(error);
       }
     })();
   }, [username]);

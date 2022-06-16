@@ -1,8 +1,9 @@
 import { useAppDispatch } from 'app/hooks';
 import { uploadActions } from 'features/common/uploadSlice';
-import React, { InputHTMLAttributes } from 'react';
+import { InputHTMLAttributes } from 'react';
 import { Control, useController } from 'react-hook-form';
 import { getImageUrlFromCDN } from 'utils/common';
+import { showErrorToast } from 'utils/toast';
 
 export interface IFileInputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -26,7 +27,7 @@ export function FileInputField(props: IFileInputFieldProps) {
       const imageUrl = await getImageUrlFromCDN(image);
       onChange(imageUrl);
     } catch (error) {
-      console.log('Failed to get image url: ', error);
+      showErrorToast(error);
     }
 
     dispatch(uploadActions.setLoading(false));

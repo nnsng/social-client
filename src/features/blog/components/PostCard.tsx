@@ -1,14 +1,14 @@
 import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 import { ConfirmDialog } from 'components/common';
 import { IPost, PostActionType } from 'models';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import remarkGfm from 'remark-gfm';
 import { themeMixins } from 'utils/theme';
-import { getErrorMessage } from 'utils/toast';
+import { showErrorToast } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
 import PostCardHeader from './PostCardHeader';
 
@@ -36,8 +36,8 @@ export default function PostCard(props: IPostCardProps) {
     try {
       await onPostAction?.('save', post);
       toast.success(toastTranslation.postCard.saveSuccess);
-    } catch (error: any) {
-      toast.error(getErrorMessage(error));
+    } catch (error) {
+      showErrorToast(error);
     }
   };
 
@@ -47,8 +47,8 @@ export default function PostCard(props: IPostCardProps) {
     try {
       await onPostAction?.('remove', post);
       toast.success(toastTranslation.postCard.deleteSuccess);
-    } catch (error: any) {
-      toast.error(getErrorMessage(error));
+    } catch (error) {
+      showErrorToast(error);
     }
 
     setLoading(false);

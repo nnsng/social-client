@@ -4,14 +4,14 @@ import { MuiTextField } from 'components/formFields';
 import { GoogleIcon } from 'components/icons';
 import i18next from 'i18next';
 import { IAuthFormValues, IField } from 'models';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { validateEmail } from 'utils/common';
 import { APP_NAME } from 'utils/constants';
 import { themeMixins } from 'utils/theme';
-import { getErrorMessage } from 'utils/toast';
+import { showErrorToast } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
@@ -75,8 +75,8 @@ export default function AuthForm(props: IAuthFormProps) {
       }
       await onForgotPassword?.(email);
       toast.info(toastTranslation.changePasswordForm.info);
-    } catch (error: any) {
-      toast.error(getErrorMessage(error));
+    } catch (error) {
+      showErrorToast(error);
     }
   };
 

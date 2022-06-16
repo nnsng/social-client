@@ -2,13 +2,13 @@ import { BookmarkRemoveRounded, LinkRounded, MoreHorizRounded } from '@mui/icons
 import { Box, CardMedia, IconButton, ListItem, MenuItem, Stack, Typography } from '@mui/material';
 import { ActionMenu, TimeTooltip } from 'components/common';
 import { IMenuItem, IPost } from 'models';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { copyPostLink, formatTime } from 'utils/common';
 import { themeMixins } from 'utils/theme';
-import { getErrorMessage } from 'utils/toast';
+import { showErrorToast } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
 
 export interface IPostItemProps {
@@ -33,8 +33,8 @@ export function PostItem(props: IPostItemProps) {
     try {
       await onUnSave?.(post);
       toast.success(toastTranslation.postItem.unsaveSuccess);
-    } catch (error: any) {
-      toast.error(getErrorMessage(error));
+    } catch (error) {
+      showErrorToast(error);
     }
   };
 
@@ -62,7 +62,7 @@ export function PostItem(props: IPostItemProps) {
       sx={{
         ...themeMixins.paperBorder(),
         my: 2,
-        p: { xs: 1, sm: 2 },
+        p: 1,
       }}
     >
       <Stack width="100%" alignItems="center">

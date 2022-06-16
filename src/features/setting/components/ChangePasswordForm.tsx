@@ -4,11 +4,11 @@ import { Box } from '@mui/system';
 import { MuiTextField } from 'components/formFields';
 import i18next from 'i18next';
 import { IChangePasswordFormValues, IField } from 'models';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { getErrorMessage } from 'utils/toast';
+import { showErrorToast } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
@@ -61,8 +61,8 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
       await onSubmit(formValues);
       reset();
       isChangePasswordMode && toast.success(toastTranslation.changePasswordForm.success);
-    } catch (error: any) {
-      toast.error(getErrorMessage(error));
+    } catch (error) {
+      showErrorToast(error);
     }
   };
 
@@ -70,8 +70,8 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
     try {
       forgotPassword?.();
       toast.info(toastTranslation.changePasswordForm.info);
-    } catch (error: any) {
-      toast.error(getErrorMessage(error));
+    } catch (error) {
+      showErrorToast(error);
     }
   };
 

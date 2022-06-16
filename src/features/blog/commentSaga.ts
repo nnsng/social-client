@@ -1,16 +1,17 @@
-import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, takeLatest } from '@redux-saga/core/effects';
-import { commentActions } from './commentSlice';
+import { PayloadAction } from '@reduxjs/toolkit';
 import commentApi from 'api/commentApi';
 import { IComment } from 'models';
+import { showErrorToast } from 'utils/toast';
+import { commentActions } from './commentSlice';
 
 function* fetchPostComments(action: PayloadAction<string>) {
   try {
     const postComment: IComment[] = yield call(commentApi.getPostComment, action.payload);
     yield put(commentActions.fetchPostCommentsSuccess(postComment));
   } catch (error) {
+    showErrorToast(error);
     yield put(commentActions.fetchPostCommentsFailure());
-    console.log('Failed to fetch comments:', error);
   }
 }
 
@@ -19,7 +20,7 @@ function* likeComment(action: PayloadAction<string>) {
     const comment: IComment = yield call(commentApi.like, action.payload);
     yield put(commentActions.likeSuccess(comment));
   } catch (error) {
-    console.log('Failed to like comment:', error);
+    showErrorToast(error);
   }
 }
 

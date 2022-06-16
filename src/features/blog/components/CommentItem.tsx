@@ -29,9 +29,8 @@ import { CommentActionType, IComment, IMenuItem, IUser } from 'models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { formatTime } from 'utils/common';
-import { getErrorMessage, showComingSoonToast } from 'utils/toast';
+import { showComingSoonToast, showErrorToast } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
 
 export interface ICommentItemProps {
@@ -90,7 +89,7 @@ export default function CommentItem(props: ICommentItemProps) {
       await onCommentAction?.('edit', editedComment);
       setIsEdit(false);
     } catch (error) {
-      toast.error(getErrorMessage(error));
+      showErrorToast(error);
     }
 
     setLoading(false);
@@ -101,8 +100,8 @@ export default function CommentItem(props: ICommentItemProps) {
 
     try {
       await onCommentAction?.('remove', comment);
-    } catch (error: any) {
-      toast.error(getErrorMessage(error));
+    } catch (error) {
+      showErrorToast(error);
     }
 
     setLoading(false);

@@ -7,15 +7,14 @@ import {
 import { Button, CircularProgress, MenuItem, Stack } from '@mui/material';
 import userApi from 'api/userApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { useUserInfoMenu } from 'hooks';
 import { authActions, selectCurrentUser } from 'features/auth/authSlice';
 import { chatActions } from 'features/chat/chatSlice';
+import { useUserInfoMenu } from 'hooks';
 import { FollowModeType, IUser } from 'models';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { getErrorMessage } from 'utils/toast';
+import { showErrorToast } from 'utils/toast';
 import { ChatIcon } from '../icons';
 import { ActionMenu } from './ActionMenu';
 
@@ -55,7 +54,7 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
       dispatch(authActions.setCurrentUser(updated.currentUser));
       updateUser?.(updated.selectedUser);
     } catch (error) {
-      toast.error(getErrorMessage(error));
+      showErrorToast(error);
     }
 
     setLoading(false);

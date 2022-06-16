@@ -5,7 +5,7 @@ import { chatActions } from 'features/chat/chatSlice';
 import { IAuthFormValues, IAuthPayload, IAuthResponse } from 'models';
 import { toast } from 'react-toastify';
 import { ACCESS_TOKEN } from 'utils/constants';
-import { getErrorMessage } from 'utils/toast';
+import { showErrorToast } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
 import { authActions } from './authSlice';
 
@@ -17,8 +17,8 @@ function* handleLogin(action: PayloadAction<IAuthPayload>) {
     yield put(authActions.setCurrentUser(response.user));
     localStorage.setItem(ACCESS_TOKEN, response.token);
     navigate?.('/', { replace: true });
-  } catch (error: any) {
-    toast.error(getErrorMessage(error));
+  } catch (error) {
+    showErrorToast(error);
   }
 }
 
@@ -31,8 +31,8 @@ function* handleRegister(action: PayloadAction<IAuthPayload>) {
     yield call(authApi.register, formValues as IAuthFormValues);
     navigate?.('/login', { replace: true });
     toast.info(toastTranslation.auth.activeAccount);
-  } catch (error: any) {
-    toast.error(getErrorMessage(error));
+  } catch (error) {
+    showErrorToast(error);
   }
 }
 
@@ -48,8 +48,8 @@ function* handleGoogleLogin(action: PayloadAction<IAuthPayload>) {
     yield put(authActions.setCurrentUser(response.user));
     localStorage.setItem(ACCESS_TOKEN, response.token);
     navigate?.('/', { replace: true });
-  } catch (error: any) {
-    toast.error(getErrorMessage(error));
+  } catch (error) {
+    showErrorToast(error);
   }
 }
 
@@ -64,8 +64,8 @@ function* handleActiveAccount(action: PayloadAction<IAuthPayload>) {
     localStorage.setItem(ACCESS_TOKEN, response.token);
     navigate?.('/', { replace: true });
     toast.success(toastTranslation.auth.activeSuccess);
-  } catch (error: any) {
-    toast.error(getErrorMessage(error));
+  } catch (error) {
+    showErrorToast(error);
   }
 }
 

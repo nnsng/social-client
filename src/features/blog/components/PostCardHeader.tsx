@@ -8,7 +8,6 @@ import { IPost, IUser } from 'models';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { formatTime } from 'utils/common';
-import { themeMixins } from 'utils/theme';
 
 export interface IPostCardHeaderProps {
   post: IPost;
@@ -126,7 +125,7 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
             fontSize={14}
             fontWeight={600}
             sx={{
-              ...themeMixins.truncate(1),
+              display: 'inline-block',
               cursor: 'pointer',
             }}
             onClick={handleAuthorClick}

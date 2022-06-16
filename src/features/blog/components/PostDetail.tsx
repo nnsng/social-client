@@ -1,12 +1,12 @@
 import { Card, CardContent, Typography } from '@mui/material';
 import { ConfirmDialog } from 'components/common';
 import { IPost, PostActionType } from 'models';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { themeMixins } from 'utils/theme';
-import { getErrorMessage } from 'utils/toast';
+import { showErrorToast } from 'utils/toast';
 import { useTranslateFiles } from 'utils/translation';
 import MdEditor from './MdEditor';
 import PostCardHeader from './PostCardHeader';
@@ -36,8 +36,8 @@ export default function PostDetail(props: IPostDetailProps) {
     try {
       await onPostAction?.('save', post);
       toast.success(toastTranslation.postDetail.saveSuccess);
-    } catch (error: any) {
-      toast.error(getErrorMessage(error));
+    } catch (error) {
+      showErrorToast(error);
     }
   };
 
@@ -48,8 +48,8 @@ export default function PostDetail(props: IPostDetailProps) {
       await onPostAction?.('remove', post);
       toast.success(toastTranslation.postDetail.deleteSuccess);
       navigate('/blog');
-    } catch (error: any) {
-      toast.error(getErrorMessage(error));
+    } catch (error) {
+      showErrorToast(error);
     }
 
     setLoading(false);

@@ -3,6 +3,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import postApi from 'api/postApi';
 import userApi from 'api/userApi';
 import { IListParams, IListResponse, IPost, ISearchObj, IUser } from 'models';
+import { showErrorToast } from 'utils/toast';
 import { blogActions } from './blogSlice';
 
 function* fetchPostList(action: PayloadAction<IListParams>) {
@@ -16,8 +17,8 @@ function* fetchPostList(action: PayloadAction<IListParams>) {
     const response: IListResponse<IPost> = yield call(postApi.getAll, params);
     yield put(blogActions.fetchPostListSuccess(response));
   } catch (error) {
+    showErrorToast(error);
     yield put(blogActions.fetchPostListFailure());
-    console.log('Failed to fetch post list:', error);
   }
 }
 
@@ -32,8 +33,8 @@ function* fetchSavedList(action: PayloadAction<IListParams>) {
     const response: IListResponse<IPost> = yield call(postApi.getSavedList, params);
     yield put(blogActions.fetchSavedListSuccess(response));
   } catch (error) {
+    showErrorToast(error);
     yield put(blogActions.fetchSavedFailure());
-    console.log('Failed to fetch saved post list:', error);
   }
 }
 
@@ -42,8 +43,8 @@ function* fetchPostDetail(action: PayloadAction<string>) {
     const post: IPost = yield call(postApi.getBySlug, action.payload);
     yield put(blogActions.fetchPostDetailSuccess(post));
   } catch (error) {
+    showErrorToast(error);
     yield put(blogActions.fetchPostDetailFailure());
-    console.log('Failed to fetch post detail:', error);
   }
 }
 
@@ -52,7 +53,7 @@ function* handleLikePost(action: PayloadAction<string>) {
     const post: IPost = yield call(postApi.like, action.payload);
     yield put(blogActions.likePostSuccess(post));
   } catch (error) {
-    console.log('Failed to like post:', error);
+    showErrorToast(error);
   }
 }
 
@@ -73,7 +74,7 @@ function* handleSearchWithDebounce(action: PayloadAction<ISearchObj>) {
     }
     yield put(blogActions.searchWithDebounceSuccess(response));
   } catch (error) {
-    console.log('Failed to fetch post list with search debounce:', error);
+    showErrorToast(error);
     yield put(blogActions.searchWithDebounceFailure());
   }
 }
