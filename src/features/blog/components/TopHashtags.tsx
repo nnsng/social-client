@@ -69,20 +69,33 @@ export default function TopHashtags(props: ITopHashtagsProps) {
       )}
 
       <Stack flexWrap="wrap" sx={hashtagWrapperSx}>
-        {list.map((hashtag, idx) => (
-          <Chip
-            key={idx}
-            color={active === hashtag ? 'primary' : undefined}
-            label={hashtag}
-            onClick={() => handleHashtagClick?.(hashtag)}
-            sx={{
-              mt: 1,
-              mr: 1,
-              fontSize: { lg: 16 },
-              color: active === hashtag ? 'common.white' : 'text.secondary',
-            }}
-          />
-        ))}
+        {list.length > 0
+          ? list.map((hashtag, idx) => (
+              <Chip
+                key={idx}
+                color={active === hashtag ? 'primary' : undefined}
+                label={hashtag}
+                onClick={() => handleHashtagClick?.(hashtag)}
+                sx={{
+                  mt: 1,
+                  mr: 1,
+                  fontSize: { lg: 16 },
+                  color: active === hashtag ? 'common.white' : 'text.secondary',
+                }}
+              />
+            ))
+          : !active && (
+              <Typography
+                color="text.secondary"
+                fontSize={14}
+                sx={{
+                  display: { xs: 'none', lg: 'block' },
+                  py: 1,
+                }}
+              >
+                {t('empty')}
+              </Typography>
+            )}
         {active && !list.includes(active) && (
           <Chip
             color="primary"

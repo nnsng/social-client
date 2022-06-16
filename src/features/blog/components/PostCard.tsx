@@ -118,7 +118,7 @@ export default function PostCard(props: IPostCardProps) {
                 <ReactMarkdown
                   children={post.content}
                   remarkPlugins={[remarkGfm]}
-                  disallowedElements={['table']}
+                  disallowedElements={['table', 'img']}
                 />
               </Typography>
             </Box>
