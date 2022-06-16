@@ -1,13 +1,12 @@
-import { CloseRounded, SendRounded } from '@mui/icons-material';
+import { CloseRounded } from '@mui/icons-material';
 import { Avatar, Box, IconButton, Stack, Typography } from '@mui/material';
 import otherApi from 'api/otherApi';
 import { ContainedInput } from 'components/common';
 import { IChat } from 'models';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { themeMixins } from 'utils/theme';
-import { getErrorMessage } from 'utils/toast';
+import { showErrorToast } from 'utils/toast';
 import ChatMessage from './ChatMessage';
 
 export interface ICurrentChatProps {
@@ -52,7 +51,7 @@ export default function CurrentChat(props: ICurrentChatProps) {
 
       await otherApi.chat(newMessage);
     } catch (error) {
-      toast.error(getErrorMessage(error));
+      showErrorToast(error);
     }
   };
 

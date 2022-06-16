@@ -1,6 +1,6 @@
 import { Avatar, Box, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
 import { IUser } from 'models';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { IPopperPopupProps, PopperPopup } from './PopperPopup';
 import { UserInfoButtonGroup } from './UserInfoButtonGroup';
 
@@ -13,11 +13,11 @@ export function UserInfoPopup(props: IUserInfoPopupProps) {
 
   const [isOpen, setIsOpen] = useState<boolean>(open);
 
-  const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
 
   return (
     <PopperPopup
-      open={(!!open || isOpen) && lgUp}
+      open={(!!open || isOpen) && mdUp}
       anchorEl={anchorEl}
       placement="bottom-start"
       onMouseEnter={() => setIsOpen(true)}
