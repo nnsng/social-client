@@ -15,9 +15,7 @@ export function useLoginWithGoogle() {
     dispatch(authActions.googleLogin({ token, navigate }));
   };
 
-  const onFailure = (res: any) => {
-    showErrorToast(res);
-  };
+  const onFailure = (res: any) => {};
 
   const clientId = env(variables.googleClientId);
   const { signIn } = useGoogleLogin({
