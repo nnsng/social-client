@@ -5,6 +5,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "host": "vite --host",
     "i18n": "node scripts/i18n"
   },
   "dependencies": {
