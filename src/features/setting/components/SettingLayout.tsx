@@ -1,11 +1,11 @@
 import authApi from 'api/authApi';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { NotFound } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { IChangePasswordFormValues, IField, IUser } from 'models';
-import React from 'react';
+import { selectSettingSubmitting, settingActions } from '../settingSlice';
 import ChangePasswordForm from './ChangePasswordForm';
 import EditProfileForm from './EditProfileForm';
-import { selectSettingSubmitting, settingActions } from '../settingSlice';
 
 export interface ISettingLayoutProps {
   mode: 'edit-profile' | 'change-password';
@@ -51,7 +51,9 @@ export default function SettingLayout({ mode }: ISettingLayoutProps) {
     { name: 'confirmPassword', props: {} },
   ];
 
-  return mode === 'edit-profile' ? (
+  return !currentUser ? (
+    <NotFound />
+  ) : mode === 'edit-profile' ? (
     <EditProfileForm
       submitting={submitting}
       defaultValues={editProfileFormValues}

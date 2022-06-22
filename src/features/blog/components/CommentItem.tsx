@@ -1,7 +1,7 @@
 import {
   BorderColorRounded,
   DeleteRounded,
-  EditRounded,
+  DriveFileRenameOutlineRounded,
   FavoriteRounded,
   FlagRounded,
   MoreHorizRounded,
@@ -165,7 +165,7 @@ export default function CommentItem(props: ICommentItemProps) {
                 vertical: 'bottom',
                 horizontal: 'right',
               }}
-              invisible={!comment.likes?.length}
+              invisible={comment.likes?.length === 0 || isEdit}
               sx={{
                 width: isEdit ? '100%' : 'unset',
                 '& .MuiBadge-badge': {
@@ -213,15 +213,12 @@ export default function CommentItem(props: ICommentItemProps) {
 
                   {comment.edited && (
                     <Tooltip title={t('edited')} placement="top" arrow>
-                      <EditRounded
+                      <DriveFileRenameOutlineRounded
                         sx={{
-                          ml: 1,
-                          p: '2px',
-                          borderRadius: '50%',
-                          bgcolor: 'text.secondary',
-                          color: 'background.default',
-                          fontSize: 12,
-                          opacity: 0.6,
+                          ml: 0.5,
+                          color: 'text.secondary',
+                          fontSize: 14,
+                          opacity: 0.8,
                         }}
                       />
                     </Tooltip>

@@ -1,6 +1,5 @@
 import { Box, Container, Paper, Stack, Typography } from '@mui/material';
 import { Header, PageTitle } from 'components/common';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { themeMixins } from 'utils/theme';
@@ -43,7 +42,7 @@ export default function Settings() {
                   <SettingTabs />
                 </Box>
 
-                <Box flexGrow={1} px={{ xs: 2, sm: 0 }}>
+                <Box flexGrow={1} pr={{ sm: 4 }}>
                   <Routes>
                     <Route path="/" element={<Navigate to="edit-profile" replace={true} />} />
 

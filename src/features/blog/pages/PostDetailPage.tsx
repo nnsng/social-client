@@ -7,7 +7,7 @@ import { PostDetailSkeleton } from 'components/skeletons';
 import { commentActions, selectPostComments } from 'features/blog/commentSlice';
 import { selectSocket } from 'features/socket/socketSlice';
 import { CommentActionType, IComment, ILocationState, IPost, PostActionType } from 'models';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
 import { blogActions, selectPostDetail, selectPostLoading } from '../blogSlice';
@@ -108,7 +108,7 @@ export function PostDetailPage() {
         <Drawer anchor="right" open={openComment} onClose={closeComment}>
           <PostComment
             commentList={postComments}
-            postId={post?._id || ''}
+            postId={post?._id ?? ''}
             onClose={closeComment}
             updateCommentCount={updateCommentCount}
             onCommentAction={handleCommentAction}

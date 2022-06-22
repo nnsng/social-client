@@ -226,7 +226,7 @@ export default function SearchBox(props: ISearchBoxProps) {
                                 width: 32,
                                 height: 32,
                                 mr: 1,
-                                bgcolor: 'action.selected',
+                                bgcolor: !data.image ? 'action.selected' : undefined,
                               }}
                             >
                               <Box />
