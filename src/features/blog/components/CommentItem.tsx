@@ -22,11 +22,11 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
-import { ActionMenu, ConfirmDialog, TimeTooltip, UserInfoPopup } from 'components/common';
+import { ActionMenu, ConfirmDialog, TimeTooltip } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { useUserInfoPopupMouseEvents } from 'hooks';
-import { CommentActionType, IComment, IMenuItem, IUser } from 'models';
-import { useRef, useState } from 'react';
+import { useSubmitWithEnter, useUserInfoPopup } from 'hooks';
+import { CommentActionType, IComment, IMenuItem } from 'models';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { formatTime } from 'utils/common';
@@ -50,15 +50,22 @@ export default function CommentItem(props: ICommentItemProps) {
 
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const [openPopup, setOpenPopup] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [content, setContent] = useState<string>(comment.content);
-  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [editComment, setEditComment] = useState<boolean>(false);
 
   const anchorRef = useRef<any>(null);
   const userInfoRef = useRef<any>(null);
 
-  const mouseEvents = useUserInfoPopupMouseEvents({ setOpenPopup });
+  const { userInfoPopupComponent, mouseEvents } = useUserInfoPopup({
+    user: comment.user || {},
+    anchorEl: userInfoRef.current,
+    sx: { zIndex: (theme) => theme.zIndex.drawer + 1 },
+  });
+
+  useEffect(() => {
+    setContent(comment.content);
+  }, [comment]);
 
   const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
@@ -73,7 +80,7 @@ export default function CommentItem(props: ICommentItemProps) {
   };
 
   const cancelEdit = () => {
-    setIsEdit(false);
+    setEditComment(false);
     setContent(comment.content);
   };
 
@@ -87,7 +94,7 @@ export default function CommentItem(props: ICommentItemProps) {
       };
 
       await onCommentAction?.('edit', editedComment);
-      setIsEdit(false);
+      setEditComment(false);
     } catch (error) {
       showErrorToast(error);
     }
@@ -121,13 +128,15 @@ export default function CommentItem(props: ICommentItemProps) {
     callback?.();
   };
 
+  const onKeyUp = useSubmitWithEnter(handleEdit);
+
   const isAuthor = comment.userId === currentUser?._id;
   const isAdmin = currentUser?.role === 'admin';
   const commentMenu: IMenuItem[] = [
     {
       label: t('menu.edit'),
       icon: BorderColorRounded,
-      onClick: () => setIsEdit(true),
+      onClick: () => setEditComment(true),
       show: isAuthor,
     },
     {
@@ -165,9 +174,9 @@ export default function CommentItem(props: ICommentItemProps) {
                 vertical: 'bottom',
                 horizontal: 'right',
               }}
-              invisible={comment.likes?.length === 0 || isEdit}
+              invisible={comment.likes?.length === 0 || editComment}
               sx={{
-                width: isEdit ? '100%' : 'unset',
+                width: editComment ? '100%' : 'unset',
                 '& .MuiBadge-badge': {
                   bottom: 2,
                   right: 6,
@@ -192,7 +201,7 @@ export default function CommentItem(props: ICommentItemProps) {
               <Box
                 sx={{
                   position: 'relative',
-                  width: isEdit ? '100%' : 'fit-content',
+                  width: editComment ? '100%' : 'fit-content',
                   py: 1,
                   px: 2,
                   bgcolor: 'action.selected',
@@ -225,7 +234,7 @@ export default function CommentItem(props: ICommentItemProps) {
                   )}
                 </Stack>
 
-                {isEdit ? (
+                {editComment ? (
                   <Stack direction="column">
                     <TextField
                       variant="standard"
@@ -233,6 +242,7 @@ export default function CommentItem(props: ICommentItemProps) {
                       autoFocus
                       value={content}
                       onChange={handleChange}
+                      onKeyUp={onKeyUp}
                     />
 
                     <Box mt={1} ml="auto">
@@ -339,12 +349,7 @@ export default function CommentItem(props: ICommentItemProps) {
         loading={loading}
       />
 
-      <UserInfoPopup
-        selectedUser={comment.user as Partial<IUser>}
-        open={openPopup}
-        anchorEl={userInfoRef.current}
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      />
+      {userInfoPopupComponent}
     </>
   );
 }

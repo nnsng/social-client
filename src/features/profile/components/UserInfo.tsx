@@ -78,7 +78,7 @@ export default function UserInfo(props: IUserInfoProps) {
 
         {smUp && (
           <Box position="absolute" bottom={0} right={0}>
-            <UserInfoButtonGroup selectedUser={userInfo} updateUser={updateUser} />
+            <UserInfoButtonGroup user={userInfo} updateUser={updateUser} />
           </Box>
         )}
       </Stack>
@@ -101,7 +101,7 @@ export default function UserInfo(props: IUserInfoProps) {
         </Typography>
       )}
 
-      {!smUp && <UserInfoButtonGroup selectedUser={userInfo} updateUser={updateUser} />}
+      {!smUp && <UserInfoButtonGroup user={userInfo} updateUser={updateUser} />}
     </Box>
   );
 }

@@ -5,11 +5,11 @@ import { IPopperPopupProps, PopperPopup } from './PopperPopup';
 import { UserInfoButtonGroup } from './UserInfoButtonGroup';
 
 export interface IUserInfoPopupProps extends IPopperPopupProps {
-  selectedUser: Partial<IUser>;
+  user: Partial<IUser>;
 }
 
 export function UserInfoPopup(props: IUserInfoPopupProps) {
-  const { selectedUser, open, anchorEl, sx } = props;
+  const { user, open, anchorEl, sx } = props;
 
   const [isOpen, setIsOpen] = useState<boolean>(open);
 
@@ -26,20 +26,20 @@ export function UserInfoPopup(props: IUserInfoPopupProps) {
     >
       <Box p={2} width={350}>
         <Stack alignItems="center">
-          <Avatar src={selectedUser.avatar} sx={{ width: 60, height: 60 }} />
+          <Avatar src={user.avatar} sx={{ width: 60, height: 60 }} />
 
           <Box ml={2}>
             <Typography fontSize={16} fontWeight={600} pb={0}>
-              {selectedUser.name}
+              {user.name}
             </Typography>
 
             <Typography color="text.secondary" fontSize={14} fontWeight={400}>
-              @{selectedUser.username}
+              @{user.username}
             </Typography>
           </Box>
         </Stack>
 
-        {selectedUser.bio && (
+        {user.bio && (
           <Typography
             variant="body2"
             sx={{
@@ -52,11 +52,11 @@ export function UserInfoPopup(props: IUserInfoPopupProps) {
               borderColor: 'primary.main',
             }}
           >
-            {selectedUser.bio}
+            {user.bio}
           </Typography>
         )}
 
-        <UserInfoButtonGroup selectedUser={selectedUser} />
+        <UserInfoButtonGroup user={user} />
       </Box>
     </PopperPopup>
   );

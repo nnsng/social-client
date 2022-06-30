@@ -2,6 +2,7 @@ import { CloseRounded } from '@mui/icons-material';
 import { Avatar, Box, IconButton, Stack, Typography } from '@mui/material';
 import otherApi from 'api/otherApi';
 import { ContainedInput } from 'components/common';
+import { useSubmitWithEnter } from 'hooks';
 import { IChat } from 'models';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -32,12 +33,6 @@ export default function CurrentChat(props: ICurrentChatProps) {
     setMessage(e.target.value);
   };
 
-  const handleKeyUp = (e: any) => {
-    if (e.key === 'Enter') {
-      handleSendMessage();
-    }
-  };
-
   const handleSendMessage = async () => {
     if (message.trim().length === 0) return;
 
@@ -54,6 +49,8 @@ export default function CurrentChat(props: ICurrentChatProps) {
       showErrorToast(error);
     }
   };
+
+  const onKeyUp = useSubmitWithEnter(handleSendMessage);
 
   return (
     <Box
@@ -132,7 +129,7 @@ export default function CurrentChat(props: ICurrentChatProps) {
                 },
               }}
               onChange={handleMessageChange}
-              onKeyUp={handleKeyUp}
+              onKeyUp={onKeyUp}
             />
           </Box>
         </Stack>

@@ -1,9 +1,9 @@
 import { BookmarkBorderRounded, MoreHorizRounded } from '@mui/icons-material';
 import { Avatar, Box, CardHeader, IconButton, MenuItem, SxProps, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
-import { ActionMenu, TimeTooltip, UserInfoPopup } from 'components/common';
+import { ActionMenu, TimeTooltip } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { usePostMenu, useUserInfoPopupMouseEvents } from 'hooks';
+import { usePostMenu, useUserInfoPopup } from 'hooks';
 import { IPost, IUser } from 'models';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -26,12 +26,14 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
   const currentUser = useAppSelector(selectCurrentUser);
 
   const [openMenu, setOpenMenu] = useState<boolean>(false);
-  const [openPopup, setOpenPopup] = useState<boolean>(false);
 
   const anchorRef = useRef<any>(null);
   const userInfoRef = useRef<any>(null);
 
-  const mouseEvents = useUserInfoPopupMouseEvents({ setOpenPopup });
+  const { userInfoPopupComponent, mouseEvents } = useUserInfoPopup({
+    user: post.author || {},
+    anchorEl: userInfoRef.current,
+  });
 
   const postMenu = usePostMenu({
     post,
@@ -160,11 +162,7 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
         }}
       />
 
-      <UserInfoPopup
-        selectedUser={post.author as Partial<IUser>}
-        open={showPopup && openPopup}
-        anchorEl={userInfoRef.current}
-      />
+      {showPopup && userInfoPopupComponent}
     </>
   );
 }

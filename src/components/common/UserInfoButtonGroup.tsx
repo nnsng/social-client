@@ -24,13 +24,13 @@ export interface IFollowResponse {
 }
 
 export interface IUserInfoButtonGroupProps {
-  selectedUser?: Partial<IUser>;
+  user?: Partial<IUser>;
   updateUser?: (user: Partial<IUser>) => void;
 }
 
 export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
-  const { selectedUser, updateUser } = props;
-  const userId = selectedUser?._id as string;
+  const { user, updateUser } = props;
+  const userId = user?._id as string;
 
   const { t } = useTranslation('userInfoButtonGroup');
 
@@ -61,7 +61,7 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
   };
 
   const startChat = () => {
-    selectedUser && dispatch(chatActions.startChat(selectedUser));
+    user && dispatch(chatActions.startChat(user));
   };
 
   const handleMenuItemClick = (callback?: () => void) => {

@@ -4,6 +4,7 @@ import { useAppSelector } from 'app/hooks';
 import { ContainedInput } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { selectCommentLoading } from 'features/blog/commentSlice';
+import { useSubmitWithEnter } from 'hooks';
 import { CommentActionType, IComment } from 'models';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -41,12 +42,6 @@ export default function PostComment(props: IPostCommentProps) {
     setInput(e.target.value);
   };
 
-  const handleKeyUp = (e: any) => {
-    if (e.key === 'Enter') {
-      handleSubmitComment();
-    }
-  };
-
   const handleSubmitComment = async () => {
     setInput('');
 
@@ -64,6 +59,8 @@ export default function PostComment(props: IPostCommentProps) {
 
     inputRef.current?.focus();
   };
+
+  const onKeyUp = useSubmitWithEnter(handleSubmitComment);
 
   return (
     <Stack
@@ -125,7 +122,7 @@ export default function PostComment(props: IPostCommentProps) {
             value={input}
             onSubmit={handleSubmitComment}
             onChange={handleInputChange}
-            onKeyUp={handleKeyUp}
+            onKeyUp={onKeyUp}
           />
         </Stack>
       </Stack>

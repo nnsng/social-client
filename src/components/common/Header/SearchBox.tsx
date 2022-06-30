@@ -24,6 +24,7 @@ import {
   selectFormattedSearchResult,
   selectSearchLoading,
 } from 'features/blog/blogSlice';
+import { useSubmitWithEnter } from 'hooks';
 import { ISearchObj } from 'models';
 import queryString from 'query-string';
 import React, { useEffect, useRef, useState } from 'react';
@@ -140,14 +141,12 @@ export default function SearchBox(props: ISearchBoxProps) {
     navigate(`/blog?${searchFor}=${searchTerm}`, { replace: true });
   };
 
-  const handleInputKeyUp = (e: any) => {
-    if (e.key === 'Enter') handleViewMore();
-  };
-
   const goto = (url: string) => {
     clearSearchInput();
     navigate(url);
   };
+
+  const onKeyUp = useSubmitWithEnter(handleViewMore);
 
   const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
@@ -171,7 +170,7 @@ export default function SearchBox(props: ISearchBoxProps) {
             inputProps={{ ref: inputRef, sx: { pl: 1.5 } }}
             value={searchInput || ''}
             onChange={handleSearchChange}
-            onKeyUp={handleInputKeyUp}
+            onKeyUp={onKeyUp}
             startAdornment={<SearchRounded sx={{ color: 'action.disabled' }} />}
             endAdornment={
               (searchInput || '').length > 0 && (
