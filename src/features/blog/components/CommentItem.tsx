@@ -238,6 +238,8 @@ export default function CommentItem(props: ICommentItemProps) {
                   <Stack direction="column">
                     <TextField
                       variant="standard"
+                      multiline
+                      maxRows={2}
                       fullWidth
                       autoFocus
                       value={content}
@@ -266,7 +268,7 @@ export default function CommentItem(props: ICommentItemProps) {
                     </Box>
                   </Stack>
                 ) : (
-                  <Typography color="text.primary" fontSize={16}>
+                  <Typography color="text.primary" fontSize={16} sx={{ wordBreak: 'break-word' }}>
                     {content}
                   </Typography>
                 )}
