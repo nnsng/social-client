@@ -50,7 +50,7 @@ export function PostDetailPage() {
     if (openComment) {
       dispatch(commentActions.fetchPostComments(post?._id || ''));
     }
-  }, [openComment, post]);
+  }, [openComment]);
 
   const closeComment = () => setOpenComment(false);
 

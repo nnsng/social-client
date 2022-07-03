@@ -2,6 +2,7 @@ import { CloseRounded } from '@mui/icons-material';
 import { Avatar, CircularProgress, IconButton, List, Stack, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { ContainedInput } from 'components/common';
+import { CommentItemSkeleton } from 'components/skeletons';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { selectCommentLoading } from 'features/blog/commentSlice';
 import { useSubmitWithEnter } from 'hooks';
@@ -65,20 +66,19 @@ export default function PostComment(props: IPostCommentProps) {
   return (
     <Stack
       direction="column"
-      width="100vw"
-      height="100vh"
-      maxWidth={680}
-      px={{ xs: 3, sm: 5 }}
-      bgcolor="background.paper"
+      sx={{
+        width: '100vw',
+        maxWidth: 680,
+        height: '100vh',
+        bgcolor: 'background.default',
+      }}
     >
-      <Stack direction="column" position="sticky" top={0} zIndex={2} pt={8}>
+      <Stack direction="column" sx={{ px: { xs: 3, sm: 5 } }}>
         <IconButton
-          edge="start"
-          color="inherit"
           sx={{
-            position: 'absolute',
-            top: 20,
-            right: -20,
+            width: 'fit-content',
+            ml: 'auto',
+            my: 3,
           }}
           onClick={onClose}
         >
@@ -102,7 +102,7 @@ export default function PostComment(props: IPostCommentProps) {
           {t(`comment${commentList.length > 1 ? 's' : ''}`)}
         </Typography>
 
-        <Stack alignItems="center" pt={6} pb={3} bgcolor="background.paper">
+        <Stack alignItems="center" mt={6} mb={3}>
           <Avatar
             src={currentUser?.avatar}
             sx={{
@@ -127,10 +127,22 @@ export default function PostComment(props: IPostCommentProps) {
         </Stack>
       </Stack>
 
-      <List>
-        {commentList?.map((comment) => (
-          <CommentItem key={comment._id} comment={comment} onCommentAction={onCommentAction} />
-        ))}
+      <List
+        className="default-scrollbar"
+        sx={{
+          flexGrow: 1,
+          overflowY: 'auto',
+          px: { xs: 3, sm: 5 },
+          py: 0,
+        }}
+      >
+        {loading ? (
+          <CommentItemSkeleton />
+        ) : (
+          commentList?.map((comment) => (
+            <CommentItem key={comment._id} comment={comment} onCommentAction={onCommentAction} />
+          ))
+        )}
       </List>
     </Stack>
   );

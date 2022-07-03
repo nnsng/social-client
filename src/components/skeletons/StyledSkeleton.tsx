@@ -1,8 +1,5 @@
 import { Skeleton, SkeletonProps } from '@mui/material';
-import React from 'react';
 
-export interface IStyledSkeletonProps extends SkeletonProps {}
-
-export function StyledSkeleton(props: IStyledSkeletonProps) {
+export function StyledSkeleton(props: SkeletonProps) {
   return <Skeleton animation="wave" {...props} />;
 }

@@ -39,7 +39,7 @@ export function usePostMenu(props: IUsePostMenuProps) {
       label: t('menu.report'),
       icon: FlagRounded,
       onClick: showComingSoonToast,
-      show: true,
+      show: !isAuthor,
     },
   ];
 

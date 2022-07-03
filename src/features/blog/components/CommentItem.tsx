@@ -54,6 +54,7 @@ export default function CommentItem(props: ICommentItemProps) {
   const [content, setContent] = useState<string>(comment.content);
   const [editComment, setEditComment] = useState<boolean>(false);
 
+  const editRef = useRef<any>(null);
   const anchorRef = useRef<any>(null);
   const userInfoRef = useRef<any>(null);
 
@@ -66,6 +67,14 @@ export default function CommentItem(props: ICommentItemProps) {
   useEffect(() => {
     setContent(comment.content);
   }, [comment]);
+
+  useEffect(() => {
+    if (!editComment) return;
+
+    const length = content.length;
+    editRef.current?.focus();
+    editRef.current?.setSelectionRange(length, length);
+  }, [editComment]);
 
   const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
@@ -149,7 +158,7 @@ export default function CommentItem(props: ICommentItemProps) {
       label: t('menu.report'),
       icon: FlagRounded,
       onClick: showComingSoonToast,
-      show: true,
+      show: !isAuthor,
     },
   ];
 
@@ -238,11 +247,9 @@ export default function CommentItem(props: ICommentItemProps) {
                   <Stack direction="column">
                     <TextField
                       variant="standard"
-                      multiline
-                      maxRows={2}
                       fullWidth
-                      autoFocus
                       value={content}
+                      inputRef={editRef}
                       onChange={handleChange}
                       onKeyUp={onKeyUp}
                     />

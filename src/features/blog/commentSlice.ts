@@ -18,6 +18,7 @@ const commentSlice = createSlice({
   reducers: {
     fetchPostComments(state, action: PayloadAction<string>) {
       state.loading = true;
+      state.postComments = [];
     },
     fetchPostCommentsSuccess(state, action: PayloadAction<IComment[]>) {
       state.loading = false;
