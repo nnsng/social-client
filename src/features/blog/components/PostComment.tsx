@@ -70,7 +70,7 @@ export default function PostComment(props: IPostCommentProps) {
         width: '100vw',
         maxWidth: 680,
         height: '100vh',
-        bgcolor: 'background.default',
+        bgcolor: 'background.paper',
       }}
     >
       <Stack direction="column" sx={{ px: { xs: 3, sm: 5 } }}>
