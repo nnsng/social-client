@@ -1,4 +1,6 @@
 {
   "following": "Following",
-  "followers": "Followers"
+  "followers": "Followers",
+  "you": "You",
+  "others": "and {{rest}} others"
 }

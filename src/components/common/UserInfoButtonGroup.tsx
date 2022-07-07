@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { authActions, selectCurrentUser } from 'features/auth/authSlice';
 import { chatActions } from 'features/chat/chatSlice';
 import { useUserInfoMenu } from 'hooks';
-import { FollowModeType, IUser } from 'models';
+import { FollowModeType, IFollow, IUser } from 'models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -92,7 +92,7 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
         </Button>
       ) : (
         <>
-          {(currentUser?.following ?? []).includes(userId) ? (
+          {(currentUser?.following ?? []).some(({ _id }: IFollow) => _id === userId) ? (
             <Button
               variant="contained"
               startIcon={loading ? <CircularProgress size={16} /> : <PersonRemoveRounded />}

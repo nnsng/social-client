@@ -6,9 +6,9 @@ import { Header, NotFound, PageTitle } from 'components/common';
 import { UserInfoSkeleton } from 'components/skeletons';
 import { blogActions, selectPostList, selectPostLoading } from 'features/blog/blogSlice';
 import PostList from 'features/blog/components/PostList';
-import { IListParams, IPost, IUser, PostActionType } from 'models';
+import { IListParams, ILocationState, IPost, IUser, PostActionType } from 'models';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
 import { showErrorToast } from 'utils/toast';
 import UserInfo from './components/UserInfo';
@@ -17,6 +17,10 @@ export interface IProfileProps {}
 
 export default function ProfilePage(props: IProfileProps) {
   const { username } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const notFound = !!(location.state as ILocationState)?.notFound;
 
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
@@ -36,6 +40,7 @@ export default function ProfilePage(props: IProfileProps) {
         fetchUserPostList({ page: 1 });
       } catch (error) {
         showErrorToast(error);
+        navigate(location.pathname, { replace: true, state: { notFound: true } });
       }
     })();
   }, [username]);
@@ -63,6 +68,8 @@ export default function ProfilePage(props: IProfileProps) {
     setUserInfo(user);
   };
 
+  if (notFound) return <NotFound showHeader />;
+
   return (
     <>
       <PageTitle title={userInfo?.name ?? APP_NAME} />
@@ -70,12 +77,10 @@ export default function ProfilePage(props: IProfileProps) {
 
       <Box component="main">
         <Container maxWidth="md">
-          {loading ? (
+          {loading || !userInfo ? (
             <UserInfoSkeleton />
-          ) : userInfo ? (
-            <UserInfo userInfo={userInfo} updateUser={updateUser} />
           ) : (
-            <NotFound />
+            <UserInfo userInfo={userInfo} updateUser={updateUser} />
           )}
 
           {userInfo && (
