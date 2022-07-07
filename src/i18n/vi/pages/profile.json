@@ -1,4 +1,6 @@
 {
   "following": "Đang theo dõi",
-  "followers": "Người theo dõi"
+  "followers": "Người theo dõi",
+  "you": "Bạn",
+  "others": "và {{rest}} người khác"
 }

@@ -1,7 +1,16 @@
-import { Avatar, Box, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  List,
+  ListItem,
+  Stack,
+  Theme,
+  Tooltip,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
 import { UserInfoButtonGroup } from 'components/common';
-import { IUser } from 'models';
-import React from 'react';
+import { IFollow, IUser } from 'models';
 import { useTranslation } from 'react-i18next';
 import { themeMixins } from 'utils/theme';
 
@@ -16,6 +25,8 @@ export default function UserInfo(props: IUserInfoProps) {
   const { t } = useTranslation('profile');
 
   const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
+
+  const MAX_SHOWED_USER = 5;
 
   return (
     <Box
@@ -40,9 +51,11 @@ export default function UserInfo(props: IUserInfoProps) {
             {userInfo.name}
           </Typography>
 
-          <Typography component="p" fontSize={{ xs: 14, sm: 16 }} mt={-0.5}>
-            @{userInfo.username}
-          </Typography>
+          {smUp && (
+            <Typography component="p" fontSize={{ xs: 14, sm: 16 }} mt={-0.5}>
+              @{userInfo.username}
+            </Typography>
+          )}
 
           <Stack
             sx={{
@@ -52,26 +65,41 @@ export default function UserInfo(props: IUserInfoProps) {
             }}
           >
             {['following', 'followers'].map((x) => (
-              <Typography
+              <Tooltip
                 key={x}
-                component="span"
-                fontSize={{ xs: 12, sm: 14 }}
-                sx={{
-                  ml: 3,
-                  textAlign: { xs: 'center', sm: 'unset' },
-                }}
+                title={
+                  <List disablePadding>
+                    {(userInfo as any)[x].slice(0, MAX_SHOWED_USER).map((user: IFollow) => (
+                      <ListItem key={user._id} disablePadding>
+                        {user.name ?? t('you')}
+                      </ListItem>
+                    ))}
+                    {(userInfo as any)[x].length > MAX_SHOWED_USER && (
+                      <ListItem disablePadding>
+                        {t('others', { rest: (userInfo as any)[x].length - MAX_SHOWED_USER })}
+                      </ListItem>
+                    )}
+                  </List>
+                }
+                arrow
               >
-                {smUp && <b>{(userInfo as any)[x]?.length || 0} </b>}
+                <Stack
+                  direction={smUp ? 'row' : 'column-reverse'}
+                  alignItems="center"
+                  sx={{
+                    mr: 3,
+                    fontSize: { xs: 12, sm: 14 },
+                  }}
+                >
+                  <Typography component="span" fontSize="inherit" fontWeight={600} mr={{ sm: 0.5 }}>
+                    {(userInfo as any)[x]?.length || 0}
+                  </Typography>
 
-                {t(x)}
-
-                {!smUp && (
-                  <>
-                    <br />
-                    <b>{(userInfo as any)[x]?.length || 0}</b>
-                  </>
-                )}
-              </Typography>
+                  <Typography component="span" fontSize="inherit">
+                    {t(x)}
+                  </Typography>
+                </Stack>
+              </Tooltip>
             ))}
           </Stack>
         </Box>

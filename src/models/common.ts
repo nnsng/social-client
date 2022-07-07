@@ -32,6 +32,7 @@ export interface IMenuItem {
 export interface ILocationState {
   hideHeaderMenu?: boolean;
   openComment?: boolean;
+  notFound?: boolean;
 }
 
 export interface INotification {

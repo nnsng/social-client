@@ -1,6 +1,11 @@
 import { PaletteMode } from '@mui/material';
 import { NavigateFunction } from 'react-router-dom';
 
+export interface IFollow {
+  _id: string;
+  name: string;
+}
+
 export interface IUser {
   _id: string;
   name: string;
@@ -8,8 +13,8 @@ export interface IUser {
   username: string;
   avatar?: string;
   bio?: string;
-  following?: string[];
-  followers?: string[];
+  following?: IFollow[];
+  followers?: IFollow[];
   role: string;
   type: string;
   createdAt?: string;
