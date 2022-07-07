@@ -5,7 +5,6 @@ import background from 'assets/images/background.png';
 import { PageTitle } from 'components/common';
 import { useLoginWithGoogle } from 'hooks';
 import { IAuthFormValues } from 'models';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { authActions } from '../authSlice';

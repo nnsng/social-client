@@ -1,10 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Avatar, Box, Button, ButtonProps, Stack, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Button,
+  ButtonProps,
+  CircularProgress,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { MuiTextField } from 'components/formFields';
 import { GoogleIcon } from 'components/icons';
 import i18next from 'i18next';
 import { IAuthFormValues, IField } from 'models';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
@@ -29,6 +37,9 @@ export default function AuthForm(props: IAuthFormProps) {
 
   const { t } = useTranslation('authForm');
   const { validate, toast: toastTranslation } = useTranslateFiles('validate', 'toast');
+
+  const [submitLoading, setSubmitLoading] = useState<boolean>(false);
+  const [forgotLoading, setForgotLoading] = useState<boolean>(false);
 
   const validateSchema = getValidateSchema(defaultValues.mode, validate);
 
@@ -59,7 +70,9 @@ export default function AuthForm(props: IAuthFormProps) {
   };
 
   const handleFormSubmit = (formValues: IAuthFormValues) => {
+    setSubmitLoading(true);
     onSubmit?.(formValues);
+    setSubmitLoading(false);
   };
 
   const handleForgotPassword = async () => {
@@ -73,11 +86,13 @@ export default function AuthForm(props: IAuthFormProps) {
         toast.error(validate.email.email);
         return;
       }
+      setForgotLoading(true);
       await onForgotPassword?.(email);
       toast.info(toastTranslation.changePasswordForm.info);
     } catch (error) {
       showErrorToast(error);
     }
+    setForgotLoading(false);
   };
 
   const fieldList: IField[] = [
@@ -177,7 +192,13 @@ export default function AuthForm(props: IAuthFormProps) {
               )
           )}
 
-          <AuthButton type="submit" variant="contained" sx={{ fontSize: 16 }}>
+          <AuthButton
+            type="submit"
+            variant="contained"
+            disabled={submitLoading}
+            startIcon={submitLoading && <CircularProgress size={20} color="primary" />}
+            sx={{ fontSize: 16 }}
+          >
             {t(`button.${defaultValues.mode}`)}
           </AuthButton>
 
@@ -209,19 +230,18 @@ export default function AuthForm(props: IAuthFormProps) {
           </Box>
 
           {!isRegisterMode && (
-            <Typography
-              component="span"
-              fontSize={14}
-              fontWeight={500}
-              color="primary"
-              sx={{
-                textAlign: 'center',
-                cursor: 'pointer',
-              }}
-              onClick={handleForgotPassword}
-            >
-              {t('forgotPassword')}
-            </Typography>
+            <Stack direction="column" alignItems="center" justifyContent="center">
+              <Button
+                variant="text"
+                disabled={forgotLoading}
+                onClick={handleForgotPassword}
+                sx={{ p: 0, bgcolor: 'transparent !important' }}
+              >
+                {t('forgotPassword')}
+              </Button>
+
+              {forgotLoading && <CircularProgress size={20} color="primary" sx={{ mt: 1 }} />}
+            </Stack>
           )}
         </Stack>
       </Stack>
