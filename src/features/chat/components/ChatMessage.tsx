@@ -1,8 +1,8 @@
-import { Stack, Tooltip, Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
+import { TimeTooltip } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
 import { IMessage } from 'models';
-import { formatTime } from 'utils/common';
 
 export interface IChatMessageProps {
   message: IMessage;
@@ -13,8 +13,9 @@ export default function ChatMessage({ message }: IChatMessageProps) {
   const isMe = message.sentId === currentUserId;
 
   return (
-    <Tooltip
-      title={formatTime(message.createdAt, 'HH:mm')}
+    <TimeTooltip
+      timestamp={message.createdAt}
+      format="HH:mm"
       placement={isMe ? 'left' : 'right'}
       arrow
     >
@@ -60,6 +61,6 @@ export default function ChatMessage({ message }: IChatMessageProps) {
           {message.text}
         </Typography>
       </Stack>
-    </Tooltip>
+    </TimeTooltip>
   );
 }
