@@ -3,7 +3,6 @@ import { authActions } from 'features/auth/authSlice';
 import { useGoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 import { env, variables } from 'utils/env';
-import { showErrorToast } from 'utils/toast';
 
 export function useLoginWithGoogle() {
   const navigate = useNavigate();
@@ -15,7 +14,7 @@ export function useLoginWithGoogle() {
     dispatch(authActions.googleLogin({ token, navigate }));
   };
 
-  const onFailure = (res: any) => {};
+  const onFailure = (error: any) => {};
 
   const clientId = env(variables.googleClientId);
   const { signIn } = useGoogleLogin({

@@ -17,7 +17,7 @@ export function UserInfoPopup(props: IUserInfoPopupProps) {
 
   return (
     <PopperPopup
-      open={(!!open || isOpen) && mdUp}
+      open={(open || isOpen) && mdUp}
       anchorEl={anchorEl}
       placement="bottom-start"
       onMouseEnter={() => setIsOpen(true)}
