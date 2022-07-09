@@ -1,8 +1,7 @@
-import { styled } from '@mui/material/styles';
 import { Switch, SwitchProps } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { configActions, selectThemeMode } from 'features/common/configSlice';
-import React from 'react';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,

@@ -6,22 +6,18 @@ import {
   Settings,
 } from '@mui/icons-material';
 import { authActions } from 'features/auth/authSlice';
-import { configActions } from 'features/common/configSlice';
 import { IMenuItem } from 'models';
 import { NavigateFunction } from 'react-router-dom';
 
 export interface IUseUserMenuProps {
+  openAppearanceDialog: () => void;
   navigate?: NavigateFunction;
   dispatch?: any;
   t?: any;
 }
 
 export function useUserMenu(props: IUseUserMenuProps) {
-  const { navigate, dispatch, t } = props;
-
-  const showAppearanceDialog = () => {
-    dispatch(configActions.setShowConfig(true));
-  };
+  const { openAppearanceDialog, navigate, dispatch, t } = props;
 
   const logout = () => {
     dispatch(authActions.logout({ navigate }));
@@ -41,7 +37,7 @@ export function useUserMenu(props: IUseUserMenuProps) {
     {
       label: t('menu.appearance'),
       icon: DarkModeRounded,
-      onClick: showAppearanceDialog,
+      onClick: openAppearanceDialog,
     },
     {
       label: t('menu.settings'),

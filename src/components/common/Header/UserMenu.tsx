@@ -19,13 +19,22 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const [open, setOpen] = useState<boolean>(false);
+  const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const [openDialog, setOpenDialog] = useState<boolean>(false);
   const anchorRef = useRef<any>(null);
 
-  const toggleMenu = () => setOpen(!open);
-  const closeMenu = () => setOpen(false);
+  const toggleMenu = () => setOpenMenu(!openMenu);
+  const closeMenu = () => setOpenMenu(false);
+  const closeDialog = () => setOpenDialog(false);
 
-  const { userMenu, dividers } = useUserMenu({ navigate, dispatch, t });
+  const { userMenu, dividers } = useUserMenu({
+    openAppearanceDialog: () => {
+      setOpenDialog(true);
+    },
+    navigate,
+    dispatch,
+    t,
+  });
 
   const handleMenuItemClick = (callback?: () => void) => {
     closeMenu();
@@ -104,7 +113,7 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
       />
 
       {isOnMobile ? (
-        <Drawer anchor="right" open={open} onClose={closeMenu}>
+        <Drawer anchor="right" open={openMenu} onClose={closeMenu}>
           <MenuList
             sx={{
               width: '75vw',
@@ -119,7 +128,7 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
         </Drawer>
       ) : (
         <PopperPopup
-          open={open}
+          open={openMenu}
           anchorEl={anchorRef.current}
           sx={{
             minWidth: 280,
@@ -133,7 +142,7 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
         </PopperPopup>
       )}
 
-      <AppearanceDialog />
+      <AppearanceDialog open={openDialog} onClose={closeDialog} />
     </>
   );
 }
