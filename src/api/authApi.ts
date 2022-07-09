@@ -1,35 +1,35 @@
 import { IAuthFormValues, IChangePasswordFormValues } from 'models';
 import axiosClient from './axiosClient';
 
-const authApi = {
+const category = '/auth';
+
+export const authApi = {
   login(data: IAuthFormValues) {
-    const url = '/auth/login';
+    const url = `${category}/login`;
     return axiosClient.post(url, data);
   },
   register(data: IAuthFormValues) {
-    const url = '/auth/register';
+    const url = `${category}/register`;
     return axiosClient.post(url, data);
   },
   googleLogin(idToken: string) {
-    const url = '/auth/google-login';
+    const url = `${category}/google-login`;
     return axiosClient.post(url, { idToken });
   },
   active(token: string) {
-    const url = '/auth/active';
+    const url = `${category}/active`;
     return axiosClient.post(url, { token });
   },
   changePassword(data: IChangePasswordFormValues) {
-    const url = '/auth/password/change';
+    const url = `${category}/password/change`;
     return axiosClient.post(url, data);
   },
   forgotPassword(email: string) {
-    const url = '/auth/password/forgot';
+    const url = `${category}/password/forgot`;
     return axiosClient.post(url, { email });
   },
   resetPassword(data: IChangePasswordFormValues) {
-    const url = '/auth/password/reset';
+    const url = `${category}/password/reset`;
     return axiosClient.post(url, data);
   },
 };
-
-export default authApi;

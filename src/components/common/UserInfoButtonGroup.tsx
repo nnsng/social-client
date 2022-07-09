@@ -5,7 +5,7 @@ import {
   PersonRemoveRounded,
 } from '@mui/icons-material';
 import { Button, CircularProgress, MenuItem, Stack } from '@mui/material';
-import userApi from 'api/userApi';
+import { userApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { authActions, selectCurrentUser } from 'features/auth/authSlice';
 import { chatActions } from 'features/chat/chatSlice';

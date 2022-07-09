@@ -1,4 +1,4 @@
-import otherApi from 'api/otherApi';
+import { otherApi } from 'api';
 import dayjs from 'dayjs';
 import 'dayjs/locale/vi';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -37,7 +37,7 @@ export const getImageUrlFromCDN = async (image: File) => {
 };
 
 export const copyPostLink = (post: IPost) => {
-  const { toast: toastTranslation } = useTranslateFiles('toast');
+  const { toast: toastTranslation } = translateFiles('toast');
   navigator.clipboard.writeText(`${window.location.origin}/blog/post/${post.slug}`);
   toast.success(toastTranslation.copyLinkSuccess);
 };

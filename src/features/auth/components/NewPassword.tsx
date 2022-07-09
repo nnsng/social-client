@@ -1,5 +1,5 @@
 import { Box, Container, Typography } from '@mui/material';
-import authApi from 'api/authApi';
+import { authApi } from 'api';
 import { PageTitle } from 'components/common';
 import ChangePasswordForm from 'features/setting/components/ChangePasswordForm';
 import { IChangePasswordFormValues, IField } from 'models';

@@ -1,5 +1,5 @@
 import { Box, Container } from '@mui/material';
-import postApi from 'api/postApi';
+import { postApi } from 'api';
 import { useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';

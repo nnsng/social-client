@@ -1,5 +1,5 @@
 import { Box, Container, List, Pagination, Stack, Typography } from '@mui/material';
-import postApi from 'api/postApi';
+import { postApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { NoPost, PageTitle } from 'components/common';
 import { PostItemSkeleton } from 'components/skeletons';

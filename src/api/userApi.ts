@@ -1,31 +1,31 @@
 import { IUser } from 'models';
 import axiosClient from './axiosClient';
 
-const userApi = {
+const category = '/users';
+
+export const userApi = {
   getCurrentUser() {
-    const url = '/users/me';
+    const url = `${category}/me`;
     return axiosClient.get(url);
   },
   getUserInfo(username: string) {
-    const url = `/users/${username}`;
+    const url = `${category}/${username}`;
     return axiosClient.get(url);
   },
   updateProfile(data: Partial<IUser>) {
-    const url = '/users/update-profile';
+    const url = `${category}/update-profile`;
     return axiosClient.post(url, data);
   },
   follow(userId: string) {
-    const url = '/users/follow';
+    const url = `${category}/follow`;
     return axiosClient.post(url, { userId });
   },
   unfollow(userId: string) {
-    const url = '/users/unfollow';
+    const url = `${category}/unfollow`;
     return axiosClient.post(url, { userId });
   },
   search(username: string) {
-    const url = '/users/search';
+    const url = `${category}/search`;
     return axiosClient.get(url, { params: { username } });
   },
 };
-
-export default userApi;

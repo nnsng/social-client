@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
-import userApi from 'api/userApi';
+import { userApi } from 'api';
 import { authActions } from 'features/auth/authSlice';
 import { IUser } from 'models';
 import { toast } from 'react-toastify';

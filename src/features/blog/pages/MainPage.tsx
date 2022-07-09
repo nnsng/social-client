@@ -1,11 +1,10 @@
 import { Container, Grid } from '@mui/material';
-import configApi from 'api/configApi';
-import postApi from 'api/postApi';
+import { postApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
 import { IListParams, IPost, PostActionType } from 'models';
 import queryString from 'query-string';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
 import { blogActions, selectPostList } from '../blogSlice';
@@ -50,7 +49,7 @@ export function MainPage() {
   useEffect(() => {
     (async () => {
       try {
-        const topHashtags = (await configApi.getTopHashtags()) as unknown as string[];
+        const topHashtags = (await postApi.getTopHashtags()) as unknown as string[];
         setHashtagList(topHashtags);
       } catch (error) {
         setHashtagList([]);

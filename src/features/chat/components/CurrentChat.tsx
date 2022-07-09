@@ -1,6 +1,6 @@
 import { CloseRounded } from '@mui/icons-material';
 import { Avatar, Box, IconButton, Stack, Typography } from '@mui/material';
-import otherApi from 'api/otherApi';
+import { otherApi } from 'api';
 import { ContainedInput } from 'components/common';
 import { useSubmitWithEnter } from 'hooks';
 import { IChat } from 'models';

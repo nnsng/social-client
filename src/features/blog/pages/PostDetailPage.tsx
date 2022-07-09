@@ -1,6 +1,5 @@
 import { Box, Container, Drawer, Grid } from '@mui/material';
-import commentApi from 'api/commentApi';
-import postApi from 'api/postApi';
+import { postApi, commentApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { NotFound, PageTitle } from 'components/common';
 import { PostDetailSkeleton } from 'components/skeletons';

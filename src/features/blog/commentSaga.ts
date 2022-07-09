@@ -1,6 +1,6 @@
 import { call, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
-import commentApi from 'api/commentApi';
+import { commentApi } from 'api';
 import { IComment } from 'models';
 import { showErrorToast } from 'utils/toast';
 import { commentActions } from './commentSlice';

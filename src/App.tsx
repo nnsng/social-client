@@ -1,4 +1,4 @@
-import userApi from 'api/userApi';
+import { userApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { CustomScrollbar, NotFound, PrivateRoute } from 'components/common';
 import Auth from 'features/auth';

@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import authApi from 'api/authApi';
+import { authApi } from 'api';
 import { useAppDispatch } from 'app/hooks';
 import background from 'assets/images/background.png';
 import { PageTitle } from 'components/common';
