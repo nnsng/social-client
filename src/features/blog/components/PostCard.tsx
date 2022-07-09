@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import remarkGfm from 'remark-gfm';
 import { themeMixins } from 'utils/theme';
 import { showErrorToast } from 'utils/toast';
-import { useTranslateFiles } from 'utils/translation';
+import { translateFiles } from 'utils/translation';
 import PostCardHeader from './PostCardHeader';
 
 export interface IPostCardProps {
@@ -22,10 +22,7 @@ export default function PostCard(props: IPostCardProps) {
   const { post, onPostAction, showPopup = true } = props;
 
   const { t } = useTranslation('postCard');
-  const { toast: toastTranslation, dialog: dialogTranslation } = useTranslateFiles(
-    'toast',
-    'dialog'
-  );
+  const { toast: toastTranslation, dialog: dialogTranslation } = translateFiles('toast', 'dialog');
 
   const [loading, setLoading] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);

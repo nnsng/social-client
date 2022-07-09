@@ -7,7 +7,7 @@ import { ConfigKey, IPost, IUserConfig } from 'models';
 import { toast } from 'react-toastify';
 import slugify from 'slugify';
 import { CONFIG } from './constants';
-import { useTranslateFiles } from './translation';
+import { translateFiles } from './translation';
 
 export const formatTime = (timestamp: any, template?: string) => {
   dayjs.extend(relativeTime);

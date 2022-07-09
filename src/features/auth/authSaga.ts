@@ -1,12 +1,12 @@
 import { call, delay, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
-import authApi from 'api/authApi';
+import { authApi } from 'api';
 import { chatActions } from 'features/chat/chatSlice';
 import { IAuthFormValues, IAuthPayload, IAuthResponse } from 'models';
 import { toast } from 'react-toastify';
 import { ACCESS_TOKEN } from 'utils/constants';
 import { showErrorToast } from 'utils/toast';
-import { useTranslateFiles } from 'utils/translation';
+import { translateFiles } from 'utils/translation';
 import { authActions } from './authSlice';
 
 function* handleLogin(action: PayloadAction<IAuthPayload>) {
@@ -25,7 +25,7 @@ function* handleLogin(action: PayloadAction<IAuthPayload>) {
 function* handleRegister(action: PayloadAction<IAuthPayload>) {
   const { formValues, navigate } = action.payload;
 
-  const { toast: toastTranslation } = useTranslateFiles('toast');
+  const { toast: toastTranslation } = translateFiles('toast');
 
   try {
     yield call(authApi.register, formValues as IAuthFormValues);
@@ -56,7 +56,7 @@ function* handleGoogleLogin(action: PayloadAction<IAuthPayload>) {
 function* handleActiveAccount(action: PayloadAction<IAuthPayload>) {
   const { token, navigate } = action.payload;
 
-  const { toast: toastTranslation } = useTranslateFiles('toast');
+  const { toast: toastTranslation } = translateFiles('toast');
 
   try {
     const response: IAuthResponse = yield call(authApi.active, token || '');

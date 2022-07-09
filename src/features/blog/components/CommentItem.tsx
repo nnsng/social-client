@@ -31,7 +31,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { formatTime } from 'utils/common';
 import { showComingSoonToast, showErrorToast } from 'utils/toast';
-import { useTranslateFiles } from 'utils/translation';
+import { translateFiles } from 'utils/translation';
 
 export interface ICommentItemProps {
   comment: IComment;
@@ -44,7 +44,7 @@ export default function CommentItem(props: ICommentItemProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('postComment');
-  const { dialog: dialogTranslation } = useTranslateFiles('dialog');
+  const { dialog: dialogTranslation } = translateFiles('dialog');
 
   const currentUser = useAppSelector(selectCurrentUser);
 

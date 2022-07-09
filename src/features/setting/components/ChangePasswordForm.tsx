@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { showErrorToast } from 'utils/toast';
-import { useTranslateFiles } from 'utils/translation';
+import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
 export interface IChangePasswordFormProps {
@@ -25,7 +25,7 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
   const isChangePasswordMode = !!forgotPassword;
 
   const { t } = useTranslation('changePasswordForm');
-  const { validate, toast: toastTranslation } = useTranslateFiles('validate', 'toast');
+  const { validate, toast: toastTranslation } = translateFiles('validate', 'toast');
 
   const schema = yup.object().shape({
     currentPassword: isChangePasswordMode

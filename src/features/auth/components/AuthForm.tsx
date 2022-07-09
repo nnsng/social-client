@@ -20,7 +20,7 @@ import { validateEmail } from 'utils/common';
 import { APP_NAME } from 'utils/constants';
 import { themeMixins } from 'utils/theme';
 import { showErrorToast } from 'utils/toast';
-import { useTranslateFiles } from 'utils/translation';
+import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
 export interface IAuthFormProps {
@@ -36,7 +36,7 @@ export default function AuthForm(props: IAuthFormProps) {
   const isRegisterMode = defaultValues.mode === 'register';
 
   const { t } = useTranslation('authForm');
-  const { validate, toast: toastTranslation } = useTranslateFiles('validate', 'toast');
+  const { validate, toast: toastTranslation } = translateFiles('validate', 'toast');
 
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [forgotLoading, setForgotLoading] = useState<boolean>(false);

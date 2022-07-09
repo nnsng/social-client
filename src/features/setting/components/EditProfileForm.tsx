@@ -8,7 +8,7 @@ import { IField, IUser } from 'models';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { useTranslateFiles } from 'utils/translation';
+import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
 export interface IEditProfileFromProps {
@@ -21,7 +21,7 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
   const { submitting, defaultValues, onSubmit } = props;
 
   const { t } = useTranslation('editProfileForm');
-  const { validate } = useTranslateFiles('validate');
+  const { validate } = translateFiles('validate');
 
   const schema = yup.object().shape({
     name: yup.string().required(validate.name.required).max(50, validate.name.max(50)),

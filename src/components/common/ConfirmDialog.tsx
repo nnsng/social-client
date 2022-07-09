@@ -7,8 +7,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
-import React from 'react';
-import { useTranslateFiles } from 'utils/translation';
+import { translateFiles } from 'utils/translation';
 
 export interface IConfirmDialogProps {
   open: boolean;
@@ -22,7 +21,7 @@ export interface IConfirmDialogProps {
 export function ConfirmDialog(props: IConfirmDialogProps) {
   const { open, onClose, title, content, onConfirm, loading } = props;
 
-  const { dialog: dialogTranslation } = useTranslateFiles('dialog');
+  const { dialog: dialogTranslation } = translateFiles('dialog');
 
   return (
     <Dialog open={open} onClose={onClose}>

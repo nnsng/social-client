@@ -26,7 +26,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { delay } from 'utils/common';
 import { themeMixins, themeVariables } from 'utils/theme';
-import { useTranslateFiles } from 'utils/translation';
+import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
 export interface ICreateEditFormProps {
@@ -39,7 +39,7 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
   const { defaultValues, onSubmit, isNewPost } = props;
 
   const { t } = useTranslation('createEditForm');
-  const { validate, toast: toastTranslation } = useTranslateFiles('validate', 'toast');
+  const { validate, toast: toastTranslation } = translateFiles('validate', 'toast');
 
   const schema = yup.object().shape({
     title: yup.string().required(validate.title.required).max(100, validate.title.max(100)),

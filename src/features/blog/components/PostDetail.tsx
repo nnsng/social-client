@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { themeMixins } from 'utils/theme';
 import { showErrorToast } from 'utils/toast';
-import { useTranslateFiles } from 'utils/translation';
+import { translateFiles } from 'utils/translation';
 import MdEditor from './MdEditor';
 import PostCardHeader from './PostCardHeader';
 
@@ -22,10 +22,7 @@ export default function PostDetail(props: IPostDetailProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('postDetail');
-  const { toast: toastTranslation, dialog: dialogTranslation } = useTranslateFiles(
-    'toast',
-    'dialog'
-  );
+  const { toast: toastTranslation, dialog: dialogTranslation } = translateFiles('toast', 'dialog');
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
