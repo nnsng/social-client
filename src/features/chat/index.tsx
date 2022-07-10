@@ -39,9 +39,9 @@ export default function Chat() {
   return (
     <Stack
       direction="row-reverse"
-      alignItems="flex-end"
       spacing={2}
       sx={{
+        alignItems: 'flex-end',
         position: 'fixed',
         bottom: 0,
         right: 0,
@@ -49,6 +49,7 @@ export default function Chat() {
     >
       <IconButton
         ref={ref}
+        onClick={toggleOpenPopup}
         sx={{
           width: 52,
           height: 52,
@@ -56,7 +57,6 @@ export default function Chat() {
           mr: 3,
           bgcolor: 'action.selected',
         }}
-        onClick={toggleOpenPopup}
       >
         <ChatIcon />
       </IconButton>

@@ -26,7 +26,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { delay } from 'utils/common';
 import { themeMixins, themeVariables } from 'utils/theme';
-import { useTranslateFiles } from 'utils/translation';
+import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
 export interface ICreateEditFormProps {
@@ -39,7 +39,7 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
   const { defaultValues, onSubmit, isNewPost } = props;
 
   const { t } = useTranslation('createEditForm');
-  const { validate, toast: toastTranslation } = useTranslateFiles('validate', 'toast');
+  const { validate, toast: toastTranslation } = translateFiles('validate', 'toast');
 
   const schema = yup.object().shape({
     title: yup.string().required(validate.title.required).max(100, validate.title.max(100)),
@@ -117,9 +117,9 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
     <form>
       <Stack
         direction="column"
-        height={`calc(100vh - ${themeVariables.headerHeight}px * 2 + 36px)`}
         sx={{
           ...themeMixins.paperBorder(),
+          height: `calc(100vh - ${themeVariables.headerHeight}px * 2 + 36px)`,
         }}
       >
         <Stack alignItems="center" justifyContent="flex-end" px={2}>
@@ -215,11 +215,11 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
                 color="error"
                 size="small"
                 disabled={uploading}
+                onClick={removeThumbnail}
                 sx={{
                   fontSize: 12,
                   fontWeight: 400,
                 }}
-                onClick={removeThumbnail}
               >
                 {t('btnLabel.removeThumbnail')}
               </Button>

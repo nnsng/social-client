@@ -1,6 +1,5 @@
 import { Drawer, MenuList, Theme, useMediaQuery } from '@mui/material';
-import React from 'react';
-import { PopperPopup, IPopperPopupProps } from '.';
+import { IPopperPopupProps, PopperPopup } from '.';
 
 export interface IActionMenuProps extends IPopperPopupProps {}
 

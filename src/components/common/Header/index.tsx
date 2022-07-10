@@ -13,7 +13,7 @@ import {
 import { useAppSelector } from 'app/hooks';
 import { selectPostLoading } from 'features/blog/blogSlice';
 import { ILocationState } from 'models';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
 import { themeMixins, themeVariables } from 'utils/theme';

@@ -11,49 +11,26 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import {
-  configActions,
-  selectLanguage,
-  selectShowConfig,
-  selectThemeColor,
-} from 'features/common/configSlice';
+import { configActions, selectLanguage, selectThemeColor } from 'features/common/configSlice';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { supportedThemeColors } from 'utils/theme';
 import { supportedLanguages } from 'utils/translation';
 import { ThemeSwitch } from '.';
 
-interface IColorRatioProps extends RadioProps {
-  iconColor: string;
+export interface IAppearanceDialogProps {
+  open: boolean;
+  onClose: () => void;
 }
 
-function ColorRadio({ iconColor, ...otherProps }: IColorRatioProps) {
-  return (
-    <Radio
-      sx={{
-        '&:hover': {
-          bgcolor: 'transparent',
-        },
-      }}
-      disableRipple
-      checkedIcon={<CheckBoxRounded sx={{ color: iconColor }} />}
-      icon={<SquareRounded sx={{ color: iconColor }} />}
-      {...otherProps}
-    />
-  );
-}
+export function AppearanceDialog(props: IAppearanceDialogProps) {
+  const { open, onClose } = props;
 
-export function AppearanceDialog() {
   const { t } = useTranslation('header');
 
   const dispatch = useAppDispatch();
-  const showConfig = useAppSelector(selectShowConfig);
   const themeColor = useAppSelector(selectThemeColor);
   const language = useAppSelector(selectLanguage);
-
-  const closeDialog = () => {
-    dispatch(configActions.setShowConfig(false));
-  };
 
   const handleUpdateConfig = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -61,14 +38,14 @@ export function AppearanceDialog() {
   };
 
   return (
-    <Dialog open={showConfig} onClose={closeDialog} fullWidth>
+    <Dialog open={open} onClose={onClose} fullWidth>
       <DialogTitle sx={{ m: 0, px: 3, py: 2 }}>
         <Typography fontSize={18} fontWeight={600}>
           {t('appearanceDialog.title')}
         </Typography>
 
         <IconButton
-          onClick={closeDialog}
+          onClick={onClose}
           sx={{
             position: 'absolute',
             right: 8,
@@ -94,7 +71,7 @@ export function AppearanceDialog() {
         <Stack direction="column" spacing={3}>
           <Stack
             sx={{
-              flexFlow: { xs: 'column', sm: 'row' },
+              flexDirection: { xs: 'column', sm: 'row' },
               alignItems: { sm: 'center' },
             }}
           >
@@ -103,9 +80,8 @@ export function AppearanceDialog() {
           </Stack>
 
           <Stack
-            alignItems="center"
             sx={{
-              flexFlow: { xs: 'column', sm: 'row' },
+              flexDirection: { xs: 'column', sm: 'row' },
               alignItems: { sm: 'center' },
               '& .MuiSvgIcon-root': {
                 fontSize: 28,
@@ -129,7 +105,7 @@ export function AppearanceDialog() {
 
           <Stack
             sx={{
-              flexFlow: { xs: 'column', sm: 'row' },
+              flexDirection: { xs: 'column', sm: 'row' },
               alignItems: { sm: 'center' },
             }}
           >
@@ -137,8 +113,8 @@ export function AppearanceDialog() {
 
             <Stack
               sx={{
+                flexDirection: { xs: 'column', sm: 'row' },
                 ml: 1,
-                flexFlow: { xs: 'column', sm: 'row' },
               }}
             >
               {supportedLanguages.map(({ code, name }) => (
@@ -160,5 +136,25 @@ export function AppearanceDialog() {
         </Stack>
       </DialogContent>
     </Dialog>
+  );
+}
+
+interface IColorRatioProps extends RadioProps {
+  iconColor: string;
+}
+
+function ColorRadio({ iconColor, ...otherProps }: IColorRatioProps) {
+  return (
+    <Radio
+      sx={{
+        '&:hover': {
+          bgcolor: 'transparent',
+        },
+      }}
+      disableRipple
+      checkedIcon={<CheckBoxRounded sx={{ color: iconColor }} />}
+      icon={<SquareRounded sx={{ color: iconColor }} />}
+      {...otherProps}
+    />
   );
 }

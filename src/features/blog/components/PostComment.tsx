@@ -73,14 +73,14 @@ export default function PostComment(props: IPostCommentProps) {
         bgcolor: 'background.paper',
       }}
     >
-      <Stack direction="column" sx={{ px: { xs: 3, sm: 5 } }}>
+      <Stack direction="column" px={{ xs: 3, sm: 5 }}>
         <IconButton
+          onClick={onClose}
           sx={{
             width: 'fit-content',
             ml: 'auto',
             my: 3,
           }}
-          onClick={onClose}
         >
           <CloseRounded />
         </IconButton>

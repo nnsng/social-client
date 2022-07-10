@@ -9,7 +9,6 @@ import {
   Theme,
 } from '@mui/material';
 import { SxProps } from '@mui/system';
-import React from 'react';
 import { themeMixins } from 'utils/theme';
 
 export interface IPopperPopupProps {

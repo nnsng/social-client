@@ -1,6 +1,6 @@
 import { CloseRounded } from '@mui/icons-material';
 import { Avatar, Box, IconButton, Stack, Typography } from '@mui/material';
-import otherApi from 'api/otherApi';
+import { otherApi } from 'api';
 import { ContainedInput } from 'components/common';
 import { useSubmitWithEnter } from 'hooks';
 import { IChat } from 'models';
@@ -65,14 +65,14 @@ export default function CurrentChat(props: ICurrentChatProps) {
       }}
     >
       <Stack
-        alignItems="center"
-        justifyContent="space-between"
+        onClick={toggleShow}
         sx={{
+          alignItems: 'center',
+          justifyContent: 'space-between',
           px: 1,
           bgcolor: 'primary.main',
           cursor: 'pointer',
         }}
-        onClick={toggleShow}
       >
         <Stack alignItems="center" spacing={1} py={1}>
           <Avatar
@@ -122,14 +122,14 @@ export default function CurrentChat(props: ICurrentChatProps) {
               fullWidth
               value={message}
               onSubmit={handleSendMessage}
+              onChange={handleMessageChange}
+              onKeyUp={onKeyUp}
               sx={{
                 '& input': {
                   fontSize: 14,
                   py: 0.8,
                 },
               }}
-              onChange={handleMessageChange}
-              onKeyUp={onKeyUp}
             />
           </Box>
         </Stack>

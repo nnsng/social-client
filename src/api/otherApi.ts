@@ -1,7 +1,7 @@
 import { env, variables } from 'utils/env';
 import axiosClient from './axiosClient';
 
-const otherApi = {
+export const otherApi = {
   uploadImageToCDN(data: FormData) {
     const url = env(variables.cdnUrl);
     return axiosClient.post(url, data, {
@@ -15,5 +15,3 @@ const otherApi = {
     return axiosClient.post(url, data);
   },
 };
-
-export default otherApi;

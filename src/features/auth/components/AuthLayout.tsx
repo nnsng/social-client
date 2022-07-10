@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import authApi from 'api/authApi';
+import { authApi } from 'api';
 import { useAppDispatch } from 'app/hooks';
 import background from 'assets/images/background.png';
 import { PageTitle } from 'components/common';
@@ -53,9 +53,9 @@ export default function AuthLayout({ mode }: IAuthLayoutProps) {
 
       <Stack
         sx={{
-          position: 'relative',
           alignItems: 'center',
           justifyContent: 'center',
+          position: 'relative',
           minHeight: '100vh',
           backgroundImage: `url(${background})`,
           backgroundSize: 'cover',

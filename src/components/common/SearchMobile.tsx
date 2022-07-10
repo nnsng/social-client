@@ -15,7 +15,6 @@ import {
   Typography,
 } from '@mui/material';
 import { ISearchObj } from 'models';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { themeMixins, themeVariables } from 'utils/theme';
@@ -86,8 +85,8 @@ export function SearchMobile(props: ISearchMobileProps) {
               endAdornment={
                 (searchInput || '').length > 0 && (
                   <CloseRounded
-                    sx={{ color: 'text.secondary', cursor: 'pointer' }}
                     onClick={onClear}
+                    sx={{ color: 'text.secondary', cursor: 'pointer' }}
                   />
                 )
               }
@@ -150,6 +149,7 @@ export function SearchMobile(props: ISearchMobileProps) {
                   <Typography
                     variant="subtitle2"
                     color="text.secondary"
+                    onClick={handleViewMore}
                     sx={{
                       display: 'inline-block',
                       textAlign: 'center',
@@ -157,7 +157,6 @@ export function SearchMobile(props: ISearchMobileProps) {
                       py: 1,
                       cursor: 'pointer',
                     }}
-                    onClick={handleViewMore}
                   >
                     {t('search.viewMore')}
                   </Typography>

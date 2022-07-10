@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { showErrorToast } from 'utils/toast';
-import { useTranslateFiles } from 'utils/translation';
+import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
 export interface IChangePasswordFormProps {
@@ -25,7 +25,7 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
   const isChangePasswordMode = !!forgotPassword;
 
   const { t } = useTranslation('changePasswordForm');
-  const { validate, toast: toastTranslation } = useTranslateFiles('validate', 'toast');
+  const { validate, toast: toastTranslation } = translateFiles('validate', 'toast');
 
   const schema = yup.object().shape({
     currentPassword: isChangePasswordMode
@@ -88,8 +88,8 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
               variant="outlined"
               placeholder={t(`label.${name}`)}
               title={t(`label.${name}`)}
-              sx={{ maxWidth: 400 }}
               rounded
+              sx={{ maxWidth: 400 }}
               {...props}
             />
           ))}
@@ -115,12 +115,12 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
               <Button
                 color="primary"
                 size="small"
+                onClick={handleForgotPassword}
                 sx={{
                   mt: { xs: 1, sm: 0 },
                   fontSize: 13,
                   '&:hover': { bgcolor: 'transparent' },
                 }}
-                onClick={handleForgotPassword}
               >
                 {t('btnLabel.forgotPassword')}
               </Button>

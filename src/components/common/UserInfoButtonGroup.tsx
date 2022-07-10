@@ -1,20 +1,21 @@
 import {
   EditRounded,
+  FlagRounded,
   MoreHorizRounded,
   PersonAddRounded,
+  PersonOffRounded,
   PersonRemoveRounded,
 } from '@mui/icons-material';
 import { Button, CircularProgress, MenuItem, Stack } from '@mui/material';
-import userApi from 'api/userApi';
+import { userApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { authActions, selectCurrentUser } from 'features/auth/authSlice';
 import { chatActions } from 'features/chat/chatSlice';
-import { useUserInfoMenu } from 'hooks';
-import { FollowModeType, IFollow, IUser } from 'models';
+import { FollowModeType, IFollow, IMenuItem, IUser } from 'models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { showErrorToast } from 'utils/toast';
+import { showComingSoonToast, showErrorToast } from 'utils/toast';
 import { ChatIcon } from '../icons';
 import { ActionMenu } from './ActionMenu';
 
@@ -41,8 +42,6 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
-  const menu = useUserInfoMenu({ t });
-
   const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
 
@@ -68,6 +67,21 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
     closeMenu();
     callback?.();
   };
+
+  const userInfoMenu: IMenuItem[] = [
+    {
+      label: t('menu.block'),
+      icon: PersonOffRounded,
+      onClick: showComingSoonToast,
+      show: true,
+    },
+    {
+      label: t('menu.report'),
+      icon: FlagRounded,
+      onClick: showComingSoonToast,
+      show: true,
+    },
+  ];
 
   const BUTTON_HEIGHT = 36;
 
@@ -98,6 +112,7 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
               startIcon={loading ? <CircularProgress size={16} /> : <PersonRemoveRounded />}
               fullWidth
               disabled={loading}
+              onClick={() => handleFollow('unfollow')}
               sx={{
                 height: BUTTON_HEIGHT,
                 color: 'text.primary',
@@ -106,7 +121,6 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
                   bgcolor: 'action.selected',
                 },
               }}
-              onClick={() => handleFollow('unfollow')}
             >
               {t('unfollow')}
             </Button>
@@ -116,8 +130,8 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
               startIcon={loading ? <CircularProgress size={16} /> : <PersonAddRounded />}
               fullWidth
               disabled={loading}
-              sx={{ height: BUTTON_HEIGHT }}
               onClick={() => handleFollow('follow')}
+              sx={{ height: BUTTON_HEIGHT }}
             >
               {t('follow')}
             </Button>
@@ -140,6 +154,7 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
 
           <Button
             ref={anchorRef}
+            onClick={toggleMenu}
             sx={{
               height: BUTTON_HEIGHT,
               px: 2,
@@ -149,21 +164,25 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
                 bgcolor: 'action.selected',
               },
             }}
-            onClick={toggleMenu}
           >
             <MoreHorizRounded />
           </Button>
 
-          <ActionMenu open={openMenu} anchorEl={anchorRef.current} onClose={closeMenu}>
-            {menu.map(({ label, icon: Icon, onClick }, idx) => (
+          <ActionMenu
+            open={openMenu}
+            anchorEl={anchorRef.current}
+            onClose={closeMenu}
+            sx={{ zIndex: (theme) => theme.zIndex.drawer + 2 }}
+          >
+            {userInfoMenu.map(({ label, icon: Icon, onClick }, idx) => (
               <MenuItem
                 key={idx}
+                onClick={() => handleMenuItemClick(onClick)}
                 sx={{
                   py: 1.5,
                   px: 2.5,
                   fontSize: 15,
                 }}
-                onClick={() => handleMenuItemClick(onClick)}
               >
                 <Icon sx={{ mr: 2, fontSize: 18 }} />
                 {label}

@@ -52,7 +52,7 @@ export default function PostReaction(props: IPostReactionProps) {
 
       <Stack
         sx={{
-          alignItem: 'center',
+          alignItems: 'center',
           '& button': {
             fontSize: 16,
             color: 'text.secondary',
@@ -61,11 +61,6 @@ export default function PostReaction(props: IPostReactionProps) {
       >
         <Button
           color="inherit"
-          sx={{
-            '&:hover': {
-              color: 'error.main',
-            },
-          }}
           startIcon={
             (post.likes || []).includes(currentUser?._id as string) ? (
               <FavoriteRounded sx={{ color: 'error.main' }} />
@@ -74,19 +69,16 @@ export default function PostReaction(props: IPostReactionProps) {
             )
           }
           onClick={onLikePost}
+          sx={{ '&:hover': { color: 'error.main' } }}
         >
           {post.likeCount}
         </Button>
 
         <Button
           color="inherit"
-          sx={{
-            '&:hover': {
-              color: 'primary.main',
-            },
-          }}
           startIcon={<ChatBubbleOutlineRounded />}
           onClick={onOpenComment}
+          sx={{ '&:hover': { color: 'primary.main' } }}
         >
           {post.commentCount}
         </Button>

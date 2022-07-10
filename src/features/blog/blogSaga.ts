@@ -1,7 +1,6 @@
 import { call, debounce, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
-import postApi from 'api/postApi';
-import userApi from 'api/userApi';
+import { postApi, userApi } from 'api';
 import { IListParams, IListResponse, IPost, ISearchObj, IUser } from 'models';
 import { showErrorToast } from 'utils/toast';
 import { blogActions } from './blogSlice';

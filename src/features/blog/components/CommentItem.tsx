@@ -31,7 +31,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { formatTime } from 'utils/common';
 import { showComingSoonToast, showErrorToast } from 'utils/toast';
-import { useTranslateFiles } from 'utils/translation';
+import { translateFiles } from 'utils/translation';
 
 export interface ICommentItemProps {
   comment: IComment;
@@ -44,7 +44,7 @@ export default function CommentItem(props: ICommentItemProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('postComment');
-  const { dialog: dialogTranslation } = useTranslateFiles('dialog');
+  const { dialog: dialogTranslation } = translateFiles('dialog');
 
   const currentUser = useAppSelector(selectCurrentUser);
 
@@ -61,7 +61,6 @@ export default function CommentItem(props: ICommentItemProps) {
   const { userInfoPopupComponent, mouseEvents } = useUserInfoPopup({
     user: comment.user || {},
     anchorEl: userInfoRef.current,
-    sx: { zIndex: (theme) => theme.zIndex.drawer + 1 },
   });
 
   useEffect(() => {
@@ -170,9 +169,9 @@ export default function CommentItem(props: ICommentItemProps) {
             <Avatar
               ref={userInfoRef}
               src={comment.user?.avatar}
-              sx={{ width: 36, height: 36, cursor: 'pointer' }}
               onClick={handleUserClick}
               {...mouseEvents}
+              sx={{ width: 36, height: 36, cursor: 'pointer' }}
             />
           </Grid>
 
@@ -184,6 +183,15 @@ export default function CommentItem(props: ICommentItemProps) {
                 horizontal: 'right',
               }}
               invisible={comment.likes?.length === 0 || editComment}
+              badgeContent={
+                <Stack alignItems="center" p={0.3}>
+                  <FavoriteRounded sx={{ color: 'primary.main', fontSize: 18 }} />
+
+                  <Typography color="text.primary" fontSize={14} fontWeight={500} ml={0.5}>
+                    {comment.likes?.length || 0}
+                  </Typography>
+                </Stack>
+              }
               sx={{
                 width: editComment ? '100%' : 'unset',
                 '& .MuiBadge-badge': {
@@ -197,15 +205,6 @@ export default function CommentItem(props: ICommentItemProps) {
                   boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
                 },
               }}
-              badgeContent={
-                <Stack alignItems="center" p={0.3}>
-                  <FavoriteRounded sx={{ color: 'primary.main', fontSize: 18 }} />
-
-                  <Typography color="text.primary" fontSize={14} fontWeight={500} ml={0.5}>
-                    {comment.likes?.length || 0}
-                  </Typography>
-                </Stack>
-              }
             >
               <Box
                 sx={{
@@ -222,9 +221,9 @@ export default function CommentItem(props: ICommentItemProps) {
                     color="text.primary"
                     fontSize={14}
                     fontWeight={600}
-                    sx={{ cursor: 'pointer' }}
                     onClick={handleUserClick}
                     {...mouseEvents}
+                    sx={{ cursor: 'pointer' }}
                   >
                     {comment.user?.name}
                   </Typography>
@@ -287,8 +286,8 @@ export default function CommentItem(props: ICommentItemProps) {
                 color="primary"
                 fontSize={14}
                 fontWeight={500}
-                sx={{ cursor: 'pointer' }}
                 onClick={handleLikeComment}
+                sx={{ cursor: 'pointer' }}
               >
                 {comment.likes?.includes(currentUser?._id || '') ? t('unlike') : t('like')}
               </Typography>
@@ -301,7 +300,6 @@ export default function CommentItem(props: ICommentItemProps) {
                     display: 'flex',
                     alignItems: 'center',
                     mr: 1,
-
                     '&::before': {
                       width: 2,
                       height: 2,
@@ -324,19 +322,19 @@ export default function CommentItem(props: ICommentItemProps) {
               <ActionMenu
                 open={openMenu}
                 anchorEl={anchorRef.current}
-                sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
                 onClose={closeMenu}
+                sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
               >
                 {commentMenu.map(({ label, icon: Icon, onClick, show }, idx) =>
                   show ? (
                     <MenuItem
                       key={idx}
+                      onClick={() => handleMenuItemClick(onClick)}
                       sx={{
                         py: 1.5,
                         px: 2.5,
                         fontSize: 15,
                       }}
-                      onClick={() => handleMenuItemClick(onClick)}
                     >
                       <Icon sx={{ mr: 2, fontSize: 18 }} />
                       {label}

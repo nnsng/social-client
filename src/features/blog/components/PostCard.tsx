@@ -2,14 +2,13 @@ import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/mater
 import { ConfirmDialog } from 'components/common';
 import { IPost, PostActionType } from 'models';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import remarkGfm from 'remark-gfm';
 import { themeMixins } from 'utils/theme';
 import { showErrorToast } from 'utils/toast';
-import { useTranslateFiles } from 'utils/translation';
+import { translateFiles } from 'utils/translation';
 import PostCardHeader from './PostCardHeader';
 
 export interface IPostCardProps {
@@ -21,11 +20,7 @@ export interface IPostCardProps {
 export default function PostCard(props: IPostCardProps) {
   const { post, onPostAction, showPopup = true } = props;
 
-  const { t } = useTranslation('postCard');
-  const { toast: toastTranslation, dialog: dialogTranslation } = useTranslateFiles(
-    'toast',
-    'dialog'
-  );
+  const { toast: toastTranslation, dialog: dialogTranslation } = translateFiles('toast', 'dialog');
 
   const [loading, setLoading] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -69,14 +64,13 @@ export default function PostCard(props: IPostCardProps) {
           post={post}
           onSave={handleSavePost}
           onRemove={() => setOpenDialog(true)}
-          t={t}
+          showPopup={showPopup}
           sx={{
             mb: 1,
             '& .icon-button': {
               mx: 0.5,
             },
           }}
-          showPopup={showPopup}
         />
 
         <CardContent sx={{ '&:last-child': { p: 0 } }}>
@@ -124,13 +118,7 @@ export default function PostCard(props: IPostCardProps) {
             </Box>
 
             {post.thumbnail && (
-              <Box
-                sx={{
-                  width: { xs: '100%', sm: 'auto' },
-                  mt: { xs: 2, sm: 0 },
-                  ml: { xs: 0, sm: 2 },
-                }}
-              >
+              <Box width={{ xs: '100%', sm: 'auto' }} mt={{ xs: 2, sm: 0 }} ml={{ xs: 0, sm: 2 }}>
                 <CardMedia
                   image={post.thumbnail}
                   title={post.title}

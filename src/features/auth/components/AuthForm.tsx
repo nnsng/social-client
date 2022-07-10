@@ -20,7 +20,7 @@ import { validateEmail } from 'utils/common';
 import { APP_NAME } from 'utils/constants';
 import { themeMixins } from 'utils/theme';
 import { showErrorToast } from 'utils/toast';
-import { useTranslateFiles } from 'utils/translation';
+import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
 export interface IAuthFormProps {
@@ -36,7 +36,7 @@ export default function AuthForm(props: IAuthFormProps) {
   const isRegisterMode = defaultValues.mode === 'register';
 
   const { t } = useTranslation('authForm');
-  const { validate, toast: toastTranslation } = useTranslateFiles('validate', 'toast');
+  const { validate, toast: toastTranslation } = translateFiles('validate', 'toast');
 
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [forgotLoading, setForgotLoading] = useState<boolean>(false);
@@ -156,14 +156,7 @@ export default function AuthForm(props: IAuthFormProps) {
           </Typography>
         </Stack>
 
-        <Stack
-          direction="column"
-          spacing={2}
-          sx={{
-            mt: 4,
-            px: { xs: 4, sm: 16 },
-          }}
-        >
+        <Stack direction="column" spacing={2} mt={4} px={{ xs: 4, sm: 16 }}>
           {fieldList.map(
             ({ name, show, props }) =>
               show && (
@@ -219,11 +212,11 @@ export default function AuthForm(props: IAuthFormProps) {
 
             <Typography
               component="span"
+              color="primary"
               fontSize={14}
               fontWeight={500}
-              color="primary"
-              sx={{ cursor: 'pointer' }}
               onClick={handleSwitchMode}
+              sx={{ cursor: 'pointer' }}
             >
               {t(`switch.${defaultValues.mode}`)}
             </Typography>
@@ -235,7 +228,10 @@ export default function AuthForm(props: IAuthFormProps) {
                 variant="text"
                 disabled={forgotLoading}
                 onClick={handleForgotPassword}
-                sx={{ p: 0, bgcolor: 'transparent !important' }}
+                sx={{
+                  p: 0,
+                  bgcolor: 'transparent !important',
+                }}
               >
                 {t('forgotPassword')}
               </Button>

@@ -60,6 +60,7 @@ export default function ChatPopup(props: IChatPopupProps) {
             return (
               <MenuItem
                 key={idx}
+                onClick={() => onChatClick?.(chat)}
                 sx={{
                   display: 'flex',
                   px: 1,
@@ -67,7 +68,6 @@ export default function ChatPopup(props: IChatPopupProps) {
                   borderRadius: 1,
                   bgcolor: !!chat.new ? 'action.hover' : 'transparent',
                 }}
-                onClick={() => onChatClick?.(chat)}
               >
                 <Avatar src={chat.user?.avatar} sx={{ flexShrink: 0 }} />
 

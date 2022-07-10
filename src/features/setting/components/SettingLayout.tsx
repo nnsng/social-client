@@ -1,4 +1,4 @@
-import authApi from 'api/authApi';
+import { authApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { NotFound } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';

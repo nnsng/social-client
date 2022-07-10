@@ -11,9 +11,8 @@ import header from './components/header.json';
 import authForm from './components/authForm.json';
 import createEditForm from './components/createEditForm.json';
 import postList from './components/postList.json';
-import postCard from './components/postCard.json';
+import postCardHeader from './components/postCardHeader.json';
 import topHashtags from './components/topHashtags.json';
-import postDetail from './components/postDetail.json';
 import postComment from './components/postComment.json';
 import postItem from './components/postItem.json';
 import settingTabs from './components/settingTabs.json';
@@ -24,6 +23,7 @@ import noPost from './components/noPost.json';
 import notification from './components/notification.json';
 import chatPopup from './components/chatPopup.json';
 
+// common
 import validate from './common/validate';
 import toast from './common/toast';
 import dialog from './common/dialog';
@@ -42,9 +42,8 @@ export default {
   authForm,
   createEditForm,
   postList,
-  postCard,
+  postCardHeader,
   topHashtags,
-  postDetail,
   postComment,
   postItem,
   settingTabs,
@@ -55,6 +54,7 @@ export default {
   notification,
   chatPopup,
 
+  // common
   validate,
   toast,
   dialog,

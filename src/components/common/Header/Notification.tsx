@@ -72,6 +72,7 @@ export default function Notification() {
       <PopperPopup
         open={open}
         anchorEl={anchorRef.current}
+        onClose={closeNoti}
         sx={{
           width: { xs: `calc(100vw - 8px * 2)`, sm: 400 },
           ml: { xs: 1, sm: 0 },
@@ -79,7 +80,6 @@ export default function Notification() {
           borderRadius: 1,
           zIndex: (theme) => theme.zIndex.appBar + 1,
         }}
-        onClose={closeNoti}
       >
         <Stack alignItems="center" justifyContent="space-between" px={2} py={1}>
           <Typography fontSize={18} fontWeight={600} sx={{ cursor: 'default' }}>
@@ -89,13 +89,13 @@ export default function Notification() {
           <Typography
             color="text.secondary"
             fontSize={12}
+            onClick={() => markAsRead(notiList)}
             sx={{
               cursor: 'pointer',
               '&:hover': {
                 color: 'text.primary',
               },
             }}
-            onClick={() => markAsRead(notiList)}
           >
             {t('label.markAsRead')}
           </Typography>
@@ -118,11 +118,11 @@ export default function Notification() {
             notiList.map((noti, idx) => (
               <MenuItem
                 key={idx}
+                onClick={() => handleCommentClick(noti)}
                 sx={{
                   borderRadius: 1,
                   bgcolor: !noti.read ? 'action.hover' : 'transparent',
                 }}
-                onClick={() => handleCommentClick(noti)}
               >
                 <Avatar src={noti.user.avatar} sx={{ width: 40, height: 40 }} />
 

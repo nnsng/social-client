@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { copyPostLink, formatTime } from 'utils/common';
 import { themeMixins } from 'utils/theme';
 import { showErrorToast } from 'utils/toast';
-import { useTranslateFiles } from 'utils/translation';
+import { translateFiles } from 'utils/translation';
 
 export interface IPostItemProps {
   post: IPost;
@@ -20,7 +20,7 @@ export function PostItem(props: IPostItemProps) {
   const { post, onUnSave } = props;
 
   const { t } = useTranslation('postItem');
-  const { toast: toastTranslation } = useTranslateFiles('toast');
+  const { toast: toastTranslation } = translateFiles('toast');
 
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
@@ -123,12 +123,12 @@ export function PostItem(props: IPostItemProps) {
             {menuItemList.map(({ label, icon: Icon, onClick }, idx) => (
               <MenuItem
                 key={idx}
+                onClick={() => handleMenuItemClick(onClick)}
                 sx={{
                   py: 1.5,
                   px: 2.5,
                   fontSize: 15,
                 }}
-                onClick={() => handleMenuItemClick(onClick)}
               >
                 <Icon sx={{ mr: 2, fontSize: 18 }} />
                 {label}

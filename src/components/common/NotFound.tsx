@@ -1,5 +1,4 @@
 import { Stack, Typography } from '@mui/material';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Header } from './Header';
 import { PageTitle } from './PageTitle';
@@ -20,19 +19,19 @@ export function NotFound({ showHeader }: INotFoundProps) {
       <Stack
         direction="column"
         sx={{
-          position: 'fixed',
-          inset: 0,
           alignItems: 'center',
           justifyContent: 'center',
+          position: 'fixed',
+          inset: 0,
           bgcolor: 'background.default',
         }}
       >
         <Typography
           color="primary.main"
+          fontSize={120}
+          fontWeight={600}
           sx={{
             mb: -2,
-            fontSize: 120,
-            fontWeight: 600,
             letterSpacing: 20,
           }}
         >
@@ -41,9 +40,9 @@ export function NotFound({ showHeader }: INotFoundProps) {
 
         <Typography
           color="primary.main"
+          fontSize={20}
+          fontWeight={600}
           sx={{
-            fontSize: 20,
-            fontWeight: 600,
             letterSpacing: 2,
           }}
         >

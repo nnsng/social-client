@@ -1,6 +1,5 @@
 import { Box, Container } from '@mui/material';
-import postApi from 'api/postApi';
-import userApi from 'api/userApi';
+import { userApi, postApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { Header, NotFound, PageTitle } from 'components/common';
 import { UserInfoSkeleton } from 'components/skeletons';

@@ -57,13 +57,7 @@ export default function UserInfo(props: IUserInfoProps) {
             </Typography>
           )}
 
-          <Stack
-            sx={{
-              '& > span:first-of-type': {
-                ml: 0,
-              },
-            }}
-          >
+          <Stack sx={{ '& > span:first-of-type': { ml: 0 } }}>
             {['following', 'followers'].map((x) => (
               <Tooltip
                 key={x}
@@ -84,9 +78,9 @@ export default function UserInfo(props: IUserInfoProps) {
                 arrow
               >
                 <Stack
-                  direction={smUp ? 'row' : 'column-reverse'}
-                  alignItems="center"
                   sx={{
+                    flexDirection: { xs: 'column-reverse', sm: 'row' },
+                    alignItems: 'center',
                     mr: 3,
                     fontSize: { xs: 12, sm: 14 },
                   }}

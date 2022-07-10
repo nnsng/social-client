@@ -57,13 +57,9 @@ export function HashtagInput(props: IHashtagInputProps) {
         fullWidth
         placeholder={placeholder}
         disabled={hashtagList.length >= max}
-        sx={{
-          '& input': {
-            fontSize: 14,
-          },
-        }}
         onChange={handleChange}
         onKeyUp={handleAddHashtag}
+        sx={{ '& input': { fontSize: 14 } }}
       />
 
       {hashtagList.length >= max && <FormHelperText error>{errorText}</FormHelperText>}

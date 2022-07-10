@@ -1,5 +1,4 @@
 import { OutlinedTextFieldProps, Stack, TextField, Typography } from '@mui/material';
-import React from 'react';
 import { Control, useController } from 'react-hook-form';
 
 export interface IMuiTextFieldProps extends OutlinedTextFieldProps {
@@ -21,7 +20,7 @@ export function MuiTextField(props: IMuiTextFieldProps) {
   return (
     <Stack direction="column">
       {title && (
-        <Typography fontSize={{ xs: 14, sm: 16 }} fontWeight={500} sx={{ mb: 0.5 }}>
+        <Typography fontSize={{ xs: 14, sm: 16 }} fontWeight={500} mb={0.5}>
           {title}
         </Typography>
       )}
