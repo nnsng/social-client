@@ -1,7 +1,9 @@
 import {
   EditRounded,
+  FlagRounded,
   MoreHorizRounded,
   PersonAddRounded,
+  PersonOffRounded,
   PersonRemoveRounded,
 } from '@mui/icons-material';
 import { Button, CircularProgress, MenuItem, Stack } from '@mui/material';
@@ -9,12 +11,11 @@ import { userApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { authActions, selectCurrentUser } from 'features/auth/authSlice';
 import { chatActions } from 'features/chat/chatSlice';
-import { useUserInfoMenu } from 'hooks';
-import { FollowModeType, IFollow, IUser } from 'models';
+import { FollowModeType, IFollow, IMenuItem, IUser } from 'models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { showErrorToast } from 'utils/toast';
+import { showComingSoonToast, showErrorToast } from 'utils/toast';
 import { ChatIcon } from '../icons';
 import { ActionMenu } from './ActionMenu';
 
@@ -41,8 +42,6 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
-  const menu = useUserInfoMenu({ t });
-
   const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
 
@@ -68,6 +67,21 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
     closeMenu();
     callback?.();
   };
+
+  const userInfoMenu: IMenuItem[] = [
+    {
+      label: t('menu.block'),
+      icon: PersonOffRounded,
+      onClick: showComingSoonToast,
+      show: true,
+    },
+    {
+      label: t('menu.report'),
+      icon: FlagRounded,
+      onClick: showComingSoonToast,
+      show: true,
+    },
+  ];
 
   const BUTTON_HEIGHT = 36;
 
@@ -154,8 +168,13 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
             <MoreHorizRounded />
           </Button>
 
-          <ActionMenu open={openMenu} anchorEl={anchorRef.current} onClose={closeMenu}>
-            {menu.map(({ label, icon: Icon, onClick }, idx) => (
+          <ActionMenu
+            open={openMenu}
+            anchorEl={anchorRef.current}
+            sx={{ zIndex: (theme) => theme.zIndex.drawer + 2 }}
+            onClose={closeMenu}
+          >
+            {userInfoMenu.map(({ label, icon: Icon, onClick }, idx) => (
               <MenuItem
                 key={idx}
                 sx={{

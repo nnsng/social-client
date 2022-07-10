@@ -9,7 +9,7 @@ export interface IUserInfoPopupProps extends IPopperPopupProps {
 }
 
 export function UserInfoPopup(props: IUserInfoPopupProps) {
-  const { user, open, anchorEl, sx } = props;
+  const { user, open, anchorEl } = props;
 
   const [isOpen, setIsOpen] = useState<boolean>(open);
 
@@ -22,7 +22,7 @@ export function UserInfoPopup(props: IUserInfoPopupProps) {
       placement="bottom-start"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
-      sx={sx}
+      sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
     >
       <Box p={2} width={350}>
         <Stack alignItems="center">

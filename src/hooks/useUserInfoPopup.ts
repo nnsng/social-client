@@ -6,11 +6,10 @@ import { useEffect, useRef, useState } from 'react';
 export interface IUseUserInfoPopup {
   user: Partial<IUser>;
   anchorEl: any;
-  sx?: SxProps<Theme>;
 }
 
 export function useUserInfoPopup(props: IUseUserInfoPopup) {
-  const [openPopup, setOpenPopup] = useState(false);
+  const [openPopup, setOpenPopup] = useState<boolean>(false);
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -29,7 +28,7 @@ export function useUserInfoPopup(props: IUseUserInfoPopup) {
     setOpenPopup(false);
   };
 
-  const userInfoPopupComponent = <UserInfoPopup open={openPopup} {...props} />;
+  const userInfoPopupComponent = UserInfoPopup({ open: openPopup, ...props });
 
   return {
     userInfoPopupComponent,

@@ -61,7 +61,6 @@ export default function CommentItem(props: ICommentItemProps) {
   const { userInfoPopupComponent, mouseEvents } = useUserInfoPopup({
     user: comment.user || {},
     anchorEl: userInfoRef.current,
-    sx: { zIndex: (theme) => theme.zIndex.drawer + 1 },
   });
 
   useEffect(() => {

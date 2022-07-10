@@ -2,7 +2,6 @@ import { Card, CardContent, Typography } from '@mui/material';
 import { ConfirmDialog } from 'components/common';
 import { IPost, PostActionType } from 'models';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { themeMixins } from 'utils/theme';
@@ -21,7 +20,6 @@ export default function PostDetail(props: IPostDetailProps) {
 
   const navigate = useNavigate();
 
-  const { t } = useTranslation('postDetail');
   const { toast: toastTranslation, dialog: dialogTranslation } = translateFiles('toast', 'dialog');
 
   const [openDialog, setOpenDialog] = useState<boolean>(false);
@@ -70,7 +68,6 @@ export default function PostDetail(props: IPostDetailProps) {
           post={post}
           onSave={handleSavePost}
           onRemove={() => setOpenDialog(true)}
-          t={t}
           sx={{
             mt: 2,
             mb: 3,

@@ -1,27 +1,38 @@
-import { BookmarkBorderRounded, MoreHorizRounded } from '@mui/icons-material';
+import {
+  BookmarkBorderRounded,
+  BorderColorRounded,
+  DeleteRounded,
+  FlagRounded,
+  LinkRounded,
+  MoreHorizRounded,
+} from '@mui/icons-material';
 import { Avatar, Box, CardHeader, IconButton, MenuItem, SxProps, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { ActionMenu, TimeTooltip } from 'components/common';
 import { selectCurrentUser } from 'features/auth/authSlice';
-import { usePostMenu, useUserInfoPopup } from 'hooks';
-import { IPost, IUser } from 'models';
+import { useUserInfoPopup } from 'hooks';
+import { IMenuItem, IPost } from 'models';
 import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { formatTime } from 'utils/common';
+import { copyPostLink, formatTime } from 'utils/common';
+import { ROLE } from 'utils/constants';
+import { showComingSoonToast } from 'utils/toast';
 
 export interface IPostCardHeaderProps {
   post: IPost;
   onSave?: () => void;
   onRemove?: () => void;
-  t?: any; // TFunction
   sx?: SxProps;
   showPopup?: boolean;
 }
 
 export default function PostCardHeader(props: IPostCardHeaderProps) {
-  const { post, onSave, onRemove, t, sx, showPopup = true } = props;
+  const { post, onSave, onRemove, sx, showPopup = true } = props;
 
   const navigate = useNavigate();
+
+  const { t } = useTranslation('postCardHeader');
 
   const currentUser = useAppSelector(selectCurrentUser);
 
@@ -35,14 +46,6 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
     anchorEl: userInfoRef.current,
   });
 
-  const postMenu = usePostMenu({
-    post,
-    currentUser,
-    onRemove,
-    navigate,
-    t,
-  });
-
   const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
 
@@ -54,6 +57,35 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
     closeMenu();
     callback?.();
   };
+
+  const isAuthor = post.authorId === currentUser?._id;
+  const isAdmin = currentUser?.role === ROLE.ADMIN;
+  const postMenu: IMenuItem[] = [
+    {
+      label: t('menu.edit'),
+      icon: BorderColorRounded,
+      onClick: () => navigate?.(`/blog/edit/${post._id}`, { state: { hideHeaderMenu: true } }),
+      show: isAuthor,
+    },
+    {
+      label: t('menu.delete'),
+      icon: DeleteRounded,
+      onClick: onRemove,
+      show: isAuthor || isAdmin,
+    },
+    {
+      label: t('menu.copyLink'),
+      icon: LinkRounded,
+      onClick: () => copyPostLink(post),
+      show: true,
+    },
+    {
+      label: t('menu.report'),
+      icon: FlagRounded,
+      onClick: showComingSoonToast,
+      show: !isAuthor,
+    },
+  ];
 
   return (
     <>

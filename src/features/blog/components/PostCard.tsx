@@ -2,7 +2,6 @@ import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/mater
 import { ConfirmDialog } from 'components/common';
 import { IPost, PostActionType } from 'models';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -21,7 +20,6 @@ export interface IPostCardProps {
 export default function PostCard(props: IPostCardProps) {
   const { post, onPostAction, showPopup = true } = props;
 
-  const { t } = useTranslation('postCard');
   const { toast: toastTranslation, dialog: dialogTranslation } = translateFiles('toast', 'dialog');
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -66,7 +64,6 @@ export default function PostCard(props: IPostCardProps) {
           post={post}
           onSave={handleSavePost}
           onRemove={() => setOpenDialog(true)}
-          t={t}
           sx={{
             mb: 1,
             '& .icon-button': {
