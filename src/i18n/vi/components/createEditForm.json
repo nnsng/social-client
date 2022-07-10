@@ -6,7 +6,7 @@
     "placeholder": "Nhập nội dung bài viết..."
   },
   "hashtag": {
-    "label": "Thêm tối đa {{max}} hashtag liên quan đến bài viết (Enter để thêm):",
+    "label": "Thêm tối đa {{max}} hashtag (Enter để thêm):",
     "placeholder": "Nhập hashtag",
     "error": "Đã thêm tối đa hashtag"
   },

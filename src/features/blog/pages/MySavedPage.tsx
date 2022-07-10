@@ -7,11 +7,9 @@ import { IPost } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { blogActions, selectPostLoading, selectSavedList, selectTotalPages } from '../blogSlice';
-import { PostItem } from '../components/PostItem';
+import PostItem from '../components/PostItem';
 
-export interface IMySavedPageProps {}
-
-export function MySavedPage(props: IMySavedPageProps) {
+export function MySavedPage() {
   const { t } = useTranslation('saved');
 
   const dispatch = useAppDispatch();

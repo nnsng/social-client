@@ -6,7 +6,7 @@
     "placeholder": "Type content here..."
   },
   "hashtag": {
-    "label": "Add up to {{max}} hashtags relevant to the post (Enter to add):",
+    "label": "Add up to {{max}} hashtags (Enter to add):",
     "placeholder": "Hashtag",
     "error": "Added maximum of hashtags"
   },

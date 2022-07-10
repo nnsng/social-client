@@ -106,6 +106,7 @@ export default function PostCard(props: IPostCardProps) {
                     maxWidth: '100%',
                     fontSize: 16,
                     fontWeight: 400,
+                    fontStyle: 'normal',
                   },
                 }}
               >

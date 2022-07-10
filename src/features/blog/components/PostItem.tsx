@@ -16,7 +16,7 @@ export interface IPostItemProps {
   onUnSave?: (post: IPost) => void;
 }
 
-export function PostItem(props: IPostItemProps) {
+export default function PostItem(props: IPostItemProps) {
   const { post, onUnSave } = props;
 
   const { t } = useTranslation('postItem');
