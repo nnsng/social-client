@@ -20,7 +20,7 @@ import {
 } from 'components/formFields';
 import { selectUploading } from 'features/common/uploadSlice';
 import { IPost } from 'models';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
@@ -111,7 +111,8 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
     }
   };
 
-  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
+  const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
+  const dialogWidth = smUp ? { fullWidth: true } : { fullScreen: true };
 
   return (
     <form>
@@ -139,9 +140,9 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
 
           <Button
             variant="outlined"
-            size={mdUp ? 'large' : 'medium'}
+            size={smUp ? 'large' : 'medium'}
             sx={
-              mdUp
+              smUp
                 ? { flexShrink: 0, ml: 2 }
                 : {
                     position: 'fixed',
@@ -159,7 +160,7 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
         <MdEditorField name="content" control={control} placeholder={t('content.placeholder')} />
       </Stack>
 
-      <Dialog open={open} onClose={closeDialog} fullWidth>
+      <Dialog open={open} onClose={closeDialog} {...dialogWidth}>
         <Typography
           color={title?.length > 0 ? 'text.primary' : 'text.disabled'}
           fontSize={{ xs: 16, sm: 18 }}
@@ -180,17 +181,19 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
             px: { xs: 1, sm: 3 },
           }}
         >
-          <Box
-            sx={{
-              maxWidth: 400,
-              aspectRatio: '2',
-              bgcolor: 'action.hover',
-              backgroundImage: `url('${thumbnail}')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              borderRadius: 2,
-            }}
-          ></Box>
+          {thumbnail && (
+            <Box
+              sx={{
+                maxWidth: 400,
+                aspectRatio: '2',
+                bgcolor: 'action.hover',
+                backgroundImage: `url('${thumbnail}')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                borderRadius: 2,
+              }}
+            ></Box>
+          )}
 
           <Stack alignItems="center" mt={1} mb={2} spacing={1}>
             <Button
@@ -199,7 +202,7 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
               component="label"
               htmlFor="thumbnail-input"
               disabled={uploading}
-              startIcon={uploading && <CircularProgress size={20} />}
+              startIcon={uploading && <CircularProgress size={18} />}
               sx={{
                 fontSize: 12,
                 fontWeight: 400,
@@ -237,12 +240,12 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
         </DialogContent>
 
         <DialogActions sx={{ px: { xs: 1, sm: 2 } }}>
-          <Button variant="text" size={mdUp ? 'large' : 'medium'} onClick={closeDialog}>
+          <Button variant="text" size={smUp ? 'large' : 'medium'} onClick={closeDialog}>
             {t('btnLabel.cancel')}
           </Button>
           <Button
             variant="contained"
-            size={mdUp ? 'large' : 'medium'}
+            size={smUp ? 'large' : 'medium'}
             autoFocus
             disabled={isSubmitting || uploading}
             startIcon={isSubmitting && <CircularProgress size={20} />}

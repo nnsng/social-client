@@ -1,5 +1,4 @@
 import { InputBase, InputBaseProps } from '@mui/material';
-import React from 'react';
 import { Control, useController } from 'react-hook-form';
 
 export interface IInputFieldProps extends InputBaseProps {

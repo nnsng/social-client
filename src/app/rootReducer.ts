@@ -5,7 +5,7 @@ import chatReducer from 'features/chat/chatSlice';
 import configReducer from 'features/common/configSlice';
 import notiReducer from 'features/common/notiSlice';
 import uploadReducer from 'features/common/uploadSlice';
-import settingReducer from 'features/setting/settingSlice';
+import settingReducer from 'features/settings/settingSlice';
 import socketReducer from 'features/socket/socketSlice';
 import { combineReducers } from 'redux';
 

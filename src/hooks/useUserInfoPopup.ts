@@ -1,4 +1,3 @@
-import { SxProps, Theme } from '@mui/material';
 import { UserInfoPopup } from 'components/common';
 import { IUser } from 'models';
 import { useEffect, useRef, useState } from 'react';

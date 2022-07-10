@@ -6,7 +6,7 @@ import { authActions, selectCurrentUser } from 'features/auth/authSlice';
 import Blog from 'features/blog';
 import Chat from 'features/chat';
 import ProfilePage from 'features/profile';
-import Setting from 'features/setting';
+import Settings from 'features/settings';
 import SocketClient from 'features/socket';
 import { socketActions } from 'features/socket/socketSlice';
 import { IUser } from 'models';
@@ -71,7 +71,7 @@ function App() {
           path="/settings/*"
           element={
             <PrivateRoute>
-              <Setting />
+              <Settings />
             </PrivateRoute>
           }
         />
