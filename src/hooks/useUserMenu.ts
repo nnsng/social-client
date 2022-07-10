@@ -10,7 +10,7 @@ import { IMenuItem } from 'models';
 import { NavigateFunction } from 'react-router-dom';
 
 export interface IUseUserMenuProps {
-  openAppearanceDialog: () => void;
+  openAppearanceDialog?: () => void;
   navigate?: NavigateFunction;
   dispatch?: any;
   t?: any;
