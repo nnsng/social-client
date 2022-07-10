@@ -102,7 +102,7 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
             sx={{
               display: { xs: 'block', sm: 'flex' },
               alignItems: 'center',
-              p: { xs: '32px 0 16px 32px', sm: 1 }, // xs: [4, 0, 2, 4]
+              p: { xs: '32px 32px 16px 32px', sm: 1 }, // xs: [4, 4, 2, 4]
               cursor: 'pointer',
             }}
             onClick={gotoProfile}
