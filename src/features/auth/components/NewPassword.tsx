@@ -1,7 +1,7 @@
 import { Box, Container, Typography } from '@mui/material';
 import { authApi } from 'api';
 import { PageTitle } from 'components/common';
-import ChangePasswordForm from 'features/setting/components/ChangePasswordForm';
+import ChangePasswordForm from 'features/settings/components/ChangePasswordForm';
 import { IChangePasswordFormValues, IField } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
