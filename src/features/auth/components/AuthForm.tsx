@@ -156,14 +156,7 @@ export default function AuthForm(props: IAuthFormProps) {
           </Typography>
         </Stack>
 
-        <Stack
-          direction="column"
-          spacing={2}
-          sx={{
-            mt: 4,
-            px: { xs: 4, sm: 16 },
-          }}
-        >
+        <Stack direction="column" spacing={2} mt={4} px={{ xs: 4, sm: 16 }}>
           {fieldList.map(
             ({ name, show, props }) =>
               show && (
@@ -219,11 +212,11 @@ export default function AuthForm(props: IAuthFormProps) {
 
             <Typography
               component="span"
+              color="primary"
               fontSize={14}
               fontWeight={500}
-              color="primary"
-              sx={{ cursor: 'pointer' }}
               onClick={handleSwitchMode}
+              sx={{ cursor: 'pointer' }}
             >
               {t(`switch.${defaultValues.mode}`)}
             </Typography>
@@ -235,7 +228,10 @@ export default function AuthForm(props: IAuthFormProps) {
                 variant="text"
                 disabled={forgotLoading}
                 onClick={handleForgotPassword}
-                sx={{ p: 0, bgcolor: 'transparent !important' }}
+                sx={{
+                  p: 0,
+                  bgcolor: 'transparent !important',
+                }}
               >
                 {t('forgotPassword')}
               </Button>

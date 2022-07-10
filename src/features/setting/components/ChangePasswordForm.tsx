@@ -88,8 +88,8 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
               variant="outlined"
               placeholder={t(`label.${name}`)}
               title={t(`label.${name}`)}
-              sx={{ maxWidth: 400 }}
               rounded
+              sx={{ maxWidth: 400 }}
               {...props}
             />
           ))}
@@ -115,12 +115,12 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
               <Button
                 color="primary"
                 size="small"
+                onClick={handleForgotPassword}
                 sx={{
                   mt: { xs: 1, sm: 0 },
                   fontSize: 13,
                   '&:hover': { bgcolor: 'transparent' },
                 }}
-                onClick={handleForgotPassword}
               >
                 {t('btnLabel.forgotPassword')}
               </Button>

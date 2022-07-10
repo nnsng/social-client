@@ -53,9 +53,9 @@ export default function AuthLayout({ mode }: IAuthLayoutProps) {
 
       <Stack
         sx={{
-          position: 'relative',
           alignItems: 'center',
           justifyContent: 'center',
+          position: 'relative',
           minHeight: '100vh',
           backgroundImage: `url(${background})`,
           backgroundSize: 'cover',

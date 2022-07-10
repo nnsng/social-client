@@ -81,14 +81,14 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
     <>
       <Avatar
         src={currentUser?.avatar}
+        ref={anchorRef}
+        onClick={toggleMenu}
         sx={{
           width: 36,
           height: 36,
           ml: 2,
           cursor: 'pointer',
         }}
-        ref={anchorRef}
-        onClick={toggleMenu}
       />
 
       <MenuItemWrapper
@@ -99,13 +99,13 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
       >
         <Box>
           <Box
+            onClick={gotoProfile}
             sx={{
               display: { xs: 'block', sm: 'flex' },
               alignItems: 'center',
               p: { xs: '32px 32px 16px 32px', sm: 1 }, // xs: [4, 4, 2, 4]
               cursor: 'pointer',
             }}
-            onClick={gotoProfile}
           >
             <Avatar
               src={currentUser?.avatar}
@@ -130,13 +130,13 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
           {userMenu.map(({ label, icon: Icon, onClick }, idx) => (
             <Box key={idx}>
               <MenuItem
+                onClick={() => handleMenuItemClick?.(onClick)}
                 sx={{
                   py: 1.5,
                   px: { xs: 4, sm: 2 },
                   borderRadius: 1,
                   fontSize: 15,
                 }}
-                onClick={() => handleMenuItemClick?.(onClick)}
               >
                 <Icon sx={{ mr: 2, fontSize: 18 }} />
                 {label}
@@ -182,13 +182,13 @@ function MenuItemWrapper(props: IMenuitemWrapperProps) {
     <PopperPopup
       open={open}
       anchorEl={anchorEl}
+      onClose={onClose}
       sx={{
         minWidth: 280,
         mt: 1,
         p: 0.8,
         zIndex: (theme) => theme.zIndex.appBar + 1,
       }}
-      onClose={onClose}
     >
       {children}
     </PopperPopup>

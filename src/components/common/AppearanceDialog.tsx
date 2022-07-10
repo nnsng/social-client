@@ -71,7 +71,7 @@ export function AppearanceDialog(props: IAppearanceDialogProps) {
         <Stack direction="column" spacing={3}>
           <Stack
             sx={{
-              flexFlow: { xs: 'column', sm: 'row' },
+              flexDirection: { xs: 'column', sm: 'row' },
               alignItems: { sm: 'center' },
             }}
           >
@@ -80,9 +80,8 @@ export function AppearanceDialog(props: IAppearanceDialogProps) {
           </Stack>
 
           <Stack
-            alignItems="center"
             sx={{
-              flexFlow: { xs: 'column', sm: 'row' },
+              flexDirection: { xs: 'column', sm: 'row' },
               alignItems: { sm: 'center' },
               '& .MuiSvgIcon-root': {
                 fontSize: 28,
@@ -106,7 +105,7 @@ export function AppearanceDialog(props: IAppearanceDialogProps) {
 
           <Stack
             sx={{
-              flexFlow: { xs: 'column', sm: 'row' },
+              flexDirection: { xs: 'column', sm: 'row' },
               alignItems: { sm: 'center' },
             }}
           >
@@ -114,8 +113,8 @@ export function AppearanceDialog(props: IAppearanceDialogProps) {
 
             <Stack
               sx={{
+                flexDirection: { xs: 'column', sm: 'row' },
                 ml: 1,
-                flexFlow: { xs: 'column', sm: 'row' },
               }}
             >
               {supportedLanguages.map(({ code, name }) => (

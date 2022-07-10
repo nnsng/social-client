@@ -152,7 +152,7 @@ export default function SearchBox(props: ISearchBoxProps) {
 
   return (
     <>
-      <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+      <Box display={{ xs: 'none', sm: 'block' }}>
         <FormControl
           fullWidth
           size="small"
@@ -175,8 +175,8 @@ export default function SearchBox(props: ISearchBoxProps) {
             endAdornment={
               (searchInput || '').length > 0 && (
                 <CloseRounded
-                  sx={{ color: 'text.secondary', cursor: 'pointer' }}
                   onClick={clearSearchInput}
+                  sx={{ color: 'text.secondary', cursor: 'pointer' }}
                 />
               )
             }
@@ -251,6 +251,7 @@ export default function SearchBox(props: ISearchBoxProps) {
                         <Typography
                           variant="subtitle2"
                           color="text.secondary"
+                          onClick={handleViewMore}
                           sx={{
                             display: 'inline-block',
                             textAlign: 'center',
@@ -261,7 +262,6 @@ export default function SearchBox(props: ISearchBoxProps) {
                               color: 'text.primary',
                             },
                           }}
-                          onClick={handleViewMore}
                         >
                           {t('search.viewMore')}
                         </Typography>

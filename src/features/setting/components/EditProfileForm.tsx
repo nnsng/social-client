@@ -97,10 +97,10 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
           {uploading && (
             <Stack
               sx={{
-                position: 'absolute',
-                inset: '0',
                 alignItems: 'center',
                 justifyContent: 'center',
+                position: 'absolute',
+                inset: '0',
                 bgcolor: 'action.disabled',
                 borderRadius: '50%',
               }}
@@ -172,8 +172,8 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
                 variant="outlined"
                 placeholder={t(`label.${name}`)}
                 title={t(`label.${name}`)}
-                sx={{ maxWidth: 400 }}
                 rounded
+                sx={{ maxWidth: 400 }}
                 {...props}
               />
             ) : (

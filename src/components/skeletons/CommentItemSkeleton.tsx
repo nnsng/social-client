@@ -1,6 +1,4 @@
-import { Box, Card, CardHeader, Grid, ListItem, Stack } from '@mui/material';
-import React from 'react';
-import { themeMixins } from 'utils/theme';
+import { Box, Grid, ListItem } from '@mui/material';
 import { StyledSkeleton } from './StyledSkeleton';
 
 export function CommentItemSkeleton() {

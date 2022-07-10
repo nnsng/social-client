@@ -123,12 +123,12 @@ export function PostItem(props: IPostItemProps) {
             {menuItemList.map(({ label, icon: Icon, onClick }, idx) => (
               <MenuItem
                 key={idx}
+                onClick={() => handleMenuItemClick(onClick)}
                 sx={{
                   py: 1.5,
                   px: 2.5,
                   fontSize: 15,
                 }}
-                onClick={() => handleMenuItemClick(onClick)}
               >
                 <Icon sx={{ mr: 2, fontSize: 18 }} />
                 {label}

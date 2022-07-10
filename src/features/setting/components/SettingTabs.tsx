@@ -37,12 +37,12 @@ export default function SettingTabs(props: ISettingTabsProps) {
     {
       label: t('profile.label'),
       mobileLabel: t('profile.mobileLabel'),
-      linkTo: 'edit-profile',
+      path: 'edit-profile',
     },
     {
       label: t('password.label'),
       mobileLabel: t('password.mobileLabel'),
-      linkTo: 'change-password',
+      path: 'change-password',
     },
   ];
 
@@ -65,10 +65,11 @@ export default function SettingTabs(props: ISettingTabsProps) {
         },
       }}
     >
-      {tabItemList.map(({ label, mobileLabel, linkTo }, idx) => (
+      {tabItemList.map(({ label, mobileLabel, path }, idx) => (
         <Tab
           key={idx}
           label={smUp ? label : mobileLabel}
+          onClick={() => goto(path)}
           sx={{
             fontSize: { xs: 16, sm: 18 },
             fontWeight: 500,
@@ -76,7 +77,6 @@ export default function SettingTabs(props: ISettingTabsProps) {
             alignItems: { sm: 'flex-start' },
             pr: { sm: 4 },
           }}
-          onClick={() => goto(linkTo)}
         />
       ))}
     </Tabs>

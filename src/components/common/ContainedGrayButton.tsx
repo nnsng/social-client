@@ -1,4 +1,4 @@
-import { Button, SxProps, Theme, ButtonBaseProps, ExtendButtonBase } from '@mui/material';
+import { Button, SxProps, Theme } from '@mui/material';
 import React from 'react';
 
 export interface IContainedGrayButtonProps {

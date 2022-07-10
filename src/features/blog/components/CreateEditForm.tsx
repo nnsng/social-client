@@ -117,9 +117,9 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
     <form>
       <Stack
         direction="column"
-        height={`calc(100vh - ${themeVariables.headerHeight}px * 2 + 36px)`}
         sx={{
           ...themeMixins.paperBorder(),
+          height: `calc(100vh - ${themeVariables.headerHeight}px * 2 + 36px)`,
         }}
       >
         <Stack alignItems="center" justifyContent="flex-end" px={2}>
@@ -215,11 +215,11 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
                 color="error"
                 size="small"
                 disabled={uploading}
+                onClick={removeThumbnail}
                 sx={{
                   fontSize: 12,
                   fontWeight: 400,
                 }}
-                onClick={removeThumbnail}
               >
                 {t('btnLabel.removeThumbnail')}
               </Button>

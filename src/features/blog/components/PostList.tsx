@@ -58,7 +58,7 @@ export default function PostList(props: IPostListProps) {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box width="100%">
       {isHomePage && (
         <Stack alignItems="center" justifyContent="space-between">
           <Typography
@@ -78,11 +78,11 @@ export default function PostList(props: IPostListProps) {
             size="small"
             variant="standard"
             value={filter?.by ?? 'all'}
+            onChange={handleByFilterChange}
             sx={{
               '&::before, &::after': {
                 content: 'unset',
               },
-
               '& .MuiSelect-select': {
                 bgcolor: 'transparent !important',
                 fontSize: 14,
@@ -91,7 +91,6 @@ export default function PostList(props: IPostListProps) {
                 textTransform: 'uppercase',
               },
             }}
-            onChange={handleByFilterChange}
           >
             {['all', 'following'].map((by) => (
               <MenuItem key={by} value={by}>
@@ -126,8 +125,8 @@ export default function PostList(props: IPostListProps) {
                   color="primary"
                   count={totalPage}
                   page={page}
-                  sx={{ m: 'auto' }}
                   onChange={handlePageChange}
+                  sx={{ m: 'auto' }}
                 />
               </Stack>
             )}

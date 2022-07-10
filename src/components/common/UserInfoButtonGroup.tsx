@@ -112,6 +112,7 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
               startIcon={loading ? <CircularProgress size={16} /> : <PersonRemoveRounded />}
               fullWidth
               disabled={loading}
+              onClick={() => handleFollow('unfollow')}
               sx={{
                 height: BUTTON_HEIGHT,
                 color: 'text.primary',
@@ -120,7 +121,6 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
                   bgcolor: 'action.selected',
                 },
               }}
-              onClick={() => handleFollow('unfollow')}
             >
               {t('unfollow')}
             </Button>
@@ -130,8 +130,8 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
               startIcon={loading ? <CircularProgress size={16} /> : <PersonAddRounded />}
               fullWidth
               disabled={loading}
-              sx={{ height: BUTTON_HEIGHT }}
               onClick={() => handleFollow('follow')}
+              sx={{ height: BUTTON_HEIGHT }}
             >
               {t('follow')}
             </Button>
@@ -154,6 +154,7 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
 
           <Button
             ref={anchorRef}
+            onClick={toggleMenu}
             sx={{
               height: BUTTON_HEIGHT,
               px: 2,
@@ -163,7 +164,6 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
                 bgcolor: 'action.selected',
               },
             }}
-            onClick={toggleMenu}
           >
             <MoreHorizRounded />
           </Button>
@@ -171,18 +171,18 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
           <ActionMenu
             open={openMenu}
             anchorEl={anchorRef.current}
-            sx={{ zIndex: (theme) => theme.zIndex.drawer + 2 }}
             onClose={closeMenu}
+            sx={{ zIndex: (theme) => theme.zIndex.drawer + 2 }}
           >
             {userInfoMenu.map(({ label, icon: Icon, onClick }, idx) => (
               <MenuItem
                 key={idx}
+                onClick={() => handleMenuItemClick(onClick)}
                 sx={{
                   py: 1.5,
                   px: 2.5,
                   fontSize: 15,
                 }}
-                onClick={() => handleMenuItemClick(onClick)}
               >
                 <Icon sx={{ mr: 2, fontSize: 18 }} />
                 {label}

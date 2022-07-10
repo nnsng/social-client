@@ -94,9 +94,9 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
           <Avatar
             ref={userInfoRef}
             src={post.author?.avatar}
-            sx={{ cursor: 'pointer' }}
             onClick={handleAuthorClick}
             {...mouseEvents}
+            sx={{ cursor: 'pointer' }}
           />
         }
         action={
@@ -104,6 +104,7 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
             <IconButton
               disableTouchRipple
               size="small"
+              onClick={onSave}
               sx={{
                 color: 'text.secondary',
                 '&:hover': {
@@ -111,7 +112,6 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
                   color: 'text.primary',
                 },
               }}
-              onClick={onSave}
             >
               <BookmarkBorderRounded />
             </IconButton>
@@ -119,6 +119,8 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
             <IconButton
               disableTouchRipple
               size="small"
+              ref={anchorRef}
+              onClick={toggleMenu}
               sx={{
                 color: 'text.secondary',
                 '&:hover': {
@@ -126,8 +128,6 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
                   bgcolor: 'transparent',
                 },
               }}
-              ref={anchorRef}
-              onClick={toggleMenu}
             >
               <MoreHorizRounded />
             </IconButton>
@@ -137,12 +137,12 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
                 show ? (
                   <MenuItem
                     key={idx}
+                    onClick={() => handleMenuItemClick(onClick)}
                     sx={{
                       py: 1.5,
                       px: 2.5,
                       fontSize: 15,
                     }}
-                    onClick={() => handleMenuItemClick(onClick)}
                   >
                     <Icon sx={{ mr: 2, fontSize: 18 }} />
                     {label}
@@ -158,12 +158,12 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
             color="text.primary"
             fontSize={14}
             fontWeight={600}
+            onClick={handleAuthorClick}
+            {...mouseEvents}
             sx={{
               display: 'inline-block',
               cursor: 'pointer',
             }}
-            onClick={handleAuthorClick}
-            {...mouseEvents}
           >
             {post.author?.name}
           </Typography>
