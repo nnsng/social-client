@@ -131,17 +131,17 @@ const configStyles = (readOnly: boolean) => {
 
     '& .md-preview': {
       m: 0,
-      mt: readOnly ? -2 : 0,
+      mt: readOnly ? -1 : 0,
       mb: readOnly ? -1 : 0,
       color: 'text.primary',
 
       '& img': {
-        mt: 2,
+        mt: 1,
         mb: 1,
       },
 
       '& table': {
-        mt: 2,
+        mt: 1,
         mb: 1,
         '& thead th': {
           bgcolor: 'action.hover',

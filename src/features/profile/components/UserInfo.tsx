@@ -51,11 +51,9 @@ export default function UserInfo(props: IUserInfoProps) {
             {userInfo.name}
           </Typography>
 
-          {smUp && (
-            <Typography component="p" fontSize={{ xs: 14, sm: 16 }} mt={-0.5}>
-              @{userInfo.username}
-            </Typography>
-          )}
+          <Typography component="p" fontSize={{ xs: 12, sm: 16 }} mt={-0.5}>
+            @{userInfo.username}
+          </Typography>
 
           <Stack sx={{ '& > span:first-of-type': { ml: 0 } }}>
             {['following', 'followers'].map((x) => (

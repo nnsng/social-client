@@ -28,24 +28,18 @@ export default function ChatMessage({ message }: IChatMessageProps) {
           px: 1,
           py: 0.5,
           ml: isMe ? 'auto' : 0,
-          borderRadius: 2,
-          bgcolor: isMe ? 'transparent' : 'action.selected',
           '&:first-of-type': {
             mt: 1,
           },
-          ...(isMe
-            ? {
-                '&::after': {
-                  content: '""',
-                  position: 'absolute',
-                  zIndex: 0,
-                  inset: 0,
-                  bgcolor: 'primary.main',
-                  opacity: 0.5,
-                  borderRadius: 2,
-                },
-              }
-            : {}),
+          '&::after': {
+            content: '""',
+            position: 'absolute',
+            zIndex: 0,
+            inset: 0,
+            bgcolor: isMe ? 'primary.main' : 'action.selected',
+            opacity: isMe ? 0.5 : 1,
+            borderRadius: 2,
+          },
         }}
       >
         <Typography
