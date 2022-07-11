@@ -24,7 +24,7 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
   const { validate } = translateFiles('validate');
 
   const schema = yup.object().shape({
-    name: yup.string().required(validate.name.required).max(50, validate.name.max(50)),
+    name: yup.string().required(validate.name.required).max(30, validate.name.max(30)),
     avatar: yup.string(),
     username: yup
       .string()

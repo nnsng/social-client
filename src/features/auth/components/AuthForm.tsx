@@ -264,7 +264,7 @@ function AuthButton({ children, ...props }: ButtonProps) {
   );
 }
 
-function getValidateSchema(mode: 'login' | 'register', translation: any) {
+function getValidateSchema(mode: 'login' | 'register', validateMessage: any) {
   if (mode === 'login') {
     return {
       name: yup.string(),
@@ -273,12 +273,15 @@ function getValidateSchema(mode: 'login' | 'register', translation: any) {
   }
 
   return {
-    name: yup.string().required(translation.name.required).max(255, translation.name.max(255)),
+    name: yup
+      .string()
+      .required(validateMessage.name.required)
+      .max(30, validateMessage.name.max(30)),
     username: yup
       .string()
-      .required(translation.username.required)
-      .min(6, translation.username.min(6))
-      .max(50, translation.username.max(20))
-      .matches(/^[a-zA-Z0-9_\.]+$/, translation.username.valid),
+      .required(validateMessage.username.required)
+      .min(6, validateMessage.username.min(6))
+      .max(20, validateMessage.username.max(20))
+      .matches(/^[a-zA-Z0-9_\.]+$/, validateMessage.username.valid),
   };
 }

@@ -40,7 +40,7 @@ const validate = {
   },
   content: {
     required: 'Please enter content',
-    min: (n: number) => `Content must be at least ${n} characters`,
+    // min: (n: number) => `Content must be at least ${n} characters`,
   },
   hashtags: {
     min: (n: number) => `Hashtags must be at least ${n} characters`,

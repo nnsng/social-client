@@ -40,7 +40,7 @@ const validate = {
   },
   content: {
     required: 'Vui lòng nhập nội dung',
-    min: (n: number) => `Nội dung tối thiểu ${n} ký tự`,
+    // min: (n: number) => `Nội dung tối thiểu ${n} ký tự`,
   },
   hashtags: {
     min: (n: number) => `Hashtag tối thiểu ${n} ký tự`,

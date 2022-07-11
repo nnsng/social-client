@@ -10,7 +10,7 @@ export interface ITimeTooltipProps {
 }
 
 export function TimeTooltip(props: ITimeTooltipProps) {
-  const { timestamp, format = 'DD/MM/YYYY HH:mm', placement, arrow, children } = props;
+  const { timestamp, format = 'DD/MM/YYYY, HH:mm', placement, arrow, children } = props;
 
   return (
     <Tooltip

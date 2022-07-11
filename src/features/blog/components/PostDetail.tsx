@@ -69,8 +69,7 @@ export default function PostDetail(props: IPostDetailProps) {
           onSave={handleSavePost}
           onRemove={() => setOpenDialog(true)}
           sx={{
-            mt: 2,
-            mb: 3,
+            my: 2,
             mx: 0,
             '& .icon-button': {
               ml: 1,
