@@ -1,5 +1,4 @@
 import queryString from 'query-string';
-import React from 'react';
 import { useLocation } from 'react-router-dom';
 import ActiveAccount from './components/ActiveAccount';
 import AuthLayout from './components/AuthLayout';

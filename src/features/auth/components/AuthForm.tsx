@@ -8,6 +8,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import { useAppSelector } from 'app/hooks';
 import { MuiTextField } from 'components/formFields';
 import { GoogleIcon } from 'components/icons';
 import i18next from 'i18next';
@@ -22,6 +23,7 @@ import { themeMixins } from 'utils/theme';
 import { showErrorToast } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
+import { selectAuthSubmitting } from '../authSlice';
 
 export interface IAuthFormProps {
   defaultValues: IAuthFormValues;
@@ -38,7 +40,8 @@ export default function AuthForm(props: IAuthFormProps) {
   const { t } = useTranslation('authForm');
   const { validate, toast: toastTranslation } = translateFiles('validate', 'toast');
 
-  const [submitLoading, setSubmitLoading] = useState<boolean>(false);
+  const authSubmitting = useAppSelector(selectAuthSubmitting);
+
   const [forgotLoading, setForgotLoading] = useState<boolean>(false);
 
   const validateSchema = getValidateSchema(defaultValues.mode, validate);
@@ -65,17 +68,23 @@ export default function AuthForm(props: IAuthFormProps) {
   }, [i18next.language]);
 
   const handleSwitchMode = () => {
+    if (authSubmitting) return;
     reset();
     switchMode?.();
   };
 
   const handleFormSubmit = (formValues: IAuthFormValues) => {
-    setSubmitLoading(true);
     onSubmit?.(formValues);
-    setSubmitLoading(false);
+  };
+
+  const handleGoogleLogin = () => {
+    if (authSubmitting) return;
+    onGoogleLogin?.();
   };
 
   const handleForgotPassword = async () => {
+    if (authSubmitting) return;
+
     try {
       const email = getValues('email');
       if (email.trim().length === 0) {
@@ -167,6 +176,7 @@ export default function AuthForm(props: IAuthFormProps) {
                   label={t(`label.${name}`)}
                   variant="outlined"
                   size="medium"
+                  disabled={authSubmitting}
                   rounded
                   {...props}
                   sx={{
@@ -188,8 +198,8 @@ export default function AuthForm(props: IAuthFormProps) {
           <AuthButton
             type="submit"
             variant="contained"
-            disabled={submitLoading}
-            startIcon={submitLoading && <CircularProgress size={20} color="primary" />}
+            disabled={authSubmitting}
+            startIcon={authSubmitting && <CircularProgress size={20} color="primary" />}
             sx={{ fontSize: 16 }}
           >
             {t(`button.${defaultValues.mode}`)}
@@ -199,7 +209,7 @@ export default function AuthForm(props: IAuthFormProps) {
             <AuthButton
               variant="outlined"
               startIcon={<GoogleIcon width={24} />}
-              onClick={onGoogleLogin}
+              onClick={handleGoogleLogin}
             >
               {t('googleLogin')}
             </AuthButton>
