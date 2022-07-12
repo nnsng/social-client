@@ -1,7 +1,7 @@
 const toast = {
   auth: {
     loginSuccess: 'Register successfully.',
-    activeSuccess: 'Your account has been activated.',
+    activeSuccess: 'Active account successfully.',
     activeAccount: 'Please check your email to active your account!',
   },
   createEditForm: {

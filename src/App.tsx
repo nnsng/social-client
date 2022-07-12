@@ -1,10 +1,9 @@
 import { userApi } from 'api';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { useAppDispatch } from 'app/hooks';
 import { CustomScrollbar, NotFound, PrivateRoute } from 'components/common';
 import Auth from 'features/auth';
-import { authActions, selectCurrentUser } from 'features/auth/authSlice';
+import { authActions } from 'features/auth/authSlice';
 import Blog from 'features/blog';
-import Chat from 'features/chat';
 import ProfilePage from 'features/profile';
 import Settings from 'features/settings';
 import SocketClient from 'features/socket';
@@ -21,7 +20,6 @@ function App() {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-  const currentUser = useAppSelector(selectCurrentUser);
 
   useEffect(() => {
     (async () => {
@@ -94,14 +92,12 @@ function App() {
         <Route
           path="*"
           element={
-            <PrivateRoute>
+            <PrivateRoute hideChat>
               <NotFound showHeader />
             </PrivateRoute>
           }
         />
       </Routes>
-
-      {currentUser && <Chat />}
     </CustomScrollbar>
   );
 }

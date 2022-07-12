@@ -3,10 +3,12 @@ import { RootState } from 'app/store';
 import { IAuthPayload, IUser } from 'models';
 
 export interface IAuthState {
+  submitting: boolean;
   currentUser: IUser | null;
 }
 
 const initialState: IAuthState = {
+  submitting: false,
   currentUser: null,
 };
 
@@ -29,11 +31,16 @@ const authSlice = createSlice({
     setCurrentUser(state, action: PayloadAction<IUser>) {
       state.currentUser = action.payload;
     },
+
+    setSubmitting(state, action: PayloadAction<boolean>) {
+      state.submitting = action.payload;
+    },
   },
 });
 
 export const authActions = authSlice.actions;
 
+export const selectAuthSubmitting = (state: RootState) => state.auth.submitting;
 export const selectCurrentUser = (state: RootState) => state.auth.currentUser;
 
 const authReducer = authSlice.reducer;

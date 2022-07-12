@@ -12,6 +12,7 @@ import { authActions } from './authSlice';
 function* handleLogin(action: PayloadAction<IAuthPayload>) {
   const { formValues, navigate } = action.payload;
 
+  yield put(authActions.setSubmitting(true));
   try {
     const response: IAuthResponse = yield call(authApi.login, formValues as IAuthFormValues);
     yield put(authActions.setCurrentUser(response.user));
@@ -20,6 +21,7 @@ function* handleLogin(action: PayloadAction<IAuthPayload>) {
   } catch (error) {
     showErrorToast(error);
   }
+  yield put(authActions.setSubmitting(false));
 }
 
 function* handleRegister(action: PayloadAction<IAuthPayload>) {
@@ -27,6 +29,7 @@ function* handleRegister(action: PayloadAction<IAuthPayload>) {
 
   const { toast: toastTranslation } = translateFiles('toast');
 
+  yield put(authActions.setSubmitting(true));
   try {
     yield call(authApi.register, formValues as IAuthFormValues);
     navigate?.('/login', { replace: true });
@@ -34,11 +37,13 @@ function* handleRegister(action: PayloadAction<IAuthPayload>) {
   } catch (error) {
     showErrorToast(error);
   }
+  yield put(authActions.setSubmitting(false));
 }
 
 function* handleGoogleLogin(action: PayloadAction<IAuthPayload>) {
   const { token, navigate } = action.payload;
 
+  yield put(authActions.setSubmitting(true));
   try {
     const response: IAuthResponse = yield call(authApi.googleLogin, token as string);
     if (response.activeToken) {
@@ -51,6 +56,7 @@ function* handleGoogleLogin(action: PayloadAction<IAuthPayload>) {
   } catch (error) {
     showErrorToast(error);
   }
+  yield put(authActions.setSubmitting(false));
 }
 
 function* handleActiveAccount(action: PayloadAction<IAuthPayload>) {

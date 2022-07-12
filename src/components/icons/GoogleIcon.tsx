@@ -1,4 +1,3 @@
-import React from 'react';
 import { IIconProps } from '.';
 
 export function GoogleIcon({ width, height = width }: IIconProps) {
