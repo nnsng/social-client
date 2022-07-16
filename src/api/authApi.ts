@@ -20,6 +20,10 @@ export const authApi = {
     const url = `${category}/active`;
     return axiosClient.post(url, { token });
   },
+  reactive(_id: string) {
+    const url = `${category}/reactive`;
+    return axiosClient.post(url, { _id });
+  },
   changePassword(data: IChangePasswordFormValues) {
     const url = `${category}/password/change`;
     return axiosClient.post(url, data);

@@ -24,7 +24,6 @@ export default function AuthLayout({ mode }: IAuthLayoutProps) {
   const googleLogin = useLoginWithGoogle();
 
   const defaultValues: IAuthFormValues = {
-    mode,
     email: '',
     password: '',
     name: '',
@@ -32,11 +31,7 @@ export default function AuthLayout({ mode }: IAuthLayoutProps) {
   };
 
   const switchMode = () => {
-    if (mode === 'login') {
-      navigate('/register');
-    } else {
-      navigate('/login');
-    }
+    navigate(mode === 'login' ? '/register' : '/login');
   };
 
   const handleFormSubmit = (formValues: IAuthFormValues) => {
@@ -70,6 +65,7 @@ export default function AuthLayout({ mode }: IAuthLayoutProps) {
       >
         <AuthForm
           defaultValues={defaultValues}
+          mode={mode}
           switchMode={switchMode}
           onSubmit={handleFormSubmit}
           onGoogleLogin={googleLogin}
