@@ -27,7 +27,6 @@ export interface IAuthResponse {
 }
 
 export interface IAuthFormValues {
-  mode: 'login' | 'register';
   email: string;
   password: string;
   name?: string;

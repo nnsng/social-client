@@ -27,6 +27,7 @@ import { selectAuthSubmitting } from '../authSlice';
 
 export interface IAuthFormProps {
   defaultValues: IAuthFormValues;
+  mode: 'login' | 'register';
   switchMode?: () => void;
   onSubmit?: (formValues: IAuthFormValues) => void;
   onGoogleLogin?: () => void;
@@ -34,8 +35,8 @@ export interface IAuthFormProps {
 }
 
 export default function AuthForm(props: IAuthFormProps) {
-  const { defaultValues, switchMode, onSubmit, onGoogleLogin, onForgotPassword } = props;
-  const isRegisterMode = defaultValues.mode === 'register';
+  const { defaultValues, mode, switchMode, onSubmit, onGoogleLogin, onForgotPassword } = props;
+  const isRegisterMode = mode === 'register';
 
   const { t } = useTranslation('authForm');
   const { validate, toast: toastTranslation } = translateFiles('validate', 'toast');
@@ -44,7 +45,7 @@ export default function AuthForm(props: IAuthFormProps) {
 
   const [forgotLoading, setForgotLoading] = useState<boolean>(false);
 
-  const validateSchema = getValidateSchema(defaultValues.mode, validate);
+  const validateSchema = getValidateSchema(mode, validate);
 
   const schema = yup.object().shape({
     email: yup.string().required(validate.email.required).email(validate.email.email),
@@ -65,11 +66,11 @@ export default function AuthForm(props: IAuthFormProps) {
 
   useEffect(() => {
     clearErrors();
-  }, [i18next.language]);
+    reset();
+  }, [mode]);
 
   const handleSwitchMode = () => {
     if (authSubmitting) return;
-    reset();
     switchMode?.();
   };
 
@@ -161,7 +162,7 @@ export default function AuthForm(props: IAuthFormProps) {
           </Avatar>
 
           <Typography color="text.primary" fontSize={24} fontWeight={600}>
-            {t(`title.${defaultValues.mode}`, { appName: APP_NAME })}
+            {t(`title.${mode}`, { appName: APP_NAME })}
           </Typography>
         </Stack>
 
@@ -202,7 +203,7 @@ export default function AuthForm(props: IAuthFormProps) {
             startIcon={authSubmitting && <CircularProgress size={20} color="primary" />}
             sx={{ fontSize: 16 }}
           >
-            {t(`button.${defaultValues.mode}`)}
+            {t(`button.${mode}`)}
           </AuthButton>
 
           {!isRegisterMode && (
@@ -217,7 +218,7 @@ export default function AuthForm(props: IAuthFormProps) {
 
           <Box textAlign="center">
             <Typography component="span" fontSize={14} fontWeight={400} sx={{ cursor: 'default' }}>
-              {t(`text.${defaultValues.mode}`)}{' '}
+              {t(`text.${mode}`)}{' '}
             </Typography>
 
             <Typography
@@ -228,7 +229,7 @@ export default function AuthForm(props: IAuthFormProps) {
               onClick={handleSwitchMode}
               sx={{ cursor: 'pointer' }}
             >
-              {t(`switch.${defaultValues.mode}`)}
+              {t(`switch.${mode}`)}
             </Typography>
           </Box>
 

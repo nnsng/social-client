@@ -45,6 +45,8 @@ const toast = {
     alreadyFollow: 'Bạn đã theo dõi người dùng này.',
     notFollow: 'Bạn chưa theo dõi người dùng này.',
 
+    JsonWebTokenError: 'Token không hợp lệ.',
+
     // post / comment
     postNotFound: 'Không tìm thấy bài viết.',
     postSaved: 'Bài viết đã được lưu.',

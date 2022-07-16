@@ -8,7 +8,8 @@ export const showComingSoonToast = () => {
 
 export const showErrorToast = (error: any) => {
   const { toast: toastTranslation } = translateFiles('toast');
-  const name = error?.response?.data?.name || 'somethingWrong';
-  const message = toastTranslation.errors[name];
+  const somethingWrong = 'somethingWrong';
+  const name = error?.response?.data?.name || somethingWrong;
+  const message = toastTranslation.errors[name] || toastTranslation.errors[somethingWrong];
   toast.error(message);
 };

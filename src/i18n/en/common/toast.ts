@@ -45,6 +45,8 @@ const toast = {
     alreadyFollow: 'You already follow this user.',
     notFollow: 'You have not follow this user yet.',
 
+    JsonWebTokenError: 'Token is invalid.',
+
     // post / comment
     postNotFound: 'Post not found.',
     postSaved: 'Post already saved.',

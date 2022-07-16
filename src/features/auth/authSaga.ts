@@ -59,22 +59,6 @@ function* handleGoogleLogin(action: PayloadAction<IAuthPayload>) {
   yield put(authActions.setSubmitting(false));
 }
 
-function* handleActiveAccount(action: PayloadAction<IAuthPayload>) {
-  const { token, navigate } = action.payload;
-
-  const { toast: toastTranslation } = translateFiles('toast');
-
-  try {
-    const response: IAuthResponse = yield call(authApi.active, token || '');
-    yield put(authActions.setCurrentUser(response.user));
-    localStorage.setItem(ACCESS_TOKEN, response.token);
-    navigate?.('/', { replace: true });
-    toast.success(toastTranslation.auth.activeSuccess);
-  } catch (error) {
-    showErrorToast(error);
-  }
-}
-
 function* handleLogout(action: PayloadAction<IAuthPayload>) {
   const { navigate } = action.payload;
 
@@ -88,6 +72,5 @@ export default function* authSaga() {
   yield takeLatest(authActions.login.type, handleLogin);
   yield takeLatest(authActions.register.type, handleRegister);
   yield takeLatest(authActions.googleLogin.type, handleGoogleLogin);
-  yield takeLatest(authActions.activeAccount.type, handleActiveAccount);
   yield takeLatest(authActions.logout.type, handleLogout);
 }
