@@ -11,7 +11,6 @@ import {
 import { useAppSelector } from 'app/hooks';
 import { MuiTextField } from 'components/formFields';
 import { GoogleIcon } from 'components/icons';
-import i18next from 'i18next';
 import { IAuthFormValues, IField } from 'models';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -23,19 +22,20 @@ import { themeMixins } from 'utils/theme';
 import { showErrorToast } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
+import { AuthModeTypes } from '..';
 import { selectAuthSubmitting } from '../authSlice';
 
 export interface IAuthFormProps {
+  mode: AuthModeTypes;
   defaultValues: IAuthFormValues;
-  mode: 'login' | 'register';
+  onSubmit: (formValues: IAuthFormValues) => void;
   switchMode?: () => void;
-  onSubmit?: (formValues: IAuthFormValues) => void;
   onGoogleLogin?: () => void;
   onForgotPassword?: (email: string) => void;
 }
 
 export default function AuthForm(props: IAuthFormProps) {
-  const { defaultValues, mode, switchMode, onSubmit, onGoogleLogin, onForgotPassword } = props;
+  const { mode, defaultValues, onSubmit, switchMode, onGoogleLogin, onForgotPassword } = props;
   const isRegisterMode = mode === 'register';
 
   const { t } = useTranslation('authForm');
@@ -54,7 +54,6 @@ export default function AuthForm(props: IAuthFormProps) {
       .required(validate.password.required)
       .min(6, validate.password.min(6))
       .max(255, validate.password.max(255)),
-    mode: yup.string().required().oneOf(['login', 'register']),
     name: validateSchema.name,
     username: validateSchema.username,
   });
@@ -72,10 +71,6 @@ export default function AuthForm(props: IAuthFormProps) {
   const handleSwitchMode = () => {
     if (authSubmitting) return;
     switchMode?.();
-  };
-
-  const handleFormSubmit = (formValues: IAuthFormValues) => {
-    onSubmit?.(formValues);
   };
 
   const handleGoogleLogin = () => {
@@ -131,7 +126,7 @@ export default function AuthForm(props: IAuthFormProps) {
   ];
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} style={{ width: '100%' }}>
+    <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
       <Stack
         direction="column"
         sx={{
@@ -196,7 +191,7 @@ export default function AuthForm(props: IAuthFormProps) {
               )
           )}
 
-          <AuthButton
+          <StyledButton
             type="submit"
             variant="contained"
             disabled={authSubmitting}
@@ -204,16 +199,16 @@ export default function AuthForm(props: IAuthFormProps) {
             sx={{ fontSize: 16 }}
           >
             {t(`button.${mode}`)}
-          </AuthButton>
+          </StyledButton>
 
           {!isRegisterMode && (
-            <AuthButton
+            <StyledButton
               variant="outlined"
               startIcon={<GoogleIcon width={24} />}
               onClick={handleGoogleLogin}
             >
               {t('googleLogin')}
-            </AuthButton>
+            </StyledButton>
           )}
 
           <Box textAlign="center">
@@ -256,7 +251,7 @@ export default function AuthForm(props: IAuthFormProps) {
   );
 }
 
-function AuthButton({ children, ...props }: ButtonProps) {
+function StyledButton({ children, ...props }: ButtonProps) {
   const { sx, ...restProps } = props;
 
   return (
@@ -275,7 +270,7 @@ function AuthButton({ children, ...props }: ButtonProps) {
   );
 }
 
-function getValidateSchema(mode: 'login' | 'register', validateMessage: any) {
+function getValidateSchema(mode: AuthModeTypes, validateMessage: any) {
   if (mode === 'login') {
     return {
       name: yup.string(),

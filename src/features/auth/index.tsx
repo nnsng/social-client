@@ -4,9 +4,9 @@ import ActiveAccount from './components/ActiveAccount';
 import AuthLayout from './components/AuthLayout';
 import { NewPassword } from './components/NewPassword';
 
-type AuthModeTypes = 'login' | 'register' | 'active' | 'createPassword' | 'resetPassword';
+export type AuthModeTypes = 'login' | 'register';
 export interface AuthPageProps {
-  mode: AuthModeTypes;
+  mode: AuthModeTypes | 'active' | 'createPassword' | 'resetPassword';
 }
 
 export default function Auth({ mode }: AuthPageProps) {
