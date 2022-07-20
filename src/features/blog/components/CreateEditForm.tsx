@@ -26,6 +26,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { delay } from 'utils/common';
 import { themeMixins, themeVariables } from 'utils/theme';
+import { showErrorToast } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
@@ -100,14 +101,11 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
     setValue('thumbnail', '');
   };
 
-  const handleFormSubmit = async (data: IPost) => {
+  const handleFormSubmit = async (formValues: IPost) => {
     try {
-      await onSubmit?.(data);
+      await onSubmit?.(formValues);
     } catch (error) {
-      const content = isNewPost
-        ? toastTranslation.createEditForm.createError
-        : toastTranslation.createEditForm.updateError;
-      toast.error(content);
+      showErrorToast(error);
     }
   };
 

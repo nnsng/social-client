@@ -122,7 +122,7 @@ export function AppearanceDialog(props: IAppearanceDialogProps) {
                   key={code}
                   control={
                     <Radio
-                      name="lang"
+                      name="language"
                       value={code}
                       checked={language === code}
                       onChange={handleUpdateConfig}

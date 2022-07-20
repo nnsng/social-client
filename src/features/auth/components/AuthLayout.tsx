@@ -7,11 +7,12 @@ import { useLoginWithGoogle } from 'hooks';
 import { IAuthFormValues } from 'models';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { AuthModeTypes } from '..';
 import { authActions } from '../authSlice';
 import AuthForm from './AuthForm';
 
 export interface IAuthLayoutProps {
-  mode: 'login' | 'register';
+  mode: AuthModeTypes;
 }
 
 export default function AuthLayout({ mode }: IAuthLayoutProps) {
@@ -64,8 +65,8 @@ export default function AuthLayout({ mode }: IAuthLayoutProps) {
         }}
       >
         <AuthForm
-          defaultValues={defaultValues}
           mode={mode}
+          defaultValues={defaultValues}
           switchMode={switchMode}
           onSubmit={handleFormSubmit}
           onGoogleLogin={googleLogin}

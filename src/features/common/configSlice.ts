@@ -1,28 +1,27 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { ConfigKey, IUserConfig } from 'models';
-import { localConfig } from 'utils/common';
+import { CONFIG } from 'utils/constants';
 
-const initialState: IUserConfig = {
+const localConfig = JSON.parse(localStorage.getItem(CONFIG) || '{}');
+
+const initialState = {
   theme: 'light',
   color: '#FF652F',
-  lang: 'vi',
-  ...localConfig.get(),
+  language: 'vi',
+  ...localConfig,
 };
 
 const configSlice = createSlice({
   name: 'config',
   initialState,
   reducers: {
-    update(state, action: PayloadAction<Partial<IUserConfig>>) {
-      const config = action.payload;
-      const keyList = Object.keys(config) as ConfigKey[];
+    update(state, action: PayloadAction<object>) {
+      const configEntries = Object.entries(action.payload);
 
-      for (const key of keyList) {
-        const value: any = config[key];
+      for (const [key, value] of configEntries) {
         state[key] = value;
-        localConfig.update({ [key]: value });
       }
+      localStorage.setItem(CONFIG, JSON.stringify(state));
     },
   },
 });
@@ -31,7 +30,7 @@ export const configActions = configSlice.actions;
 
 export const selectThemeMode = (state: RootState) => state.config.theme;
 export const selectThemeColor = (state: RootState) => state.config.color;
-export const selectLanguage = (state: RootState) => state.config.lang;
+export const selectLanguage = (state: RootState) => state.config.language;
 
 const configReducer = configSlice.reducer;
 export default configReducer;
