@@ -1,5 +1,3 @@
-import { IUserConfig } from './auth';
-
 // post
 export type PostByType = 'all' | 'following';
 export type PostActionType = 'save' | 'remove';
@@ -12,4 +10,3 @@ export type NotiType = 'like' | 'comment' | 'follow' | 'report';
 
 // others
 export type FollowModeType = 'follow' | 'unfollow';
-export type ConfigKey = keyof IUserConfig;

@@ -3,10 +3,10 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/vi';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import i18next from 'i18next';
-import { ConfigKey, IPost, IUserConfig } from 'models';
+import { IPost } from 'models';
 import { toast } from 'react-toastify';
 import slugify from 'slugify';
-import { CONFIG } from './constants';
+import { showErrorToast } from './toast';
 import { translateFiles } from './translation';
 
 export const formatTime = (timestamp: any, template?: string) => {
@@ -32,7 +32,7 @@ export const getImageUrlFromCDN = async (image: File) => {
     const imageObject: any = await otherApi.uploadImageToCDN(formData);
     return imageObject?.url || '';
   } catch (error) {
-    console.log('Failed to get image url from cdn:', error);
+    showErrorToast(error);
   }
 };
 
@@ -48,19 +48,6 @@ export const formatHashtag = (hashtag: string) => {
 
 export const delay = async (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
-};
-
-export const localConfig = {
-  get(key?: ConfigKey) {
-    const config = JSON.parse(localStorage.getItem(CONFIG) || '{}');
-    if (key) return config?.[key] || '';
-    return config;
-  },
-  update(newConfig: Partial<IUserConfig>) {
-    const config = this.get();
-    const updatedConfig = { ...config, ...newConfig };
-    localStorage.setItem(CONFIG, JSON.stringify(updatedConfig));
-  },
 };
 
 export const validateEmail = (email: string) => {

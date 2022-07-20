@@ -1,4 +1,3 @@
-import { PaletteMode } from '@mui/material';
 import { NavigateFunction } from 'react-router-dom';
 
 export interface IFollow {
@@ -45,12 +44,6 @@ export interface IAuthPayload {
   formValues?: IAuthFormValues;
   token?: string;
   navigate?: NavigateFunction;
-}
-
-export interface IUserConfig {
-  theme: PaletteMode;
-  color: string;
-  lang: string;
 }
 
 export interface IField {

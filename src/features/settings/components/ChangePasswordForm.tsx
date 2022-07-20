@@ -60,7 +60,10 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
     try {
       await onSubmit(formValues);
       reset();
-      isChangePasswordMode && toast.success(toastTranslation.changePasswordForm.success);
+
+      if (isChangePasswordMode) {
+        toast.success(toastTranslation.changePasswordForm.success);
+      }
     } catch (error) {
       showErrorToast(error);
     }
