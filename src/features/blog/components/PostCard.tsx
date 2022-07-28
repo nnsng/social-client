@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 import { ConfirmDialog } from 'components/common';
 import { IPost, PostActionType } from 'models';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -10,6 +10,25 @@ import { themeMixins } from 'utils/theme';
 import { showErrorToast } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 import PostCardHeader from './PostCardHeader';
+
+const allowedElements = [
+  'p',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  'blockquote',
+  'ul',
+  'ol',
+  'li',
+  'strong',
+  'em',
+  'code',
+  'a',
+  'span',
+];
 
 export interface IPostCardProps {
   post: IPost;
@@ -24,6 +43,16 @@ export default function PostCard(props: IPostCardProps) {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [openDialog, setOpenDialog] = useState<boolean>(false);
+
+  // prevent click on anchor tag
+  useEffect(() => {
+    const anchorTags = document.querySelectorAll('.post-content a');
+    [...anchorTags].forEach((anchor) => {
+      anchor.addEventListener('click', (e) => {
+        e.preventDefault();
+      });
+    });
+  }, []);
 
   const closeDialog = () => setOpenDialog(false);
 
@@ -97,23 +126,26 @@ export default function PostCard(props: IPostCardProps) {
               <Typography
                 component="div"
                 variant="body1"
-                color="text.secondary"
+                className="post-content"
                 sx={{
                   ...themeMixins.truncate(2),
                   m: 0,
                   mt: 0.5,
                   '& *': {
                     maxWidth: '100%',
+                    color: 'text.secondary',
                     fontSize: 16,
                     fontWeight: 400,
                     fontStyle: 'normal',
+                    textDecoration: 'none',
+                    cursor: 'text',
                   },
                 }}
               >
                 <ReactMarkdown
                   children={post.content}
                   remarkPlugins={[remarkGfm]}
-                  disallowedElements={['table', 'img']}
+                  allowedElements={allowedElements}
                 />
               </Typography>
             </Box>

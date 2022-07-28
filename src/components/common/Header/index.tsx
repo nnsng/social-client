@@ -14,7 +14,7 @@ import { useAppSelector } from 'app/hooks';
 import { selectPostLoading } from 'features/blog/blogSlice';
 import { ILocationState } from 'models';
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
 import { themeMixins, themeVariables } from 'utils/theme';
 import HeaderIconButton from './HeaderIconButton';
@@ -23,6 +23,7 @@ import SearchBox from './SearchBox';
 import UserMenu from './UserMenu';
 
 export function Header() {
+  const navigate = useNavigate();
   const location = useLocation();
   const showHeaderMenu = !(location.state as ILocationState)?.hideHeaderMenu;
 
@@ -32,6 +33,12 @@ export function Header() {
 
   const toggleSearchMobile = () => {
     setOpenSearchMobile(!openSearchMobile);
+  };
+
+  const handleHomeClick = () => {
+    const event = new Event('homeClick');
+    window.dispatchEvent(event);
+    navigate('/blog');
   };
 
   const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
@@ -60,7 +67,12 @@ export function Header() {
       <Container>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item xs="auto" mr={2}>
-            <Stack alignItems="center" spacing={0.8} component={Link} to="/blog">
+            <Stack
+              alignItems="center"
+              spacing={0.8}
+              onClick={handleHomeClick}
+              sx={{ cursor: 'pointer' }}
+            >
               <Avatar
                 sx={{
                   display: { xs: 'none', sm: 'inline-flex' },

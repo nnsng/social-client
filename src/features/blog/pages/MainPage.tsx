@@ -24,17 +24,21 @@ export function MainPage() {
   });
   const [hashtagList, setHashtagList] = useState<string[]>([]);
 
-  const resetSearchFilter: IListParams = {
-    search: undefined,
-    hashtag: undefined,
-  };
+  useEffect(() => {
+    const setPageOne = () => setFilter({ page: 1 });
+    window.addEventListener('homeClick', setPageOne);
+    return () => {
+      window.removeEventListener('homeClick', setPageOne);
+    };
+  }, []);
 
   useEffect(() => {
     const params = queryString.parse(location.search);
     setFilter({
       ...filter,
       page: 1,
-      ...resetSearchFilter,
+      search: undefined,
+      hashtag: undefined,
       ...params,
       username: undefined,
     });
@@ -58,7 +62,12 @@ export function MainPage() {
   }, []);
 
   const handleFilterChange = (newFilter: IListParams) => {
-    setFilter({ ...filter, page: 1, ...resetSearchFilter, ...newFilter });
+    setFilter({
+      ...filter,
+      page: 1,
+      search: undefined,
+      ...newFilter,
+    });
   };
 
   const handlePostAction = async (action: PostActionType, post: IPost) => {
