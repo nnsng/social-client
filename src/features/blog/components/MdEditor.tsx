@@ -71,7 +71,7 @@ const configStyles = (readOnly: boolean) => {
     '& .rc-md-editor': {
       height: '100%',
       border: 'none',
-      bgcolor: 'transparent',
+      bgcolor: (theme: Theme) => theme.palette.background.paper,
 
       '& .editor-container': {
         '& .sec-md .input, & .sec-html .html-wrap': {
