@@ -5,6 +5,7 @@ import background from 'assets/images/background.png';
 import { PageTitle } from 'components/common';
 import { useLoginWithGoogle } from 'hooks';
 import { IAuthFormValues } from 'models';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { AuthModeTypes } from '..';
@@ -23,6 +24,10 @@ export default function AuthLayout({ mode }: IAuthLayoutProps) {
   const dispatch = useAppDispatch();
 
   const googleLogin = useLoginWithGoogle();
+
+  useEffect(() => {
+    dispatch(authActions.setSubmitting(false));
+  }, [mode]);
 
   const defaultValues: IAuthFormValues = {
     email: '',
