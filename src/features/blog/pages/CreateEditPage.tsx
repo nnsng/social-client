@@ -45,10 +45,8 @@ export function CreateEditPage() {
     : editedPost;
 
   const handleFormSubmit = async (data: IPost) => {
-    const savedPost = (isNewPost
-      ? await postApi.create(data)
-      : await postApi.update(data)) as unknown as IPost;
-
+    const action = isNewPost ? 'create' : 'update';
+    const savedPost = await postApi[action](data);
     navigate(`/blog/post/${savedPost.slug}`);
   };
 

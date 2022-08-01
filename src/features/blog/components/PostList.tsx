@@ -37,7 +37,7 @@ export default function PostList(props: IPostListProps) {
   const totalPage = useAppSelector(selectTotalPages);
   const loading = useAppSelector(selectPostLoading);
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+  const handlePageChange = (event: any, page: number) => {
     onFilterChange?.({ page });
   };
 

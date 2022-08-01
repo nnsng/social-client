@@ -1,55 +1,53 @@
 import { IListParams, IPost, ISearchObj } from 'models';
 import axiosClient from './axiosClient';
 
-const category = '/posts';
-
 export const postApi = {
   getAll(params: IListParams) {
-    const url = `${category}`;
+    const url = '/posts';
     return axiosClient.get(url, { params });
   },
   getSavedList(params: IListParams) {
-    const url = `${category}/saved`;
+    const url = '/posts/saved';
     return axiosClient.get(url, { params });
   },
   getBySlug(slug: string) {
-    const url = `${category}/detail/${slug}`;
+    const url = `/posts/detail/${slug}`;
     return axiosClient.get(url);
   },
   getForEdit(id: string) {
-    const url = `${category}/${id}`;
+    const url = `/posts/${id}`;
     return axiosClient.get(url);
   },
   search(searchObj: ISearchObj) {
-    const url = `${category}/search`;
+    const url = '/posts/search';
     return axiosClient.get(url, { params: searchObj });
   },
-  create(data: IPost) {
-    const url = `${category}`;
+  create(data: IPost): Promise<IPost> {
+    const url = '/posts';
     return axiosClient.post(url, data);
   },
-  update(data: IPost) {
-    const url = `${category}/${data._id}`;
+  update(data: IPost): Promise<IPost> {
+    const url = `/posts/${data._id}`;
     return axiosClient.patch(url, data);
   },
   remove(id: string) {
-    const url = `${category}/${id}`;
+    const url = `/posts/${id}`;
     return axiosClient.delete(url);
   },
   like(id: string) {
-    const url = `${category}/${id}/like`;
+    const url = `/posts/${id}/like`;
     return axiosClient.post(url);
   },
   save(id: string) {
-    const url = `${category}/${id}/save`;
+    const url = `/posts/${id}/save`;
     return axiosClient.post(url);
   },
   unSave(id: string) {
-    const url = `${category}/${id}/unsave`;
+    const url = `/posts/${id}/unsave`;
     return axiosClient.post(url);
   },
-  getTopHashtags() {
-    const url = `${category}/get-top-hashtags`;
+  getTopHashtags(): Promise<string[]> {
+    const url = '/posts/get-top-hashtags';
     return axiosClient.get(url);
   },
 };

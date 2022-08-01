@@ -30,7 +30,7 @@ function App() {
         const user = await userApi.getCurrentUser();
         if (!user) throw new Error();
 
-        dispatch(authActions.setCurrentUser(user as unknown as IUser));
+        dispatch(authActions.setCurrentUser(user));
       } catch (error) {
         showErrorToast(error);
         dispatch(authActions.logout({ navigate }));

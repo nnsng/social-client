@@ -53,7 +53,7 @@ export function MainPage() {
   useEffect(() => {
     (async () => {
       try {
-        const topHashtags = (await postApi.getTopHashtags()) as unknown as string[];
+        const topHashtags = await postApi.getTopHashtags();
         setHashtagList(topHashtags);
       } catch (error) {
         setHashtagList([]);
