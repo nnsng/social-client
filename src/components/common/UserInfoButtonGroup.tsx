@@ -49,7 +49,7 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
     setLoading(true);
 
     try {
-      const updated = (await userApi[action](userId)) as unknown as IFollowResponse;
+      const updated = await userApi[action](userId);
       dispatch(authActions.setCurrentUser(updated.currentUser));
       updateUser?.(updated.selectedUser);
     } catch (error) {

@@ -34,7 +34,7 @@ export default function ProfilePage(props: IProfileProps) {
 
     (async () => {
       try {
-        const user = (await userApi.getUserInfo(username)) as unknown as Partial<IUser>;
+        const user = await userApi.getUserInfo(username);
         setUserInfo(user);
         fetchUserPostList({ page: 1 });
       } catch (error) {

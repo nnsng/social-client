@@ -32,7 +32,7 @@ export function MySavedPage() {
     dispatch(blogActions.fetchSavedList({ page }));
   };
 
-  const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+  const handlePageChange = (event: any, page: number) => {
     setPage(page);
   };
 
