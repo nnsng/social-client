@@ -13,7 +13,7 @@ export function UserInfoPopup(props: UserInfoPopupProps) {
 
   const [isOpen, setIsOpen] = useState<boolean>(open);
 
-  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
+  const mdUp = useMediaQuery<Theme>((theme) => theme.breakpoints.up('md'));
 
   return (
     <PopperPopup

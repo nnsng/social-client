@@ -23,7 +23,7 @@ export function ApplyTheme({ children }: ApplyThemeProps) {
   }, [themeMode, themeColor]);
 
   useEffect(() => {
-    const faviconElement = document.getElementById('favicon') as any;
+    const faviconElement = document.getElementById('favicon') as HTMLLinkElement;
     faviconElement.href = favicons[themeColor] ?? favicons['#000000'];
     document.documentElement.style.setProperty('--color-primary', themeColor);
   }, [themeColor]);

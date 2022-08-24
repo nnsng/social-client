@@ -41,8 +41,8 @@ export function Header() {
     navigate('/blog');
   };
 
-  const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
-  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
+  const smDown = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'));
+  const mdUp = useMediaQuery<Theme>((theme) => theme.breakpoints.up('md'));
 
   return (
     <Box

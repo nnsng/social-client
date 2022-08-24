@@ -18,7 +18,6 @@ import {
   MenuItem,
   Stack,
   TextField,
-  Theme,
   Tooltip,
   Typography,
 } from '@mui/material';
@@ -324,7 +323,7 @@ export default function CommentItem(props: CommentItemProps) {
                 open={openMenu}
                 anchorEl={anchorRef.current}
                 onClose={closeMenu}
-                sx={{ zIndex: (theme: Theme) => theme.zIndex.drawer + 1 }}
+                sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
               >
                 {commentMenu.map(({ label, icon: Icon, onClick, show }, idx) =>
                   show ? (

@@ -44,7 +44,7 @@ export default function SettingTabs() {
     },
   ];
 
-  const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
+  const smUp = useMediaQuery<Theme>((theme) => theme.breakpoints.up('sm'));
 
   return (
     <Tabs

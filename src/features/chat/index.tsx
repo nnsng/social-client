@@ -33,7 +33,7 @@ export default function ChatFeature() {
     dispatch(chatActions.setCurrentChat(null));
   };
 
-  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
+  const mdUp = useMediaQuery<Theme>((theme) => theme.breakpoints.up('md'));
   if (!mdUp) return null;
 
   return (

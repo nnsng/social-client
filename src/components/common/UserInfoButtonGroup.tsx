@@ -6,7 +6,7 @@ import {
   PersonOffRounded,
   PersonRemoveRounded,
 } from '@mui/icons-material';
-import { Button, CircularProgress, MenuItem, Stack, Theme } from '@mui/material';
+import { Button, CircularProgress, MenuItem, Stack } from '@mui/material';
 import { userApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectCurrentUser, userActions } from 'features/auth/userSlice';
@@ -172,7 +172,7 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
             open={openMenu}
             anchorEl={anchorRef.current}
             onClose={closeMenu}
-            sx={{ zIndex: (theme: Theme) => theme.zIndex.drawer + 2 }}
+            sx={{ zIndex: (theme) => theme.zIndex.drawer + 2 }}
           >
             {userInfoMenu.map(({ label, icon: Icon, onClick }, idx) => (
               <MenuItem

@@ -23,7 +23,7 @@ export default function TopHashtags(props: TopHashtagsProps) {
     onHashtagClick?.(undefined);
   };
 
-  const isOnPC = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+  const isOnPC = useMediaQuery<Theme>((theme) => theme.breakpoints.up('lg'));
 
   const hashtagWrapperSx: SxProps = isOnPC
     ? {

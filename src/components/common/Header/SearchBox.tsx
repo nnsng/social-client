@@ -148,7 +148,7 @@ export default function SearchBox(props: SearchBoxProps) {
 
   const onKeyUp = useSubmitWithEnter(handleViewMore);
 
-  const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+  const smDown = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'));
 
   return (
     <>

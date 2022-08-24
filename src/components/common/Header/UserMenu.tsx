@@ -5,9 +5,9 @@ import {
   LogoutOutlined,
   Settings,
 } from '@mui/icons-material';
-import { Avatar, Box, Divider, Drawer, MenuItem, MenuList, Theme, Typography } from '@mui/material';
+import { Avatar, Box, Divider, Drawer, MenuItem, MenuList, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { userActions, selectCurrentUser } from 'features/auth/userSlice';
+import { selectCurrentUser, userActions } from 'features/auth/userSlice';
 import { MenuItemProps } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -187,7 +187,7 @@ function MenuItemWrapper(props: MenuItemWrapperProps) {
         minWidth: 280,
         mt: 1,
         p: 0.8,
-        zIndex: (theme: Theme) => theme.zIndex.appBar + 1,
+        zIndex: (theme) => theme.zIndex.appBar + 1,
       }}
     >
       {children}

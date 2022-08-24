@@ -14,4 +14,4 @@ export default {
   '#C239B3': purple,
   '#000000': black,
   rainbow: rainbow,
-} as any;
+} as { [key: string]: any };

@@ -106,7 +106,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
     }
   };
 
-  const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
+  const smUp = useMediaQuery<Theme>((theme) => theme.breakpoints.up('sm'));
   const dialogWidth = smUp ? { fullWidth: true } : { fullScreen: true };
 
   return (

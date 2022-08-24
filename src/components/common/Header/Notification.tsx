@@ -54,7 +54,7 @@ export default function Notification() {
 
   const hasUnreadNoti = () => notiList.some((noti) => !noti.read);
 
-  const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+  const smDown = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'));
 
   return (
     <>
@@ -65,9 +65,7 @@ export default function Notification() {
         onClick={toggleNoti}
       />
 
-      {smDown && (
-        <Backdrop open={open} sx={{ zIndex: (theme: Theme) => theme.zIndex.appBar + 1 }}></Backdrop>
-      )}
+      {smDown && <Backdrop open={open} sx={{ zIndex: (theme) => theme.zIndex.appBar + 1 }} />}
 
       <PopperPopup
         open={open}
@@ -78,7 +76,7 @@ export default function Notification() {
           ml: { xs: 1, sm: 0 },
           mt: 1,
           borderRadius: 1,
-          zIndex: (theme: Theme) => theme.zIndex.appBar + 1,
+          zIndex: (theme) => theme.zIndex.appBar + 1,
         }}
       >
         <Stack alignItems="center" justifyContent="space-between" px={2} py={1}>

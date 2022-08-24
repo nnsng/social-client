@@ -45,11 +45,11 @@ export default function MdEditor(props: MdEditorProps) {
   };
 
   return (
-    <Box ref={ref} sx={configStyles(!!readOnly)}>
+    <Box ref={ref} sx={generateStyle(!!readOnly)}>
       <Editor
         markdownClass="md-editor"
         htmlClass="custom-html-style md-preview"
-        renderHTML={(text: string) => mdParser.render(text)}
+        renderHTML={(text) => mdParser.render(text)}
         onChange={onEditorChange}
         onImageUpload={handleImageUpload}
         value={value}
@@ -61,8 +61,8 @@ export default function MdEditor(props: MdEditorProps) {
   );
 }
 
-const configStyles = (readOnly: boolean) => {
-  const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+const generateStyle = (readOnly: boolean) => {
+  const smDown = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'));
 
   return {
     height: '100%',
