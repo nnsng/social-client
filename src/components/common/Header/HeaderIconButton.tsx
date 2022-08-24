@@ -1,13 +1,13 @@
 import { Badge, IconButton } from '@mui/material';
 import React from 'react';
 
-export interface IHeaderIconButtonProps {
+export interface HeaderIconButtonProps {
   icon: React.ReactElement;
   onClick?: () => void;
   showBadge?: boolean;
 }
 
-function HeaderIconButton(props: IHeaderIconButtonProps, ref?: any) {
+function HeaderIconButton(props: HeaderIconButtonProps, ref?: any) {
   const { icon, onClick, showBadge } = props;
 
   return (

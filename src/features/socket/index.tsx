@@ -1,12 +1,12 @@
 import { useAppSelector } from 'app/hooks';
-import { selectCurrentUser } from 'features/auth/authSlice';
+import { selectCurrentUser } from 'features/auth/userSlice';
 import { useEffect } from 'react';
 import ChatSocket from './components/ChatSocket';
 import CommentSocket from './components/CommentSocket';
 import NotiSocket from './components/NotiSocket';
 import { selectSocket } from './socketSlice';
 
-export interface ISocketProps {
+export interface SocketProps {
   socket: any;
 }
 

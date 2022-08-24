@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { notiActions, selectNotiList } from 'features/common/notiSlice';
-import { INotification } from 'models';
+import { Noti } from 'models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -34,11 +34,11 @@ export default function Notification() {
   const toggleNoti = () => setOpen(!open);
   const closeNoti = () => setOpen(false);
 
-  const markAsRead = (notiList: INotification[]) => {
+  const markAsRead = (notiList: Noti[]) => {
     dispatch(notiActions.markAsRead(notiList));
   };
 
-  const handleCommentClick = (noti: INotification) => {
+  const handleCommentClick = (noti: Noti) => {
     const { type, post, user } = noti;
 
     closeNoti();
@@ -54,7 +54,7 @@ export default function Notification() {
 
   const hasUnreadNoti = () => notiList.some((noti) => !noti.read);
 
-  const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+  const smDown = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'));
 
   return (
     <>
@@ -65,9 +65,7 @@ export default function Notification() {
         onClick={toggleNoti}
       />
 
-      {smDown && (
-        <Backdrop open={open} sx={{ zIndex: (theme) => theme.zIndex.appBar + 1 }}></Backdrop>
-      )}
+      {smDown && <Backdrop open={open} sx={{ zIndex: (theme) => theme.zIndex.appBar + 1 }} />}
 
       <PopperPopup
         open={open}

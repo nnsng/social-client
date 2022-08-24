@@ -1,5 +1,5 @@
 import { useAppDispatch } from 'app/hooks';
-import { authActions } from 'features/auth/authSlice';
+import { userActions } from 'features/auth/userSlice';
 import { useGoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 import { env, variables } from 'utils/env';
@@ -11,7 +11,7 @@ export function useLoginWithGoogle() {
 
   const onSuccess = async (res: any) => {
     const token = res.tokenId;
-    dispatch(authActions.googleLogin({ token, navigate }));
+    dispatch(userActions.googleLogin({ token, navigate }));
   };
 
   const onFailure = (error: any) => {};

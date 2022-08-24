@@ -3,11 +3,11 @@ import { useLocation } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
 
-export interface ICustomScrollbarProps {
+export interface CustomScrollbarProps {
   children?: React.ReactNode;
 }
 
-export function CustomScrollbar({ children }: ICustomScrollbarProps) {
+export function CustomScrollbar({ children }: CustomScrollbarProps) {
   const location = useLocation();
 
   const ref = useRef<any>(null);

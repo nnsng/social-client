@@ -10,3 +10,5 @@ export type NotiType = 'like' | 'comment' | 'follow' | 'report';
 
 // others
 export type FollowModeType = 'follow' | 'unfollow';
+
+export type ConfigKey = 'themeMode' | 'themeColor' | 'language';

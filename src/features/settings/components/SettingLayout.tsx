@@ -1,27 +1,27 @@
 import { authApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { NotFound } from 'components/common';
-import { selectCurrentUser } from 'features/auth/authSlice';
-import { IChangePasswordFormValues, IField, IUser } from 'models';
+import { selectCurrentUser } from 'features/auth/userSlice';
+import { ChangePasswordFormValues, FormField, User } from 'models';
 import { selectSettingSubmitting, settingActions } from '../settingSlice';
 import ChangePasswordForm from './ChangePasswordForm';
 import EditProfileForm from './EditProfileForm';
 
-export interface ISettingLayoutProps {
+export interface SettingLayoutProps {
   mode: 'edit-profile' | 'change-password';
 }
 
-export default function SettingLayout({ mode }: ISettingLayoutProps) {
+export default function SettingLayout({ mode }: SettingLayoutProps) {
   const dispatch = useAppDispatch();
   const submitting = useAppSelector(selectSettingSubmitting);
   const currentUser = useAppSelector(selectCurrentUser);
   const { _id, name, avatar, username, email, bio } = currentUser || {};
 
-  const handleUpdateProfile = (formValues: Partial<IUser>) => {
+  const handleUpdateProfile = (formValues: Partial<User>) => {
     dispatch(settingActions.updateProfile(formValues));
   };
 
-  const handleChangePassword = async (formValues: IChangePasswordFormValues) => {
+  const handleChangePassword = async (formValues: ChangePasswordFormValues) => {
     await authApi.changePassword(formValues);
   };
 
@@ -30,7 +30,7 @@ export default function SettingLayout({ mode }: ISettingLayoutProps) {
     await authApi.forgotPassword(email);
   };
 
-  const editProfileFormValues: Partial<IUser> = {
+  const editProfileFormValues: Partial<User> = {
     name,
     avatar,
     username,
@@ -38,14 +38,14 @@ export default function SettingLayout({ mode }: ISettingLayoutProps) {
     bio,
   };
 
-  const changePasswordFormValues: IChangePasswordFormValues = {
+  const changePasswordFormValues: ChangePasswordFormValues = {
     userId: _id,
     currentPassword: '',
     newPassword: '',
     confirmPassword: '',
   };
 
-  const changePasswordFields: IField[] = [
+  const changePasswordFields: FormField[] = [
     { name: 'currentPassword', props: {} },
     { name: 'newPassword', props: {} },
     { name: 'confirmPassword', props: {} },

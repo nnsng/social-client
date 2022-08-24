@@ -1,7 +1,7 @@
 import { Theme, ThemeProvider } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import favicons from 'assets/favicons';
-import { selectLanguage, selectThemeColor, selectThemeMode } from 'features/common/configSlice';
+import { selectUserConfig } from 'features/auth/userSlice';
 import i18next from 'i18next';
 import { SnackbarProvider } from 'notistack';
 import React, { useEffect, useState } from 'react';
@@ -9,14 +9,12 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { generateTheme, themeVariables } from 'utils/theme';
 
-export interface IApplyThemeProps {
+export interface ApplyThemeProps {
   children?: React.ReactNode;
 }
 
-export function ApplyTheme({ children }: IApplyThemeProps) {
-  const themeMode = useAppSelector(selectThemeMode);
-  const themeColor = useAppSelector(selectThemeColor);
-  const language = useAppSelector(selectLanguage);
+export function ApplyTheme({ children }: ApplyThemeProps) {
+  const { themeMode, themeColor, language } = useAppSelector(selectUserConfig);
 
   const [theme, setTheme] = useState<Theme>(generateTheme(themeMode, themeColor));
 
@@ -25,7 +23,7 @@ export function ApplyTheme({ children }: IApplyThemeProps) {
   }, [themeMode, themeColor]);
 
   useEffect(() => {
-    const faviconElement = document.getElementById('favicon') as any;
+    const faviconElement = document.getElementById('favicon') as HTMLLinkElement;
     faviconElement.href = favicons[themeColor] ?? favicons['#000000'];
     document.documentElement.style.setProperty('--color-primary', themeColor);
   }, [themeColor]);

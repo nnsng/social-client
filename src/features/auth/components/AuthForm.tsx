@@ -11,7 +11,7 @@ import {
 import { useAppSelector } from 'app/hooks';
 import { MuiTextField } from 'components/formFields';
 import { GoogleIcon } from 'components/icons';
-import { IAuthFormValues, IField } from 'models';
+import { AuthFormValues, FormField } from 'models';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -23,18 +23,18 @@ import { showErrorToast } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
 import { AuthModeTypes } from '..';
-import { selectAuthSubmitting } from '../authSlice';
+import { selectAuthSubmitting } from '../userSlice';
 
-export interface IAuthFormProps {
+export interface AuthFormProps {
   mode: AuthModeTypes;
-  defaultValues: IAuthFormValues;
-  onSubmit: (formValues: IAuthFormValues) => void;
+  defaultValues: AuthFormValues;
+  onSubmit: (formValues: AuthFormValues) => void;
   switchMode?: () => void;
   onGoogleLogin?: () => void;
   onForgotPassword?: (email: string) => void;
 }
 
-export default function AuthForm(props: IAuthFormProps) {
+export default function AuthForm(props: AuthFormProps) {
   const { mode, defaultValues, onSubmit, switchMode, onGoogleLogin, onForgotPassword } = props;
   const isRegisterMode = mode === 'register';
 
@@ -100,7 +100,7 @@ export default function AuthForm(props: IAuthFormProps) {
     setForgotLoading(false);
   };
 
-  const fieldList: IField[] = [
+  const fieldList: FormField[] = [
     {
       name: 'name',
       show: isRegisterMode,

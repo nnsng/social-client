@@ -1,12 +1,12 @@
-import { IListParams, IPost, ISearchObj } from 'models';
+import { ListParams, Post, SearchObj } from 'models';
 import axiosClient from './axiosClient';
 
 export const postApi = {
-  getAll(params: IListParams) {
+  getAll(params: ListParams) {
     const url = '/posts';
     return axiosClient.get(url, { params });
   },
-  getSavedList(params: IListParams) {
+  getSavedList(params: ListParams) {
     const url = '/posts/saved';
     return axiosClient.get(url, { params });
   },
@@ -18,15 +18,15 @@ export const postApi = {
     const url = `/posts/${id}`;
     return axiosClient.get(url);
   },
-  search(searchObj: ISearchObj) {
+  search(searchObj: SearchObj) {
     const url = '/posts/search';
     return axiosClient.get(url, { params: searchObj });
   },
-  create(data: IPost): Promise<IPost> {
+  create(data: Post): Promise<Post> {
     const url = '/posts';
     return axiosClient.post(url, data);
   },
-  update(data: IPost): Promise<IPost> {
+  update(data: Post): Promise<Post> {
     const url = `/posts/${data._id}`;
     return axiosClient.patch(url, data);
   },

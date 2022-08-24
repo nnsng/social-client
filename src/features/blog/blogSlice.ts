@@ -1,26 +1,26 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { IListParams, IListResponse, IPaginationParams, IPost, ISearchObj, IUser } from 'models';
+import { ListParams, ListResponse, PaginationParams, Post, SearchObj, User } from 'models';
 
-export interface ISearchResultItem {
+export interface SearchResultItem {
   _id: string;
   name: string;
   image: string;
   url: string;
 }
 
-export interface IBlogState {
+export interface PostState {
   loading: boolean;
-  list: IPost[];
-  saved: IPost[];
-  pagination: IPaginationParams | null;
-  detail: IPost | null;
+  list: Post[];
+  saved: Post[];
+  pagination: PaginationParams | null;
+  detail: Post | null;
 
-  searchResult: IPost[] | Partial<IUser>[];
+  searchResult: Post[] | Partial<User>[];
   searchLoading: boolean;
 }
 
-const initialState: IBlogState = {
+const initialState: PostState = {
   loading: false,
   list: [],
   saved: [],
@@ -32,14 +32,14 @@ const initialState: IBlogState = {
 };
 
 const blogSlice = createSlice({
-  name: 'blog',
+  name: 'post',
   initialState,
   reducers: {
-    fetchPostList(state, action: PayloadAction<IListParams>) {
+    fetchPostList(state, action: PayloadAction<ListParams>) {
       state.loading = true;
       state.list = [];
     },
-    fetchPostListSuccess(state, action: PayloadAction<IListResponse<IPost>>) {
+    fetchPostListSuccess(state, action: PayloadAction<ListResponse<Post>>) {
       state.loading = false;
       state.list = action.payload.data;
       state.pagination = action.payload.pagination;
@@ -48,11 +48,11 @@ const blogSlice = createSlice({
       state.loading = false;
     },
 
-    fetchSavedList(state, action: PayloadAction<IListParams>) {
+    fetchSavedList(state, action: PayloadAction<ListParams>) {
       state.loading = true;
       state.saved = [];
     },
-    fetchSavedListSuccess(state, action: PayloadAction<IListResponse<IPost>>) {
+    fetchSavedListSuccess(state, action: PayloadAction<ListResponse<Post>>) {
       state.loading = false;
       state.saved = action.payload.data;
       state.pagination = action.payload.pagination;
@@ -65,7 +65,7 @@ const blogSlice = createSlice({
       state.loading = true;
       state.detail = null;
     },
-    fetchPostDetailSuccess(state, action: PayloadAction<IPost>) {
+    fetchPostDetailSuccess(state, action: PayloadAction<Post>) {
       state.loading = false;
       state.detail = action.payload;
     },
@@ -74,7 +74,7 @@ const blogSlice = createSlice({
     },
 
     likePost(state, action: PayloadAction<string>) {},
-    likePostSuccess(state, action: PayloadAction<IPost>) {
+    likePostSuccess(state, action: PayloadAction<Post>) {
       state.detail = action.payload;
     },
 
@@ -82,11 +82,11 @@ const blogSlice = createSlice({
       if (state.detail) state.detail.commentCount = action.payload;
     },
 
-    searchWithDebounce(state, action: PayloadAction<ISearchObj>) {
+    searchWithDebounce(state, action: PayloadAction<SearchObj>) {
       state.searchLoading = true;
       state.searchResult = [];
     },
-    searchWithDebounceSuccess(state, action: PayloadAction<IPost[] | Partial<IUser>[]>) {
+    searchWithDebounceSuccess(state, action: PayloadAction<Post[] | Partial<User>[]>) {
       state.searchLoading = false;
       state.searchResult = action.payload;
     },
@@ -98,14 +98,14 @@ const blogSlice = createSlice({
 
 export const blogActions = blogSlice.actions;
 
-export const selectPostLoading = (state: RootState) => state.blog.loading;
-export const selectPostList = (state: RootState) => state.blog.list;
-export const selectSavedList = (state: RootState) => state.blog.saved;
-export const selectPostDetail = (state: RootState) => state.blog.detail;
-export const selectPostPagination = (state: RootState) => state.blog.pagination;
+export const selectPostLoading = (state: RootState) => state.post.loading;
+export const selectPostList = (state: RootState) => state.post.list;
+export const selectSavedList = (state: RootState) => state.post.saved;
+export const selectPostDetail = (state: RootState) => state.post.detail;
+export const selectPostPagination = (state: RootState) => state.post.pagination;
 
-export const selectSearchResult = (state: RootState) => state.blog.searchResult;
-export const selectSearchLoading = (state: RootState) => state.blog.searchLoading;
+export const selectSearchResult = (state: RootState) => state.post.searchResult;
+export const selectSearchLoading = (state: RootState) => state.post.searchLoading;
 
 export const selectTotalPages = createSelector(selectPostPagination, (pagination) =>
   pagination ? Math.ceil(pagination?.totalRows / pagination?.limit) : 1
@@ -113,7 +113,7 @@ export const selectTotalPages = createSelector(selectPostPagination, (pagination
 
 export const selectFormattedSearchResult = createSelector(selectSearchResult, (searchResult) => {
   return searchResult.map(
-    (data: any): ISearchResultItem => ({
+    (data: any): SearchResultItem => ({
       _id: data._id,
       name: data.title ? data.title : data.name,
       image: data.thumbnail ? data.thumbnail : data.avatar,

@@ -1,19 +1,19 @@
 import { call, debounce, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { postApi, userApi } from 'api';
-import { IListParams, IListResponse, IPost, ISearchObj, IUser } from 'models';
+import { ListParams, ListResponse, Post, SearchObj, User } from 'models';
 import { showErrorToast } from 'utils/toast';
 import { blogActions } from './blogSlice';
 
-function* fetchPostList(action: PayloadAction<IListParams>) {
-  const params: IListParams = {
+function* fetchPostList(action: PayloadAction<ListParams>) {
+  const params: ListParams = {
     page: 1,
     limit: 10,
     ...action.payload,
   };
 
   try {
-    const response: IListResponse<IPost> = yield call(postApi.getAll, params);
+    const response: ListResponse<Post> = yield call(postApi.getAll, params);
     yield put(blogActions.fetchPostListSuccess(response));
   } catch (error) {
     showErrorToast(error);
@@ -21,15 +21,15 @@ function* fetchPostList(action: PayloadAction<IListParams>) {
   }
 }
 
-function* fetchSavedList(action: PayloadAction<IListParams>) {
-  const params: IListParams = {
+function* fetchSavedList(action: PayloadAction<ListParams>) {
+  const params: ListParams = {
     page: 1,
     limit: 10,
     ...action.payload,
   };
 
   try {
-    const response: IListResponse<IPost> = yield call(postApi.getSavedList, params);
+    const response: ListResponse<Post> = yield call(postApi.getSavedList, params);
     yield put(blogActions.fetchSavedListSuccess(response));
   } catch (error) {
     showErrorToast(error);
@@ -39,7 +39,7 @@ function* fetchSavedList(action: PayloadAction<IListParams>) {
 
 function* fetchPostDetail(action: PayloadAction<string>) {
   try {
-    const post: IPost = yield call(postApi.getBySlug, action.payload);
+    const post: Post = yield call(postApi.getBySlug, action.payload);
     yield put(blogActions.fetchPostDetailSuccess(post));
   } catch (error) {
     showErrorToast(error);
@@ -49,14 +49,14 @@ function* fetchPostDetail(action: PayloadAction<string>) {
 
 function* handleLikePost(action: PayloadAction<string>) {
   try {
-    const post: IPost = yield call(postApi.like, action.payload);
+    const post: Post = yield call(postApi.like, action.payload);
     yield put(blogActions.likePostSuccess(post));
   } catch (error) {
     showErrorToast(error);
   }
 }
 
-function* handleSearchWithDebounce(action: PayloadAction<ISearchObj>) {
+function* handleSearchWithDebounce(action: PayloadAction<SearchObj>) {
   const searchObj = action.payload;
 
   try {
@@ -65,7 +65,7 @@ function* handleSearchWithDebounce(action: PayloadAction<ISearchObj>) {
       return;
     }
 
-    let response: IPost[] | Partial<IUser>[] = [];
+    let response: Post[] | Partial<User>[] = [];
     if (searchObj.searchFor === 'username') {
       response = yield call(userApi.search, searchObj.searchTerm);
     } else {

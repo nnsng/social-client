@@ -3,13 +3,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { themeVariables } from 'utils/theme';
 
-export interface ITopHashtagsProps {
+export interface TopHashtagsProps {
   list: string[];
   active: string | undefined;
   onHashtagClick?: (hashtag: string | undefined) => void;
 }
 
-export default function TopHashtags(props: ITopHashtagsProps) {
+export default function TopHashtags(props: TopHashtagsProps) {
   const { list, active, onHashtagClick } = props;
 
   const { t } = useTranslation('topHashtags');
@@ -23,7 +23,7 @@ export default function TopHashtags(props: ITopHashtagsProps) {
     onHashtagClick?.(undefined);
   };
 
-  const isOnPC = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'));
+  const isOnPC = useMediaQuery<Theme>((theme) => theme.breakpoints.up('lg'));
 
   const hashtagWrapperSx: SxProps = isOnPC
     ? {

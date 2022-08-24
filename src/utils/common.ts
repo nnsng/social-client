@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/vi';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import i18next from 'i18next';
-import { IPost } from 'models';
+import { Post } from 'models';
 import { toast } from 'react-toastify';
 import slugify from 'slugify';
 import { showErrorToast } from './toast';
@@ -36,7 +36,7 @@ export const getImageUrlFromCDN = async (image: File) => {
   }
 };
 
-export const copyPostLink = (post: IPost) => {
+export const copyPostLink = (post: Post) => {
   const { toast: toastTranslation } = translateFiles('toast');
   navigator.clipboard.writeText(`${window.location.origin}/blog/post/${post.slug}`);
   toast.success(toastTranslation.copyLinkSuccess);

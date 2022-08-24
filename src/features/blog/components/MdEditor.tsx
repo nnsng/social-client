@@ -6,13 +6,13 @@ import Editor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import { getImageUrlFromCDN } from 'utils/common';
 
-export interface IMdEditorChange {
+export interface MdEditorChange {
   html: string;
   text: string;
 }
 
-export interface IMdEditorProps {
-  onEditorChange?: (value: IMdEditorChange) => void;
+export interface MdEditorProps {
+  onEditorChange?: (value: MdEditorChange) => void;
   readOnly?: boolean;
   value?: string;
   placeholder?: string;
@@ -20,7 +20,7 @@ export interface IMdEditorProps {
 
 const mdParser = new MarkdownIt();
 
-export default function MdEditor(props: IMdEditorProps) {
+export default function MdEditor(props: MdEditorProps) {
   const { onEditorChange, readOnly, value, placeholder } = props;
 
   const ref = useRef<any>(null);
@@ -45,11 +45,11 @@ export default function MdEditor(props: IMdEditorProps) {
   };
 
   return (
-    <Box ref={ref} sx={configStyles(!!readOnly)}>
+    <Box ref={ref} sx={generateStyle(!!readOnly)}>
       <Editor
         markdownClass="md-editor"
         htmlClass="custom-html-style md-preview"
-        renderHTML={(text: string) => mdParser.render(text)}
+        renderHTML={(text) => mdParser.render(text)}
         onChange={onEditorChange}
         onImageUpload={handleImageUpload}
         value={value}
@@ -61,8 +61,8 @@ export default function MdEditor(props: IMdEditorProps) {
   );
 }
 
-const configStyles = (readOnly: boolean) => {
-  const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+const generateStyle = (readOnly: boolean) => {
+  const smDown = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'));
 
   return {
     height: '100%',

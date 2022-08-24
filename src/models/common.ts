@@ -1,17 +1,17 @@
 import { NotiType, PostByType } from './types';
 
-export interface IPaginationParams {
+export interface PaginationParams {
   page: number;
   limit: number;
   totalRows: number;
 }
 
-export interface IListResponse<T> {
+export interface ListResponse<T> {
   data: T[];
-  pagination: IPaginationParams;
+  pagination: PaginationParams;
 }
 
-export interface IListParams {
+export interface ListParams {
   page?: number;
   limit?: number;
   sort?: string;
@@ -22,20 +22,26 @@ export interface IListParams {
   by?: PostByType;
 }
 
-export interface IMenuItem {
+export interface MenuItemProps {
   label?: string;
   icon?: any;
   onClick?: () => void;
   show?: boolean;
 }
 
-export interface ILocationState {
+export interface FormField {
+  name: string;
+  show?: boolean;
+  props?: any;
+}
+
+export interface LocationState {
   hideHeaderMenu?: boolean;
   openComment?: boolean;
   notFound?: boolean;
 }
 
-export interface INotification {
+export interface Noti {
   _id: string;
   type: NotiType;
   post: {

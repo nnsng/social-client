@@ -3,24 +3,24 @@ import { Avatar, CircularProgress, IconButton, List, Stack, Typography } from '@
 import { useAppSelector } from 'app/hooks';
 import { ContainedInput } from 'components/common';
 import { CommentItemSkeleton } from 'components/skeletons';
-import { selectCurrentUser } from 'features/auth/authSlice';
+import { selectCurrentUser } from 'features/auth/userSlice';
 import { selectCommentLoading } from 'features/blog/commentSlice';
 import { useSubmitWithEnter } from 'hooks';
-import { CommentActionType, IComment } from 'models';
+import { Comment, CommentActionType } from 'models';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { showErrorToast } from 'utils/toast';
 import CommentItem from './CommentItem';
 
-export interface IPostCommentProps {
-  commentList: IComment[];
+export interface PostCommentProps {
+  commentList: Comment[];
   postId: string;
   onClose?: () => void;
   updateCommentCount?: (count: number) => void;
-  onCommentAction?: (action: CommentActionType, comment: IComment) => void;
+  onCommentAction?: (action: CommentActionType, comment: Comment) => void;
 }
 
-export default function PostComment(props: IPostCommentProps) {
+export default function PostComment(props: PostCommentProps) {
   const { commentList, postId, onClose, updateCommentCount, onCommentAction } = props;
 
   const { t } = useTranslation('postComment');
@@ -47,7 +47,7 @@ export default function PostComment(props: IPostCommentProps) {
     setInput('');
 
     try {
-      const comment: IComment = {
+      const comment: Comment = {
         postId,
         userId: currentUser?._id || '',
         content: input.trim(),

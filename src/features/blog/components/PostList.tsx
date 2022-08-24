@@ -13,21 +13,21 @@ import { useAppSelector } from 'app/hooks';
 import { NoPost } from 'components/common';
 import { PostCardSkeleton } from 'components/skeletons';
 import { selectPostLoading, selectTotalPages } from 'features/blog/blogSlice';
-import { IListParams, IPost, PostActionType, PostByType } from 'models';
+import { ListParams, Post, PostActionType, PostByType } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import PostCard from './PostCard';
 
-export interface IPostListProps {
-  postList: IPost[];
+export interface PostListProps {
+  postList: Post[];
   page?: number;
-  filter?: Partial<IListParams>;
-  onFilterChange?: (newFilter: IListParams) => void;
-  onPostAction?: (action: PostActionType, post: IPost) => void;
+  filter?: Partial<ListParams>;
+  onFilterChange?: (newFilter: ListParams) => void;
+  onPostAction?: (action: PostActionType, post: Post) => void;
   isHomePage?: boolean;
 }
 
-export default function PostList(props: IPostListProps) {
+export default function PostList(props: PostListProps) {
   const { postList, page, filter, onFilterChange, onPostAction, isHomePage = true } = props;
   const { search, username, hashtag } = filter || {};
   const searchFilter = { search, username, hashtag };

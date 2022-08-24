@@ -1,14 +1,14 @@
 import { Stack, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { TimeTooltip } from 'components/common';
-import { selectCurrentUser } from 'features/auth/authSlice';
-import { IMessage } from 'models';
+import { selectCurrentUser } from 'features/auth/userSlice';
+import { Message } from 'models';
 
-export interface IChatMessageProps {
-  message: IMessage;
+export interface ChatMessageProps {
+  message: Message;
 }
 
-export default function ChatMessage({ message }: IChatMessageProps) {
+export default function ChatMessage({ message }: ChatMessageProps) {
   const { _id: currentUserId } = useAppSelector(selectCurrentUser) || {};
   const isMe = message.sentId === currentUserId;
 

@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IUser } from 'models';
+import { User } from 'models';
 import { RootState } from 'app/store';
 
-export interface ISettingState {
+export interface SettingState {
   submitting: boolean;
 }
 
-const initialState: ISettingState = {
+const initialState: SettingState = {
   submitting: false,
 };
 
@@ -14,7 +14,7 @@ const settingSlice = createSlice({
   name: 'settings',
   initialState,
   reducers: {
-    updateProfile(state, action: PayloadAction<Partial<IUser>>) {
+    updateProfile(state, action: PayloadAction<Partial<User>>) {
       state.submitting = true;
     },
     updateProfileFinished(state) {

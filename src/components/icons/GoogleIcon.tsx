@@ -1,6 +1,6 @@
-import { IIconProps } from '.';
+import { IconProps } from '.';
 
-export function GoogleIcon({ width, height = width }: IIconProps) {
+export function GoogleIcon({ width, height = width }: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

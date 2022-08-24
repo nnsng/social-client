@@ -20,12 +20,12 @@ import {
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
   blogActions,
-  ISearchResultItem,
+  SearchResultItem,
   selectFormattedSearchResult,
   selectSearchLoading,
 } from 'features/blog/blogSlice';
 import { useSubmitWithEnter } from 'hooks';
-import { ISearchObj } from 'models';
+import { SearchObj } from 'models';
 import queryString from 'query-string';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -35,18 +35,18 @@ import { themeMixins } from 'utils/theme';
 import { showComingSoonToast } from 'utils/toast';
 import { SearchMobile } from '../SearchMobile';
 
-export interface ISearchResult {
-  list: ISearchResultItem[];
+export interface SearchResult {
+  list: SearchResultItem[];
   length: number;
   isMore: boolean;
 }
 
-export interface ISearchBoxProps {
+export interface SearchBoxProps {
   openSearchMobile: boolean;
   toggleSearchMobile?: () => void;
 }
 
-export default function SearchBox(props: ISearchBoxProps) {
+export default function SearchBox(props: SearchBoxProps) {
   const { openSearchMobile, toggleSearchMobile } = props;
 
   const navigate = useNavigate();
@@ -59,9 +59,9 @@ export default function SearchBox(props: ISearchBoxProps) {
   const searchResult = useAppSelector(selectFormattedSearchResult);
 
   const [searchInput, setSearchInput] = useState<string>('');
-  const [result, setResult] = useState<ISearchResult>({ list: [], length: 0, isMore: false });
+  const [result, setResult] = useState<SearchResult>({ list: [], length: 0, isMore: false });
   const [showSearchResult, setShowSearchResult] = useState<boolean>(false);
-  const [searchObj, setSearchObj] = useState<ISearchObj>({
+  const [searchObj, setSearchObj] = useState<SearchObj>({
     searchFor: 'search',
     searchTerm: searchInput,
   });
@@ -148,7 +148,7 @@ export default function SearchBox(props: ISearchBoxProps) {
 
   const onKeyUp = useSubmitWithEnter(handleViewMore);
 
-  const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
+  const smDown = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'));
 
   return (
     <>

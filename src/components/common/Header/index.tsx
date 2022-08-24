@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { selectPostLoading } from 'features/blog/blogSlice';
-import { ILocationState } from 'models';
+import { LocationState } from 'models';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
@@ -25,7 +25,7 @@ import UserMenu from './UserMenu';
 export function Header() {
   const navigate = useNavigate();
   const location = useLocation();
-  const showHeaderMenu = !(location.state as ILocationState)?.hideHeaderMenu;
+  const showHeaderMenu = !(location.state as LocationState)?.hideHeaderMenu;
 
   const loading = useAppSelector(selectPostLoading);
 
@@ -41,8 +41,8 @@ export function Header() {
     navigate('/blog');
   };
 
-  const smDown = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
-  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
+  const smDown = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'));
+  const mdUp = useMediaQuery<Theme>((theme) => theme.breakpoints.up('md'));
 
   return (
     <Box

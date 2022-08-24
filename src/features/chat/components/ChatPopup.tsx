@@ -1,22 +1,22 @@
 import { Avatar, Box, Divider, MenuItem, Stack, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PopperPopup } from 'components/common/PopperPopup';
-import { selectCurrentUser } from 'features/auth/authSlice';
-import { IChat } from 'models';
+import { selectCurrentUser } from 'features/auth/userSlice';
+import { Chat } from 'models';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatTime, truncateText } from 'utils/common';
 import { chatActions } from '../chatSlice';
 
-export interface IChatPopupProps {
+export interface ChatPopupProps {
   open: boolean;
   anchorEl?: any;
-  chatList: IChat[];
+  chatList: Chat[];
   onClose?: () => void;
-  onChatClick?: (chat: IChat) => void;
+  onChatClick?: (chat: Chat) => void;
 }
 
-export default function ChatPopup(props: IChatPopupProps) {
+export default function ChatPopup(props: ChatPopupProps) {
   const { open, anchorEl, chatList, onClose, onChatClick } = props;
 
   const { t } = useTranslation('chatPopup');

@@ -11,30 +11,32 @@ import {
   Typography,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { configActions, selectLanguage, selectThemeColor } from 'features/common/configSlice';
+import { selectUserConfig, userActions } from 'features/auth/userSlice';
+import { UserConfigKey } from 'models';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { supportedThemeColors } from 'utils/theme';
 import { supportedLanguages } from 'utils/translation';
 import { ThemeSwitch } from '.';
 
-export interface IAppearanceDialogProps {
+export interface AppearanceDialogProps {
   open: boolean;
   onClose: () => void;
 }
 
-export function AppearanceDialog(props: IAppearanceDialogProps) {
+export function AppearanceDialog(props: AppearanceDialogProps) {
   const { open, onClose } = props;
 
   const { t } = useTranslation('header');
 
   const dispatch = useAppDispatch();
-  const themeColor = useAppSelector(selectThemeColor);
-  const language = useAppSelector(selectLanguage);
+  const { themeMode, themeColor, language } = useAppSelector(selectUserConfig);
+  const isDarkMode = themeMode === 'dark';
 
   const handleUpdateConfig = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    dispatch(configActions.update({ [name]: value }));
+    const name = e.target.name as UserConfigKey;
+    const value = e.target.value;
+    dispatch(userActions.updateConfig({ name, value }));
   };
 
   return (
@@ -76,7 +78,13 @@ export function AppearanceDialog(props: IAppearanceDialogProps) {
             }}
           >
             <Typography fontWeight={500}>{t('appearanceDialog.darkMode')}</Typography>
-            <ThemeSwitch sx={{ ml: '2px' }} />
+            <ThemeSwitch
+              name="themeMode"
+              value={isDarkMode ? 'light' : 'dark'}
+              checked={isDarkMode}
+              onChange={handleUpdateConfig}
+              sx={{ ml: '2px' }}
+            />
           </Stack>
 
           <Stack
@@ -93,7 +101,7 @@ export function AppearanceDialog(props: IAppearanceDialogProps) {
               {supportedThemeColors.map((color) => (
                 <ColorRadio
                   key={color}
-                  name="color"
+                  name="themeColor"
                   value={color}
                   iconColor={color}
                   checked={themeColor === color}
@@ -139,11 +147,11 @@ export function AppearanceDialog(props: IAppearanceDialogProps) {
   );
 }
 
-interface IColorRatioProps extends RadioProps {
+interface ColorRadioProps extends RadioProps {
   iconColor: string;
 }
 
-function ColorRadio({ iconColor, ...otherProps }: IColorRatioProps) {
+function ColorRadio({ iconColor, ...props }: ColorRadioProps) {
   return (
     <Radio
       sx={{
@@ -154,7 +162,7 @@ function ColorRadio({ iconColor, ...otherProps }: IColorRatioProps) {
       disableRipple
       checkedIcon={<CheckBoxRounded sx={{ color: iconColor }} />}
       icon={<SquareRounded sx={{ color: iconColor }} />}
-      {...otherProps}
+      {...props}
     />
   );
 }

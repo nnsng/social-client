@@ -23,9 +23,9 @@ import {
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { ActionMenu, ConfirmDialog, TimeTooltip } from 'components/common';
-import { selectCurrentUser } from 'features/auth/authSlice';
+import { selectCurrentUser } from 'features/auth/userSlice';
 import { useSubmitWithEnter, useUserInfoPopup } from 'hooks';
-import { CommentActionType, IComment, IMenuItem } from 'models';
+import { Comment, CommentActionType, MenuItemProps } from 'models';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -33,12 +33,12 @@ import { formatTime } from 'utils/common';
 import { showComingSoonToast, showErrorToast } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 
-export interface ICommentItemProps {
-  comment: IComment;
-  onCommentAction?: (action: CommentActionType, comment: IComment) => void;
+export interface CommentItemProps {
+  comment: Comment;
+  onCommentAction?: (action: CommentActionType, comment: Comment) => void;
 }
 
-export default function CommentItem(props: ICommentItemProps) {
+export default function CommentItem(props: CommentItemProps) {
   const { comment, onCommentAction } = props;
 
   const navigate = useNavigate();
@@ -96,7 +96,7 @@ export default function CommentItem(props: ICommentItemProps) {
     setLoading(true);
 
     try {
-      const editedComment: IComment = {
+      const editedComment: Comment = {
         ...comment,
         content: content.trim(),
       };
@@ -140,7 +140,7 @@ export default function CommentItem(props: ICommentItemProps) {
 
   const isAuthor = comment.userId === currentUser?._id;
   const isAdmin = currentUser?.role === 'admin';
-  const commentMenu: IMenuItem[] = [
+  const commentMenu: MenuItemProps[] = [
     {
       label: t('menu.edit'),
       icon: BorderColorRounded,

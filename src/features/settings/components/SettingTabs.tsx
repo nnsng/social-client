@@ -3,9 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-export interface ISettingTabsProps {}
-
-export default function SettingTabs(props: ISettingTabsProps) {
+export default function SettingTabs() {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -46,7 +44,7 @@ export default function SettingTabs(props: ISettingTabsProps) {
     },
   ];
 
-  const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'));
+  const smUp = useMediaQuery<Theme>((theme) => theme.breakpoints.up('sm'));
 
   return (
     <Tabs

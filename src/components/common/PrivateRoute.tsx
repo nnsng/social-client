@@ -1,16 +1,16 @@
 import Chat from 'features/chat';
+import { LocalStorageKey } from 'utils/constants';
 import { Navigate } from 'react-router-dom';
-import { ACCESS_TOKEN } from 'utils/constants';
 
-export interface IPrivateRouteProps {
+export interface PrivateRouteProps {
   children: React.ReactNode;
   hideChat?: boolean;
 }
 
-export function PrivateRoute(props: IPrivateRouteProps) {
+export function PrivateRoute(props: PrivateRouteProps) {
   const { children, hideChat } = props;
 
-  const isAuth = localStorage.getItem(ACCESS_TOKEN);
+  const isAuth = localStorage.getItem(LocalStorageKey.ACCESS_TOKEN);
 
   return isAuth ? (
     <>

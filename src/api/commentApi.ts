@@ -1,4 +1,4 @@
-import { IComment } from 'models';
+import { Comment } from 'models';
 import axiosClient from './axiosClient';
 
 export const commentApi = {
@@ -6,15 +6,15 @@ export const commentApi = {
     const url = '/comments';
     return axiosClient.get(url, { params: { postId } });
   },
-  create(data: IComment) {
+  create(data: Comment) {
     const url = '/comments';
     return axiosClient.post(url, data);
   },
-  edit(data: IComment) {
+  edit(data: Comment) {
     const url = `/comments/${data._id}`;
     return axiosClient.patch(url, data);
   },
-  remove(data: IComment) {
+  remove(data: Comment) {
     const url = `/comments/${data._id}`;
     return axiosClient.delete(url);
   },

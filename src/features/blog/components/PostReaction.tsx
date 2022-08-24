@@ -5,18 +5,18 @@ import {
 } from '@mui/icons-material';
 import { Box, Button, Chip, Stack, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
-import { selectCurrentUser } from 'features/auth/authSlice';
-import { IPost } from 'models';
+import { selectCurrentUser } from 'features/auth/userSlice';
+import { Post } from 'models';
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-export interface IPostReactionProps {
-  post: IPost;
+export interface PostReactionProps {
+  post: Post;
   onOpenComment?: () => void;
   onLikePost?: () => void;
 }
 
-export default function PostReaction(props: IPostReactionProps) {
+export default function PostReaction(props: PostReactionProps) {
   const { post, onOpenComment, onLikePost } = props;
 
   const navigate = useNavigate();
