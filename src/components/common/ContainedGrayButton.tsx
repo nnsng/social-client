@@ -1,16 +1,9 @@
-import { Button, SxProps, Theme } from '@mui/material';
-import React from 'react';
+import { Button, ButtonProps } from '@mui/material';
 
-export interface IContainedGrayButtonProps {
-  children: React.ReactNode;
-  sx?: SxProps<Theme>;
-  onClick?: () => void;
+export interface ContainedGrayButtonProps extends ButtonProps {}
 
-  [key: string]: any;
-}
-
-export function ContainedGrayButton(props: IContainedGrayButtonProps) {
-  const { children, sx, onClick, ...rest } = props;
+export function ContainedGrayButton(props: ContainedGrayButtonProps) {
+  const { children, sx, ...rest } = props;
 
   return (
     <Button
@@ -22,7 +15,6 @@ export function ContainedGrayButton(props: IContainedGrayButtonProps) {
         },
         ...sx,
       }}
-      onClick={onClick}
       {...rest}
     >
       {children}

@@ -2,7 +2,7 @@ import { Grid } from '@mui/material';
 import { HashtagInput } from 'components/common';
 import { Control, useController } from 'react-hook-form';
 
-export interface IHashtagInputFieldProps {
+export interface HashtagInputFieldProps {
   name: string;
   control: Control<any>;
   max?: number;
@@ -11,7 +11,7 @@ export interface IHashtagInputFieldProps {
   errorText?: string;
 }
 
-export function HashtagInputField(props: IHashtagInputFieldProps) {
+export function HashtagInputField(props: HashtagInputFieldProps) {
   const { name, control, ...hashtagInputProps } = props;
 
   const {

@@ -11,15 +11,13 @@ import {
   Typography,
   useMediaQuery,
 } from '@mui/material';
-import { useAppSelector } from 'app/hooks';
 import {
   FileInputField,
   HashtagInputField,
   InputField,
   MdEditorField,
 } from 'components/formFields';
-import { selectUploading } from 'features/common/uploadSlice';
-import { IPost } from 'models';
+import { Post } from 'models';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -30,17 +28,17 @@ import { showErrorToast } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
-export interface ICreateEditFormProps {
-  defaultValues: IPost;
-  onSubmit?: (data: IPost) => void;
+export interface CreateEditFormProps {
+  defaultValues: Post;
+  onSubmit?: (data: Post) => void;
   isNewPost?: boolean;
 }
 
-export default function CreateEditForm(props: ICreateEditFormProps) {
+export default function CreateEditForm(props: CreateEditFormProps) {
   const { defaultValues, onSubmit, isNewPost } = props;
 
   const { t } = useTranslation('createEditForm');
-  const { validate, toast: toastTranslation } = translateFiles('validate', 'toast');
+  const { validate } = translateFiles('validate', 'toast');
 
   const schema = yup.object().shape({
     title: yup.string().required(validate.title.required).max(100, validate.title.max(100)),
@@ -71,9 +69,8 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
   const thumbnail = watch('thumbnail');
   const MAX_HASHTAGS = 5;
 
-  const uploading = useAppSelector(selectUploading);
-
-  const [open, setOpen] = useState(false);
+  const [uploading, setUploading] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const openDialog = () => setOpen(true);
   const closeDialog = () => setOpen(false);
@@ -101,7 +98,7 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
     setValue('thumbnail', '');
   };
 
-  const handleFormSubmit = async (formValues: IPost) => {
+  const handleFormSubmit = async (formValues: Post) => {
     try {
       await onSubmit?.(formValues);
     } catch (error) {
@@ -206,7 +203,12 @@ export default function CreateEditForm(props: ICreateEditFormProps) {
                 fontWeight: 400,
               }}
             >
-              <FileInputField name="thumbnail" control={control} id="thumbnail-input" />
+              <FileInputField
+                name="thumbnail"
+                control={control}
+                id="thumbnail-input"
+                setUploading={setUploading}
+              />
               {thumbnail ? t('btnLabel.changeThumbnail') : t('btnLabel.addThumbnail')}
             </Button>
 

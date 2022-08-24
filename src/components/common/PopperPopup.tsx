@@ -11,7 +11,7 @@ import {
 import { SxProps } from '@mui/system';
 import { themeMixins } from 'utils/theme';
 
-export interface IPopperPopupProps {
+export interface PopperPopupProps {
   open: boolean;
   anchorEl?: any;
   placement?: PopperPlacementType;
@@ -22,7 +22,7 @@ export interface IPopperPopupProps {
   onMouseLeave?: () => void;
 }
 
-export function PopperPopup(props: IPopperPopupProps) {
+export function PopperPopup(props: PopperPopupProps) {
   const { open, anchorEl, placement, onClose, children, sx, onMouseEnter, onMouseLeave } = props;
   const { zIndex, ...paperSx } = sx || {};
 

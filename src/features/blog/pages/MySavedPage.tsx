@@ -3,7 +3,7 @@ import { postApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { NoPost, PageTitle } from 'components/common';
 import { PostItemSkeleton } from 'components/skeletons';
-import { IPost } from 'models';
+import { Post } from 'models';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { blogActions, selectPostLoading, selectSavedList, selectTotalPages } from '../blogSlice';
@@ -23,7 +23,7 @@ export function MySavedPage() {
     fetchSavedList(page);
   }, [dispatch, page]);
 
-  const handleUnSavePost = async (post: IPost) => {
+  const handleUnSavePost = async (post: Post) => {
     await postApi.unSave(post._id as string);
     fetchSavedList(page);
   };

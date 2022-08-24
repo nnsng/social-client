@@ -6,12 +6,12 @@ import {
   PersonOffRounded,
   PersonRemoveRounded,
 } from '@mui/icons-material';
-import { Button, CircularProgress, MenuItem, Stack } from '@mui/material';
+import { Button, CircularProgress, MenuItem, Stack, Theme } from '@mui/material';
 import { userApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { authActions, selectCurrentUser } from 'features/auth/authSlice';
+import { selectCurrentUser, userActions } from 'features/auth/userSlice';
 import { chatActions } from 'features/chat/chatSlice';
-import { FollowModeType, IFollow, IMenuItem, IUser } from 'models';
+import { FollowModeType, FollowUser, MenuItemProps, User } from 'models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -19,17 +19,17 @@ import { showComingSoonToast, showErrorToast } from 'utils/toast';
 import { ChatIcon } from '../icons';
 import { ActionMenu } from './ActionMenu';
 
-export interface IFollowResponse {
-  currentUser: IUser;
-  selectedUser: Partial<IUser>;
+export interface FollowResponse {
+  currentUser: User;
+  selectedUser: Partial<User>;
 }
 
-export interface IUserInfoButtonGroupProps {
-  user?: Partial<IUser>;
-  updateUser?: (user: Partial<IUser>) => void;
+export interface UserInfoButtonGroupProps {
+  user?: Partial<User>;
+  updateUser?: (user: Partial<User>) => void;
 }
 
-export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
+export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
   const { user, updateUser } = props;
   const userId = user?._id as string;
 
@@ -50,7 +50,7 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
 
     try {
       const updated = await userApi[action](userId);
-      dispatch(authActions.setCurrentUser(updated.currentUser));
+      dispatch(userActions.setCurrentUser(updated.currentUser));
       updateUser?.(updated.selectedUser);
     } catch (error) {
       showErrorToast(error);
@@ -68,7 +68,7 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
     callback?.();
   };
 
-  const userInfoMenu: IMenuItem[] = [
+  const userInfoMenu: MenuItemProps[] = [
     {
       label: t('menu.block'),
       icon: PersonOffRounded,
@@ -106,7 +106,7 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
         </Button>
       ) : (
         <>
-          {(currentUser?.following ?? []).some(({ _id }: IFollow) => _id === userId) ? (
+          {(currentUser?.following ?? []).some(({ _id }: FollowUser) => _id === userId) ? (
             <Button
               variant="contained"
               startIcon={loading ? <CircularProgress size={16} /> : <PersonRemoveRounded />}
@@ -172,7 +172,7 @@ export function UserInfoButtonGroup(props: IUserInfoButtonGroupProps) {
             open={openMenu}
             anchorEl={anchorRef.current}
             onClose={closeMenu}
-            sx={{ zIndex: (theme) => theme.zIndex.drawer + 2 }}
+            sx={{ zIndex: (theme: Theme) => theme.zIndex.drawer + 2 }}
           >
             {userInfoMenu.map(({ label, icon: Icon, onClick }, idx) => (
               <MenuItem

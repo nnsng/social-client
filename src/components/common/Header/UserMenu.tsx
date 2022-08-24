@@ -5,20 +5,20 @@ import {
   LogoutOutlined,
   Settings,
 } from '@mui/icons-material';
-import { Avatar, Box, Divider, Drawer, MenuItem, MenuList, Typography } from '@mui/material';
+import { Avatar, Box, Divider, Drawer, MenuItem, MenuList, Theme, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { authActions, selectCurrentUser } from 'features/auth/authSlice';
-import { IMenuItem } from 'models';
+import { userActions, selectCurrentUser } from 'features/auth/userSlice';
+import { MenuItemProps } from 'models';
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { AppearanceDialog, PopperPopup } from '..';
 
-export interface IUserMenuProps {
+export interface UserMenuProps {
   isOnMobile: boolean;
 }
 
-export default function UserMenu({ isOnMobile }: IUserMenuProps) {
+export default function UserMenu({ isOnMobile }: UserMenuProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('header');
@@ -45,10 +45,10 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
   };
 
   const logout = () => {
-    dispatch(authActions.logout({ navigate }));
+    dispatch(userActions.logout({ navigate }));
   };
 
-  const userMenu: IMenuItem[] = [
+  const userMenu: MenuItemProps[] = [
     {
       label: t('menu.create'),
       icon: AddCircleRounded,
@@ -153,7 +153,7 @@ export default function UserMenu({ isOnMobile }: IUserMenuProps) {
   );
 }
 
-interface IMenuitemWrapperProps {
+interface MenuItemWrapperProps {
   isOnMobile: boolean;
   open: boolean;
   onClose?: () => void;
@@ -161,7 +161,7 @@ interface IMenuitemWrapperProps {
   children: React.ReactElement;
 }
 
-function MenuItemWrapper(props: IMenuitemWrapperProps) {
+function MenuItemWrapper(props: MenuItemWrapperProps) {
   const { isOnMobile, open, onClose, anchorEl, children } = props;
 
   return isOnMobile ? (
@@ -187,7 +187,7 @@ function MenuItemWrapper(props: IMenuitemWrapperProps) {
         minWidth: 280,
         mt: 1,
         p: 0.8,
-        zIndex: (theme) => theme.zIndex.appBar + 1,
+        zIndex: (theme: Theme) => theme.zIndex.appBar + 1,
       }}
     >
       {children}

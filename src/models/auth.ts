@@ -1,38 +1,20 @@
 import { NavigateFunction } from 'react-router-dom';
+import { User } from './user';
 
-export interface IFollow {
-  _id: string;
-  name: string;
-}
-
-export interface IUser {
-  _id: string;
-  name: string;
-  email: string;
-  username: string;
-  avatar?: string;
-  bio?: string;
-  following?: IFollow[];
-  followers?: IFollow[];
-  role: string;
-  type: string;
-  createdAt?: string;
-}
-
-export interface IAuthResponse {
-  user: IUser;
+export interface AuthResponse {
+  user: User;
   token: string;
   activeToken?: string;
 }
 
-export interface IAuthFormValues {
+export interface AuthFormValues {
   email: string;
   password: string;
   name?: string;
   username?: string;
 }
 
-export interface IChangePasswordFormValues {
+export interface ChangePasswordFormValues {
   userId?: string;
   currentPassword?: string;
   newPassword: string;
@@ -40,14 +22,8 @@ export interface IChangePasswordFormValues {
   token?: string;
 }
 
-export interface IAuthPayload {
-  formValues?: IAuthFormValues;
+export interface AuthPayload {
+  formValues?: AuthFormValues;
   token?: string;
   navigate?: NavigateFunction;
-}
-
-export interface IField {
-  name: string;
-  show?: boolean;
-  props?: object;
 }

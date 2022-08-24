@@ -1,16 +1,16 @@
 import { useAppDispatch } from 'app/hooks';
 import { chatActions } from 'features/chat/chatSlice';
-import { IMessageResponse } from 'models';
+import { MessageResponse } from 'models';
 import { useEffect } from 'react';
-import { ISocketProps } from '..';
+import { SocketProps } from '..';
 
-export default function ChatSocket({ socket }: ISocketProps) {
+export default function ChatSocket({ socket }: SocketProps) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!socket) return;
 
-    socket.on('chat', (payload: IMessageResponse) => {
+    socket.on('chat', (payload: MessageResponse) => {
       dispatch(chatActions.addMessage(payload));
     });
 

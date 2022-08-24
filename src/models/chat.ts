@@ -1,18 +1,18 @@
-import { IUser } from './auth';
+import { User } from './user';
 
-export interface IMessage {
+export interface Message {
   sentId: string;
   text: string;
   createdAt: string;
 }
 
-export interface IChat {
-  user: Partial<IUser>;
-  messageList: IMessage[];
+export interface Chat {
+  user: Partial<User>;
+  messageList: Message[];
   new?: boolean;
 }
 
-export interface IMessageResponse {
-  user: Partial<IUser>;
-  message: IMessage;
+export interface MessageResponse {
+  user: Partial<User>;
+  message: Message;
 }

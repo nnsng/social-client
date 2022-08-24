@@ -4,19 +4,19 @@ import { useAppDispatch } from 'app/hooks';
 import background from 'assets/images/background.png';
 import { PageTitle } from 'components/common';
 import { useLoginWithGoogle } from 'hooks';
-import { IAuthFormValues } from 'models';
+import { AuthFormValues } from 'models';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { AuthModeTypes } from '..';
-import { authActions } from '../authSlice';
+import { userActions } from '../userSlice';
 import AuthForm from './AuthForm';
 
-export interface IAuthLayoutProps {
+export interface AuthLayoutProps {
   mode: AuthModeTypes;
 }
 
-export default function AuthLayout({ mode }: IAuthLayoutProps) {
+export default function AuthLayout({ mode }: AuthLayoutProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('auth');
@@ -26,10 +26,10 @@ export default function AuthLayout({ mode }: IAuthLayoutProps) {
   const googleLogin = useLoginWithGoogle();
 
   useEffect(() => {
-    dispatch(authActions.setSubmitting(false));
+    dispatch(userActions.setSubmitting(false));
   }, [mode]);
 
-  const defaultValues: IAuthFormValues = {
+  const defaultValues: AuthFormValues = {
     email: '',
     password: '',
     name: '',
@@ -40,8 +40,8 @@ export default function AuthLayout({ mode }: IAuthLayoutProps) {
     navigate(mode === 'login' ? '/register' : '/login');
   };
 
-  const handleFormSubmit = (formValues: IAuthFormValues) => {
-    dispatch(authActions[mode]({ formValues, navigate }));
+  const handleFormSubmit = (formValues: AuthFormValues) => {
+    dispatch(userActions[mode]({ formValues, navigate }));
   };
 
   const handleForgotPassword = async (email: string) => {

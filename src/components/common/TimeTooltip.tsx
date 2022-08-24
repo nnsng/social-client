@@ -1,7 +1,7 @@
 import { Tooltip, TooltipProps } from '@mui/material';
 import { formatTime } from 'utils/common';
 
-export interface ITimeTooltipProps {
+export interface TimeTooltipProps {
   timestamp: any;
   format?: string;
   placement?: TooltipProps['placement'];
@@ -9,7 +9,7 @@ export interface ITimeTooltipProps {
   children: React.ReactElement;
 }
 
-export function TimeTooltip(props: ITimeTooltipProps) {
+export function TimeTooltip(props: TimeTooltipProps) {
   const { timestamp, format = 'DD/MM/YYYY, HH:mm', placement, arrow, children } = props;
 
   return (

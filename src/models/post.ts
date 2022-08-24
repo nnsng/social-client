@@ -1,13 +1,13 @@
-import { IUser } from './auth';
+import { User } from './user';
 
-export interface IPost {
+export interface Post {
   _id?: string;
   title: string;
   content: string;
   thumbnail: string;
   authorId: string;
   hashtags: string[];
-  author?: IUser;
+  author?: User;
   likes?: string[];
   likeCount?: number;
   commentCount?: number;
@@ -15,23 +15,23 @@ export interface IPost {
   createdAt?: string;
 }
 
-export interface IComment {
+export interface Comment {
   _id?: string;
   postId: string;
   content: string;
   userId: string;
-  user?: IUser;
+  user?: User;
   likes?: string[];
   edited?: boolean;
   createdAt?: string;
 }
 
-export interface ISearchObj {
+export interface SearchObj {
   searchFor: 'search' | 'username' | 'hashtag';
   searchTerm: string;
 }
 
-export interface ISearchFilter {
+export interface SearchFilter {
   search?: string;
   username?: string;
   hashtag?: string;

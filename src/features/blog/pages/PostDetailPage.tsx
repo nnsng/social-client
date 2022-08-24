@@ -5,7 +5,7 @@ import { NotFound, PageTitle } from 'components/common';
 import { PostDetailSkeleton } from 'components/skeletons';
 import { commentActions, selectPostComments } from 'features/blog/commentSlice';
 import { selectSocket } from 'features/socket/socketSlice';
-import { CommentActionType, IComment, ILocationState, IPost, PostActionType } from 'models';
+import { CommentActionType, Comment, LocationState, Post, PostActionType } from 'models';
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
@@ -17,7 +17,7 @@ import PostReaction from '../components/PostReaction';
 export function PostDetailPage() {
   const { slug } = useParams();
   const location = useLocation();
-  const initOpenComment = !!(location.state as ILocationState)?.openComment;
+  const initOpenComment = !!(location.state as LocationState)?.openComment;
 
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectPostLoading);
@@ -53,7 +53,7 @@ export function PostDetailPage() {
 
   const closeComment = () => setOpenComment(false);
 
-  const handlePostAction = async (action: PostActionType, post: IPost) => {
+  const handlePostAction = async (action: PostActionType, post: Post) => {
     await postApi[action](post._id || '');
   };
 
@@ -61,7 +61,7 @@ export function PostDetailPage() {
     dispatch(blogActions.likePost(post?._id || ''));
   };
 
-  const handleCommentAction = async (action: CommentActionType, comment: IComment) => {
+  const handleCommentAction = async (action: CommentActionType, comment: Comment) => {
     if (action === 'like') {
       dispatch(commentActions.like(comment._id || ''));
       return;

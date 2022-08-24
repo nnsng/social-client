@@ -14,25 +14,25 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import { ISearchObj } from 'models';
+import { SearchObj } from 'models';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { themeMixins, themeVariables } from 'utils/theme';
-import { ISearchResult } from './Header/SearchBox';
+import { SearchResult } from './Header/SearchBox';
 
-export interface ISearchMobileProps {
+export interface SearchMobileProps {
   loading: boolean;
   open: boolean;
   onClose?: () => void;
-  result: ISearchResult;
-  searchObj: ISearchObj;
+  result: SearchResult;
+  searchObj: SearchObj;
   searchInput: string;
   onChange?: (e: any) => void;
   onClear?: () => void;
   onViewMore?: () => void;
 }
 
-export function SearchMobile(props: ISearchMobileProps) {
+export function SearchMobile(props: SearchMobileProps) {
   const { loading, open, onClose, result, searchObj, searchInput, onChange, onClear, onViewMore } =
     props;
 

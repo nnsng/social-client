@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 import { ConfirmDialog } from 'components/common';
-import { IPost, PostActionType } from 'models';
+import { Post, PostActionType } from 'models';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
@@ -30,13 +30,13 @@ const allowedElements = [
   'span',
 ];
 
-export interface IPostCardProps {
-  post: IPost;
-  onPostAction?: (action: PostActionType, post: IPost) => void;
+export interface PostCardProps {
+  post: Post;
+  onPostAction?: (action: PostActionType, post: Post) => void;
   showPopup?: boolean;
 }
 
-export default function PostCard(props: IPostCardProps) {
+export default function PostCard(props: PostCardProps) {
   const { post, onPostAction, showPopup = true } = props;
 
   const { toast: toastTranslation, dialog: dialogTranslation } = translateFiles('toast', 'dialog');

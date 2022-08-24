@@ -2,8 +2,8 @@ import { Box, Container } from '@mui/material';
 import { postApi } from 'api';
 import { useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
-import { selectCurrentUser } from 'features/auth/authSlice';
-import { IPost } from 'models';
+import { selectCurrentUser } from 'features/auth/userSlice';
+import { Post } from 'models';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -34,7 +34,7 @@ export function CreateEditPage() {
     })();
   }, [postId, navigate]);
 
-  const defaultValues: IPost = isNewPost
+  const defaultValues: Post = isNewPost
     ? {
         title: '',
         content: '',
@@ -44,7 +44,7 @@ export function CreateEditPage() {
       }
     : editedPost;
 
-  const handleFormSubmit = async (data: IPost) => {
+  const handleFormSubmit = async (data: Post) => {
     const action = isNewPost ? 'create' : 'update';
     const savedPost = await postApi[action](data);
     navigate(`/blog/post/${savedPost.slug}`);

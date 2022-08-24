@@ -2,7 +2,7 @@ import { Box, Chip, FormHelperText, Stack, TextField, Typography } from '@mui/ma
 import React, { useState } from 'react';
 import { formatHashtag } from 'utils/common';
 
-export interface IHashtagInputProps {
+export interface HashtagInputProps {
   name?: string;
   value?: string[];
   max?: number;
@@ -12,7 +12,7 @@ export interface IHashtagInputProps {
   onChange?: (hashtagList: string[]) => void;
 }
 
-export function HashtagInput(props: IHashtagInputProps) {
+export function HashtagInput(props: HashtagInputProps) {
   const { name, value, max = 5, label, placeholder, errorText } = props;
 
   const [inputText, setInputText] = useState<string>('');

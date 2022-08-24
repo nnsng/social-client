@@ -9,25 +9,25 @@ import {
 import { Avatar, Box, CardHeader, IconButton, MenuItem, SxProps, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { ActionMenu, TimeTooltip } from 'components/common';
-import { selectCurrentUser } from 'features/auth/authSlice';
+import { selectCurrentUser } from 'features/auth/userSlice';
 import { useUserInfoPopup } from 'hooks';
-import { IMenuItem, IPost } from 'models';
+import { MenuItemProps, Post } from 'models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { copyPostLink, formatTime } from 'utils/common';
-import { ROLE } from 'utils/constants';
+import { Role } from 'utils/constants';
 import { showComingSoonToast } from 'utils/toast';
 
-export interface IPostCardHeaderProps {
-  post: IPost;
+export interface PostCardHeaderProps {
+  post: Post;
   onSave?: () => void;
   onRemove?: () => void;
   sx?: SxProps;
   showPopup?: boolean;
 }
 
-export default function PostCardHeader(props: IPostCardHeaderProps) {
+export default function PostCardHeader(props: PostCardHeaderProps) {
   const { post, onSave, onRemove, sx, showPopup = true } = props;
 
   const navigate = useNavigate();
@@ -59,8 +59,8 @@ export default function PostCardHeader(props: IPostCardHeaderProps) {
   };
 
   const isAuthor = post.authorId === currentUser?._id;
-  const isAdmin = currentUser?.role === ROLE.ADMIN;
-  const postMenu: IMenuItem[] = [
+  const isAdmin = currentUser?.role === Role.ADMIN;
+  const postMenu: MenuItemProps[] = [
     {
       label: t('menu.edit'),
       icon: BorderColorRounded,

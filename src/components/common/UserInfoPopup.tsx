@@ -1,14 +1,14 @@
 import { Avatar, Box, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
-import { IUser } from 'models';
+import { User } from 'models';
 import { useState } from 'react';
-import { IPopperPopupProps, PopperPopup } from './PopperPopup';
+import { PopperPopupProps, PopperPopup } from './PopperPopup';
 import { UserInfoButtonGroup } from './UserInfoButtonGroup';
 
-export interface IUserInfoPopupProps extends IPopperPopupProps {
-  user: Partial<IUser>;
+export interface UserInfoPopupProps extends PopperPopupProps {
+  user: Partial<User>;
 }
 
-export function UserInfoPopup(props: IUserInfoPopupProps) {
+export function UserInfoPopup(props: UserInfoPopupProps) {
   const { user, open, anchorEl } = props;
 
   const [isOpen, setIsOpen] = useState<boolean>(open);

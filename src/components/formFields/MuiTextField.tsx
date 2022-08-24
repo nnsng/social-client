@@ -1,7 +1,7 @@
 import { OutlinedTextFieldProps, Stack, TextField, Typography } from '@mui/material';
 import { Control, useController } from 'react-hook-form';
 
-export interface IMuiTextFieldProps extends OutlinedTextFieldProps {
+export interface MuiTextFieldProps extends OutlinedTextFieldProps {
   name: string;
   control: Control<any>;
   label?: string;
@@ -9,7 +9,7 @@ export interface IMuiTextFieldProps extends OutlinedTextFieldProps {
   rounded?: boolean;
 }
 
-export function MuiTextField(props: IMuiTextFieldProps) {
+export function MuiTextField(props: MuiTextFieldProps) {
   const { name, control, label, title, rounded, ...restProps } = props;
 
   const {

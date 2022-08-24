@@ -1,25 +1,23 @@
 import { Box, Container } from '@mui/material';
-import { userApi, postApi } from 'api';
+import { postApi, userApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { Header, NotFound, PageTitle } from 'components/common';
 import { UserInfoSkeleton } from 'components/skeletons';
 import { blogActions, selectPostList, selectPostLoading } from 'features/blog/blogSlice';
 import PostList from 'features/blog/components/PostList';
-import { IListParams, ILocationState, IPost, IUser, PostActionType } from 'models';
+import { ListParams, LocationState, Post, PostActionType, User } from 'models';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { APP_NAME } from 'utils/constants';
 import { showErrorToast } from 'utils/toast';
 import UserInfo from './components/UserInfo';
 
-export interface IProfileProps {}
-
-export default function ProfilePage(props: IProfileProps) {
+export default function ProfilePage() {
   const { username } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const notFound = !!(location.state as ILocationState)?.notFound;
+  const notFound = !!(location.state as LocationState)?.notFound;
 
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
@@ -27,7 +25,7 @@ export default function ProfilePage(props: IProfileProps) {
 
   const [page, setPage] = useState<number>(1);
 
-  const [userInfo, setUserInfo] = useState<Partial<IUser> | null>(null);
+  const [userInfo, setUserInfo] = useState<Partial<User> | null>(null);
 
   useEffect(() => {
     if (!username) return;
@@ -52,18 +50,18 @@ export default function ProfilePage(props: IProfileProps) {
     dispatch(blogActions.fetchPostList({ page, username }));
   };
 
-  const handlePageChange = ({ page }: IListParams) => {
+  const handlePageChange = ({ page }: ListParams) => {
     setPage(page ?? 1);
   };
 
-  const handlePostAction = async (action: PostActionType, post: IPost) => {
+  const handlePostAction = async (action: PostActionType, post: Post) => {
     await postApi[action](post._id || '');
     if (action === 'remove') {
       fetchUserPostList({ page });
     }
   };
 
-  const updateUser = (user: Partial<IUser>) => {
+  const updateUser = (user: Partial<User>) => {
     setUserInfo(user);
   };
 

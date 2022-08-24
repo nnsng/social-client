@@ -1,13 +1,13 @@
 import { UserInfoPopup } from 'components/common';
-import { IUser } from 'models';
+import { User } from 'models';
 import { useEffect, useRef, useState } from 'react';
 
-export interface IUseUserInfoPopup {
-  user: Partial<IUser>;
+export interface UseUserInfoPopup {
+  user: Partial<User>;
   anchorEl: any;
 }
 
-export function useUserInfoPopup(props: IUseUserInfoPopup) {
+export function useUserInfoPopup(props: UseUserInfoPopup) {
   const [openPopup, setOpenPopup] = useState<boolean>(false);
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);

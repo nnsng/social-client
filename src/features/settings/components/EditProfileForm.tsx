@@ -1,23 +1,21 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Avatar, Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
-import { useAppSelector } from 'app/hooks';
 import { FileInputField, MuiTextField } from 'components/formFields';
-import { selectUploading } from 'features/common/uploadSlice';
 import i18next from 'i18next';
-import { IField, IUser } from 'models';
-import { useEffect } from 'react';
+import { FormField, User } from 'models';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
-export interface IEditProfileFromProps {
+export interface EditProfileFromProps {
   submitting: boolean;
-  defaultValues: Partial<IUser>;
-  onSubmit: (formValues: Partial<IUser>) => void;
+  defaultValues: Partial<User>;
+  onSubmit: (formValues: Partial<User>) => void;
 }
 
-export default function EditProfileFrom(props: IEditProfileFromProps) {
+export default function EditProfileFrom(props: EditProfileFromProps) {
   const { submitting, defaultValues, onSubmit } = props;
 
   const { t } = useTranslation('editProfileForm');
@@ -42,7 +40,7 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
   });
   const avatarUrl = watch('avatar');
 
-  const uploading = useAppSelector(selectUploading);
+  const [uploading, setUploading] = useState<boolean>(false);
 
   useEffect(() => {
     clearErrors();
@@ -92,7 +90,13 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
               },
             }}
           />
-          <FileInputField name="avatar" control={control} id="avatar-upload" disabled={uploading} />
+          <FileInputField
+            name="avatar"
+            control={control}
+            id="avatar-upload"
+            disabled={uploading}
+            setUploading={setUploading}
+          />
 
           {uploading && (
             <Stack
@@ -125,7 +129,7 @@ export default function EditProfileFrom(props: IEditProfileFromProps) {
     </Stack>
   );
 
-  const fieldList: IField[] = [
+  const fieldList: FormField[] = [
     {
       name: 'name',
       props: {},

@@ -2,17 +2,16 @@ import { userApi } from 'api';
 import { useAppDispatch } from 'app/hooks';
 import { CustomScrollbar, NotFound, PrivateRoute } from 'components/common';
 import Auth from 'features/auth';
-import { authActions } from 'features/auth/authSlice';
+import { userActions } from 'features/auth/userSlice';
 import Blog from 'features/blog';
 import ProfilePage from 'features/profile';
 import Settings from 'features/settings';
 import SocketClient from 'features/socket';
 import { socketActions } from 'features/socket/socketSlice';
-import { IUser } from 'models';
 import { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
-import { ACCESS_TOKEN } from 'utils/constants';
+import { LocalStorageKey } from 'utils/constants';
 import { env, variables } from 'utils/env';
 import { showErrorToast } from 'utils/toast';
 
@@ -24,16 +23,16 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
-        const token = localStorage.getItem(ACCESS_TOKEN) || '';
+        const token = localStorage.getItem(LocalStorageKey.ACCESS_TOKEN) || '';
         if (!token) return;
 
         const user = await userApi.getCurrentUser();
         if (!user) throw new Error();
 
-        dispatch(authActions.setCurrentUser(user));
+        dispatch(userActions.setCurrentUser(user));
       } catch (error) {
         showErrorToast(error);
-        dispatch(authActions.logout({ navigate }));
+        dispatch(userActions.logout({ navigate }));
       }
     })();
   }, [dispatch]);

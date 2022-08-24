@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
-import { IIconProps } from '.';
+import { IconProps } from '.';
 
-export function ChatIcon({ width, height = width }: IIconProps) {
+export function ChatIcon({ width, height = width }: IconProps) {
   return (
     <Box sx={{ mt: '5px', '& svg path': { fill: (theme) => theme.palette.text.primary } }}>
       <svg

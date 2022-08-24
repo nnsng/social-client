@@ -1,13 +1,13 @@
 import { useAppDispatch } from 'app/hooks';
 import { notiActions } from 'features/common/notiSlice';
-import { INotification } from 'models';
+import { Noti } from 'models';
 import { useSnackbar } from 'notistack';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { ISocketProps } from '..';
+import { SocketProps } from '..';
 
-export default function NotiSocket({ socket }: ISocketProps) {
+export default function NotiSocket({ socket }: SocketProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('notification');
@@ -19,7 +19,7 @@ export default function NotiSocket({ socket }: ISocketProps) {
   useEffect(() => {
     if (!socket) return;
 
-    socket.on('notify', (payload: INotification) => {
+    socket.on('notify', (payload: Noti) => {
       const { type, user } = payload;
       const message = t(`message.${type}`, { name: user.name });
       dispatch(notiActions.add(payload));
@@ -31,7 +31,7 @@ export default function NotiSocket({ socket }: ISocketProps) {
     };
   }, [socket, dispatch]);
 
-  const handleSnackbarClick = (payload: INotification) => {
+  const handleSnackbarClick = (payload: Noti) => {
     const { type, post, user } = payload;
 
     if (type === 'follow') {

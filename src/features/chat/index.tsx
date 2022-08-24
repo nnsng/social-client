@@ -1,13 +1,13 @@
 import { IconButton, Stack, Theme, useMediaQuery } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { ChatIcon } from 'components/icons';
-import { IChat } from 'models';
+import { Chat } from 'models';
 import React, { useRef, useState } from 'react';
 import { chatActions, selectChatList, selectCurrentChat, selectIsExpandChat } from './chatSlice';
 import ChatPopup from './components/ChatPopup';
 import CurrentChat from './components/CurrentChat';
 
-export default function Chat() {
+export default function ChatFeature() {
   const dispatch = useAppDispatch();
   const chatList = useAppSelector(selectChatList);
   const currentChat = useAppSelector(selectCurrentChat);
@@ -23,7 +23,7 @@ export default function Chat() {
     dispatch(chatActions.setIsExpandChat(!isShowChat));
   };
 
-  const handleChatClick = (chat: IChat) => {
+  const handleChatClick = (chat: Chat) => {
     closePopup();
     dispatch(chatActions.setIsExpandChat(true));
     dispatch(chatActions.setCurrentChat(chat));

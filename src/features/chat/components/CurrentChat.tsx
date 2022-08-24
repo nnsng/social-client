@@ -3,21 +3,21 @@ import { Avatar, Box, IconButton, Stack, Typography } from '@mui/material';
 import { otherApi } from 'api';
 import { ContainedInput } from 'components/common';
 import { useSubmitWithEnter } from 'hooks';
-import { IChat } from 'models';
+import { Chat } from 'models';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { themeMixins } from 'utils/theme';
 import { showErrorToast } from 'utils/toast';
 import ChatMessage from './ChatMessage';
 
-export interface ICurrentChatProps {
-  chat: IChat;
+export interface CurrentChatProps {
+  chat: Chat;
   show: boolean;
   onClose?: () => void;
   toggleShow?: () => void;
 }
 
-export default function CurrentChat(props: ICurrentChatProps) {
+export default function CurrentChat(props: CurrentChatProps) {
   const { chat, show, onClose, toggleShow } = props;
 
   const endMessageRef = useRef<any>(null);

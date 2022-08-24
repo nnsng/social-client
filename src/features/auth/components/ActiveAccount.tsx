@@ -29,11 +29,11 @@ const statusOptions = {
   },
 };
 
-export interface IActiveAccountProps {
+export interface ActiveAccountProps {
   token: string;
 }
 
-export default function ActiveAccount({ token }: IActiveAccountProps) {
+export default function ActiveAccount({ token }: ActiveAccountProps) {
   const { t } = useTranslation('auth');
   const { toast: toastTranslation } = translateFiles('toast');
 

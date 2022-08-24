@@ -10,16 +10,16 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { UserInfoButtonGroup } from 'components/common';
-import { IFollow, IUser } from 'models';
+import { FollowUser, User } from 'models';
 import { useTranslation } from 'react-i18next';
 import { themeMixins } from 'utils/theme';
 
-export interface IUserInfoProps {
-  userInfo: Partial<IUser>;
-  updateUser?: (user: Partial<IUser>) => void;
+export interface UserInfoProps {
+  userInfo: Partial<User>;
+  updateUser?: (user: Partial<User>) => void;
 }
 
-export default function UserInfo(props: IUserInfoProps) {
+export default function UserInfo(props: UserInfoProps) {
   const { userInfo, updateUser } = props;
 
   const { t } = useTranslation('profile');
@@ -61,7 +61,7 @@ export default function UserInfo(props: IUserInfoProps) {
                 key={x}
                 title={
                   <List disablePadding>
-                    {(userInfo as any)[x].slice(0, MAX_SHOWED_USER).map((user: IFollow) => (
+                    {(userInfo as any)[x].slice(0, MAX_SHOWED_USER).map((user: FollowUser) => (
                       <ListItem key={user._id} disablePadding>
                         {user.name ?? t('you')}
                       </ListItem>

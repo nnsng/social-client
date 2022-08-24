@@ -3,7 +3,7 @@ import { Button, CircularProgress, Stack } from '@mui/material';
 import { Box } from '@mui/system';
 import { MuiTextField } from 'components/formFields';
 import i18next from 'i18next';
-import { IChangePasswordFormValues, IField } from 'models';
+import { ChangePasswordFormValues, FormField } from 'models';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -12,15 +12,15 @@ import { showErrorToast } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
-export interface IChangePasswordFormProps {
-  fieldList: IField[];
-  defaultValues: IChangePasswordFormValues;
-  onSubmit: (formValues: IChangePasswordFormValues) => void;
+export interface ChangePasswordFormProps {
+  fieldList: FormField[];
+  defaultValues: ChangePasswordFormValues;
+  onSubmit: (formValues: ChangePasswordFormValues) => void;
   forgotPassword?: () => void;
   submitButtonLabel?: string;
 }
 
-export default function ChangePasswordForm(props: IChangePasswordFormProps) {
+export default function ChangePasswordForm(props: ChangePasswordFormProps) {
   const { fieldList, defaultValues, onSubmit, forgotPassword, submitButtonLabel } = props;
   const isChangePasswordMode = !!forgotPassword;
 
@@ -56,7 +56,7 @@ export default function ChangePasswordForm(props: IChangePasswordFormProps) {
     clearErrors();
   }, [i18next.language]);
 
-  const handleFormSubmit = async (formValues: IChangePasswordFormValues) => {
+  const handleFormSubmit = async (formValues: ChangePasswordFormValues) => {
     try {
       await onSubmit(formValues);
       reset();

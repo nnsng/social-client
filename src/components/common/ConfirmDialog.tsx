@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { translateFiles } from 'utils/translation';
 
-export interface IConfirmDialogProps {
+export interface ConfirmDialogProps {
   open: boolean;
   onClose: () => void;
   title: string;
@@ -18,7 +18,7 @@ export interface IConfirmDialogProps {
   loading?: boolean;
 }
 
-export function ConfirmDialog(props: IConfirmDialogProps) {
+export function ConfirmDialog(props: ConfirmDialogProps) {
   const { open, onClose, title, content, onConfirm, loading } = props;
 
   const { dialog: dialogTranslation } = translateFiles('dialog');
