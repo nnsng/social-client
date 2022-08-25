@@ -16,7 +16,7 @@ import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { copyPostLink, formatTime } from 'utils/common';
-import { Role } from 'utils/constants';
+import { Role } from 'constants/common';
 import { showComingSoonToast } from 'utils/toast';
 
 export interface PostCardHeaderProps {

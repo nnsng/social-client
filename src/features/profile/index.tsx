@@ -8,7 +8,7 @@ import PostList from 'features/blog/components/PostList';
 import { ListParams, LocationState, Post, PostActionType, User } from 'models';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { APP_NAME } from 'utils/constants';
+import { APP_NAME } from 'constants/common';
 import { showErrorToast } from 'utils/toast';
 import UserInfo from './components/UserInfo';
 

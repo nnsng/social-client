@@ -17,7 +17,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { validateEmail } from 'utils/common';
-import { APP_NAME } from 'utils/constants';
+import { APP_NAME } from 'constants/common';
 import { themeMixins } from 'utils/theme';
 import { showErrorToast } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
