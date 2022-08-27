@@ -11,11 +11,11 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
+import { APP_NAME } from 'constants/common';
 import { selectPostLoading } from 'features/blog/blogSlice';
 import { LocationState } from 'models';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { APP_NAME } from 'utils/constants';
 import { themeMixins, themeVariables } from 'utils/theme';
 import HeaderIconButton from './HeaderIconButton';
 import Notification from './Notification';

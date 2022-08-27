@@ -9,6 +9,7 @@ import {
 import { Avatar, Box, CardHeader, IconButton, MenuItem, SxProps, Typography } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { ActionMenu, TimeTooltip } from 'components/common';
+import { Role } from 'constants/common';
 import { selectCurrentUser } from 'features/auth/userSlice';
 import { useUserInfoPopup } from 'hooks';
 import { MenuItemProps, Post } from 'models';
@@ -16,7 +17,6 @@ import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { copyPostLink, formatTime } from 'utils/common';
-import { Role } from 'utils/constants';
 import { showComingSoonToast } from 'utils/toast';
 
 export interface PostCardHeaderProps {

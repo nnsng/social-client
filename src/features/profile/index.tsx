@@ -3,12 +3,12 @@ import { postApi, userApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { Header, NotFound, PageTitle } from 'components/common';
 import { UserInfoSkeleton } from 'components/skeletons';
+import { APP_NAME } from 'constants/common';
 import { blogActions, selectPostList, selectPostLoading } from 'features/blog/blogSlice';
 import PostList from 'features/blog/components/PostList';
 import { ListParams, LocationState, Post, PostActionType, User } from 'models';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { APP_NAME } from 'utils/constants';
 import { showErrorToast } from 'utils/toast';
 import UserInfo from './components/UserInfo';
 

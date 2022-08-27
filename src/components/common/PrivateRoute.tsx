@@ -1,5 +1,5 @@
+import { LocalStorageKey } from 'constants/common';
 import Chat from 'features/chat';
-import { LocalStorageKey } from 'utils/constants';
 import { Navigate } from 'react-router-dom';
 
 export interface PrivateRouteProps {

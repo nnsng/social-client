@@ -1,6 +1,7 @@
 import { userApi } from 'api';
 import { useAppDispatch } from 'app/hooks';
 import { CustomScrollbar, NotFound, PrivateRoute } from 'components/common';
+import { LocalStorageKey } from 'constants/common';
 import Auth from 'features/auth';
 import { userActions } from 'features/auth/userSlice';
 import Blog from 'features/blog';
@@ -11,7 +12,6 @@ import { socketActions } from 'features/socket/socketSlice';
 import { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
-import { LocalStorageKey } from 'utils/constants';
 import { env, variables } from 'utils/env';
 import { showErrorToast } from 'utils/toast';
 
