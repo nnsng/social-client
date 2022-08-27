@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { LocalStorageKey } from 'utils/constants';
+import { LocalStorageKey } from 'constants/common';
 import queryString from 'query-string';
 import { env, variables } from 'utils/env';
 

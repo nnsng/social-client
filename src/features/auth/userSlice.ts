@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
+import { LocalStorageKey } from 'constants/common';
 import { AuthPayload, User, UserConfig, UserConfigKey } from 'models';
-import { LocalStorageKey } from 'utils/constants';
 
 export interface UserState {
   submitting: boolean;

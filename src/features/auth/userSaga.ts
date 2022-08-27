@@ -1,10 +1,10 @@
 import { call, delay, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { authApi } from 'api';
+import { LocalStorageKey } from 'constants/common';
 import { chatActions } from 'features/chat/chatSlice';
 import { AuthFormValues, AuthPayload, AuthResponse } from 'models';
 import { toast } from 'react-toastify';
-import { LocalStorageKey } from 'utils/constants';
 import { showErrorToast } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 import { userActions } from './userSlice';

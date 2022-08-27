@@ -1,14 +1,14 @@
 import { Box, Container, Drawer, Grid } from '@mui/material';
-import { postApi, commentApi } from 'api';
+import { commentApi, postApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { NotFound, PageTitle } from 'components/common';
 import { PostDetailSkeleton } from 'components/skeletons';
+import { APP_NAME } from 'constants/common';
 import { commentActions, selectPostComments } from 'features/blog/commentSlice';
 import { selectSocket } from 'features/socket/socketSlice';
-import { CommentActionType, Comment, LocationState, Post, PostActionType } from 'models';
+import { Comment, CommentActionType, LocationState, Post, PostActionType } from 'models';
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { APP_NAME } from 'utils/constants';
 import { blogActions, selectPostDetail, selectPostLoading } from '../blogSlice';
 import PostComment from '../components/PostComment';
 import PostDetail from '../components/PostDetail';
