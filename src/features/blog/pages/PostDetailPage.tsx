@@ -9,7 +9,7 @@ import { selectSocket } from 'features/socket/socketSlice';
 import { Comment, CommentActionType, LocationState, Post, PostActionType } from 'models';
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { blogActions, selectPostDetail, selectPostLoading } from '../blogSlice';
+import { postActions, selectPostDetail, selectPostLoading } from '../postSlice';
 import PostComment from '../components/PostComment';
 import PostDetail from '../components/PostDetail';
 import PostReaction from '../components/PostReaction';
@@ -30,7 +30,7 @@ export function PostDetailPage() {
 
   useEffect(() => {
     if (!slug) return;
-    dispatch(blogActions.fetchPostDetail(slug));
+    dispatch(postActions.fetchPostDetail(slug));
   }, [dispatch, slug]);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ export function PostDetailPage() {
   };
 
   const handleLikePost = () => {
-    dispatch(blogActions.likePost(post?._id || ''));
+    dispatch(postActions.likePost(post?._id || ''));
   };
 
   const handleCommentAction = async (action: CommentActionType, comment: Comment) => {
@@ -70,7 +70,7 @@ export function PostDetailPage() {
   };
 
   const updateCommentCount = (count: number) => {
-    dispatch(blogActions.updateCommentCount(count));
+    dispatch(postActions.updateCommentCount(count));
   };
 
   return (

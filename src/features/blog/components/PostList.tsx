@@ -12,9 +12,8 @@ import {
 import { useAppSelector } from 'app/hooks';
 import { NoPost } from 'components/common';
 import { PostCardSkeleton } from 'components/skeletons';
-import { selectPostLoading, selectTotalPages } from 'features/blog/blogSlice';
+import { selectPostLoading, selectTotalPages } from 'features/blog/postSlice';
 import { ListParams, Post, PostActionType, PostByType } from 'models';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import PostCard from './PostCard';
 

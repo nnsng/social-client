@@ -4,10 +4,10 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { NoPost, PageTitle } from 'components/common';
 import { PostItemSkeleton } from 'components/skeletons';
 import { Post } from 'models';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { blogActions, selectPostLoading, selectSavedList, selectTotalPages } from '../blogSlice';
 import PostItem from '../components/PostItem';
+import { postActions, selectPostLoading, selectSavedList, selectTotalPages } from '../postSlice';
 
 export function MySavedPage() {
   const { t } = useTranslation('saved');
@@ -29,7 +29,7 @@ export function MySavedPage() {
   };
 
   const fetchSavedList = (page: number) => {
-    dispatch(blogActions.fetchSavedList({ page }));
+    dispatch(postActions.fetchSavedList({ page }));
   };
 
   const handlePageChange = (event: any, page: number) => {

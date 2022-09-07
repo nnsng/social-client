@@ -12,13 +12,13 @@ import ChatMessage from './ChatMessage';
 
 export interface CurrentChatProps {
   chat: Chat;
-  show: boolean;
+  expand: boolean;
   onClose?: () => void;
   toggleShow?: () => void;
 }
 
 export default function CurrentChat(props: CurrentChatProps) {
-  const { chat, show, onClose, toggleShow } = props;
+  const { chat, expand, onClose, toggleShow } = props;
 
   const endMessageRef = useRef<any>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -27,7 +27,7 @@ export default function CurrentChat(props: CurrentChatProps) {
   useEffect(() => {
     endMessageRef.current?.scrollIntoView();
     inputRef.current?.focus();
-  }, [show, chat]);
+  }, [expand, chat]);
 
   const handleMessageChange = (e: any) => {
     setMessage(e.target.value);
@@ -92,7 +92,7 @@ export default function CurrentChat(props: CurrentChatProps) {
         </IconButton>
       </Stack>
 
-      {show && (
+      {expand && (
         <Stack direction="column" height={400} bgcolor="background.paper">
           <Box
             className="default-scrollbar"

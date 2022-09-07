@@ -3,7 +3,7 @@ import { Header, NotFound } from 'components/common';
 import { Route, Routes } from 'react-router-dom';
 import { CreateEditPage, MainPage, MySavedPage, PostDetailPage } from './pages';
 
-export default function Blog() {
+export default function BlogFeature() {
   return (
     <Box>
       <Header />

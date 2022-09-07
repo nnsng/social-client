@@ -4,16 +4,16 @@ import favicons from 'assets/favicons';
 import { selectUserConfig } from 'features/auth/userSlice';
 import i18next from 'i18next';
 import { SnackbarProvider } from 'notistack';
-import React, { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { generateTheme, themeVariables } from 'utils/theme';
 
-export interface ApplyThemeProps {
-  children?: React.ReactNode;
+export interface CustomThemeProviderProps {
+  children?: ReactNode;
 }
 
-export function ApplyTheme({ children }: ApplyThemeProps) {
+export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
   const { themeMode, themeColor, language } = useAppSelector(selectUserConfig);
 
   const [theme, setTheme] = useState<Theme>(generateTheme(themeMode, themeColor));

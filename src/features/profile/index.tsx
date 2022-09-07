@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { Header, NotFound, PageTitle } from 'components/common';
 import { UserInfoSkeleton } from 'components/skeletons';
 import { APP_NAME } from 'constants/common';
-import { blogActions, selectPostList, selectPostLoading } from 'features/blog/blogSlice';
+import { postActions, selectPostList, selectPostLoading } from 'features/blog/postSlice';
 import PostList from 'features/blog/components/PostList';
 import { ListParams, LocationState, Post, PostActionType, User } from 'models';
 import { useEffect, useState } from 'react';
@@ -47,7 +47,7 @@ export default function ProfilePage() {
   }, [page]);
 
   const fetchUserPostList = ({ page }: { page: number }) => {
-    dispatch(blogActions.fetchPostList({ page, username }));
+    dispatch(postActions.fetchPostList({ page, username }));
   };
 
   const handlePageChange = ({ page }: ListParams) => {

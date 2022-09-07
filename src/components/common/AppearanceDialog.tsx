@@ -13,7 +13,7 @@ import {
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectUserConfig, userActions } from 'features/auth/userSlice';
 import { UserConfigKey } from 'models';
-import React from 'react';
+import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { supportedThemeColors } from 'utils/theme';
 import { supportedLanguages } from 'utils/translation';
@@ -33,7 +33,7 @@ export function AppearanceDialog(props: AppearanceDialogProps) {
   const { themeMode, themeColor, language } = useAppSelector(selectUserConfig);
   const isDarkMode = themeMode === 'dark';
 
-  const handleUpdateConfig = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpdateConfig = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name as UserConfigKey;
     const value = e.target.value;
     dispatch(userActions.updateConfig({ name, value }));

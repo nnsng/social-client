@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import { ReactNode, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
 import 'simplebar/dist/simplebar.min.css';
 
 export interface CustomScrollbarProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 export function CustomScrollbar({ children }: CustomScrollbarProps) {

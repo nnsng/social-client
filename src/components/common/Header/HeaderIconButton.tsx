@@ -1,8 +1,8 @@
 import { Badge, IconButton } from '@mui/material';
-import React from 'react';
+import { forwardRef, ReactElement } from 'react';
 
 export interface HeaderIconButtonProps {
-  icon: React.ReactElement;
+  icon: ReactElement;
   onClick?: () => void;
   showBadge?: boolean;
 }
@@ -48,4 +48,4 @@ function HeaderIconButton(props: HeaderIconButtonProps, ref?: any) {
   );
 }
 
-export default React.forwardRef(HeaderIconButton);
+export default forwardRef(HeaderIconButton);

@@ -9,10 +9,10 @@ import { Avatar, Box, Divider, Drawer, MenuItem, MenuList, Typography } from '@m
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectCurrentUser, userActions } from 'features/auth/userSlice';
 import { MenuItemProps } from 'models';
-import React, { useRef, useState } from 'react';
+import { ReactElement, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { AppearanceDialog, PopperPopup } from '..';
+import { AnchorEl, AppearanceDialog, PopperPopup } from '..';
 
 export interface UserMenuProps {
   isOnMobile: boolean;
@@ -157,8 +157,8 @@ interface MenuItemWrapperProps {
   isOnMobile: boolean;
   open: boolean;
   onClose?: () => void;
-  anchorEl: any;
-  children: React.ReactElement;
+  anchorEl: AnchorEl;
+  children: ReactElement;
 }
 
 function MenuItemWrapper(props: MenuItemWrapperProps) {

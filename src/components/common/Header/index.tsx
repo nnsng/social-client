@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { APP_NAME } from 'constants/common';
-import { selectPostLoading } from 'features/blog/blogSlice';
+import { selectPostLoading } from 'features/blog/postSlice';
 import { LocationState } from 'models';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';

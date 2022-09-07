@@ -7,7 +7,7 @@ import { ListParams, Post, PostActionType } from 'models';
 import queryString from 'query-string';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { blogActions, selectPostList } from '../blogSlice';
+import { postActions, selectPostList } from '../postSlice';
 import PostList from '../components/PostList';
 import TopHashtags from '../components/TopHashtags';
 
@@ -47,7 +47,7 @@ export function MainPage() {
   useEffect(() => {
     const { by, ...rest } = filter;
     navigate(`?${queryString.stringify(rest)}`, { replace: true });
-    dispatch(blogActions.fetchPostList(filter));
+    dispatch(postActions.fetchPostList(filter));
   }, [dispatch, filter]);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export function MainPage() {
   const handlePostAction = async (action: PostActionType, post: Post) => {
     await postApi[action](post._id || '');
     if (action === 'remove') {
-      dispatch(blogActions.fetchPostList(filter));
+      dispatch(postActions.fetchPostList(filter));
     }
   };
 

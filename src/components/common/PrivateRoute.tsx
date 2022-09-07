@@ -1,9 +1,10 @@
 import { LocalStorageKey } from 'constants/common';
-import Chat from 'features/chat';
+import ChatFeature from 'features/chat';
+import { ReactChild } from 'react';
 import { Navigate } from 'react-router-dom';
 
 export interface PrivateRouteProps {
-  children: React.ReactNode;
+  children: ReactChild;
   hideChat?: boolean;
 }
 
@@ -15,7 +16,7 @@ export function PrivateRoute(props: PrivateRouteProps) {
   return isAuth ? (
     <>
       {children}
-      {!hideChat && <Chat />}
+      {!hideChat && <ChatFeature />}
     </>
   ) : (
     <Navigate to="/login" />

@@ -4,9 +4,9 @@ import { CustomScrollbar, NotFound, PrivateRoute } from 'components/common';
 import { LocalStorageKey } from 'constants/common';
 import Auth from 'features/auth';
 import { userActions } from 'features/auth/userSlice';
-import Blog from 'features/blog';
+import BlogFeature from 'features/blog';
 import ProfilePage from 'features/profile';
-import Settings from 'features/settings';
+import SettingFeature from 'features/settings';
 import SocketClient from 'features/socket';
 import { socketActions } from 'features/socket/socketSlice';
 import { useEffect } from 'react';
@@ -59,7 +59,7 @@ function App() {
           path="/blog/*"
           element={
             <PrivateRoute>
-              <Blog />
+              <BlogFeature />
             </PrivateRoute>
           }
         />
@@ -68,7 +68,7 @@ function App() {
           path="/settings/*"
           element={
             <PrivateRoute>
-              <Settings />
+              <SettingFeature />
             </PrivateRoute>
           }
         />

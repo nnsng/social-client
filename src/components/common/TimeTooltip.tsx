@@ -1,4 +1,5 @@
 import { Tooltip, TooltipProps } from '@mui/material';
+import { ReactElement } from 'react';
 import { formatTime } from 'utils/common';
 
 export interface TimeTooltipProps {
@@ -6,18 +7,20 @@ export interface TimeTooltipProps {
   format?: string;
   placement?: TooltipProps['placement'];
   arrow?: boolean;
-  children: React.ReactElement;
+  children: ReactElement;
 }
 
 export function TimeTooltip(props: TimeTooltipProps) {
-  const { timestamp, format = 'DD/MM/YYYY, HH:mm', placement, arrow, children } = props;
+  const {
+    timestamp,
+    format = 'DD/MM/YYYY, HH:mm',
+    placement = 'right',
+    arrow = true,
+    children,
+  } = props;
 
   return (
-    <Tooltip
-      title={formatTime(timestamp, format)}
-      placement={placement ?? 'right'}
-      arrow={arrow ?? true}
-    >
+    <Tooltip title={formatTime(timestamp, format)} placement={placement} arrow={arrow}>
       {children}
     </Tooltip>
   );
