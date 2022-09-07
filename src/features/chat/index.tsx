@@ -2,7 +2,7 @@ import { IconButton, Stack, Theme, useMediaQuery } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { ChatIcon } from 'components/icons';
 import { Chat } from 'models';
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { chatActions, selectChatList, selectCurrentChat, selectIsExpandChat } from './chatSlice';
 import ChatPopup from './components/ChatPopup';
 import CurrentChat from './components/CurrentChat';
@@ -11,7 +11,7 @@ export default function ChatFeature() {
   const dispatch = useAppDispatch();
   const chatList = useAppSelector(selectChatList);
   const currentChat = useAppSelector(selectCurrentChat);
-  const isShowChat = useAppSelector(selectIsExpandChat);
+  const isExpandChat = useAppSelector(selectIsExpandChat);
 
   const ref = useRef<any>(null);
   const [openPopup, setOpenPopup] = useState<boolean>(false);
@@ -20,16 +20,16 @@ export default function ChatFeature() {
   const closePopup = () => setOpenPopup(false);
 
   const toggleShowCurrentChat = () => {
-    dispatch(chatActions.setIsExpandChat(!isShowChat));
+    dispatch(chatActions.setIsExpandChat(!isExpandChat));
   };
 
-  const handleChatClick = (chat: Chat) => {
+  const handleOpenCurrentChat = (chat: Chat) => {
     closePopup();
     dispatch(chatActions.setIsExpandChat(true));
     dispatch(chatActions.setCurrentChat(chat));
   };
 
-  const handleCloseCurrentConversation = () => {
+  const handleCloseCurrentChat = () => {
     dispatch(chatActions.setCurrentChat(null));
   };
 
@@ -66,14 +66,14 @@ export default function ChatFeature() {
         anchorEl={ref.current}
         chatList={chatList}
         onClose={closePopup}
-        onChatClick={handleChatClick}
+        onChatClick={handleOpenCurrentChat}
       />
 
       {!!currentChat && (
         <CurrentChat
           chat={currentChat}
-          show={isShowChat}
-          onClose={handleCloseCurrentConversation}
+          expand={isExpandChat}
+          onClose={handleCloseCurrentChat}
           toggleShow={toggleShowCurrentChat}
         />
       )}

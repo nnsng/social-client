@@ -6,7 +6,7 @@ import { themeMixins } from 'utils/theme';
 import SettingLayout from './components/SettingLayout';
 import SettingTabs from './components/SettingTabs';
 
-export default function Settings() {
+export default function SettingFeature() {
   const { t } = useTranslation('settings');
 
   return (
