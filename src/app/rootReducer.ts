@@ -1,5 +1,5 @@
 import userReducer from 'features/auth/userSlice';
-import blogReducer from 'features/blog/blogSlice';
+import postReducer from 'features/blog/postSlice';
 import commentReducer from 'features/blog/commentSlice';
 import chatReducer from 'features/chat/chatSlice';
 import notiReducer from 'features/common/notiSlice';
@@ -9,7 +9,7 @@ import { combineReducers } from 'redux';
 
 const rootReducer = combineReducers({
   user: userReducer,
-  post: blogReducer,
+  post: postReducer,
   comment: commentReducer,
   settings: settingReducer,
   socket: socketReducer,

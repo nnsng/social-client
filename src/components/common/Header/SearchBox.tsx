@@ -19,15 +19,15 @@ import {
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
-  blogActions,
+  postActions,
   SearchResultItem,
   selectFormattedSearchResult,
   selectSearchLoading,
-} from 'features/blog/blogSlice';
+} from 'features/blog/postSlice';
 import { useSubmitWithEnter } from 'hooks';
 import { SearchObj } from 'models';
 import queryString from 'query-string';
-import React, { useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { slugifyString } from 'utils/common';
@@ -106,7 +106,7 @@ export default function SearchBox(props: SearchBoxProps) {
   useEffect(() => {
     const { searchFor, searchTerm } = searchObj;
     dispatch(
-      blogActions.searchWithDebounce({
+      postActions.searchWithDebounce({
         searchFor,
         searchTerm: slugifyString(searchTerm),
       })
@@ -126,7 +126,7 @@ export default function SearchBox(props: SearchBoxProps) {
   const closeSearchResult = () => setShowSearchResult(false);
   const clearSearchInput = () => setSearchInput('');
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
   };
 

@@ -1,5 +1,5 @@
 import { CssBaseline } from '@mui/material';
-import { ApplyTheme } from 'components/common';
+import { CustomThemeProvider } from 'components/common';
 import 'i18n';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -12,12 +12,12 @@ import './styles/index.css';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ApplyTheme>
+      <CustomThemeProvider>
         <BrowserRouter>
           <CssBaseline />
           <App />
         </BrowserRouter>
-      </ApplyTheme>
+      </CustomThemeProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

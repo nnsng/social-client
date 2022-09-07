@@ -31,7 +31,7 @@ const initialState: PostState = {
   searchLoading: false,
 };
 
-const blogSlice = createSlice({
+const postSlice = createSlice({
   name: 'post',
   initialState,
   reducers: {
@@ -96,7 +96,7 @@ const blogSlice = createSlice({
   },
 });
 
-export const blogActions = blogSlice.actions;
+export const postActions = postSlice.actions;
 
 export const selectPostLoading = (state: RootState) => state.post.loading;
 export const selectPostList = (state: RootState) => state.post.list;
@@ -122,5 +122,5 @@ export const selectFormattedSearchResult = createSelector(selectSearchResult, (s
   );
 });
 
-const blogReducer = blogSlice.reducer;
-export default blogReducer;
+const postReducer = postSlice.reducer;
+export default postReducer;

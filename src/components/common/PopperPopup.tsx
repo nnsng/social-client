@@ -6,14 +6,17 @@ import {
   Paper,
   Popper,
   PopperPlacementType,
+  PopperProps,
   Theme,
 } from '@mui/material';
 import { SxProps } from '@mui/system';
 import { themeMixins } from 'utils/theme';
 
+export type AnchorEl = PopperProps['anchorEl'];
+
 export interface PopperPopupProps {
   open: boolean;
-  anchorEl?: any;
+  anchorEl?: AnchorEl;
   placement?: PopperPlacementType;
   onClose?: () => void;
   children?: any;
@@ -23,14 +26,23 @@ export interface PopperPopupProps {
 }
 
 export function PopperPopup(props: PopperPopupProps) {
-  const { open, anchorEl, placement, onClose, children, sx, onMouseEnter, onMouseLeave } = props;
+  const {
+    open,
+    anchorEl,
+    placement = 'bottom-end',
+    onClose,
+    children,
+    sx,
+    onMouseEnter,
+    onMouseLeave,
+  } = props;
   const { zIndex, ...paperSx } = sx || {};
 
   return (
     <Popper
       open={open}
       anchorEl={anchorEl}
-      placement={placement ?? 'bottom-end'}
+      placement={placement}
       sx={{ zIndex }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -45,7 +57,7 @@ export function PopperPopup(props: PopperPopupProps) {
               overflow: 'hidden',
             }}
           >
-            <ClickAwayListener onClickAway={() => onClose?.()}>
+            <ClickAwayListener onClickAway={onClose}>
               <Box>{children}</Box>
             </ClickAwayListener>
           </Paper>

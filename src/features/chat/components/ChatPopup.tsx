@@ -1,16 +1,16 @@
 import { Avatar, Box, Divider, MenuItem, Stack, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { PopperPopup } from 'components/common/PopperPopup';
+import { AnchorEl, PopperPopup } from 'components/common';
 import { selectCurrentUser } from 'features/auth/userSlice';
 import { Chat } from 'models';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { formatTime, truncateText } from 'utils/common';
 import { chatActions } from '../chatSlice';
 
 export interface ChatPopupProps {
   open: boolean;
-  anchorEl?: any;
+  anchorEl?: AnchorEl;
   chatList: Chat[];
   onClose?: () => void;
   onChatClick?: (chat: Chat) => void;

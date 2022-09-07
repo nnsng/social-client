@@ -1,10 +1,10 @@
-import { UserInfoPopup } from 'components/common';
+import { AnchorEl, UserInfoPopup } from 'components/common';
 import { User } from 'models';
 import { useEffect, useRef, useState } from 'react';
 
 export interface UseUserInfoPopup {
   user: Partial<User>;
-  anchorEl: any;
+  anchorEl: AnchorEl;
 }
 
 export function useUserInfoPopup(props: UseUserInfoPopup) {
