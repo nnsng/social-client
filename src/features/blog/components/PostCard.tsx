@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 import { ConfirmDialog } from 'components/common';
-import { Post, PostActionType } from 'models';
+import { Post } from 'models';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
@@ -32,12 +32,13 @@ const allowedElements = [
 
 export interface PostCardProps {
   post: Post;
-  onPostAction?: (action: PostActionType, post: Post) => void;
+  onSave?: (post: Post) => void;
+  onDelete?: (post: Post) => void;
   showPopup?: boolean;
 }
 
 export default function PostCard(props: PostCardProps) {
-  const { post, onPostAction, showPopup = true } = props;
+  const { post, onSave, onDelete, showPopup = true } = props;
 
   const { toast: toastTranslation, dialog: dialogTranslation } = translateFiles('toast', 'dialog');
 
@@ -58,7 +59,7 @@ export default function PostCard(props: PostCardProps) {
 
   const handleSavePost = async () => {
     try {
-      await onPostAction?.('save', post);
+      await onSave?.(post);
       toast.success(toastTranslation.postCard.saveSuccess);
     } catch (error) {
       showErrorToast(error);
@@ -69,7 +70,7 @@ export default function PostCard(props: PostCardProps) {
     setLoading(true);
 
     try {
-      await onPostAction?.('remove', post);
+      await onDelete?.(post);
       toast.success(toastTranslation.postCard.deleteSuccess);
     } catch (error) {
       showErrorToast(error);
@@ -104,11 +105,9 @@ export default function PostCard(props: PostCardProps) {
 
         <CardContent sx={{ '&:last-child': { p: 0 } }}>
           <Stack
-            sx={{
-              flexDirection: { xs: 'column', sm: 'row' },
-              alignItems: { xs: 'flex-start', sm: 'center' },
-              justifyContent: 'space-between',
-            }}
+            direction={{ xs: 'column', sm: 'row' }}
+            alignItems={{ xs: 'flex-start', sm: 'center' }}
+            justifyContent="space-between"
           >
             <Box flexGrow={1}>
               <Typography

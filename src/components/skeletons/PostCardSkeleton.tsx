@@ -28,12 +28,10 @@ export function PostCardSkeleton() {
       />
 
       <Stack
-        sx={{
-          width: '100%',
-          flexDirection: { xs: 'column', sm: 'row' },
-          alignItems: { xs: 'flex-start', sm: 'center' },
-          justifyContent: 'space-between',
-        }}
+        direction={{ xs: 'column', sm: 'row' }}
+        alignItems={{ xs: 'flex-start', sm: 'center' }}
+        justifyContent="space-between"
+        width="100%"
       >
         <Box flexGrow={1} width="100%" pt={{ xs: 2, sm: 0 }}>
           <StyledSkeleton variant="text" width="70%" height={18} />

@@ -15,8 +15,8 @@ const initialState: UserState = {
   submitting: false,
   currentUser: null,
   config: {
-    themeMode: 'light',
-    themeColor: '#FF652F',
+    mode: 'light',
+    mainColor: '#FF652F',
     language: 'vi',
     ...localConfig,
   },

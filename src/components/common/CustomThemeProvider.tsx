@@ -6,27 +6,27 @@ import i18next from 'i18next';
 import { SnackbarProvider } from 'notistack';
 import { ReactNode, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
+import { configTheme, themeVariables } from 'utils/theme';
 import 'react-toastify/dist/ReactToastify.min.css';
-import { generateTheme, themeVariables } from 'utils/theme';
 
 export interface CustomThemeProviderProps {
-  children?: ReactNode;
+  children: ReactNode;
 }
 
 export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
-  const { themeMode, themeColor, language } = useAppSelector(selectUserConfig);
+  const { mode, mainColor, language } = useAppSelector(selectUserConfig);
 
-  const [theme, setTheme] = useState<Theme>(generateTheme(themeMode, themeColor));
+  const [theme, setTheme] = useState<Theme>(configTheme(mode, mainColor));
 
   useEffect(() => {
-    setTheme(generateTheme(themeMode, themeColor));
-  }, [themeMode, themeColor]);
+    setTheme(configTheme(mode, mainColor));
+  }, [mode, mainColor]);
 
   useEffect(() => {
     const faviconElement = document.getElementById('favicon') as HTMLLinkElement;
-    faviconElement.href = favicons[themeColor] ?? favicons['#000000'];
-    document.documentElement.style.setProperty('--color-primary', themeColor);
-  }, [themeColor]);
+    faviconElement.href = favicons[mainColor] ?? favicons['#000000'];
+    document.documentElement.style.setProperty('--color-primary', mainColor);
+  }, [mainColor]);
 
   useEffect(() => {
     i18next.changeLanguage(language);
@@ -48,7 +48,7 @@ export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
       </SnackbarProvider>
 
       <ToastContainer
-        theme={themeMode}
+        theme={mode}
         autoClose={2000}
         style={{ top: themeVariables.headerHeight }}
         toastStyle={{ backgroundColor: theme.palette.background.paper }}

@@ -1,4 +1,11 @@
+import { ReactElement } from 'react';
 import { NotiType, PostByType } from './types';
+
+export interface RouteItem {
+  path: string;
+  element: ReactElement;
+  private?: boolean;
+}
 
 export interface PaginationParams {
   page: number;

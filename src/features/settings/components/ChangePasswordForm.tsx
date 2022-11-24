@@ -98,10 +98,8 @@ export default function ChangePasswordForm(props: ChangePasswordFormProps) {
           ))}
 
           <Stack
-            sx={{
-              flexDirection: { xs: 'column', sm: 'row' },
-              alignItems: { xs: 'flex-start', sm: 'center' },
-            }}
+            direction={{ xs: 'column', sm: 'row' }}
+            alignItems={{ xs: 'flex-start', sm: 'center' }}
           >
             <Button
               type="submit"

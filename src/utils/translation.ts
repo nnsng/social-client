@@ -1,6 +1,11 @@
 import i18next from 'i18next';
 
-export const supportedLanguages = [
+interface Language {
+  name: string;
+  code: string;
+}
+
+export const supportedLanguages: Language[] = [
   { name: 'Tiếng Việt', code: 'vi' },
   { name: 'English', code: 'en' },
 ];

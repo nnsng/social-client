@@ -1,13 +1,14 @@
 import { useAppSelector } from 'app/hooks';
 import { selectCurrentUser } from 'features/auth/userSlice';
 import { useEffect } from 'react';
+import { Socket } from 'socket.io-client';
 import ChatSocket from './components/ChatSocket';
 import CommentSocket from './components/CommentSocket';
 import NotiSocket from './components/NotiSocket';
 import { selectSocket } from './socketSlice';
 
 export interface SocketProps {
-  socket: any;
+  socket: Socket;
 }
 
 export default function SocketClient() {
@@ -23,12 +24,14 @@ export default function SocketClient() {
     };
   }, [socket, currentUser]);
 
+  if (!socket) return null;
+
   const SocketComponents = [NotiSocket, CommentSocket, ChatSocket];
 
   return (
     <>
-      {SocketComponents.map((Component, idx) => (
-        <Component key={idx} socket={socket} />
+      {SocketComponents.map((Socket, idx) => (
+        <Socket key={idx} socket={socket} />
       ))}
     </>
   );

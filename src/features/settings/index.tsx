@@ -29,7 +29,7 @@ export default function SettingFeature() {
                 pt: { xs: 0, sm: 2 },
               }}
             >
-              <Stack sx={{ flexDirection: { xs: 'column', sm: 'row' } }}>
+              <Stack direction={{ xs: 'column', sm: 'row' }}>
                 <Box
                   sx={{
                     flexShrink: 0,

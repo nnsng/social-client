@@ -6,13 +6,13 @@ import { PostDetailSkeleton } from 'components/skeletons';
 import { APP_NAME } from 'constants/common';
 import { commentActions, selectPostComments } from 'features/blog/commentSlice';
 import { selectSocket } from 'features/socket/socketSlice';
-import { Comment, CommentActionType, LocationState, Post, PostActionType } from 'models';
+import { Comment, CommentActionType, LocationState, Post } from 'models';
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import { postActions, selectPostDetail, selectPostLoading } from '../postSlice';
 import PostComment from '../components/PostComment';
 import PostDetail from '../components/PostDetail';
 import PostReaction from '../components/PostReaction';
+import { postActions, selectPostDetail, selectPostLoading } from '../postSlice';
 
 export function PostDetailPage() {
   const { slug } = useParams();
@@ -53,8 +53,12 @@ export function PostDetailPage() {
 
   const closeComment = () => setOpenComment(false);
 
-  const handlePostAction = async (action: PostActionType, post: Post) => {
-    await postApi[action](post._id || '');
+  const handleSavePost = async (post: Post) => {
+    await postApi.save(post._id || '');
+  };
+
+  const handleDeletePost = async (post: Post) => {
+    await postApi.remove(post._id || '');
   };
 
   const handleLikePost = () => {
@@ -73,6 +77,12 @@ export function PostDetailPage() {
     dispatch(postActions.updateCommentCount(count));
   };
 
+  const renderPostDetail = () => {
+    if (loading) return <PostDetailSkeleton />;
+    if (post) return <PostDetail post={post} onSave={handleSavePost} onDelete={handleDeletePost} />;
+    return <NotFound />;
+  };
+
   return (
     <Container>
       <PageTitle title={loading ? APP_NAME : `${post?.title} | ${post?.author?.name}`} />
@@ -80,15 +90,7 @@ export function PostDetailPage() {
       <Box>
         <Grid container>
           <Grid item xs={12} md={10} lg={8} mx="auto">
-            <Box>
-              {loading ? (
-                <PostDetailSkeleton />
-              ) : post ? (
-                <PostDetail post={post} onPostAction={handlePostAction} />
-              ) : (
-                <NotFound />
-              )}
-            </Box>
+            <Box>{renderPostDetail()}</Box>
           </Grid>
 
           <Grid item xs={12} md={10} lg={3} mx={{ xs: 'auto', lg: 0 }}>

@@ -4,9 +4,9 @@ import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { Header, NotFound, PageTitle } from 'components/common';
 import { UserInfoSkeleton } from 'components/skeletons';
 import { APP_NAME } from 'constants/common';
-import { postActions, selectPostList, selectPostLoading } from 'features/blog/postSlice';
 import PostList from 'features/blog/components/PostList';
-import { ListParams, LocationState, Post, PostActionType, User } from 'models';
+import { postActions, selectPostList, selectPostLoading } from 'features/blog/postSlice';
+import { ListParams, LocationState, Post, User } from 'models';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { showErrorToast } from 'utils/toast';
@@ -54,15 +54,22 @@ export default function ProfilePage() {
     setPage(page ?? 1);
   };
 
-  const handlePostAction = async (action: PostActionType, post: Post) => {
-    await postApi[action](post._id || '');
-    if (action === 'remove') {
-      fetchUserPostList({ page });
-    }
+  const handleSavePost = async (post: Post) => {
+    await postApi.save(post._id || '');
+  };
+
+  const handleDeletePost = async (post: Post) => {
+    await postApi.remove(post._id || '');
+    fetchUserPostList({ page });
   };
 
   const updateUser = (user: Partial<User>) => {
     setUserInfo(user);
+  };
+
+  const renderUserInfo = () => {
+    if (loading || !userInfo) return <UserInfoSkeleton />;
+    return <UserInfo userInfo={userInfo} updateUser={updateUser} />;
   };
 
   if (notFound) return <NotFound showHeader />;
@@ -74,18 +81,15 @@ export default function ProfilePage() {
 
       <Box component="main">
         <Container maxWidth="md">
-          {loading || !userInfo ? (
-            <UserInfoSkeleton />
-          ) : (
-            <UserInfo userInfo={userInfo} updateUser={updateUser} />
-          )}
+          {renderUserInfo()}
 
           {userInfo && (
             <PostList
               postList={postList}
               page={page}
               onFilterChange={handlePageChange}
-              onPostAction={handlePostAction}
+              onSave={handleSavePost}
+              onDelete={handleDeletePost}
               isHomePage={false}
             />
           )}

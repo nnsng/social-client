@@ -1,6 +1,5 @@
 // post
 export type PostByType = 'all' | 'following';
-export type PostActionType = 'save' | 'remove';
 
 // comment
 export type CommentActionType = 'create' | 'edit' | 'remove' | 'like';
@@ -11,4 +10,4 @@ export type NotiType = 'like' | 'comment' | 'follow' | 'report';
 // others
 export type FollowModeType = 'follow' | 'unfollow';
 
-export type ConfigKey = 'themeMode' | 'themeColor' | 'language';
+export type ConfigKey = 'mode' | 'mainColor' | 'language';

@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Socket } from 'socket.io-client';
 
 export interface SocketState {
-  socket: any;
+  socket: Socket | null;
 }
 
 const initialState: SocketState = {
@@ -15,7 +15,10 @@ const socketSlice = createSlice({
   initialState,
   reducers: {
     setSocket(state, action: PayloadAction<Socket>) {
-      state.socket = action.payload;
+      return {
+        ...state,
+        socket: action.payload,
+      };
     },
   },
 });

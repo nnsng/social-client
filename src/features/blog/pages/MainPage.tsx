@@ -3,13 +3,13 @@ import { postApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
 import { APP_NAME } from 'constants/common';
-import { ListParams, Post, PostActionType } from 'models';
+import { ListParams, Post } from 'models';
 import queryString from 'query-string';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { postActions, selectPostList } from '../postSlice';
 import PostList from '../components/PostList';
 import TopHashtags from '../components/TopHashtags';
+import { postActions, selectPostList } from '../postSlice';
 
 export function MainPage() {
   const navigate = useNavigate();
@@ -70,11 +70,13 @@ export function MainPage() {
     });
   };
 
-  const handlePostAction = async (action: PostActionType, post: Post) => {
-    await postApi[action](post._id || '');
-    if (action === 'remove') {
-      dispatch(postActions.fetchPostList(filter));
-    }
+  const handleSavePost = async (post: Post) => {
+    await postApi.save(post._id || '');
+  };
+
+  const handleDeletePost = async (post: Post) => {
+    await postApi.remove(post._id || '');
+    dispatch(postActions.fetchPostList(filter));
   };
 
   return (
@@ -92,7 +94,8 @@ export function MainPage() {
             page={Number(filter.page) || 1}
             filter={filter}
             onFilterChange={handleFilterChange}
-            onPostAction={handlePostAction}
+            onSave={handleSavePost}
+            onDelete={handleDeletePost}
           />
         </Grid>
 

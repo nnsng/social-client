@@ -20,8 +20,8 @@ export interface User {
 }
 
 export interface UserConfig {
-  themeMode: PaletteMode;
-  themeColor: string;
+  mode: PaletteMode;
+  mainColor: string;
   language: string;
 }
 
