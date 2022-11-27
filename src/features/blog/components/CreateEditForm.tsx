@@ -7,9 +7,7 @@ import {
   DialogActions,
   DialogContent,
   Stack,
-  Theme,
   Typography,
-  useMediaQuery,
 } from '@mui/material';
 import {
   FileInputField,
@@ -17,6 +15,7 @@ import {
   InputField,
   MdEditorField,
 } from 'components/formFields';
+import { useCustomMediaQuery } from 'hooks';
 import { Post } from 'models';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -106,7 +105,7 @@ export function CreateEditForm(props: CreateEditFormProps) {
     }
   };
 
-  const smUp = useMediaQuery<Theme>((theme) => theme.breakpoints.up('sm'));
+  const smUp = useCustomMediaQuery('up', 'sm');
   const dialogWidth = smUp ? { fullWidth: true } : { fullScreen: true };
 
   return (

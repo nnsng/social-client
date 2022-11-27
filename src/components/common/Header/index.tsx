@@ -1,6 +1,7 @@
-import { Box, Container, LinearProgress, Theme, useMediaQuery } from '@mui/material';
+import { Box, Container, LinearProgress } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
 import { selectPostLoading } from 'features/blog/postSlice';
+import { useCustomMediaQuery } from 'hooks';
 import { themeMixins, themeVariables } from 'utils/theme';
 import { HeaderDesktop } from './HeaderDesktop';
 import { HeaderMobile } from './HeaderMobile';
@@ -8,7 +9,7 @@ import { HeaderMobile } from './HeaderMobile';
 export function Header() {
   const loading = useAppSelector(selectPostLoading);
 
-  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'));
+  const mdUp = useCustomMediaQuery('up', 'md');
 
   return (
     <Box

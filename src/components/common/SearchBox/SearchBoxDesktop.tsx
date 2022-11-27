@@ -13,9 +13,7 @@ import {
   OutlinedInput,
   Paper,
   Stack,
-  Theme,
   Typography,
-  useMediaQuery,
 } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
@@ -23,7 +21,7 @@ import {
   selectFormattedSearchResult,
   selectSearchLoading,
 } from 'features/blog/postSlice';
-import { useSubmitWithEnter } from 'hooks';
+import { useCustomMediaQuery, useSubmitWithEnter } from 'hooks';
 import { SearchObj, SearchResultItem } from 'models';
 import queryString from 'query-string';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
@@ -140,7 +138,7 @@ export default function SearchBoxDesktop() {
 
   const onKeyUp = useSubmitWithEnter(handleViewMore);
 
-  const smDown = useMediaQuery<Theme>((theme) => theme.breakpoints.down('sm'));
+  const smDown = useCustomMediaQuery('down', 'sm');
 
   return (
     <>

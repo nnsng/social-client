@@ -10,7 +10,7 @@ import SettingFeature from 'features/settings';
 import SocketClient from 'features/socket';
 import { socketActions } from 'features/socket/socketSlice';
 import { useEffect } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { env, variables } from 'utils/env';
 import { showErrorToast } from 'utils/toast';
@@ -53,8 +53,10 @@ function App() {
       <SocketClient />
 
       <Routes>
+        <Route path="/" element={<Navigate to="/blog" replace={true} />} />
+
         <Route
-          path="blog/*"
+          path="/blog/*"
           element={
             <PrivateRoute>
               <BlogFeature />
@@ -63,7 +65,7 @@ function App() {
         />
 
         <Route
-          path="settings/*"
+          path="/settings/*"
           element={
             <PrivateRoute>
               <SettingFeature />
@@ -71,14 +73,14 @@ function App() {
           }
         />
 
-        <Route path="login" element={<Auth mode="login" />} />
-        <Route path="register" element={<Auth mode="register" />} />
-        <Route path="active" element={<Auth mode="active" />} />
-        <Route path="reset-password" element={<Auth mode="resetPassword" />} />
-        <Route path="create-password" element={<Auth mode="createPassword" />} />
+        <Route path="/login" element={<Auth mode="login" />} />
+        <Route path="/register" element={<Auth mode="register" />} />
+        <Route path="/active" element={<Auth mode="active" />} />
+        <Route path="/reset-password" element={<Auth mode="resetPassword" />} />
+        <Route path="/create-password" element={<Auth mode="createPassword" />} />
 
         <Route
-          path="profile/:username"
+          path="/profile/:username"
           element={
             <PrivateRoute>
               <ProfilePage />

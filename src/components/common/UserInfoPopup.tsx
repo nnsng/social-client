@@ -1,7 +1,8 @@
-import { Avatar, Box, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
+import { Avatar, Box, Stack, Typography } from '@mui/material';
+import { useCustomMediaQuery } from 'hooks';
 import { User } from 'models';
 import { useState } from 'react';
-import { PopperPopupProps, PopperPopup } from './PopperPopup';
+import { PopperPopup, PopperPopupProps } from './PopperPopup';
 import { UserInfoButtonGroup } from './UserInfoButtonGroup';
 
 export interface UserInfoPopupProps extends PopperPopupProps {
@@ -13,7 +14,7 @@ export function UserInfoPopup(props: UserInfoPopupProps) {
 
   const [isOpen, setIsOpen] = useState(open);
 
-  const mdUp = useMediaQuery<Theme>((theme) => theme.breakpoints.up('md'));
+  const mdUp = useCustomMediaQuery('up', 'md');
 
   return (
     <PopperPopup

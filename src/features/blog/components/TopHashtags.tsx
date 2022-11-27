@@ -1,5 +1,5 @@
-import { Box, Chip, Stack, SxProps, Theme, Typography, useMediaQuery } from '@mui/material';
-import React from 'react';
+import { Box, Chip, Stack, SxProps, Typography } from '@mui/material';
+import { useCustomMediaQuery } from 'hooks';
 import { useTranslation } from 'react-i18next';
 import { themeVariables } from 'utils/theme';
 
@@ -23,9 +23,9 @@ export function TopHashtags(props: TopHashtagsProps) {
     onHashtagClick?.(undefined);
   };
 
-  const isOnPC = useMediaQuery<Theme>((theme) => theme.breakpoints.up('lg'));
+  const lgUp = useCustomMediaQuery('up', 'lg');
 
-  const hashtagWrapperSx: SxProps = isOnPC
+  const hashtagWrapperSx: SxProps = lgUp
     ? {
         mt: '1.5px',
         borderTop: 1,
@@ -48,7 +48,7 @@ export function TopHashtags(props: TopHashtagsProps) {
         top: themeVariables.headerHeight + 16,
       }}
     >
-      {isOnPC && (
+      {lgUp && (
         <Typography
           variant="button"
           color="text.primary"

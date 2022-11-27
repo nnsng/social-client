@@ -1,4 +1,5 @@
-import { Tab, Tabs, Theme, useMediaQuery } from '@mui/material';
+import { Tab, Tabs } from '@mui/material';
+import { useCustomMediaQuery } from 'hooks';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -44,7 +45,7 @@ export function SettingTabs() {
     },
   ];
 
-  const smUp = useMediaQuery<Theme>((theme) => theme.breakpoints.up('sm'));
+  const smUp = useCustomMediaQuery('up', 'sm');
 
   return (
     <Tabs

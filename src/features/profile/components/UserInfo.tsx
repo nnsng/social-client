@@ -1,15 +1,6 @@
-import {
-  Avatar,
-  Box,
-  List,
-  ListItem,
-  Stack,
-  Theme,
-  Tooltip,
-  Typography,
-  useMediaQuery,
-} from '@mui/material';
+import { Avatar, Box, List, ListItem, Stack, Tooltip, Typography } from '@mui/material';
 import { UserInfoButtonGroup } from 'components/common';
+import { useCustomMediaQuery } from 'hooks';
 import { FollowUser, User } from 'models';
 import { useTranslation } from 'react-i18next';
 import { themeMixins } from 'utils/theme';
@@ -24,7 +15,7 @@ export default function UserInfo(props: UserInfoProps) {
 
   const { t } = useTranslation('profile');
 
-  const smUp = useMediaQuery<Theme>((theme) => theme.breakpoints.up('sm'));
+  const smUp = useCustomMediaQuery('up', 'sm');
 
   const MAX_SHOWED_USER = 5;
 

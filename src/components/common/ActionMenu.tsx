@@ -1,14 +1,15 @@
-import { Drawer, MenuList, Theme, useMediaQuery } from '@mui/material';
-import { PopperPopupProps, PopperPopup } from '.';
+import { Drawer, MenuList } from '@mui/material';
+import { useCustomMediaQuery } from 'hooks';
+import { PopperPopup, PopperPopupProps } from '.';
 
 export interface ActionMenuProps extends PopperPopupProps {}
 
 export function ActionMenu(props: ActionMenuProps) {
   const { open, anchorEl, onClose, children, sx } = props;
 
-  const hideOnMobile = useMediaQuery<Theme>((theme) => theme.breakpoints.up('sm'));
+  const smUp = useCustomMediaQuery('up', 'sm');
 
-  return hideOnMobile ? (
+  return smUp ? (
     <PopperPopup open={open} anchorEl={anchorEl} sx={sx} onClose={onClose}>
       <MenuList disablePadding>{children}</MenuList>
     </PopperPopup>
