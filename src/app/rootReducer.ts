@@ -1,7 +1,6 @@
 import userReducer from 'features/auth/userSlice';
-import postReducer from 'features/blog/postSlice';
 import commentReducer from 'features/blog/commentSlice';
-import notiReducer from 'features/common/notiSlice';
+import postReducer from 'features/blog/postSlice';
 import settingReducer from 'features/settings/settingSlice';
 import socketReducer from 'features/socket/socketSlice';
 import { combineReducers } from 'redux';
@@ -12,7 +11,6 @@ const rootReducer = combineReducers({
   comment: commentReducer,
   settings: settingReducer,
   socket: socketReducer,
-  noti: notiReducer,
 });
 
 export default rootReducer;

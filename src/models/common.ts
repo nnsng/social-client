@@ -1,6 +1,6 @@
 import { Breakpoint, GridProps } from '@mui/material';
 import { ReactElement, ReactNode } from 'react';
-import { NotiType, PostByType } from './types';
+import { PostByType } from './types';
 
 export interface LayoutProps {
   children: ReactNode;

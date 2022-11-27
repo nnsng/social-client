@@ -82,7 +82,8 @@ export function CreateEditForm(props: CreateEditFormProps) {
     (async () => {
       if (isSubmitting) return;
 
-      const hashtagErrors = (errors.hashtags || []).filter((x) => !!x);
+      // const hashtagErrors = errors.hashtags.filter((x) => !!x);
+      const hashtagErrors: any[] = [];
       const errorValues: any = Object.values(errors).concat(hashtagErrors);
       if (errorValues?.length === 0) return;
 

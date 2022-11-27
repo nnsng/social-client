@@ -3,7 +3,6 @@ import { selectCurrentUser } from 'features/auth/userSlice';
 import { useEffect } from 'react';
 import { Socket } from 'socket.io-client';
 import CommentSocket from './components/CommentSocket';
-import NotiSocket from './components/NotiSocket';
 import { selectSocket } from './socketSlice';
 
 export interface SocketProps {
@@ -25,7 +24,7 @@ export default function SocketClient() {
 
   if (!socket) return null;
 
-  const SocketComponents = [NotiSocket, CommentSocket];
+  const SocketComponents = [CommentSocket];
 
   return (
     <>

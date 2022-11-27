@@ -22,7 +22,7 @@ import {
   selectSearchLoading,
 } from 'features/blog/postSlice';
 import { useCustomMediaQuery, useSubmitWithEnter } from 'hooks';
-import { SearchObj, SearchResultItem } from 'models';
+import { SearchObj } from 'models';
 import queryString from 'query-string';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -30,13 +30,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { slugifyString } from 'utils/common';
 import { themeMixins } from 'utils/theme';
 import { showComingSoonToast } from 'utils/toast';
+import { SearchResult } from '.';
 import { SearchMobile } from './SearchBoxMobile';
-
-interface SearchResult {
-  list: SearchResultItem[];
-  length: number;
-  isMore: boolean;
-}
 
 export default function SearchBoxDesktop() {
   const navigate = useNavigate();

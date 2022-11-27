@@ -19,7 +19,7 @@ const generateIndexEndpoint = () => {
   fs.writeFileSync(indexFile, content);
 };
 
-const convertDefaultExportToNamedExport = () => {
+const convertDefaultToNamedExport = () => {
   const fileNames = fs.readdirSync(rootFolder);
 
   for (const fileName of fileNames) {
@@ -30,5 +30,5 @@ const convertDefaultExportToNamedExport = () => {
   }
 };
 
-convertDefaultExportToNamedExport();
+convertDefaultToNamedExport();
 generateIndexEndpoint();

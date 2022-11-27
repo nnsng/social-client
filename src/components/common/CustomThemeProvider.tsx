@@ -3,7 +3,6 @@ import { useAppSelector } from 'app/hooks';
 import favicons from 'assets/favicons';
 import { selectUserConfig } from 'features/auth/userSlice';
 import i18next from 'i18next';
-import { SnackbarProvider } from 'notistack';
 import { ReactNode, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { configTheme, themeVariables } from 'utils/theme';
@@ -35,18 +34,7 @@ export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
 
   return (
     <ThemeProvider theme={theme}>
-      <SnackbarProvider
-        maxSnack={3}
-        autoHideDuration={3000}
-        preventDuplicate
-        style={{
-          color: theme.palette.common.white,
-          backgroundColor: theme.palette.primary.main,
-          cursor: 'pointer',
-        }}
-      >
-        {children}
-      </SnackbarProvider>
+      {children}
 
       <ToastContainer
         theme={mode}

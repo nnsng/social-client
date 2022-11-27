@@ -1,6 +1,7 @@
 import { Box, Container, Typography } from '@mui/material';
 import { authApi } from 'api';
 import { PageTitle } from 'components/common';
+import { ChangePasswordForm } from 'features/settings/components';
 import { ChangePasswordFormValues, FormField } from 'models';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
