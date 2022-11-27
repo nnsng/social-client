@@ -1,30 +1,45 @@
-import { Card, CardContent, Typography } from '@mui/material';
+import {
+  BookmarkRounded,
+  BorderColorRounded,
+  DeleteRounded,
+  FlagRounded,
+  LinkRounded,
+} from '@mui/icons-material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
+import { useAppSelector } from 'app/hooks';
 import { ConfirmDialog } from 'components/common';
-import { Post } from 'models';
+import { Role } from 'constants/common';
+import { selectCurrentUser } from 'features/auth/userSlice';
+import { MenuOption, Post } from 'models';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { copyPostLink } from 'utils/common';
 import { themeMixins } from 'utils/theme';
-import { showErrorToast } from 'utils/toast';
+import { showComingSoonToast, showErrorToast } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
-import MdEditor from './MdEditor';
-import PostCardHeader from './PostCardHeader';
+import { MdEditor, PostCardHeader } from '.';
 
 export interface PostDetailProps {
-  post: Post;
+  post: Post | null;
   onSave?: (post: Post) => void;
   onDelete?: (post: Post) => void;
 }
 
-export default function PostDetail(props: PostDetailProps) {
+export function PostDetail(props: PostDetailProps) {
   const { post, onSave, onDelete } = props;
+  if (!post) return null;
 
   const navigate = useNavigate();
 
+  const { t } = useTranslation('postMenu');
   const { toast: toastTranslation, dialog: dialogTranslation } = translateFiles('toast', 'dialog');
 
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const currentUser = useAppSelector(selectCurrentUser);
+
+  const [openDialog, setOpenDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const closeDialog = () => setOpenDialog(false);
 
@@ -52,8 +67,44 @@ export default function PostDetail(props: PostDetailProps) {
     closeDialog();
   };
 
+  const isAuthor = post.authorId === currentUser?._id;
+  const isAdmin = currentUser?.role === Role.ADMIN;
+
+  const actionMenu: MenuOption[] = [
+    {
+      label: t('save'),
+      icon: BookmarkRounded,
+      onClick: handleSavePost,
+      show: true,
+    },
+    {
+      label: t('edit'),
+      icon: BorderColorRounded,
+      onClick: () => navigate?.(`/blog/edit/${post._id}`),
+      show: isAuthor,
+    },
+    {
+      label: t('delete'),
+      icon: DeleteRounded,
+      onClick: () => setOpenDialog(true),
+      show: isAuthor || isAdmin,
+    },
+    {
+      label: t('copyLink'),
+      icon: LinkRounded,
+      onClick: () => copyPostLink(post),
+      show: true,
+    },
+    {
+      label: t('report'),
+      icon: FlagRounded,
+      onClick: showComingSoonToast,
+      show: !isAuthor,
+    },
+  ];
+
   return (
-    <>
+    <Box>
       <Card
         sx={{
           ...themeMixins.paperBorder(),
@@ -61,14 +112,13 @@ export default function PostDetail(props: PostDetailProps) {
           p: 2,
         }}
       >
-        <Typography fontSize={{ xs: 24, sm: 40 }} fontWeight={600} lineHeight={1.2} mb={0}>
+        <Typography variant="h4" component="h1" fontWeight={600} mb={0}>
           {post.title}
         </Typography>
 
         <PostCardHeader
           post={post}
-          onSave={handleSavePost}
-          onRemove={() => setOpenDialog(true)}
+          actionMenu={actionMenu}
           sx={{
             my: 2,
             mx: 0,
@@ -91,6 +141,6 @@ export default function PostDetail(props: PostDetailProps) {
         onConfirm={handleRemovePost}
         loading={loading}
       />
-    </>
+    </Box>
   );
 }

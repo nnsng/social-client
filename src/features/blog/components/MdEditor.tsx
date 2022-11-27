@@ -3,8 +3,8 @@ import { Box } from '@mui/system';
 import MarkdownIt from 'markdown-it';
 import { useEffect, useRef } from 'react';
 import Editor from 'react-markdown-editor-lite';
-import 'react-markdown-editor-lite/lib/index.css';
 import { getImageUrlFromCDN } from 'utils/common';
+import 'react-markdown-editor-lite/lib/index.css';
 
 export interface MdEditorChange {
   html: string;
@@ -20,7 +20,7 @@ export interface MdEditorProps {
 
 const mdParser = new MarkdownIt();
 
-export default function MdEditor(props: MdEditorProps) {
+export function MdEditor(props: MdEditorProps) {
   const { onEditorChange, readOnly, value, placeholder } = props;
 
   const ref = useRef<any>(null);
@@ -79,6 +79,10 @@ const generateStyle = (readOnly: boolean) => {
           color: 'text.primary',
           overflow: readOnly ? 'hidden' : 'auto',
           p: readOnly ? 0 : 'auto',
+        },
+
+        '& .section': {
+          border: 'none',
         },
       },
 

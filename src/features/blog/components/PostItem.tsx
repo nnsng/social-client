@@ -1,7 +1,7 @@
 import { BookmarkRemoveRounded, LinkRounded, MoreHorizRounded } from '@mui/icons-material';
 import { Box, CardMedia, IconButton, ListItem, MenuItem, Stack, Typography } from '@mui/material';
 import { ActionMenu, TimeTooltip } from 'components/common';
-import { MenuItemProps, Post } from 'models';
+import { MenuOption, Post } from 'models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -16,13 +16,13 @@ export interface PostItemProps {
   onUnSave?: (post: Post) => void;
 }
 
-export default function PostItem(props: PostItemProps) {
+export function PostItem(props: PostItemProps) {
   const { post, onUnSave } = props;
 
   const { t } = useTranslation('postItem');
   const { toast: toastTranslation } = translateFiles('toast');
 
-  const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
   const anchorRef = useRef<any>(null);
 
@@ -43,7 +43,7 @@ export default function PostItem(props: PostItemProps) {
     callback?.();
   };
 
-  const menuItemList: MenuItemProps[] = [
+  const menuItemList: MenuOption[] = [
     {
       label: t('unsave'),
       icon: BookmarkRemoveRounded,

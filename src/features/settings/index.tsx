@@ -1,18 +1,87 @@
 import { Box, Container, Paper, Stack, Typography } from '@mui/material';
+import { authApi } from 'api';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { Header, PageTitle } from 'components/common';
+import { EmptyLayout } from 'components/layouts';
+import { selectCurrentUser } from 'features/auth/userSlice';
+import { ChangePasswordFormValues, FormField, User } from 'models';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { themeMixins } from 'utils/theme';
-import SettingLayout from './components/SettingLayout';
-import SettingTabs from './components/SettingTabs';
+import queryString from 'query-string';
+import { SettingTabs, EditProfileForm, ChangePasswordForm } from './components';
+import { selectSettingSubmitting, settingActions } from './settingSlice';
 
 export default function SettingFeature() {
   const { t } = useTranslation('settings');
 
+  const location = useLocation();
+  const query = queryString.parse(location.search);
+
+  const dispatch = useAppDispatch();
+  const submitting = useAppSelector(selectSettingSubmitting);
+  const currentUser = useAppSelector(selectCurrentUser);
+  const { _id, name, avatar, username, email, bio } = currentUser || {};
+
+  const handleUpdateProfile = (formValues: Partial<User>) => {
+    dispatch(settingActions.updateProfile(formValues));
+  };
+
+  const handleChangePassword = async (formValues: ChangePasswordFormValues) => {
+    await authApi.changePassword(formValues);
+  };
+
+  const handleForgotPassword = async () => {
+    if (!email) return;
+    await authApi.forgotPassword(email);
+  };
+
+  const editProfileFormValues: Partial<User> = {
+    name,
+    avatar,
+    username,
+    email,
+    bio,
+  };
+
+  const changePasswordFormValues: ChangePasswordFormValues = {
+    userId: _id,
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  };
+
+  const changePasswordFields: FormField[] = [
+    { name: 'currentPassword', props: {} },
+    { name: 'newPassword', props: {} },
+    { name: 'confirmPassword', props: {} },
+  ];
+
+  const renderSettingForm = (tab: string) => {
+    if (tab === 'change-password') {
+      return (
+        <ChangePasswordForm
+          fieldList={changePasswordFields}
+          defaultValues={changePasswordFormValues}
+          onSubmit={handleChangePassword}
+          forgotPassword={handleForgotPassword}
+        />
+      );
+    }
+
+    return (
+      <EditProfileForm
+        submitting={submitting}
+        defaultValues={editProfileFormValues}
+        onSubmit={handleUpdateProfile}
+      />
+    );
+  };
+
   return (
-    <>
+    <EmptyLayout>
       <PageTitle title={t('pageTitle')} />
-      <Header />
 
       <Box component="main">
         <Container maxWidth="md">
@@ -43,22 +112,13 @@ export default function SettingFeature() {
                 </Box>
 
                 <Box flexGrow={1} pr={{ sm: 4 }}>
-                  <Routes>
-                    <Route path="/" element={<Navigate to="edit-profile" replace={true} />} />
-
-                    <Route path="edit-profile" element={<SettingLayout mode="edit-profile" />} />
-                    <Route
-                      path="change-password"
-                      element={<SettingLayout mode="change-password" />}
-                    />
-                    <Route path="*" element={<Navigate to="edit-profile" replace={true} />} />
-                  </Routes>
+                  {renderSettingForm(query.tab as string)}
                 </Box>
               </Stack>
             </Paper>
           </Box>
         </Container>
       </Box>
-    </>
+    </EmptyLayout>
   );
 }

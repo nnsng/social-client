@@ -18,7 +18,7 @@ import { SearchObj } from 'models';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { themeMixins, themeVariables } from 'utils/theme';
-import { SearchResult } from './Header/SearchBox';
+import { SearchResult } from '.';
 
 export interface SearchMobileProps {
   loading: boolean;

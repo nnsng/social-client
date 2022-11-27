@@ -25,7 +25,7 @@ import { useAppSelector } from 'app/hooks';
 import { ActionMenu, ConfirmDialog, TimeTooltip } from 'components/common';
 import { selectCurrentUser } from 'features/auth/userSlice';
 import { useSubmitWithEnter, useUserInfoPopup } from 'hooks';
-import { Comment, CommentActionType, MenuItemProps } from 'models';
+import { Comment, CommentActionType, MenuOption } from 'models';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -38,7 +38,7 @@ export interface CommentItemProps {
   onCommentAction?: (action: CommentActionType, comment: Comment) => void;
 }
 
-export default function CommentItem(props: CommentItemProps) {
+export function CommentItem(props: CommentItemProps) {
   const { comment, onCommentAction } = props;
 
   const navigate = useNavigate();
@@ -48,11 +48,11 @@ export default function CommentItem(props: CommentItemProps) {
 
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const [openMenu, setOpenMenu] = useState<boolean>(false);
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [openMenu, setOpenMenu] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [content, setContent] = useState<string>(comment.content);
-  const [editComment, setEditComment] = useState<boolean>(false);
+  const [editComment, setEditComment] = useState(false);
 
   const editRef = useRef<any>(null);
   const anchorRef = useRef<any>(null);
@@ -80,7 +80,7 @@ export default function CommentItem(props: CommentItemProps) {
   const closeDialog = () => setOpenDialog(false);
 
   const handleUserClick = () => {
-    navigate(`/user/${comment.user?.username}`);
+    navigate(`/profile/${comment.user?.username}`);
   };
 
   const handleChange = (e: any) => {
@@ -140,7 +140,7 @@ export default function CommentItem(props: CommentItemProps) {
 
   const isAuthor = comment.userId === currentUser?._id;
   const isAdmin = currentUser?.role === 'admin';
-  const commentMenu: MenuItemProps[] = [
+  const commentMenu: MenuOption[] = [
     {
       label: t('menu.edit'),
       icon: BorderColorRounded,

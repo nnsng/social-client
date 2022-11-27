@@ -1,13 +1,14 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { ListParams, ListResponse, PaginationParams, Post, SearchObj, User } from 'models';
-
-export interface SearchResultItem {
-  _id: string;
-  name: string;
-  image: string;
-  url: string;
-}
+import {
+  ListParams,
+  ListResponse,
+  PaginationParams,
+  Post,
+  SearchObj,
+  SearchResultItem,
+  User,
+} from 'models';
 
 export interface PostState {
   loading: boolean;
@@ -117,7 +118,7 @@ export const selectFormattedSearchResult = createSelector(selectSearchResult, (s
       _id: data._id,
       name: data.title ? data.title : data.name,
       image: data.thumbnail ? data.thumbnail : data.avatar,
-      url: data.slug ? `blog/post/${data.slug}` : `/user/${data.username}`,
+      url: data.slug ? `blog/post/${data.slug}` : `/profile/${data.username}`,
     })
   );
 });

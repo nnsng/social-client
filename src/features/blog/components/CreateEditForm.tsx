@@ -34,7 +34,7 @@ export interface CreateEditFormProps {
   isNewPost?: boolean;
 }
 
-export default function CreateEditForm(props: CreateEditFormProps) {
+export function CreateEditForm(props: CreateEditFormProps) {
   const { defaultValues, onSubmit, isNewPost } = props;
 
   const { t } = useTranslation('createEditForm');
@@ -69,8 +69,8 @@ export default function CreateEditForm(props: CreateEditFormProps) {
   const thumbnail = watch('thumbnail');
   const MAX_HASHTAGS = 5;
 
-  const [uploading, setUploading] = useState<boolean>(false);
-  const [open, setOpen] = useState<boolean>(false);
+  const [uploading, setUploading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const openDialog = () => setOpen(true);
   const closeDialog = () => setOpen(false);
@@ -110,7 +110,7 @@ export default function CreateEditForm(props: CreateEditFormProps) {
   const dialogWidth = smUp ? { fullWidth: true } : { fullScreen: true };
 
   return (
-    <form>
+    <Box component="form">
       <Stack
         direction="column"
         sx={{
@@ -255,6 +255,6 @@ export default function CreateEditForm(props: CreateEditFormProps) {
           </Button>
         </DialogActions>
       </Dialog>
-    </form>
+    </Box>
   );
 }

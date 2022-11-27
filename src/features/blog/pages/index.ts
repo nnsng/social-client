@@ -1,4 +1,4 @@
 export * from './CreateEditPage';
-export * from './MainPage';
-export * from './MySavedPage';
+export * from './HomePage';
 export * from './PostDetailPage';
+export * from './SavedPage';

@@ -11,7 +11,7 @@ export interface UserInfoPopupProps extends PopperPopupProps {
 export function UserInfoPopup(props: UserInfoPopupProps) {
   const { user, open, anchorEl } = props;
 
-  const [isOpen, setIsOpen] = useState<boolean>(open);
+  const [isOpen, setIsOpen] = useState(open);
 
   const mdUp = useMediaQuery<Theme>((theme) => theme.breakpoints.up('md'));
 

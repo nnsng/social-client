@@ -1,20 +1,21 @@
-import { Box } from '@mui/material';
-import { Header } from 'components/common';
+import { MainLayout } from 'components/layouts';
 import { Route, Routes } from 'react-router-dom';
-import ROUTES from './routes';
+import { CreateEditPage, HomePage, PostDetailPage, SavedPage } from './pages';
 
 export default function BlogFeature() {
   return (
-    <Box>
-      <Header />
+    <MainLayout>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
 
-      <Box component="main">
-        <Routes>
-          {ROUTES.map((route) => (
-            <Route key={route.path} path={route.path} element={route.element} />
-          ))}
-        </Routes>
-      </Box>
-    </Box>
+        <Route path="saved" element={<SavedPage />} />
+
+        <Route path="create" element={<CreateEditPage />} />
+
+        <Route path="edit/:id" element={<CreateEditPage />} />
+
+        <Route path="post/:slug" element={<PostDetailPage />} />
+      </Routes>
+    </MainLayout>
   );
 }

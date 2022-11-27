@@ -10,7 +10,7 @@ import { Comment, CommentActionType } from 'models';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { showErrorToast } from 'utils/toast';
-import CommentItem from './CommentItem';
+import { CommentItem } from './CommentItem';
 
 export interface PostCommentProps {
   commentList: Comment[];
@@ -20,7 +20,7 @@ export interface PostCommentProps {
   onCommentAction?: (action: CommentActionType, comment: Comment) => void;
 }
 
-export default function PostComment(props: PostCommentProps) {
+export function PostComment(props: PostCommentProps) {
   const { commentList, postId, onClose, updateCommentCount, onCommentAction } = props;
 
   const { t } = useTranslation('postComment');

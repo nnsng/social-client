@@ -43,7 +43,7 @@ export default function AuthForm(props: AuthFormProps) {
 
   const authSubmitting = useAppSelector(selectAuthSubmitting);
 
-  const [forgotLoading, setForgotLoading] = useState<boolean>(false);
+  const [forgotLoading, setForgotLoading] = useState(false);
 
   const validateSchema = getValidateSchema(mode, validate);
 

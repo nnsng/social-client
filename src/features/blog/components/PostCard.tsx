@@ -1,15 +1,29 @@
 import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 import { ConfirmDialog } from 'components/common';
-import { Post } from 'models';
+import { MenuOption, Post } from 'models';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import remarkGfm from 'remark-gfm';
 import { themeMixins } from 'utils/theme';
-import { showErrorToast } from 'utils/toast';
+import {
+  BookmarkBorderRounded,
+  BookmarkRounded,
+  BorderColorRounded,
+  DeleteRounded,
+  FlagRounded,
+  LinkRounded,
+  MoreHorizRounded,
+} from '@mui/icons-material';
+import { showComingSoonToast, showErrorToast } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
-import PostCardHeader from './PostCardHeader';
+import { PostCardHeader } from './PostCardHeader';
+import { useTranslation } from 'react-i18next';
+import { useAppSelector } from 'app/hooks';
+import { selectCurrentUser } from 'features/auth/userSlice';
+import { Role } from 'constants/common';
+import { copyPostLink } from 'utils/common';
 
 const allowedElements = [
   'p',
@@ -37,13 +51,18 @@ export interface PostCardProps {
   showPopup?: boolean;
 }
 
-export default function PostCard(props: PostCardProps) {
+export function PostCard(props: PostCardProps) {
   const { post, onSave, onDelete, showPopup = true } = props;
 
+  const navigate = useNavigate();
+
+  const { t } = useTranslation('postMenu');
   const { toast: toastTranslation, dialog: dialogTranslation } = translateFiles('toast', 'dialog');
 
-  const [loading, setLoading] = useState<boolean>(false);
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const currentUser = useAppSelector(selectCurrentUser);
+
+  const [loading, setLoading] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
   // prevent click on anchor tag
   useEffect(() => {
@@ -80,6 +99,42 @@ export default function PostCard(props: PostCardProps) {
     closeDialog();
   };
 
+  const isAuthor = post.authorId === currentUser?._id;
+  const isAdmin = currentUser?.role === Role.ADMIN;
+
+  const actionMenu: MenuOption[] = [
+    {
+      label: t('save'),
+      icon: BookmarkRounded,
+      onClick: handleSavePost,
+      show: true,
+    },
+    {
+      label: t('edit'),
+      icon: BorderColorRounded,
+      onClick: () => navigate?.(`/blog/edit/${post._id}`),
+      show: isAuthor,
+    },
+    {
+      label: t('delete'),
+      icon: DeleteRounded,
+      onClick: () => setOpenDialog(true),
+      show: isAuthor || isAdmin,
+    },
+    {
+      label: t('copyLink'),
+      icon: LinkRounded,
+      onClick: () => copyPostLink(post),
+      show: true,
+    },
+    {
+      label: t('report'),
+      icon: FlagRounded,
+      onClick: showComingSoonToast,
+      show: !isAuthor,
+    },
+  ];
+
   return (
     <>
       <Card
@@ -92,8 +147,7 @@ export default function PostCard(props: PostCardProps) {
       >
         <PostCardHeader
           post={post}
-          onSave={handleSavePost}
-          onRemove={() => setOpenDialog(true)}
+          actionMenu={actionMenu}
           showPopup={showPopup}
           sx={{
             mb: 1,

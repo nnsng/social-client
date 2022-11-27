@@ -1,26 +1,26 @@
 import { Tab, Tabs, Theme, useMediaQuery } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-export default function SettingTabs() {
-  const location = useLocation();
+export function SettingTabs() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { t } = useTranslation('settingTabs');
 
-  const [activeTab, setActiveTab] = useState<number>(0);
+  const [activeTab, setActiveTab] = useState(0);
 
   useEffect(() => {
-    const tab = checkTab(location.pathname);
+    const tab = checkTab(location.search);
     setActiveTab(tab);
-  }, [location.pathname]);
+  }, [location.search]);
 
   const checkTab = (pathname: string) => {
     switch (pathname) {
-      case '/settings/edit-profile':
+      case '?tab=edit-profile':
         return 0;
-      case '/settings/change-password':
+      case '?tab=change-password':
         return 1;
       default:
         return 0;
@@ -28,7 +28,7 @@ export default function SettingTabs() {
   };
 
   const goto = (linkTo: string) => {
-    navigate(`/settings/${linkTo}`, { replace: true });
+    navigate(`/settings?tab=${linkTo}`, { replace: true });
   };
 
   const tabItemList = [

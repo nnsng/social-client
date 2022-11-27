@@ -9,7 +9,7 @@ export interface TopHashtagsProps {
   onHashtagClick?: (hashtag: string | undefined) => void;
 }
 
-export default function TopHashtags(props: TopHashtagsProps) {
+export function TopHashtags(props: TopHashtagsProps) {
   const { list, active, onHashtagClick } = props;
 
   const { t } = useTranslation('topHashtags');
@@ -45,9 +45,7 @@ export default function TopHashtags(props: TopHashtagsProps) {
     <Box
       sx={{
         position: 'sticky',
-        top: themeVariables.headerHeight + 16, // 16 = 8 * 2 (paddingTop)
-        mt: { xs: -1, lg: 0 },
-        mb: -1,
+        top: themeVariables.headerHeight + 16,
       }}
     >
       {isOnPC && (

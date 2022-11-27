@@ -1,12 +1,12 @@
 import { Box, Container } from '@mui/material';
 import { postApi, userApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { Header, NotFound, PageTitle } from 'components/common';
+import { Header, PageTitle } from 'components/common';
 import { UserInfoSkeleton } from 'components/skeletons';
 import { APP_NAME } from 'constants/common';
-import PostList from 'features/blog/components/PostList';
+import { PostList } from 'features/blog/components';
 import { postActions, selectPostList, selectPostLoading } from 'features/blog/postSlice';
-import { ListParams, LocationState, Post, User } from 'models';
+import { ListParams, Post, User } from 'models';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { showErrorToast } from 'utils/toast';
@@ -16,8 +16,6 @@ export default function ProfilePage() {
   const { username } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-
-  const notFound = !!(location.state as LocationState)?.notFound;
 
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
@@ -72,8 +70,6 @@ export default function ProfilePage() {
     return <UserInfo userInfo={userInfo} updateUser={updateUser} />;
   };
 
-  if (notFound) return <NotFound showHeader />;
-
   return (
     <>
       <PageTitle title={userInfo?.name ?? APP_NAME} />
@@ -90,7 +86,6 @@ export default function ProfilePage() {
               onFilterChange={handlePageChange}
               onSave={handleSavePost}
               onDelete={handleDeletePost}
-              isHomePage={false}
             />
           )}
         </Container>

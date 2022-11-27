@@ -1,54 +1,33 @@
-import { Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
+import { EmptyLayout } from 'components/layouts';
 import { useTranslation } from 'react-i18next';
-import { Header } from './Header';
+import { themeVariables } from 'utils/theme';
 import { PageTitle } from './PageTitle';
 
-export interface NotFoundProps {
-  showHeader?: boolean;
-}
-
-export function NotFound({ showHeader }: NotFoundProps) {
+export function NotFound() {
   const { t } = useTranslation('notFound');
 
   return (
-    <>
+    <EmptyLayout>
       <PageTitle title={t('pageTitle')} />
 
-      {!!showHeader && <Header />}
+      <Stack height={`calc(100vh - ${themeVariables.headerHeight}px)`} textAlign="center">
+        <Box m="auto" sx={{ transform: 'translateY(-50%)' }}>
+          <Typography
+            color="primary.main"
+            fontSize={120}
+            fontWeight={600}
+            mb={-2}
+            letterSpacing={20}
+          >
+            4&#9785;4
+          </Typography>
 
-      <Stack
-        direction="column"
-        sx={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'fixed',
-          inset: 0,
-          bgcolor: 'background.default',
-        }}
-      >
-        <Typography
-          color="primary.main"
-          fontSize={120}
-          fontWeight={600}
-          sx={{
-            mb: -2,
-            letterSpacing: 20,
-          }}
-        >
-          4&#9785;4
-        </Typography>
-
-        <Typography
-          color="primary.main"
-          fontSize={20}
-          fontWeight={600}
-          sx={{
-            letterSpacing: 2,
-          }}
-        >
-          {t('content')}
-        </Typography>
+          <Typography color="primary.main" fontSize={20} fontWeight={600} letterSpacing={2}>
+            {t('content')}
+          </Typography>
+        </Box>
       </Stack>
-    </>
+    </EmptyLayout>
   );
 }

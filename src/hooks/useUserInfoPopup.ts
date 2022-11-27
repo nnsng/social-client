@@ -8,7 +8,7 @@ export interface UseUserInfoPopup {
 }
 
 export function useUserInfoPopup(props: UseUserInfoPopup) {
-  const [openPopup, setOpenPopup] = useState<boolean>(false);
+  const [openPopup, setOpenPopup] = useState(false);
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 

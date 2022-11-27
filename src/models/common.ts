@@ -1,5 +1,12 @@
-import { ReactElement } from 'react';
+import { Breakpoint, GridProps } from '@mui/material';
+import { ReactElement, ReactNode } from 'react';
 import { NotiType, PostByType } from './types';
+
+export interface LayoutProps {
+  children: ReactNode;
+  maxWidth?: false | Breakpoint;
+  spacing?: GridProps['spacing'];
+}
 
 export interface RouteItem {
   path: string;
@@ -29,7 +36,9 @@ export interface ListParams {
   by?: PostByType;
 }
 
-export interface MenuItemProps {
+export type MenuOptionType = 'save' | 'unsave' | 'edit' | 'delete' | 'copyLink' | 'report';
+
+export interface MenuOption {
   label?: string;
   icon?: any;
   onClick?: () => void;
@@ -42,24 +51,9 @@ export interface FormField {
   props?: any;
 }
 
-export interface LocationState {
-  hideHeaderMenu?: boolean;
-  openComment?: boolean;
-  notFound?: boolean;
-}
-
-export interface Noti {
+export interface SearchResultItem {
   _id: string;
-  type: NotiType;
-  post: {
-    _id: string;
-    slug: string;
-  };
-  user: {
-    name: string;
-    username: string;
-    avatar: string;
-  };
-  read?: boolean;
-  createdAt?: string;
+  name: string;
+  image: string;
+  url: string;
 }

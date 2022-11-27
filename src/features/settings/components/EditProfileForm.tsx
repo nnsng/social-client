@@ -15,7 +15,7 @@ export interface EditProfileFromProps {
   onSubmit: (formValues: Partial<User>) => void;
 }
 
-export default function EditProfileFrom(props: EditProfileFromProps) {
+export function EditProfileForm(props: EditProfileFromProps) {
   const { submitting, defaultValues, onSubmit } = props;
 
   const { t } = useTranslation('editProfileForm');
@@ -40,7 +40,7 @@ export default function EditProfileFrom(props: EditProfileFromProps) {
   });
   const avatarUrl = watch('avatar');
 
-  const [uploading, setUploading] = useState<boolean>(false);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     clearErrors();

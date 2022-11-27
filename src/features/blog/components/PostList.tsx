@@ -15,7 +15,7 @@ import { PostCardSkeleton } from 'components/skeletons';
 import { selectPostLoading, selectTotalPages } from 'features/blog/postSlice';
 import { ListParams, Post, PostByType } from 'models';
 import { useTranslation } from 'react-i18next';
-import PostCard from './PostCard';
+import { PostCard } from './PostCard';
 
 export interface PostListProps {
   postList: Post[];
@@ -24,11 +24,10 @@ export interface PostListProps {
   onFilterChange?: (newFilter: ListParams) => void;
   onSave?: (post: Post) => void;
   onDelete?: (post: Post) => void;
-  isHomePage?: boolean;
 }
 
-export default function PostList(props: PostListProps) {
-  const { postList, page, filter, onFilterChange, onSave, onDelete, isHomePage = true } = props;
+export function PostList(props: PostListProps) {
+  const { postList, page, filter, onFilterChange, onSave, onDelete } = props;
   const { search, username, hashtag } = filter || {};
   const searchFilter = { search, username, hashtag };
 
@@ -59,11 +58,10 @@ export default function PostList(props: PostListProps) {
 
   return (
     <Box width="100%">
-      {isHomePage && (
-        <Stack alignItems="center" justifyContent="space-between">
+      {filter?.by && (
+        <Stack justifyContent="space-between">
           <Typography
             variant="button"
-            color="text.primary"
             fontWeight={600}
             sx={{
               display: 'inline-block',
@@ -77,7 +75,7 @@ export default function PostList(props: PostListProps) {
           <Select
             size="small"
             variant="standard"
-            value={filter?.by ?? 'all'}
+            value={filter.by}
             onChange={handleByFilterChange}
             sx={{
               '&::before, &::after': {
@@ -85,7 +83,7 @@ export default function PostList(props: PostListProps) {
               },
               '& .MuiSelect-select': {
                 bgcolor: 'transparent !important',
-                fontSize: 14,
+                fontSize: '0.875rem',
                 fontWeight: 600,
                 py: 0,
                 textTransform: 'uppercase',
@@ -113,7 +111,7 @@ export default function PostList(props: PostListProps) {
                 <ListItem key={post._id} disablePadding>
                   <PostCard
                     post={post}
-                    showPopup={isHomePage}
+                    showPopup={!!filter?.by}
                     onSave={onSave}
                     onDelete={onDelete}
                   />

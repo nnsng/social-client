@@ -14,7 +14,7 @@ export function CustomScrollbar({ children }: CustomScrollbarProps) {
 
   useEffect(() => {
     ref.current.scrollTop = 0;
-  }, [location.pathname]);
+  }, [location]);
 
   return (
     <SimpleBar scrollableNodeProps={{ ref }} style={{ height: '100vh' }}>

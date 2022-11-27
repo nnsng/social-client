@@ -1,4 +1,4 @@
-import { Container, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { postApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
@@ -7,11 +7,10 @@ import { ListParams, Post } from 'models';
 import queryString from 'query-string';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import PostList from '../components/PostList';
-import TopHashtags from '../components/TopHashtags';
+import { PostList, TopHashtags } from '../components';
 import { postActions, selectPostList } from '../postSlice';
 
-export function MainPage() {
+export function HomePage() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -20,7 +19,7 @@ export function MainPage() {
 
   const [filter, setFilter] = useState<ListParams>(() => {
     const params = queryString.parse(location.search);
-    return { page: 1, ...params };
+    return { page: 1, by: 'all', ...params };
   });
   const [hashtagList, setHashtagList] = useState<string[]>([]);
 
@@ -45,7 +44,7 @@ export function MainPage() {
   }, [location.search]);
 
   useEffect(() => {
-    const { by, ...rest } = filter;
+    const { page, by, ...rest } = filter;
     navigate(`?${queryString.stringify(rest)}`, { replace: true });
     dispatch(postActions.fetchPostList(filter));
   }, [dispatch, filter]);
@@ -80,33 +79,31 @@ export function MainPage() {
   };
 
   return (
-    <Container>
+    <Grid
+      container
+      spacing={{ xs: hashtagList.length ? 2 : 0, lg: 8 }}
+      flexDirection={{ xs: 'column-reverse', lg: 'row' }}
+    >
       <PageTitle title={APP_NAME} />
 
-      <Grid
-        container
-        spacing={{ xs: hashtagList.length ? 2 : 0, lg: 8 }}
-        flexDirection={{ xs: 'column-reverse', lg: 'row' }}
-      >
-        <Grid item xs={12} md={10} lg width="100%" mx="auto">
-          <PostList
-            postList={postList}
-            page={Number(filter.page) || 1}
-            filter={filter}
-            onFilterChange={handleFilterChange}
-            onSave={handleSavePost}
-            onDelete={handleDeletePost}
-          />
-        </Grid>
-
-        <Grid item xs={12} md={10} lg={4} width="100%" mx="auto">
-          <TopHashtags
-            list={hashtagList}
-            active={filter.hashtag}
-            onHashtagClick={(hashtag) => handleFilterChange({ hashtag, search: undefined })}
-          />
-        </Grid>
+      <Grid item xs width="100%">
+        <PostList
+          postList={postList}
+          page={Number(filter.page) || 1}
+          filter={filter}
+          onFilterChange={handleFilterChange}
+          onSave={handleSavePost}
+          onDelete={handleDeletePost}
+        />
       </Grid>
-    </Container>
+
+      <Grid item xs lg={4} width="100%">
+        <TopHashtags
+          list={hashtagList}
+          active={filter.hashtag}
+          onHashtagClick={(hashtag) => handleFilterChange({ hashtag, search: undefined })}
+        />
+      </Grid>
+    </Grid>
   );
 }

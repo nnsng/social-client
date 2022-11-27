@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import { postApi } from 'api';
 import { useAppSelector } from 'app/hooks';
 import { PageTitle } from 'components/common';
@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { showErrorToast } from 'utils/toast';
-import CreateEditForm from '../components/CreateEditForm';
+import { CreateEditForm } from '../components';
 
 export function CreateEditPage() {
   const navigate = useNavigate();
@@ -51,16 +51,14 @@ export function CreateEditPage() {
   };
 
   return (
-    <Container>
+    <Box>
       <PageTitle title={isNewPost ? t('pageTitle.create') : t('pageTitle.edit')} />
 
-      <Box>
-        <CreateEditForm
-          defaultValues={defaultValues}
-          onSubmit={handleFormSubmit}
-          isNewPost={isNewPost}
-        />
-      </Box>
-    </Container>
+      <CreateEditForm
+        defaultValues={defaultValues}
+        onSubmit={handleFormSubmit}
+        isNewPost={isNewPost}
+      />
+    </Box>
   );
 }

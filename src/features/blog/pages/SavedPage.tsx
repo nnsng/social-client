@@ -1,4 +1,4 @@
-import { Box, Container, List, Pagination, Stack, Typography } from '@mui/material';
+import { Grid, List, Pagination, Stack, Typography } from '@mui/material';
 import { postApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { NoPost, PageTitle } from 'components/common';
@@ -6,10 +6,10 @@ import { PostItemSkeleton } from 'components/skeletons';
 import { Post } from 'models';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import PostItem from '../components/PostItem';
+import { PostItem } from '../components';
 import { postActions, selectPostLoading, selectSavedList, selectTotalPages } from '../postSlice';
 
-export function MySavedPage() {
+export function SavedPage() {
   const { t } = useTranslation('saved');
 
   const dispatch = useAppDispatch();
@@ -37,10 +37,10 @@ export function MySavedPage() {
   };
 
   return (
-    <Container maxWidth="md">
+    <Grid container>
       <PageTitle title={t('pageTitle')} />
 
-      <Box>
+      <Grid item xs={12} lg={8}>
         <Typography fontSize={{ xs: 20, sm: 24 }} fontWeight={600} textTransform="uppercase">
           {t('pageTitle')}
         </Typography>
@@ -73,7 +73,7 @@ export function MySavedPage() {
             </>
           )}
         </List>
-      </Box>
-    </Container>
+      </Grid>
+    </Grid>
   );
 }

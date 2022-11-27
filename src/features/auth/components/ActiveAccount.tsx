@@ -38,7 +38,7 @@ export default function ActiveAccount({ token }: ActiveAccountProps) {
   const { toast: toastTranslation } = translateFiles('toast');
 
   const [status, setStatus] = useState<Status>(Status.PENDING);
-  const [submitting, setSubmitting] = useState<boolean>(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     (async () => {

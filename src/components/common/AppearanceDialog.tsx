@@ -27,7 +27,7 @@ export interface AppearanceDialogProps {
 export function AppearanceDialog(props: AppearanceDialogProps) {
   const { open, onClose } = props;
 
-  const { t } = useTranslation('header');
+  const { t } = useTranslation('appearanceDialog');
 
   const dispatch = useAppDispatch();
   const { mode, mainColor, language } = useAppSelector(selectUserConfig);
@@ -43,7 +43,7 @@ export function AppearanceDialog(props: AppearanceDialogProps) {
     <Dialog open={open} onClose={onClose} fullWidth>
       <DialogTitle sx={{ m: 0, px: 3, py: 2 }}>
         <Typography fontSize={18} fontWeight={600}>
-          {t('appearanceDialog.title')}
+          {t('title')}
         </Typography>
 
         <IconButton
@@ -72,7 +72,8 @@ export function AppearanceDialog(props: AppearanceDialogProps) {
       >
         <Stack direction="column" spacing={3}>
           <Stack direction={{ xs: 'column', sm: 'row' }} alignItems={{ sm: 'center' }}>
-            <Typography fontWeight={500}>{t('appearanceDialog.darkMode')}</Typography>
+            <Typography fontWeight={500}>{t('darkMode')}:</Typography>
+
             <ThemeSwitch
               name="mode"
               value={isDarkMode ? 'light' : 'dark'}
@@ -91,7 +92,8 @@ export function AppearanceDialog(props: AppearanceDialogProps) {
               },
             }}
           >
-            <Typography fontWeight={500}>{t('appearanceDialog.themeColor')}</Typography>
+            <Typography fontWeight={500}>{t('themeColor')}:</Typography>
+
             <Stack sx={{ ml: '-3px' }}>
               {supportedThemeColors.map((color) => (
                 <ColorRadio
@@ -107,7 +109,7 @@ export function AppearanceDialog(props: AppearanceDialogProps) {
           </Stack>
 
           <Stack direction={{ xs: 'column', sm: 'row' }} alignItems={{ sm: 'center' }}>
-            <Typography fontWeight={500}>{t('appearanceDialog.language')}</Typography>
+            <Typography fontWeight={500}>{t('language')}:</Typography>
 
             <Stack direction={{ xs: 'column', sm: 'row' }} ml={1}>
               {supportedLanguages.map(({ code, name }) => (

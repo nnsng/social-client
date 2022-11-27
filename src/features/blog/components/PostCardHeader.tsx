@@ -1,42 +1,25 @@
-import {
-  BookmarkBorderRounded,
-  BorderColorRounded,
-  DeleteRounded,
-  FlagRounded,
-  LinkRounded,
-  MoreHorizRounded,
-} from '@mui/icons-material';
+import { MoreHorizRounded } from '@mui/icons-material';
 import { Avatar, Box, CardHeader, IconButton, MenuItem, SxProps, Typography } from '@mui/material';
-import { useAppSelector } from 'app/hooks';
 import { ActionMenu, TimeTooltip } from 'components/common';
-import { Role } from 'constants/common';
-import { selectCurrentUser } from 'features/auth/userSlice';
 import { useUserInfoPopup } from 'hooks';
-import { MenuItemProps, Post } from 'models';
+import { MenuOption, Post } from 'models';
 import { useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { copyPostLink, formatTime } from 'utils/common';
-import { showComingSoonToast } from 'utils/toast';
+import { formatTime } from 'utils/common';
 
 export interface PostCardHeaderProps {
   post: Post;
-  onSave?: () => void;
-  onRemove?: () => void;
+  actionMenu: MenuOption[];
   sx?: SxProps;
   showPopup?: boolean;
 }
 
-export default function PostCardHeader(props: PostCardHeaderProps) {
-  const { post, onSave, onRemove, sx, showPopup = true } = props;
+export function PostCardHeader(props: PostCardHeaderProps) {
+  const { post, actionMenu = [], sx, showPopup = true } = props;
 
   const navigate = useNavigate();
 
-  const { t } = useTranslation('postCardHeader');
-
-  const currentUser = useAppSelector(selectCurrentUser);
-
-  const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
   const anchorRef = useRef<any>(null);
   const userInfoRef = useRef<any>(null);
@@ -50,42 +33,13 @@ export default function PostCardHeader(props: PostCardHeaderProps) {
   const closeMenu = () => setOpenMenu(false);
 
   const handleAuthorClick = () => {
-    navigate(`/user/${post.author?.username}`);
+    navigate(`/profile/${post.author?.username}`);
   };
 
   const handleMenuItemClick = (callback?: () => void) => {
     closeMenu();
     callback?.();
   };
-
-  const isAuthor = post.authorId === currentUser?._id;
-  const isAdmin = currentUser?.role === Role.ADMIN;
-  const postMenu: MenuItemProps[] = [
-    {
-      label: t('menu.edit'),
-      icon: BorderColorRounded,
-      onClick: () => navigate?.(`/blog/edit/${post._id}`, { state: { hideHeaderMenu: true } }),
-      show: isAuthor,
-    },
-    {
-      label: t('menu.delete'),
-      icon: DeleteRounded,
-      onClick: onRemove,
-      show: isAuthor || isAdmin,
-    },
-    {
-      label: t('menu.copyLink'),
-      icon: LinkRounded,
-      onClick: () => copyPostLink(post),
-      show: true,
-    },
-    {
-      label: t('menu.report'),
-      icon: FlagRounded,
-      onClick: showComingSoonToast,
-      show: !isAuthor,
-    },
-  ];
 
   return (
     <>
@@ -104,21 +58,6 @@ export default function PostCardHeader(props: PostCardHeaderProps) {
             <IconButton
               disableTouchRipple
               size="small"
-              onClick={onSave}
-              sx={{
-                color: 'text.secondary',
-                '&:hover': {
-                  bgcolor: 'transparent',
-                  color: 'text.primary',
-                },
-              }}
-            >
-              <BookmarkBorderRounded />
-            </IconButton>
-
-            <IconButton
-              disableTouchRipple
-              size="small"
               ref={anchorRef}
               onClick={toggleMenu}
               sx={{
@@ -133,7 +72,7 @@ export default function PostCardHeader(props: PostCardHeaderProps) {
             </IconButton>
 
             <ActionMenu open={openMenu} anchorEl={anchorRef.current} onClose={closeMenu}>
-              {postMenu.map(({ label, icon: Icon, onClick, show }, idx) =>
+              {actionMenu.map(({ label, icon: Icon, onClick, show }, idx) =>
                 show ? (
                   <MenuItem
                     key={idx}

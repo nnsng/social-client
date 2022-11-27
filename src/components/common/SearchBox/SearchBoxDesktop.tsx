@@ -20,12 +20,11 @@ import {
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import {
   postActions,
-  SearchResultItem,
   selectFormattedSearchResult,
   selectSearchLoading,
 } from 'features/blog/postSlice';
 import { useSubmitWithEnter } from 'hooks';
-import { SearchObj } from 'models';
+import { SearchObj, SearchResultItem } from 'models';
 import queryString from 'query-string';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -33,22 +32,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { slugifyString } from 'utils/common';
 import { themeMixins } from 'utils/theme';
 import { showComingSoonToast } from 'utils/toast';
-import { SearchMobile } from '../SearchMobile';
+import { SearchMobile } from './SearchBoxMobile';
 
-export interface SearchResult {
+interface SearchResult {
   list: SearchResultItem[];
   length: number;
   isMore: boolean;
 }
 
-export interface SearchBoxProps {
-  openSearchMobile: boolean;
-  toggleSearchMobile?: () => void;
-}
-
-export default function SearchBox(props: SearchBoxProps) {
-  const { openSearchMobile, toggleSearchMobile } = props;
-
+export default function SearchBoxDesktop() {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -60,7 +52,7 @@ export default function SearchBox(props: SearchBoxProps) {
 
   const [searchInput, setSearchInput] = useState<string>('');
   const [result, setResult] = useState<SearchResult>({ list: [], length: 0, isMore: false });
-  const [showSearchResult, setShowSearchResult] = useState<boolean>(false);
+  const [showSearchResult, setShowSearchResult] = useState(false);
   const [searchObj, setSearchObj] = useState<SearchObj>({
     searchFor: 'search',
     searchTerm: searchInput,
@@ -181,7 +173,7 @@ export default function SearchBox(props: SearchBoxProps) {
               )
             }
             sx={{
-              borderRadius: 40,
+              borderRadius: 10,
               bgcolor: 'background.paper',
             }}
           />
@@ -277,8 +269,7 @@ export default function SearchBox(props: SearchBoxProps) {
 
       {smDown && (
         <SearchMobile
-          open={openSearchMobile}
-          onClose={toggleSearchMobile}
+          open={false}
           loading={loading}
           searchInput={searchInput}
           result={result}

@@ -11,12 +11,12 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 export interface PostReactionProps {
-  post: Post;
+  post: Post | null;
   onOpenComment?: () => void;
   onLikePost?: () => void;
 }
 
-export default function PostReaction(props: PostReactionProps) {
+export function PostReaction(props: PostReactionProps) {
   const { post, onOpenComment, onLikePost } = props;
 
   const navigate = useNavigate();
@@ -27,34 +27,29 @@ export default function PostReaction(props: PostReactionProps) {
     navigate(`/blog?hashtag=${hashtag}`);
   };
 
+  if (!post) return null;
+
   return (
     <Box>
       <Typography
-        color="text.primary"
-        fontSize={18}
+        variant="body1"
         fontWeight={600}
         sx={{
           display: 'inline-block',
           pb: 0.5,
-          mb: -1,
+          mb: 1,
           borderBottom: 1,
           borderColor: 'text.primary',
         }}
-        component={Link}
-        to={`/user/${post.author?.username}`}
       >
         {post.author?.name}
-      </Typography>
-
-      <Typography fontSize={16} lineHeight={1.8} pt={1}>
-        {post.author?.bio}
       </Typography>
 
       <Stack
         sx={{
           alignItems: 'center',
           '& button': {
-            fontSize: 16,
+            fontSize: '1rem',
             color: 'text.secondary',
           },
         }}

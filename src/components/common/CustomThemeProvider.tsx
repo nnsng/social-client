@@ -20,6 +20,7 @@ export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
 
   useEffect(() => {
     setTheme(configTheme(mode, mainColor));
+    console.log(theme);
   }, [mode, mainColor]);
 
   useEffect(() => {

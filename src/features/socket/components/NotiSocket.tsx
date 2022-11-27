@@ -35,7 +35,7 @@ export default function NotiSocket({ socket }: SocketProps) {
     const { type, post, user } = payload;
 
     if (type === 'follow') {
-      navigate(`/user/${user.username}`);
+      navigate(`/profile/${user.username}`);
       return;
     }
     navigate(`/blog/post/${post.slug}`, { state: { openComment: type === 'comment' } });

@@ -10,8 +10,7 @@ import { Button, CircularProgress, MenuItem, Stack } from '@mui/material';
 import { userApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectCurrentUser, userActions } from 'features/auth/userSlice';
-import { chatActions } from 'features/chat/chatSlice';
-import { FollowModeType, FollowUser, MenuItemProps, User } from 'models';
+import { FollowModeType, FollowUser, MenuOption, User } from 'models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -39,8 +38,8 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
   const currentUser = useAppSelector(selectCurrentUser);
 
   const anchorRef = useRef<any>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
   const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
@@ -59,16 +58,12 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
     setLoading(false);
   };
 
-  const startChat = () => {
-    user && dispatch(chatActions.startChat(user));
-  };
-
   const handleMenuItemClick = (callback?: () => void) => {
     closeMenu();
     callback?.();
   };
 
-  const userInfoMenu: MenuItemProps[] = [
+  const userInfoMenu: MenuOption[] = [
     {
       label: t('menu.block'),
       icon: PersonOffRounded,
@@ -147,7 +142,6 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
                 bgcolor: 'action.selected',
               },
             }}
-            onClick={startChat}
           >
             <ChatIcon width={18} />
           </Button>

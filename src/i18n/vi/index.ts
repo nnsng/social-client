@@ -11,7 +11,7 @@ import header from './components/header.json';
 import authForm from './components/authForm.json';
 import createEditForm from './components/createEditForm.json';
 import postList from './components/postList.json';
-import postCardHeader from './components/postCardHeader.json';
+import postMenu from './components/postMenu.json';
 import topHashtags from './components/topHashtags.json';
 import postComment from './components/postComment.json';
 import postItem from './components/postItem.json';
@@ -21,7 +21,8 @@ import changePasswordForm from './components/changePasswordForm.json';
 import userInfoButtonGroup from './components/userInfoButtonGroup.json';
 import noPost from './components/noPost.json';
 import notification from './components/notification.json';
-import chatPopup from './components/chatPopup.json';
+import sidebar from './components/sidebar.json';
+import appearanceDialog from './components/appearanceDialog.json';
 
 // common
 import validate from './common/validate';
@@ -42,7 +43,7 @@ export default {
   authForm,
   createEditForm,
   postList,
-  postCardHeader,
+  postMenu,
   topHashtags,
   postComment,
   postItem,
@@ -52,7 +53,8 @@ export default {
   userInfoButtonGroup,
   noPost,
   notification,
-  chatPopup,
+  sidebar,
+  appearanceDialog,
 
   // common
   validate,

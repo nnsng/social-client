@@ -64,6 +64,11 @@ export const configTheme = (mode?: PaletteMode, mainColor?: string) => {
       fontFamily: 'Montserrat, Arial, Helvetica, sans-serif',
     },
     components: {
+      MuiContainer: {
+        defaultProps: {
+          maxWidth: 'xl',
+        },
+      },
       MuiChip: {
         styleOverrides: {
           root: {
@@ -75,6 +80,16 @@ export const configTheme = (mode?: PaletteMode, mainColor?: string) => {
         defaultProps: {
           direction: 'row',
         },
+        variants: [
+          {
+            props: {
+              direction: 'row',
+            },
+            style: {
+              alignItems: 'center',
+            },
+          },
+        ],
       },
       MuiButton: {
         defaultProps: {

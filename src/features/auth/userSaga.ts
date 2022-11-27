@@ -2,7 +2,6 @@ import { call, delay, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { authApi } from 'api';
 import { LocalStorageKey } from 'constants/common';
-import { chatActions } from 'features/chat/chatSlice';
 import { AuthFormValues, AuthPayload, AuthResponse } from 'models';
 import { toast } from 'react-toastify';
 import { showErrorToast } from 'utils/toast';
@@ -17,7 +16,7 @@ function* handleLogin(action: PayloadAction<AuthPayload>) {
     const response: AuthResponse = yield call(authApi.login, formValues as AuthFormValues);
     yield put(userActions.setCurrentUser(response.user));
     localStorage.setItem(LocalStorageKey.ACCESS_TOKEN, response.token);
-    navigate?.('/', { replace: true });
+    navigate?.('/blog', { replace: true });
   } catch (error) {
     showErrorToast(error);
   }
@@ -52,7 +51,7 @@ function* handleGoogleLogin(action: PayloadAction<AuthPayload>) {
     }
     yield put(userActions.setCurrentUser(response.user));
     localStorage.setItem(LocalStorageKey.ACCESS_TOKEN, response.token);
-    navigate?.('/', { replace: true });
+    navigate?.('/blog', { replace: true });
   } catch (error) {
     showErrorToast(error);
   }
@@ -63,7 +62,6 @@ function* handleLogout(action: PayloadAction<AuthPayload>) {
   const { navigate } = action.payload;
 
   yield delay(500);
-  yield put(chatActions.reset());
   localStorage.removeItem(LocalStorageKey.ACCESS_TOKEN);
   navigate?.('/login');
 }

@@ -10,3 +10,5 @@ export const Role = {
   USER: 'user',
   TEST: 'test',
 };
+
+export const HIDE_SIDEBAR_PATHS = ['/blog/create', '/blog/edit'];

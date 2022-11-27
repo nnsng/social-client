@@ -20,7 +20,7 @@ export interface ChangePasswordFormProps {
   submitButtonLabel?: string;
 }
 
-export default function ChangePasswordForm(props: ChangePasswordFormProps) {
+export function ChangePasswordForm(props: ChangePasswordFormProps) {
   const { fieldList, defaultValues, onSubmit, forgotPassword, submitButtonLabel } = props;
   const isChangePasswordMode = !!forgotPassword;
 
