@@ -36,7 +36,7 @@ export function PostCardHeader(props: PostCardHeaderProps) {
     navigate(`/profile/${post.author?.username}`);
   };
 
-  const handleMenuItemClick = (callback?: () => void) => {
+  const onClickWrapper = (callback?: () => void) => () => {
     closeMenu();
     callback?.();
   };
@@ -71,31 +71,18 @@ export function PostCardHeader(props: PostCardHeaderProps) {
               <MoreHorizRounded />
             </IconButton>
 
-            <ActionMenu open={openMenu} anchorEl={anchorRef.current} onClose={closeMenu}>
-              {actionMenu.map(({ label, icon: Icon, onClick, show }, idx) =>
-                show ? (
-                  <MenuItem
-                    key={idx}
-                    onClick={() => handleMenuItemClick(onClick)}
-                    sx={{
-                      py: 1.5,
-                      px: 2.5,
-                      fontSize: 15,
-                    }}
-                  >
-                    <Icon sx={{ mr: 2, fontSize: 18 }} />
-                    {label}
-                  </MenuItem>
-                ) : null
-              )}
-            </ActionMenu>
+            <ActionMenu
+              menu={actionMenu}
+              open={openMenu}
+              anchorEl={anchorRef.current}
+              onClose={closeMenu}
+              onClickWrapper={onClickWrapper}
+            />
           </Box>
         }
         title={
           <Typography
             variant="subtitle2"
-            color="text.primary"
-            fontSize={14}
             fontWeight={600}
             onClick={handleAuthorClick}
             {...mouseEvents}
@@ -109,12 +96,7 @@ export function PostCardHeader(props: PostCardHeaderProps) {
         }
         subheader={
           <TimeTooltip timestamp={post.createdAt}>
-            <Typography
-              variant="subtitle2"
-              color="text.secondary"
-              fontSize={12}
-              sx={{ display: 'inline-block' }}
-            >
+            <Typography variant="caption" color="text.secondary" sx={{ display: 'inline-block' }}>
               {formatTime(post.createdAt)}
             </Typography>
           </TimeTooltip>

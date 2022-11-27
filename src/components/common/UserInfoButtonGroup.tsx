@@ -41,7 +41,6 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
   const [loading, setLoading] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
 
-  const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
 
   const handleFollow = async (action: FollowModeType) => {
@@ -58,7 +57,7 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
     setLoading(false);
   };
 
-  const handleMenuItemClick = (callback?: () => void) => {
+  const onClickWrapper = (callback?: () => void) => () => {
     closeMenu();
     callback?.();
   };
@@ -148,7 +147,7 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
 
           <Button
             ref={anchorRef}
-            onClick={toggleMenu}
+            onClick={() => setOpenMenu((x) => !x)}
             sx={{
               height: BUTTON_HEIGHT,
               px: 2,
@@ -163,26 +162,13 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
           </Button>
 
           <ActionMenu
+            menu={userInfoMenu}
             open={openMenu}
             anchorEl={anchorRef.current}
             onClose={closeMenu}
             sx={{ zIndex: (theme) => theme.zIndex.drawer + 2 }}
-          >
-            {userInfoMenu.map(({ label, icon: Icon, onClick }, idx) => (
-              <MenuItem
-                key={idx}
-                onClick={() => handleMenuItemClick(onClick)}
-                sx={{
-                  py: 1.5,
-                  px: 2.5,
-                  fontSize: 15,
-                }}
-              >
-                <Icon sx={{ mr: 2, fontSize: 18 }} />
-                {label}
-              </MenuItem>
-            ))}
-          </ActionMenu>
+            onClickWrapper={onClickWrapper}
+          />
         </>
       )}
     </Stack>

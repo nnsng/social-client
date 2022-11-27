@@ -75,9 +75,7 @@ export function CommentItem(props: CommentItemProps) {
     editRef.current?.setSelectionRange(length, length);
   }, [editComment]);
 
-  const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
-  const closeDialog = () => setOpenDialog(false);
 
   const handleUserClick = () => {
     navigate(`/profile/${comment.user?.username}`);
@@ -131,7 +129,7 @@ export function CommentItem(props: CommentItemProps) {
     onCommentAction?.('like', comment);
   };
 
-  const handleMenuItemClick = (callback?: () => void) => {
+  const onClickWrapper = (callback?: () => void) => () => {
     closeMenu();
     callback?.();
   };
@@ -187,7 +185,7 @@ export function CommentItem(props: CommentItemProps) {
                 <Stack alignItems="center" p={0.3}>
                   <FavoriteRounded sx={{ color: 'primary.main', fontSize: 18 }} />
 
-                  <Typography color="text.primary" fontSize={14} fontWeight={500} ml={0.5}>
+                  <Typography variant="button" color="text.primary" ml={0.5}>
                     {comment.likes?.length || 0}
                   </Typography>
                 </Stack>
@@ -218,8 +216,7 @@ export function CommentItem(props: CommentItemProps) {
               >
                 <Stack alignItems="center">
                   <Typography
-                    color="text.primary"
-                    fontSize={14}
+                    variant="body2"
                     fontWeight={600}
                     onClick={handleUserClick}
                     {...mouseEvents}
@@ -274,82 +271,73 @@ export function CommentItem(props: CommentItemProps) {
                     </Box>
                   </Stack>
                 ) : (
-                  <Typography color="text.primary" fontSize={16} sx={{ wordBreak: 'break-word' }}>
+                  <Typography variant="body1" sx={{ wordBreak: 'break-word' }}>
                     {content}
                   </Typography>
                 )}
               </Box>
             </Badge>
 
-            <Stack alignItems="center" mt={1}>
-              <Typography
-                color="primary"
-                fontSize={14}
-                fontWeight={500}
-                onClick={handleLikeComment}
-                sx={{ cursor: 'pointer' }}
-              >
-                {comment.likes?.includes(currentUser?._id || '') ? t('unlike') : t('like')}
-              </Typography>
-
-              <TimeTooltip timestamp={comment.createdAt}>
+            {!editComment && (
+              <Stack alignItems="center" mt={1}>
                 <Typography
-                  color="text.secondary"
-                  fontSize={14}
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    mr: 1,
-                    '&::before': {
-                      width: 2,
-                      height: 2,
-                      content: '""',
-                      bgcolor: 'grey.500',
-                      borderRadius: '50%',
-                      display: 'block',
-                      mx: 1,
-                    },
-                  }}
+                  color="primary"
+                  variant="subtitle2"
+                  onClick={handleLikeComment}
+                  sx={{ cursor: 'pointer' }}
                 >
-                  {formatTime(comment.createdAt)}
+                  {comment.likes?.includes(currentUser?._id || '') ? t('unlike') : t('like')}
                 </Typography>
-              </TimeTooltip>
 
-              <IconButton size="small" disableRipple ref={anchorRef} onClick={toggleMenu}>
-                <MoreHorizRounded />
-              </IconButton>
+                <TimeTooltip timestamp={comment.createdAt}>
+                  <Typography
+                    color="text.secondary"
+                    variant="subtitle2"
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      mr: 1,
+                      '&::before': {
+                        width: 2,
+                        height: 2,
+                        content: '""',
+                        bgcolor: 'grey.500',
+                        borderRadius: '50%',
+                        display: 'block',
+                        mx: 1,
+                      },
+                    }}
+                  >
+                    {formatTime(comment.createdAt)}
+                  </Typography>
+                </TimeTooltip>
 
-              <ActionMenu
-                open={openMenu}
-                anchorEl={anchorRef.current}
-                onClose={closeMenu}
-                sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-              >
-                {commentMenu.map(({ label, icon: Icon, onClick, show }, idx) =>
-                  show ? (
-                    <MenuItem
-                      key={idx}
-                      onClick={() => handleMenuItemClick(onClick)}
-                      sx={{
-                        py: 1.5,
-                        px: 2.5,
-                        fontSize: 15,
-                      }}
-                    >
-                      <Icon sx={{ mr: 2, fontSize: 18 }} />
-                      {label}
-                    </MenuItem>
-                  ) : null
-                )}
-              </ActionMenu>
-            </Stack>
+                <IconButton
+                  size="small"
+                  disableRipple
+                  ref={anchorRef}
+                  onClick={() => setOpenMenu((x) => !x)}
+                >
+                  <MoreHorizRounded />
+                </IconButton>
+
+                <ActionMenu
+                  menu={commentMenu}
+                  open={openMenu}
+                  anchorEl={anchorRef.current}
+                  onClose={closeMenu}
+                  sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                  onClickWrapper={onClickWrapper}
+                />
+              </Stack>
+            )}
           </Grid>
         </Grid>
       </ListItem>
 
       <ConfirmDialog
         open={openDialog}
-        onClose={closeDialog}
+        onClose={() => setOpenDialog(false)}
         title={dialogTranslation.comment.delete.title}
         content={dialogTranslation.comment.delete.content}
         onConfirm={handleRemoveComment}

@@ -38,7 +38,7 @@ export function PostItem(props: PostItemProps) {
     }
   };
 
-  const handleMenuItemClick = (callback?: () => void) => {
+  const onClickWrapper = (callback?: () => void) => () => {
     closeMenu();
     callback?.();
   };
@@ -84,7 +84,7 @@ export function PostItem(props: PostItemProps) {
         <Stack direction="column" flexGrow={1} justifyContent="center">
           <Typography
             color="text.primary"
-            fontSize={{ sx: 16, sm: 20 }}
+            variant="h6"
             fontWeight={600}
             sx={{ ...themeMixins.truncate(1) }}
             component={Link}
@@ -93,12 +93,12 @@ export function PostItem(props: PostItemProps) {
             {post.title}
           </Typography>
 
-          <Typography color="text.secondary" fontSize={12}>
+          <Typography color="text.secondary" variant="caption">
             {post.author?.name}
           </Typography>
 
           <TimeTooltip timestamp={post.createdAt}>
-            <Typography color="text.secondary" fontSize={12} width="fit-content">
+            <Typography color="text.secondary" variant="caption" width="fit-content">
               {formatTime(post.createdAt)}
             </Typography>
           </TimeTooltip>
@@ -119,22 +119,12 @@ export function PostItem(props: PostItemProps) {
             <MoreHorizRounded />
           </IconButton>
 
-          <ActionMenu open={openMenu} anchorEl={anchorRef.current} onClose={closeMenu}>
-            {menuItemList.map(({ label, icon: Icon, onClick }, idx) => (
-              <MenuItem
-                key={idx}
-                onClick={() => handleMenuItemClick(onClick)}
-                sx={{
-                  py: 1.5,
-                  px: 2.5,
-                  fontSize: 15,
-                }}
-              >
-                <Icon sx={{ mr: 2, fontSize: 18 }} />
-                {label}
-              </MenuItem>
-            ))}
-          </ActionMenu>
+          <ActionMenu
+            menu={menuItemList}
+            open={openMenu}
+            anchorEl={anchorRef.current}
+            onClose={closeMenu}
+          />
         </Box>
       </Stack>
     </ListItem>

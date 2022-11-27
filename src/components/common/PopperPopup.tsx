@@ -6,13 +6,11 @@ import {
   Paper,
   Popper,
   PopperPlacementType,
-  PopperProps,
   Theme,
 } from '@mui/material';
 import { SxProps } from '@mui/system';
+import { AnchorEl } from 'models';
 import { themeMixins } from 'utils/theme';
-
-export type AnchorEl = PopperProps['anchorEl'];
 
 export interface PopperPopupProps {
   open: boolean;
