@@ -2,7 +2,7 @@
 import auth from './pages/auth.json';
 import createEditPost from './pages/createEditPost.json';
 import saved from './pages/saved.json';
-import settings from './pages/settings.json';
+import settingPage from './pages/settings.json';
 import notFound from './pages/notFound.json';
 import profile from './pages/profile.json';
 
@@ -15,7 +15,7 @@ import postMenu from './components/postMenu.json';
 import topHashtags from './components/topHashtags.json';
 import postComment from './components/postComment.json';
 import postItem from './components/postItem.json';
-import settingTabs from './components/settingTabs.json';
+import settings from './components/settings.json';
 import editProfileForm from './components/editProfileForm.json';
 import changePasswordForm from './components/changePasswordForm.json';
 import userInfoButtonGroup from './components/userInfoButtonGroup.json';
@@ -34,7 +34,7 @@ export default {
   auth,
   createEditPost,
   saved,
-  settings,
+  settingPage,
   notFound,
   profile,
 
@@ -47,7 +47,7 @@ export default {
   topHashtags,
   postComment,
   postItem,
-  settingTabs,
+  settings,
   editProfileForm,
   changePasswordForm,
   userInfoButtonGroup,

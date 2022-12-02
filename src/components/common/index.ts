@@ -1,6 +1,7 @@
 export * from './ActionMenu';
 export * from './AppearanceDialog';
 export * from './Brand';
+export * from './CommonForm';
 export * from './ConfirmDialog';
 export * from './ContainedInput';
 export * from './CustomScrollbar';
@@ -15,6 +16,5 @@ export * from './PrivateRoute';
 export * from './SearchBox';
 export * from './Sidebar';
 export * from './ThemeSwitch';
-export * from './TimeTooltip';
 export * from './UserInfoButtonGroup';
 export * from './UserInfoPopup';

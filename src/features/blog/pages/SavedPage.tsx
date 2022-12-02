@@ -41,7 +41,7 @@ export function SavedPage() {
       <PageTitle title={t('pageTitle')} />
 
       <Grid item xs={12} lg={8}>
-        <Typography fontSize={{ xs: 20, sm: 24 }} fontWeight={600} textTransform="uppercase">
+        <Typography variant="h5" component="h2" fontWeight={600} textTransform="uppercase">
           {t('pageTitle')}
         </Typography>
 

@@ -135,6 +135,12 @@ export const configTheme = (mode?: PaletteMode, mainColor?: string) => {
           fontSize: 'small',
         },
       },
+      MuiTooltip: {
+        defaultProps: {
+          arrow: true,
+          placement: 'right',
+        },
+      },
     },
   });
 

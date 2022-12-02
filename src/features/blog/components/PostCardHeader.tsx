@@ -1,6 +1,6 @@
 import { MoreHorizRounded } from '@mui/icons-material';
-import { Avatar, Box, CardHeader, IconButton, MenuItem, SxProps, Typography } from '@mui/material';
-import { ActionMenu, TimeTooltip } from 'components/common';
+import { Avatar, Box, CardHeader, IconButton, SxProps, Tooltip, Typography } from '@mui/material';
+import { ActionMenu } from 'components/common';
 import { useUserInfoPopup } from 'hooks';
 import { MenuOption, Post } from 'models';
 import { useRef, useState } from 'react';
@@ -95,11 +95,11 @@ export function PostCardHeader(props: PostCardHeaderProps) {
           </Typography>
         }
         subheader={
-          <TimeTooltip timestamp={post.createdAt}>
+          <Tooltip title={formatTime(post.createdAt, 'DD/MM/YYYY, HH:mm')}>
             <Typography variant="caption" color="text.secondary" sx={{ display: 'inline-block' }}>
               {formatTime(post.createdAt)}
             </Typography>
-          </TimeTooltip>
+          </Tooltip>
         }
         sx={{
           display: 'flex',

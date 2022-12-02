@@ -1,6 +1,6 @@
 import { BookmarkRemoveRounded, LinkRounded, MoreHorizRounded } from '@mui/icons-material';
-import { Box, CardMedia, IconButton, ListItem, MenuItem, Stack, Typography } from '@mui/material';
-import { ActionMenu, TimeTooltip } from 'components/common';
+import { Box, CardMedia, IconButton, ListItem, Stack, Tooltip, Typography } from '@mui/material';
+import { ActionMenu } from 'components/common';
 import { MenuOption, Post } from 'models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -97,11 +97,11 @@ export function PostItem(props: PostItemProps) {
             {post.author?.name}
           </Typography>
 
-          <TimeTooltip timestamp={post.createdAt}>
+          <Tooltip title={formatTime(post.createdAt, 'DD/MM/YYYY, HH:mm')}>
             <Typography color="text.secondary" variant="caption" width="fit-content">
               {formatTime(post.createdAt)}
             </Typography>
-          </TimeTooltip>
+          </Tooltip>
         </Stack>
 
         <Box flexShrink={0} ml={2}>

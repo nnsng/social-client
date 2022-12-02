@@ -6,6 +6,6 @@
     "email": "Email",
     "bio": "Giới thiệu bản thân"
   },
-  "removeAvatar": "Xóa",
-  "save": "Lưu thay đổi"
+  "remove": "Xóa",
+  "submit": "Lưu thay đổi"
 }

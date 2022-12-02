@@ -94,7 +94,7 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
             },
           }}
           component={Link}
-          to="/settings/edit-profile"
+          to="/settings?tab=edit-profile"
         >
           {t('editProfile')}
         </Button>

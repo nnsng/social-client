@@ -15,14 +15,13 @@ import {
   Grid,
   IconButton,
   ListItem,
-  MenuItem,
   Stack,
   TextField,
   Tooltip,
   Typography,
 } from '@mui/material';
 import { useAppSelector } from 'app/hooks';
-import { ActionMenu, ConfirmDialog, TimeTooltip } from 'components/common';
+import { ActionMenu, ConfirmDialog } from 'components/common';
 import { selectCurrentUser } from 'features/auth/userSlice';
 import { useSubmitWithEnter, useUserInfoPopup } from 'hooks';
 import { Comment, CommentActionType, MenuOption } from 'models';
@@ -226,7 +225,7 @@ export function CommentItem(props: CommentItemProps) {
                   </Typography>
 
                   {comment.edited && (
-                    <Tooltip title={t('edited')} placement="top" arrow>
+                    <Tooltip title={t('edited')} placement="top">
                       <DriveFileRenameOutlineRounded
                         sx={{
                           ml: 0.5,
@@ -289,7 +288,7 @@ export function CommentItem(props: CommentItemProps) {
                   {comment.likes?.includes(currentUser?._id || '') ? t('unlike') : t('like')}
                 </Typography>
 
-                <TimeTooltip timestamp={comment.createdAt}>
+                <Tooltip title={formatTime(comment.createdAt, 'DD/MM/YYYY, HH:mm')}>
                   <Typography
                     color="text.secondary"
                     variant="subtitle2"
@@ -310,7 +309,7 @@ export function CommentItem(props: CommentItemProps) {
                   >
                     {formatTime(comment.createdAt)}
                   </Typography>
-                </TimeTooltip>
+                </Tooltip>
 
                 <IconButton
                   size="small"
