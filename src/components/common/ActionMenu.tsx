@@ -34,7 +34,7 @@ export function ActionMenu(props: ActionMenuProps) {
               fontSize: 15,
             }}
           >
-            <Icon sx={{ mr: 2, fontSize: 18 }} />
+            {Icon && <Icon sx={{ mr: 2, fontSize: 18 }} />}
             {label}
           </MenuItem>
         ) : null

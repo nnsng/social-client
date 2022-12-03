@@ -1,8 +1,8 @@
 import { Box, Paper, Typography } from '@mui/material';
 import { authApi } from 'api';
 import { useAppDispatch } from 'app/hooks';
-import { PageTitle } from 'components/common';
 import { EmptyLayout } from 'components/layouts';
+import { usePageTitle } from 'hooks';
 import { ChangePasswordFormValues, User } from 'models';
 import { useTranslation } from 'react-i18next';
 import { themeMixins } from 'utils/theme';
@@ -10,9 +10,11 @@ import { Settings } from './components/Settings';
 import { settingActions } from './settingSlice';
 
 export default function SettingFeature() {
-  const { t } = useTranslation('settingPage');
+  const { t } = useTranslation('settingsPage');
 
   const dispatch = useAppDispatch();
+
+  usePageTitle(t('pageTitle'));
 
   const handleUpdateProfile = (formValues: Partial<User>) => {
     dispatch(settingActions.updateProfile(formValues));
@@ -29,8 +31,6 @@ export default function SettingFeature() {
 
   return (
     <EmptyLayout maxWidth="md">
-      <PageTitle title={t('pageTitle')} />
-
       <Box>
         <Typography variant="h5" component="h2" fontWeight={600} textTransform="uppercase">
           {t('pageTitle')}

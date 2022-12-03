@@ -1,8 +1,9 @@
 import { Grid, List, Pagination, Stack, Typography } from '@mui/material';
 import { postApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { NoPost, PageTitle } from 'components/common';
+import { NoPost } from 'components/common';
 import { PostItemSkeleton } from 'components/skeletons';
+import { usePageTitle } from 'hooks';
 import { Post } from 'models';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -17,7 +18,9 @@ export function SavedPage() {
   const loading = useAppSelector(selectPostLoading);
   const totalPage = useAppSelector(selectTotalPages);
 
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState(1);
+
+  usePageTitle(t('pageTitle'));
 
   useEffect(() => {
     fetchSavedList(page);
@@ -38,8 +41,6 @@ export function SavedPage() {
 
   return (
     <Grid container>
-      <PageTitle title={t('pageTitle')} />
-
       <Grid item xs={12} lg={8}>
         <Typography variant="h5" component="h2" fontWeight={600} textTransform="uppercase">
           {t('pageTitle')}

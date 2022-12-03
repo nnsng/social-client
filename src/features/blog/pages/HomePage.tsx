@@ -1,8 +1,8 @@
 import { Grid } from '@mui/material';
 import { postApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { PageTitle } from 'components/common';
 import { APP_NAME } from 'constants/common';
+import { usePageTitle } from 'hooks';
 import { ListParams, Post } from 'models';
 import queryString from 'query-string';
 import { useEffect, useState } from 'react';
@@ -22,6 +22,8 @@ export function HomePage() {
     return { page: 1, by: 'all', ...params };
   });
   const [hashtagList, setHashtagList] = useState<string[]>([]);
+
+  usePageTitle(APP_NAME);
 
   useEffect(() => {
     const setPageOne = () => setFilter({ page: 1 });
@@ -84,8 +86,6 @@ export function HomePage() {
       spacing={{ xs: hashtagList.length ? 2 : 0, lg: 8 }}
       flexDirection={{ xs: 'column-reverse', lg: 'row' }}
     >
-      <PageTitle title={APP_NAME} />
-
       <Grid item xs width="100%">
         <PostList
           postList={postList}

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const rootFolder = path.join(process.cwd(), 'src', 'features', 'settings', 'components');
+const rootFolder = path.join(process.cwd(), 'src', 'features', 'auth', 'components');
 
 const generateIndexEndpoint = () => {
   const fileNames = fs.readdirSync(rootFolder);

@@ -1,0 +1,12 @@
+{
+  "pageTitle": "Kích hoạt tài khoản",
+  "status": {
+    "pending": "Đang kích hoạt...",
+    "success": "Kích hoạt thành công",
+    "error": "Kích hoạt thất bại"
+  },
+  "button": {
+    "success": "Đăng nhập",
+    "error": "Kích hoạt lại"
+  }
+}

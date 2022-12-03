@@ -31,16 +31,40 @@ export function Settings(props: SettingsProps) {
     onForgotPassword?.(currentUser?.email || '');
   };
 
+  const tabs: string[] = ['profile', 'password'];
+
   const smUp = useCustomMediaQuery('up', 'sm');
 
   return (
-    <Stack alignItems="flex-start" ml={-2}>
-      <Tabs orientation="vertical" value={value} onChange={handleTabChange}>
-        <Tab label={t(`profile.${smUp ? 'label' : 'mobileLabel'}`)} sx={{ minWidth: 220 }} />
-        <Tab label={t(`password.${smUp ? 'label' : 'mobileLabel'}`)} sx={{ minWidth: 220 }} />
+    <Stack
+      direction={{ xs: 'column', sm: 'row' }}
+      alignItems="flex-start"
+      ml={-2}
+      mr={{ xs: -2, sm: 0 }}
+    >
+      <Tabs
+        orientation={smUp ? 'vertical' : 'horizontal'}
+        variant="fullWidth"
+        value={value}
+        sx={{
+          width: { xs: '100%', sm: 'unset' },
+          flexShrink: 0,
+        }}
+        onChange={handleTabChange}
+      >
+        {tabs.map((tab) => (
+          <Tab key={tab} label={t(`${tab}.${smUp ? 'label' : 'mobileLabel'}`)} />
+        ))}
       </Tabs>
 
-      <Box flexGrow={1} borderLeft={1} borderColor="divider" pl={3}>
+      <Box
+        maxWidth={400}
+        width="100%"
+        borderLeft={1}
+        borderColor="divider"
+        px={4}
+        pt={{ xs: 2, sm: 0 }}
+      >
         <TabPanel value={value} index={0}>
           <EditProfileForm
             defaultValues={{
@@ -82,5 +106,5 @@ function TabPanel(props: TabPanelProps) {
 
   if (value !== index) return null;
 
-  return <Box sx={{ p: 3 }}>{children}</Box>;
+  return <Box width="100%">{children}</Box>;
 }

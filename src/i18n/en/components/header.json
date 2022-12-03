@@ -15,10 +15,8 @@
     },
     "viewMore": "View more"
   },
-  "menu": {
-    "create": "Create a new post",
-    "saved": "Saved",
-    "appearance": "Theme & Language",
+  "user": {
+    "profile": "Profile",
     "settings": "Settings",
     "logout": "Log out"
   },

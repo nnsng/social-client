@@ -2,18 +2,26 @@ import { call, delay, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { authApi } from 'api';
 import { LocalStorageKey } from 'constants/common';
-import { AuthFormValues, AuthPayload, AuthResponse } from 'models';
+import {
+  AuthPayload,
+  AuthResponse,
+  GoogleAuthPayload,
+  LoginFormValues,
+  RegisterFormValues,
+} from 'models';
+import { NavigateFunction } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { showErrorToast } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 import { userActions } from './userSlice';
 
-function* handleLogin(action: PayloadAction<AuthPayload>) {
+function* handleLogin(action: PayloadAction<AuthPayload<LoginFormValues>>) {
   const { formValues, navigate } = action.payload;
+  if (!formValues) return;
 
   yield put(userActions.setSubmitting(true));
   try {
-    const response: AuthResponse = yield call(authApi.login, formValues as AuthFormValues);
+    const response: AuthResponse = yield call(authApi.login, formValues);
     yield put(userActions.setCurrentUser(response.user));
     localStorage.setItem(LocalStorageKey.ACCESS_TOKEN, response.token);
     navigate?.('/blog', { replace: true });
@@ -23,14 +31,15 @@ function* handleLogin(action: PayloadAction<AuthPayload>) {
   yield put(userActions.setSubmitting(false));
 }
 
-function* handleRegister(action: PayloadAction<AuthPayload>) {
+function* handleRegister(action: PayloadAction<AuthPayload<RegisterFormValues>>) {
   const { formValues, navigate } = action.payload;
+  if (!formValues) return;
 
   const { toast: toastTranslation } = translateFiles('toast');
 
   yield put(userActions.setSubmitting(true));
   try {
-    yield call(authApi.register, formValues as AuthFormValues);
+    yield call(authApi.register, formValues);
     navigate?.('/login', { replace: true });
     toast.info(toastTranslation.auth.activeAccount);
   } catch (error) {
@@ -39,12 +48,12 @@ function* handleRegister(action: PayloadAction<AuthPayload>) {
   yield put(userActions.setSubmitting(false));
 }
 
-function* handleGoogleLogin(action: PayloadAction<AuthPayload>) {
+function* handleGoogleLogin(action: PayloadAction<GoogleAuthPayload>) {
   const { token, navigate } = action.payload;
 
   yield put(userActions.setSubmitting(true));
   try {
-    const response: AuthResponse = yield call(authApi.googleLogin, token as string);
+    const response: AuthResponse = yield call(authApi.googleLogin, token);
     if (response.activeToken) {
       navigate?.(`/create-password?token=${response.activeToken}`);
       return;
@@ -58,8 +67,8 @@ function* handleGoogleLogin(action: PayloadAction<AuthPayload>) {
   yield put(userActions.setSubmitting(false));
 }
 
-function* handleLogout(action: PayloadAction<AuthPayload>) {
-  const { navigate } = action.payload;
+function* handleLogout(action: PayloadAction<NavigateFunction>) {
+  const navigate = action.payload;
 
   yield delay(500);
   localStorage.removeItem(LocalStorageKey.ACCESS_TOKEN);

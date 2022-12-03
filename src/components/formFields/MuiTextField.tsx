@@ -14,13 +14,13 @@ export function MuiTextField(props: MuiTextFieldProps) {
 
   const {
     field: { value, onChange, onBlur, ref },
-    fieldState: { invalid, error },
+    fieldState: { error },
   } = useController({ name, control });
 
   return (
     <Stack direction="column">
       {title && (
-        <Typography fontSize={{ xs: 14, sm: 16 }} fontWeight={500} mb={0.5}>
+        <Typography variant="body2" fontWeight={500} mb={0.5}>
           {title}
         </Typography>
       )}
@@ -31,7 +31,7 @@ export function MuiTextField(props: MuiTextFieldProps) {
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        error={invalid}
+        error={!!error}
         helperText={error?.message}
         inputRef={ref}
         size="small"
@@ -40,7 +40,7 @@ export function MuiTextField(props: MuiTextFieldProps) {
         {...restProps}
         sx={{
           '& .MuiInputBase-root': {
-            fontSize: { xs: 14, sm: 16 },
+            fontSize: '0.875rem',
             borderRadius: !!rounded ? 40 : 'auto',
           },
           ...restProps.sx,

@@ -7,23 +7,12 @@ export interface AuthResponse {
   activeToken?: string;
 }
 
-export interface AuthFormValues {
-  email: string;
-  password: string;
-  name?: string;
-  username?: string;
+export interface AuthPayload<T> {
+  formValues?: T;
+  navigate?: NavigateFunction;
 }
 
-export interface ChangePasswordFormValues {
-  userId?: string;
-  currentPassword?: string;
-  newPassword: string;
-  confirmPassword: string;
-  token?: string;
-}
-
-export interface AuthPayload {
-  formValues?: AuthFormValues;
-  token?: string;
+export interface GoogleAuthPayload {
+  token: string;
   navigate?: NavigateFunction;
 }

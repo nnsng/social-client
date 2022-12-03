@@ -1,8 +1,8 @@
 import { userApi } from 'api';
 import { useAppDispatch } from 'app/hooks';
-import { CustomScrollbar, NotFound, PrivateRoute } from 'components/common';
+import { CustomScrollbar, PrivateRoute } from 'components/common';
 import { LocalStorageKey } from 'constants/common';
-import Auth from 'features/auth';
+import AuthFeature from 'features/auth';
 import { userActions } from 'features/auth/userSlice';
 import BlogFeature from 'features/blog';
 import ProfilePage from 'features/profile';
@@ -32,7 +32,7 @@ function App() {
         dispatch(userActions.setCurrentUser(user));
       } catch (error) {
         showErrorToast(error);
-        dispatch(userActions.logout({ navigate }));
+        dispatch(userActions.logout(navigate));
       }
     })();
   }, [dispatch]);
@@ -73,12 +73,6 @@ function App() {
           }
         />
 
-        <Route path="/login" element={<Auth mode="login" />} />
-        <Route path="/register" element={<Auth mode="register" />} />
-        <Route path="/active" element={<Auth mode="active" />} />
-        <Route path="/reset-password" element={<Auth mode="resetPassword" />} />
-        <Route path="/create-password" element={<Auth mode="createPassword" />} />
-
         <Route
           path="/profile/:username"
           element={
@@ -88,14 +82,7 @@ function App() {
           }
         />
 
-        <Route
-          path="*"
-          element={
-            <PrivateRoute>
-              <NotFound />
-            </PrivateRoute>
-          }
-        />
+        <Route path="*" element={<AuthFeature />} />
       </Routes>
     </CustomScrollbar>
   );

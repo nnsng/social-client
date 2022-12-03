@@ -1,8 +1,8 @@
 import { Box } from '@mui/material';
 import { postApi } from 'api';
 import { useAppSelector } from 'app/hooks';
-import { PageTitle } from 'components/common';
 import { selectCurrentUser } from 'features/auth/userSlice';
+import { usePageTitle } from 'hooks';
 import { Post } from 'models';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +19,8 @@ export function CreateEditPage() {
 
   const currentUser = useAppSelector(selectCurrentUser);
   const [editedPost, setEditedPost] = useState<any>(null);
+
+  usePageTitle(isNewPost ? t('pageTitle.create') : t('pageTitle.edit'));
 
   useEffect(() => {
     if (isNewPost) return;
@@ -52,8 +54,6 @@ export function CreateEditPage() {
 
   return (
     <Box>
-      <PageTitle title={isNewPost ? t('pageTitle.create') : t('pageTitle.edit')} />
-
       <CreateEditForm
         defaultValues={defaultValues}
         onSubmit={handleFormSubmit}

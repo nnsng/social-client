@@ -1,11 +1,12 @@
 import { Box, Container } from '@mui/material';
 import { postApi, userApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { Header, PageTitle } from 'components/common';
+import { EmptyLayout } from 'components/layouts';
 import { UserInfoSkeleton } from 'components/skeletons';
 import { APP_NAME } from 'constants/common';
 import { PostList } from 'features/blog/components';
 import { postActions, selectPostList, selectPostLoading } from 'features/blog/postSlice';
+import { usePageTitle } from 'hooks';
 import { ListParams, Post, User } from 'models';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -24,6 +25,8 @@ export default function ProfilePage() {
   const [page, setPage] = useState<number>(1);
 
   const [userInfo, setUserInfo] = useState<Partial<User> | null>(null);
+
+  usePageTitle(userInfo?.name ?? APP_NAME);
 
   useEffect(() => {
     if (!username) return;
@@ -71,10 +74,7 @@ export default function ProfilePage() {
   };
 
   return (
-    <>
-      <PageTitle title={userInfo?.name ?? APP_NAME} />
-      <Header />
-
+    <EmptyLayout>
       <Box component="main">
         <Container maxWidth="md">
           {renderUserInfo()}
@@ -90,6 +90,6 @@ export default function ProfilePage() {
           )}
         </Container>
       </Box>
-    </>
+    </EmptyLayout>
   );
 }

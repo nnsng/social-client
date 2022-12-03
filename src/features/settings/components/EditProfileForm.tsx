@@ -38,7 +38,7 @@ export function EditProfileForm(props: EditProfileFromProps) {
     setValue,
     clearErrors,
     formState: { isSubmitting },
-  } = useForm({
+  } = useForm<Partial<User>>({
     defaultValues,
     resolver: yupResolver(schema),
   });
@@ -74,7 +74,6 @@ export function EditProfileForm(props: EditProfileFromProps) {
         multiline: true,
         rows: 3,
         sx: {
-          maxWidth: 400,
           '& .MuiInputBase-root': {
             borderRadius: 4,
           },

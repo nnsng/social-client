@@ -1,16 +1,16 @@
 import { Box, Stack, Typography } from '@mui/material';
 import { EmptyLayout } from 'components/layouts';
+import { usePageTitle } from 'hooks';
 import { useTranslation } from 'react-i18next';
 import { themeVariables } from 'utils/theme';
-import { PageTitle } from './PageTitle';
 
 export function NotFound() {
   const { t } = useTranslation('notFound');
 
+  usePageTitle(t('pageTitle'));
+
   return (
     <EmptyLayout>
-      <PageTitle title={t('pageTitle')} />
-
       <Stack height={`calc(100vh - ${themeVariables.headerHeight}px)`} textAlign="center">
         <Box m="auto" sx={{ transform: 'translateY(-50%)' }}>
           <Typography

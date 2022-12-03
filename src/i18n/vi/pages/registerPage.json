@@ -1,0 +1,17 @@
+{
+  "pageTitle": "Đăng ký",
+  "form": {
+    "title": "Đăng ký tài khoản",
+    "label": {
+      "name": "Họ tên",
+      "username": "Username",
+      "email": "Email",
+      "password": "Mật khẩu"
+    },
+    "button": {
+      "submit": "Đăng ký"
+    }
+  },
+  "text": "Đã có tài khoản?",
+  "login": "Đăng nhập"
+}

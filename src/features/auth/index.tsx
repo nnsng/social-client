@@ -1,35 +1,31 @@
+import { NotFound, PrivateRoute } from 'components/common';
 import queryString from 'query-string';
-import { useLocation } from 'react-router-dom';
-import ActiveAccount from './components/ActiveAccount';
-import AuthLayout from './components/AuthLayout';
-import { NewPassword } from './components/NewPassword';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { ActiveAccount, UpdatePasswordForm } from './components';
+import { LoginPage, RegisterPage } from './pages';
 
-export type AuthModeTypes = 'login' | 'register';
-export interface AuthPageProps {
-  mode: AuthModeTypes | 'active' | 'createPassword' | 'resetPassword';
-}
-
-export default function Auth({ mode }: AuthPageProps) {
+export default function AuthFeature() {
   const location = useLocation();
   const activeToken = queryString.parse(location.search)?.token as string;
 
-  switch (mode) {
-    case 'login':
-    case 'register': {
-      return <AuthLayout mode={mode} />;
-    }
+  return (
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
 
-    case 'active': {
-      return <ActiveAccount token={activeToken} />;
-    }
+      <Route path="/register" element={<RegisterPage />} />
 
-    case 'createPassword':
-    case 'resetPassword': {
-      return <NewPassword token={activeToken} mode={mode} />;
-    }
+      <Route path="/active" element={<ActiveAccount token={activeToken} />} />
 
-    default: {
-      return null;
-    }
-  }
+      <Route path="/update-password" element={<UpdatePasswordForm token={activeToken} />} />
+
+      <Route
+        path="*"
+        element={
+          <PrivateRoute>
+            <NotFound />
+          </PrivateRoute>
+        }
+      />
+    </Routes>
+  );
 }

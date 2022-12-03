@@ -1,14 +1,9 @@
 import { MenuOutlined } from '@mui/icons-material';
-import { Avatar, Box, IconButton, Stack } from '@mui/material';
-import { useAppSelector } from 'app/hooks';
-import { selectCurrentUser } from 'features/auth/userSlice';
+import { Box, IconButton, Stack } from '@mui/material';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Brand, Sidebar } from '../';
+import { Brand, Sidebar, UserProfile } from '..';
 
 export function HeaderMobile() {
-  const currentUser = useAppSelector(selectCurrentUser);
-
   const [openSidebar, setOpenSidebar] = useState(false);
 
   return (
@@ -23,19 +18,7 @@ export function HeaderMobile() {
 
       <Brand />
 
-      <Box>
-        <Link to={`/profile/${currentUser?.username}`}>
-          <Avatar
-            src={currentUser?.avatar}
-            alt={currentUser?.name}
-            sx={{
-              width: 36,
-              height: 36,
-              cursor: 'pointer',
-            }}
-          />
-        </Link>
-      </Box>
+      <UserProfile />
     </Stack>
   );
 }

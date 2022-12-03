@@ -4,13 +4,10 @@ import en from './en';
 import vi from './vi';
 
 // translation catalog
-const resources: Resource = {
-  en,
-  vi,
-};
+const resources: Resource = { en, vi };
 
 // initialize i18next with catalog and language to use
 i18next.use(initReactI18next).init({
   resources,
-  lng: 'vi',
+  lng: 'en',
 });

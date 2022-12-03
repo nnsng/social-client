@@ -1,11 +1,11 @@
 import { Box, Drawer, Grid } from '@mui/material';
 import { commentApi, postApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { PageTitle } from 'components/common';
 import { PostDetailSkeleton } from 'components/skeletons';
 import { APP_NAME } from 'constants/common';
 import { commentActions, selectPostComments } from 'features/blog/commentSlice';
 import { selectSocket } from 'features/socket/socketSlice';
+import { usePageTitle } from 'hooks';
 import { Comment, CommentActionType, Post } from 'models';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -23,6 +23,8 @@ export function PostDetailPage() {
   const socket = useAppSelector(selectSocket);
 
   const [openComment, setOpenComment] = useState(false);
+
+  usePageTitle(loading ? APP_NAME : `${post?.title} | ${post?.author?.name}`);
 
   useEffect(() => {
     if (!slug) return;
@@ -75,8 +77,6 @@ export function PostDetailPage() {
 
   return (
     <Grid container spacing={{ xs: 2, lg: 8 }} flexDirection={{ xs: 'column', lg: 'row' }}>
-      <PageTitle title={loading ? APP_NAME : `${post?.title} | ${post?.author?.name}`} />
-
       <Grid item xs lg={8} width="100%">
         {loading ? (
           <PostDetailSkeleton />

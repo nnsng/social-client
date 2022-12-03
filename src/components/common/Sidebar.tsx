@@ -7,14 +7,10 @@ import {
   DarkModeRounded,
   HomeOutlined,
   HomeRounded,
-  LogoutOutlined,
   MailOutlined,
   MailRounded,
-  MoreVertRounded,
   NotificationsOutlined,
   NotificationsRounded,
-  SettingsOutlined,
-  SettingsRounded,
 } from '@mui/icons-material';
 import {
   Avatar,
@@ -28,10 +24,10 @@ import {
   SxProps,
   Typography,
 } from '@mui/material';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { selectCurrentUser, userActions } from 'features/auth/userSlice';
+import { useAppSelector } from 'app/hooks';
+import { selectCurrentUser } from 'features/auth/userSlice';
 import { useCustomMediaQuery } from 'hooks';
-import { Fragment, ReactNode, useEffect, useState } from 'react';
+import { Fragment, ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { themeVariables } from 'utils/theme';
@@ -56,14 +52,9 @@ export function Sidebar({ open, onClose }: SidebarProps) {
 
   const { t } = useTranslation('sidebar');
 
-  const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
 
   const [openDialog, setOpenDialog] = useState(false);
-
-  const logout = () => {
-    dispatch(userActions.logout({ navigate }));
-  };
 
   const navigateTo = (path: string) => {
     onClose?.();
@@ -112,20 +103,6 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       activeIcon: DarkModeRounded,
       active: false,
       onClick: () => setOpenDialog(true),
-    },
-    {
-      label: t('settings'),
-      icon: SettingsOutlined,
-      activeIcon: SettingsRounded,
-      active: location.pathname === '/settings',
-      onClick: () => navigateTo('/settings'),
-    },
-    {
-      label: t('logout'),
-      icon: LogoutOutlined,
-      activeIcon: LogoutOutlined,
-      active: false,
-      onClick: logout,
     },
   ];
 

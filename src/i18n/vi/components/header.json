@@ -15,10 +15,8 @@
     },
     "viewMore": "Xem thêm"
   },
-  "menu": {
-    "create": "Viết bài",
-    "saved": "Đã lưu",
-    "appearance": "Giao diện & Ngôn ngữ",
+  "user": {
+    "profile": "Trang cá nhân",
     "settings": "Cài đặt",
     "logout": "Đăng xuất"
   },

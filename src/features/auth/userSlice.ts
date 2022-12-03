@@ -1,7 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
 import { LocalStorageKey } from 'constants/common';
-import { AuthPayload, User, UserConfig, UserConfigKey } from 'models';
+import {
+  AuthPayload,
+  GoogleAuthPayload,
+  LoginFormValues,
+  RegisterFormValues,
+  User,
+  UserConfig,
+  UserConfigKey,
+} from 'models';
+import { NavigateFunction } from 'react-router-dom';
 
 export interface UserState {
   submitting: boolean;
@@ -17,7 +26,7 @@ const initialState: UserState = {
   config: {
     mode: 'light',
     mainColor: '#FF652F',
-    language: 'vi',
+    language: 'en',
     ...localConfig,
   },
 };
@@ -26,13 +35,13 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    register(state, action: PayloadAction<AuthPayload>) {},
+    register(state, action: PayloadAction<AuthPayload<RegisterFormValues>>) {},
 
-    login(state, action: PayloadAction<AuthPayload>) {},
+    login(state, action: PayloadAction<AuthPayload<LoginFormValues>>) {},
 
-    googleLogin(state, action: PayloadAction<AuthPayload>) {},
+    googleLogin(state, action: PayloadAction<GoogleAuthPayload>) {},
 
-    logout(state, action: PayloadAction<AuthPayload>) {
+    logout(state, action: PayloadAction<NavigateFunction>) {
       state.currentUser = null;
     },
 

@@ -1,10 +1,11 @@
 // pages
-import auth from './pages/auth.json';
-import createEditPost from './pages/createEditPost.json';
-import saved from './pages/saved.json';
-import settingPage from './pages/settings.json';
-import notFound from './pages/notFound.json';
-import profile from './pages/profile.json';
+import createEditPage from './pages/createEditPage.json';
+import savedPage from './pages/savedPage.json';
+import settingsPage from './pages/settingsPage.json';
+import notFoundPage from './pages/notFoundPage.json';
+import profilePage from './pages/profilePage.json';
+import loginPage from './pages/loginPage.json';
+import registerPage from './pages/registerPage.json';
 
 // components
 import header from './components/header.json';
@@ -23,6 +24,8 @@ import noPost from './components/noPost.json';
 import notification from './components/notification.json';
 import sidebar from './components/sidebar.json';
 import appearanceDialog from './components/appearanceDialog.json';
+import updatePasswordForm from './components/updatePasswordForm.json';
+import activeAccount from './components/activeAccount.json';
 
 // common
 import validate from './common/validate';
@@ -31,12 +34,13 @@ import dialog from './common/dialog';
 
 export default {
   // pages
-  auth,
-  createEditPost,
-  saved,
-  settingPage,
-  notFound,
-  profile,
+  createEditPage,
+  savedPage,
+  settingsPage,
+  notFoundPage,
+  profilePage,
+  loginPage,
+  registerPage,
 
   // components
   header,
@@ -55,6 +59,8 @@ export default {
   notification,
   sidebar,
   appearanceDialog,
+  updatePasswordForm,
+  activeAccount,
 
   // common
   validate,

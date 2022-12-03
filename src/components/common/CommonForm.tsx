@@ -47,7 +47,6 @@ export function CommonForm(props: CommonFormProps) {
               placeholder={t(`label.${field.name}`)}
               title={t(`label.${field.name}`)}
               rounded
-              // sx={{ maxWidth: 400 }}
               {...(commonProps || {})}
               {...(field.props || {})}
             />

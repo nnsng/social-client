@@ -1,0 +1,12 @@
+{
+  "pageTitle": "Active account",
+  "status": {
+    "pending": "Activating...",
+    "success": "Activated successfully",
+    "error": "Activated unsuccessfully"
+  },
+  "button": {
+    "success": "Login",
+    "error": "Reactivate"
+  }
+}

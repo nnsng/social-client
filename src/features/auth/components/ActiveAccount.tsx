@@ -1,10 +1,12 @@
 import { AutorenewRounded, ErrorRounded, TaskAltRounded } from '@mui/icons-material';
 import { Box, Button, CircularProgress, Container, Stack, Typography } from '@mui/material';
 import { authApi } from 'api';
-import { PageTitle } from 'components/common';
+import clsx from 'clsx';
+import { usePageTitle } from 'hooks';
 import jwtDecode from 'jwt-decode';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { themeMixins } from 'utils/theme';
 import { showErrorToast } from 'utils/toast';
@@ -17,15 +19,17 @@ enum Status {
 }
 
 const statusOptions = {
-  color: {
-    [Status.PENDING]: 'warning.main',
-    [Status.SUCCESS]: 'success.main',
-    [Status.ERROR]: 'error.main',
+  [Status.PENDING]: {
+    color: 'warning.main',
+    icon: AutorenewRounded,
   },
-  icon: {
-    [Status.PENDING]: AutorenewRounded,
-    [Status.SUCCESS]: TaskAltRounded,
-    [Status.ERROR]: ErrorRounded,
+  [Status.SUCCESS]: {
+    color: 'success.main',
+    icon: TaskAltRounded,
+  },
+  [Status.ERROR]: {
+    color: 'error.main',
+    icon: ErrorRounded,
   },
 };
 
@@ -33,12 +37,18 @@ export interface ActiveAccountProps {
   token: string;
 }
 
-export default function ActiveAccount({ token }: ActiveAccountProps) {
-  const { t } = useTranslation('auth');
+export function ActiveAccount({ token }: ActiveAccountProps) {
+  const navigate = useNavigate();
+
+  const { t } = useTranslation('activeAccount');
   const { toast: toastTranslation } = translateFiles('toast');
 
   const [status, setStatus] = useState<Status>(Status.PENDING);
   const [submitting, setSubmitting] = useState(false);
+
+  const statusObject = useMemo(() => statusOptions[status], [status]);
+
+  usePageTitle(t('pageTitle'));
 
   useEffect(() => {
     (async () => {
@@ -52,7 +62,16 @@ export default function ActiveAccount({ token }: ActiveAccountProps) {
     })();
   }, [token]);
 
-  const handleReactive = async () => {
+  const handleClick = async () => {
+    if (status === Status.SUCCESS) {
+      navigate('/login', { replace: true });
+      return;
+    }
+
+    await reactiveAccount();
+  };
+
+  const reactiveAccount = async () => {
     setSubmitting(true);
     try {
       const { _id }: { _id: string } = jwtDecode(token);
@@ -64,43 +83,44 @@ export default function ActiveAccount({ token }: ActiveAccountProps) {
     setSubmitting(false);
   };
 
-  const renderIcon = (status: Status) => {
-    const StatusIcon = statusOptions.icon[status];
-    return <StatusIcon fontSize="medium" color="inherit" />;
+  const renderStatusIcon = () => {
+    const StatusIcon = statusObject.icon;
+    return (
+      <StatusIcon
+        fontSize="medium"
+        color="inherit"
+        className={clsx({ spin: status === Status.PENDING })}
+      />
+    );
   };
 
   return (
-    <>
-      <PageTitle title={t('pageTitle.active')} />
+    <Container maxWidth="sm">
+      <Box mt={3} p={3} sx={{ ...themeMixins.paperBorder() }}>
+        <Stack spacing={1} color={statusObject.color}>
+          {renderStatusIcon()}
 
-      <Container maxWidth="sm">
-        <Box mt={3} p={3} sx={{ ...themeMixins.paperBorder() }}>
-          <Stack spacing={1} alignItems="center" color={statusOptions.color[status]}>
-            {renderIcon(status)}
+          <Typography color="inherit" fontSize={20} fontWeight={600}>
+            {t(`status.${status}`)}
+          </Typography>
+        </Stack>
 
-            <Typography color="inherit" fontSize={20} fontWeight={600}>
-              {t(`active.status.${status}`)}
-            </Typography>
-          </Stack>
-
-          {status === Status.SUCCESS && (
-            <Typography fontSize={16}>{t('active.description')}</Typography>
-          )}
-
-          {status === Status.ERROR && (
-            <Button
-              variant="contained"
-              size="small"
-              disabled={submitting}
-              startIcon={submitting && <CircularProgress size={14} />}
-              onClick={handleReactive}
-              sx={{ mt: 2 }}
-            >
-              {t('active.reactive')}
-            </Button>
-          )}
-        </Box>
-      </Container>
-    </>
+        {status !== Status.PENDING && (
+          <Button
+            variant="contained"
+            size="small"
+            disabled={submitting}
+            startIcon={submitting && <CircularProgress size={14} />}
+            onClick={handleClick}
+            sx={{
+              mt: 2,
+              bgcolor: statusObject.color,
+            }}
+          >
+            {t(`button.${status}`)}
+          </Button>
+        )}
+      </Box>
+    </Container>
   );
 }

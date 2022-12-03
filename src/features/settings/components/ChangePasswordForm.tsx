@@ -41,7 +41,7 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
     reset,
     clearErrors,
     formState: { isSubmitting },
-  } = useForm({
+  } = useForm<ChangePasswordFormValues>({
     defaultValues,
     resolver: yupResolver(schema),
   });
