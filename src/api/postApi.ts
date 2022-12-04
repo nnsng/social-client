@@ -42,7 +42,7 @@ export const postApi = {
     const url = `/posts/${id}/save`;
     return axiosClient.post(url);
   },
-  unSave(id: string) {
+  unsave(id: string) {
     const url = `/posts/${id}/unsave`;
     return axiosClient.post(url);
   },

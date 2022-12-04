@@ -21,19 +21,19 @@ export function UpdatePasswordForm({ token }: UpdatePasswordFormProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('updatePasswordForm');
-  const { validate } = translateFiles('validate');
+  const { t: tValidate } = useTranslation('validate');
 
   usePageTitle(t('pageTitle'));
 
   const schema = yup.object().shape({
     newPassword: yup
       .string()
-      .required(validate.newPassword.required)
-      .min(6, validate.password.min(6)),
+      .required(tValidate('newPassword.required'))
+      .min(6, tValidate('password.min', { min: 6 })),
     confirmPassword: yup
       .string()
-      .required(validate.confirmPassword.required)
-      .oneOf([yup.ref('newPassword'), null], validate.confirmPassword.match),
+      .required(tValidate('confirmPassword.required'))
+      .oneOf([yup.ref('newPassword'), null], tValidate('confirmPassword.match')),
   });
 
   const {

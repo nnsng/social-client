@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { themeVariables } from 'utils/theme';
 
 export function NotFound() {
-  const { t } = useTranslation('notFound');
+  const { t } = useTranslation('notFoundPage');
 
   usePageTitle(t('pageTitle'));
 

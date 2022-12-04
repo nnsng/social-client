@@ -13,7 +13,7 @@ import { useAppSelector } from 'app/hooks';
 import { NoPost } from 'components/common';
 import { PostCardSkeleton } from 'components/skeletons';
 import { selectPostLoading, selectTotalPages } from 'features/blog/postSlice';
-import { ListParams, Post, PostByType } from 'models';
+import { ListParams, Post, PostByTypes } from 'models';
 import { useTranslation } from 'react-i18next';
 import { PostCard } from './PostCard';
 
@@ -41,7 +41,7 @@ export function PostList(props: PostListProps) {
   };
 
   const handleByFilterChange = (e: SelectChangeEvent<string>) => {
-    const by = e.target.value as PostByType;
+    const by = e.target.value as PostByTypes;
     onFilterChange?.({ by });
   };
 

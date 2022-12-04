@@ -11,7 +11,7 @@ import { PostItem } from '../components';
 import { postActions, selectPostLoading, selectSavedList, selectTotalPages } from '../postSlice';
 
 export function SavedPage() {
-  const { t } = useTranslation('saved');
+  const { t } = useTranslation('savedPage');
 
   const dispatch = useAppDispatch();
   const savedList = useAppSelector(selectSavedList);
@@ -26,8 +26,8 @@ export function SavedPage() {
     fetchSavedList(page);
   }, [dispatch, page]);
 
-  const handleUnSavePost = async (post: Post) => {
-    await postApi.unSave(post._id as string);
+  const handleUnsavePost = async (post: Post) => {
+    await postApi.unsave(post._id as string);
     fetchSavedList(page);
   };
 
@@ -53,7 +53,7 @@ export function SavedPage() {
             <>
               {savedList.length > 0 ? (
                 savedList.map((post) => (
-                  <PostItem key={post._id} post={post} onUnSave={handleUnSavePost} />
+                  <PostItem key={post._id} post={post} onUnsave={handleUnsavePost} />
                 ))
               ) : (
                 <NoPost />

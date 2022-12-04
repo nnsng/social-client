@@ -34,7 +34,7 @@ export function PostDetail(props: PostDetailProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('postMenu');
-  const { toast: toastTranslation, dialog: dialogTranslation } = translateFiles('toast', 'dialog');
+  const { toast: toastTranslation } = translateFiles('toast');
 
   const currentUser = useAppSelector(selectCurrentUser);
 
@@ -134,10 +134,9 @@ export function PostDetail(props: PostDetailProps) {
       </Card>
 
       <ConfirmDialog
+        type="post.delete"
         open={openDialog}
         onClose={closeDialog}
-        title={dialogTranslation.post.delete.title}
-        content={dialogTranslation.post.delete.content}
         onConfirm={handleRemovePost}
         loading={loading}
       />

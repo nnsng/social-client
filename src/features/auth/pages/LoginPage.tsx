@@ -11,7 +11,6 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { validateEmail } from 'utils/common';
-import { themeMixins } from 'utils/theme';
 import { showErrorToast } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
@@ -22,7 +21,8 @@ export function LoginPage() {
   const navigate = useNavigate();
 
   const { t } = useTranslation('loginPage');
-  const { validate, toast: toastTranslation } = translateFiles('validate', 'toast');
+  const { t: tValidate } = useTranslation('validate');
+  const { toast: toastTranslation } = translateFiles('toast');
 
   const dispatch = useAppDispatch();
   const submitting = useAppSelector(selectAuthSubmitting);
@@ -34,12 +34,12 @@ export function LoginPage() {
   usePageTitle(t('pageTitle'), true);
 
   const schema = yup.object().shape({
-    email: yup.string().required(validate.email.required).email(validate.email.email),
+    email: yup.string().required(tValidate('email.required')).email(tValidate('email.email')),
     password: yup
       .string()
-      .required(validate.password.required)
-      .min(6, validate.password.min(6))
-      .max(255, validate.password.max(255)),
+      .required(tValidate('password.required'))
+      .min(6, tValidate('password.min', { min: 6 }))
+      .max(255, tValidate('password.max', { max: 255 })),
   });
 
   const { control, handleSubmit, getValues } = useForm<LoginFormValues>({
@@ -59,12 +59,12 @@ export function LoginPage() {
       const email = getValues('email');
 
       if (email.trim().length === 0) {
-        toast.error(validate.email.required);
+        toast.error(tValidate('email.required'));
         return;
       }
 
       if (!validateEmail(email)) {
-        toast.error(validate.email.email);
+        toast.error(tValidate('email.email'));
         return;
       }
 

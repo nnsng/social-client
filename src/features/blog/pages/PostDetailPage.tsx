@@ -6,7 +6,7 @@ import { APP_NAME } from 'constants/common';
 import { commentActions, selectPostComments } from 'features/blog/commentSlice';
 import { selectSocket } from 'features/socket/socketSlice';
 import { usePageTitle } from 'hooks';
-import { Comment, CommentActionType, Post } from 'models';
+import { Comment, CommentActionTypes, Post } from 'models';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { PostComment, PostDetail, PostReaction } from '../components';
@@ -63,7 +63,7 @@ export function PostDetailPage() {
     dispatch(postActions.likePost(post?._id || ''));
   };
 
-  const handleCommentAction = async (action: CommentActionType, comment: Comment) => {
+  const handleCommentAction = async (action: CommentActionTypes, comment: Comment) => {
     if (action === 'like') {
       dispatch(commentActions.like(comment._id || ''));
       return;

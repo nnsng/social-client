@@ -24,17 +24,16 @@ import { useAppSelector } from 'app/hooks';
 import { ActionMenu, ConfirmDialog } from 'components/common';
 import { selectCurrentUser } from 'features/auth/userSlice';
 import { useSubmitWithEnter, useUserInfoPopup } from 'hooks';
-import { Comment, CommentActionType, MenuOption } from 'models';
+import { Comment, CommentActionTypes, MenuOption } from 'models';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { formatTime } from 'utils/common';
 import { showComingSoonToast, showErrorToast } from 'utils/toast';
-import { translateFiles } from 'utils/translation';
 
 export interface CommentItemProps {
   comment: Comment;
-  onCommentAction?: (action: CommentActionType, comment: Comment) => void;
+  onCommentAction?: (action: CommentActionTypes, comment: Comment) => void;
 }
 
 export function CommentItem(props: CommentItemProps) {
@@ -43,7 +42,6 @@ export function CommentItem(props: CommentItemProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('postComment');
-  const { dialog: dialogTranslation } = translateFiles('dialog');
 
   const currentUser = useAppSelector(selectCurrentUser);
 
@@ -126,11 +124,6 @@ export function CommentItem(props: CommentItemProps) {
 
   const handleLikeComment = () => {
     onCommentAction?.('like', comment);
-  };
-
-  const onClickWrapper = (callback?: () => void) => () => {
-    closeMenu();
-    callback?.();
   };
 
   const onKeyUp = useSubmitWithEnter(handleEdit);
@@ -326,7 +319,6 @@ export function CommentItem(props: CommentItemProps) {
                   anchorEl={anchorRef.current}
                   onClose={closeMenu}
                   sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-                  onClickWrapper={onClickWrapper}
                 />
               </Stack>
             )}
@@ -335,10 +327,9 @@ export function CommentItem(props: CommentItemProps) {
       </ListItem>
 
       <ConfirmDialog
+        type="comment.delete"
         open={openDialog}
         onClose={() => setOpenDialog(false)}
-        title={dialogTranslation.comment.delete.title}
-        content={dialogTranslation.comment.delete.content}
         onConfirm={handleRemoveComment}
         loading={loading}
       />

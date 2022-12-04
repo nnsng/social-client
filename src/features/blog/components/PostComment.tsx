@@ -6,7 +6,7 @@ import { CommentItemSkeleton } from 'components/skeletons';
 import { selectCurrentUser } from 'features/auth/userSlice';
 import { selectCommentLoading } from 'features/blog/commentSlice';
 import { useSubmitWithEnter } from 'hooks';
-import { Comment, CommentActionType } from 'models';
+import { Comment, CommentActionTypes } from 'models';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { showErrorToast } from 'utils/toast';
@@ -17,7 +17,7 @@ export interface PostCommentProps {
   postId: string;
   onClose?: () => void;
   updateCommentCount?: (count: number) => void;
-  onCommentAction?: (action: CommentActionType, comment: Comment) => void;
+  onCommentAction?: (action: CommentActionTypes, comment: Comment) => void;
 }
 
 export function PostComment(props: PostCommentProps) {

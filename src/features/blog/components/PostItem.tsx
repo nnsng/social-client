@@ -1,6 +1,6 @@
 import { BookmarkRemoveRounded, LinkRounded, MoreHorizRounded } from '@mui/icons-material';
 import { Box, CardMedia, IconButton, ListItem, Stack, Tooltip, Typography } from '@mui/material';
-import { ActionMenu } from 'components/common';
+import { ActionMenu, ConfirmDialog } from 'components/common';
 import { MenuOption, Post } from 'models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -13,41 +13,39 @@ import { translateFiles } from 'utils/translation';
 
 export interface PostItemProps {
   post: Post;
-  onUnSave?: (post: Post) => void;
+  onUnsave?: (post: Post) => void;
 }
 
 export function PostItem(props: PostItemProps) {
-  const { post, onUnSave } = props;
+  const { post, onUnsave } = props;
 
   const { t } = useTranslation('postItem');
   const { toast: toastTranslation } = translateFiles('toast');
 
+  const [loading, setLoading] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
   const anchorRef = useRef<any>(null);
 
-  const toggleOpenMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
 
-  const handleUnSavePost = async () => {
+  const handleUnsavePost = async () => {
+    setLoading(true);
     try {
-      await onUnSave?.(post);
+      await onUnsave?.(post);
       toast.success(toastTranslation.postItem.unsaveSuccess);
     } catch (error) {
       showErrorToast(error);
     }
+    setLoading(false);
   };
 
-  const onClickWrapper = (callback?: () => void) => () => {
-    closeMenu();
-    callback?.();
-  };
-
-  const menuItemList: MenuOption[] = [
+  const optionMenu: MenuOption[] = [
     {
       label: t('unsave'),
       icon: BookmarkRemoveRounded,
-      onClick: handleUnSavePost,
+      onClick: () => setOpenDialog(true),
     },
     {
       label: t('copyLink'),
@@ -108,7 +106,7 @@ export function PostItem(props: PostItemProps) {
           <IconButton
             size="small"
             ref={anchorRef}
-            onClick={toggleOpenMenu}
+            onClick={() => setOpenMenu((x) => !x)}
             sx={{
               color: 'text.secondary',
               '&:hover': {
@@ -120,13 +118,21 @@ export function PostItem(props: PostItemProps) {
           </IconButton>
 
           <ActionMenu
-            menu={menuItemList}
+            menu={optionMenu}
             open={openMenu}
             anchorEl={anchorRef.current}
             onClose={closeMenu}
           />
         </Box>
       </Stack>
+
+      <ConfirmDialog
+        type="post.unsave"
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        onConfirm={handleUnsavePost}
+        loading={loading}
+      />
     </ListItem>
   );
 }

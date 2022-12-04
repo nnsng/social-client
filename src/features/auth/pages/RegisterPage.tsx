@@ -7,7 +7,6 @@ import { FormField, RegisterFormValues } from 'models';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
 import { AuthForm } from '../components';
 import { selectAuthSubmitting, userActions } from '../userSlice';
@@ -16,7 +15,7 @@ export function RegisterPage() {
   const navigate = useNavigate();
 
   const { t } = useTranslation('registerPage');
-  const { validate } = translateFiles('validate');
+  const { t: tValidate } = useTranslation('validate');
 
   const dispatch = useAppDispatch();
   const submitting = useAppSelector(selectAuthSubmitting);
@@ -24,19 +23,22 @@ export function RegisterPage() {
   usePageTitle(t('pageTitle'), true);
 
   const schema = yup.object().shape({
-    email: yup.string().required(validate.email.required).email(validate.email.email),
+    email: yup.string().required(tValidate('email.required')).email(tValidate('email.email')),
     password: yup
       .string()
-      .required(validate.password.required)
-      .min(6, validate.password.min(6))
-      .max(255, validate.password.max(255)),
-    name: yup.string().required(validate.name.required).max(30, validate.name.max(30)),
+      .required(tValidate('password.required'))
+      .min(6, tValidate('password.min', { min: 6 }))
+      .max(255, tValidate('password.max', { max: 255 })),
+    name: yup
+      .string()
+      .required(tValidate('name.required'))
+      .max(30, tValidate('name.max', { max: 30 })),
     username: yup
       .string()
-      .required(validate.username.required)
-      .min(6, validate.username.min(6))
-      .max(20, validate.username.max(20))
-      .matches(/^[a-zA-Z0-9_\.]+$/, validate.username.valid),
+      .required(tValidate('username.required'))
+      .min(6, tValidate('username.min', { min: 6 }))
+      .max(20, tValidate('username.max', { max: 20 }))
+      .matches(/^[a-zA-Z0-9_\.]+$/, tValidate('username.valid')),
   });
 
   const { control, handleSubmit } = useForm<RegisterFormValues>({

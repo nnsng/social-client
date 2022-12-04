@@ -1,6 +1,6 @@
 import { Breakpoint, GridProps } from '@mui/material';
 import { ReactElement, ReactNode } from 'react';
-import { PostByType } from './types';
+import { PostByTypes } from './types';
 
 export interface LayoutProps {
   children: ReactNode;
@@ -33,10 +33,8 @@ export interface ListParams {
   search?: string | undefined;
   hashtag?: string | undefined;
   username?: string;
-  by?: PostByType;
+  by?: PostByTypes;
 }
-
-export type MenuOptionType = 'save' | 'unsave' | 'edit' | 'delete' | 'copyLink' | 'report';
 
 export interface MenuOption {
   label?: string;

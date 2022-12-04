@@ -28,7 +28,7 @@ const toast = {
     info: 'Please check your email.',
   },
 
-  errors: {
+  error: {
     // auth
     accessDenied: 'Access denied.',
     invalidToken: 'Invalid token.',

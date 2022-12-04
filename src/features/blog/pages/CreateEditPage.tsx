@@ -15,7 +15,7 @@ export function CreateEditPage() {
   const { id: postId } = useParams();
   const isNewPost = !postId;
 
-  const { t } = useTranslation('createEditPost');
+  const { t } = useTranslation('createEditPage');
 
   const currentUser = useAppSelector(selectCurrentUser);
   const [editedPost, setEditedPost] = useState<any>(null);

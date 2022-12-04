@@ -1,29 +1,27 @@
-import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
-import { ConfirmDialog } from 'components/common';
-import { MenuOption, Post } from 'models';
-import { useEffect, useState } from 'react';
-import ReactMarkdown from 'react-markdown';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import remarkGfm from 'remark-gfm';
-import { themeMixins } from 'utils/theme';
 import {
-  BookmarkBorderRounded,
   BookmarkRounded,
   BorderColorRounded,
   DeleteRounded,
   FlagRounded,
   LinkRounded,
-  MoreHorizRounded,
 } from '@mui/icons-material';
+import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
+import { useAppSelector } from 'app/hooks';
+import { ConfirmDialog } from 'components/common';
+import { Role } from 'constants/common';
+import { selectCurrentUser } from 'features/auth/userSlice';
+import { MenuOption, Post } from 'models';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import ReactMarkdown from 'react-markdown';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import remarkGfm from 'remark-gfm';
+import { copyPostLink } from 'utils/common';
+import { themeMixins } from 'utils/theme';
 import { showComingSoonToast, showErrorToast } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 import { PostCardHeader } from './PostCardHeader';
-import { useTranslation } from 'react-i18next';
-import { useAppSelector } from 'app/hooks';
-import { selectCurrentUser } from 'features/auth/userSlice';
-import { Role } from 'constants/common';
-import { copyPostLink } from 'utils/common';
 
 const allowedElements = [
   'p',
@@ -57,7 +55,7 @@ export function PostCard(props: PostCardProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('postMenu');
-  const { toast: toastTranslation, dialog: dialogTranslation } = translateFiles('toast', 'dialog');
+  const { toast: toastTranslation } = translateFiles('toast');
 
   const currentUser = useAppSelector(selectCurrentUser);
 
@@ -136,101 +134,98 @@ export function PostCard(props: PostCardProps) {
   ];
 
   return (
-    <>
-      <Card
+    <Card
+      sx={{
+        ...themeMixins.paperBorder(),
+        width: '100%',
+        p: 2,
+        mb: 2,
+      }}
+    >
+      <PostCardHeader
+        post={post}
+        actionMenu={actionMenu}
+        showPopup={showPopup}
         sx={{
-          ...themeMixins.paperBorder(),
-          width: '100%',
-          p: 2,
-          mb: 2,
+          mb: 1,
+          '& .icon-button': {
+            mx: 0.5,
+          },
         }}
-      >
-        <PostCardHeader
-          post={post}
-          actionMenu={actionMenu}
-          showPopup={showPopup}
-          sx={{
-            mb: 1,
-            '& .icon-button': {
-              mx: 0.5,
-            },
-          }}
-        />
+      />
 
-        <CardContent sx={{ '&:last-child': { p: 0 } }}>
-          <Stack
-            direction={{ xs: 'column', sm: 'row' }}
-            alignItems={{ xs: 'flex-start', sm: 'center' }}
-            justifyContent="space-between"
-          >
-            <Box flexGrow={1}>
-              <Typography
-                color="text.primary"
-                fontSize={20}
-                fontWeight={600}
-                lineHeight={1.2}
-                sx={{ ...themeMixins.truncate(2) }}
+      <CardContent sx={{ '&:last-child': { p: 0 } }}>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          alignItems={{ xs: 'flex-start', sm: 'center' }}
+          justifyContent="space-between"
+        >
+          <Box flexGrow={1}>
+            <Typography
+              color="text.primary"
+              fontSize={20}
+              fontWeight={600}
+              lineHeight={1.2}
+              sx={{ ...themeMixins.truncate(2) }}
+              component={Link}
+              to={`/blog/post/${post.slug}`}
+            >
+              {post.title}
+            </Typography>
+
+            <Typography
+              component="div"
+              variant="body1"
+              className="post-content"
+              sx={{
+                ...themeMixins.truncate(2),
+                m: 0,
+                mt: 0.5,
+                '& *': {
+                  maxWidth: '100%',
+                  color: 'text.secondary',
+                  fontSize: 16,
+                  fontWeight: 400,
+                  fontStyle: 'normal',
+                  textDecoration: 'none',
+                  cursor: 'text',
+                },
+              }}
+            >
+              <ReactMarkdown
+                children={post.content}
+                remarkPlugins={[remarkGfm]}
+                allowedElements={allowedElements}
+              />
+            </Typography>
+          </Box>
+
+          {post.thumbnail && (
+            <Box width={{ xs: '100%', sm: 'auto' }} mt={{ xs: 2, sm: 0 }} ml={{ xs: 0, sm: 2 }}>
+              <CardMedia
+                image={post.thumbnail}
+                title={post.title}
+                sx={{
+                  minWidth: 200,
+                  aspectRatio: '2',
+                  borderRadius: 2,
+                  bgcolor: 'action.hover',
+                }}
                 component={Link}
                 to={`/blog/post/${post.slug}`}
-              >
-                {post.title}
-              </Typography>
-
-              <Typography
-                component="div"
-                variant="body1"
-                className="post-content"
-                sx={{
-                  ...themeMixins.truncate(2),
-                  m: 0,
-                  mt: 0.5,
-                  '& *': {
-                    maxWidth: '100%',
-                    color: 'text.secondary',
-                    fontSize: 16,
-                    fontWeight: 400,
-                    fontStyle: 'normal',
-                    textDecoration: 'none',
-                    cursor: 'text',
-                  },
-                }}
-              >
-                <ReactMarkdown
-                  children={post.content}
-                  remarkPlugins={[remarkGfm]}
-                  allowedElements={allowedElements}
-                />
-              </Typography>
+              />
             </Box>
-
-            {post.thumbnail && (
-              <Box width={{ xs: '100%', sm: 'auto' }} mt={{ xs: 2, sm: 0 }} ml={{ xs: 0, sm: 2 }}>
-                <CardMedia
-                  image={post.thumbnail}
-                  title={post.title}
-                  sx={{
-                    minWidth: 200,
-                    aspectRatio: '2',
-                    borderRadius: 2,
-                    bgcolor: 'action.hover',
-                  }}
-                  component={Link}
-                  to={`/blog/post/${post.slug}`}
-                />
-              </Box>
-            )}
-          </Stack>
-        </CardContent>
-      </Card>
+          )}
+        </Stack>
+      </CardContent>
 
       <ConfirmDialog
+        type="post.delete"
         open={openDialog}
         onClose={closeDialog}
-        title={dialogTranslation.post.delete.title}
-        content={dialogTranslation.post.delete.content}
         onConfirm={handleRemovePost}
         loading={loading}
       />
-    </>
+    </Card>
   );
 }

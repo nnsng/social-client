@@ -10,19 +10,18 @@ export interface ActionMenuProps {
   anchorEl: AnchorEl;
   onClose?: () => void;
   sx?: SxProps<Theme>;
-  onClickWrapper?: (onClick?: () => void) => () => void;
 }
 
 export function ActionMenu(props: ActionMenuProps) {
-  const { menu, onClickWrapper, ...rest } = props;
+  const { menu, onClose, ...rest } = props;
 
-  const handleClick = (callback?: () => void) => {
-    if (onClickWrapper) return onClickWrapper(callback);
-    return callback;
+  const handleClick = (callback?: () => void) => () => {
+    onClose?.();
+    callback?.();
   };
 
   return (
-    <ActionMenuWrapper {...rest}>
+    <ActionMenuWrapper onClose={onClose} {...rest}>
       {menu.map(({ label, icon: Icon, onClick, show = true }, idx) =>
         show ? (
           <MenuItem

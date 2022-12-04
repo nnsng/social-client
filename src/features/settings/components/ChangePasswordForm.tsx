@@ -4,6 +4,7 @@ import i18next from 'i18next';
 import { ChangePasswordFormValues, FormField } from 'models';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { showErrorToast } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
@@ -18,21 +19,22 @@ export interface ChangePasswordFormProps {
 export function ChangePasswordForm(props: ChangePasswordFormProps) {
   const { defaultValues, onSubmit, onForgotPassword } = props;
 
-  const { validate, toast: toastTranslation } = translateFiles('validate', 'toast');
+  const { t } = useTranslation('validate');
+  const { toast: toastTranslation } = translateFiles('toast');
 
   const schema = yup.object().shape({
     currentPassword: yup
       .string()
-      .required(validate.currentPassword.required)
-      .min(6, validate.password.min(6)),
+      .required(t('currentPassword.required'))
+      .min(6, t('password.min', { min: 6 })),
     newPassword: yup
       .string()
-      .required(validate.newPassword.required)
-      .min(6, validate.password.min(6)),
+      .required(t('newPassword.required'))
+      .min(6, t('password.min', { min: 6 })),
     confirmPassword: yup
       .string()
-      .required(validate.confirmPassword.required)
-      .oneOf([yup.ref('newPassword'), null], validate.confirmPassword.match),
+      .required(t('confirmPassword.required'))
+      .oneOf([yup.ref('newPassword'), null], t('confirmPassword.match')),
   });
 
   const {

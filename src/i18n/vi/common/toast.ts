@@ -28,7 +28,7 @@ const toast = {
     info: 'Vui lòng kiểm tra email của bạn.',
   },
 
-  errors: {
+  error: {
     // auth
     accessDenied: 'Bạn không được phép truy cập.',
     invalidToken: 'Token không hợp lệ.',

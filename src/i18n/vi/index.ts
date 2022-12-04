@@ -26,11 +26,11 @@ import sidebar from './components/sidebar.json';
 import appearanceDialog from './components/appearanceDialog.json';
 import updatePasswordForm from './components/updatePasswordForm.json';
 import activeAccount from './components/activeAccount.json';
+import confirmDialog from './components/confirmDialog.json';
 
 // common
-import validate from './common/validate';
+import validate from './common/validate.json';
 import toast from './common/toast';
-import dialog from './common/dialog';
 
 export default {
   // pages
@@ -61,9 +61,9 @@ export default {
   appearanceDialog,
   updatePasswordForm,
   activeAccount,
+  confirmDialog,
 
   // common
   validate,
   toast,
-  dialog,
 };

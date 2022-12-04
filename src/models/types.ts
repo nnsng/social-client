@@ -1,10 +1,9 @@
-// post
-export type PostByType = 'all' | 'following';
+export type PostByTypes = 'all' | 'following';
 
-// comment
-export type CommentActionType = 'create' | 'edit' | 'remove' | 'like';
+export type CommentActionTypes = 'create' | 'edit' | 'remove' | 'like';
 
-// others
-export type FollowModeType = 'follow' | 'unfollow';
+export type FollowModeTypes = 'follow' | 'unfollow';
 
-export type ConfigKey = 'mode' | 'mainColor' | 'language';
+export type ConfigTypes = 'mode' | 'mainColor' | 'language';
+
+export type ToastTypes = 'success' | 'error' | 'warn' | 'info';

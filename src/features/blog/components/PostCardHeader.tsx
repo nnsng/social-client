@@ -36,11 +36,6 @@ export function PostCardHeader(props: PostCardHeaderProps) {
     navigate(`/profile/${post.author?.username}`);
   };
 
-  const onClickWrapper = (callback?: () => void) => () => {
-    closeMenu();
-    callback?.();
-  };
-
   return (
     <>
       <CardHeader
@@ -76,7 +71,6 @@ export function PostCardHeader(props: PostCardHeaderProps) {
               open={openMenu}
               anchorEl={anchorRef.current}
               onClose={closeMenu}
-              onClickWrapper={onClickWrapper}
             />
           </Box>
         }

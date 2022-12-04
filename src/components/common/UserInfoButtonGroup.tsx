@@ -6,11 +6,11 @@ import {
   PersonOffRounded,
   PersonRemoveRounded,
 } from '@mui/icons-material';
-import { Button, CircularProgress, MenuItem, Stack } from '@mui/material';
+import { Button, CircularProgress, Stack } from '@mui/material';
 import { userApi } from 'api';
 import { useAppDispatch, useAppSelector } from 'app/hooks';
 import { selectCurrentUser, userActions } from 'features/auth/userSlice';
-import { FollowModeType, FollowUser, MenuOption, User } from 'models';
+import { FollowModeTypes, FollowUser, MenuOption, User } from 'models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -43,7 +43,7 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
 
   const closeMenu = () => setOpenMenu(false);
 
-  const handleFollow = async (action: FollowModeType) => {
+  const handleFollow = async (action: FollowModeTypes) => {
     setLoading(true);
 
     try {
@@ -55,11 +55,6 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
     }
 
     setLoading(false);
-  };
-
-  const onClickWrapper = (callback?: () => void) => () => {
-    closeMenu();
-    callback?.();
   };
 
   const userInfoMenu: MenuOption[] = [
@@ -167,7 +162,6 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
             anchorEl={anchorRef.current}
             onClose={closeMenu}
             sx={{ zIndex: (theme) => theme.zIndex.drawer + 2 }}
-            onClickWrapper={onClickWrapper}
           />
         </>
       )}

@@ -1,0 +1,47 @@
+{
+  "email": {
+    "email": "Email không hợp lệ",
+    "required": "Vui lòng nhập email"
+  },
+  "password": {
+    "required": "Vui lòng nhập mật khẩu",
+    "min": "Mật khẩu tối thiểu {{min}} ký tự",
+    "max": "Mật khẩu tối đa {{max}} ký tự"
+  },
+  "name": {
+    "required": "Vui lòng nhập họ tên",
+    "max": "Họ tên tối đa {{max}} ký tự"
+  },
+  "username": {
+    "required": "Vui lòng nhập username",
+    "min": "Username tối thiểu {{min}} ký tự",
+    "max": "Username tối đa {{max}} ký tự",
+    "valid": "Chỉ chấp nhận A-Z, a-z, 0-9, -, ."
+  },
+  "bio": {
+    "max": "Mô tả tối đa {{max}} ký tự"
+  },
+  "currentPassword": {
+    "required": "Vui lòng nhập mật khẩu hiện tại"
+  },
+  "newPassword": {
+    "required": "Vui lòng nhập mật khẩu mới"
+  },
+  "confirmPassword": {
+    "required": "Vui lòng nhập lại mật khẩu mới",
+    "match": "Mật khẩu nhập lại không khớp"
+  },
+
+  "title": {
+    "required": "Vui lòng nhập tiêu đề",
+    "max": "Tiêu đề tối đa {{max}} ký tự"
+  },
+  "content": {
+    "required": "Vui lòng nhập nội dung"
+  },
+  "hashtags": {
+    "min": "Hashtag tối thiểu {{min}} ký tự",
+    "max": "Hashtag tối đa {{max}} ký tự",
+    "valid": "Hashtag chỉ chấp nhận A-Z, a-z, 0-9, -"
+  }
+}

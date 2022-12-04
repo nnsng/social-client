@@ -24,7 +24,6 @@ import { toast } from 'react-toastify';
 import { delay } from 'utils/common';
 import { themeMixins, themeVariables } from 'utils/theme';
 import { showErrorToast } from 'utils/toast';
-import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
 export interface CreateEditFormProps {
@@ -37,18 +36,21 @@ export function CreateEditForm(props: CreateEditFormProps) {
   const { defaultValues, onSubmit, isNewPost } = props;
 
   const { t } = useTranslation('createEditForm');
-  const { validate } = translateFiles('validate', 'toast');
+  const { t: tValidate } = useTranslation('validate');
 
   const schema = yup.object().shape({
-    title: yup.string().required(validate.title.required).max(100, validate.title.max(100)),
-    content: yup.string().required(validate.content.required),
+    title: yup
+      .string()
+      .required(tValidate('title.required'))
+      .max(100, tValidate('title.max', { max: 100 })),
+    content: yup.string().required(tValidate('content.required')),
     thumbnail: yup.string(),
     hashtags: yup.array().of(
       yup
         .string()
-        .min(3, validate.hashtags.min(3))
-        .max(20, validate.hashtags.max(20))
-        .matches(/^(?![_-])[a-zA-Z0-9-]+(?<![_-])$/, validate.hashtags.valid)
+        .min(3, tValidate('hashtags.min', { min: 3 }))
+        .max(20, tValidate('hashtags.max', { max: 20 }))
+        .matches(/^(?![_-])[a-zA-Z0-9-]+(?<![_-])$/, tValidate('hashtags.valid'))
     ),
   });
 
