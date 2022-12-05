@@ -6,7 +6,7 @@ import i18next from 'i18next';
 import { Post } from 'models';
 import { toast } from 'react-toastify';
 import slugify from 'slugify';
-import { showErrorToast } from './toast';
+import { showErrorToastFromServer } from './toast';
 import { translateFiles } from './translation';
 
 export const formatTime = (timestamp: any, template?: string) => {
@@ -32,7 +32,7 @@ export const getImageUrlFromCDN = async (image: File) => {
     const imageObject: any = await otherApi.uploadImageToCDN(formData);
     return imageObject?.url || '';
   } catch (error) {
-    showErrorToast(error);
+    showErrorToastFromServer(error);
   }
 };
 

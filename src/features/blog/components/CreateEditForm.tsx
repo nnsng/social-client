@@ -23,7 +23,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { delay } from 'utils/common';
 import { themeMixins, themeVariables } from 'utils/theme';
-import { showErrorToast } from 'utils/toast';
+import { showErrorToastFromServer } from 'utils/toast';
 import * as yup from 'yup';
 
 export interface CreateEditFormProps {
@@ -104,7 +104,7 @@ export function CreateEditForm(props: CreateEditFormProps) {
     try {
       await onSubmit?.(formValues);
     } catch (error) {
-      showErrorToast(error);
+      showErrorToastFromServer(error);
     }
   };
 
@@ -137,17 +137,8 @@ export function CreateEditForm(props: CreateEditFormProps) {
 
           <Button
             variant="outlined"
-            size={smUp ? 'large' : 'medium'}
-            sx={
-              smUp
-                ? { flexShrink: 0, ml: 2 }
-                : {
-                    position: 'fixed',
-                    zIndex: (theme) => theme.zIndex.appBar + 1,
-                    top: themeVariables.headerHeight / 2,
-                    transform: 'translate(16px, -50%)', // 16px = 2 * 8px (px of Stack parent)
-                  }
-            }
+            size="large"
+            sx={{ flexShrink: 0, ml: 2 }}
             onClick={openDialog}
           >
             {isNewPost ? t('btnLabel.create') : t('btnLabel.edit')}

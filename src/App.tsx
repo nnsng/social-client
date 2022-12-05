@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { env, variables } from 'utils/env';
-import { showErrorToast } from 'utils/toast';
+import { showErrorToastFromServer } from 'utils/toast';
 
 function App() {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ function App() {
 
         dispatch(userActions.setCurrentUser(user));
       } catch (error) {
-        showErrorToast(error);
+        showErrorToastFromServer(error);
         dispatch(userActions.logout(navigate));
       }
     })();

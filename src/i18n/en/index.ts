@@ -30,7 +30,7 @@ import confirmDialog from './components/confirmDialog.json';
 
 // common
 import validate from './common/validate.json';
-import toast from './common/toast';
+import toast from './common/toast.json';
 
 export default {
   // pages

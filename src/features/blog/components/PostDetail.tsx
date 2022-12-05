@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { copyPostLink } from 'utils/common';
 import { themeMixins } from 'utils/theme';
-import { showComingSoonToast, showErrorToast } from 'utils/toast';
+import { showComingSoonToast, showErrorToastFromServer } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 import { MdEditor, PostCardHeader } from '.';
 
@@ -48,7 +48,7 @@ export function PostDetail(props: PostDetailProps) {
       await onSave?.(post);
       toast.success(toastTranslation.postDetail.saveSuccess);
     } catch (error) {
-      showErrorToast(error);
+      showErrorToastFromServer(error);
     }
   };
 
@@ -60,7 +60,7 @@ export function PostDetail(props: PostDetailProps) {
       toast.success(toastTranslation.postDetail.deleteSuccess);
       navigate('/blog');
     } catch (error) {
-      showErrorToast(error);
+      showErrorToastFromServer(error);
     }
 
     setLoading(false);

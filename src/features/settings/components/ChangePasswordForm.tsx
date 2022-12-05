@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { showErrorToast } from 'utils/toast';
+import { showErrorToastFromServer } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
 
@@ -58,7 +58,7 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
       reset();
       toast.success(toastTranslation.changePasswordForm.success);
     } catch (error) {
-      showErrorToast(error);
+      showErrorToastFromServer(error);
     }
   };
 

@@ -7,7 +7,7 @@ import { Post } from 'models';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
-import { showErrorToast } from 'utils/toast';
+import { showErrorToastFromServer } from 'utils/toast';
 import { CreateEditForm } from '../components';
 
 export function CreateEditPage() {
@@ -30,8 +30,8 @@ export function CreateEditPage() {
         const post = await postApi.getForEdit(postId);
         setEditedPost(post);
       } catch (error) {
-        showErrorToast(error);
-        navigate('/blog/create', { state: { hideHeaderMenu: true } });
+        showErrorToastFromServer(error);
+        navigate('/blog/create');
       }
     })();
   }, [postId, navigate]);

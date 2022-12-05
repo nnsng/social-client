@@ -11,7 +11,7 @@ import {
 } from 'models';
 import { NavigateFunction } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { showErrorToast } from 'utils/toast';
+import { showErrorToastFromServer } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 import { userActions } from './userSlice';
 
@@ -26,7 +26,7 @@ function* handleLogin(action: PayloadAction<AuthPayload<LoginFormValues>>) {
     localStorage.setItem(LocalStorageKey.ACCESS_TOKEN, response.token);
     navigate?.('/blog', { replace: true });
   } catch (error) {
-    showErrorToast(error);
+    showErrorToastFromServer(error);
   }
   yield put(userActions.setSubmitting(false));
 }
@@ -43,7 +43,7 @@ function* handleRegister(action: PayloadAction<AuthPayload<RegisterFormValues>>)
     navigate?.('/login', { replace: true });
     toast.info(toastTranslation.auth.activeAccount);
   } catch (error) {
-    showErrorToast(error);
+    showErrorToastFromServer(error);
   }
   yield put(userActions.setSubmitting(false));
 }
@@ -62,7 +62,7 @@ function* handleGoogleLogin(action: PayloadAction<GoogleAuthPayload>) {
     localStorage.setItem(LocalStorageKey.ACCESS_TOKEN, response.token);
     navigate?.('/blog', { replace: true });
   } catch (error) {
-    showErrorToast(error);
+    showErrorToastFromServer(error);
   }
   yield put(userActions.setSubmitting(false));
 }

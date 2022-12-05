@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { validateEmail } from 'utils/common';
-import { showErrorToast } from 'utils/toast';
+import { showErrorToastFromServer } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 import * as yup from 'yup';
 import { AuthForm } from '../components';
@@ -73,7 +73,7 @@ export function LoginPage() {
       await authApi.forgotPassword(email);
       toast.info(toastTranslation.changePasswordForm.info);
     } catch (error) {
-      showErrorToast(error);
+      showErrorToastFromServer(error);
     }
 
     setForgotLoading(false);

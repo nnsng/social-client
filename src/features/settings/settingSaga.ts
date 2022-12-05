@@ -4,7 +4,7 @@ import { userApi } from 'api';
 import { userActions } from 'features/auth/userSlice';
 import { User } from 'models';
 import { toast } from 'react-toastify';
-import { showErrorToast } from 'utils/toast';
+import { showErrorToastFromServer } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 import { settingActions } from './settingSlice';
 
@@ -18,7 +18,7 @@ function* updateProfile(action: PayloadAction<Partial<User>>) {
 
     toast.success(toastTranslation.settingSaga.updateProfileSuccess);
   } catch (error) {
-    showErrorToast(error);
+    showErrorToastFromServer(error);
   }
 
   yield put(settingActions.updateProfileFinished());

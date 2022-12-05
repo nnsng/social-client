@@ -9,7 +9,7 @@ import { useSubmitWithEnter } from 'hooks';
 import { Comment, CommentActionTypes } from 'models';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { showErrorToast } from 'utils/toast';
+import { showErrorToastFromServer } from 'utils/toast';
 import { CommentItem } from './CommentItem';
 
 export interface PostCommentProps {
@@ -55,7 +55,7 @@ export function PostComment(props: PostCommentProps) {
 
       await onCommentAction?.('create', comment);
     } catch (error) {
-      showErrorToast(error);
+      showErrorToastFromServer(error);
     }
 
     inputRef.current?.focus();

@@ -14,7 +14,7 @@ import { FollowModeTypes, FollowUser, MenuOption, User } from 'models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { showComingSoonToast, showErrorToast } from 'utils/toast';
+import { showComingSoonToast, showErrorToastFromServer } from 'utils/toast';
 import { ChatIcon } from '../icons';
 import { ActionMenu } from './ActionMenu';
 
@@ -51,7 +51,7 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
       dispatch(userActions.setCurrentUser(updated.currentUser));
       updateUser?.(updated.selectedUser);
     } catch (error) {
-      showErrorToast(error);
+      showErrorToastFromServer(error);
     }
 
     setLoading(false);

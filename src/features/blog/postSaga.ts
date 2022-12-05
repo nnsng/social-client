@@ -2,7 +2,7 @@ import { call, debounce, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { postApi, userApi } from 'api';
 import { ListParams, ListResponse, Post, SearchObj, User } from 'models';
-import { showErrorToast } from 'utils/toast';
+import { showErrorToastFromServer } from 'utils/toast';
 import { postActions } from './postSlice';
 
 function* fetchPostList(action: PayloadAction<ListParams>) {
@@ -16,7 +16,7 @@ function* fetchPostList(action: PayloadAction<ListParams>) {
     const response: ListResponse<Post> = yield call(postApi.getAll, params);
     yield put(postActions.fetchPostListSuccess(response));
   } catch (error) {
-    showErrorToast(error);
+    showErrorToastFromServer(error);
     yield put(postActions.fetchPostListFailure());
   }
 }
@@ -32,7 +32,7 @@ function* fetchSavedList(action: PayloadAction<ListParams>) {
     const response: ListResponse<Post> = yield call(postApi.getSavedList, params);
     yield put(postActions.fetchSavedListSuccess(response));
   } catch (error) {
-    showErrorToast(error);
+    showErrorToastFromServer(error);
     yield put(postActions.fetchSavedFailure());
   }
 }
@@ -42,7 +42,7 @@ function* fetchPostDetail(action: PayloadAction<string>) {
     const post: Post = yield call(postApi.getBySlug, action.payload);
     yield put(postActions.fetchPostDetailSuccess(post));
   } catch (error) {
-    showErrorToast(error);
+    showErrorToastFromServer(error);
     yield put(postActions.fetchPostDetailFailure());
   }
 }
@@ -52,7 +52,7 @@ function* handleLikePost(action: PayloadAction<string>) {
     const post: Post = yield call(postApi.like, action.payload);
     yield put(postActions.likePostSuccess(post));
   } catch (error) {
-    showErrorToast(error);
+    showErrorToastFromServer(error);
   }
 }
 
@@ -73,7 +73,7 @@ function* handleSearchWithDebounce(action: PayloadAction<SearchObj>) {
     }
     yield put(postActions.searchWithDebounceSuccess(response));
   } catch (error) {
-    showErrorToast(error);
+    showErrorToastFromServer(error);
     yield put(postActions.searchWithDebounceFailure());
   }
 }

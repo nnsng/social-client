@@ -19,7 +19,7 @@ import { toast } from 'react-toastify';
 import remarkGfm from 'remark-gfm';
 import { copyPostLink } from 'utils/common';
 import { themeMixins } from 'utils/theme';
-import { showComingSoonToast, showErrorToast } from 'utils/toast';
+import { showComingSoonToast, showErrorToastFromServer } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 import { PostCardHeader } from './PostCardHeader';
 
@@ -79,7 +79,7 @@ export function PostCard(props: PostCardProps) {
       await onSave?.(post);
       toast.success(toastTranslation.postCard.saveSuccess);
     } catch (error) {
-      showErrorToast(error);
+      showErrorToastFromServer(error);
     }
   };
 
@@ -90,7 +90,7 @@ export function PostCard(props: PostCardProps) {
       await onDelete?.(post);
       toast.success(toastTranslation.postCard.deleteSuccess);
     } catch (error) {
-      showErrorToast(error);
+      showErrorToastFromServer(error);
     }
 
     setLoading(false);

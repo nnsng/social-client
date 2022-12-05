@@ -10,7 +10,7 @@ import { usePageTitle } from 'hooks';
 import { ListParams, Post, User } from 'models';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { showErrorToast } from 'utils/toast';
+import { showErrorToastFromServer } from 'utils/toast';
 import UserInfo from './components/UserInfo';
 
 export default function ProfilePage() {
@@ -37,8 +37,7 @@ export default function ProfilePage() {
         setUserInfo(user);
         fetchUserPostList({ page: 1 });
       } catch (error) {
-        showErrorToast(error);
-        navigate(location.pathname, { replace: true, state: { notFound: true } });
+        showErrorToastFromServer(error);
       }
     })();
   }, [username]);

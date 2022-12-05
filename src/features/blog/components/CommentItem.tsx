@@ -29,7 +29,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { formatTime } from 'utils/common';
-import { showComingSoonToast, showErrorToast } from 'utils/toast';
+import { showComingSoonToast, showErrorToastFromServer } from 'utils/toast';
 
 export interface CommentItemProps {
   comment: Comment;
@@ -99,7 +99,7 @@ export function CommentItem(props: CommentItemProps) {
       await onCommentAction?.('edit', editedComment);
       setEditComment(false);
     } catch (error) {
-      showErrorToast(error);
+      showErrorToastFromServer(error);
     }
 
     setLoading(false);
@@ -111,7 +111,7 @@ export function CommentItem(props: CommentItemProps) {
     try {
       await onCommentAction?.('remove', comment);
     } catch (error) {
-      showErrorToast(error);
+      showErrorToastFromServer(error);
     }
 
     setLoading(false);

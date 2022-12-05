@@ -31,6 +31,7 @@ import { Fragment, ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { themeVariables } from 'utils/theme';
+import { showComingSoonToast } from 'utils/toast';
 import { AppearanceDialog } from './AppearanceDialog';
 
 export interface SidebarItem {
@@ -61,53 +62,58 @@ export function Sidebar({ open, onClose }: SidebarProps) {
     navigate(path);
   };
 
+  const checkPathActive = (path: string) => {
+    return location.pathname === path;
+  };
+
   const menu: SidebarItem[] = [
     {
       label: t('home'),
       icon: HomeOutlined,
       activeIcon: HomeRounded,
-      active: location.pathname === '/blog',
+      active: checkPathActive('/blog'),
       onClick: () => navigateTo('/blog'),
     },
     {
       label: t('messages'),
       icon: MailOutlined,
       activeIcon: MailRounded,
-      active: location.pathname === '/messages',
-      onClick: () => navigateTo('/messages'),
+      active: checkPathActive('/messages'),
+      onClick: showComingSoonToast,
     },
     {
       label: t('notifications'),
       icon: NotificationsOutlined,
       activeIcon: NotificationsRounded,
-      active: location.pathname === '/notifications',
-      onClick: () => navigateTo('/notifications'),
+      active: checkPathActive('/notifications'),
+      onClick: showComingSoonToast,
     },
     {
       label: t('create'),
       icon: AddCircleOutlineOutlined,
       activeIcon: AddCircleRounded,
-      active: location.pathname === '/blog/create',
+      active: checkPathActive('/blog/create'),
       onClick: () => navigateTo('/blog/create'),
     },
     {
       label: t('saved'),
       icon: BookmarkBorderOutlined,
       activeIcon: BookmarkRounded,
-      active: location.pathname === '/blog/saved',
+      active: checkPathActive('/blog/saved'),
       onClick: () => navigateTo('/blog/saved'),
     },
     {
       label: t('appearance'),
       icon: DarkModeOutlined,
       activeIcon: DarkModeRounded,
-      active: false,
+      active: openDialog,
       onClick: () => setOpenDialog(true),
     },
   ];
 
   const generateSidebarMenu = (menu: SidebarItem[], dividers: number[]) => {
-    return menu.map(({ label, icon, activeIcon, active, onClick }, idx) => {
+    return menu.map((item, idx) => {
+      const { label, icon, activeIcon, active, onClick } = item;
       const Icon = active ? activeIcon : icon;
 
       return (

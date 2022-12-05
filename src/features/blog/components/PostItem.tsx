@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { copyPostLink, formatTime } from 'utils/common';
 import { themeMixins } from 'utils/theme';
-import { showErrorToast } from 'utils/toast';
+import { showErrorToastFromServer } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 
 export interface PostItemProps {
@@ -36,7 +36,7 @@ export function PostItem(props: PostItemProps) {
       await onUnsave?.(post);
       toast.success(toastTranslation.postItem.unsaveSuccess);
     } catch (error) {
-      showErrorToast(error);
+      showErrorToastFromServer(error);
     }
     setLoading(false);
   };

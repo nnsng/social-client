@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { themeMixins } from 'utils/theme';
-import { showErrorToast } from 'utils/toast';
+import { showErrorToastFromServer } from 'utils/toast';
 import { translateFiles } from 'utils/translation';
 
 enum Status {
@@ -57,7 +57,7 @@ export function ActiveAccount({ token }: ActiveAccountProps) {
         setStatus(Status.SUCCESS);
       } catch (error) {
         setStatus(Status.ERROR);
-        showErrorToast(error);
+        showErrorToastFromServer(error);
       }
     })();
   }, [token]);
@@ -78,7 +78,7 @@ export function ActiveAccount({ token }: ActiveAccountProps) {
       await authApi.reactive(_id);
       toast.info(toastTranslation.auth.activeAccount);
     } catch (error) {
-      showErrorToast(error);
+      showErrorToastFromServer(error);
     }
     setSubmitting(false);
   };
