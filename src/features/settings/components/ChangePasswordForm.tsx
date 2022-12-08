@@ -1,13 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { CommonForm } from 'components/common';
+import { CommonForm } from '~/components/common';
 import i18next from 'i18next';
-import { ChangePasswordFormValues, FormField } from 'models';
+import { ChangePasswordFormValues, FormField } from '~/models';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { showErrorToastFromServer } from 'utils/toast';
-import { translateFiles } from 'utils/translation';
+import { showErrorToastFromServer } from '~/utils/toast';
+import { translateFiles } from '~/utils/translation';
 import * as yup from 'yup';
 
 export interface ChangePasswordFormProps {

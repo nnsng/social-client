@@ -1,8 +1,8 @@
 import { Box, Stack, Typography } from '@mui/material';
-import { EmptyLayout } from 'components/layouts';
-import { usePageTitle } from 'hooks';
 import { useTranslation } from 'react-i18next';
-import { themeVariables } from 'utils/theme';
+import { EmptyLayout } from '~/components/layouts';
+import { usePageTitle } from '~/hooks';
+import { themeVariables } from '~/utils/theme';
 
 export function NotFound() {
   const { t } = useTranslation('notFoundPage');

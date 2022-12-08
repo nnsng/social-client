@@ -1,9 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography } from '@mui/material';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { AuthLayout } from 'components/layouts';
-import { usePageTitle } from 'hooks';
-import { FormField, RegisterFormValues } from 'models';
+import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { AuthLayout } from '~/components/layouts';
+import { usePageTitle } from '~/hooks';
+import { FormField, RegisterFormValues } from '~/models';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';

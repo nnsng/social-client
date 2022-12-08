@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { CommonForm } from 'components/common';
+import { CommonForm } from '~/components/common';
 import i18next from 'i18next';
-import { FormField, User } from 'models';
+import { FormField, User } from '~/models';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';

@@ -1,11 +1,11 @@
 import { MoreHorizRounded } from '@mui/icons-material';
 import { Avatar, Box, CardHeader, IconButton, SxProps, Tooltip, Typography } from '@mui/material';
-import { ActionMenu } from 'components/common';
-import { useUserInfoPopup } from 'hooks';
-import { MenuOption, Post } from 'models';
+import { ActionMenu } from '~/components/common';
+import { useUserInfoPopup } from '~/hooks';
+import { MenuOption, Post } from '~/models';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { formatTime } from 'utils/common';
+import { formatTime } from '~/utils/common';
 
 export interface PostCardHeaderProps {
   post: Post;

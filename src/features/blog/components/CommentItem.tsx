@@ -20,16 +20,16 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { useAppSelector } from 'app/hooks';
-import { ActionMenu, ConfirmDialog } from 'components/common';
-import { selectCurrentUser } from 'features/auth/userSlice';
-import { useSubmitWithEnter, useUserInfoPopup } from 'hooks';
-import { Comment, CommentActionTypes, MenuOption } from 'models';
+import { useAppSelector } from '~/app/hooks';
+import { ActionMenu, ConfirmDialog } from '~/components/common';
+import { selectCurrentUser } from '~/features/auth/userSlice';
+import { useSubmitWithEnter, useUserInfoPopup } from '~/hooks';
+import { Comment, CommentActionTypes, MenuOption } from '~/models';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { formatTime } from 'utils/common';
-import { showComingSoonToast, showErrorToastFromServer } from 'utils/toast';
+import { formatTime } from '~/utils/common';
+import { showComingSoonToast, showErrorToastFromServer } from '~/utils/toast';
 
 export interface CommentItemProps {
   comment: Comment;

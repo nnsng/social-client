@@ -1,5 +1,5 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from 'app/store';
+import { RootState } from '~/app/store';
 import {
   ListParams,
   ListResponse,
@@ -8,7 +8,7 @@ import {
   SearchObj,
   SearchResultItem,
   User,
-} from 'models';
+} from '~/models';
 
 export interface PostState {
   loading: boolean;

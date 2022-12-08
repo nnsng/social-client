@@ -8,13 +8,13 @@ import {
 } from '@mui/icons-material';
 import { Button, CircularProgress, Stack } from '@mui/material';
 import { userApi } from 'api';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { selectCurrentUser, userActions } from 'features/auth/userSlice';
-import { FollowModeTypes, FollowUser, MenuOption, User } from 'models';
+import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { selectCurrentUser, userActions } from '~/features/auth/userSlice';
+import { FollowModeTypes, FollowUser, MenuOption, User } from '~/models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { showComingSoonToast, showErrorToastFromServer } from 'utils/toast';
+import { showComingSoonToast, showErrorToastFromServer } from '~/utils/toast';
 import { ChatIcon } from '../icons';
 import { ActionMenu } from './ActionMenu';
 

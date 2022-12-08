@@ -1,18 +1,18 @@
 import { call, delay, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { authApi } from 'api';
-import { LocalStorageKey } from 'constants/common';
+import { LocalStorageKey } from '~/constants';
 import {
   AuthPayload,
   AuthResponse,
   GoogleAuthPayload,
   LoginFormValues,
   RegisterFormValues,
-} from 'models';
+} from '~/models';
 import { NavigateFunction } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { showErrorToastFromServer } from 'utils/toast';
-import { translateFiles } from 'utils/translation';
+import { showErrorToastFromServer } from '~/utils/toast';
+import { translateFiles } from '~/utils/translation';
 import { userActions } from './userSlice';
 
 function* handleLogin(action: PayloadAction<AuthPayload<LoginFormValues>>) {

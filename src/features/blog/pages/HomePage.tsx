@@ -1,9 +1,9 @@
 import { Grid } from '@mui/material';
 import { postApi } from 'api';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { APP_NAME } from 'constants/common';
-import { usePageTitle } from 'hooks';
-import { ListParams, Post } from 'models';
+import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { APP_NAME } from '~/constants';
+import { usePageTitle } from '~/hooks';
+import { ListParams, Post } from '~/models';
 import queryString from 'query-string';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';

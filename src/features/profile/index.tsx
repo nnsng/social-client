@@ -1,16 +1,16 @@
 import { Box, Container } from '@mui/material';
 import { postApi, userApi } from 'api';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { EmptyLayout } from 'components/layouts';
-import { UserInfoSkeleton } from 'components/skeletons';
-import { APP_NAME } from 'constants/common';
-import { PostList } from 'features/blog/components';
-import { postActions, selectPostList, selectPostLoading } from 'features/blog/postSlice';
-import { usePageTitle } from 'hooks';
-import { ListParams, Post, User } from 'models';
+import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { EmptyLayout } from '~/components/layouts';
+import { UserInfoSkeleton } from '~/components/skeletons';
+import { APP_NAME } from '~/constants';
+import { PostList } from '~/features/blog/components';
+import { postActions, selectPostList, selectPostLoading } from '~/features/blog/postSlice';
+import { usePageTitle } from '~/hooks';
+import { ListParams, Post, User } from '~/models';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { showErrorToastFromServer } from 'utils/toast';
+import { showErrorToastFromServer } from '~/utils/toast';
 import UserInfo from './components/UserInfo';
 
 export default function ProfilePage() {

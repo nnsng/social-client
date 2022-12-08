@@ -1,13 +1,13 @@
 import { Box } from '@mui/material';
 import { postApi } from 'api';
-import { useAppSelector } from 'app/hooks';
-import { selectCurrentUser } from 'features/auth/userSlice';
-import { usePageTitle } from 'hooks';
-import { Post } from 'models';
+import { useAppSelector } from '~/app/hooks';
+import { selectCurrentUser } from '~/features/auth/userSlice';
+import { usePageTitle } from '~/hooks';
+import { Post } from '~/models';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
-import { showErrorToastFromServer } from 'utils/toast';
+import { showErrorToastFromServer } from '~/utils/toast';
 import { CreateEditForm } from '../components';
 
 export function CreateEditPage() {

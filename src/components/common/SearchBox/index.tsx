@@ -1,4 +1,4 @@
-import { SearchResultItem } from 'models';
+import { SearchResultItem } from '~/models';
 import SearchBoxDesktop from './SearchBoxDesktop';
 
 export interface SearchResult {

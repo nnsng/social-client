@@ -2,15 +2,15 @@ import { AutorenewRounded, ErrorRounded, TaskAltRounded } from '@mui/icons-mater
 import { Box, Button, CircularProgress, Container, Stack, Typography } from '@mui/material';
 import { authApi } from 'api';
 import clsx from 'clsx';
-import { usePageTitle } from 'hooks';
+import { usePageTitle } from '~/hooks';
 import jwtDecode from 'jwt-decode';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { themeMixins } from 'utils/theme';
-import { showErrorToastFromServer } from 'utils/toast';
-import { translateFiles } from 'utils/translation';
+import { themeMixins } from '~/utils/theme';
+import { showErrorToastFromServer } from '~/utils/toast';
+import { translateFiles } from '~/utils/translation';
 
 enum Status {
   PENDING = 'pending',

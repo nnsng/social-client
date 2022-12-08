@@ -1,4 +1,4 @@
-import { ToastTypes } from 'models';
+import { ToastTypes } from '~/models';
 import { toast } from 'react-toastify';
 import { translateFiles } from './translation';
 

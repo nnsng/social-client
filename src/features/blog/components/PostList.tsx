@@ -9,11 +9,11 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { useAppSelector } from 'app/hooks';
-import { NoPost } from 'components/common';
-import { PostCardSkeleton } from 'components/skeletons';
-import { selectPostLoading, selectTotalPages } from 'features/blog/postSlice';
-import { ListParams, Post, PostByTypes } from 'models';
+import { useAppSelector } from '~/app/hooks';
+import { NoPost } from '~/components/common';
+import { PostCardSkeleton } from '~/components/skeletons';
+import { selectPostLoading, selectTotalPages } from '~/features/blog/postSlice';
+import { ListParams, Post, PostByTypes } from '~/models';
 import { useTranslation } from 'react-i18next';
 import { PostCard } from './PostCard';
 

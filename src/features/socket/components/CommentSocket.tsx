@@ -1,6 +1,6 @@
-import { useAppDispatch } from 'app/hooks';
-import { commentActions } from 'features/blog/commentSlice';
-import { Comment } from 'models';
+import { useAppDispatch } from '~/app/hooks';
+import { commentActions } from '~/features/blog/commentSlice';
+import { Comment } from '~/models';
 import { useEffect } from 'react';
 import { SocketProps } from '..';
 

@@ -1,4 +1,4 @@
-import { MainLayout } from 'components/layouts';
+import { MainLayout } from '~/components/layouts';
 import { Route, Routes } from 'react-router-dom';
 import { CreateEditPage, HomePage, PostDetailPage, SavedPage } from './pages';
 

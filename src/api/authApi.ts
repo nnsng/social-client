@@ -1,4 +1,4 @@
-import { ChangePasswordFormValues, LoginFormValues, RegisterFormValues } from 'models';
+import { ChangePasswordFormValues, LoginFormValues, RegisterFormValues } from '~/models';
 import axiosClient from './axiosClient';
 
 export const authApi = {

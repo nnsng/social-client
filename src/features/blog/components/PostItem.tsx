@@ -1,15 +1,15 @@
 import { BookmarkRemoveRounded, LinkRounded, MoreHorizRounded } from '@mui/icons-material';
 import { Box, CardMedia, IconButton, ListItem, Stack, Tooltip, Typography } from '@mui/material';
-import { ActionMenu, ConfirmDialog } from 'components/common';
-import { MenuOption, Post } from 'models';
+import { ActionMenu, ConfirmDialog } from '~/components/common';
+import { MenuOption, Post } from '~/models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { copyPostLink, formatTime } from 'utils/common';
-import { themeMixins } from 'utils/theme';
-import { showErrorToastFromServer } from 'utils/toast';
-import { translateFiles } from 'utils/translation';
+import { copyPostLink, formatTime } from '~/utils/common';
+import { themeMixins } from '~/utils/theme';
+import { showErrorToastFromServer } from '~/utils/toast';
+import { translateFiles } from '~/utils/translation';
 
 export interface PostItemProps {
   post: Post;

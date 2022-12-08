@@ -1,8 +1,8 @@
 import { Box, Stack, Tab, Tabs } from '@mui/material';
-import { useAppSelector } from 'app/hooks';
-import { selectCurrentUser } from 'features/auth/userSlice';
-import { useCustomMediaQuery } from 'hooks';
-import { ChangePasswordFormValues, User } from 'models';
+import { useAppSelector } from '~/app/hooks';
+import { selectCurrentUser } from '~/features/auth/userSlice';
+import { useCustomMediaQuery } from '~/hooks';
+import { ChangePasswordFormValues, User } from '~/models';
 import { ReactNode, SyntheticEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChangePasswordForm } from './ChangePasswordForm';

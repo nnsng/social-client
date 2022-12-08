@@ -1,10 +1,10 @@
 import { Grid, List, Pagination, Stack, Typography } from '@mui/material';
 import { postApi } from 'api';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { NoPost } from 'components/common';
-import { PostItemSkeleton } from 'components/skeletons';
-import { usePageTitle } from 'hooks';
-import { Post } from 'models';
+import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { NoPost } from '~/components/common';
+import { PostItemSkeleton } from '~/components/skeletons';
+import { usePageTitle } from '~/hooks';
+import { Post } from '~/models';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PostItem } from '../components';

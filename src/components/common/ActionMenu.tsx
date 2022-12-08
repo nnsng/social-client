@@ -1,7 +1,7 @@
 import { Drawer, MenuItem, MenuList, SxProps, Theme } from '@mui/material';
-import { useCustomMediaQuery } from 'hooks';
-import { AnchorEl, MenuOption } from 'models';
 import { ReactNode } from 'react';
+import { useCustomMediaQuery } from '~/hooks';
+import { AnchorEl, MenuOption } from '~/models';
 import { PopperPopup } from '.';
 
 export interface ActionMenuProps {

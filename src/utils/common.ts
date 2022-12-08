@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/vi';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import i18next from 'i18next';
-import { Post } from 'models';
+import { Post } from '~/models';
 import { toast } from 'react-toastify';
 import slugify from 'slugify';
 import { showErrorToastFromServer } from './toast';

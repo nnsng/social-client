@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
-import { FileInputField } from 'components/formFields';
+import { FileInputField } from '~/components/formFields';
 import { useTranslation } from 'react-i18next';
 import { Control } from 'react-hook-form';
 

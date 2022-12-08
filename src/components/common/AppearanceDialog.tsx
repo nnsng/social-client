@@ -10,13 +10,13 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { selectUserConfig, userActions } from 'features/auth/userSlice';
-import { UserConfigKey } from 'models';
 import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { supportedThemeColors } from 'utils/theme';
-import { supportedLanguages } from 'utils/translation';
+import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { selectUserConfig, userActions } from '~/features/auth/userSlice';
+import { UserConfigKey } from '~/models';
+import { supportedThemeColors } from '~/utils/theme';
+import { supportedLanguages } from '~/utils/translation';
 import { ThemeSwitch } from '.';
 
 export interface AppearanceDialogProps {

@@ -1,15 +1,15 @@
 import { CloseRounded } from '@mui/icons-material';
 import { Avatar, CircularProgress, IconButton, List, Stack, Typography } from '@mui/material';
-import { useAppSelector } from 'app/hooks';
-import { ContainedInput } from 'components/common';
-import { CommentItemSkeleton } from 'components/skeletons';
-import { selectCurrentUser } from 'features/auth/userSlice';
-import { selectCommentLoading } from 'features/blog/commentSlice';
-import { useSubmitWithEnter } from 'hooks';
-import { Comment, CommentActionTypes } from 'models';
+import { useAppSelector } from '~/app/hooks';
+import { ContainedInput } from '~/components/common';
+import { CommentItemSkeleton } from '~/components/skeletons';
+import { selectCurrentUser } from '~/features/auth/userSlice';
+import { selectCommentLoading } from '~/features/blog/commentSlice';
+import { useSubmitWithEnter } from '~/hooks';
+import { Comment, CommentActionTypes } from '~/models';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { showErrorToastFromServer } from 'utils/toast';
+import { showErrorToastFromServer } from '~/utils/toast';
 import { CommentItem } from './CommentItem';
 
 export interface PostCommentProps {

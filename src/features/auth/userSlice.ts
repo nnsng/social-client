@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from 'app/store';
-import { LocalStorageKey } from 'constants/common';
+import { RootState } from '~/app/store';
+import { LocalStorageKey } from '~/constants';
 import {
   AuthPayload,
   GoogleAuthPayload,
@@ -9,7 +9,7 @@ import {
   User,
   UserConfig,
   UserConfigKey,
-} from 'models';
+} from '~/models';
 import { NavigateFunction } from 'react-router-dom';
 
 export interface UserState {

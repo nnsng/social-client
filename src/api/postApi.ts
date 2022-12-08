@@ -1,4 +1,4 @@
-import { ListParams, Post, SearchObj } from 'models';
+import { ListParams, Post, SearchObj } from '~/models';
 import axiosClient from './axiosClient';
 
 export const postApi = {

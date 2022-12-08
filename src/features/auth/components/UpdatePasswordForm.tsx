@@ -1,14 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Container, Typography } from '@mui/material';
 import { authApi } from 'api';
-import { CommonForm } from 'components/common';
-import { usePageTitle } from 'hooks';
-import { ChangePasswordFormValues, FormField } from 'models';
+import { CommonForm } from '~/components/common';
+import { usePageTitle } from '~/hooks';
+import { ChangePasswordFormValues, FormField } from '~/models';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { themeMixins } from 'utils/theme';
-import { translateFiles } from 'utils/translation';
+import { themeMixins } from '~/utils/theme';
+import { translateFiles } from '~/utils/translation';
 import * as yup from 'yup';
 
 export interface UpdatePasswordFormProps {

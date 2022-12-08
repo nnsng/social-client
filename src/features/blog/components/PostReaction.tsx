@@ -4,9 +4,9 @@ import {
   FavoriteRounded,
 } from '@mui/icons-material';
 import { Box, Button, Chip, Stack, Typography } from '@mui/material';
-import { useAppSelector } from 'app/hooks';
-import { selectCurrentUser } from 'features/auth/userSlice';
-import { Post } from 'models';
+import { useAppSelector } from '~/app/hooks';
+import { selectCurrentUser } from '~/features/auth/userSlice';
+import { Post } from '~/models';
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 

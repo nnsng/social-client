@@ -1,8 +1,8 @@
 import { call, debounce, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { postApi, userApi } from 'api';
-import { ListParams, ListResponse, Post, SearchObj, User } from 'models';
-import { showErrorToastFromServer } from 'utils/toast';
+import { ListParams, ListResponse, Post, SearchObj, User } from '~/models';
+import { showErrorToastFromServer } from '~/utils/toast';
 import { postActions } from './postSlice';
 
 function* fetchPostList(action: PayloadAction<ListParams>) {

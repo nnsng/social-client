@@ -1,4 +1,4 @@
-import { LocalStorageKey } from 'constants/common';
+import { LocalStorageKey } from '~/constants';
 import { ReactChild } from 'react';
 import { Navigate } from 'react-router-dom';
 

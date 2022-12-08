@@ -1,8 +1,8 @@
 import { Avatar, Box, CircularProgress, Stack, Typography } from '@mui/material';
-import { MuiTextField } from 'components/formFields';
-import { GoogleIcon } from 'components/icons';
-import { APP_NAME } from 'constants/common';
-import { FormField, LoginFormValues, RegisterFormValues } from 'models';
+import { MuiTextField } from '~/components/formFields';
+import { GoogleIcon } from '~/components/icons';
+import { APP_NAME } from '~/constants';
+import { FormField, LoginFormValues, RegisterFormValues } from '~/models';
 import { FormEventHandler } from 'react';
 import { Control } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';

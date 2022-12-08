@@ -1,11 +1,11 @@
 import { Theme, ThemeProvider } from '@mui/material';
-import { useAppSelector } from 'app/hooks';
-import favicons from 'assets/favicons';
-import { selectUserConfig } from 'features/auth/userSlice';
 import i18next from 'i18next';
 import { ReactNode, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
-import { configTheme, themeVariables } from 'utils/theme';
+import { useAppSelector } from '~/app/hooks';
+import favicons from '~/assets/favicons';
+import { selectUserConfig } from '~/features/auth/userSlice';
+import { configTheme, themeVariables } from '~/utils/theme';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 export interface CustomThemeProviderProps {

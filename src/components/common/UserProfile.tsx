@@ -1,8 +1,8 @@
 import { AccountCircleRounded, LogoutOutlined, SettingsRounded } from '@mui/icons-material';
 import { Avatar, Box } from '@mui/material';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { selectCurrentUser, userActions } from 'features/auth/userSlice';
-import { MenuOption } from 'models';
+import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { selectCurrentUser, userActions } from '~/features/auth/userSlice';
+import { MenuOption } from '~/models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';

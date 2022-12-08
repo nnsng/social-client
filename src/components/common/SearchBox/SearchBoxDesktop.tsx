@@ -15,21 +15,21 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
+import { useAppDispatch, useAppSelector } from '~/app/hooks';
 import {
   postActions,
   selectFormattedSearchResult,
   selectSearchLoading,
-} from 'features/blog/postSlice';
-import { useCustomMediaQuery, useSubmitWithEnter } from 'hooks';
-import { SearchObj } from 'models';
+} from '~/features/blog/postSlice';
+import { useCustomMediaQuery, useSubmitWithEnter } from '~/hooks';
+import { SearchObj } from '~/models';
 import queryString from 'query-string';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { slugifyString } from 'utils/common';
-import { themeMixins } from 'utils/theme';
-import { showComingSoonToast } from 'utils/toast';
+import { slugifyString } from '~/utils/common';
+import { themeMixins } from '~/utils/theme';
+import { showComingSoonToast } from '~/utils/toast';
 import { SearchResult } from '.';
 import { SearchMobile } from './SearchBoxMobile';
 

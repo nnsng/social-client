@@ -1,6 +1,6 @@
 import { Box, Container } from '@mui/material';
-import { Header } from 'components/common';
-import { LayoutProps } from 'models';
+import { Header } from '~/components/common';
+import { LayoutProps } from '~/models';
 
 export function EmptyLayout({ children, maxWidth }: LayoutProps) {
   return (

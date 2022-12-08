@@ -9,8 +9,8 @@ import {
   Theme,
 } from '@mui/material';
 import { SxProps } from '@mui/system';
-import { AnchorEl } from 'models';
-import { themeMixins } from 'utils/theme';
+import { AnchorEl } from '~/models';
+import { themeMixins } from '~/utils/theme';
 
 export interface PopperPopupProps {
   open: boolean;

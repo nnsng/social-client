@@ -1,4 +1,4 @@
-import { NotFound, PrivateRoute } from 'components/common';
+import { NotFound, PrivateRoute } from '~/components/common';
 import queryString from 'query-string';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { ActiveAccount, UpdatePasswordForm } from './components';

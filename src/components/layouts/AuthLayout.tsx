@@ -1,7 +1,7 @@
 import { Box, Stack } from '@mui/material';
-import background from 'assets/images/background.png';
-import { LayoutProps } from 'models';
-import { themeMixins } from 'utils/theme';
+import background from '~/assets/images/background.png';
+import { LayoutProps } from '~/models';
+import { themeMixins } from '~/utils/theme';
 
 export function AuthLayout({ children }: LayoutProps) {
   return (

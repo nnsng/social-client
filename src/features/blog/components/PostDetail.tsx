@@ -6,19 +6,19 @@ import {
   LinkRounded,
 } from '@mui/icons-material';
 import { Box, Card, CardContent, Typography } from '@mui/material';
-import { useAppSelector } from 'app/hooks';
-import { ConfirmDialog } from 'components/common';
-import { Role } from 'constants/common';
-import { selectCurrentUser } from 'features/auth/userSlice';
-import { MenuOption, Post } from 'models';
+import { useAppSelector } from '~/app/hooks';
+import { ConfirmDialog } from '~/components/common';
+import { Role } from '~/constants';
+import { selectCurrentUser } from '~/features/auth/userSlice';
+import { MenuOption, Post } from '~/models';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { copyPostLink } from 'utils/common';
-import { themeMixins } from 'utils/theme';
-import { showComingSoonToast, showErrorToastFromServer } from 'utils/toast';
-import { translateFiles } from 'utils/translation';
+import { copyPostLink } from '~/utils/common';
+import { themeMixins } from '~/utils/theme';
+import { showComingSoonToast, showErrorToastFromServer } from '~/utils/toast';
+import { translateFiles } from '~/utils/translation';
 import { MdEditor, PostCardHeader } from '.';
 
 export interface PostDetailProps {

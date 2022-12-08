@@ -1,5 +1,5 @@
-import { useAppSelector } from 'app/hooks';
-import { selectCurrentUser } from 'features/auth/userSlice';
+import { useAppSelector } from '~/app/hooks';
+import { selectCurrentUser } from '~/features/auth/userSlice';
 import { useEffect } from 'react';
 import { Socket } from 'socket.io-client';
 import CommentSocket from './components/CommentSocket';

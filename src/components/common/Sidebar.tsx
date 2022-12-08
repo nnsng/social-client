@@ -24,14 +24,14 @@ import {
   SxProps,
   Typography,
 } from '@mui/material';
-import { useAppSelector } from 'app/hooks';
-import { selectCurrentUser } from 'features/auth/userSlice';
-import { useCustomMediaQuery } from 'hooks';
 import { Fragment, ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { themeVariables } from 'utils/theme';
-import { showComingSoonToast } from 'utils/toast';
+import { useAppSelector } from '~/app/hooks';
+import { selectCurrentUser } from '~/features/auth/userSlice';
+import { useCustomMediaQuery } from '~/hooks';
+import { themeVariables } from '~/utils/theme';
+import { showComingSoonToast } from '~/utils/toast';
 import { AppearanceDialog } from './AppearanceDialog';
 
 export interface SidebarItem {

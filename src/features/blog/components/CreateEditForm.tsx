@@ -14,16 +14,16 @@ import {
   HashtagInputField,
   InputField,
   MdEditorField,
-} from 'components/formFields';
-import { useCustomMediaQuery } from 'hooks';
-import { Post } from 'models';
+} from '~/components/formFields';
+import { useCustomMediaQuery } from '~/hooks';
+import { Post } from '~/models';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { delay } from 'utils/common';
-import { themeMixins, themeVariables } from 'utils/theme';
-import { showErrorToastFromServer } from 'utils/toast';
+import { delay } from '~/utils/common';
+import { themeMixins, themeVariables } from '~/utils/theme';
+import { showErrorToastFromServer } from '~/utils/toast';
 import * as yup from 'yup';
 
 export interface CreateEditFormProps {

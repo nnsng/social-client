@@ -1,11 +1,11 @@
 import { Box, Paper, Typography } from '@mui/material';
 import { authApi } from 'api';
-import { useAppDispatch } from 'app/hooks';
-import { EmptyLayout } from 'components/layouts';
-import { usePageTitle } from 'hooks';
-import { ChangePasswordFormValues, User } from 'models';
+import { useAppDispatch } from '~/app/hooks';
+import { EmptyLayout } from '~/components/layouts';
+import { usePageTitle } from '~/hooks';
+import { ChangePasswordFormValues, User } from '~/models';
 import { useTranslation } from 'react-i18next';
-import { themeMixins } from 'utils/theme';
+import { themeMixins } from '~/utils/theme';
 import { Settings } from './components/Settings';
 import { settingActions } from './settingSlice';
 

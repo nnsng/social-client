@@ -1,9 +1,9 @@
 import { Avatar, Box, Stack, Typography } from '@mui/material';
-import { UserInfoButtonGroup } from 'components/common';
-import { useCustomMediaQuery } from 'hooks';
-import { User } from 'models';
+import { UserInfoButtonGroup } from '~/components/common';
+import { useCustomMediaQuery } from '~/hooks';
+import { User } from '~/models';
 import { useTranslation } from 'react-i18next';
-import { themeMixins } from 'utils/theme';
+import { themeMixins } from '~/utils/theme';
 
 export interface UserInfoProps {
   userInfo: Partial<User>;

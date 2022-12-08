@@ -1,7 +1,7 @@
 import { Box, Chip, Stack, SxProps, Typography } from '@mui/material';
-import { useCustomMediaQuery } from 'hooks';
+import { useCustomMediaQuery } from '~/hooks';
 import { useTranslation } from 'react-i18next';
-import { themeVariables } from 'utils/theme';
+import { themeVariables } from '~/utils/theme';
 
 export interface TopHashtagsProps {
   list: string[];

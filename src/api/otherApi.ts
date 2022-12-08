@@ -1,4 +1,4 @@
-import { env, variables } from 'utils/env';
+import { env, variables } from '~/utils/env';
 import axiosClient from './axiosClient';
 
 export const otherApi = {

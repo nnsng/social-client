@@ -1,7 +1,7 @@
 import { Box, Container, Grid } from '@mui/material';
-import { Header, Sidebar } from 'components/common';
-import { HIDE_SIDEBAR_PATHS } from 'constants/common';
-import { LayoutProps } from 'models';
+import { Header, Sidebar } from '~/components/common';
+import { HIDE_SIDEBAR_PATHS } from '~/constants';
+import { LayoutProps } from '~/models';
 import { useLocation } from 'react-router-dom';
 
 export function MainLayout(props: LayoutProps) {

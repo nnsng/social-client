@@ -1,19 +1,19 @@
-import { userApi } from 'api';
-import { useAppDispatch } from 'app/hooks';
-import { CustomScrollbar, PrivateRoute } from 'components/common';
-import { LocalStorageKey } from 'constants/common';
-import AuthFeature from 'features/auth';
-import { userActions } from 'features/auth/userSlice';
-import BlogFeature from 'features/blog';
-import ProfilePage from 'features/profile';
-import SettingFeature from 'features/settings';
-import SocketClient from 'features/socket';
-import { socketActions } from 'features/socket/socketSlice';
 import { useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
-import { env, variables } from 'utils/env';
-import { showErrorToastFromServer } from 'utils/toast';
+import { userApi } from '~/api';
+import { useAppDispatch } from '~/app/hooks';
+import { CustomScrollbar, PrivateRoute } from '~/components/common';
+import { LocalStorageKey } from '~/constants';
+import AuthFeature from '~/features/auth';
+import { userActions } from '~/features/auth/userSlice';
+import BlogFeature from '~/features/blog';
+import ProfilePage from '~/features/profile';
+import SettingFeature from '~/features/settings';
+import SocketClient from '~/features/socket';
+import { socketActions } from '~/features/socket/socketSlice';
+import { env, variables } from '~/utils/env';
+import { showErrorToastFromServer } from '~/utils/toast';
 
 function App() {
   const navigate = useNavigate();

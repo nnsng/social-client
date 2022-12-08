@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { LocalStorageKey } from 'constants/common';
 import queryString from 'query-string';
-import { env, variables } from 'utils/env';
+import { LocalStorageKey } from '~/constants';
+import { env, variables } from '~/utils/env';
 
 const axiosClient = axios.create({
   baseURL: env(variables.apiUrl),

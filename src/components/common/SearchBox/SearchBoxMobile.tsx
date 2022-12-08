@@ -14,10 +14,10 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import { SearchObj } from 'models';
+import { SearchObj } from '~/models';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { themeMixins, themeVariables } from 'utils/theme';
+import { themeMixins, themeVariables } from '~/utils/theme';
 import { SearchResult } from '.';
 
 export interface SearchMobileProps {
