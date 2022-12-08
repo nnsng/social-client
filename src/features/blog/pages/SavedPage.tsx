@@ -1,5 +1,5 @@
 import { Grid, List, Pagination, Stack, Typography } from '@mui/material';
-import { postApi } from 'api';
+import { postApi } from '~/api';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
 import { NoPost } from '~/components/common';
 import { PostItemSkeleton } from '~/components/skeletons';

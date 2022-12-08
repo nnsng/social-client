@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Container, Typography } from '@mui/material';
-import { authApi } from 'api';
+import { authApi } from '~/api';
 import { CommonForm } from '~/components/common';
 import { usePageTitle } from '~/hooks';
 import { ChangePasswordFormValues, FormField } from '~/models';

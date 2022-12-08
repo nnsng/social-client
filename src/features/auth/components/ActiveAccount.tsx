@@ -1,6 +1,6 @@
 import { AutorenewRounded, ErrorRounded, TaskAltRounded } from '@mui/icons-material';
 import { Box, Button, CircularProgress, Container, Stack, Typography } from '@mui/material';
-import { authApi } from 'api';
+import { authApi } from '~/api';
 import clsx from 'clsx';
 import { usePageTitle } from '~/hooks';
 import jwtDecode from 'jwt-decode';

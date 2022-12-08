@@ -1,6 +1,6 @@
 import { call, delay, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { authApi } from 'api';
+import { authApi } from '~/api';
 import { NavigateFunction } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { ACCESS_TOKEN } from '~/constants';

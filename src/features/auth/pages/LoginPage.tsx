@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
-import { authApi } from 'api';
+import { authApi } from '~/api';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
 import { AuthLayout } from '~/components/layouts';
 import { useLoginWithGoogle, usePageTitle } from '~/hooks';

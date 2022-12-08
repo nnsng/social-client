@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { postApi } from 'api';
+import { postApi } from '~/api';
 import { useAppSelector } from '~/app/hooks';
 import { selectCurrentUser } from '~/features/auth/userSlice';
 import { usePageTitle } from '~/hooks';

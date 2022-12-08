@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import { postApi } from 'api';
+import { postApi } from '~/api';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
 import { APP_NAME } from '~/constants';
 import { usePageTitle } from '~/hooks';

@@ -1,5 +1,5 @@
 import { Box, Container } from '@mui/material';
-import { postApi, userApi } from 'api';
+import { postApi, userApi } from '~/api';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
 import { EmptyLayout } from '~/components/layouts';
 import { UserInfoSkeleton } from '~/components/skeletons';

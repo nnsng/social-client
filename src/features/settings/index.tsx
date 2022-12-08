@@ -1,5 +1,5 @@
 import { Box, Paper, Typography } from '@mui/material';
-import { authApi } from 'api';
+import { authApi } from '~/api';
 import { useAppDispatch } from '~/app/hooks';
 import { EmptyLayout } from '~/components/layouts';
 import { usePageTitle } from '~/hooks';
