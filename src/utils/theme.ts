@@ -147,14 +147,6 @@ export const configTheme = (mode?: PaletteMode, mainColor?: string) => {
   return responsiveFontSizes(theme);
 };
 
-export const supportedThemeColors: string[] = [
-  '#FF652F',
-  '#7575FF',
-  '#00CC6A',
-  '#FFB900',
-  '#C239B3',
-];
-
 export const themeVariables = {
   headerHeight: 72,
   scrollbarWidth: 6,

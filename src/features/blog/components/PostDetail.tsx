@@ -8,7 +8,7 @@ import {
 import { Box, Card, CardContent, Typography } from '@mui/material';
 import { useAppSelector } from '~/app/hooks';
 import { ConfirmDialog } from '~/components/common';
-import { Role } from '~/constants';
+import { ROLE } from '~/constants';
 import { selectCurrentUser } from '~/features/auth/userSlice';
 import { MenuOption, Post } from '~/models';
 import { useState } from 'react';
@@ -68,7 +68,7 @@ export function PostDetail(props: PostDetailProps) {
   };
 
   const isAuthor = post.authorId === currentUser?._id;
-  const isAdmin = currentUser?.role === Role.ADMIN;
+  const isAdmin = currentUser?.role === ROLE.ADMIN;
 
   const actionMenu: MenuOption[] = [
     {

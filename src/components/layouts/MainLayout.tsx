@@ -1,8 +1,9 @@
 import { Box, Container, Grid } from '@mui/material';
-import { Header, Sidebar } from '~/components/common';
-import { HIDE_SIDEBAR_PATHS } from '~/constants';
-import { LayoutProps } from '~/models';
 import { useLocation } from 'react-router-dom';
+import { Header, Sidebar } from '~/components/common';
+import { LayoutProps } from '~/models';
+
+export const HIDE_SIDEBAR_PATHS = ['/blog/create', '/blog/edit'];
 
 export function MainLayout(props: LayoutProps) {
   const { children, maxWidth, spacing = { md: 8 } } = props;

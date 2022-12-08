@@ -6,17 +6,17 @@ import {
   LinkRounded,
 } from '@mui/icons-material';
 import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
-import { useAppSelector } from '~/app/hooks';
-import { ConfirmDialog } from '~/components/common';
-import { Role } from '~/constants';
-import { selectCurrentUser } from '~/features/auth/userSlice';
-import { MenuOption, Post } from '~/models';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import remarkGfm from 'remark-gfm';
+import { useAppSelector } from '~/app/hooks';
+import { ConfirmDialog } from '~/components/common';
+import { ROLE } from '~/constants';
+import { selectCurrentUser } from '~/features/auth/userSlice';
+import { MenuOption, Post } from '~/models';
 import { copyPostLink } from '~/utils/common';
 import { themeMixins } from '~/utils/theme';
 import { showComingSoonToast, showErrorToastFromServer } from '~/utils/toast';
@@ -98,7 +98,7 @@ export function PostCard(props: PostCardProps) {
   };
 
   const isAuthor = post.authorId === currentUser?._id;
-  const isAdmin = currentUser?.role === Role.ADMIN;
+  const isAdmin = currentUser?.role === ROLE.ADMIN;
 
   const actionMenu: MenuOption[] = [
     {

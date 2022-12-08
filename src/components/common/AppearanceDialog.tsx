@@ -13,10 +13,9 @@ import {
 import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { LANGUAGES, THEME_COLORS } from '~/constants';
 import { selectUserConfig, userActions } from '~/features/auth/userSlice';
 import { UserConfigKey } from '~/models';
-import { supportedThemeColors } from '~/utils/theme';
-import { supportedLanguages } from '~/utils/translation';
 import { ThemeSwitch } from '.';
 
 export interface AppearanceDialogProps {
@@ -95,7 +94,7 @@ export function AppearanceDialog(props: AppearanceDialogProps) {
             <Typography fontWeight={500}>{t('themeColor')}:</Typography>
 
             <Stack sx={{ ml: '-3px' }}>
-              {supportedThemeColors.map((color) => (
+              {THEME_COLORS.map((color) => (
                 <ColorRadio
                   key={color}
                   name="mainColor"
@@ -112,7 +111,7 @@ export function AppearanceDialog(props: AppearanceDialogProps) {
             <Typography fontWeight={500}>{t('language')}:</Typography>
 
             <Stack direction={{ xs: 'column', sm: 'row' }} ml={1}>
-              {supportedLanguages.map(({ code, name }) => (
+              {LANGUAGES.map(({ code, name }) => (
                 <FormControlLabel
                   key={code}
                   control={

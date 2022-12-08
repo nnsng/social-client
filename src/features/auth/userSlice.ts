@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { NavigateFunction } from 'react-router-dom';
 import { RootState } from '~/app/store';
-import { LocalStorageKey } from '~/constants';
+import { CONFIG } from '~/constants';
 import {
   AuthPayload,
   GoogleAuthPayload,
@@ -10,7 +11,6 @@ import {
   UserConfig,
   UserConfigKey,
 } from '~/models';
-import { NavigateFunction } from 'react-router-dom';
 
 export interface UserState {
   submitting: boolean;
@@ -18,7 +18,7 @@ export interface UserState {
   config: UserConfig;
 }
 
-const localConfig = JSON.parse(localStorage.getItem(LocalStorageKey.CONFIG) || '{}');
+const localConfig = JSON.parse(localStorage.getItem(CONFIG) || '{}');
 
 const initialState: UserState = {
   submitting: false,
@@ -56,7 +56,7 @@ const userSlice = createSlice({
     updateConfig(state, action: PayloadAction<{ name: UserConfigKey; value: any }>) {
       const { name, value } = action.payload;
       state.config[name] = value;
-      localStorage.setItem(LocalStorageKey.CONFIG, JSON.stringify(state.config));
+      localStorage.setItem(CONFIG, JSON.stringify(state.config));
     },
   },
 });
