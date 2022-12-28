@@ -1,6 +1,6 @@
 import { Box, Container, LinearProgress } from '@mui/material';
 import { useAppSelector } from '~/app/hooks';
-import { selectPostLoading } from '~/features/blog/postSlice';
+import { selectPostLoading } from '~/redux/slices/postSlice';
 import { useCustomMediaQuery } from '~/hooks';
 import { themeMixins, themeVariables } from '~/utils/theme';
 import { HeaderDesktop } from './HeaderDesktop';

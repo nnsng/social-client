@@ -8,7 +8,7 @@ export function Brand() {
   const handleHomeClick = () => {
     const event = new Event('homeClick');
     window.dispatchEvent(event);
-    navigate('/blog');
+    navigate('/');
   };
 
   return (

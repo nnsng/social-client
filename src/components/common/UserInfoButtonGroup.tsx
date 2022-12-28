@@ -9,7 +9,7 @@ import {
 import { Button, CircularProgress, Stack } from '@mui/material';
 import { userApi } from '~/api';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
-import { selectCurrentUser, userActions } from '~/features/auth/userSlice';
+import { selectCurrentUser, userActions } from '~/redux/slices/userSlice';
 import { FollowModeTypes, FollowUser, MenuOption, User } from '~/models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';

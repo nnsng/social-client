@@ -4,8 +4,6 @@ import { PostByTypes } from './types';
 
 export interface LayoutProps {
   children: ReactNode;
-  maxWidth?: false | Breakpoint;
-  spacing?: GridProps['spacing'];
 }
 
 export interface RouteItem {

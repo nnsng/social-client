@@ -15,6 +15,7 @@ export * from './PrivateRoute';
 export * from './SearchBox';
 export * from './Sidebar';
 export * from './ThemeSwitch';
+export * from './UserActions';
+export * from './UserInfo';
 export * from './UserInfoButtonGroup';
 export * from './UserInfoPopup';
-export * from './UserProfile';

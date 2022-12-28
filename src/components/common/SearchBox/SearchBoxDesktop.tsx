@@ -20,7 +20,7 @@ import {
   postActions,
   selectFormattedSearchResult,
   selectSearchLoading,
-} from '~/features/blog/postSlice';
+} from '~/redux/slices/postSlice';
 import { useCustomMediaQuery, useSubmitWithEnter } from '~/hooks';
 import { SearchObj } from '~/models';
 import queryString from 'query-string';
@@ -123,7 +123,7 @@ export default function SearchBoxDesktop() {
 
     closeSearchResult();
     const { searchFor, searchTerm } = searchObj;
-    navigate(`/blog?${searchFor}=${searchTerm}`, { replace: true });
+    navigate(`/?${searchFor}=${searchTerm}`, { replace: true });
   };
 
   const goto = (url: string) => {
@@ -185,7 +185,7 @@ export default function SearchBoxDesktop() {
               >
                 <Stack alignItems="center" px={2} py={1}>
                   {loading || searchInput.length < 2 ? (
-                    <CircularProgress size={20} color="primary" />
+                    <CircularProgress size={20} />
                   ) : (
                     <Typography color="text.secondary" fontSize={14}>
                       {t(`search.${searchObj.searchFor}.result${result.length > 1 ? 's' : ''}`, {

@@ -4,7 +4,7 @@ import { ReactNode, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { useAppSelector } from '~/app/hooks';
 import favicons from '~/assets/favicons';
-import { selectUserConfig } from '~/features/auth/userSlice';
+import { selectUserConfig } from '~/redux/slices/userSlice';
 import { configTheme, themeVariables } from '~/utils/theme';
 import 'react-toastify/dist/ReactToastify.min.css';
 

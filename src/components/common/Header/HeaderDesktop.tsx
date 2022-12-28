@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import { Brand, SearchBox, UserProfile } from '..';
+import { Brand, SearchBox, UserActions } from '..';
 
 export function HeaderDesktop() {
   return (
@@ -8,7 +8,7 @@ export function HeaderDesktop() {
 
       <SearchBox />
 
-      <UserProfile />
+      <UserActions />
     </Stack>
   );
 }

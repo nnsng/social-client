@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
-import userReducer from '~/features/auth/userSlice';
-import commentReducer from '~/features/blog/commentSlice';
-import postReducer from '~/features/blog/postSlice';
-import settingReducer from '~/features/settings/settingSlice';
-import socketReducer from '~/features/socket/socketSlice';
+import {
+  commentReducer,
+  postReducer,
+  settingReducer,
+  socketReducer,
+  userReducer,
+} from '~/redux/slices';
 
 const rootReducer = combineReducers({
   user: userReducer,

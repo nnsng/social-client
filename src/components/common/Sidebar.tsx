@@ -28,7 +28,7 @@ import { Fragment, ReactNode, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '~/app/hooks';
-import { selectCurrentUser } from '~/features/auth/userSlice';
+import { selectCurrentUser } from '~/redux/slices/userSlice';
 import { useCustomMediaQuery } from '~/hooks';
 import { themeVariables } from '~/utils/theme';
 import { showComingSoonToast } from '~/utils/toast';
@@ -71,8 +71,8 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       label: t('home'),
       icon: HomeOutlined,
       activeIcon: HomeRounded,
-      active: checkPathActive('/blog'),
-      onClick: () => navigateTo('/blog'),
+      active: checkPathActive('/'),
+      onClick: () => navigateTo('/'),
     },
     {
       label: t('messages'),
@@ -92,15 +92,15 @@ export function Sidebar({ open, onClose }: SidebarProps) {
       label: t('create'),
       icon: AddCircleOutlineOutlined,
       activeIcon: AddCircleRounded,
-      active: checkPathActive('/blog/create'),
-      onClick: () => navigateTo('/blog/create'),
+      active: checkPathActive('/create'),
+      onClick: () => navigateTo('/create'),
     },
     {
       label: t('saved'),
       icon: BookmarkBorderOutlined,
       activeIcon: BookmarkRounded,
-      active: checkPathActive('/blog/saved'),
-      onClick: () => navigateTo('/blog/saved'),
+      active: checkPathActive('/saved'),
+      onClick: () => navigateTo('/saved'),
     },
     {
       label: t('appearance'),

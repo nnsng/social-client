@@ -106,7 +106,7 @@ export function SearchMobile(props: SearchMobileProps) {
       >
         <Stack alignItems="center" px={2} py={1}>
           {loading || searchInput.length < 2 ? (
-            <CircularProgress size={20} color="primary" sx={{ flexShrink: 0, mr: 1 }} />
+            <CircularProgress size={20} sx={{ flexShrink: 0, mr: 1 }} />
           ) : (
             <Typography variant="body2" color="text.secondary" sx={{ flexGrow: 1 }}>
               {t('search.result', {

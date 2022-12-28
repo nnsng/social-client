@@ -14,7 +14,7 @@ import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
 import { LANGUAGES, THEME_COLORS } from '~/constants';
-import { selectUserConfig, userActions } from '~/features/auth/userSlice';
+import { selectUserConfig, userActions } from '~/redux/slices/userSlice';
 import { UserConfigKey } from '~/models';
 import { ThemeSwitch } from '.';
 
