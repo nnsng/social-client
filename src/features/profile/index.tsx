@@ -1,4 +1,7 @@
 import { Box, Container } from '@mui/material';
+import queryString from 'query-string';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { postApi, userApi } from '~/api';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
 import { EmptyLayout } from '~/components/layouts';
@@ -8,15 +11,12 @@ import { PostList } from '~/features/blog/components';
 import { postActions, selectPostList, selectPostLoading } from '~/features/blog/postSlice';
 import { usePageTitle } from '~/hooks';
 import { ListParams, Post, User } from '~/models';
-import { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { showErrorToastFromServer } from '~/utils/toast';
 import UserInfo from './components/UserInfo';
 
 export default function ProfilePage() {
-  const { username } = useParams();
   const location = useLocation();
-  const navigate = useNavigate();
+  const { username } = queryString.parse(location.search) as { username: string };
 
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);

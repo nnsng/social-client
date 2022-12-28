@@ -70,7 +70,7 @@ function App() {
         />
 
         <Route
-          path="/profile/:username"
+          path="/profile"
           element={
             <PrivateRoute>
               <ProfilePage />
