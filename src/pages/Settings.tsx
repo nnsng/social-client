@@ -2,11 +2,10 @@ import { Box, Paper, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { authApi } from '~/api';
 import { useAppDispatch } from '~/app/hooks';
-import { EmptyLayout } from '~/components/layouts';
 import { Settings } from '~/components/settings';
-import { settingActions } from '~/redux/slices/settingSlice';
 import { usePageTitle } from '~/hooks';
 import { ChangePasswordFormValues, User } from '~/models';
+import { settingActions } from '~/redux/slices/settingSlice';
 import { themeMixins } from '~/utils/theme';
 
 export function SettingsPage() {
@@ -30,27 +29,25 @@ export function SettingsPage() {
   };
 
   return (
-    <EmptyLayout maxWidth="md">
-      <Box>
-        <Typography variant="h5" component="h2" fontWeight={600} textTransform="uppercase">
-          {t('pageTitle')}
-        </Typography>
+    <Box>
+      <Typography variant="h5" component="h2" fontWeight={600} textTransform="uppercase">
+        {t('pageTitle')}
+      </Typography>
 
-        <Paper
-          sx={{
-            ...themeMixins.paperBorder(),
-            my: 2,
-            p: 2,
-            pt: { xs: 0, sm: 2 },
-          }}
-        >
-          <Settings
-            onProfileChange={handleUpdateProfile}
-            onPasswordChange={handleChangePassword}
-            onForgotPassword={handleForgotPassword}
-          />
-        </Paper>
-      </Box>
-    </EmptyLayout>
+      <Paper
+        sx={{
+          ...themeMixins.paperBorder(),
+          my: 2,
+          p: 2,
+          pt: { xs: 0, sm: 2 },
+        }}
+      >
+        <Settings
+          onProfileChange={handleUpdateProfile}
+          onPasswordChange={handleChangePassword}
+          onForgotPassword={handleForgotPassword}
+        />
+      </Paper>
+    </Box>
   );
 }

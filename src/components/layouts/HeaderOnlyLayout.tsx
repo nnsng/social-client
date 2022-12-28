@@ -2,13 +2,13 @@ import { Box, Container } from '@mui/material';
 import { Header } from '~/components/common';
 import { LayoutProps } from '~/models';
 
-export function HeaderOnlyLayout({ children }: LayoutProps) {
+export function HeaderOnlyLayout({ children, maxWidth }: LayoutProps) {
   return (
     <Box>
       <Header />
 
       <Box component="main">
-        <Container>{children}</Container>
+        <Container maxWidth={maxWidth}>{children}</Container>
       </Box>
     </Box>
   );

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { userApi } from '~/api';
 import { useAppDispatch } from '~/app/hooks';
@@ -51,6 +51,23 @@ function App() {
       <SocketClient />
 
       <Routes>
+        {publicRoutes.map((route, idx) => {
+          const Layout = route.layout ?? EmptyLayout;
+          const Component = route.component;
+
+          return (
+            <Route
+              key={idx}
+              path={route.path}
+              element={
+                <Layout {...route.layoutProps}>
+                  <Component />
+                </Layout>
+              }
+            />
+          );
+        })}
+
         {privateRoutes.map((route, idx) => {
           const Layout = route.layout ?? EmptyLayout;
           const Component = route.component;
@@ -61,26 +78,10 @@ function App() {
               path={route.path}
               element={
                 <PrivateRoute>
-                  <Layout>
+                  <Layout {...route.layoutProps}>
                     <Component />
                   </Layout>
                 </PrivateRoute>
-              }
-            />
-          );
-        })}
-
-        {publicRoutes.map((route, idx) => {
-          const Component = route.component;
-
-          return (
-            <Route
-              key={idx}
-              path={route.path}
-              element={
-                <EmptyLayout>
-                  <Component />
-                </EmptyLayout>
               }
             />
           );

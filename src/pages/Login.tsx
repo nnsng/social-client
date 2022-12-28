@@ -9,10 +9,9 @@ import * as yup from 'yup';
 import { authApi } from '~/api';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
 import { AuthForm } from '~/components/auth';
-import { AuthLayout } from '~/components/layouts';
-import { selectAuthSubmitting, userActions } from '~/redux/slices/userSlice';
 import { useLoginWithGoogle, usePageTitle } from '~/hooks';
 import { FormField, LoginFormValues } from '~/models';
+import { selectAuthSubmitting, userActions } from '~/redux/slices/userSlice';
 import { validateEmail } from '~/utils/common';
 import { showErrorToastFromServer } from '~/utils/toast';
 import { translateFiles } from '~/utils/translation';
@@ -85,49 +84,47 @@ export function LoginPage() {
   ];
 
   return (
-    <AuthLayout>
-      <Box>
-        <AuthForm
-          name="login"
-          control={control}
-          fieldList={fieldList}
-          onSubmit={handleSubmit(submitForm)}
-          submitting={submitting}
-          onGoogleLogin={googleLogin}
-        />
+    <Box>
+      <AuthForm
+        name="login"
+        control={control}
+        fieldList={fieldList}
+        onSubmit={handleSubmit(submitForm)}
+        submitting={submitting}
+        onGoogleLogin={googleLogin}
+      />
 
-        <Box textAlign="center" mt={2} mb={1}>
-          <Typography variant="body2" component="span" sx={{ cursor: 'default' }}>
-            {t('text')}{' '}
-          </Typography>
+      <Box textAlign="center" mt={2} mb={1}>
+        <Typography variant="body2" component="span" sx={{ cursor: 'default' }}>
+          {t('text')}{' '}
+        </Typography>
 
-          <Typography
-            component={Link}
-            to="/register"
-            variant="body2"
-            color="primary"
-            fontWeight={500}
-          >
-            {t('register')}
-          </Typography>
-        </Box>
-
-        <Stack direction="column" alignItems="center" justifyContent="center">
-          <Button
-            variant="text"
-            disabled={forgotLoading}
-            onClick={handleForgotPassword}
-            sx={{
-              p: 0,
-              bgcolor: 'transparent !important',
-            }}
-          >
-            {t('forgotPassword')}
-          </Button>
-
-          {forgotLoading && <CircularProgress size={20} sx={{ mt: 1 }} />}
-        </Stack>
+        <Typography
+          component={Link}
+          to="/register"
+          variant="body2"
+          color="primary"
+          fontWeight={500}
+        >
+          {t('register')}
+        </Typography>
       </Box>
-    </AuthLayout>
+
+      <Stack direction="column" alignItems="center" justifyContent="center">
+        <Button
+          variant="text"
+          disabled={forgotLoading}
+          onClick={handleForgotPassword}
+          sx={{
+            p: 0,
+            bgcolor: 'transparent !important',
+          }}
+        >
+          {t('forgotPassword')}
+        </Button>
+
+        {forgotLoading && <CircularProgress size={20} sx={{ mt: 1 }} />}
+      </Stack>
+    </Box>
   );
 }

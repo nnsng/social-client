@@ -77,7 +77,7 @@ export function AuthForm(props: AuthFormProps) {
           type="submit"
           variant="contained"
           disabled={submitting}
-          startIcon={submitting && <CircularProgress />}
+          startIcon={submitting && <CircularProgress size={20} />}
           sx={{ fontSize: 16 }}
         >
           {t('form.button.submit')}

@@ -1,17 +1,15 @@
-import { Box, Container } from '@mui/material';
-import queryString from 'query-string';
+import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { postApi, userApi } from '~/api';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
 import { UserInfo } from '~/components/common';
-import { EmptyLayout } from '~/components/layouts';
 import { PostList } from '~/components/post';
 import { UserInfoSkeleton } from '~/components/skeletons';
 import { APP_NAME } from '~/constants';
-import { postActions, selectPostList, selectPostLoading } from '~/redux/slices/postSlice';
 import { usePageTitle } from '~/hooks';
 import { ListParams, Post, User } from '~/models';
+import { postActions, selectPostList, selectPostLoading } from '~/redux/slices/postSlice';
 import { showErrorToastFromServer } from '~/utils/toast';
 
 export function ProfilePage() {
@@ -67,28 +65,23 @@ export function ProfilePage() {
     setUserInfo(user);
   };
 
-  const renderUserInfo = () => {
-    if (loading || !userInfo) return <UserInfoSkeleton />;
-    return <UserInfo userInfo={userInfo} updateUser={updateUser} />;
-  };
-
   return (
-    <EmptyLayout>
-      <Box component="main">
-        <Container maxWidth="md">
-          {renderUserInfo()}
+    <Box>
+      {loading || !userInfo ? (
+        <UserInfoSkeleton />
+      ) : (
+        <UserInfo userInfo={userInfo} updateUser={updateUser} />
+      )}
 
-          {userInfo && (
-            <PostList
-              postList={postList}
-              page={page}
-              onFilterChange={handlePageChange}
-              onSave={handleSavePost}
-              onDelete={handleDeletePost}
-            />
-          )}
-        </Container>
-      </Box>
-    </EmptyLayout>
+      {userInfo && (
+        <PostList
+          postList={postList}
+          page={page}
+          onFilterChange={handlePageChange}
+          onSave={handleSavePost}
+          onDelete={handleDeletePost}
+        />
+      )}
+    </Box>
   );
 }

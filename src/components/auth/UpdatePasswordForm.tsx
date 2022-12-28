@@ -1,24 +1,20 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Container, Typography } from '@mui/material';
+import queryString from 'query-string';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
 import { authApi } from '~/api';
 import { CommonForm } from '~/components/common';
 import { usePageTitle } from '~/hooks';
 import { ChangePasswordFormValues, FormField } from '~/models';
-import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import { themeMixins } from '~/utils/theme';
-import { translateFiles } from '~/utils/translation';
-import * as yup from 'yup';
 
-export interface UpdatePasswordFormProps {
-  token: string;
-}
-
-export function UpdatePasswordForm({ token }: UpdatePasswordFormProps) {
-  if (!token) return null;
-
+export function UpdatePasswordForm() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const token = queryString.parse(location.search)?.token as string;
 
   const { t } = useTranslation('updatePasswordForm');
   const { t: tValidate } = useTranslation('validate');

@@ -1,4 +1,7 @@
-import { HeaderOnlyLayout, MainLayout } from './components/layouts';
+import { ActiveAccount, UpdatePasswordForm } from './components/auth';
+import { NotFound } from './components/common';
+import { AuthLayout, HeaderOnlyLayout, MainLayout } from './components/layouts';
+import { RouteItem } from './models';
 import {
   CreateEditPage,
   HomePage,
@@ -10,7 +13,28 @@ import {
   SettingsPage,
 } from './pages';
 
-export const privateRoutes = [
+export const publicRoutes: RouteItem[] = [
+  {
+    path: '/login',
+    component: LoginPage,
+    layout: AuthLayout,
+  },
+  {
+    path: '/register',
+    component: RegisterPage,
+    layout: AuthLayout,
+  },
+  {
+    path: '/active',
+    component: ActiveAccount,
+  },
+  {
+    path: '/password',
+    component: UpdatePasswordForm,
+  },
+];
+
+export const privateRoutes: RouteItem[] = [
   {
     path: '/',
     component: HomePage,
@@ -40,29 +64,21 @@ export const privateRoutes = [
     path: '/profile/:username',
     component: ProfilePage,
     layout: HeaderOnlyLayout,
+    layoutProps: {
+      maxWidth: 'md',
+    },
   },
   {
     path: '/settings',
     component: SettingsPage,
     layout: HeaderOnlyLayout,
-  },
-];
-
-export const publicRoutes = [
-  {
-    path: '/login',
-    component: LoginPage,
+    layoutProps: {
+      maxWidth: 'md',
+    },
   },
   {
-    path: '/register',
-    component: RegisterPage,
-  },
-  {
-    path: '/active',
-    component: RegisterPage,
-  },
-  {
-    path: '/password',
-    component: RegisterPage,
+    path: '*',
+    component: NotFound,
+    layout: HeaderOnlyLayout,
   },
 ];

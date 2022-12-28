@@ -2,13 +2,13 @@ import { Box, Container, Grid } from '@mui/material';
 import { Header, Sidebar } from '~/components/common';
 import { LayoutProps } from '~/models';
 
-export function MainLayout({ children }: LayoutProps) {
+export function MainLayout({ children, maxWidth }: LayoutProps) {
   return (
     <Box>
       <Header />
 
       <Box component="main">
-        <Container>
+        <Container maxWidth={maxWidth}>
           <Grid container spacing={8}>
             <Grid item xs={0} md={3}>
               <Sidebar />

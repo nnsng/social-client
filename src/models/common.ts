@@ -1,15 +1,17 @@
-import { Breakpoint, GridProps } from '@mui/material';
+import { Breakpoint } from '@mui/material';
 import { ReactElement, ReactNode } from 'react';
 import { PostByTypes } from './types';
 
 export interface LayoutProps {
   children: ReactNode;
+  maxWidth?: false | Breakpoint;
 }
 
 export interface RouteItem {
   path: string;
-  element: ReactElement;
-  private?: boolean;
+  component: () => ReactElement;
+  layout?: (props: LayoutProps) => ReactElement;
+  layoutProps?: Partial<LayoutProps>;
 }
 
 export interface PaginationParams {

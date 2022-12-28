@@ -6,7 +6,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
 import { AuthForm } from '~/components/auth';
-import { AuthLayout } from '~/components/layouts';
 import { usePageTitle } from '~/hooks';
 import { FormField, RegisterFormValues } from '~/models';
 import { selectAuthSubmitting, userActions } from '~/redux/slices/userSlice';
@@ -63,26 +62,24 @@ export function RegisterPage() {
   ];
 
   return (
-    <AuthLayout>
-      <Box>
-        <AuthForm
-          name="register"
-          control={control}
-          fieldList={fieldList}
-          onSubmit={handleSubmit(submitForm)}
-          submitting={submitting}
-        />
+    <Box>
+      <AuthForm
+        name="register"
+        control={control}
+        fieldList={fieldList}
+        onSubmit={handleSubmit(submitForm)}
+        submitting={submitting}
+      />
 
-        <Box textAlign="center" mt={2} mb={1}>
-          <Typography variant="body2" component="span" sx={{ cursor: 'default' }}>
-            {t('text')}{' '}
-          </Typography>
+      <Box textAlign="center" mt={2} mb={1}>
+        <Typography variant="body2" component="span" sx={{ cursor: 'default' }}>
+          {t('text')}{' '}
+        </Typography>
 
-          <Typography component={Link} to="/login" variant="body2" color="primary" fontWeight={500}>
-            {t('login')}
-          </Typography>
-        </Box>
+        <Typography component={Link} to="/login" variant="body2" color="primary" fontWeight={500}>
+          {t('login')}
+        </Typography>
       </Box>
-    </AuthLayout>
+    </Box>
   );
 }
