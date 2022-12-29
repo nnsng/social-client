@@ -12,7 +12,7 @@ import {
   UserConfigKey,
 } from '~/models';
 
-export interface UserState {
+interface UserState {
   submitting: boolean;
   currentUser: User | null;
   config: UserConfig;

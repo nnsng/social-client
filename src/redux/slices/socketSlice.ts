@@ -2,7 +2,7 @@ import { RootState } from '~/app/store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Socket } from 'socket.io-client';
 
-export interface SocketState {
+interface SocketState {
   socket: Socket | null;
 }
 

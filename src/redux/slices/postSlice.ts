@@ -10,7 +10,7 @@ import {
   User,
 } from '~/models';
 
-export interface PostState {
+interface PostState {
   loading: boolean;
   list: Post[];
   saved: Post[];

@@ -1,43 +1,22 @@
-import { MenuOutlined } from '@mui/icons-material';
-import { Box, Drawer, IconButton, Stack } from '@mui/material';
-import { ReactNode, useState } from 'react';
+import { Drawer, Stack } from '@mui/material';
+import { ReactNode } from 'react';
 import { useCustomMediaQuery } from '~/hooks';
 import { themeVariables } from '~/utils/theme';
 
 interface SidebarWrapperProps {
   children: ReactNode;
+  open: boolean;
+  onClose?: () => void;
 }
 
 const SIDEBAR_TOP = themeVariables.headerHeight + 16;
 
-export function SidebarWrapper({ children }: SidebarWrapperProps) {
-  const [open, setOpen] = useState(false);
+export function SidebarWrapper({ children, open, onClose }: SidebarWrapperProps) {
+  const mdDown = useCustomMediaQuery('down', 'md');
 
-  const mdUp = useCustomMediaQuery('up', 'md');
-
-  if (mdUp) {
+  if (mdDown) {
     return (
-      <Stack
-        component="aside"
-        direction="column"
-        sx={{
-          position: 'sticky',
-          top: SIDEBAR_TOP,
-          height: `calc(100vh - ${SIDEBAR_TOP}px)`,
-        }}
-      >
-        {children}
-      </Stack>
-    );
-  }
-
-  return (
-    <Box>
-      <IconButton onClick={() => setOpen((x) => !x)}>
-        <MenuOutlined />
-      </IconButton>
-
-      <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
+      <Drawer anchor="left" open={open} onClose={onClose}>
         <Stack
           direction="column"
           sx={{
@@ -50,6 +29,20 @@ export function SidebarWrapper({ children }: SidebarWrapperProps) {
           {children}
         </Stack>
       </Drawer>
-    </Box>
+    );
+  }
+
+  return (
+    <Stack
+      component="aside"
+      direction="column"
+      sx={{
+        position: 'sticky',
+        top: SIDEBAR_TOP,
+        height: `calc(100vh - ${SIDEBAR_TOP}px)`,
+      }}
+    >
+      {children}
+    </Stack>
   );
 }

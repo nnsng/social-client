@@ -3,7 +3,7 @@ import { useAppSelector } from '~/app/hooks';
 import { useCustomMediaQuery } from '~/hooks';
 import { selectPostLoading } from '~/redux/slices/postSlice';
 import { themeMixins, themeVariables } from '~/utils/theme';
-import { Brand, SearchBox, Sidebar, UserActions } from '.';
+import { Brand, SearchBox, SidebarMobileButton, UserActions } from '.';
 
 export function Header() {
   const loading = useAppSelector(selectPostLoading);
@@ -11,7 +11,7 @@ export function Header() {
   const mdUp = useCustomMediaQuery('up', 'md');
 
   const headerElements = {
-    mobile: [Sidebar, Brand, UserActions],
+    mobile: [SidebarMobileButton, Brand, UserActions],
     desktop: [Brand, SearchBox, UserActions],
   };
 
