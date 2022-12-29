@@ -1,15 +1,11 @@
-import { Drawer, MenuItem, MenuList, SxProps, Theme } from '@mui/material';
-import { ReactNode } from 'react';
+import { Drawer, MenuItem, MenuList, PopperProps } from '@mui/material';
 import { useCustomMediaQuery } from '~/hooks';
-import { AnchorEl, MenuOption } from '~/models';
-import { PopperPopup } from '.';
+import { MenuOption } from '~/models';
+import { PopperWrapper } from '.';
 
-export interface ActionMenuProps {
+export interface ActionMenuProps extends PopperProps {
   menu: MenuOption[];
-  open: boolean;
-  anchorEl: AnchorEl;
   onClose?: () => void;
-  sx?: SxProps<Theme>;
 }
 
 export function ActionMenu(props: ActionMenuProps) {
@@ -42,20 +38,18 @@ export function ActionMenu(props: ActionMenuProps) {
   );
 }
 
-interface ActionMenuWrapperProps extends Partial<ActionMenuProps> {
-  children: ReactNode;
-}
+interface ActionMenuWrapperProps extends Partial<ActionMenuProps> {}
 
 function ActionMenuWrapper(props: ActionMenuWrapperProps) {
-  const { open = false, anchorEl, onClose, sx, children } = props;
+  const { open = false, onClose, children, ...rest } = props;
 
   const smUp = useCustomMediaQuery('up', 'sm');
 
   if (smUp) {
     return (
-      <PopperPopup open={open} anchorEl={anchorEl} sx={sx} onClose={onClose}>
+      <PopperWrapper open={open} onClose={onClose} {...rest}>
         <MenuList disablePadding>{children}</MenuList>
-      </PopperPopup>
+      </PopperWrapper>
     );
   }
 

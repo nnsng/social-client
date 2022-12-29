@@ -1,5 +1,5 @@
 export * from './CreateEditPost';
-export * from './HomePage';
+export * from './Home';
 export * from './Login';
 export * from './NotFound';
 export * from './PostDetail';

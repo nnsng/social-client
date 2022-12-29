@@ -13,7 +13,6 @@ import {
 interface PostState {
   loading: boolean;
   list: Post[];
-  saved: Post[];
   pagination: PaginationParams | null;
   detail: Post | null;
 
@@ -24,7 +23,6 @@ interface PostState {
 const initialState: PostState = {
   loading: false,
   list: [],
-  saved: [],
   pagination: null,
   detail: null,
 
@@ -51,11 +49,11 @@ const postSlice = createSlice({
 
     fetchSavedList(state, action: PayloadAction<ListParams>) {
       state.loading = true;
-      state.saved = [];
+      state.list = [];
     },
     fetchSavedListSuccess(state, action: PayloadAction<ListResponse<Post>>) {
       state.loading = false;
-      state.saved = action.payload.data;
+      state.list = action.payload.data;
       state.pagination = action.payload.pagination;
     },
     fetchSavedFailure(state) {
@@ -101,7 +99,6 @@ export const postActions = postSlice.actions;
 
 export const selectPostLoading = (state: RootState) => state.post.loading;
 export const selectPostList = (state: RootState) => state.post.list;
-export const selectSavedList = (state: RootState) => state.post.saved;
 export const selectPostDetail = (state: RootState) => state.post.detail;
 export const selectPostPagination = (state: RootState) => state.post.pagination;
 

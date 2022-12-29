@@ -11,7 +11,7 @@ import registerPage from './pages/registerPage.json';
 import header from './components/header.json';
 import authForm from './components/authForm.json';
 import createEditForm from './components/createEditForm.json';
-import postList from './components/postList.json';
+import postFilter from './components/postFilter.json';
 import postMenu from './components/postMenu.json';
 import topHashtags from './components/topHashtags.json';
 import postComment from './components/postComment.json';
@@ -46,7 +46,7 @@ export default {
   header,
   authForm,
   createEditForm,
-  postList,
+  postFilter,
   postMenu,
   topHashtags,
   postComment,

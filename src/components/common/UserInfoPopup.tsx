@@ -2,10 +2,10 @@ import { Avatar, Box, Stack, Typography } from '@mui/material';
 import { useCustomMediaQuery } from '~/hooks';
 import { User } from '~/models';
 import { useState } from 'react';
-import { PopperPopup, PopperPopupProps } from './PopperPopup';
+import { PopperWrapper, PopperWrapperProps } from './PopperWrapper';
 import { UserInfoButtonGroup } from './UserInfoButtonGroup';
 
-export interface UserInfoPopupProps extends PopperPopupProps {
+export interface UserInfoPopupProps extends PopperWrapperProps {
   user: Partial<User>;
 }
 
@@ -17,7 +17,7 @@ export function UserInfoPopup(props: UserInfoPopupProps) {
   const mdUp = useCustomMediaQuery('up', 'md');
 
   return (
-    <PopperPopup
+    <PopperWrapper
       open={(open || isOpen) && mdUp}
       anchorEl={anchorEl}
       placement="bottom-start"
@@ -59,6 +59,6 @@ export function UserInfoPopup(props: UserInfoPopupProps) {
 
         <UserInfoButtonGroup user={user} />
       </Box>
-    </PopperPopup>
+    </PopperWrapper>
   );
 }

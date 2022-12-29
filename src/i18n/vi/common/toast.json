@@ -26,7 +26,7 @@
       "create": "Đăng bài thất bại",
       "update": "Cập nhật bài viết thất bại",
       "notFound": "Không tìm thấy bài viết",
-      "save": "Bài viết đã được lưu",
+      "saved": "Bài viết đã được lưu",
       "notSave": "Bài viết chưa được lưu",
       "notAllowedToEdit": "Bạn không được phép chỉnh sửa bài viết này",
       "notAllowedToDelete": "Bạn không được phép xóa bài viết này"

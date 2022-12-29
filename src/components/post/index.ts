@@ -5,7 +5,7 @@ export * from './PostCard';
 export * from './PostCardHeader';
 export * from './PostComment';
 export * from './PostDetail';
-export * from './PostItem';
+export * from './PostFilter';
 export * from './PostList';
 export * from './PostReaction';
 export * from './TopHashtags';

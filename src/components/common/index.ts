@@ -7,7 +7,7 @@ export * from './CustomScrollbar';
 export * from './CustomThemeProvider';
 export * from './HashtagInput';
 export * from './NoPost';
-export * from './PopperPopup';
+export * from './PopperWrapper';
 export * from './PrivateRoute';
 export * from './ThemeSwitch';
 export * from './UserInfo';

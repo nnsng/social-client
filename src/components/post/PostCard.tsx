@@ -1,4 +1,5 @@
 import {
+  BookmarkRemoveRounded,
   BookmarkRounded,
   BorderColorRounded,
   DeleteRounded,
@@ -10,17 +11,15 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import remarkGfm from 'remark-gfm';
 import { useAppSelector } from '~/app/hooks';
 import { ConfirmDialog } from '~/components/common';
 import { ROLE } from '~/constants';
-import { selectCurrentUser } from '~/redux/slices/userSlice';
 import { MenuOption, Post } from '~/models';
+import { selectCurrentUser } from '~/redux/slices/userSlice';
 import { copyPostLink } from '~/utils/common';
 import { themeMixins } from '~/utils/theme';
-import { showComingSoonToast, showErrorToastFromServer } from '~/utils/toast';
-import { translateFiles } from '~/utils/translation';
+import { showComingSoonToast, showErrorToastFromServer, showToast } from '~/utils/toast';
 import { PostCardHeader } from './PostCardHeader';
 
 const allowedElements = [
@@ -45,17 +44,18 @@ const allowedElements = [
 export interface PostCardProps {
   post: Post;
   onSave?: (post: Post) => void;
+  onUnsave?: (post: Post) => void;
   onDelete?: (post: Post) => void;
-  showPopup?: boolean;
+  mode?: 'default' | 'saved';
 }
 
 export function PostCard(props: PostCardProps) {
-  const { post, onSave, onDelete, showPopup = true } = props;
+  const { post, onSave, onUnsave, onDelete, mode = 'default' } = props;
+  const isSaved = mode === 'saved';
 
   const navigate = useNavigate();
 
   const { t } = useTranslation('postMenu');
-  const { toast: toastTranslation } = translateFiles('toast');
 
   const currentUser = useAppSelector(selectCurrentUser);
 
@@ -77,18 +77,18 @@ export function PostCard(props: PostCardProps) {
   const handleSavePost = async () => {
     try {
       await onSave?.(post);
-      toast.success(toastTranslation.postCard.saveSuccess);
+      showToast('post.save');
     } catch (error) {
       showErrorToastFromServer(error);
     }
   };
 
-  const handleRemovePost = async () => {
+  const handleDeletePost = async () => {
     setLoading(true);
 
     try {
       await onDelete?.(post);
-      toast.success(toastTranslation.postCard.deleteSuccess);
+      showToast('post.delete');
     } catch (error) {
       showErrorToastFromServer(error);
     }
@@ -97,41 +97,66 @@ export function PostCard(props: PostCardProps) {
     closeDialog();
   };
 
+  const handleUnsavePost = async () => {
+    setLoading(true);
+    try {
+      await onUnsave?.(post);
+      showToast('post.unsave');
+    } catch (error) {
+      showErrorToastFromServer(error);
+    }
+    setLoading(false);
+  };
+
   const isAuthor = post.authorId === currentUser?._id;
   const isAdmin = currentUser?.role === ROLE.ADMIN;
 
-  const actionMenu: MenuOption[] = [
-    {
-      label: t('save'),
-      icon: BookmarkRounded,
-      onClick: handleSavePost,
-      show: true,
-    },
-    {
-      label: t('edit'),
-      icon: BorderColorRounded,
-      onClick: () => navigate?.(`/edit/${post._id}`),
-      show: isAuthor,
-    },
-    {
-      label: t('delete'),
-      icon: DeleteRounded,
-      onClick: () => setOpenDialog(true),
-      show: isAuthor || isAdmin,
-    },
-    {
-      label: t('copyLink'),
-      icon: LinkRounded,
-      onClick: () => copyPostLink(post),
-      show: true,
-    },
-    {
-      label: t('report'),
-      icon: FlagRounded,
-      onClick: showComingSoonToast,
-      show: !isAuthor,
-    },
-  ];
+  const actionMenus = {
+    default: [
+      {
+        label: t('save'),
+        icon: BookmarkRounded,
+        onClick: handleSavePost,
+        show: true,
+      },
+      {
+        label: t('edit'),
+        icon: BorderColorRounded,
+        onClick: () => navigate?.(`/edit/${post._id}`),
+        show: isAuthor,
+      },
+      {
+        label: t('delete'),
+        icon: DeleteRounded,
+        onClick: () => setOpenDialog(true),
+        show: isAuthor || isAdmin,
+      },
+      {
+        label: t('copyLink'),
+        icon: LinkRounded,
+        onClick: () => copyPostLink(post),
+        show: true,
+      },
+      {
+        label: t('report'),
+        icon: FlagRounded,
+        onClick: showComingSoonToast,
+        show: !isAuthor,
+      },
+    ],
+    saved: [
+      {
+        label: t('unsave'),
+        icon: BookmarkRemoveRounded,
+        onClick: () => setOpenDialog(true),
+      },
+      {
+        label: t('copyLink'),
+        icon: LinkRounded,
+        onClick: () => copyPostLink(post),
+      },
+    ],
+  };
 
   return (
     <Card
@@ -144,8 +169,7 @@ export function PostCard(props: PostCardProps) {
     >
       <PostCardHeader
         post={post}
-        actionMenu={actionMenu}
-        showPopup={showPopup}
+        actionMenu={actionMenus[mode]}
         sx={{
           mb: 1,
           '& .icon-button': {
@@ -220,10 +244,10 @@ export function PostCard(props: PostCardProps) {
       </CardContent>
 
       <ConfirmDialog
-        type="post.delete"
+        type={isSaved ? 'post.unsave' : 'post.delete'}
         open={openDialog}
         onClose={closeDialog}
-        onConfirm={handleRemovePost}
+        onConfirm={isSaved ? handleUnsavePost : handleDeletePost}
         loading={loading}
       />
     </Card>

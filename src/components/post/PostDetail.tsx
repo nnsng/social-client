@@ -6,19 +6,17 @@ import {
   LinkRounded,
 } from '@mui/icons-material';
 import { Box, Card, CardContent, Typography } from '@mui/material';
-import { useAppSelector } from '~/app/hooks';
-import { ConfirmDialog } from '~/components/common';
-import { ROLE } from '~/constants';
-import { selectCurrentUser } from '~/redux/slices/userSlice';
-import { MenuOption, Post } from '~/models';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { useAppSelector } from '~/app/hooks';
+import { ConfirmDialog } from '~/components/common';
+import { ROLE } from '~/constants';
+import { MenuOption, Post } from '~/models';
+import { selectCurrentUser } from '~/redux/slices/userSlice';
 import { copyPostLink } from '~/utils/common';
 import { themeMixins } from '~/utils/theme';
-import { showComingSoonToast, showErrorToastFromServer } from '~/utils/toast';
-import { translateFiles } from '~/utils/translation';
+import { showComingSoonToast, showErrorToastFromServer, showToast } from '~/utils/toast';
 import { MdEditor, PostCardHeader } from '.';
 
 export interface PostDetailProps {
@@ -34,7 +32,6 @@ export function PostDetail(props: PostDetailProps) {
   const navigate = useNavigate();
 
   const { t } = useTranslation('postMenu');
-  const { toast: toastTranslation } = translateFiles('toast');
 
   const currentUser = useAppSelector(selectCurrentUser);
 
@@ -46,7 +43,7 @@ export function PostDetail(props: PostDetailProps) {
   const handleSavePost = async () => {
     try {
       await onSave?.(post);
-      toast.success(toastTranslation.postDetail.saveSuccess);
+      showToast('post.save');
     } catch (error) {
       showErrorToastFromServer(error);
     }
@@ -57,7 +54,7 @@ export function PostDetail(props: PostDetailProps) {
 
     try {
       await onDelete?.(post);
-      toast.success(toastTranslation.postDetail.deleteSuccess);
+      showToast('post.delete');
       navigate('/');
     } catch (error) {
       showErrorToastFromServer(error);

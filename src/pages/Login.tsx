@@ -13,15 +13,13 @@ import { useLoginWithGoogle, usePageTitle } from '~/hooks';
 import { FormField, LoginFormValues } from '~/models';
 import { selectAuthSubmitting, userActions } from '~/redux/slices/userSlice';
 import { validateEmail } from '~/utils/common';
-import { showErrorToastFromServer } from '~/utils/toast';
-import { translateFiles } from '~/utils/translation';
+import { showErrorToastFromServer, showToast } from '~/utils/toast';
 
 export function LoginPage() {
   const navigate = useNavigate();
 
   const { t } = useTranslation('loginPage');
   const { t: tValidate } = useTranslation('validate');
-  const { toast: toastTranslation } = translateFiles('toast');
 
   const dispatch = useAppDispatch();
   const submitting = useAppSelector(selectAuthSubmitting);
@@ -70,7 +68,7 @@ export function LoginPage() {
       setForgotLoading(true);
 
       await authApi.forgotPassword(email);
-      toast.info(toastTranslation.changePasswordForm.info);
+      showToast('checkEmail', 'info');
     } catch (error) {
       showErrorToastFromServer(error);
     }

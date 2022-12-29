@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { postApi } from '~/api';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
-import { PostList, TopHashtags } from '~/components/post';
+import { PostFilter, PostList, TopHashtags } from '~/components/post';
 import { APP_NAME } from '~/constants';
 import { postActions, selectPostList } from '~/redux/slices/postSlice';
 import { usePageTitle } from '~/hooks';
@@ -87,11 +87,12 @@ export function HomePage() {
       flexDirection={{ xs: 'column-reverse', lg: 'row' }}
     >
       <Grid item xs width="100%">
+        <PostFilter filter={filter} onChange={handleFilterChange} />
+
         <PostList
           postList={postList}
           page={Number(filter.page) || 1}
-          filter={filter}
-          onFilterChange={handleFilterChange}
+          onPageChange={(page) => handleFilterChange({ page })}
           onSave={handleSavePost}
           onDelete={handleDeletePost}
         />

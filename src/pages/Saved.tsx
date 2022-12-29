@@ -1,27 +1,18 @@
-import { Grid, List, Pagination, Stack, Typography } from '@mui/material';
+import { Grid, List, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { postApi } from '~/api';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
-import { NoPost } from '~/components/common';
-import { PostItem } from '~/components/post';
-import { PostItemSkeleton } from '~/components/skeletons';
+import { PostList } from '~/components/post';
 import { usePageTitle } from '~/hooks';
 import { Post } from '~/models';
-import {
-  postActions,
-  selectPostLoading,
-  selectSavedList,
-  selectTotalPages,
-} from '~/redux/slices/postSlice';
+import { postActions, selectPostList } from '~/redux/slices/postSlice';
 
 export function SavedPage() {
   const { t } = useTranslation('savedPage');
 
   const dispatch = useAppDispatch();
-  const savedList = useAppSelector(selectSavedList);
-  const loading = useAppSelector(selectPostLoading);
-  const totalPage = useAppSelector(selectTotalPages);
+  const postList = useAppSelector(selectPostList);
 
   const [page, setPage] = useState(1);
 
@@ -40,10 +31,6 @@ export function SavedPage() {
     dispatch(postActions.fetchSavedList({ page }));
   };
 
-  const handlePageChange = (event: any, page: number) => {
-    setPage(page);
-  };
-
   return (
     <Grid container>
       <Grid item xs={12} lg={8}>
@@ -52,32 +39,13 @@ export function SavedPage() {
         </Typography>
 
         <List disablePadding>
-          {loading ? (
-            <PostItemSkeleton />
-          ) : (
-            <>
-              {savedList.length > 0 ? (
-                savedList.map((post) => (
-                  <PostItem key={post._id} post={post} onUnsave={handleUnsavePost} />
-                ))
-              ) : (
-                <NoPost />
-              )}
-
-              {totalPage > 1 && !loading && (
-                <Stack mb={2}>
-                  <Pagination
-                    shape="rounded"
-                    color="primary"
-                    count={totalPage}
-                    page={page}
-                    onChange={handlePageChange}
-                    sx={{ m: 'auto' }}
-                  />
-                </Stack>
-              )}
-            </>
-          )}
+          <PostList
+            postList={postList}
+            page={page}
+            onPageChange={setPage}
+            onUnsave={handleUnsavePost}
+            mode="saved"
+          />
         </List>
       </Grid>
     </Grid>

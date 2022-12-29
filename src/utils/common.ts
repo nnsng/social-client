@@ -1,12 +1,10 @@
-import { otherApi } from '~/api';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import i18next from 'i18next';
-import { Post } from '~/models';
-import { toast } from 'react-toastify';
 import slugify from 'slugify';
-import { showErrorToastFromServer } from './toast';
-import { translateFiles } from './translation';
+import { otherApi } from '~/api';
+import { Post } from '~/models';
+import { showErrorToastFromServer, showToast } from './toast';
 
 import 'dayjs/locale/vi';
 
@@ -38,9 +36,8 @@ export const getImageUrlFromCDN = async (image: File) => {
 };
 
 export const copyPostLink = (post: Post) => {
-  const { toast: toastTranslation } = translateFiles('toast');
   navigator.clipboard.writeText(`${window.location.origin}/post/${post.slug}`);
-  toast.success(toastTranslation.copyLinkSuccess);
+  showToast('common.copy');
 };
 
 export const formatHashtag = (hashtag: string) => {

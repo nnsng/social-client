@@ -6,12 +6,10 @@ import queryString from 'query-string';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { authApi } from '~/api';
 import { usePageTitle } from '~/hooks';
 import { themeMixins } from '~/utils/theme';
-import { showErrorToastFromServer } from '~/utils/toast';
-import { translateFiles } from '~/utils/translation';
+import { showErrorToastFromServer, showToast } from '~/utils/toast';
 
 enum Status {
   PENDING = 'pending',
@@ -40,7 +38,6 @@ export function ActiveAccount() {
   const token = queryString.parse(location.search)?.token as string;
 
   const { t } = useTranslation('activeAccount');
-  const { toast: toastTranslation } = translateFiles('toast');
 
   const [status, setStatus] = useState<Status>(Status.PENDING);
   const [submitting, setSubmitting] = useState(false);
@@ -75,7 +72,7 @@ export function ActiveAccount() {
     try {
       const { _id }: { _id: string } = jwtDecode(token);
       await authApi.reactive(_id);
-      toast.info(toastTranslation.auth.activeAccount);
+      showToast('checkEmail', 'info');
     } catch (error) {
       showErrorToastFromServer(error);
     }

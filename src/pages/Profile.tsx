@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { postApi, userApi } from '~/api';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
 import { UserInfo } from '~/components/common';
@@ -8,13 +8,12 @@ import { PostList } from '~/components/post';
 import { UserInfoSkeleton } from '~/components/skeletons';
 import { APP_NAME } from '~/constants';
 import { usePageTitle } from '~/hooks';
-import { ListParams, Post, User } from '~/models';
+import { Post, User } from '~/models';
 import { postActions, selectPostList, selectPostLoading } from '~/redux/slices/postSlice';
 import { showErrorToastFromServer } from '~/utils/toast';
 
 export function ProfilePage() {
   const { username } = useParams();
-  const location = useLocation();
 
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
@@ -48,10 +47,6 @@ export function ProfilePage() {
     dispatch(postActions.fetchPostList({ page, username }));
   };
 
-  const handlePageChange = ({ page }: ListParams) => {
-    setPage(page ?? 1);
-  };
-
   const handleSavePost = async (post: Post) => {
     await postApi.save(post._id || '');
   };
@@ -77,7 +72,7 @@ export function ProfilePage() {
         <PostList
           postList={postList}
           page={page}
-          onFilterChange={handlePageChange}
+          onPageChange={setPage}
           onSave={handleSavePost}
           onDelete={handleDeletePost}
         />

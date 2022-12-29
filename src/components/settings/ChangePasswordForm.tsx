@@ -1,14 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { CommonForm } from '~/components/common';
 import i18next from 'i18next';
-import { ChangePasswordFormValues, FormField } from '~/models';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import { showErrorToastFromServer } from '~/utils/toast';
-import { translateFiles } from '~/utils/translation';
 import * as yup from 'yup';
+import { CommonForm } from '~/components/common';
+import { ChangePasswordFormValues, FormField } from '~/models';
+import { showErrorToastFromServer, showToast } from '~/utils/toast';
 
 export interface ChangePasswordFormProps {
   defaultValues: ChangePasswordFormValues;
@@ -20,7 +18,6 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
   const { defaultValues, onSubmit, onForgotPassword } = props;
 
   const { t } = useTranslation('validate');
-  const { toast: toastTranslation } = translateFiles('toast');
 
   const schema = yup.object().shape({
     currentPassword: yup
@@ -56,7 +53,7 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
     try {
       await onSubmit?.(formValues);
       reset();
-      toast.success(toastTranslation.changePasswordForm.success);
+      showToast('auth.changePassword');
     } catch (error) {
       showErrorToastFromServer(error);
     }

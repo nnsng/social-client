@@ -1,8 +1,7 @@
 import { call, delay, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { authApi } from '~/api';
 import { NavigateFunction } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { authApi } from '~/api';
 import { ACCESS_TOKEN } from '~/constants';
 import {
   AuthPayload,
@@ -11,8 +10,7 @@ import {
   LoginFormValues,
   RegisterFormValues,
 } from '~/models';
-import { showErrorToastFromServer } from '~/utils/toast';
-import { translateFiles } from '~/utils/translation';
+import { showErrorToastFromServer, showToast } from '~/utils/toast';
 import { userActions } from '../slices/userSlice';
 
 function* handleLogin(action: PayloadAction<AuthPayload<LoginFormValues>>) {
@@ -35,13 +33,11 @@ function* handleRegister(action: PayloadAction<AuthPayload<RegisterFormValues>>)
   const { formValues, navigate } = action.payload;
   if (!formValues) return;
 
-  const { toast: toastTranslation } = translateFiles('toast');
-
   yield put(userActions.setSubmitting(true));
   try {
     yield call(authApi.register, formValues);
     navigate?.('/login', { replace: true });
-    toast.info(toastTranslation.auth.activeAccount);
+    showToast('checkEmail', 'info');
   } catch (error) {
     showErrorToastFromServer(error);
   }
