@@ -1,12 +1,12 @@
 import { AccountCircleRounded, LogoutOutlined, SettingsRounded } from '@mui/icons-material';
 import { Avatar, Box } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '~/app/hooks';
-import { selectCurrentUser, userActions } from '~/redux/slices/userSlice';
-import { MenuOption } from '~/models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { ActionMenu } from './ActionMenu';
+import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { ActionMenu } from '~/components/common';
+import { MenuOption } from '~/models';
+import { selectCurrentUser, userActions } from '~/redux/slices/userSlice';
 
 export function UserActions() {
   const navigate = useNavigate();

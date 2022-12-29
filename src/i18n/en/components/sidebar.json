@@ -1,10 +1,13 @@
 {
-  "home": "Home",
-  "messages": "Messages",
-  "notifications": "Notifications",
-  "create": "Create",
-  "saved": "Saved",
-  "appearance": "Theme & Languages",
-  "settings": "Settings",
-  "logout": "Log out"
+  "main": {
+    "home": "Home",
+    "messages": "Messages",
+    "notifications": "Notifications",
+    "create": "Create",
+    "saved": "Saved",
+    "appearance": "Theme & Languages",
+    "settings": "Settings",
+    "logout": "Log out"
+  },
+  "settings": {}
 }

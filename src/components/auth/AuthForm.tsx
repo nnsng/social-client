@@ -1,11 +1,11 @@
 import { Avatar, Box, CircularProgress, Stack, Typography } from '@mui/material';
-import { MuiTextField } from '~/components/formFields';
-import { GoogleIcon } from '~/components/icons';
-import { APP_NAME } from '~/constants';
-import { FormField, LoginFormValues, RegisterFormValues } from '~/models';
 import { FormEventHandler } from 'react';
 import { Control } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import images from '~/assets/images';
+import { MuiTextField } from '~/components/formFields';
+import { APP_NAME } from '~/constants';
+import { FormField, LoginFormValues, RegisterFormValues } from '~/models';
 import { AuthButton } from './AuthButton';
 
 type AuthFormValues = LoginFormValues | RegisterFormValues;
@@ -86,7 +86,7 @@ export function AuthForm(props: AuthFormProps) {
         {onGoogleLogin && (
           <AuthButton
             variant="outlined"
-            startIcon={<GoogleIcon width={24} />}
+            startIcon={<img src={images.google} width={24} />}
             onClick={onGoogleLogin}
           >
             {t('form.button.google')}

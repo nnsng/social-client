@@ -1,5 +1,5 @@
 import { Box, Stack } from '@mui/material';
-import background from '~/assets/images/background.png';
+import images from '~/assets/images';
 import { LayoutProps } from '~/models';
 import { themeMixins } from '~/utils/theme';
 
@@ -11,7 +11,7 @@ export function AuthLayout({ children }: LayoutProps) {
         justifyContent: 'center',
         position: 'relative',
         minHeight: '100vh',
-        backgroundImage: `url(${background})`,
+        backgroundImage: `url(${images.loginBackground})`,
         backgroundSize: 'cover',
         '&::before': {
           content: '""',

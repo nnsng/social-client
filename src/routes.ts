@@ -1,11 +1,11 @@
 import { ActiveAccount, UpdatePasswordForm } from './components/auth';
-import { NotFound } from './components/common';
 import { AuthLayout, HeaderOnlyLayout, MainLayout } from './components/layouts';
 import { RouteItem } from './models';
 import {
   CreateEditPage,
   HomePage,
   LoginPage,
+  NotFoundPage,
   PostDetailPage,
   ProfilePage,
   RegisterPage,
@@ -78,7 +78,7 @@ export const privateRoutes: RouteItem[] = [
   },
   {
     path: '*',
-    component: NotFound,
+    component: NotFoundPage,
     layout: HeaderOnlyLayout,
   },
 ];

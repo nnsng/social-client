@@ -1,6 +1,7 @@
 export * from './CreateEditPost';
 export * from './HomePage';
 export * from './Login';
+export * from './NotFound';
 export * from './PostDetail';
 export * from './Profile';
 export * from './Register';

@@ -1,5 +1,6 @@
 import { Breakpoint } from '@mui/material';
 import { ReactElement, ReactNode } from 'react';
+import { IconType } from './mui';
 import { PostByTypes } from './types';
 
 export interface LayoutProps {
@@ -54,4 +55,12 @@ export interface SearchResultItem {
   name: string;
   image: string;
   url: string;
+}
+
+export interface SidebarItem {
+  label: string;
+  icon: IconType;
+  activeIcon: IconType;
+  active?: boolean;
+  onClick?: () => void;
 }
