@@ -1,15 +1,17 @@
 import { useEffect } from 'react';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { userApi } from '~/api';
 import { useAppDispatch } from '~/app/hooks';
 import { CustomScrollbar, PrivateRoute } from '~/components/common';
-import { socketActions } from '~/features/socket/socketSlice';
+import { socketActions } from '~/redux/slices/socketSlice';
 import { env, variables } from '~/utils/env';
 import { showErrorToastFromServer } from '~/utils/toast';
+import { EmptyLayout } from './components/layouts';
+import { SocketClient } from './components/socket';
 import { ACCESS_TOKEN } from './constants';
-import { AuthFeature, BlogFeature, ProfilePage, SettingsFeature, SocketClient } from './features';
-import { userActions } from './features/auth/userSlice';
+import { userActions } from './redux/slices/userSlice';
+import { privateRoutes, publicRoutes } from './routes';
 
 function App() {
   const navigate = useNavigate();
@@ -49,36 +51,41 @@ function App() {
       <SocketClient />
 
       <Routes>
-        <Route path="/" element={<Navigate to="/blog" replace={true} />} />
+        {publicRoutes.map((route, idx) => {
+          const Layout = route.layout ?? EmptyLayout;
+          const Component = route.component;
 
-        <Route
-          path="/blog/*"
-          element={
-            <PrivateRoute>
-              <BlogFeature />
-            </PrivateRoute>
-          }
-        />
+          return (
+            <Route
+              key={idx}
+              path={route.path}
+              element={
+                <Layout {...route.layoutProps}>
+                  <Component />
+                </Layout>
+              }
+            />
+          );
+        })}
 
-        <Route
-          path="/settings/*"
-          element={
-            <PrivateRoute>
-              <SettingsFeature />
-            </PrivateRoute>
-          }
-        />
+        {privateRoutes.map((route, idx) => {
+          const Layout = route.layout ?? EmptyLayout;
+          const Component = route.component;
 
-        <Route
-          path="/profile"
-          element={
-            <PrivateRoute>
-              <ProfilePage />
-            </PrivateRoute>
-          }
-        />
-
-        <Route path="*" element={<AuthFeature />} />
+          return (
+            <Route
+              key={idx}
+              path={route.path}
+              element={
+                <PrivateRoute>
+                  <Layout {...route.layoutProps}>
+                    <Component />
+                  </Layout>
+                </PrivateRoute>
+              }
+            />
+          );
+        })}
       </Routes>
     </CustomScrollbar>
   );

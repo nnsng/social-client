@@ -1,21 +1,21 @@
 import {
   EditRounded,
   FlagRounded,
+  ForumRounded,
   MoreHorizRounded,
   PersonAddRounded,
   PersonOffRounded,
   PersonRemoveRounded,
 } from '@mui/icons-material';
 import { Button, CircularProgress, Stack } from '@mui/material';
-import { userApi } from '~/api';
-import { useAppDispatch, useAppSelector } from '~/app/hooks';
-import { selectCurrentUser, userActions } from '~/features/auth/userSlice';
-import { FollowModeTypes, FollowUser, MenuOption, User } from '~/models';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { userApi } from '~/api';
+import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { FollowModeTypes, FollowUser, MenuOption, User } from '~/models';
+import { selectCurrentUser, userActions } from '~/redux/slices/userSlice';
 import { showComingSoonToast, showErrorToastFromServer } from '~/utils/toast';
-import { ChatIcon } from '../icons';
 import { ActionMenu } from './ActionMenu';
 
 export interface FollowResponse {
@@ -137,7 +137,7 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
               },
             }}
           >
-            <ChatIcon width={18} />
+            <ForumRounded />
           </Button>
 
           <Button

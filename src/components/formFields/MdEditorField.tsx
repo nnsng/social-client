@@ -1,5 +1,5 @@
-import { MdEditor, MdEditorChange } from '~/features/blog/components';
 import { Control, useController } from 'react-hook-form';
+import { MdEditor, MdEditorChange } from '../post';
 
 export interface MdEditorFieldProps {
   name: string;
