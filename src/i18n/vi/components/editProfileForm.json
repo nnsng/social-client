@@ -4,8 +4,9 @@
     "avatar": "Ảnh đại diện",
     "username": "Username",
     "email": "Email",
-    "bio": "Giới thiệu bản thân"
+    "bio": "Giới thiệu"
   },
   "remove": "Xóa",
+  "change": "Thay đổi",
   "submit": "Lưu thay đổi"
 }

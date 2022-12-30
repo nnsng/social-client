@@ -142,6 +142,7 @@ export function Sidebar() {
                     sx={{
                       ...themeMixins.truncate(1),
                       display: { xs: 'block', md: 'none', lg: '-webkit-box' },
+                      fontWeight: active ? 500 : 400,
                     }}
                   >
                     {label}

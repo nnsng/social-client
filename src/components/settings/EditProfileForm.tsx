@@ -1,11 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { CommonForm } from '~/components/common';
 import i18next from 'i18next';
-import { FormField, User } from '~/models';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
+import { CommonForm } from '~/components/common';
+import { useCustomMediaQuery } from '~/hooks';
+import { FormField, User } from '~/models';
 import { AvatarField } from './AvatarField';
 
 export interface EditProfileFromProps {
@@ -57,10 +58,10 @@ export function EditProfileForm(props: EditProfileFromProps) {
 
   const fieldList: FormField[] = [
     {
-      name: 'name',
+      name: 'avatar',
     },
     {
-      name: 'avatar',
+      name: 'name',
     },
     {
       name: 'username',
@@ -85,19 +86,23 @@ export function EditProfileForm(props: EditProfileFromProps) {
     },
   ];
 
+  const smUp = useCustomMediaQuery('up', 'sm');
+
   return (
     <CommonForm
       name="editProfileForm"
       fieldList={fieldList}
       control={control}
-      onSubmit={onSubmit && handleSubmit(onSubmit)}
       submitting={isSubmitting}
+      horizontal={smUp}
+      onSubmit={onSubmit && handleSubmit(onSubmit)}
       avatarField={
         <AvatarField
           key="avatar"
           control={control}
           avatarUrl={avatarUrl || ''}
           loading={uploading}
+          horizontal={smUp}
           setLoading={setUploading}
           onRemove={removeAvatar}
         />

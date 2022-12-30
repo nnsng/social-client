@@ -1,3 +1,7 @@
 {
-  "pageTitle": "Cài đặt"
+  "pageTitle": "Cài đặt",
+  "tabs": {
+    "editProfile": "Chỉnh sửa thông tin",
+    "changePassword": "Đổi mật khẩu"
+  }
 }

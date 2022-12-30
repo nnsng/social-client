@@ -64,3 +64,8 @@ export interface SidebarItem {
   active?: boolean;
   onClick?: () => void;
 }
+
+export interface SettingTabItem {
+  label: string;
+  tab: string;
+}

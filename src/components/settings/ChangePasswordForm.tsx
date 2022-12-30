@@ -1,10 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Button } from '@mui/material';
 import i18next from 'i18next';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { CommonForm } from '~/components/common';
+import { useCustomMediaQuery } from '~/hooks';
 import { ChangePasswordFormValues, FormField } from '~/models';
 import { showErrorToastFromServer, showToast } from '~/utils/toast';
 
@@ -17,21 +19,22 @@ export interface ChangePasswordFormProps {
 export function ChangePasswordForm(props: ChangePasswordFormProps) {
   const { defaultValues, onSubmit, onForgotPassword } = props;
 
-  const { t } = useTranslation('validate');
+  const { t } = useTranslation('changePasswordForm');
+  const { t: tValidate } = useTranslation('validate');
 
   const schema = yup.object().shape({
     currentPassword: yup
       .string()
-      .required(t('currentPassword.required'))
-      .min(6, t('password.min', { min: 6 })),
+      .required(tValidate('currentPassword.required'))
+      .min(6, tValidate('password.min', { min: 6 })),
     newPassword: yup
       .string()
-      .required(t('newPassword.required'))
-      .min(6, t('password.min', { min: 6 })),
+      .required(tValidate('newPassword.required'))
+      .min(6, tValidate('password.min', { min: 6 })),
     confirmPassword: yup
       .string()
-      .required(t('confirmPassword.required'))
-      .oneOf([yup.ref('newPassword'), null], t('confirmPassword.match')),
+      .required(tValidate('confirmPassword.required'))
+      .oneOf([yup.ref('newPassword'), null], tValidate('confirmPassword.match')),
   });
 
   const {
@@ -65,6 +68,9 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
     { name: 'confirmPassword' },
   ];
 
+  const LABEL_WIDTH = 160;
+  const smUp = useCustomMediaQuery('up', 'sm');
+
   return (
     <CommonForm
       name="changePasswordForm"
@@ -72,10 +78,22 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
       control={control}
       onSubmit={handleSubmit(submitForm)}
       submitting={isSubmitting}
+      horizontal={smUp}
+      labelWidth={LABEL_WIDTH}
       commonProps={{
         type: 'password',
       }}
-      onForgotPassword={onForgotPassword}
+      action={
+        <Button
+          onClick={onForgotPassword}
+          sx={{
+            mt: { xs: 1, sm: 0 },
+            ml: { xs: 0, sm: 3 },
+          }}
+        >
+          {t('forgotPassword')}
+        </Button>
+      }
     />
   );
 }

@@ -9,11 +9,13 @@ export interface CommonFormProps {
   name: string;
   fieldList: FormField[];
   control: Control<any>;
-  onSubmit?: (formValues: any) => void;
   submitting?: boolean;
   commonProps?: { [key: string]: any };
   avatarField?: ReactNode;
-  onForgotPassword?: () => void;
+  horizontal?: boolean;
+  labelWidth?: number;
+  action?: ReactNode;
+  onSubmit?: (formValues: any) => void;
 }
 
 export function CommonForm(props: CommonFormProps) {
@@ -21,11 +23,13 @@ export function CommonForm(props: CommonFormProps) {
     name,
     fieldList,
     control,
-    onSubmit,
     submitting,
-    commonProps,
-    avatarField,
-    onForgotPassword,
+    commonProps = {},
+    avatarField = null,
+    horizontal,
+    labelWidth = 120,
+    action = null,
+    onSubmit,
   } = props;
 
   const { t } = useTranslation(name);
@@ -45,7 +49,9 @@ export function CommonForm(props: CommonFormProps) {
               placeholder={t(`label.${field.name}`)}
               title={t(`label.${field.name}`)}
               rounded
-              {...(commonProps || {})}
+              horizontal={horizontal}
+              labelWidth={labelWidth}
+              {...commonProps}
               {...(field.props || {})}
             />
           )
@@ -58,22 +64,16 @@ export function CommonForm(props: CommonFormProps) {
             color="primary"
             disabled={submitting}
             startIcon={submitting && <CircularProgress size={20} />}
-            sx={{ borderRadius: 40, fontSize: 13 }}
+            sx={{
+              ml: horizontal ? `${labelWidth}px` : 0,
+              borderRadius: 40,
+              fontSize: 13,
+            }}
           >
             {t('submit')}
           </Button>
 
-          {onForgotPassword && (
-            <Button
-              onClick={onForgotPassword}
-              sx={{
-                mt: { xs: 1, sm: 0 },
-                ml: { xs: 0, sm: 3 },
-              }}
-            >
-              {t('forgotPassword')}
-            </Button>
-          )}
+          {action}
         </Stack>
       </Stack>
     </Box>

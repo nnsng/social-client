@@ -1,8 +1,9 @@
-import { Grid, List, Typography } from '@mui/material';
+import { Grid, List } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { postApi } from '~/api';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { PageTitle } from '~/components/common';
 import { PostList } from '~/components/post';
 import { usePageTitle } from '~/hooks';
 import { Post } from '~/models';
@@ -34,9 +35,7 @@ export function SavedPage() {
   return (
     <Grid container>
       <Grid item xs={12} lg={8}>
-        <Typography variant="h5" component="h2" fontWeight={600} textTransform="uppercase">
-          {t('pageTitle')}
-        </Typography>
+        <PageTitle>{t('pageTitle')}</PageTitle>
 
         <List disablePadding>
           <PostList

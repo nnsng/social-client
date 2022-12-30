@@ -6,10 +6,10 @@ export interface PopperWrapperProps extends PopperProps {
 }
 
 export function PopperWrapper(props: PopperWrapperProps) {
-  const { onClose, children, ...rest } = props;
+  const { onClose, children, placement = 'bottom-end', ...rest } = props;
 
   return (
-    <Popper transition {...rest}>
+    <Popper placement={placement} transition {...rest}>
       {({ TransitionProps }) => (
         <Grow {...TransitionProps}>
           <Paper

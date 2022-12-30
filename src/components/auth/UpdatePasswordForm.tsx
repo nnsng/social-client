@@ -1,13 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import queryString from 'query-string';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { authApi } from '~/api';
-import { CommonForm } from '~/components/common';
-import { usePageTitle } from '~/hooks';
+import { CommonForm, PageTitle } from '~/components/common';
+import { useCustomMediaQuery, usePageTitle } from '~/hooks';
 import { ChangePasswordFormValues, FormField } from '~/models';
 import { themeMixins } from '~/utils/theme';
 
@@ -52,12 +52,13 @@ export function UpdatePasswordForm() {
 
   const fieldList: FormField[] = [{ name: 'newPassword' }, { name: 'confirmPassword' }];
 
+  const LABEL_WIDTH = 160;
+  const smUp = useCustomMediaQuery('up', 'sm');
+
   return (
     <Container maxWidth="sm">
       <Box mt={3} p={3} sx={{ ...themeMixins.paperBorder() }}>
-        <Typography variant="h5" component="h2" fontWeight={600} mb={2}>
-          {t('pageTitle')}
-        </Typography>
+        <PageTitle uppercase={false}>{t('pageTitle')}</PageTitle>
 
         <CommonForm
           name="updatePasswordForm"
@@ -65,6 +66,8 @@ export function UpdatePasswordForm() {
           control={control}
           onSubmit={handleSubmit(submitForm)}
           submitting={isSubmitting}
+          horizontal={smUp}
+          labelWidth={LABEL_WIDTH}
           commonProps={{
             type: 'password',
           }}

@@ -1,3 +1,4 @@
 export * from './ChangePasswordForm';
 export * from './EditProfileForm';
-export * from './Settings';
+export * from './SettingForm';
+export * from './SettingTabs';
