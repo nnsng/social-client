@@ -9,8 +9,6 @@ interface SidebarWrapperProps {
   onClose?: () => void;
 }
 
-const SIDEBAR_TOP = themeVariables.headerHeight + 16;
-
 export function SidebarWrapper({ children, open, onClose }: SidebarWrapperProps) {
   const mdDown = useCustomMediaQuery('down', 'md');
 
@@ -38,8 +36,7 @@ export function SidebarWrapper({ children, open, onClose }: SidebarWrapperProps)
       direction="column"
       sx={{
         position: 'sticky',
-        top: SIDEBAR_TOP,
-        height: `calc(100vh - ${SIDEBAR_TOP}px)`,
+        top: themeVariables.headerHeight + 16,
       }}
     >
       {children}

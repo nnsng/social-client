@@ -86,7 +86,7 @@ export function HomePage() {
       spacing={{ xs: hashtagList.length ? 2 : 0, lg: 8 }}
       flexDirection={{ xs: 'column-reverse', lg: 'row' }}
     >
-      <Grid item xs width="100%">
+      <Grid item xs md={11} lg>
         <PostFilter filter={filter} onChange={handleFilterChange} />
 
         <PostList
@@ -98,7 +98,7 @@ export function HomePage() {
         />
       </Grid>
 
-      <Grid item xs lg={4} width="100%">
+      <Grid item xs lg={4}>
         <TopHashtags
           list={hashtagList}
           active={filter.hashtag}

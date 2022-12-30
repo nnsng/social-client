@@ -14,11 +14,9 @@ export function MainLayout({ children, maxWidth }: LayoutProps) {
               <Sidebar />
             </Grid>
 
-            <Grid item xs={12} md={true} lg={9}>
+            <Grid item xs={12} md lg={9}>
               {children}
             </Grid>
-
-            <Grid item xs={0} md={1} lg={0}></Grid>
           </Grid>
         </Container>
       </Box>
