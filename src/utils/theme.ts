@@ -172,6 +172,7 @@ export const themeMixins = {
       [borderType]: (theme) => (theme.palette.mode === 'dark' ? 1 : 0),
       borderColor: 'divider',
       borderRadius: 2,
+      overflow: 'hidden',
     };
   },
 };

@@ -67,6 +67,7 @@ export function CreateEditForm(props: CreateEditFormProps) {
   });
 
   const title = watch('title');
+  const content = watch('content');
   const thumbnail = watch('thumbnail');
   const MAX_HASHTAGS = 5;
 
@@ -138,6 +139,7 @@ export function CreateEditForm(props: CreateEditFormProps) {
           <Button
             variant="outlined"
             size="large"
+            disabled={!title || !content}
             sx={{ flexShrink: 0, ml: 2 }}
             onClick={openDialog}
           >
@@ -150,16 +152,15 @@ export function CreateEditForm(props: CreateEditFormProps) {
 
       <Dialog open={open} onClose={closeDialog} {...dialogWidth}>
         <Typography
-          color={title?.length > 0 ? 'text.primary' : 'text.disabled'}
-          fontSize={{ xs: 16, sm: 18 }}
-          fontWeight={600}
+          variant="h6"
+          component="div"
           sx={{
             ...themeMixins.truncate(1),
             py: { xs: 1, sm: 2 },
             px: { xs: 1, sm: 3 },
           }}
         >
-          {title || `(${t('noTitle')})`}
+          {title}
         </Typography>
 
         <DialogContent
