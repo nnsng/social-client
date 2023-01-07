@@ -1,22 +1,21 @@
 import {
   EditRounded,
   FlagRounded,
+  ForumRounded,
   MoreHorizRounded,
   PersonAddRounded,
   PersonOffRounded,
   PersonRemoveRounded,
 } from '@mui/icons-material';
-import { Button, CircularProgress, MenuItem, Stack } from '@mui/material';
-import { userApi } from 'api';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { selectCurrentUser, userActions } from 'features/auth/userSlice';
-import { chatActions } from 'features/chat/chatSlice';
-import { FollowModeType, FollowUser, MenuItemProps, User } from 'models';
+import { Button, CircularProgress, Stack } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { showComingSoonToast, showErrorToast } from 'utils/toast';
-import { ChatIcon } from '../icons';
+import { userApi } from '~/api';
+import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { FollowModeTypes, FollowUser, MenuOption, User } from '~/models';
+import { selectCurrentUser, userActions } from '~/redux/slices/userSlice';
+import { showComingSoonToast, showErrorToastFromServer } from '~/utils/toast';
 import { ActionMenu } from './ActionMenu';
 
 export interface FollowResponse {
@@ -39,13 +38,12 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
   const currentUser = useAppSelector(selectCurrentUser);
 
   const anchorRef = useRef<any>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
 
-  const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
 
-  const handleFollow = async (action: FollowModeType) => {
+  const handleFollow = async (action: FollowModeTypes) => {
     setLoading(true);
 
     try {
@@ -53,22 +51,13 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
       dispatch(userActions.setCurrentUser(updated.currentUser));
       updateUser?.(updated.selectedUser);
     } catch (error) {
-      showErrorToast(error);
+      showErrorToastFromServer(error);
     }
 
     setLoading(false);
   };
 
-  const startChat = () => {
-    user && dispatch(chatActions.startChat(user));
-  };
-
-  const handleMenuItemClick = (callback?: () => void) => {
-    closeMenu();
-    callback?.();
-  };
-
-  const userInfoMenu: MenuItemProps[] = [
+  const userInfoMenu: MenuOption[] = [
     {
       label: t('menu.block'),
       icon: PersonOffRounded,
@@ -100,7 +89,7 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
             },
           }}
           component={Link}
-          to="/settings/edit-profile"
+          to="/settings?tab=edit-profile"
         >
           {t('editProfile')}
         </Button>
@@ -147,14 +136,13 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
                 bgcolor: 'action.selected',
               },
             }}
-            onClick={startChat}
           >
-            <ChatIcon width={18} />
+            <ForumRounded />
           </Button>
 
           <Button
             ref={anchorRef}
-            onClick={toggleMenu}
+            onClick={() => setOpenMenu((x) => !x)}
             sx={{
               height: BUTTON_HEIGHT,
               px: 2,
@@ -169,26 +157,12 @@ export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
           </Button>
 
           <ActionMenu
+            menu={userInfoMenu}
             open={openMenu}
             anchorEl={anchorRef.current}
             onClose={closeMenu}
             sx={{ zIndex: (theme) => theme.zIndex.drawer + 2 }}
-          >
-            {userInfoMenu.map(({ label, icon: Icon, onClick }, idx) => (
-              <MenuItem
-                key={idx}
-                onClick={() => handleMenuItemClick(onClick)}
-                sx={{
-                  py: 1.5,
-                  px: 2.5,
-                  fontSize: 15,
-                }}
-              >
-                <Icon sx={{ mr: 2, fontSize: 18 }} />
-                {label}
-              </MenuItem>
-            ))}
-          </ActionMenu>
+          />
         </>
       )}
     </Stack>

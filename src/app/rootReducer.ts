@@ -1,11 +1,12 @@
-import userReducer from 'features/auth/userSlice';
-import postReducer from 'features/blog/postSlice';
-import commentReducer from 'features/blog/commentSlice';
-import chatReducer from 'features/chat/chatSlice';
-import notiReducer from 'features/common/notiSlice';
-import settingReducer from 'features/settings/settingSlice';
-import socketReducer from 'features/socket/socketSlice';
 import { combineReducers } from 'redux';
+import {
+  commentReducer,
+  configReducer,
+  postReducer,
+  settingReducer,
+  socketReducer,
+  userReducer,
+} from '~/redux/slices';
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -13,8 +14,7 @@ const rootReducer = combineReducers({
   comment: commentReducer,
   settings: settingReducer,
   socket: socketReducer,
-  noti: notiReducer,
-  chat: chatReducer,
+  config: configReducer,
 });
 
 export default rootReducer;

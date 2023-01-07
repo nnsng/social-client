@@ -1,0 +1,7 @@
+{
+  "pageTitle": "Settings",
+  "tabs": {
+    "editProfile": "Edit profile",
+    "changePassword": "Change password"
+  }
+}

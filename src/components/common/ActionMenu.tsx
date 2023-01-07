@@ -1,18 +1,59 @@
-import { Drawer, MenuList, Theme, useMediaQuery } from '@mui/material';
-import { PopperPopupProps, PopperPopup } from '.';
+import { Drawer, MenuItem, MenuList, PopperProps } from '@mui/material';
+import { useCustomMediaQuery } from '~/hooks';
+import { MenuOption } from '~/models';
+import { PopperWrapper } from '.';
 
-export interface ActionMenuProps extends PopperPopupProps {}
+export interface ActionMenuProps extends PopperProps {
+  menu: MenuOption[];
+  onClose?: () => void;
+}
 
 export function ActionMenu(props: ActionMenuProps) {
-  const { open, anchorEl, onClose, children, sx } = props;
+  const { menu, onClose, ...rest } = props;
 
-  const hideOnMobile = useMediaQuery<Theme>((theme) => theme.breakpoints.up('sm'));
+  const handleClick = (callback?: () => void) => () => {
+    onClose?.();
+    callback?.();
+  };
 
-  return hideOnMobile ? (
-    <PopperPopup open={open} anchorEl={anchorEl} sx={sx} onClose={onClose}>
-      <MenuList disablePadding>{children}</MenuList>
-    </PopperPopup>
-  ) : (
+  return (
+    <ActionMenuWrapper onClose={onClose} {...rest}>
+      {menu.map(({ label, icon: Icon, onClick, show = true }, idx) =>
+        show ? (
+          <MenuItem
+            key={idx}
+            onClick={handleClick(onClick)}
+            sx={{
+              py: 1.5,
+              px: 2.5,
+              fontSize: 15,
+            }}
+          >
+            {Icon && <Icon sx={{ mr: 2, fontSize: 18 }} />}
+            {label}
+          </MenuItem>
+        ) : null
+      )}
+    </ActionMenuWrapper>
+  );
+}
+
+interface ActionMenuWrapperProps extends Partial<ActionMenuProps> {}
+
+function ActionMenuWrapper(props: ActionMenuWrapperProps) {
+  const { open = false, onClose, children, ...rest } = props;
+
+  const smUp = useCustomMediaQuery('up', 'sm');
+
+  if (smUp) {
+    return (
+      <PopperWrapper open={open} onClose={onClose} {...rest}>
+        <MenuList disablePadding>{children}</MenuList>
+      </PopperWrapper>
+    );
+  }
+
+  return (
     <Drawer
       anchor="bottom"
       open={open}

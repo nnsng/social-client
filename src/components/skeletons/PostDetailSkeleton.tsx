@@ -1,6 +1,6 @@
 import { Box, Card, CardHeader } from '@mui/material';
 import React from 'react';
-import { themeMixins } from 'utils/theme';
+import { themeMixins } from '~/utils/theme';
 import { StyledSkeleton } from './StyledSkeleton';
 
 export function PostDetailSkeleton() {

@@ -15,19 +15,10 @@
     },
     "viewMore": "Xem thêm"
   },
-  "menu": {
-    "create": "Viết bài",
-    "myPosts": "Bài viết của tôi",
-    "saved": "Đã lưu",
-    "appearance": "Giao diện & Ngôn ngữ",
+  "user": {
+    "profile": "Trang cá nhân",
     "settings": "Cài đặt",
     "logout": "Đăng xuất"
-  },
-  "appearanceDialog": {
-    "title": "Giao diện & Ngôn ngữ",
-    "darkMode": "Chế độ tối:",
-    "themeColor": "Màu giao diện:",
-    "language": "Ngôn ngữ:"
   },
   "back": "Quay lại"
 }

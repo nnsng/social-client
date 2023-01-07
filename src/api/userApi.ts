@@ -1,5 +1,5 @@
-import { FollowResponse } from 'components/common';
-import { User } from 'models';
+import { FollowResponse } from '~/components/common';
+import { User } from '~/models';
 import axiosClient from './axiosClient';
 
 export const userApi = {

@@ -1,61 +1,69 @@
 // pages
-import auth from './pages/auth.json';
-import createEditPost from './pages/createEditPost.json';
-import saved from './pages/saved.json';
-import settings from './pages/settings.json';
-import notFound from './pages/notFound.json';
-import profile from './pages/profile.json';
+import createEditPage from './pages/createEditPage.json';
+import savedPage from './pages/savedPage.json';
+import settingsPage from './pages/settingsPage.json';
+import notFoundPage from './pages/notFoundPage.json';
+import profilePage from './pages/profilePage.json';
+import loginPage from './pages/loginPage.json';
+import registerPage from './pages/registerPage.json';
 
 // components
 import header from './components/header.json';
 import authForm from './components/authForm.json';
 import createEditForm from './components/createEditForm.json';
-import postList from './components/postList.json';
-import postCardHeader from './components/postCardHeader.json';
+import postFilter from './components/postFilter.json';
+import postMenu from './components/postMenu.json';
 import topHashtags from './components/topHashtags.json';
 import postComment from './components/postComment.json';
 import postItem from './components/postItem.json';
-import settingTabs from './components/settingTabs.json';
+import settings from './components/settings.json';
 import editProfileForm from './components/editProfileForm.json';
 import changePasswordForm from './components/changePasswordForm.json';
 import userInfoButtonGroup from './components/userInfoButtonGroup.json';
 import noPost from './components/noPost.json';
 import notification from './components/notification.json';
-import chatPopup from './components/chatPopup.json';
+import sidebar from './components/sidebar.json';
+import appearanceDialog from './components/appearanceDialog.json';
+import updatePasswordForm from './components/updatePasswordForm.json';
+import activeAccount from './components/activeAccount.json';
+import confirmDialog from './components/confirmDialog.json';
 
 // common
-import validate from './common/validate';
-import toast from './common/toast';
-import dialog from './common/dialog';
+import validate from './common/validate.json';
+import toast from './common/toast.json';
 
 export default {
   // pages
-  auth,
-  createEditPost,
-  saved,
-  settings,
-  notFound,
-  profile,
+  createEditPage,
+  savedPage,
+  settingsPage,
+  notFoundPage,
+  profilePage,
+  loginPage,
+  registerPage,
 
   // components
   header,
   authForm,
   createEditForm,
-  postList,
-  postCardHeader,
+  postFilter,
+  postMenu,
   topHashtags,
   postComment,
   postItem,
-  settingTabs,
+  settings,
   editProfileForm,
   changePasswordForm,
   userInfoButtonGroup,
   noPost,
   notification,
-  chatPopup,
+  sidebar,
+  appearanceDialog,
+  updatePasswordForm,
+  activeAccount,
+  confirmDialog,
 
   // common
   validate,
   toast,
-  dialog,
 };

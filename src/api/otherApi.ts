@@ -1,4 +1,4 @@
-import { env, variables } from 'utils/env';
+import { env, variables } from '~/utils/env';
 import axiosClient from './axiosClient';
 
 export const otherApi = {
@@ -9,9 +9,5 @@ export const otherApi = {
         'Content-Type': 'multipart/form-data',
       },
     });
-  },
-  chat(data: { userId: string; text: string }) {
-    const url = '/chat';
-    return axiosClient.post(url, data);
   },
 };

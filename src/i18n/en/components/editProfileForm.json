@@ -6,6 +6,7 @@
     "email": "Email",
     "bio": "Bio"
   },
-  "removeAvatar": "Remove",
-  "save": "Save changes"
+  "remove": "Remove",
+  "change": "Change",
+  "submit": "Save changes"
 }

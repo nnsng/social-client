@@ -10,13 +10,12 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { useAppDispatch, useAppSelector } from 'app/hooks';
-import { selectUserConfig, userActions } from 'features/auth/userSlice';
-import { UserConfigKey } from 'models';
 import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { supportedThemeColors } from 'utils/theme';
-import { supportedLanguages } from 'utils/translation';
+import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { LANGUAGES, THEME_COLORS } from '~/constants';
+import { selectUserConfig, userActions } from '~/redux/slices/userSlice';
+import { UserConfigKey } from '~/models';
 import { ThemeSwitch } from '.';
 
 export interface AppearanceDialogProps {
@@ -27,11 +26,11 @@ export interface AppearanceDialogProps {
 export function AppearanceDialog(props: AppearanceDialogProps) {
   const { open, onClose } = props;
 
-  const { t } = useTranslation('header');
+  const { t } = useTranslation('appearanceDialog');
 
   const dispatch = useAppDispatch();
-  const { themeMode, themeColor, language } = useAppSelector(selectUserConfig);
-  const isDarkMode = themeMode === 'dark';
+  const { mode, mainColor, language } = useAppSelector(selectUserConfig);
+  const isDarkMode = mode === 'dark';
 
   const handleUpdateConfig = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name as UserConfigKey;
@@ -43,7 +42,7 @@ export function AppearanceDialog(props: AppearanceDialogProps) {
     <Dialog open={open} onClose={onClose} fullWidth>
       <DialogTitle sx={{ m: 0, px: 3, py: 2 }}>
         <Typography fontSize={18} fontWeight={600}>
-          {t('appearanceDialog.title')}
+          {t('title')}
         </Typography>
 
         <IconButton
@@ -71,15 +70,11 @@ export function AppearanceDialog(props: AppearanceDialogProps) {
         }}
       >
         <Stack direction="column" spacing={3}>
-          <Stack
-            sx={{
-              flexDirection: { xs: 'column', sm: 'row' },
-              alignItems: { sm: 'center' },
-            }}
-          >
-            <Typography fontWeight={500}>{t('appearanceDialog.darkMode')}</Typography>
+          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems={{ sm: 'center' }}>
+            <Typography fontWeight={500}>{t('darkMode')}:</Typography>
+
             <ThemeSwitch
-              name="themeMode"
+              name="mode"
               value={isDarkMode ? 'light' : 'dark'}
               checked={isDarkMode}
               onChange={handleUpdateConfig}
@@ -88,44 +83,35 @@ export function AppearanceDialog(props: AppearanceDialogProps) {
           </Stack>
 
           <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            alignItems={{ sm: 'center' }}
             sx={{
-              flexDirection: { xs: 'column', sm: 'row' },
-              alignItems: { sm: 'center' },
               '& .MuiSvgIcon-root': {
                 fontSize: 28,
               },
             }}
           >
-            <Typography fontWeight={500}>{t('appearanceDialog.themeColor')}</Typography>
+            <Typography fontWeight={500}>{t('themeColor')}:</Typography>
+
             <Stack sx={{ ml: '-3px' }}>
-              {supportedThemeColors.map((color) => (
+              {THEME_COLORS.map((color) => (
                 <ColorRadio
                   key={color}
-                  name="themeColor"
+                  name="mainColor"
                   value={color}
                   iconColor={color}
-                  checked={themeColor === color}
+                  checked={mainColor === color}
                   onChange={handleUpdateConfig}
                 />
               ))}
             </Stack>
           </Stack>
 
-          <Stack
-            sx={{
-              flexDirection: { xs: 'column', sm: 'row' },
-              alignItems: { sm: 'center' },
-            }}
-          >
-            <Typography fontWeight={500}>{t('appearanceDialog.language')}</Typography>
+          <Stack direction={{ xs: 'column', sm: 'row' }} alignItems={{ sm: 'center' }}>
+            <Typography fontWeight={500}>{t('language')}:</Typography>
 
-            <Stack
-              sx={{
-                flexDirection: { xs: 'column', sm: 'row' },
-                ml: 1,
-              }}
-            >
-              {supportedLanguages.map(({ code, name }) => (
+            <Stack direction={{ xs: 'column', sm: 'row' }} ml={1}>
+              {LANGUAGES.map(({ code, name }) => (
                 <FormControlLabel
                   key={code}
                   control={

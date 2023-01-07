@@ -1,13 +1,20 @@
-import { useEffect } from 'react';
+import { Typography } from '@mui/material';
 
-export interface PageTitleProps {
-  title: string;
+interface PageTitleProps {
+  children: string;
+  uppercase?: boolean;
 }
 
-export function PageTitle({ title }: PageTitleProps) {
-  useEffect(() => {
-    document.title = title;
-  });
-
-  return null;
+export function PageTitle({ children, uppercase = true }: PageTitleProps) {
+  return (
+    <Typography
+      variant="h5"
+      component="h2"
+      mb={2}
+      fontWeight={600}
+      textTransform={uppercase ? 'uppercase' : 'none'}
+    >
+      {children}
+    </Typography>
+  );
 }

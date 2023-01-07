@@ -1,0 +1,47 @@
+{
+  "email": {
+    "email": "Invalid email address",
+    "required": "Email is required"
+  },
+  "password": {
+    "required": "Password is required",
+    "min": "Password must be at least {{min}} characters",
+    "max": "Password must be at most {{max}} characters"
+  },
+  "name": {
+    "required": "Full name is required",
+    "max": "Full name must be at most {{max}} characters"
+  },
+  "username": {
+    "required": "Username is required",
+    "min": "Username must be at least {{min}} characters",
+    "max": "Username must be at most {{max}} characters",
+    "valid": "Only A-Z, a-z, 0-9, -, . are allowed"
+  },
+  "bio": {
+    "max": "Bio must be at most {{max}} characters"
+  },
+  "currentPassword": {
+    "required": "Current password is required"
+  },
+  "newPassword": {
+    "required": "New password is required"
+  },
+  "confirmPassword": {
+    "required": "Confirm password is required",
+    "match": "Confirm password does not match"
+  },
+
+  "title": {
+    "required": "Please enter a title",
+    "max": "Title must be at most {{max}} characters"
+  },
+  "content": {
+    "required": "Please enter content"
+  },
+  "hashtags": {
+    "min": "Hashtags must be at least {{min}} characters",
+    "max": "Hashtags must be at most {{max}} characters",
+    "valid": "Only A-Z, a-z, 0-9, - are allowed"
+  }
+}

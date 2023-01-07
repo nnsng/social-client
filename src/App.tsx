@@ -1,19 +1,17 @@
-import { userApi } from 'api';
-import { useAppDispatch } from 'app/hooks';
-import { CustomScrollbar, NotFound, PrivateRoute } from 'components/common';
-import { LocalStorageKey } from 'constants/common';
-import Auth from 'features/auth';
-import { userActions } from 'features/auth/userSlice';
-import BlogFeature from 'features/blog';
-import ProfilePage from 'features/profile';
-import SettingFeature from 'features/settings';
-import SocketClient from 'features/socket';
-import { socketActions } from 'features/socket/socketSlice';
 import { useEffect } from 'react';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
-import { env, variables } from 'utils/env';
-import { showErrorToast } from 'utils/toast';
+import { userApi } from '~/api';
+import { useAppDispatch } from '~/app/hooks';
+import { CustomScrollbar, PrivateRoute } from '~/components/common';
+import { socketActions } from '~/redux/slices/socketSlice';
+import { env, variables } from '~/utils/env';
+import { showErrorToastFromServer } from '~/utils/toast';
+import { EmptyLayout } from './components/layouts';
+import { SocketClient } from './components/socket';
+import { ACCESS_TOKEN } from './constants';
+import { userActions } from './redux/slices/userSlice';
+import { privateRoutes, publicRoutes } from './routes';
 
 function App() {
   const navigate = useNavigate();
@@ -23,7 +21,7 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
-        const token = localStorage.getItem(LocalStorageKey.ACCESS_TOKEN) || '';
+        const token = localStorage.getItem(ACCESS_TOKEN) || '';
         if (!token) return;
 
         const user = await userApi.getCurrentUser();
@@ -31,8 +29,8 @@ function App() {
 
         dispatch(userActions.setCurrentUser(user));
       } catch (error) {
-        showErrorToast(error);
-        dispatch(userActions.logout({ navigate }));
+        showErrorToastFromServer(error);
+        dispatch(userActions.logout(navigate));
       }
     })();
   }, [dispatch]);
@@ -53,49 +51,41 @@ function App() {
       <SocketClient />
 
       <Routes>
-        <Route path="/" element={<Navigate to="/blog" replace={true} />} />
+        {publicRoutes.map((route, idx) => {
+          const Layout = route.layout ?? EmptyLayout;
+          const Component = route.component;
 
-        <Route
-          path="/blog/*"
-          element={
-            <PrivateRoute>
-              <BlogFeature />
-            </PrivateRoute>
-          }
-        />
+          return (
+            <Route
+              key={idx}
+              path={route.path}
+              element={
+                <Layout {...route.layoutProps}>
+                  <Component />
+                </Layout>
+              }
+            />
+          );
+        })}
 
-        <Route
-          path="/settings/*"
-          element={
-            <PrivateRoute>
-              <SettingFeature />
-            </PrivateRoute>
-          }
-        />
+        {privateRoutes.map((route, idx) => {
+          const Layout = route.layout ?? EmptyLayout;
+          const Component = route.component;
 
-        <Route path="/login" element={<Auth mode="login" />} />
-        <Route path="/register" element={<Auth mode="register" />} />
-        <Route path="/active" element={<Auth mode="active" />} />
-        <Route path="/reset-password" element={<Auth mode="resetPassword" />} />
-        <Route path="/create-password" element={<Auth mode="createPassword" />} />
-
-        <Route
-          path="user/:username"
-          element={
-            <PrivateRoute>
-              <ProfilePage />
-            </PrivateRoute>
-          }
-        />
-
-        <Route
-          path="*"
-          element={
-            <PrivateRoute hideChat>
-              <NotFound showHeader />
-            </PrivateRoute>
-          }
-        />
+          return (
+            <Route
+              key={idx}
+              path={route.path}
+              element={
+                <PrivateRoute>
+                  <Layout {...route.layoutProps}>
+                    <Component />
+                  </Layout>
+                </PrivateRoute>
+              }
+            />
+          );
+        })}
       </Routes>
     </CustomScrollbar>
   );

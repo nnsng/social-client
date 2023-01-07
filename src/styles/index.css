@@ -33,6 +33,19 @@ code {
   font-family: var(--font-code);
 }
 
+.spin {
+  animation: spin 2s forwards infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /*? CUSTOM SELECTION */
 ::-moz-selection {
   background-color: var(--color-primary);

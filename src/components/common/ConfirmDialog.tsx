@@ -7,21 +7,20 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
-import { translateFiles } from 'utils/translation';
+import { useTranslation } from 'react-i18next';
 
 export interface ConfirmDialogProps {
+  type: string;
   open: boolean;
   onClose: () => void;
-  title: string;
-  content: string;
   onConfirm: () => void;
   loading?: boolean;
 }
 
 export function ConfirmDialog(props: ConfirmDialogProps) {
-  const { open, onClose, title, content, onConfirm, loading } = props;
+  const { type, open, onClose, onConfirm, loading } = props;
 
-  const { dialog: dialogTranslation } = translateFiles('dialog');
+  const { t } = useTranslation('confirmDialog');
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -33,16 +32,16 @@ export function ConfirmDialog(props: ConfirmDialogProps) {
           fontWeight: 600,
         }}
       >
-        {title}
+        {t(`${type}.title`)}
       </DialogTitle>
 
       <DialogContent dividers>
-        <DialogContentText sx={{ color: 'text.primary' }}>{content}</DialogContentText>
+        <DialogContentText sx={{ color: 'text.primary' }}>{t(`${type}.content`)}</DialogContentText>
       </DialogContent>
 
       <DialogActions>
         <Button color="inherit" disabled={!!loading} onClick={onClose}>
-          {dialogTranslation.button.cancel}
+          {t('button.cancel')}
         </Button>
 
         <Button
@@ -53,7 +52,7 @@ export function ConfirmDialog(props: ConfirmDialogProps) {
           startIcon={!!loading && <CircularProgress size={20} color="error" />}
           onClick={onConfirm}
         >
-          {dialogTranslation.button.confirm}
+          {t('button.confirm')}
         </Button>
       </DialogActions>
     </Dialog>

@@ -1,0 +1,17 @@
+{
+  "pageTitle": "Login",
+  "form": {
+    "title": "Welcome to {{appName}}",
+    "label": {
+      "email": "Email",
+      "password": "Password"
+    },
+    "button": {
+      "submit": "Login",
+      "google": "Continue with Google"
+    }
+  },
+  "text": "Don't have an account yet?",
+  "register": "Register",
+  "forgotPassword": "Forgot password?"
+}

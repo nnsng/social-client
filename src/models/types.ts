@@ -1,14 +1,9 @@
-// post
-export type PostByType = 'all' | 'following';
-export type PostActionType = 'save' | 'remove';
+export type PostByTypes = 'all' | 'following';
 
-// comment
-export type CommentActionType = 'create' | 'edit' | 'remove' | 'like';
+export type CommentActionTypes = 'create' | 'edit' | 'remove' | 'like';
 
-// notification
-export type NotiType = 'like' | 'comment' | 'follow' | 'report';
+export type FollowModeTypes = 'follow' | 'unfollow';
 
-// others
-export type FollowModeType = 'follow' | 'unfollow';
+export type ConfigTypes = 'mode' | 'mainColor' | 'language';
 
-export type ConfigKey = 'themeMode' | 'themeColor' | 'language';
+export type ToastTypes = 'success' | 'error' | 'warn' | 'info';

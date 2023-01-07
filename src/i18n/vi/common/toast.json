@@ -1,0 +1,60 @@
+{
+  "success": {
+    "post": {
+      "delete": "Xóa bài viết thành công",
+      "save": "Đã lưu",
+      "unsave": "Bỏ lưu bài viết thành công"
+    },
+    "auth": {
+      "register": "Đăng ký thành công",
+      "active": "Kích hoạt tài khoản thành công",
+      "changePassword": "Đổi mật khẩu thành công"
+    },
+    "user": {
+      "update": "Cập nhật thông tin thành công"
+    },
+    "common": {
+      "copy": "Đã sao chép"
+    }
+  },
+  "info": {
+    "checkEmail": "Vui lòng kiểm tra email của bạn",
+    "comingSoon": "Đang cập nhật"
+  },
+  "error": {
+    "post": {
+      "create": "Đăng bài thất bại",
+      "update": "Cập nhật bài viết thất bại",
+      "notFound": "Không tìm thấy bài viết",
+      "saved": "Bài viết đã được lưu",
+      "notSave": "Bài viết chưa được lưu",
+      "notAllowedToEdit": "Bạn không được phép chỉnh sửa bài viết này",
+      "notAllowedToDelete": "Bạn không được phép xóa bài viết này"
+    },
+    "comment": {
+      "notFound": "Bình luận không tồn tại",
+      "notAllowedToEdit": "Bạn không được phép chỉnh sửa bình luận này",
+      "notAllowedToDelete": "Bạn không được phép xóa bình luận này"
+    },
+    "auth": {
+      "accessDenied": "Bạn không được phép truy cập",
+      "invalidToken": "Token không hợp lệ",
+      "invalidAuth": "Xác minh thất bại",
+      "emailNotRegister": "Email chưa được đăng ký",
+      "emailExist": "Email đã tồn tại",
+      "notActive": "Tài khoản chưa được kích hoạt",
+      "alreadyActive": "Tài khoản đã được kích hoạt",
+      "usernameExist": "Username đã tồn tại",
+      "passwordNotCorrect": "Mật khẩu không đúng"
+    },
+    "user": {
+      "notFound": "Không tìm thấy người dùng",
+      "cannotChangeEmail": "Không thể thay đổi email",
+      "alreadyFollow": "Bạn đã theo dõi người dùng này",
+      "notFollow": "Bạn chưa theo dõi người dùng này"
+    },
+    "common": {
+      "somethingWrong": "Có lỗi xảy ra"
+    }
+  }
+}

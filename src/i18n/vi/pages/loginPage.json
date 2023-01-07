@@ -1,0 +1,17 @@
+{
+  "pageTitle": "Đăng nhập",
+  "form": {
+    "title": "Chào mừng đến với {{appName}}",
+    "label": {
+      "email": "Email",
+      "password": "Mật khẩu"
+    },
+    "button": {
+      "submit": "Đăng nhập",
+      "google": "Tiếp tục với Google"
+    }
+  },
+  "text": "Chưa có tài khoản?",
+  "register": "Đăng ký",
+  "forgotPassword": "Quên mật khẩu?"
+}

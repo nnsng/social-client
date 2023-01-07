@@ -1,32 +1,32 @@
 import { Theme, ThemeProvider } from '@mui/material';
-import { useAppSelector } from 'app/hooks';
-import favicons from 'assets/favicons';
-import { selectUserConfig } from 'features/auth/userSlice';
 import i18next from 'i18next';
-import { SnackbarProvider } from 'notistack';
 import { ReactNode, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
+import { useAppSelector } from '~/app/hooks';
+import favicons from '~/assets/favicons';
+import { selectUserConfig } from '~/redux/slices/userSlice';
+import { configTheme, themeVariables } from '~/utils/theme';
 import 'react-toastify/dist/ReactToastify.min.css';
-import { generateTheme, themeVariables } from 'utils/theme';
 
 export interface CustomThemeProviderProps {
-  children?: ReactNode;
+  children: ReactNode;
 }
 
 export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
-  const { themeMode, themeColor, language } = useAppSelector(selectUserConfig);
+  const { mode, mainColor, language } = useAppSelector(selectUserConfig);
 
-  const [theme, setTheme] = useState<Theme>(generateTheme(themeMode, themeColor));
+  const [theme, setTheme] = useState<Theme>(configTheme(mode, mainColor));
 
   useEffect(() => {
-    setTheme(generateTheme(themeMode, themeColor));
-  }, [themeMode, themeColor]);
+    setTheme(configTheme(mode, mainColor));
+    console.log(theme);
+  }, [mode, mainColor]);
 
   useEffect(() => {
     const faviconElement = document.getElementById('favicon') as HTMLLinkElement;
-    faviconElement.href = favicons[themeColor] ?? favicons['#000000'];
-    document.documentElement.style.setProperty('--color-primary', themeColor);
-  }, [themeColor]);
+    faviconElement.href = favicons[mainColor] ?? favicons['#000000'];
+    document.documentElement.style.setProperty('--color-primary', mainColor);
+  }, [mainColor]);
 
   useEffect(() => {
     i18next.changeLanguage(language);
@@ -34,21 +34,10 @@ export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
 
   return (
     <ThemeProvider theme={theme}>
-      <SnackbarProvider
-        maxSnack={3}
-        autoHideDuration={3000}
-        preventDuplicate
-        style={{
-          color: theme.palette.common.white,
-          backgroundColor: theme.palette.primary.main,
-          cursor: 'pointer',
-        }}
-      >
-        {children}
-      </SnackbarProvider>
+      {children}
 
       <ToastContainer
-        theme={themeMode}
+        theme={mode}
         autoClose={2000}
         style={{ top: themeVariables.headerHeight }}
         toastStyle={{ backgroundColor: theme.palette.background.paper }}

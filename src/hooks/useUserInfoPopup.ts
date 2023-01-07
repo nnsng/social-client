@@ -1,5 +1,5 @@
-import { AnchorEl, UserInfoPopup } from 'components/common';
-import { User } from 'models';
+import { UserInfoPopup } from '~/components/common';
+import { AnchorEl, User } from '~/models';
 import { useEffect, useRef, useState } from 'react';
 
 export interface UseUserInfoPopup {
@@ -8,7 +8,7 @@ export interface UseUserInfoPopup {
 }
 
 export function useUserInfoPopup(props: UseUserInfoPopup) {
-  const [openPopup, setOpenPopup] = useState<boolean>(false);
+  const [openPopup, setOpenPopup] = useState(false);
 
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 

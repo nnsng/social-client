@@ -15,19 +15,10 @@
     },
     "viewMore": "View more"
   },
-  "menu": {
-    "create": "Create a new post",
-    "myPosts": "My post list",
-    "saved": "Saved",
-    "appearance": "Theme & Language",
+  "user": {
+    "profile": "Profile",
     "settings": "Settings",
     "logout": "Log out"
-  },
-  "appearanceDialog": {
-    "title": "Theme & Language",
-    "darkMode": "Dark mode:",
-    "themeColor": "Theme color:",
-    "language": "Language:"
   },
   "back": "Back"
 }

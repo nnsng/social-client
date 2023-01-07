@@ -1,0 +1,17 @@
+{
+  "pageTitle": "Register",
+  "form": {
+    "title": "Register an account",
+    "label": {
+      "name": "Full name",
+      "username": "Username",
+      "email": "Email",
+      "password": "Password"
+    },
+    "button": {
+      "submit": "Register"
+    }
+  },
+  "text": "Already have an account?",
+  "login": "Login"
+}

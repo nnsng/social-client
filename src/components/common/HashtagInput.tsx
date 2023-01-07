@@ -1,6 +1,6 @@
 import { Box, Chip, FormHelperText, Stack, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { formatHashtag } from 'utils/common';
+import { formatHashtag } from '~/utils/common';
 
 export interface HashtagInputProps {
   name?: string;

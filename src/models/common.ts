@@ -1,4 +1,19 @@
-import { NotiType, PostByType } from './types';
+import { Breakpoint } from '@mui/material';
+import { ReactElement, ReactNode } from 'react';
+import { IconType } from './mui';
+import { PostByTypes } from './types';
+
+export interface LayoutProps {
+  children: ReactNode;
+  maxWidth?: false | Breakpoint;
+}
+
+export interface RouteItem {
+  path: string;
+  component: () => ReactElement;
+  layout?: (props: LayoutProps) => ReactElement;
+  layoutProps?: Partial<LayoutProps>;
+}
 
 export interface PaginationParams {
   page: number;
@@ -19,10 +34,10 @@ export interface ListParams {
   search?: string | undefined;
   hashtag?: string | undefined;
   username?: string;
-  by?: PostByType;
+  by?: PostByTypes;
 }
 
-export interface MenuItemProps {
+export interface MenuOption {
   label?: string;
   icon?: any;
   onClick?: () => void;
@@ -35,24 +50,22 @@ export interface FormField {
   props?: any;
 }
 
-export interface LocationState {
-  hideHeaderMenu?: boolean;
-  openComment?: boolean;
-  notFound?: boolean;
+export interface SearchResultItem {
+  _id: string;
+  name: string;
+  image: string;
+  url: string;
 }
 
-export interface Noti {
-  _id: string;
-  type: NotiType;
-  post: {
-    _id: string;
-    slug: string;
-  };
-  user: {
-    name: string;
-    username: string;
-    avatar: string;
-  };
-  read?: boolean;
-  createdAt?: string;
+export interface SidebarItem {
+  label: string;
+  icon: IconType;
+  activeIcon: IconType;
+  active?: boolean;
+  onClick?: () => void;
+}
+
+export interface SettingTabItem {
+  label: string;
+  tab: string;
 }

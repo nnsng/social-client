@@ -1,22 +1,23 @@
-import { Avatar, Box, Stack, Theme, Typography, useMediaQuery } from '@mui/material';
-import { User } from 'models';
+import { Avatar, Box, Stack, Typography } from '@mui/material';
+import { useCustomMediaQuery } from '~/hooks';
+import { User } from '~/models';
 import { useState } from 'react';
-import { PopperPopupProps, PopperPopup } from './PopperPopup';
+import { PopperWrapper, PopperWrapperProps } from './PopperWrapper';
 import { UserInfoButtonGroup } from './UserInfoButtonGroup';
 
-export interface UserInfoPopupProps extends PopperPopupProps {
+export interface UserInfoPopupProps extends PopperWrapperProps {
   user: Partial<User>;
 }
 
 export function UserInfoPopup(props: UserInfoPopupProps) {
   const { user, open, anchorEl } = props;
 
-  const [isOpen, setIsOpen] = useState<boolean>(open);
+  const [isOpen, setIsOpen] = useState(open);
 
-  const mdUp = useMediaQuery<Theme>((theme) => theme.breakpoints.up('md'));
+  const mdUp = useCustomMediaQuery('up', 'md');
 
   return (
-    <PopperPopup
+    <PopperWrapper
       open={(open || isOpen) && mdUp}
       anchorEl={anchorEl}
       placement="bottom-start"
@@ -58,6 +59,6 @@ export function UserInfoPopup(props: UserInfoPopupProps) {
 
         <UserInfoButtonGroup user={user} />
       </Box>
-    </PopperPopup>
+    </PopperWrapper>
   );
 }
