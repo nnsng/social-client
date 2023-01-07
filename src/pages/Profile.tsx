@@ -23,7 +23,9 @@ export function ProfilePage() {
 
   const [userInfo, setUserInfo] = useState<Partial<User> | null>(null);
 
-  usePageTitle(userInfo?.name ?? APP_NAME);
+  const pageTitle = userInfo ? `${userInfo.name} (@${userInfo.username})` : APP_NAME;
+
+  usePageTitle(pageTitle);
 
   useEffect(() => {
     if (!username) return;
