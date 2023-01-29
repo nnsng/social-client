@@ -5,7 +5,6 @@ export * from './ConfirmDialog';
 export * from './ContainedInput';
 export * from './CustomScrollbar';
 export * from './CustomThemeProvider';
-export * from './HashtagInput';
 export * from './NoPost';
 export * from './PageTitle';
 export * from './PopperWrapper';

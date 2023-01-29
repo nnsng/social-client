@@ -41,7 +41,6 @@ export function CreateEditPage() {
         title: '',
         content: '',
         thumbnail: '',
-        hashtags: [],
         authorId: currentUser?._id as string,
       }
     : editedPost;

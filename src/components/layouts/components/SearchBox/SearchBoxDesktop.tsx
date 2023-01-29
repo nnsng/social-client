@@ -15,18 +15,18 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import queryString from 'query-string';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { useCustomMediaQuery, useSubmitWithEnter } from '~/hooks';
+import { SearchObj } from '~/models';
 import {
   postActions,
   selectFormattedSearchResult,
   selectSearchLoading,
 } from '~/redux/slices/postSlice';
-import { useCustomMediaQuery, useSubmitWithEnter } from '~/hooks';
-import { SearchObj } from '~/models';
-import queryString from 'query-string';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { slugifyString } from '~/utils/common';
 import { themeMixins } from '~/utils/theme';
 import { showComingSoonToast } from '~/utils/toast';
@@ -56,10 +56,9 @@ export default function SearchBoxDesktop() {
   useEffect(() => {
     clearSearchInput();
 
-    const { search, username, hashtag } = queryString.parse(location.search);
+    const { search, username } = queryString.parse(location.search);
     if (search) setSearchInput(`${search}`);
     if (username) setSearchInput(`@${username}`);
-    if (hashtag) setSearchInput(`#${hashtag}`);
   }, [location.search]);
 
   useEffect(() => {
@@ -69,11 +68,6 @@ export default function SearchBoxDesktop() {
     let searchTerm = searchInput.trim();
 
     switch (searchInput[0]) {
-      case '#': {
-        searchFor = 'hashtag';
-        searchTerm = searchInput.slice(1);
-        break;
-      }
       case '@': {
         searchFor = 'username';
         searchTerm = searchInput.slice(1);

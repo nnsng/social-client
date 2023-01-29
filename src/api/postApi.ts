@@ -46,8 +46,4 @@ export const postApi = {
     const url = `/posts/${id}/unsave`;
     return axiosClient.post(url);
   },
-  getTopHashtags(): Promise<string[]> {
-    const url = '/posts/get-top-hashtags';
-    return axiosClient.get(url);
-  },
 };

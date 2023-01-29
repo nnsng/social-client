@@ -8,8 +8,8 @@ interface PostFilterProps {
 }
 
 export function PostFilter({ filter, onChange }: PostFilterProps) {
-  const { search, username, hashtag } = filter || {};
-  const searchFilter = { search, username, hashtag };
+  const { search, username } = filter || {};
+  const searchFilter = { search, username };
 
   const { t } = useTranslation('postFilter');
 

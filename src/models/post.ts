@@ -6,7 +6,6 @@ export interface Post {
   content: string;
   thumbnail: string;
   authorId: string;
-  hashtags: string[];
   author?: User;
   likes?: string[];
   likeCount?: number;
@@ -27,12 +26,11 @@ export interface Comment {
 }
 
 export interface SearchObj {
-  searchFor: 'search' | 'username' | 'hashtag';
+  searchFor: 'search' | 'username';
   searchTerm: string;
 }
 
 export interface SearchFilter {
   search?: string;
   username?: string;
-  hashtag?: string;
 }

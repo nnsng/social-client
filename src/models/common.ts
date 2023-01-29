@@ -32,7 +32,6 @@ export interface ListParams {
   sort?: string;
   order?: 'asc' | 'desc';
   search?: string | undefined;
-  hashtag?: string | undefined;
   username?: string;
   by?: PostByTypes;
 }

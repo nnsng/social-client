@@ -5,11 +5,6 @@
   "content": {
     "placeholder": "Type content here..."
   },
-  "hashtag": {
-    "label": "Add up to {{max}} hashtags (Enter to add)",
-    "placeholder": "Hashtag",
-    "error": "Added maximum of hashtags"
-  },
   "noTitle": "No title",
   "btnLabel": {
     "create": "Create",

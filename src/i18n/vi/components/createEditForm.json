@@ -5,11 +5,6 @@
   "content": {
     "placeholder": "Nhập nội dung bài viết..."
   },
-  "hashtag": {
-    "label": "Thêm tối đa {{max}} hashtag (Enter để thêm):",
-    "placeholder": "Nhập hashtag",
-    "error": "Đã thêm tối đa hashtag"
-  },
   "noTitle": "Chưa có tiêu đề",
   "btnLabel": {
     "create": "Đăng bài",

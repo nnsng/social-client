@@ -9,22 +9,17 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import {
-  FileInputField,
-  HashtagInputField,
-  InputField,
-  MdEditorField,
-} from '~/components/formFields';
-import { useCustomMediaQuery } from '~/hooks';
-import { Post } from '~/models';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { FileInputField, InputField, MdEditorField } from '~/components/formFields';
+import { useCustomMediaQuery } from '~/hooks';
+import { Post } from '~/models';
 import { delay } from '~/utils/common';
 import { themeMixins, themeVariables } from '~/utils/theme';
 import { showErrorToastFromServer } from '~/utils/toast';
-import * as yup from 'yup';
 
 export interface CreateEditFormProps {
   defaultValues: Post;
@@ -45,13 +40,6 @@ export function CreateEditForm(props: CreateEditFormProps) {
       .max(100, tValidate('max', { max: 100 })),
     content: yup.string().required(tValidate('required')),
     thumbnail: yup.string(),
-    hashtags: yup.array().of(
-      yup
-        .string()
-        .min(3, tValidate('min', { min: 3 }))
-        .max(20, tValidate('max', { max: 20 }))
-        .matches(/^(?![_.])[a-zA-Z0-9.-]+(?<![_.])$/, tValidate('notAllowed'))
-    ),
   });
 
   const {
@@ -69,7 +57,6 @@ export function CreateEditForm(props: CreateEditFormProps) {
   const title = watch('title');
   const content = watch('content');
   const thumbnail = watch('thumbnail');
-  const MAX_HASHTAGS = 5;
 
   const [uploading, setUploading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -85,9 +72,7 @@ export function CreateEditForm(props: CreateEditFormProps) {
     (async () => {
       if (isSubmitting) return;
 
-      // const hashtagErrors = errors.hashtags.filter((x) => !!x);
-      const hashtagErrors: any[] = [];
-      const errorValues: any = Object.values(errors).concat(hashtagErrors);
+      const errorValues: any = Object.values(errors);
       if (errorValues?.length === 0) return;
 
       for (const error of errorValues) {
@@ -222,14 +207,6 @@ export function CreateEditForm(props: CreateEditFormProps) {
               </Button>
             )}
           </Stack>
-
-          <HashtagInputField
-            name="hashtags"
-            control={control}
-            max={MAX_HASHTAGS}
-            label={t('hashtag.label', { max: MAX_HASHTAGS })}
-            optional
-          />
         </DialogContent>
 
         <DialogActions sx={{ px: { xs: 1, sm: 2 } }}>

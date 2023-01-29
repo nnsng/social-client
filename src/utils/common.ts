@@ -40,10 +40,6 @@ export const copyPostLink = (post: Post) => {
   showToast('common.copy');
 };
 
-export const formatHashtag = (hashtag: string) => {
-  return hashtag.toLowerCase().trim().replace(/\s+/g, '-');
-};
-
 export const delay = async (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };

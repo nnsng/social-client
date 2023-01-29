@@ -13,7 +13,6 @@ import authForm from './components/authForm.json';
 import createEditForm from './components/createEditForm.json';
 import postFilter from './components/postFilter.json';
 import postMenu from './components/postMenu.json';
-import topHashtags from './components/topHashtags.json';
 import postComment from './components/postComment.json';
 import postItem from './components/postItem.json';
 import settings from './components/settings.json';
@@ -48,7 +47,6 @@ export default {
   createEditForm,
   postFilter,
   postMenu,
-  topHashtags,
   postComment,
   postItem,
   settings,
