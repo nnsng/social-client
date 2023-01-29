@@ -68,3 +68,13 @@ export interface SettingTabItem {
   label: string;
   tab: string;
 }
+
+export interface SearchParams {
+  search: 'post' | 'user';
+  q: string;
+}
+
+export interface SearchFilter {
+  search?: string;
+  username?: string;
+}

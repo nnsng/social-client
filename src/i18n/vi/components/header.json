@@ -1,13 +1,13 @@
 {
   "search": {
     "placeholder": "Tìm kiếm",
-    "search": {
-      "result": "{{count}} bài viết với tiêu đề \"{{searchTerm}}\"",
-      "results": "{{count}} bài viết với tiêu đề \"{{searchTerm}}\""
+    "post": {
+      "result": "{{count}} bài viết với tiêu đề \"{{q}}\"",
+      "results": "{{count}} bài viết với tiêu đề \"{{q}}\""
     },
-    "username": {
-      "result": "{{count}} người dùng với username \"{{searchTerm}}\"",
-      "results": "{{count}} người dùng với username \"{{searchTerm}}\""
+    "user": {
+      "result": "{{count}} người dùng với username \"{{q}}\"",
+      "results": "{{count}} người dùng với username \"{{q}}\""
     },
     "viewMore": "Xem thêm"
   },

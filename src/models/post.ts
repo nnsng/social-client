@@ -25,13 +25,3 @@ export interface Comment {
   edited?: boolean;
   createdAt?: string;
 }
-
-export interface SearchObj {
-  searchFor: 'search' | 'username';
-  searchTerm: string;
-}
-
-export interface SearchFilter {
-  search?: string;
-  username?: string;
-}

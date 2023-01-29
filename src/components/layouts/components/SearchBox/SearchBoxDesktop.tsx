@@ -5,14 +5,14 @@ import {
   CircularProgress,
   ClickAwayListener,
   Divider,
-  FormControl,
   Grow,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
-  OutlinedInput,
   Paper,
   Stack,
+  TextField,
   Typography,
 } from '@mui/material';
 import queryString from 'query-string';
@@ -20,18 +20,17 @@ import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
-import { useCustomMediaQuery, useSubmitWithEnter } from '~/hooks';
-import { SearchObj } from '~/models';
+import { useSubmitWithEnter } from '~/hooks';
+import { SearchParams } from '~/models';
 import {
-  postActions,
+  commonActions,
   selectFormattedSearchResult,
   selectSearchLoading,
-} from '~/redux/slices/postSlice';
+} from '~/redux/slices/commonSlice';
 import { slugifyString } from '~/utils/common';
 import { themeMixins } from '~/utils/theme';
 import { showComingSoonToast } from '~/utils/toast';
 import { SearchResult } from '.';
-import { SearchMobile } from './SearchBoxMobile';
 
 export default function SearchBoxDesktop() {
   const navigate = useNavigate();
@@ -43,12 +42,12 @@ export default function SearchBoxDesktop() {
   const loading = useAppSelector(selectSearchLoading);
   const searchResult = useAppSelector(selectFormattedSearchResult);
 
-  const [searchInput, setSearchInput] = useState<string>('');
+  const [input, setInput] = useState('');
   const [result, setResult] = useState<SearchResult>({ list: [], length: 0, isMore: false });
-  const [showSearchResult, setShowSearchResult] = useState(false);
-  const [searchObj, setSearchObj] = useState<SearchObj>({
-    searchFor: 'search',
-    searchTerm: searchInput,
+  const [showResult, setShowResult] = useState(false);
+  const [params, setParams] = useState<SearchParams>({
+    search: 'post',
+    q: input,
   });
 
   const inputRef = useRef(null);
@@ -57,40 +56,35 @@ export default function SearchBoxDesktop() {
     clearSearchInput();
 
     const { search, username } = queryString.parse(location.search);
-    if (search) setSearchInput(`${search}`);
-    if (username) setSearchInput(`@${username}`);
+    if (search) setInput(`${search}`);
+    if (username) setInput(`@${username}`);
   }, [location.search]);
 
   useEffect(() => {
-    setShowSearchResult(searchInput.length > 0 && inputRef?.current === document.activeElement);
+    setShowResult(input.length > 0 && inputRef?.current === document.activeElement);
 
-    let searchFor = searchObj.searchFor;
-    let searchTerm = searchInput.trim();
+    let search = params.search;
+    let q = input.trim();
 
-    switch (searchInput[0]) {
+    switch (input[0]) {
       case '@': {
-        searchFor = 'username';
-        searchTerm = searchInput.slice(1);
+        search = 'user';
+        q = input.slice(1);
         break;
       }
       default: {
-        searchFor = 'search';
-        searchTerm = searchInput;
+        search = 'post';
+        q = input;
       }
     }
 
-    setSearchObj({ searchFor, searchTerm });
-  }, [searchInput]);
+    setParams({ search, q });
+  }, [input]);
 
   useEffect(() => {
-    const { searchFor, searchTerm } = searchObj;
-    dispatch(
-      postActions.searchWithDebounce({
-        searchFor,
-        searchTerm: slugifyString(searchTerm),
-      })
-    );
-  }, [searchObj]);
+    const { search, q } = params;
+    dispatch(commonActions.searchWithDebounce({ search, q: slugifyString(q) }));
+  }, [params]);
 
   useEffect(() => {
     const MAX_ITEMS = 5;
@@ -102,22 +96,22 @@ export default function SearchBoxDesktop() {
     });
   }, [searchResult]);
 
-  const closeSearchResult = () => setShowSearchResult(false);
-  const clearSearchInput = () => setSearchInput('');
+  const closeSearchResult = () => setShowResult(false);
+  const clearSearchInput = () => setInput('');
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(e.target.value);
+    setInput(e.target.value);
   };
 
   const handleViewMore = () => {
-    if (searchObj.searchFor === 'username') {
+    if (params.search === 'user') {
       showComingSoonToast();
       return;
     }
 
     closeSearchResult();
-    const { searchFor, searchTerm } = searchObj;
-    navigate(`/?${searchFor}=${searchTerm}`, { replace: true });
+    const { search, q } = params;
+    navigate(`/search/${search}s?q=${q}`, { replace: true });
   };
 
   const goto = (url: string) => {
@@ -127,145 +121,123 @@ export default function SearchBoxDesktop() {
 
   const onKeyUp = useSubmitWithEnter(handleViewMore);
 
-  const smDown = useCustomMediaQuery('down', 'sm');
-
   return (
-    <>
-      <Box display={{ xs: 'none', sm: 'block' }}>
-        <FormControl
-          fullWidth
-          size="small"
-          sx={{
-            width: '100%',
-            maxWidth: 320,
-            position: { xs: 'relative', md: 'absolute' },
-            top: { md: '50%' },
-            left: { md: '50%' },
-            transform: { md: 'translate(-50%, -50%)' },
-          }}
-        >
-          <OutlinedInput
-            placeholder={t('search.placeholder')}
-            inputProps={{ ref: inputRef, sx: { pl: 1.5 } }}
-            value={searchInput}
-            onChange={handleSearchChange}
-            onKeyUp={onKeyUp}
-            startAdornment={<SearchRounded sx={{ color: 'action.disabled' }} />}
-            endAdornment={
-              searchInput.length > 0 && (
-                <CloseRounded
-                  onClick={clearSearchInput}
-                  sx={{ color: 'text.secondary', cursor: 'pointer' }}
-                />
-              )
-            }
+    <Box
+      display={{ xs: 'none', sm: 'block' }}
+      sx={{
+        width: '100%',
+        maxWidth: 320,
+        position: { xs: 'relative', md: 'absolute' },
+        top: { md: '50%' },
+        left: { md: '50%' },
+        transform: { md: 'translate(-50%, -50%)' },
+      }}
+    >
+      <TextField
+        placeholder={t('search.placeholder')}
+        inputProps={{ ref: inputRef }}
+        value={input}
+        onChange={handleSearchChange}
+        onKeyUp={onKeyUp}
+        fullWidth
+        size="small"
+        InputProps={{
+          startAdornment: <SearchRounded sx={{ color: 'action.disabled', mr: 1.5 }} />,
+          endAdornment: input.length > 0 && (
+            <IconButton sx={{ color: 'text.secondary' }} onClick={clearSearchInput}>
+              <CloseRounded />
+            </IconButton>
+          ),
+        }}
+      />
+
+      <ClickAwayListener onClickAway={closeSearchResult}>
+        <Grow in={showResult}>
+          <Paper
             sx={{
-              borderRadius: 10,
-              bgcolor: 'background.paper',
+              ...themeMixins.paperBorder(),
+              position: 'absolute',
+              inset: '100% 0 auto',
+              top: '100%',
+              maxHeight: 450,
+              mt: 1,
+              overflow: 'auto',
             }}
-          />
+          >
+            <Stack alignItems="center" px={2} py={1}>
+              {loading || input.length < 2 ? (
+                <CircularProgress size={20} />
+              ) : (
+                <Typography color="text.secondary" fontSize={14}>
+                  {t(`search.${params.search}.result${result.length > 1 ? 's' : ''}`, {
+                    count: result.length,
+                    q: params.q,
+                  })}
+                </Typography>
+              )}
+            </Stack>
 
-          <ClickAwayListener onClickAway={closeSearchResult}>
-            <Grow in={showSearchResult}>
-              <Paper
-                sx={{
-                  ...themeMixins.paperBorder(),
-                  position: 'absolute',
-                  inset: '100% 0 auto',
-                  maxHeight: 450,
-                  mt: 1,
-                  overflow: 'auto',
-                }}
-              >
-                <Stack alignItems="center" px={2} py={1}>
-                  {loading || searchInput.length < 2 ? (
-                    <CircularProgress size={20} />
-                  ) : (
-                    <Typography color="text.secondary" fontSize={14}>
-                      {t(`search.${searchObj.searchFor}.result${result.length > 1 ? 's' : ''}`, {
-                        count: result.length,
-                        searchTerm: searchObj.searchTerm,
-                      })}
-                    </Typography>
-                  )}
-                </Stack>
+            {result.list.length > 0 && <Divider />}
 
-                {result.list.length > 0 && <Divider />}
-
-                <List disablePadding>
-                  {searchInput.length > 1 &&
-                    result.list.map((data) => (
-                      <ListItem key={data._id} disablePadding>
-                        <ListItemButton disableRipple onClick={() => goto(data.url)}>
-                          <Stack alignItems="center">
-                            <Avatar
-                              src={data.image}
-                              sx={{
-                                width: 32,
-                                height: 32,
-                                mr: 1,
-                                bgcolor: !data.image ? 'action.selected' : undefined,
-                              }}
-                            >
-                              <Box />
-                            </Avatar>
-
-                            <Typography
-                              fontSize={15}
-                              fontWeight={500}
-                              sx={{ ...themeMixins.truncate(2) }}
-                            >
-                              {data.name}
-                            </Typography>
-                          </Stack>
-                        </ListItemButton>
-                      </ListItem>
-                    ))}
-
-                  {result.isMore && searchInput.length > 1 && (
-                    <>
-                      <Divider />
-
-                      <Stack>
-                        <Typography
-                          variant="subtitle2"
-                          color="text.secondary"
-                          onClick={handleViewMore}
+            <List disablePadding>
+              {input.length > 1 &&
+                result.list.map((data) => (
+                  <ListItem key={data._id} disablePadding>
+                    <ListItemButton disableRipple onClick={() => goto(data.url)}>
+                      <Stack alignItems="center">
+                        <Avatar
+                          src={data.image}
                           sx={{
-                            display: 'inline-block',
-                            textAlign: 'center',
-                            mx: 'auto',
-                            py: 0.8,
-                            cursor: 'pointer',
-                            '&:hover': {
-                              color: 'text.primary',
-                            },
+                            width: 32,
+                            height: 32,
+                            mr: 1,
+                            bgcolor: !data.image ? 'action.selected' : undefined,
                           }}
                         >
-                          {t('search.viewMore')}
+                          <Box />
+                        </Avatar>
+
+                        <Typography
+                          fontSize={15}
+                          fontWeight={500}
+                          sx={{ ...themeMixins.truncate(2) }}
+                        >
+                          {data.name}
                         </Typography>
                       </Stack>
-                    </>
-                  )}
-                </List>
-              </Paper>
-            </Grow>
-          </ClickAwayListener>
-        </FormControl>
-      </Box>
+                    </ListItemButton>
+                  </ListItem>
+                ))}
 
-      {smDown && (
-        <SearchMobile
-          open={false}
-          loading={loading}
-          searchInput={searchInput}
-          result={result}
-          searchObj={searchObj}
-          onChange={handleSearchChange}
-          onClear={clearSearchInput}
-          onViewMore={handleViewMore}
-        />
-      )}
-    </>
+              {result.isMore && input.length > 1 && (
+                <>
+                  <Divider />
+
+                  <Stack>
+                    <Typography
+                      variant="subtitle2"
+                      color="text.secondary"
+                      onClick={handleViewMore}
+                      sx={{
+                        display: 'inline-block',
+                        textAlign: 'center',
+                        mx: 'auto',
+                        py: 0.8,
+                        cursor: 'pointer',
+                        '&:hover': {
+                          color: 'text.primary',
+                        },
+                      }}
+                    >
+                      {t('search.viewMore')}
+                    </Typography>
+                  </Stack>
+                </>
+              )}
+            </List>
+          </Paper>
+        </Grow>
+      </ClickAwayListener>
+    </Box>
   );
 }

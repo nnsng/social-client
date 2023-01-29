@@ -14,7 +14,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import { SearchObj } from '~/models';
+import { SearchParams } from '~/models';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { themeMixins, themeVariables } from '~/utils/theme';
@@ -25,7 +25,7 @@ export interface SearchMobileProps {
   open: boolean;
   onClose?: () => void;
   result: SearchResult;
-  searchObj: SearchObj;
+  searchObj: SearchParams;
   searchInput: string;
   onChange?: (e: any) => void;
   onClear?: () => void;
