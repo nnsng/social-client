@@ -62,6 +62,15 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
     }
   };
 
+  const handleForgotPassword = async () => {
+    try {
+      await onForgotPassword?.();
+      showToast('checkEmail', 'info');
+    } catch (error) {
+      showErrorToastFromServer(error);
+    }
+  };
+
   const fieldList: FormField[] = [
     { name: 'currentPassword' },
     { name: 'newPassword' },
@@ -85,7 +94,7 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
       }}
       action={
         <Button
-          onClick={onForgotPassword}
+          onClick={handleForgotPassword}
           sx={{
             mt: { xs: 1, sm: 0 },
             ml: { xs: 0, sm: 3 },

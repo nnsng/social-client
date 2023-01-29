@@ -45,27 +45,27 @@ export function PostDetailPage() {
     if (!post) return;
 
     if (openComment) {
-      dispatch(commentActions.fetchPostComments(post?._id || ''));
+      dispatch(commentActions.fetchPostComments(post?._id!));
     }
   }, [openComment]);
 
   const closeComment = () => setOpenComment(false);
 
   const handleSavePost = async (post: Post) => {
-    await postApi.save(post._id || '');
+    await postApi.save(post._id!);
   };
 
   const handleDeletePost = async (post: Post) => {
-    await postApi.remove(post._id || '');
+    await postApi.remove(post._id!);
   };
 
   const handleLikePost = () => {
-    dispatch(postActions.likePost(post?._id || ''));
+    dispatch(postActions.likePost(post?._id!));
   };
 
   const handleCommentAction = async (action: CommentActionTypes, comment: Comment) => {
     if (action === 'like') {
-      dispatch(commentActions.like(comment._id || ''));
+      dispatch(commentActions.like(comment._id!));
       return;
     }
     await commentApi[action](comment);

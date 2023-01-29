@@ -21,9 +21,9 @@ export function PostFilter({ filter, onChange }: PostFilterProps) {
   const generateFilterText = () => {
     type SearchFilterKeyType = keyof typeof searchFilter;
 
-    const filterKey = Object.keys(searchFilter).find(
-      (x) => !!searchFilter[x as SearchFilterKeyType]
-    );
+    const filterKey = Object.keys(searchFilter).find((x) => {
+      return !!searchFilter[x as SearchFilterKeyType];
+    });
     if (!filterKey) return t('text.newest');
 
     return t(`text.${filterKey}`, { value: searchFilter[filterKey as SearchFilterKeyType] });

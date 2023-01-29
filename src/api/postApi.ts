@@ -14,7 +14,7 @@ export const postApi = {
     const url = `/posts/detail/${slug}`;
     return axiosClient.get(url);
   },
-  getForEdit(id: string) {
+  getForEdit(id: string): Promise<Post> {
     const url = `/posts/${id}`;
     return axiosClient.get(url);
   },

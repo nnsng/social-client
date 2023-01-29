@@ -30,7 +30,7 @@ export interface UserInfoButtonGroupProps {
 
 export function UserInfoButtonGroup(props: UserInfoButtonGroupProps) {
   const { user, updateUser } = props;
-  const userId = user?._id as string;
+  const userId = user?._id!;
 
   const { t } = useTranslation('userInfoButtonGroup');
 

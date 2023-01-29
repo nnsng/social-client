@@ -216,11 +216,13 @@ export function PostCard(props: PostCardProps) {
                 },
               }}
             >
-              <ReactMarkdown
-                children={post.content}
-                remarkPlugins={[remarkGfm]}
-                allowedElements={allowedElements}
-              />
+              {post.description || (
+                <ReactMarkdown
+                  children={post.content}
+                  remarkPlugins={[remarkGfm]}
+                  allowedElements={allowedElements}
+                />
+              )}
             </Typography>
           </Box>
 

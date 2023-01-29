@@ -24,7 +24,7 @@ export function SavedPage() {
   }, [dispatch, page]);
 
   const handleUnsavePost = async (post: Post) => {
-    await postApi.unsave(post._id as string);
+    await postApi.unsave(post._id!);
     fetchSavedList(page);
   };
 

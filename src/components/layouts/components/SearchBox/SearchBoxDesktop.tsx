@@ -147,12 +147,12 @@ export default function SearchBoxDesktop() {
           <OutlinedInput
             placeholder={t('search.placeholder')}
             inputProps={{ ref: inputRef, sx: { pl: 1.5 } }}
-            value={searchInput || ''}
+            value={searchInput}
             onChange={handleSearchChange}
             onKeyUp={onKeyUp}
             startAdornment={<SearchRounded sx={{ color: 'action.disabled' }} />}
             endAdornment={
-              (searchInput || '').length > 0 && (
+              searchInput.length > 0 && (
                 <CloseRounded
                   onClick={clearSearchInput}
                   sx={{ color: 'text.secondary', cursor: 'pointer' }}

@@ -76,14 +76,14 @@ export function SearchMobile(props: SearchMobileProps) {
             <OutlinedInput
               placeholder={t('search.placeholder')}
               inputProps={{ sx: { pl: 1.5 } }}
-              value={searchInput || ''}
+              value={searchInput}
               onChange={onChange}
               autoFocus
               startAdornment={
                 <SearchRounded sx={{ color: 'action.disabled', cursor: 'pointer' }} />
               }
               endAdornment={
-                (searchInput || '').length > 0 && (
+                searchInput.length > 0 && (
                   <CloseRounded
                     onClick={onClear}
                     sx={{ color: 'text.secondary', cursor: 'pointer' }}
@@ -118,7 +118,7 @@ export function SearchMobile(props: SearchMobileProps) {
         </Stack>
 
         <List disablePadding>
-          {(searchInput || '').length > 1 && (
+          {searchInput.length > 1 && (
             <>
               {result.list.map((data) => (
                 <ListItem key={data._id} disablePadding>

@@ -278,7 +278,7 @@ export function CommentItem(props: CommentItemProps) {
                   onClick={handleLikeComment}
                   sx={{ cursor: 'pointer' }}
                 >
-                  {comment.likes?.includes(currentUser?._id || '') ? t('unlike') : t('like')}
+                  {comment.likes?.includes(currentUser?._id!) ? t('unlike') : t('like')}
                 </Typography>
 
                 <Tooltip title={formatTime(comment.createdAt, 'DD/MM/YYYY, HH:mm')}>

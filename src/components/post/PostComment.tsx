@@ -49,7 +49,7 @@ export function PostComment(props: PostCommentProps) {
     try {
       const comment: Comment = {
         postId,
-        userId: currentUser?._id || '',
+        userId: currentUser?._id!,
         content: input.trim(),
       };
 

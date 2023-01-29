@@ -9,16 +9,19 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { Control, useController } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 export interface MuiTextFieldProps extends OutlinedTextFieldProps {
   name: string;
   control: Control<any>;
-  label: string;
+  label?: string;
   optional?: boolean;
 }
 
 export function MuiTextField(props: MuiTextFieldProps) {
   const { name, control, label, optional, type = 'text', ...restProps } = props;
+
+  const { t } = useTranslation('common');
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -30,33 +33,35 @@ export function MuiTextField(props: MuiTextFieldProps) {
   return (
     <Box>
       <Stack direction="column" alignItems={restProps.multiline ? 'flex-start' : undefined}>
-        <Stack
-          component={Typography}
-          justifyContent="space-between"
-          variant="body2"
-          sx={{
-            width: '100%',
-            mb: 0.5,
-            fontWeight: 500,
-            color: 'text.primary',
-          }}
-        >
-          <Typography variant="inherit" component="span">
-            {label}
-          </Typography>
-
-          {optional && (
-            <Typography variant="inherit" component="span" color="text.secondary">
-              (Optional)
+        {label && (
+          <Stack
+            component={Typography}
+            justifyContent="space-between"
+            variant="body2"
+            sx={{
+              width: '100%',
+              mb: 0.5,
+              fontWeight: 500,
+              color: 'text.primary',
+            }}
+          >
+            <Typography variant="inherit" component="span">
+              {label}
             </Typography>
-          )}
 
-          {error && !optional && (
-            <Typography variant="inherit" component="span" color="error">
-              {error.message}
-            </Typography>
-          )}
-        </Stack>
+            {optional && (
+              <Typography variant="inherit" component="span" color="text.secondary">
+                ({t('optional')})
+              </Typography>
+            )}
+
+            {error && !optional && (
+              <Typography variant="inherit" component="span" color="error">
+                {error.message}
+              </Typography>
+            )}
+          </Stack>
+        )}
 
         <TextField
           name={name}

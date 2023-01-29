@@ -5,6 +5,7 @@ export interface Post {
   title: string;
   content: string;
   thumbnail: string;
+  description?: string;
   authorId: string;
   author?: User;
   likes?: string[];

@@ -46,7 +46,7 @@ export const privateRoutes: RouteItem[] = [
     layout: HeaderOnlyLayout,
   },
   {
-    path: '/create/:postId',
+    path: '/edit/:postId',
     component: CreateEditPage,
     layout: HeaderOnlyLayout,
   },

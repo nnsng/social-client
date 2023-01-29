@@ -50,11 +50,11 @@ export function ProfilePage() {
   };
 
   const handleSavePost = async (post: Post) => {
-    await postApi.save(post._id || '');
+    await postApi.save(post._id!);
   };
 
   const handleDeletePost = async (post: Post) => {
-    await postApi.remove(post._id || '');
+    await postApi.remove(post._id!);
     fetchUserPostList({ page });
   };
 

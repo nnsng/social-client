@@ -49,7 +49,7 @@ export function PostReaction(props: PostReactionProps) {
         <Button
           color="inherit"
           startIcon={
-            (post.likes || []).includes(currentUser?._id as string) ? (
+            post.likes!.includes(currentUser?._id!) ? (
               <FavoriteRounded sx={{ color: 'error.main' }} />
             ) : (
               <FavoriteBorderRounded />
