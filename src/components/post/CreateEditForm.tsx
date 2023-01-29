@@ -41,16 +41,16 @@ export function CreateEditForm(props: CreateEditFormProps) {
   const schema = yup.object().shape({
     title: yup
       .string()
-      .required(tValidate('title.required'))
-      .max(100, tValidate('title.max', { max: 100 })),
-    content: yup.string().required(tValidate('content.required')),
+      .required(tValidate('required'))
+      .max(100, tValidate('max', { max: 100 })),
+    content: yup.string().required(tValidate('required')),
     thumbnail: yup.string(),
     hashtags: yup.array().of(
       yup
         .string()
-        .min(3, tValidate('hashtags.min', { min: 3 }))
-        .max(20, tValidate('hashtags.max', { max: 20 }))
-        .matches(/^(?![_-])[a-zA-Z0-9-]+(?<![_-])$/, tValidate('hashtags.valid'))
+        .min(3, tValidate('min', { min: 3 }))
+        .max(20, tValidate('max', { max: 20 }))
+        .matches(/^(?![_.])[a-zA-Z0-9.-]+(?<![_.])$/, tValidate('notAllowed'))
     ),
   });
 
@@ -228,8 +228,7 @@ export function CreateEditForm(props: CreateEditFormProps) {
             control={control}
             max={MAX_HASHTAGS}
             label={t('hashtag.label', { max: MAX_HASHTAGS })}
-            placeholder={t('hashtag.placeholder')}
-            errorText={t('hashtag.error')}
+            optional
           />
         </DialogContent>
 

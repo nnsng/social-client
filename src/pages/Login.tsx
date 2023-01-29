@@ -31,12 +31,12 @@ export function LoginPage() {
   usePageTitle(t('pageTitle'), true);
 
   const schema = yup.object().shape({
-    email: yup.string().required(tValidate('email.required')).email(tValidate('email.email')),
+    email: yup.string().required(tValidate('required')).email(tValidate('invalid')),
     password: yup
       .string()
-      .required(tValidate('password.required'))
-      .min(6, tValidate('password.min', { min: 6 }))
-      .max(255, tValidate('password.max', { max: 255 })),
+      .required(tValidate('required'))
+      .min(6, tValidate('min', { min: 6 }))
+      .max(255, tValidate('max', { max: 255 })),
   });
 
   const { control, handleSubmit, getValues } = useForm<LoginFormValues>({
@@ -92,7 +92,7 @@ export function LoginPage() {
         onGoogleLogin={googleLogin}
       />
 
-      <Box textAlign="center" mt={2} mb={1}>
+      <Box textAlign="center" my={1}>
         <Typography variant="body2" component="span" sx={{ cursor: 'default' }}>
           {t('text')}{' '}
         </Typography>

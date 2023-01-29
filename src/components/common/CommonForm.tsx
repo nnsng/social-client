@@ -46,11 +46,7 @@ export function CommonForm(props: CommonFormProps) {
               name={field.name}
               control={control}
               variant="outlined"
-              placeholder={t(`label.${field.name}`)}
-              title={t(`label.${field.name}`)}
-              rounded
-              horizontal={horizontal}
-              labelWidth={labelWidth}
+              label={t(`label.${field.name}`)}
               {...commonProps}
               {...(field.props || {})}
             />
@@ -64,11 +60,7 @@ export function CommonForm(props: CommonFormProps) {
             color="primary"
             disabled={submitting}
             startIcon={submitting && <CircularProgress size={20} />}
-            sx={{
-              ml: horizontal ? `${labelWidth}px` : 0,
-              borderRadius: 40,
-              fontSize: 13,
-            }}
+            sx={{ fontSize: 13 }}
           >
             {t('submit')}
           </Button>

@@ -24,12 +24,12 @@ export function UpdatePasswordForm() {
   const schema = yup.object().shape({
     newPassword: yup
       .string()
-      .required(tValidate('newPassword.required'))
+      .required(tValidate('required'))
       .min(6, tValidate('password.min', { min: 6 })),
     confirmPassword: yup
       .string()
-      .required(tValidate('confirmPassword.required'))
-      .oneOf([yup.ref('newPassword'), null], tValidate('confirmPassword.match')),
+      .required(tValidate('required'))
+      .oneOf([yup.ref('newPassword'), null], tValidate('notMatch')),
   });
 
   const {

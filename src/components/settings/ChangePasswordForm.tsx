@@ -25,16 +25,16 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
   const schema = yup.object().shape({
     currentPassword: yup
       .string()
-      .required(tValidate('currentPassword.required'))
-      .min(6, tValidate('password.min', { min: 6 })),
+      .required(tValidate('required'))
+      .min(6, tValidate('min', { min: 6 })),
     newPassword: yup
       .string()
-      .required(tValidate('newPassword.required'))
-      .min(6, tValidate('password.min', { min: 6 })),
+      .required(tValidate('required'))
+      .min(6, tValidate('min', { min: 6 })),
     confirmPassword: yup
       .string()
-      .required(tValidate('confirmPassword.required'))
-      .oneOf([yup.ref('newPassword'), null], tValidate('confirmPassword.match')),
+      .required(tValidate('required'))
+      .oneOf([yup.ref('newPassword'), null], tValidate('notMatch')),
   });
 
   const {

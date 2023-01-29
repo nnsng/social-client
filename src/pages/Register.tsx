@@ -22,22 +22,22 @@ export function RegisterPage() {
   usePageTitle(t('pageTitle'), true);
 
   const schema = yup.object().shape({
-    email: yup.string().required(tValidate('email.required')).email(tValidate('email.email')),
+    email: yup.string().required(tValidate('required')).email(tValidate('invalid')),
     password: yup
       .string()
-      .required(tValidate('password.required'))
-      .min(6, tValidate('password.min', { min: 6 }))
-      .max(255, tValidate('password.max', { max: 255 })),
+      .required(tValidate('required'))
+      .min(6, tValidate('min', { min: 6 }))
+      .max(255, tValidate('max', { max: 255 })),
     name: yup
       .string()
-      .required(tValidate('name.required'))
-      .max(30, tValidate('name.max', { max: 30 })),
+      .required(tValidate('required'))
+      .max(30, tValidate('max', { max: 30 })),
     username: yup
       .string()
-      .required(tValidate('username.required'))
-      .min(6, tValidate('username.min', { min: 6 }))
-      .max(20, tValidate('username.max', { max: 20 }))
-      .matches(/^[a-zA-Z0-9_\.]+$/, tValidate('username.valid')),
+      .required(tValidate('required'))
+      .min(6, tValidate('min', { min: 6 }))
+      .max(20, tValidate('max', { max: 20 }))
+      .matches(/^[a-zA-Z0-9_\.]+$/, tValidate('notAllowed')),
   });
 
   const { control, handleSubmit } = useForm<RegisterFormValues>({
@@ -71,7 +71,7 @@ export function RegisterPage() {
         submitting={submitting}
       />
 
-      <Box textAlign="center" mt={2} mb={1}>
+      <Box textAlign="center" my={1}>
         <Typography variant="body2" component="span" sx={{ cursor: 'default' }}>
           {t('text')}{' '}
         </Typography>
