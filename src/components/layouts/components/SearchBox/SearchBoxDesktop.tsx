@@ -23,10 +23,10 @@ import { useAppDispatch, useAppSelector } from '~/app/hooks';
 import { useSubmitWithEnter } from '~/hooks';
 import { SearchParams } from '~/models';
 import {
-  commonActions,
+  otherActions,
   selectFormattedSearchResult,
   selectSearchLoading,
-} from '~/redux/slices/commonSlice';
+} from '~/redux/slices/otherSlice';
 import { slugifyString } from '~/utils/common';
 import { themeMixins } from '~/utils/theme';
 import { showComingSoonToast } from '~/utils/toast';
@@ -83,7 +83,7 @@ export default function SearchBoxDesktop() {
 
   useEffect(() => {
     const { search, q } = params;
-    dispatch(commonActions.searchWithDebounce({ search, q: slugifyString(q) }));
+    dispatch(otherActions.searchWithDebounce({ search, q: slugifyString(q) }));
   }, [params]);
 
   useEffect(() => {

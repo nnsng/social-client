@@ -37,7 +37,7 @@ export function SidebarWrapper({ children, open, onClose }: SidebarWrapperProps)
       sx={{
         position: 'sticky',
         top: themeVariables.headerHeight + 16,
-        height: '100%',
+        height: `calc(100vh - ${themeVariables.headerHeight}px - 20px)`,
       }}
     >
       {children}
