@@ -10,13 +10,6 @@ export function Header() {
 
   const mdUp = useCustomMediaQuery('up', 'md');
 
-  const headerElements = {
-    mobile: [SidebarMobileButton, Brand, UserActions],
-    desktop: [Brand, SearchBox, UserActions],
-  };
-
-  const headerChildren = mdUp ? headerElements.desktop : headerElements.mobile;
-
   return (
     <Box
       component="header"
@@ -36,9 +29,15 @@ export function Header() {
       )}
       <Container sx={{ height: '100%' }}>
         <Stack justifyContent="space-between" height="100%">
-          {headerChildren.map((Component, idx) => (
-            <Component key={idx} />
-          ))}
+          <Stack spacing={2}>
+            {!mdUp && <SidebarMobileButton />}
+            <Brand />
+          </Stack>
+
+          <Stack spacing={2}>
+            <SearchBox />
+            <UserActions />
+          </Stack>
         </Stack>
       </Container>
     </Box>

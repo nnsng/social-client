@@ -1,12 +1,9 @@
-import { SearchResultItem } from '~/models';
-import SearchBoxDesktop from './SearchBoxDesktop';
-
-export interface SearchResult {
-  list: SearchResultItem[];
-  length: number;
-  isMore: boolean;
-}
+import { useCustomMediaQuery } from '~/hooks';
+import { SearchBoxDesktop } from './SearchBoxDesktop';
+import { SearchBoxMobile } from './SearchBoxMobile';
 
 export function SearchBox() {
-  return <SearchBoxDesktop />;
+  const mdUp = useCustomMediaQuery('up', 'md');
+
+  return mdUp ? <SearchBoxDesktop /> : <SearchBoxMobile />;
 }

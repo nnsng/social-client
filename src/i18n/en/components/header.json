@@ -1,11 +1,11 @@
 {
   "search": {
     "placeholder": "Search",
-    "post": {
+    "posts": {
       "result": "{{count}} post matches title \"{{q}}\"",
       "results": "{{count}} posts match title \"{{q}}\""
     },
-    "user": {
+    "users": {
       "result": "{{count}} user matches username \"{{q}}\"",
       "results": "{{count}} users match username \"{{q}}\""
     },

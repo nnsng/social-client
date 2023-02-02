@@ -49,9 +49,10 @@ export interface FormField {
   props?: any;
 }
 
-export interface SearchResultItem {
+export interface SearchResult {
   _id: string;
-  name: string;
+  title: string;
+  subtitle?: string;
   image: string;
   url: string;
 }

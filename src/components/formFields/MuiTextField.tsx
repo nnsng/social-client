@@ -1,4 +1,4 @@
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material';
 import {
   Box,
   IconButton,
@@ -76,8 +76,8 @@ export function MuiTextField(props: MuiTextFieldProps) {
           type={type !== 'password' ? type : showPassword ? 'text' : 'password'}
           InputProps={{
             endAdornment: type === 'password' && (
-              <IconButton onClick={() => setShowPassword((x) => !x)} edge="end">
-                {showPassword ? <VisibilityOff /> : <Visibility />}
+              <IconButton edge="end" onClick={() => setShowPassword((x) => !x)}>
+                {showPassword ? <VisibilityOffOutlined /> : <VisibilityOutlined />}
               </IconButton>
             ),
           }}

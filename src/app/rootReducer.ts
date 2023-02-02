@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 import {
   commentReducer,
   configReducer,
-  otherReducer,
   postReducer,
   settingReducer,
   socketReducer,
@@ -14,7 +13,6 @@ const rootReducer = combineReducers({
   post: postReducer,
   comment: commentReducer,
   settings: settingReducer,
-  other: otherReducer,
   socket: socketReducer,
   config: configReducer,
 });

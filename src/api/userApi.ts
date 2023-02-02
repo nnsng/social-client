@@ -23,4 +23,8 @@ export const userApi = {
     const url = '/users/unfollow';
     return axiosClient.post(url, { userId });
   },
+  search(q: string): Promise<Partial<User>[]> {
+    const url = '/users/search';
+    return axiosClient.get(url, { params: { q } });
+  },
 };

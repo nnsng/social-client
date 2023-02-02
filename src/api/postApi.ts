@@ -42,4 +42,8 @@ export const postApi = {
     const url = `/posts/${id}/unsave`;
     return axiosClient.post(url);
   },
+  search(q: string): Promise<Post[]> {
+    const url = '/posts/search';
+    return axiosClient.get(url, { params: { q } });
+  },
 };

@@ -1,11 +1,11 @@
 {
   "search": {
     "placeholder": "Tìm kiếm",
-    "post": {
+    "posts": {
       "result": "{{count}} bài viết với tiêu đề \"{{q}}\"",
       "results": "{{count}} bài viết với tiêu đề \"{{q}}\""
     },
-    "user": {
+    "users": {
       "result": "{{count}} người dùng với username \"{{q}}\"",
       "results": "{{count}} người dùng với username \"{{q}}\""
     },

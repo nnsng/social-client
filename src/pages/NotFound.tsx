@@ -10,12 +10,12 @@ export function NotFoundPage() {
 
   return (
     <Stack height={`calc(100vh - ${themeVariables.headerHeight}px)`} textAlign="center">
-      <Box m="auto" sx={{ transform: 'translateY(-50%)' }}>
-        <Typography color="primary.main" fontSize={120} fontWeight={600} letterSpacing={20}>
+      <Box m="auto" color="primary.main" sx={{ transform: 'translateY(-50%)' }}>
+        <Typography variant="h1" component="div" fontWeight={600} letterSpacing={20}>
           4&#9785;4
         </Typography>
 
-        <Typography color="primary.main" fontSize={20} fontWeight={600} letterSpacing={2}>
+        <Typography variant="h6" component="div" fontWeight={600} letterSpacing={2}>
           {t('content')}
         </Typography>
       </Box>
