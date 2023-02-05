@@ -6,16 +6,16 @@ import {
   FlagRounded,
   LinkRounded,
 } from '@mui/icons-material';
-import { Box, Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
+import { Box, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import { Link, useNavigate } from 'react-router-dom';
 import remarkGfm from 'remark-gfm';
 import { useAppSelector } from '~/app/hooks';
-import { ConfirmDialog } from '~/components/common';
+import { ConfirmDialog, CustomCard } from '~/components/common';
 import { ROLE } from '~/constants';
-import { MenuOption, Post } from '~/models';
+import { Post } from '~/models';
 import { selectCurrentUser } from '~/redux/slices/userSlice';
 import { copyPostLink } from '~/utils/common';
 import { themeMixins } from '~/utils/theme';
@@ -159,14 +159,7 @@ export function PostCard(props: PostCardProps) {
   };
 
   return (
-    <Card
-      sx={{
-        ...themeMixins.paperBorder(),
-        width: '100%',
-        p: 2,
-        mb: 2,
-      }}
-    >
+    <CustomCard>
       <PostCardHeader
         post={post}
         actionMenu={actionMenus[mode]}
@@ -252,6 +245,6 @@ export function PostCard(props: PostCardProps) {
         onConfirm={isSaved ? handleUnsavePost : handleDeletePost}
         loading={loading}
       />
-    </Card>
+    </CustomCard>
   );
 }

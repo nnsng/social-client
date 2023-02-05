@@ -7,17 +7,24 @@ import { PageTitle } from '~/components/common';
 import { PostList } from '~/components/post';
 import { usePageTitle } from '~/hooks';
 import { Post } from '~/models';
-import { postActions, selectPostList } from '~/redux/slices/postSlice';
+import {
+  postActions,
+  selectPostList,
+  selectPostLoading,
+  selectTotalPages,
+} from '~/redux/slices/postSlice';
 
 export function SavedPage() {
   const { t } = useTranslation('savedPage');
 
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
+  const totalPage = useAppSelector(selectTotalPages);
+  const loading = useAppSelector(selectPostLoading);
 
   const [page, setPage] = useState(1);
 
-  usePageTitle(t('pageTitle'));
+  usePageTitle(t('pageTitle'), true);
 
   useEffect(() => {
     fetchSavedList(page);
@@ -40,7 +47,11 @@ export function SavedPage() {
         <List disablePadding>
           <PostList
             postList={postList}
-            page={page}
+            page={{
+              total: totalPage,
+              current: page,
+            }}
+            loading={loading}
             onPageChange={setPage}
             onUnsave={handleUnsavePost}
             mode="saved"

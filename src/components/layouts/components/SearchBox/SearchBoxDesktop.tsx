@@ -14,13 +14,14 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { ChangeEvent, createRef, useEffect, useMemo, useRef, useState } from 'react';
+import queryString from 'query-string';
+import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { postApi, userApi } from '~/api';
 import { useDebounce, useKeyUp } from '~/hooks';
-import { Post, SearchApiType, SearchResult, User } from '~/models';
-import { formatSearchResponse } from '~/utils/common';
+import { SearchApiType, SearchResult } from '~/models';
+import { formatSearchResponse, slugifyString } from '~/utils/common';
 import { themeMixins } from '~/utils/theme';
 import { showErrorToastFromServer } from '~/utils/toast';
 
@@ -28,6 +29,8 @@ const MAX_ITEM = 5;
 
 export function SearchBoxDesktop() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const params = useParams();
 
   const { t } = useTranslation('header');
 
@@ -41,10 +44,22 @@ export function SearchBoxDesktop() {
   const inputRef = useRef<any>(null);
 
   const searchType = useMemo(() => {
-    return debouncedInput.startsWith('@') ? 'users' : 'posts';
-  }, [debouncedInput]);
+    return input.startsWith('@') ? 'users' : 'posts';
+  }, [input]);
 
   const isMore = useMemo(() => results.length > MAX_ITEM, [results]);
+
+  useEffect(() => {
+    const isInSearchPage = location.pathname.startsWith('/search');
+    if (!isInSearchPage) {
+      setInput('');
+      return;
+    }
+
+    const { q = '' } = queryString.parse(location.search);
+    const searchTerm = (params.type === 'users' ? `@${q}` : q) as string;
+    setInput(searchTerm);
+  }, [location]);
 
   useEffect(() => {
     if (debouncedInput.length < 1) return;
@@ -54,12 +69,12 @@ export function SearchBoxDesktop() {
         let api: SearchApiType = postApi;
         let q = debouncedInput;
 
-        if (debouncedInput.startsWith('@')) {
+        if (searchType === 'users') {
           api = userApi;
           q = debouncedInput.slice(1);
         }
 
-        const response = await api.search(q);
+        const response = await api.search(slugifyString(q));
         setResults(formatSearchResponse(response));
       } catch (error) {
         showErrorToastFromServer(error);

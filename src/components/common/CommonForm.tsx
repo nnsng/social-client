@@ -12,8 +12,6 @@ export interface CommonFormProps {
   submitting?: boolean;
   commonProps?: { [key: string]: any };
   avatarField?: ReactNode;
-  horizontal?: boolean;
-  labelWidth?: number;
   action?: ReactNode;
   onSubmit?: (formValues: any) => void;
 }
@@ -26,8 +24,6 @@ export function CommonForm(props: CommonFormProps) {
     submitting,
     commonProps = {},
     avatarField = null,
-    horizontal,
-    labelWidth = 120,
     action = null,
     onSubmit,
   } = props;

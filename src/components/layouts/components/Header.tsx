@@ -27,8 +27,9 @@ export function Header() {
           <LinearProgress sx={{ height: 3 }} />
         </Box>
       )}
+
       <Container sx={{ height: '100%' }}>
-        <Stack justifyContent="space-between" height="100%">
+        <Stack justifyContent="space-between" height="100%" position="relative">
           <Stack spacing={2}>
             {!mdUp && <SidebarMobileButton />}
             <Brand />

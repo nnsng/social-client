@@ -1,7 +1,8 @@
 {
+  "viewProfile": "Xem trang cá nhân",
   "follow": "Theo dõi",
   "unfollow": "Bỏ theo dõi",
-  "editProfile": "Chỉnh sửa thông tin",
+  "message": "Nhắn tin",
   "menu": {
     "block": "Chặn",
     "report": "Báo cáo"

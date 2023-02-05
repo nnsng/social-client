@@ -5,5 +5,5 @@ import { SearchBoxMobile } from './SearchBoxMobile';
 export function SearchBox() {
   const mdUp = useCustomMediaQuery('up', 'md');
 
-  return mdUp ? <SearchBoxDesktop /> : <SearchBoxMobile />;
+  return mdUp ? <SearchBoxDesktop /> : <></>;
 }

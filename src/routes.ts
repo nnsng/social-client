@@ -10,6 +10,7 @@ import {
   ProfilePage,
   RegisterPage,
   SavedPage,
+  SearchPage,
   SettingsPage,
 } from './pages';
 
@@ -71,6 +72,14 @@ export const privateRoutes: RouteItem[] = [
   {
     path: '/settings',
     component: SettingsPage,
+    layout: HeaderOnlyLayout,
+    layoutProps: {
+      maxWidth: 'md',
+    },
+  },
+  {
+    path: '/search/:type',
+    component: SearchPage,
     layout: HeaderOnlyLayout,
     layoutProps: {
       maxWidth: 'md',

@@ -6,6 +6,7 @@ import notFoundPage from './pages/notFoundPage.json';
 import profilePage from './pages/profilePage.json';
 import loginPage from './pages/loginPage.json';
 import registerPage from './pages/registerPage.json';
+import searchPage from './pages/searchPage.json';
 
 // components
 import header from './components/header.json';
@@ -18,7 +19,7 @@ import postItem from './components/postItem.json';
 import settings from './components/settings.json';
 import editProfileForm from './components/editProfileForm.json';
 import changePasswordForm from './components/changePasswordForm.json';
-import userInfoButtonGroup from './components/userInfoButtonGroup.json';
+import userButtonGroup from './components/userButtonGroup.json';
 import noPost from './components/noPost.json';
 import notification from './components/notification.json';
 import sidebar from './components/sidebar.json';
@@ -26,6 +27,7 @@ import appearanceDialog from './components/appearanceDialog.json';
 import updatePasswordForm from './components/updatePasswordForm.json';
 import activeAccount from './components/activeAccount.json';
 import confirmDialog from './components/confirmDialog.json';
+import userCard from './components/userCard.json';
 
 // common
 import validate from './common/validate.json';
@@ -41,6 +43,7 @@ export default {
   profilePage,
   loginPage,
   registerPage,
+  searchPage,
 
   // components
   header,
@@ -53,7 +56,7 @@ export default {
   settings,
   editProfileForm,
   changePasswordForm,
-  userInfoButtonGroup,
+  userButtonGroup,
   noPost,
   notification,
   sidebar,
@@ -61,6 +64,7 @@ export default {
   updatePasswordForm,
   activeAccount,
   confirmDialog,
+  userCard,
 
   // common
   validate,

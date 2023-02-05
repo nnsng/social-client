@@ -1,7 +1,8 @@
 {
+  "viewProfile": "View profile",
   "follow": "Follow",
   "unfollow": "Unfollow",
-  "editProfile": "Edit profile",
+  "message": "Message",
   "menu": {
     "block": "Block",
     "report": "Report"

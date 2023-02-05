@@ -8,7 +8,12 @@ import { PostFilter, PostList } from '~/components/post';
 import { APP_NAME } from '~/constants';
 import { usePageTitle } from '~/hooks';
 import { ListParams, Post } from '~/models';
-import { postActions, selectPostList } from '~/redux/slices/postSlice';
+import {
+  postActions,
+  selectPostList,
+  selectPostLoading,
+  selectTotalPages,
+} from '~/redux/slices/postSlice';
 
 export function HomePage() {
   const navigate = useNavigate();
@@ -16,6 +21,8 @@ export function HomePage() {
 
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
+  const totalPage = useAppSelector(selectTotalPages);
+  const loading = useAppSelector(selectPostLoading);
 
   const [filter, setFilter] = useState<ListParams>(() => {
     const params = queryString.parse(location.search);
@@ -74,7 +81,11 @@ export function HomePage() {
 
         <PostList
           postList={postList}
-          page={Number(filter.page) || 1}
+          page={{
+            total: totalPage,
+            current: Number(filter.page) || 1,
+          }}
+          loading={loading}
           onPageChange={(page) => handleFilterChange({ page })}
           onSave={handleSavePost}
           onDelete={handleDeletePost}

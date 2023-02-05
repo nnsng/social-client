@@ -46,6 +46,7 @@ export function EditProfileForm(props: EditProfileFromProps) {
     defaultValues,
     resolver: yupResolver(schema),
   });
+
   const avatarUrl = watch('avatar');
 
   const [uploading, setUploading] = useState(false);
@@ -82,15 +83,12 @@ export function EditProfileForm(props: EditProfileFromProps) {
     },
   ];
 
-  const smUp = useCustomMediaQuery('up', 'sm');
-
   return (
     <CommonForm
       name="editProfileForm"
       fieldList={fieldList}
       control={control}
       submitting={isSubmitting}
-      horizontal={smUp}
       onSubmit={onSubmit && handleSubmit(onSubmit)}
       avatarField={
         <AvatarField
@@ -98,7 +96,6 @@ export function EditProfileForm(props: EditProfileFromProps) {
           control={control}
           avatarUrl={avatarUrl || ''}
           loading={uploading}
-          horizontal={smUp}
           setLoading={setUploading}
           onRemove={removeAvatar}
         />
