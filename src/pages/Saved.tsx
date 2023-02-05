@@ -24,7 +24,7 @@ export function SavedPage() {
 
   const [page, setPage] = useState(1);
 
-  usePageTitle(t('pageTitle'), true);
+  usePageTitle(t('pageTitle'));
 
   useEffect(() => {
     fetchSavedList(page);

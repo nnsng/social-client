@@ -19,7 +19,7 @@ export function RegisterPage() {
   const dispatch = useAppDispatch();
   const submitting = useAppSelector(selectAuthSubmitting);
 
-  usePageTitle(t('pageTitle'), true);
+  usePageTitle(t('pageTitle'));
 
   const schema = yup.object().shape({
     email: yup.string().required(tValidate('required')).email(tValidate('invalid')),

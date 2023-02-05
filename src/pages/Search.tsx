@@ -20,7 +20,7 @@ export function SearchPage() {
 
   const { t } = useTranslation('searchPage');
 
-  usePageTitle(t('pageTitle'), true);
+  usePageTitle(t('pageTitle'));
 
   const [results, setResults] = useState<SearchResultType[]>([]);
 

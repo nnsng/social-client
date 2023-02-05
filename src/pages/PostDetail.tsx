@@ -24,7 +24,8 @@ export function PostDetailPage() {
 
   const [openComment, setOpenComment] = useState(false);
 
-  usePageTitle(loading ? APP_NAME : `${post?.title} | ${post?.author?.name}`);
+  const pageTitle = loading ? APP_NAME : `${post?.title} | ${post?.author?.name}`;
+  usePageTitle(pageTitle, false);
 
   useEffect(() => {
     if (!slug) return;
