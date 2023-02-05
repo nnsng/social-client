@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { CommonForm } from '~/components/common';
-import { useCustomMediaQuery } from '~/hooks';
 import { ChangePasswordFormValues, FormField } from '~/models';
 import { showErrorToastFromServer, showToast } from '~/utils/toast';
 
@@ -77,9 +76,6 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
     { name: 'confirmPassword' },
   ];
 
-  const LABEL_WIDTH = 160;
-  const smUp = useCustomMediaQuery('up', 'sm');
-
   return (
     <CommonForm
       name="changePasswordForm"
@@ -87,8 +83,6 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
       control={control}
       onSubmit={handleSubmit(submitForm)}
       submitting={isSubmitting}
-      horizontal={smUp}
-      labelWidth={LABEL_WIDTH}
       commonProps={{
         type: 'password',
       }}

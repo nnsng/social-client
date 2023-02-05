@@ -56,7 +56,9 @@ export function UserInfoPopup(props: UserInfoPopupProps) {
           </Typography>
         )}
 
-        <UserButtonGroup user={user} />
+        <Box mt={2}>
+          <UserButtonGroup user={user} />
+        </Box>
       </Box>
     </PopperWrapper>
   );

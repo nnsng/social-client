@@ -1,22 +1,11 @@
-import { AccountCircleRounded, PersonAddRounded, PersonRemoveRounded } from '@mui/icons-material';
-import {
-  Avatar,
-  Box,
-  Button,
-  CardContent,
-  CircularProgress,
-  Stack,
-  Typography,
-} from '@mui/material';
-import { useState } from 'react';
+import { AccountCircleRounded } from '@mui/icons-material';
+import { Avatar, Box, CardContent, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { userApi } from '~/api';
-import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { useAppSelector } from '~/app/hooks';
 import { User } from '~/models';
-import { selectCurrentUser, userActions } from '~/redux/slices/userSlice';
-import { showErrorToastFromServer } from '~/utils/toast';
-import { CustomCard, GrayButton } from '../common';
+import { selectCurrentUser } from '~/redux/slices/userSlice';
+import { CustomCard, GrayButton, UserButtonGroup } from '../common';
 
 interface UserCardProps {
   user: Partial<User>;
@@ -27,62 +16,7 @@ export function UserCard({ user }: UserCardProps) {
 
   const { t } = useTranslation('userCard');
 
-  const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
-
-  const [loading, setLoading] = useState(false);
-
-  const handleFollow = async (action: 'follow' | 'unfollow') => {
-    setLoading(true);
-
-    try {
-      const updated = await userApi[action](user._id!);
-      dispatch(userActions.setCurrentUser(updated.currentUser));
-    } catch (error) {
-      showErrorToastFromServer(error);
-    }
-
-    setLoading(false);
-  };
-
-  const renderButton = () => {
-    if (user._id === currentUser?._id) {
-      return (
-        <GrayButton
-          variant="contained"
-          fullWidth
-          startIcon={<AccountCircleRounded />}
-          onClick={() => navigate(`/profile/${currentUser!.username}`)}
-        >
-          {t('viewProfile')}
-        </GrayButton>
-      );
-    }
-
-    if (currentUser?.following?.find(({ _id }) => _id === user._id)) {
-      return (
-        <GrayButton
-          variant="contained"
-          fullWidth
-          startIcon={loading ? <CircularProgress size={16} /> : <PersonRemoveRounded />}
-          onClick={() => handleFollow('unfollow')}
-        >
-          {t('unfollow')}
-        </GrayButton>
-      );
-    }
-
-    return (
-      <Button
-        variant="contained"
-        fullWidth
-        startIcon={loading ? <CircularProgress size={16} color="inherit" /> : <PersonAddRounded />}
-        onClick={() => handleFollow('follow')}
-      >
-        {t('follow')}
-      </Button>
-    );
-  };
 
   return (
     <CustomCard>
@@ -112,8 +46,19 @@ export function UserCard({ user }: UserCardProps) {
             </Box>
           </Stack>
 
-          <Stack flexShrink={0} alignItems="center">
-            {renderButton()}
+          <Stack>
+            {user._id === currentUser?._id ? (
+              <GrayButton
+                variant="contained"
+                fullWidth
+                startIcon={<AccountCircleRounded />}
+                onClick={() => navigate(`/profile/${currentUser!.username}`)}
+              >
+                {t('viewProfile')}
+              </GrayButton>
+            ) : (
+              <UserButtonGroup user={user} />
+            )}
           </Stack>
         </Stack>
       </CardContent>

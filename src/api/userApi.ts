@@ -1,4 +1,3 @@
-import { FollowResponse } from '~/components/common';
 import { User } from '~/models';
 import axiosClient from './axiosClient';
 
@@ -15,11 +14,11 @@ export const userApi = {
     const url = '/users/update-profile';
     return axiosClient.post(url, data);
   },
-  follow(userId: string): Promise<FollowResponse> {
+  follow(userId: string): Promise<{ [key: string]: Partial<User> }> {
     const url = '/users/follow';
     return axiosClient.post(url, { userId });
   },
-  unfollow(userId: string): Promise<FollowResponse> {
+  unfollow(userId: string): Promise<{ [key: string]: Partial<User> }> {
     const url = '/users/unfollow';
     return axiosClient.post(url, { userId });
   },

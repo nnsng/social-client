@@ -46,7 +46,11 @@ const userSlice = createSlice({
     },
 
     setCurrentUser(state, action: PayloadAction<User>) {
-      state.currentUser = { ...state.currentUser, ...action.payload };
+      state.currentUser = action.payload;
+    },
+
+    updateCurrentUser(state, action: PayloadAction<Partial<User>>) {
+      state.currentUser = { ...state.currentUser, ...action.payload } as User;
     },
 
     setSubmitting(state, action: PayloadAction<boolean>) {

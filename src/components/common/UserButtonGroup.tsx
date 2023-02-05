@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { userApi } from '~/api';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
-import { FollowModeTypes, User } from '~/models';
+import { FollowAction, User } from '~/models';
 import { selectCurrentUser, userActions } from '~/redux/slices/userSlice';
 import { showErrorToastFromServer } from '~/utils/toast';
 import { GrayButton } from './GrayButton';
@@ -25,19 +25,19 @@ export function UserButtonGroup({ user, updateUser }: UserButtonGroupProps) {
 
   const navigate = useNavigate();
 
-  const { t } = useTranslation('userInfoButtonGroup');
+  const { t } = useTranslation('userButtonGroup');
 
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
 
   const [loading, setLoading] = useState(false);
 
-  const handleFollow = async (action: FollowModeTypes) => {
+  const handleFollow = async (action: FollowAction) => {
     setLoading(true);
 
     try {
       const updated = await userApi[action](userId);
-      dispatch(userActions.setCurrentUser(updated.currentUser));
+      dispatch(userActions.updateCurrentUser(updated.currentUser));
       updateUser?.(updated.selectedUser);
     } catch (error) {
       showErrorToastFromServer(error);
@@ -55,6 +55,7 @@ export function UserButtonGroup({ user, updateUser }: UserButtonGroupProps) {
           variant="contained"
           startIcon={loading ? <CircularProgress size={16} /> : <PersonRemoveRounded />}
           disabled={loading}
+          sx={{ minWidth: 'fit-content' }}
           onClick={() => handleFollow('unfollow')}
         >
           {t('unfollow')}
@@ -67,6 +68,7 @@ export function UserButtonGroup({ user, updateUser }: UserButtonGroupProps) {
         variant="contained"
         startIcon={loading ? <CircularProgress size={16} color="inherit" /> : <PersonAddRounded />}
         disabled={loading}
+        sx={{ minWidth: 'fit-content' }}
         onClick={() => handleFollow('follow')}
       >
         {t('follow')}
@@ -78,6 +80,7 @@ export function UserButtonGroup({ user, updateUser }: UserButtonGroupProps) {
     <Stack
       alignItems="center"
       spacing={1}
+      width="100%"
       sx={{
         '& > button': {
           flex: 1,
@@ -97,7 +100,11 @@ export function UserButtonGroup({ user, updateUser }: UserButtonGroupProps) {
         <>
           {renderFollowButton()}
 
-          <GrayButton variant="contained" startIcon={<ForumRounded />}>
+          <GrayButton
+            variant="contained"
+            startIcon={<ForumRounded />}
+            sx={{ minWidth: 'fit-content' }}
+          >
             {t('message')}
           </GrayButton>
         </>

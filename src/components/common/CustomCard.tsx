@@ -1,7 +1,7 @@
-import { Card, CardProps } from '@mui/material';
+import { Card } from '@mui/material';
 import { themeMixins } from '~/utils/theme';
 
-export function CustomCard(props: CardProps) {
+export function CustomCard(props: any) {
   return (
     <Card
       {...props}
