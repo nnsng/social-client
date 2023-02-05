@@ -29,7 +29,7 @@ export function HomePage() {
     return { page: 1, by: 'all', ...params };
   });
 
-  usePageTitle(APP_NAME);
+  usePageTitle(APP_NAME, false);
 
   useEffect(() => {
     const setPageOne = () => setFilter({ page: 1 });
