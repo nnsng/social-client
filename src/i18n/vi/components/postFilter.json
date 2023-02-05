@@ -2,8 +2,7 @@
   "text": {
     "newest": "Mới nhất",
     "search": "Tìm kiếm: {{value}}",
-    "username": "Username: {{value}}",
-    "hashtag": "Hashtag: {{value}}"
+    "username": "Username: {{value}}"
   },
   "filter": {
     "all": "Tất cả",

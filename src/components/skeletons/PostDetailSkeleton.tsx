@@ -1,18 +1,10 @@
-import { Box, Card, CardHeader } from '@mui/material';
-import React from 'react';
-import { themeMixins } from '~/utils/theme';
+import { Box, CardHeader } from '@mui/material';
+import { CustomCard } from '../common';
 import { StyledSkeleton } from './StyledSkeleton';
 
 export function PostDetailSkeleton() {
   return (
-    <Card
-      sx={{
-        ...themeMixins.paperBorder(),
-        width: '100%',
-        p: 2,
-        mb: 2,
-      }}
-    >
+    <CustomCard>
       <StyledSkeleton variant="text" width="80%" height={24} />
 
       <CardHeader
@@ -41,6 +33,6 @@ export function PostDetailSkeleton() {
           />
         ))}
       </Box>
-    </Card>
+    </CustomCard>
   );
 }

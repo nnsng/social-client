@@ -4,11 +4,16 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { postApi } from '~/api';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
-import { PostFilter, PostList, TopHashtags } from '~/components/post';
+import { PostFilter, PostList } from '~/components/post';
 import { APP_NAME } from '~/constants';
-import { postActions, selectPostList } from '~/redux/slices/postSlice';
 import { usePageTitle } from '~/hooks';
 import { ListParams, Post } from '~/models';
+import {
+  postActions,
+  selectPostList,
+  selectPostLoading,
+  selectTotalPages,
+} from '~/redux/slices/postSlice';
 
 export function HomePage() {
   const navigate = useNavigate();
@@ -16,12 +21,13 @@ export function HomePage() {
 
   const dispatch = useAppDispatch();
   const postList = useAppSelector(selectPostList);
+  const totalPage = useAppSelector(selectTotalPages);
+  const loading = useAppSelector(selectPostLoading);
 
   const [filter, setFilter] = useState<ListParams>(() => {
     const params = queryString.parse(location.search);
     return { page: 1, by: 'all', ...params };
   });
-  const [hashtagList, setHashtagList] = useState<string[]>([]);
 
   usePageTitle(APP_NAME);
 
@@ -39,7 +45,6 @@ export function HomePage() {
       ...filter,
       page: 1,
       search: undefined,
-      hashtag: undefined,
       ...params,
       username: undefined,
     });
@@ -51,17 +56,6 @@ export function HomePage() {
     dispatch(postActions.fetchPostList(filter));
   }, [dispatch, filter]);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const topHashtags = await postApi.getTopHashtags();
-        setHashtagList(topHashtags);
-      } catch (error) {
-        setHashtagList([]);
-      }
-    })();
-  }, []);
-
   const handleFilterChange = (newFilter: ListParams) => {
     setFilter({
       ...filter,
@@ -72,39 +66,33 @@ export function HomePage() {
   };
 
   const handleSavePost = async (post: Post) => {
-    await postApi.save(post._id || '');
+    await postApi.save(post._id!);
   };
 
   const handleDeletePost = async (post: Post) => {
-    await postApi.remove(post._id || '');
+    await postApi.remove(post._id!);
     dispatch(postActions.fetchPostList(filter));
   };
 
   return (
-    <Grid
-      container
-      spacing={{ xs: hashtagList.length ? 2 : 0, lg: 8 }}
-      flexDirection={{ xs: 'column-reverse', lg: 'row' }}
-    >
+    <Grid container spacing={{ xs: 0, lg: 8 }} flexDirection={{ xs: 'column-reverse', lg: 'row' }}>
       <Grid item xs md={11} lg>
         <PostFilter filter={filter} onChange={handleFilterChange} />
 
         <PostList
           postList={postList}
-          page={Number(filter.page) || 1}
+          page={{
+            total: totalPage,
+            current: Number(filter.page) || 1,
+          }}
+          loading={loading}
           onPageChange={(page) => handleFilterChange({ page })}
           onSave={handleSavePost}
           onDelete={handleDeletePost}
         />
       </Grid>
 
-      <Grid item xs lg={4}>
-        <TopHashtags
-          list={hashtagList}
-          active={filter.hashtag}
-          onHashtagClick={(hashtag) => handleFilterChange({ hashtag, search: undefined })}
-        />
-      </Grid>
+      <Grid item xs lg={4}></Grid>
     </Grid>
   );
 }

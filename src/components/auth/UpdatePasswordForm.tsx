@@ -7,7 +7,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { authApi } from '~/api';
 import { CommonForm, PageTitle } from '~/components/common';
-import { useCustomMediaQuery, usePageTitle } from '~/hooks';
 import { ChangePasswordFormValues, FormField } from '~/models';
 import { themeMixins } from '~/utils/theme';
 
@@ -19,17 +18,15 @@ export function UpdatePasswordForm() {
   const { t } = useTranslation('updatePasswordForm');
   const { t: tValidate } = useTranslation('validate');
 
-  usePageTitle(t('pageTitle'));
-
   const schema = yup.object().shape({
     newPassword: yup
       .string()
-      .required(tValidate('newPassword.required'))
+      .required(tValidate('required'))
       .min(6, tValidate('password.min', { min: 6 })),
     confirmPassword: yup
       .string()
-      .required(tValidate('confirmPassword.required'))
-      .oneOf([yup.ref('newPassword'), null], tValidate('confirmPassword.match')),
+      .required(tValidate('required'))
+      .oneOf([yup.ref('newPassword'), null], tValidate('notMatch')),
   });
 
   const {
@@ -52,9 +49,6 @@ export function UpdatePasswordForm() {
 
   const fieldList: FormField[] = [{ name: 'newPassword' }, { name: 'confirmPassword' }];
 
-  const LABEL_WIDTH = 160;
-  const smUp = useCustomMediaQuery('up', 'sm');
-
   return (
     <Container maxWidth="sm">
       <Box mt={3} p={3} sx={{ ...themeMixins.paperBorder() }}>
@@ -66,8 +60,6 @@ export function UpdatePasswordForm() {
           control={control}
           onSubmit={handleSubmit(submitForm)}
           submitting={isSubmitting}
-          horizontal={smUp}
-          labelWidth={LABEL_WIDTH}
           commonProps={{
             type: 'password',
           }}

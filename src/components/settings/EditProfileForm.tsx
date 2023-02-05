@@ -22,17 +22,17 @@ export function EditProfileForm(props: EditProfileFromProps) {
   const schema = yup.object().shape({
     name: yup
       .string()
-      .required(t('name.required'))
-      .max(30, t('name.max', { max: 30 })),
+      .required(t('required'))
+      .max(30, t('max', { max: 30 })),
     avatar: yup.string(),
     username: yup
       .string()
-      .required(t('username.required'))
-      .min(6, t('username.min', { min: 6 }))
-      .max(20, t('username.max', { max: 20 }))
-      .matches(/^(?![-.])[a-zA-Z0-9.-]+(?<![-.])$/, t('username.valid')),
+      .required(t('required'))
+      .min(6, t('min', { min: 6 }))
+      .max(20, t('max', { max: 20 }))
+      .matches(/^(?![-.])[a-zA-Z0-9.-]+(?<![-.])$/, t('notAllowed')),
     email: yup.string().email().required(),
-    bio: yup.string().max(100, t('bio.max', { max: 100 })),
+    bio: yup.string().max(100, t('max', { max: 100 })),
   });
 
   const {
@@ -46,6 +46,7 @@ export function EditProfileForm(props: EditProfileFromProps) {
     defaultValues,
     resolver: yupResolver(schema),
   });
+
   const avatarUrl = watch('avatar');
 
   const [uploading, setUploading] = useState(false);
@@ -77,16 +78,10 @@ export function EditProfileForm(props: EditProfileFromProps) {
       props: {
         multiline: true,
         rows: 3,
-        sx: {
-          '& .MuiInputBase-root': {
-            borderRadius: 4,
-          },
-        },
+        optional: true,
       },
     },
   ];
-
-  const smUp = useCustomMediaQuery('up', 'sm');
 
   return (
     <CommonForm
@@ -94,7 +89,6 @@ export function EditProfileForm(props: EditProfileFromProps) {
       fieldList={fieldList}
       control={control}
       submitting={isSubmitting}
-      horizontal={smUp}
       onSubmit={onSubmit && handleSubmit(onSubmit)}
       avatarField={
         <AvatarField
@@ -102,7 +96,6 @@ export function EditProfileForm(props: EditProfileFromProps) {
           control={control}
           avatarUrl={avatarUrl || ''}
           loading={uploading}
-          horizontal={smUp}
           setLoading={setUploading}
           onRemove={removeAvatar}
         />

@@ -3,12 +3,10 @@ import {
   FavoriteBorderRounded,
   FavoriteRounded,
 } from '@mui/icons-material';
-import { Box, Button, Chip, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import { useAppSelector } from '~/app/hooks';
-import { selectCurrentUser } from '~/redux/slices/userSlice';
 import { Post } from '~/models';
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { selectCurrentUser } from '~/redux/slices/userSlice';
 
 export interface PostReactionProps {
   post: Post | null;
@@ -19,13 +17,7 @@ export interface PostReactionProps {
 export function PostReaction(props: PostReactionProps) {
   const { post, onOpenComment, onLikePost } = props;
 
-  const navigate = useNavigate();
-
   const currentUser = useAppSelector(selectCurrentUser);
-
-  const filterByHashtag = (hashtag: string) => {
-    navigate(`/?hashtag=${hashtag}`);
-  };
 
   if (!post) return null;
 
@@ -57,7 +49,7 @@ export function PostReaction(props: PostReactionProps) {
         <Button
           color="inherit"
           startIcon={
-            (post.likes || []).includes(currentUser?._id as string) ? (
+            post.likes!.includes(currentUser?._id!) ? (
               <FavoriteRounded sx={{ color: 'error.main' }} />
             ) : (
               <FavoriteBorderRounded />
@@ -77,22 +69,6 @@ export function PostReaction(props: PostReactionProps) {
         >
           {post.commentCount}
         </Button>
-      </Stack>
-
-      <Stack flexWrap="wrap" my={1}>
-        {post.hashtags &&
-          post.hashtags.map((hashtag, idx) => (
-            <Chip
-              key={idx}
-              label={hashtag}
-              onClick={() => filterByHashtag(hashtag)}
-              sx={{
-                mb: 1,
-                mr: 1,
-                color: 'text.secondary',
-              }}
-            />
-          ))}
       </Stack>
     </Box>
   );

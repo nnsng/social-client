@@ -6,6 +6,7 @@ import notFoundPage from './pages/notFoundPage.json';
 import profilePage from './pages/profilePage.json';
 import loginPage from './pages/loginPage.json';
 import registerPage from './pages/registerPage.json';
+import searchPage from './pages/searchPage.json';
 
 // components
 import header from './components/header.json';
@@ -13,13 +14,12 @@ import authForm from './components/authForm.json';
 import createEditForm from './components/createEditForm.json';
 import postFilter from './components/postFilter.json';
 import postMenu from './components/postMenu.json';
-import topHashtags from './components/topHashtags.json';
 import postComment from './components/postComment.json';
 import postItem from './components/postItem.json';
 import settings from './components/settings.json';
 import editProfileForm from './components/editProfileForm.json';
 import changePasswordForm from './components/changePasswordForm.json';
-import userInfoButtonGroup from './components/userInfoButtonGroup.json';
+import userButtonGroup from './components/userButtonGroup.json';
 import noPost from './components/noPost.json';
 import notification from './components/notification.json';
 import sidebar from './components/sidebar.json';
@@ -27,10 +27,12 @@ import appearanceDialog from './components/appearanceDialog.json';
 import updatePasswordForm from './components/updatePasswordForm.json';
 import activeAccount from './components/activeAccount.json';
 import confirmDialog from './components/confirmDialog.json';
+import userCard from './components/userCard.json';
 
 // common
 import validate from './common/validate.json';
 import toast from './common/toast.json';
+import common from './common/common.json';
 
 export default {
   // pages
@@ -41,6 +43,7 @@ export default {
   profilePage,
   loginPage,
   registerPage,
+  searchPage,
 
   // components
   header,
@@ -48,13 +51,12 @@ export default {
   createEditForm,
   postFilter,
   postMenu,
-  topHashtags,
   postComment,
   postItem,
   settings,
   editProfileForm,
   changePasswordForm,
-  userInfoButtonGroup,
+  userButtonGroup,
   noPost,
   notification,
   sidebar,
@@ -62,8 +64,10 @@ export default {
   updatePasswordForm,
   activeAccount,
   confirmDialog,
+  userCard,
 
   // common
   validate,
   toast,
+  common,
 };

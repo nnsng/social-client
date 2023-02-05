@@ -1,17 +1,13 @@
 {
   "search": {
     "placeholder": "Search",
-    "search": {
-      "result": "{{count}} post with title \"{{searchTerm}}\"",
-      "results": "{{count}} posts with title \"{{searchTerm}}\""
+    "posts": {
+      "result": "{{count}} post matches title \"{{q}}\"",
+      "results": "{{count}} posts match title \"{{q}}\""
     },
-    "hashtag": {
-      "result": "{{count}} post with hashtag \"{{searchTerm}}\"",
-      "results": "{{count}} posts with hashtag \"{{searchTerm}}\""
-    },
-    "username": {
-      "result": "{{count}} user with username \"{{searchTerm}}\"",
-      "results": "{{count}} users with username \"{{searchTerm}}\""
+    "users": {
+      "result": "{{count}} user matches username \"{{q}}\"",
+      "results": "{{count}} users match username \"{{q}}\""
     },
     "viewMore": "View more"
   },

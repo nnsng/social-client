@@ -2,8 +2,7 @@
   "text": {
     "newest": "Newest",
     "search": "Search: {{value}}",
-    "username": "Username: {{value}}",
-    "hashtag": "Hashtag: {{value}}"
+    "username": "Username: {{value}}"
   },
   "filter": {
     "all": "All",

@@ -7,36 +7,25 @@ export interface AvatarFieldProps {
   control: Control<any>;
   avatarUrl?: string;
   loading?: boolean;
-  horizontal?: boolean;
-  labelWidth?: number;
   setLoading?: (value: boolean) => void;
   onRemove?: () => void;
 }
 
 export function AvatarField(props: AvatarFieldProps) {
-  const {
-    control,
-    avatarUrl = '',
-    loading,
-    horizontal,
-    labelWidth = 120,
-    setLoading,
-    onRemove,
-  } = props;
+  const { control, avatarUrl = '', loading, setLoading, onRemove } = props;
 
   const { t } = useTranslation('editProfileForm');
 
   const FILE_INPUT_ID = 'avatar-upload';
 
   return (
-    <Stack key="avatar" direction={horizontal ? 'row' : 'column'}>
+    <Stack key="avatar" direction="column">
       <Typography
         variant="body2"
         fontWeight={500}
         sx={{
           flexShrink: 0,
-          width: horizontal ? labelWidth : 'auto',
-          mb: horizontal ? 0 : 0.5,
+          mb: 0.5,
         }}
       >
         {t('label.avatar')}

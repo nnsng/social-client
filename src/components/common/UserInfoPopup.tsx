@@ -1,9 +1,8 @@
 import { Avatar, Box, Stack, Typography } from '@mui/material';
+import { useState } from 'react';
 import { useCustomMediaQuery } from '~/hooks';
 import { User } from '~/models';
-import { useState } from 'react';
-import { PopperWrapper, PopperWrapperProps } from './PopperWrapper';
-import { UserInfoButtonGroup } from './UserInfoButtonGroup';
+import { PopperWrapper, PopperWrapperProps, UserButtonGroup } from '.';
 
 export interface UserInfoPopupProps extends PopperWrapperProps {
   user: Partial<User>;
@@ -57,7 +56,9 @@ export function UserInfoPopup(props: UserInfoPopupProps) {
           </Typography>
         )}
 
-        <UserInfoButtonGroup user={user} />
+        <Box mt={2}>
+          <UserButtonGroup user={user} />
+        </Box>
       </Box>
     </PopperWrapper>
   );

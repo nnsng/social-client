@@ -5,7 +5,7 @@ import { ContainedInput } from '~/components/common';
 import { CommentItemSkeleton } from '~/components/skeletons';
 import { selectCurrentUser } from '~/redux/slices/userSlice';
 import { selectCommentLoading } from '~/redux/slices/commentSlice';
-import { useSubmitWithEnter } from '~/hooks';
+import { useKeyUp } from '~/hooks';
 import { Comment, CommentActionTypes } from '~/models';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -49,7 +49,7 @@ export function PostComment(props: PostCommentProps) {
     try {
       const comment: Comment = {
         postId,
-        userId: currentUser?._id || '',
+        userId: currentUser?._id!,
         content: input.trim(),
       };
 
@@ -61,7 +61,7 @@ export function PostComment(props: PostCommentProps) {
     inputRef.current?.focus();
   };
 
-  const onKeyUp = useSubmitWithEnter(handleSubmitComment);
+  const onKeyUp = useKeyUp('Enter', handleSubmitComment);
 
   return (
     <Stack

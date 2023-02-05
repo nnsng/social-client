@@ -5,8 +5,8 @@ export interface Post {
   title: string;
   content: string;
   thumbnail: string;
+  description?: string;
   authorId: string;
-  hashtags: string[];
   author?: User;
   likes?: string[];
   likeCount?: number;
@@ -24,15 +24,4 @@ export interface Comment {
   likes?: string[];
   edited?: boolean;
   createdAt?: string;
-}
-
-export interface SearchObj {
-  searchFor: 'search' | 'username' | 'hashtag';
-  searchTerm: string;
-}
-
-export interface SearchFilter {
-  search?: string;
-  username?: string;
-  hashtag?: string;
 }

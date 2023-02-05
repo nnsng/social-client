@@ -1,34 +1,29 @@
+import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material';
 import {
   Box,
-  FormHelperText,
+  IconButton,
   OutlinedTextFieldProps,
   Stack,
   TextField,
   Typography,
 } from '@mui/material';
+import { useState } from 'react';
 import { Control, useController } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 export interface MuiTextFieldProps extends OutlinedTextFieldProps {
   name: string;
   control: Control<any>;
   label?: string;
-  title?: string;
-  rounded?: boolean;
-  horizontal?: boolean;
-  labelWidth?: number;
+  optional?: boolean;
 }
 
 export function MuiTextField(props: MuiTextFieldProps) {
-  const {
-    name,
-    control,
-    label,
-    title,
-    rounded,
-    horizontal,
-    labelWidth = 120,
-    ...restProps
-  } = props;
+  const { name, control, label, optional, type = 'text', ...restProps } = props;
+
+  const { t } = useTranslation('common');
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     field: { value, onChange, onBlur, ref },
@@ -37,28 +32,39 @@ export function MuiTextField(props: MuiTextFieldProps) {
 
   return (
     <Box>
-      <Stack
-        direction={horizontal ? 'row' : 'column'}
-        alignItems={restProps.multiline ? 'flex-start' : undefined}
-      >
-        {title && (
-          <Typography
+      <Stack direction="column" alignItems={restProps.multiline ? 'flex-start' : undefined}>
+        {label && (
+          <Stack
+            component={Typography}
+            justifyContent="space-between"
             variant="body2"
-            fontWeight={500}
             sx={{
-              flexShrink: 0,
-              width: horizontal ? labelWidth : 'auto',
-              mb: horizontal ? 0 : 0.5,
-              mt: horizontal && restProps.multiline ? '8.5px' : 0,
+              width: '100%',
+              mb: 0.5,
+              fontWeight: 500,
+              color: 'text.primary',
             }}
           >
-            {title}
-          </Typography>
+            <Typography variant="inherit" component="span">
+              {label}
+            </Typography>
+
+            {optional && (
+              <Typography variant="inherit" component="span" color="text.secondary">
+                ({t('optional')})
+              </Typography>
+            )}
+
+            {error && !optional && (
+              <Typography variant="inherit" component="span" color="error">
+                {error.message}
+              </Typography>
+            )}
+          </Stack>
         )}
 
         <TextField
           name={name}
-          label={label}
           value={value}
           onChange={onChange}
           onBlur={onBlur}
@@ -67,20 +73,23 @@ export function MuiTextField(props: MuiTextFieldProps) {
           size="small"
           fullWidth
           spellCheck={false}
+          type={type !== 'password' ? type : showPassword ? 'text' : 'password'}
+          InputProps={{
+            endAdornment: type === 'password' && (
+              <IconButton edge="end" onClick={() => setShowPassword((x) => !x)}>
+                {showPassword ? <VisibilityOffOutlined /> : <VisibilityOutlined />}
+              </IconButton>
+            ),
+          }}
           {...restProps}
           sx={{
-            '& .MuiInputBase-root': {
+            '.MuiInputBase-root': {
               fontSize: '0.875rem',
-              borderRadius: !!rounded ? 40 : 'auto',
             },
             ...restProps.sx,
           }}
         />
       </Stack>
-
-      <FormHelperText error={!!error} sx={{ ml: horizontal ? `${labelWidth}px` : 0 }}>
-        {error?.message}
-      </FormHelperText>
     </Box>
   );
 }

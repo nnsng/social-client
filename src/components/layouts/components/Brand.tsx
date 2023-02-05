@@ -26,7 +26,17 @@ export function Brand() {
         {APP_NAME[0]}
       </Avatar>
 
-      <Typography color="primary" fontSize={24} fontWeight={600}>
+      <Typography
+        color="primary"
+        fontSize={24}
+        fontWeight={600}
+        sx={{
+          position: { xs: 'absolute', md: 'relative' },
+          top: { xs: '50%', md: 0 },
+          left: { xs: '50%', md: 0 },
+          transform: { xs: 'translate(-50%, -50%)', md: 'translate(0)' },
+        }}
+      >
         {APP_NAME}
       </Typography>
     </Stack>

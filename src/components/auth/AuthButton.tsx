@@ -9,7 +9,7 @@ export function AuthButton(props: ButtonProps) {
       fullWidth
       sx={{
         height: 47,
-        borderRadius: 40,
+        mt: '12px !important',
         ...sx,
       }}
       {...restProps}

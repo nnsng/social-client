@@ -9,22 +9,17 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import {
-  FileInputField,
-  HashtagInputField,
-  InputField,
-  MdEditorField,
-} from '~/components/formFields';
-import { useCustomMediaQuery } from '~/hooks';
-import { Post } from '~/models';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { FileInputField, InputField, MdEditorField, MuiTextField } from '~/components/formFields';
+import { useCustomMediaQuery } from '~/hooks';
+import { Post } from '~/models';
 import { delay } from '~/utils/common';
 import { themeMixins, themeVariables } from '~/utils/theme';
 import { showErrorToastFromServer } from '~/utils/toast';
-import * as yup from 'yup';
 
 export interface CreateEditFormProps {
   defaultValues: Post;
@@ -41,17 +36,11 @@ export function CreateEditForm(props: CreateEditFormProps) {
   const schema = yup.object().shape({
     title: yup
       .string()
-      .required(tValidate('title.required'))
-      .max(100, tValidate('title.max', { max: 100 })),
-    content: yup.string().required(tValidate('content.required')),
+      .required(tValidate('required'))
+      .max(100, tValidate('max', { max: 100 })),
+    content: yup.string().required(tValidate('required')),
     thumbnail: yup.string(),
-    hashtags: yup.array().of(
-      yup
-        .string()
-        .min(3, tValidate('hashtags.min', { min: 3 }))
-        .max(20, tValidate('hashtags.max', { max: 20 }))
-        .matches(/^(?![_-])[a-zA-Z0-9-]+(?<![_-])$/, tValidate('hashtags.valid'))
-    ),
+    description: yup.string(),
   });
 
   const {
@@ -69,7 +58,6 @@ export function CreateEditForm(props: CreateEditFormProps) {
   const title = watch('title');
   const content = watch('content');
   const thumbnail = watch('thumbnail');
-  const MAX_HASHTAGS = 5;
 
   const [uploading, setUploading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -85,9 +73,7 @@ export function CreateEditForm(props: CreateEditFormProps) {
     (async () => {
       if (isSubmitting) return;
 
-      // const hashtagErrors = errors.hashtags.filter((x) => !!x);
-      const hashtagErrors: any[] = [];
-      const errorValues: any = Object.values(errors).concat(hashtagErrors);
+      const errorValues: any = Object.values(errors);
       if (errorValues?.length === 0) return;
 
       for (const error of errorValues) {
@@ -170,73 +156,79 @@ export function CreateEditForm(props: CreateEditFormProps) {
             px: { xs: 1, sm: 3 },
           }}
         >
-          {thumbnail && (
-            <Box
-              sx={{
-                maxWidth: 400,
-                aspectRatio: '2',
-                bgcolor: 'action.hover',
-                backgroundImage: `url('${thumbnail}')`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                borderRadius: 2,
-              }}
-            ></Box>
-          )}
+          <MuiTextField
+            name="description"
+            control={control}
+            label="Description"
+            variant="outlined"
+            multiline
+            rows={3}
+            optional
+            sx={{ mb: 2 }}
+          />
 
-          <Stack alignItems="center" mt={1} mb={2} spacing={1}>
-            <Button
-              variant="contained"
-              size="small"
-              component="label"
-              htmlFor="thumbnail-input"
-              disabled={uploading}
-              startIcon={uploading && <CircularProgress size={18} />}
-              sx={{
-                fontSize: 12,
-                fontWeight: 400,
-              }}
-            >
-              <FileInputField
-                name="thumbnail"
-                control={control}
-                id="thumbnail-input"
-                setUploading={setUploading}
-              />
-              {thumbnail ? t('btnLabel.changeThumbnail') : t('btnLabel.addThumbnail')}
-            </Button>
-
+          <Box>
             {thumbnail && (
+              <Box
+                sx={{
+                  maxWidth: 400,
+                  mb: 1,
+                  aspectRatio: '2',
+                  bgcolor: 'action.hover',
+                  backgroundImage: `url('${thumbnail}')`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  borderRadius: 2,
+                }}
+              />
+            )}
+
+            <Stack alignItems="center" spacing={1}>
               <Button
-                variant="outlined"
-                color="error"
+                variant="contained"
                 size="small"
+                component="label"
+                htmlFor="thumbnail-input"
                 disabled={uploading}
-                onClick={removeThumbnail}
+                startIcon={uploading && <CircularProgress size={18} />}
                 sx={{
                   fontSize: 12,
                   fontWeight: 400,
                 }}
               >
-                {t('btnLabel.removeThumbnail')}
+                <FileInputField
+                  name="thumbnail"
+                  control={control}
+                  id="thumbnail-input"
+                  setUploading={setUploading}
+                />
+                {thumbnail ? t('btnLabel.changeThumbnail') : t('btnLabel.addThumbnail')}
               </Button>
-            )}
-          </Stack>
 
-          <HashtagInputField
-            name="hashtags"
-            control={control}
-            max={MAX_HASHTAGS}
-            label={t('hashtag.label', { max: MAX_HASHTAGS })}
-            placeholder={t('hashtag.placeholder')}
-            errorText={t('hashtag.error')}
-          />
+              {thumbnail && (
+                <Button
+                  variant="outlined"
+                  color="error"
+                  size="small"
+                  disabled={uploading}
+                  onClick={removeThumbnail}
+                  sx={{
+                    fontSize: 12,
+                    fontWeight: 400,
+                  }}
+                >
+                  {t('btnLabel.removeThumbnail')}
+                </Button>
+              )}
+            </Stack>
+          </Box>
         </DialogContent>
 
         <DialogActions sx={{ px: { xs: 1, sm: 2 } }}>
           <Button variant="text" size={smUp ? 'large' : 'medium'} onClick={closeDialog}>
             {t('btnLabel.cancel')}
           </Button>
+
           <Button
             variant="contained"
             size={smUp ? 'large' : 'medium'}

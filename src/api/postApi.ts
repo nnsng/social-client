@@ -1,4 +1,4 @@
-import { ListParams, Post, SearchObj } from '~/models';
+import { ListParams, Post } from '~/models';
 import axiosClient from './axiosClient';
 
 export const postApi = {
@@ -14,13 +14,9 @@ export const postApi = {
     const url = `/posts/detail/${slug}`;
     return axiosClient.get(url);
   },
-  getForEdit(id: string) {
+  getForEdit(id: string): Promise<Post> {
     const url = `/posts/${id}`;
     return axiosClient.get(url);
-  },
-  search(searchObj: SearchObj) {
-    const url = '/posts/search';
-    return axiosClient.get(url, { params: searchObj });
   },
   create(data: Post): Promise<Post> {
     const url = '/posts';
@@ -46,8 +42,8 @@ export const postApi = {
     const url = `/posts/${id}/unsave`;
     return axiosClient.post(url);
   },
-  getTopHashtags(): Promise<string[]> {
-    const url = '/posts/get-top-hashtags';
-    return axiosClient.get(url);
+  search(q: string): Promise<Post[]> {
+    const url = '/posts/search';
+    return axiosClient.get(url, { params: { q } });
   },
 };

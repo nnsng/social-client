@@ -23,7 +23,7 @@ import {
 import { useAppSelector } from '~/app/hooks';
 import { ActionMenu, ConfirmDialog } from '~/components/common';
 import { selectCurrentUser } from '~/redux/slices/userSlice';
-import { useSubmitWithEnter, useUserInfoPopup } from '~/hooks';
+import { useKeyUp, useUserInfoPopup } from '~/hooks';
 import { Comment, CommentActionTypes, MenuOption } from '~/models';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -126,7 +126,7 @@ export function CommentItem(props: CommentItemProps) {
     onCommentAction?.('like', comment);
   };
 
-  const onKeyUp = useSubmitWithEnter(handleEdit);
+  const onKeyUp = useKeyUp('Enter', handleEdit);
 
   const isAuthor = comment.userId === currentUser?._id;
   const isAdmin = currentUser?.role === 'admin';
@@ -278,7 +278,7 @@ export function CommentItem(props: CommentItemProps) {
                   onClick={handleLikeComment}
                   sx={{ cursor: 'pointer' }}
                 >
-                  {comment.likes?.includes(currentUser?._id || '') ? t('unlike') : t('like')}
+                  {comment.likes?.includes(currentUser?._id!) ? t('unlike') : t('like')}
                 </Typography>
 
                 <Tooltip title={formatTime(comment.createdAt, 'DD/MM/YYYY, HH:mm')}>

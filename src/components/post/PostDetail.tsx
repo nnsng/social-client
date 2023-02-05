@@ -5,17 +5,16 @@ import {
   FlagRounded,
   LinkRounded,
 } from '@mui/icons-material';
-import { Box, Card, CardContent, Typography } from '@mui/material';
+import { Box, CardContent, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '~/app/hooks';
-import { ConfirmDialog } from '~/components/common';
+import { ConfirmDialog, CustomCard } from '~/components/common';
 import { ROLE } from '~/constants';
 import { MenuOption, Post } from '~/models';
 import { selectCurrentUser } from '~/redux/slices/userSlice';
 import { copyPostLink } from '~/utils/common';
-import { themeMixins } from '~/utils/theme';
 import { showComingSoonToast, showErrorToastFromServer, showToast } from '~/utils/toast';
 import { MdEditor, PostCardHeader } from '.';
 
@@ -102,13 +101,7 @@ export function PostDetail(props: PostDetailProps) {
 
   return (
     <Box>
-      <Card
-        sx={{
-          ...themeMixins.paperBorder(),
-          mb: 2,
-          p: 2,
-        }}
-      >
+      <CustomCard>
         <Typography variant="h4" component="h1" fontWeight={600} mb={0}>
           {post.title}
         </Typography>
@@ -128,7 +121,7 @@ export function PostDetail(props: PostDetailProps) {
         <CardContent sx={{ '&:last-child': { p: 0 } }}>
           <MdEditor value={post.content} readOnly />
         </CardContent>
-      </Card>
+      </CustomCard>
 
       <ConfirmDialog
         type="post.delete"

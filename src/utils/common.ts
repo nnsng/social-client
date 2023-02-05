@@ -3,7 +3,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import i18next from 'i18next';
 import slugify from 'slugify';
 import { otherApi } from '~/api';
-import { Post } from '~/models';
+import { Post, SearchResult, User } from '~/models';
 import { showErrorToastFromServer, showToast } from './toast';
 
 import 'dayjs/locale/vi';
@@ -40,10 +40,6 @@ export const copyPostLink = (post: Post) => {
   showToast('common.copy');
 };
 
-export const formatHashtag = (hashtag: string) => {
-  return hashtag.toLowerCase().trim().replace(/\s+/g, '-');
-};
-
 export const delay = async (ms: number) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
@@ -52,4 +48,14 @@ export const validateEmail = (email: string) => {
   const re =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return email.toLowerCase().match(re);
+};
+
+export const formatSearchResponse = (response: Post[] | Partial<User>[]): SearchResult[] => {
+  return response.map((data: any) => ({
+    _id: data._id,
+    title: data.title ?? data.name,
+    subtitle: data.description ?? data.username,
+    image: data.thumbnail ?? data.avatar,
+    url: data.slug ? `/post/${data.slug}` : `/profile/${data.username}`,
+  }));
 };

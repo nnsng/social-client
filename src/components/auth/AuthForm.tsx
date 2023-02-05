@@ -8,8 +8,6 @@ import { APP_NAME } from '~/constants';
 import { FormField, LoginFormValues, RegisterFormValues } from '~/models';
 import { AuthButton } from './AuthButton';
 
-type AuthFormValues = LoginFormValues | RegisterFormValues;
-
 export interface AuthFormProps {
   name: 'login' | 'register';
   control: Control<LoginFormValues> | Control<RegisterFormValues>;
@@ -46,7 +44,7 @@ export function AuthForm(props: AuthFormProps) {
         </Typography>
       </Stack>
 
-      <Stack direction="column" spacing={2} mt={4}>
+      <Stack direction="column" spacing={1} mt={4}>
         {fieldList.map(({ name, props }) => (
           <MuiTextField
             key={name}
@@ -56,17 +54,13 @@ export function AuthForm(props: AuthFormProps) {
             variant="outlined"
             size="medium"
             disabled={submitting}
-            rounded
             sx={{
               '& input': {
                 py: 1.5,
                 fontSize: 16,
               },
-              '& .MuiInputLabel-root': {
+              '& fieldset': {
                 fontSize: 16,
-                '&:not(.Mui-focused):not(.MuiFormLabel-filled)': {
-                  top: -4,
-                },
               },
             }}
             {...props}

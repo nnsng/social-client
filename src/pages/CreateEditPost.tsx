@@ -1,13 +1,12 @@
-import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { postApi } from '~/api';
 import { useAppSelector } from '~/app/hooks';
 import { CreateEditForm } from '~/components/post';
-import { selectCurrentUser } from '~/redux/slices/userSlice';
 import { usePageTitle } from '~/hooks';
 import { Post } from '~/models';
+import { selectCurrentUser } from '~/redux/slices/userSlice';
 import { showErrorToastFromServer } from '~/utils/toast';
 
 export function CreateEditPage() {
@@ -18,7 +17,7 @@ export function CreateEditPage() {
   const { t } = useTranslation('createEditPage');
 
   const currentUser = useAppSelector(selectCurrentUser);
-  const [editedPost, setEditedPost] = useState<any>(null);
+  const [editedPost, setEditedPost] = useState<Post | {}>({});
 
   usePageTitle(isNewPost ? t('pageTitle.create') : t('pageTitle.edit'));
 
@@ -36,16 +35,14 @@ export function CreateEditPage() {
     })();
   }, [postId, navigate]);
 
-  const defaultValues: Post = isNewPost
-    ? {
-        title: '',
-        content: '',
-        thumbnail: '',
-        hashtags: [],
-        authorId: currentUser?._id as string,
-      }
-    : editedPost;
-
+  const defaultValues: Post = {
+    title: '',
+    content: '',
+    thumbnail: '',
+    authorId: currentUser?._id!,
+    description: '',
+    ...editedPost,
+  };
   const handleFormSubmit = async (data: Post) => {
     const action = isNewPost ? 'create' : 'update';
     const savedPost = await postApi[action](data);
@@ -53,12 +50,10 @@ export function CreateEditPage() {
   };
 
   return (
-    <Box>
-      <CreateEditForm
-        defaultValues={defaultValues}
-        onSubmit={handleFormSubmit}
-        isNewPost={isNewPost}
-      />
-    </Box>
+    <CreateEditForm
+      defaultValues={defaultValues}
+      onSubmit={handleFormSubmit}
+      isNewPost={isNewPost}
+    />
   );
 }

@@ -8,4 +8,3 @@ export * from './PostDetail';
 export * from './PostFilter';
 export * from './PostList';
 export * from './PostReaction';
-export * from './TopHashtags';

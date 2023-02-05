@@ -3,127 +3,101 @@ import {
   Avatar,
   Box,
   CircularProgress,
-  ClickAwayListener,
   Divider,
-  FormControl,
   Grow,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
-  OutlinedInput,
   Paper,
   Stack,
+  TextField,
   Typography,
 } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '~/app/hooks';
-import {
-  postActions,
-  selectFormattedSearchResult,
-  selectSearchLoading,
-} from '~/redux/slices/postSlice';
-import { useCustomMediaQuery, useSubmitWithEnter } from '~/hooks';
-import { SearchObj } from '~/models';
 import queryString from 'query-string';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { slugifyString } from '~/utils/common';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { postApi, userApi } from '~/api';
+import { useDebounce, useKeyUp } from '~/hooks';
+import { SearchApiType, SearchResult } from '~/models';
+import { formatSearchResponse, slugifyString } from '~/utils/common';
 import { themeMixins } from '~/utils/theme';
-import { showComingSoonToast } from '~/utils/toast';
-import { SearchResult } from '.';
-import { SearchMobile } from './SearchBoxMobile';
+import { showErrorToastFromServer } from '~/utils/toast';
 
-export default function SearchBoxDesktop() {
+const MAX_ITEM = 5;
+
+export function SearchBoxDesktop() {
   const navigate = useNavigate();
   const location = useLocation();
+  const params = useParams();
 
   const { t } = useTranslation('header');
 
-  const dispatch = useAppDispatch();
-  const loading = useAppSelector(selectSearchLoading);
-  const searchResult = useAppSelector(selectFormattedSearchResult);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [results, setResults] = useState<SearchResult[]>([]);
+  const [focused, setFocused] = useState(false);
 
-  const [searchInput, setSearchInput] = useState<string>('');
-  const [result, setResult] = useState<SearchResult>({ list: [], length: 0, isMore: false });
-  const [showSearchResult, setShowSearchResult] = useState(false);
-  const [searchObj, setSearchObj] = useState<SearchObj>({
-    searchFor: 'search',
-    searchTerm: searchInput,
-  });
+  const debouncedInput = useDebounce(input, 700);
 
-  const inputRef = useRef(null);
+  const inputRef = useRef<any>(null);
 
-  useEffect(() => {
-    clearSearchInput();
+  const searchType = useMemo(() => {
+    return input.startsWith('@') ? 'users' : 'posts';
+  }, [input]);
 
-    const { search, username, hashtag } = queryString.parse(location.search);
-    if (search) setSearchInput(`${search}`);
-    if (username) setSearchInput(`@${username}`);
-    if (hashtag) setSearchInput(`#${hashtag}`);
-  }, [location.search]);
+  const isMore = useMemo(() => results.length > MAX_ITEM, [results]);
 
   useEffect(() => {
-    setShowSearchResult(searchInput.length > 0 && inputRef?.current === document.activeElement);
-
-    let searchFor = searchObj.searchFor;
-    let searchTerm = searchInput.trim();
-
-    switch (searchInput[0]) {
-      case '#': {
-        searchFor = 'hashtag';
-        searchTerm = searchInput.slice(1);
-        break;
-      }
-      case '@': {
-        searchFor = 'username';
-        searchTerm = searchInput.slice(1);
-        break;
-      }
-      default: {
-        searchFor = 'search';
-        searchTerm = searchInput;
-      }
-    }
-
-    setSearchObj({ searchFor, searchTerm });
-  }, [searchInput]);
-
-  useEffect(() => {
-    const { searchFor, searchTerm } = searchObj;
-    dispatch(
-      postActions.searchWithDebounce({
-        searchFor,
-        searchTerm: slugifyString(searchTerm),
-      })
-    );
-  }, [searchObj]);
-
-  useEffect(() => {
-    const MAX_ITEMS = 5;
-
-    setResult({
-      list: searchResult.slice(0, MAX_ITEMS),
-      length: searchResult.length,
-      isMore: searchResult.length > MAX_ITEMS,
-    });
-  }, [searchResult]);
-
-  const closeSearchResult = () => setShowSearchResult(false);
-  const clearSearchInput = () => setSearchInput('');
-
-  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchInput(e.target.value);
-  };
-
-  const handleViewMore = () => {
-    if (searchObj.searchFor === 'username') {
-      showComingSoonToast();
+    const isInSearchPage = location.pathname.startsWith('/search');
+    if (!isInSearchPage) {
+      setInput('');
       return;
     }
 
-    closeSearchResult();
-    const { searchFor, searchTerm } = searchObj;
-    navigate(`/?${searchFor}=${searchTerm}`, { replace: true });
+    const { q = '' } = queryString.parse(location.search);
+    const searchTerm = (params.type === 'users' ? `@${q}` : q) as string;
+    setInput(searchTerm);
+  }, [location]);
+
+  useEffect(() => {
+    if (debouncedInput.length < 1) return;
+
+    (async () => {
+      try {
+        let api: SearchApiType = postApi;
+        let q = debouncedInput;
+
+        if (searchType === 'users') {
+          api = userApi;
+          q = debouncedInput.slice(1);
+        }
+
+        const response = await api.search(slugifyString(q));
+        setResults(formatSearchResponse(response));
+      } catch (error) {
+        showErrorToastFromServer(error);
+      }
+
+      setLoading(false);
+    })();
+  }, [debouncedInput]);
+
+  const clearSearchInput = () => setInput('');
+
+  const gotoSearchPage = () => {
+    const value = searchType === 'users' ? input.slice(1) : input;
+    if (!value) return;
+
+    navigate(`/search/${searchType}?q=${value}`);
+    inputRef.current.blur();
+  };
+
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setLoading(true);
+    setResults([]);
+    setInput(e.target.value);
   };
 
   const goto = (url: string) => {
@@ -131,147 +105,127 @@ export default function SearchBoxDesktop() {
     navigate(url);
   };
 
-  const onKeyUp = useSubmitWithEnter(handleViewMore);
-
-  const smDown = useCustomMediaQuery('down', 'sm');
+  const onKeyUp = useKeyUp('Enter', gotoSearchPage);
 
   return (
-    <>
-      <Box display={{ xs: 'none', sm: 'block' }}>
-        <FormControl
-          fullWidth
-          size="small"
+    <Box
+      display={{ xs: 'none', sm: 'block' }}
+      sx={{
+        width: '100%',
+        maxWidth: 320,
+        position: { xs: 'relative', md: 'absolute' },
+        top: { md: '50%' },
+        left: { md: '50%' },
+        transform: { md: 'translate(-50%, -50%)' },
+      }}
+    >
+      <TextField
+        placeholder={t('search.placeholder')}
+        inputProps={{
+          ref: inputRef,
+          onFocus: () => setFocused(true),
+          onBlur: () => setFocused(false),
+        }}
+        value={input}
+        onChange={handleSearchChange}
+        onKeyUp={onKeyUp}
+        fullWidth
+        size="small"
+        InputProps={{
+          startAdornment: <SearchRounded sx={{ color: 'action.disabled', mr: 1.5 }} />,
+          endAdornment: input.length > 0 && (
+            <IconButton sx={{ color: 'text.secondary' }} onClick={clearSearchInput}>
+              <CloseRounded />
+            </IconButton>
+          ),
+        }}
+      />
+
+      <Grow in={focused && !!input}>
+        <Paper
           sx={{
-            width: '100%',
-            maxWidth: 320,
-            position: { xs: 'relative', md: 'absolute' },
-            top: { md: '50%' },
-            left: { md: '50%' },
-            transform: { md: 'translate(-50%, -50%)' },
+            ...themeMixins.paperBorder(),
+            position: 'absolute',
+            inset: '100% 0 auto',
+            top: '100%',
+            maxHeight: 450,
+            mt: 1,
+            overflow: 'auto',
           }}
         >
-          <OutlinedInput
-            placeholder={t('search.placeholder')}
-            inputProps={{ ref: inputRef, sx: { pl: 1.5 } }}
-            value={searchInput || ''}
-            onChange={handleSearchChange}
-            onKeyUp={onKeyUp}
-            startAdornment={<SearchRounded sx={{ color: 'action.disabled' }} />}
-            endAdornment={
-              (searchInput || '').length > 0 && (
-                <CloseRounded
-                  onClick={clearSearchInput}
-                  sx={{ color: 'text.secondary', cursor: 'pointer' }}
-                />
-              )
-            }
-            sx={{
-              borderRadius: 10,
-              bgcolor: 'background.paper',
-            }}
-          />
+          <Stack alignItems="center" px={2} py={1}>
+            {loading ? (
+              <CircularProgress size={20} />
+            ) : (
+              <Typography variant="subtitle2" color="text.secondary">
+                {t(`search.${searchType}.result${results.length > 1 ? 's' : ''}`, {
+                  count: results.length,
+                  q: input,
+                })}
+              </Typography>
+            )}
+          </Stack>
 
-          <ClickAwayListener onClickAway={closeSearchResult}>
-            <Grow in={showSearchResult}>
-              <Paper
-                sx={{
-                  ...themeMixins.paperBorder(),
-                  position: 'absolute',
-                  inset: '100% 0 auto',
-                  maxHeight: 450,
-                  mt: 1,
-                  overflow: 'auto',
-                }}
-              >
-                <Stack alignItems="center" px={2} py={1}>
-                  {loading || searchInput.length < 2 ? (
-                    <CircularProgress size={20} />
-                  ) : (
-                    <Typography color="text.secondary" fontSize={14}>
-                      {t(`search.${searchObj.searchFor}.result${result.length > 1 ? 's' : ''}`, {
-                        count: result.length,
-                        searchTerm: searchObj.searchTerm,
-                      })}
-                    </Typography>
-                  )}
+          {results.length > 0 && <Divider />}
+
+          <List disablePadding>
+            {input.length > 0 &&
+              results.slice(0, MAX_ITEM).map((data) => (
+                <ListItem key={data._id} disablePadding>
+                  <ListItemButton disableRipple onClick={() => goto(data.url)}>
+                    <Stack alignItems="center">
+                      <Avatar
+                        src={data.image}
+                        sx={{
+                          width: 32,
+                          height: 32,
+                          mr: 1,
+                          bgcolor: !data.image ? 'action.disabled' : undefined,
+                        }}
+                      >
+                        {data.title[0]}
+                      </Avatar>
+
+                      <Typography
+                        variant="subtitle1"
+                        fontWeight={500}
+                        sx={{ ...themeMixins.truncate(1) }}
+                      >
+                        {data.title}
+                      </Typography>
+                    </Stack>
+                  </ListItemButton>
+                </ListItem>
+              ))}
+
+            {isMore && (
+              <>
+                <Divider />
+
+                <Stack>
+                  <Typography
+                    variant="subtitle2"
+                    color="text.secondary"
+                    onClick={gotoSearchPage}
+                    sx={{
+                      display: 'inline-block',
+                      textAlign: 'center',
+                      mx: 'auto',
+                      py: 0.8,
+                      cursor: 'pointer',
+                      '&:hover': {
+                        color: 'text.primary',
+                      },
+                    }}
+                  >
+                    {t('search.viewMore')}
+                  </Typography>
                 </Stack>
-
-                {result.list.length > 0 && <Divider />}
-
-                <List disablePadding>
-                  {searchInput.length > 1 &&
-                    result.list.map((data) => (
-                      <ListItem key={data._id} disablePadding>
-                        <ListItemButton disableRipple onClick={() => goto(data.url)}>
-                          <Stack alignItems="center">
-                            <Avatar
-                              src={data.image}
-                              sx={{
-                                width: 32,
-                                height: 32,
-                                mr: 1,
-                                bgcolor: !data.image ? 'action.selected' : undefined,
-                              }}
-                            >
-                              <Box />
-                            </Avatar>
-
-                            <Typography
-                              fontSize={15}
-                              fontWeight={500}
-                              sx={{ ...themeMixins.truncate(2) }}
-                            >
-                              {data.name}
-                            </Typography>
-                          </Stack>
-                        </ListItemButton>
-                      </ListItem>
-                    ))}
-
-                  {result.isMore && searchInput.length > 1 && (
-                    <>
-                      <Divider />
-
-                      <Stack>
-                        <Typography
-                          variant="subtitle2"
-                          color="text.secondary"
-                          onClick={handleViewMore}
-                          sx={{
-                            display: 'inline-block',
-                            textAlign: 'center',
-                            mx: 'auto',
-                            py: 0.8,
-                            cursor: 'pointer',
-                            '&:hover': {
-                              color: 'text.primary',
-                            },
-                          }}
-                        >
-                          {t('search.viewMore')}
-                        </Typography>
-                      </Stack>
-                    </>
-                  )}
-                </List>
-              </Paper>
-            </Grow>
-          </ClickAwayListener>
-        </FormControl>
-      </Box>
-
-      {smDown && (
-        <SearchMobile
-          open={false}
-          loading={loading}
-          searchInput={searchInput}
-          result={result}
-          searchObj={searchObj}
-          onChange={handleSearchChange}
-          onClear={clearSearchInput}
-          onViewMore={handleViewMore}
-        />
-      )}
-    </>
+              </>
+            )}
+          </List>
+        </Paper>
+      </Grow>
+    </Box>
   );
 }

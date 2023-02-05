@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { CommonForm } from '~/components/common';
-import { useCustomMediaQuery } from '~/hooks';
 import { ChangePasswordFormValues, FormField } from '~/models';
 import { showErrorToastFromServer, showToast } from '~/utils/toast';
 
@@ -25,16 +24,16 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
   const schema = yup.object().shape({
     currentPassword: yup
       .string()
-      .required(tValidate('currentPassword.required'))
-      .min(6, tValidate('password.min', { min: 6 })),
+      .required(tValidate('required'))
+      .min(6, tValidate('min', { min: 6 })),
     newPassword: yup
       .string()
-      .required(tValidate('newPassword.required'))
-      .min(6, tValidate('password.min', { min: 6 })),
+      .required(tValidate('required'))
+      .min(6, tValidate('min', { min: 6 })),
     confirmPassword: yup
       .string()
-      .required(tValidate('confirmPassword.required'))
-      .oneOf([yup.ref('newPassword'), null], tValidate('confirmPassword.match')),
+      .required(tValidate('required'))
+      .oneOf([yup.ref('newPassword'), null], tValidate('notMatch')),
   });
 
   const {
@@ -62,14 +61,20 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
     }
   };
 
+  const handleForgotPassword = async () => {
+    try {
+      await onForgotPassword?.();
+      showToast('checkEmail', 'info');
+    } catch (error) {
+      showErrorToastFromServer(error);
+    }
+  };
+
   const fieldList: FormField[] = [
     { name: 'currentPassword' },
     { name: 'newPassword' },
     { name: 'confirmPassword' },
   ];
-
-  const LABEL_WIDTH = 160;
-  const smUp = useCustomMediaQuery('up', 'sm');
 
   return (
     <CommonForm
@@ -78,14 +83,12 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
       control={control}
       onSubmit={handleSubmit(submitForm)}
       submitting={isSubmitting}
-      horizontal={smUp}
-      labelWidth={LABEL_WIDTH}
       commonProps={{
         type: 'password',
       }}
       action={
         <Button
-          onClick={onForgotPassword}
+          onClick={handleForgotPassword}
           sx={{
             mt: { xs: 1, sm: 0 },
             ml: { xs: 0, sm: 3 },

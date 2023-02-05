@@ -32,7 +32,6 @@ export interface ListParams {
   sort?: string;
   order?: 'asc' | 'desc';
   search?: string | undefined;
-  hashtag?: string | undefined;
   username?: string;
   by?: PostByTypes;
 }
@@ -50,9 +49,10 @@ export interface FormField {
   props?: any;
 }
 
-export interface SearchResultItem {
+export interface SearchResult {
   _id: string;
-  name: string;
+  title: string;
+  subtitle?: string;
   image: string;
   url: string;
 }
@@ -68,4 +68,14 @@ export interface SidebarItem {
 export interface SettingTabItem {
   label: string;
   tab: string;
+}
+
+export interface SearchParams {
+  search: 'post' | 'user';
+  q: string;
+}
+
+export interface SearchFilter {
+  search?: string;
+  username?: string;
 }
