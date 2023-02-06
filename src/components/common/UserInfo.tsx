@@ -2,10 +2,8 @@ import { FlagRounded, PersonOffRounded } from '@mui/icons-material';
 import { Avatar, Box, Stack, Typography } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActionMenu, UserButtonGroup } from '~/components/common';
-import { useCustomMediaQuery } from '~/hooks';
+import { ActionMenu, CustomCard, UserButtonGroup } from '~/components/common';
 import { MenuOption, User } from '~/models';
-import { themeMixins } from '~/utils/theme';
 import { showComingSoonToast } from '~/utils/toast';
 
 export interface UserInfoProps {
@@ -40,11 +38,10 @@ export function UserInfo(props: UserInfoProps) {
   const followArray: ('following' | 'followers')[] = ['following', 'followers'];
 
   return (
-    <Box
+    <CustomCard
       sx={{
-        ...themeMixins.paperBorder(),
         p: { xs: 1, sm: 2 },
-        mb: 2,
+        mb: 1,
       }}
     >
       <Stack
@@ -63,60 +60,45 @@ export function UserInfo(props: UserInfoProps) {
             }}
           />
 
-          <Box sx={{ ml: { xs: 1, sm: 2 }, flexGrow: 1 }}>
-            <Typography component="div" fontSize={{ xs: 20, sm: 24 }} fontWeight={600} mb={0}>
+          <Box flexGrow={1} ml={{ xs: 1, sm: 2 }}>
+            <Typography variant="h6" component="p">
               {userInfo.name}
             </Typography>
 
-            <Typography component="p" fontSize={{ xs: 12, sm: 16 }} mt={-0.5}>
+            <Typography variant="body1" component="p" mb={0.5}>
               @{userInfo.username}
             </Typography>
 
             <Stack sx={{ '& > span:first-of-type': { ml: 0 } }}>
               {followArray.map((x) => (
-                <Stack
-                  key={x}
-                  sx={{
-                    flexDirection: { xs: 'column-reverse', sm: 'row' },
-                    alignItems: 'center',
-                    mr: 3,
-                    fontSize: { xs: 12, sm: 14 },
-                  }}
-                >
-                  <Typography component="span" fontSize="inherit" fontWeight={600} mr={{ sm: 0.5 }}>
-                    {userInfo?.[x]?.length || 0}
-                  </Typography>
-
-                  <Typography component="span" fontSize="inherit">
-                    {t(x)}
-                  </Typography>
-                </Stack>
+                <Typography key={x} variant="subtitle2" component="span" fontWeight={400} mr={2}>
+                  <strong>{userInfo?.[x]?.length || 0}</strong> {t(x)}
+                </Typography>
               ))}
             </Stack>
           </Box>
         </Stack>
 
         <Box mt={{ xs: 1, sm: 0 }} maxWidth={{ sm: 300 }}>
-          <UserButtonGroup user={userInfo} updateUser={updateUser} />
+          <UserButtonGroup user={userInfo} updateUser={updateUser} showActionMenu />
         </Box>
       </Stack>
 
       {userInfo.bio && (
-        <Typography
-          fontSize={14}
+        <Box
+          mt={{ xs: 1, sm: 2 }}
+          p={1}
           sx={{
-            mt: { xs: 1, sm: 2 },
-            p: 1,
-            textAlign: 'center',
-            fontStyle: 'italic',
             bgcolor: 'action.hover',
             borderRadius: 0.5,
             borderLeft: 4,
             borderColor: 'primary.main',
           }}
         >
-          {userInfo.bio}
-        </Typography>
+          <Typography variant="subtitle2" fontWeight={400} textAlign="center" fontStyle="italic">
+            {userInfo.bio}
+          </Typography>
+        </Box>
       )}
 
       <ActionMenu
@@ -126,6 +108,6 @@ export function UserInfo(props: UserInfoProps) {
         onClose={() => setOpenMenu(false)}
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 2 }}
       />
-    </Box>
+    </CustomCard>
   );
 }

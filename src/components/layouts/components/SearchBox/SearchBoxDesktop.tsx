@@ -43,10 +43,8 @@ export function SearchBoxDesktop() {
 
   const inputRef = useRef<any>(null);
 
-  const searchType = useMemo(() => {
-    return input.startsWith('@') ? 'users' : 'posts';
-  }, [input]);
-
+  const searchType = useMemo(() => (input.startsWith('@') ? 'users' : 'posts'), [input]);
+  const isSearchUser = useMemo(() => searchType === 'users', [searchType]);
   const isMore = useMemo(() => results.length > MAX_ITEM, [results]);
 
   useEffect(() => {
@@ -62,16 +60,16 @@ export function SearchBoxDesktop() {
   }, [location]);
 
   useEffect(() => {
-    if (debouncedInput.length < 1) return;
+    if (getValidInput(debouncedInput).length < 1) return;
 
     (async () => {
       try {
         let api: SearchApiType = postApi;
         let q = debouncedInput;
 
-        if (searchType === 'users') {
+        if (isSearchUser) {
           api = userApi;
-          q = debouncedInput.slice(1);
+          q = getValidInput(debouncedInput);
         }
 
         const response = await api.search(slugifyString(q));
@@ -84,10 +82,17 @@ export function SearchBoxDesktop() {
     })();
   }, [debouncedInput]);
 
-  const clearSearchInput = () => setInput('');
+  const clearSearchInput = () => {
+    setInput('');
+    inputRef.current.focus();
+  };
+
+  const getValidInput = (input: string) => {
+    return isSearchUser ? input.slice(1) : input;
+  };
 
   const gotoSearchPage = () => {
-    const value = searchType === 'users' ? input.slice(1) : input;
+    const value = isSearchUser ? input.slice(1) : input;
     if (!value) return;
 
     navigate(`/search/${searchType}?q=${value}`);
@@ -160,7 +165,7 @@ export function SearchBoxDesktop() {
               <Typography variant="subtitle2" color="text.secondary">
                 {t(`search.${searchType}.result${results.length > 1 ? 's' : ''}`, {
                   count: results.length,
-                  q: input,
+                  q: getValidInput(input),
                 })}
               </Typography>
             )}
@@ -169,7 +174,7 @@ export function SearchBoxDesktop() {
           {results.length > 0 && <Divider />}
 
           <List disablePadding>
-            {input.length > 0 &&
+            {getValidInput(input).length > 0 &&
               results.slice(0, MAX_ITEM).map((data) => (
                 <ListItem key={data._id} disablePadding>
                   <ListItemButton disableRipple onClick={() => goto(data.url)}>

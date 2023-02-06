@@ -6,6 +6,7 @@ import { useAppSelector } from '~/app/hooks';
 import favicons from '~/assets/favicons';
 import { selectUserConfig } from '~/redux/slices/userSlice';
 import { configTheme, themeVariables } from '~/utils/theme';
+import { env, variables } from '~/utils/env';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 export interface CustomThemeProviderProps {
@@ -19,7 +20,10 @@ export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
 
   useEffect(() => {
     setTheme(configTheme(mode, mainColor));
-    console.log(theme);
+
+    if (env(variables.environment) === 'development') {
+      console.log(theme);
+    }
   }, [mode, mainColor]);
 
   useEffect(() => {

@@ -9,4 +9,5 @@ export const variables = {
   apiUrl: 'VITE_API_URL',
   cdnUrl: 'VITE_CDN_URL',
   googleClientId: 'VITE_GOOGLE_CLIENT_ID',
+  environment: 'VITE_ENVIRONMENT',
 };

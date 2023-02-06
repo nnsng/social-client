@@ -1,5 +1,10 @@
-import { AccountCircleRounded, LogoutOutlined, SettingsRounded } from '@mui/icons-material';
-import { Avatar, Box } from '@mui/material';
+import {
+  AccountCircleRounded,
+  ArrowDropDownRounded,
+  LogoutOutlined,
+  SettingsRounded,
+} from '@mui/icons-material';
+import { Avatar, Stack, Typography } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -48,18 +53,35 @@ export function UserActions() {
   ];
 
   return (
-    <Box>
+    <Stack
+      ref={anchorRef}
+      onClick={() => setOpenMenu((x) => !x)}
+      sx={{
+        borderRadius: 40,
+        cursor: 'pointer',
+        '&:hover': {
+          bgcolor: 'action.hover',
+        },
+      }}
+    >
       <Avatar
         src={currentUser?.avatar}
         alt={currentUser?.name}
-        ref={anchorRef}
-        onClick={() => setOpenMenu((x) => !x)}
         sx={{
           width: 36,
           height: 36,
-          cursor: 'pointer',
         }}
-      />
+      >
+        {currentUser?.name[0].toUpperCase()}
+      </Avatar>
+
+      <Stack ml={1} display={{ xs: 'none', md: 'flex' }}>
+        <Typography variant="subtitle2" fontWeight="500">
+          {currentUser?.name}
+        </Typography>
+
+        <ArrowDropDownRounded />
+      </Stack>
 
       <ActionMenu
         open={openMenu}
@@ -67,6 +89,6 @@ export function UserActions() {
         anchorEl={anchorRef.current}
         onClose={() => setOpenMenu(false)}
       />
-    </Box>
+    </Stack>
   );
 }
