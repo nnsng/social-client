@@ -9,7 +9,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
@@ -26,6 +26,8 @@ export interface CreateEditFormProps {
   onSubmit?: (data: Post) => void;
   isNewPost?: boolean;
 }
+
+const TITLE_WRAPPER_PADDING = 16;
 
 export function CreateEditForm(props: CreateEditFormProps) {
   const { defaultValues, onSubmit, isNewPost } = props;
@@ -62,7 +64,8 @@ export function CreateEditForm(props: CreateEditFormProps) {
   const [uploading, setUploading] = useState(false);
   const [open, setOpen] = useState(false);
 
-  const openDialog = () => setOpen(true);
+  const buttonRef = useRef<any>(null);
+
   const closeDialog = () => setOpen(false);
 
   useEffect(() => {
@@ -96,18 +99,29 @@ export function CreateEditForm(props: CreateEditFormProps) {
   };
 
   const smUp = useCustomMediaQuery('up', 'sm');
-  const dialogWidth = smUp ? { fullWidth: true } : { fullScreen: true };
 
   return (
-    <Box component="form">
+    <Stack
+      component="form"
+      direction="column"
+      spacing={2}
+      sx={{
+        height: `calc(100vh - (${themeVariables.headerHeight}px + 16px))`,
+        pb: {
+          xs: `${(buttonRef.current?.offsetHeight || 0) + TITLE_WRAPPER_PADDING * 2}px`,
+          sm: 2,
+        },
+      }}
+    >
       <Stack
         direction="column"
         sx={{
           ...themeMixins.paperBorder(),
-          height: `calc(100vh - ${themeVariables.headerHeight}px * 2 + 36px)`,
+          position: 'relative',
+          height: '100%',
         }}
       >
-        <Stack alignItems="center" justifyContent="flex-end" px={2}>
+        <Stack spacing={{ xs: 0, sm: 2 }} flexShrink={0} px={2}>
           <InputField
             name="title"
             control={control}
@@ -122,21 +136,34 @@ export function CreateEditForm(props: CreateEditFormProps) {
             }}
           />
 
-          <Button
-            variant="outlined"
-            size="large"
-            disabled={!title || !content}
-            sx={{ flexShrink: 0, ml: 2 }}
-            onClick={openDialog}
+          <Box
+            flexShrink={0}
+            width={{ xs: '100%', sm: 'auto' }}
+            sx={{
+              position: { xs: 'absolute', sm: 'relative' },
+              top: { xs: `calc(100% + ${TITLE_WRAPPER_PADDING}px)`, sm: 0 },
+              left: 0,
+            }}
           >
-            {isNewPost ? t('btnLabel.create') : t('btnLabel.edit')}
-          </Button>
+            <Button
+              ref={buttonRef}
+              variant="outlined"
+              size="large"
+              fullWidth={!smUp}
+              disabled={!title || !content}
+              onClick={() => setOpen(true)}
+            >
+              {isNewPost ? t('btnLabel.create') : t('btnLabel.edit')}
+            </Button>
+          </Box>
         </Stack>
 
-        <MdEditorField name="content" control={control} placeholder={t('content.placeholder')} />
+        <Box flex={1}>
+          <MdEditorField name="content" control={control} placeholder={t('content.placeholder')} />
+        </Box>
       </Stack>
 
-      <Dialog open={open} onClose={closeDialog} {...dialogWidth}>
+      <Dialog open={open} onClose={closeDialog} fullWidth>
         <Typography
           variant="h6"
           component="div"
@@ -159,7 +186,7 @@ export function CreateEditForm(props: CreateEditFormProps) {
           <MuiTextField
             name="description"
             control={control}
-            label="Description"
+            label={t('description')}
             variant="outlined"
             multiline
             rows={3}
@@ -191,10 +218,6 @@ export function CreateEditForm(props: CreateEditFormProps) {
                 htmlFor="thumbnail-input"
                 disabled={uploading}
                 startIcon={uploading && <CircularProgress size={18} />}
-                sx={{
-                  fontSize: 12,
-                  fontWeight: 400,
-                }}
               >
                 <FileInputField
                   name="thumbnail"
@@ -212,10 +235,6 @@ export function CreateEditForm(props: CreateEditFormProps) {
                   size="small"
                   disabled={uploading}
                   onClick={removeThumbnail}
-                  sx={{
-                    fontSize: 12,
-                    fontWeight: 400,
-                  }}
                 >
                   {t('btnLabel.removeThumbnail')}
                 </Button>
@@ -241,6 +260,6 @@ export function CreateEditForm(props: CreateEditFormProps) {
           </Button>
         </DialogActions>
       </Dialog>
-    </Box>
+    </Stack>
   );
 }

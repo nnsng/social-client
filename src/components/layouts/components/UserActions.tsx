@@ -57,6 +57,7 @@ export function UserActions() {
       ref={anchorRef}
       onClick={() => setOpenMenu((x) => !x)}
       sx={{
+        p: 0.5,
         borderRadius: 40,
         cursor: 'pointer',
         '&:hover': {

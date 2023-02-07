@@ -35,28 +35,25 @@ export function MuiTextField(props: MuiTextFieldProps) {
       <Stack direction="column" alignItems={restProps.multiline ? 'flex-start' : undefined}>
         {label && (
           <Stack
-            component={Typography}
             justifyContent="space-between"
-            variant="body2"
             sx={{
               width: '100%',
               mb: 0.5,
               fontWeight: 500,
-              color: 'text.primary',
             }}
           >
-            <Typography variant="inherit" component="span">
+            <Typography variant="body2" component="span" fontWeight={500}>
               {label}
             </Typography>
 
             {optional && (
-              <Typography variant="inherit" component="span" color="text.secondary">
+              <Typography variant="body2" component="span" color="text.secondary" fontWeight={400}>
                 ({t('optional')})
               </Typography>
             )}
 
             {error && !optional && (
-              <Typography variant="inherit" component="span" color="error">
+              <Typography variant="body2" component="span" color="error" fontWeight={500}>
                 {error.message}
               </Typography>
             )}

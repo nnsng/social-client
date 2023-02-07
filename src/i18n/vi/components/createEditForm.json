@@ -5,6 +5,7 @@
   "content": {
     "placeholder": "Nhập nội dung bài viết..."
   },
+  "description": "Mô tả",
   "noTitle": "Chưa có tiêu đề",
   "btnLabel": {
     "create": "Đăng bài",

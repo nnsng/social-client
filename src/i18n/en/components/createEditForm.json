@@ -5,6 +5,7 @@
   "content": {
     "placeholder": "Type content here..."
   },
+  "description": "Description",
   "noTitle": "No title",
   "btnLabel": {
     "create": "Create",
