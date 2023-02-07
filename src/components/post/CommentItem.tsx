@@ -20,14 +20,14 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import { useAppSelector } from '~/app/hooks';
-import { ActionMenu, ConfirmDialog } from '~/components/common';
-import { selectCurrentUser } from '~/redux/slices/userSlice';
-import { useKeyUp, useUserInfoPopup } from '~/hooks';
-import { Comment, CommentActionTypes, MenuOption } from '~/models';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '~/app/hooks';
+import { ActionMenu, ConfirmDialog, UserPopup } from '~/components/common';
+import { useKeyUp, useMouseEventsWithPopup } from '~/hooks';
+import { Comment, CommentActionTypes, MenuOption } from '~/models';
+import { selectCurrentUser } from '~/redux/slices/userSlice';
 import { formatTime } from '~/utils/common';
 import { showComingSoonToast, showErrorToastFromServer } from '~/utils/toast';
 
@@ -48,17 +48,14 @@ export function CommentItem(props: CommentItemProps) {
   const [openMenu, setOpenMenu] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [content, setContent] = useState<string>(comment.content);
+  const [content, setContent] = useState(comment.content);
   const [editComment, setEditComment] = useState(false);
 
   const editRef = useRef<any>(null);
-  const anchorRef = useRef<any>(null);
-  const userInfoRef = useRef<any>(null);
+  const menuRef = useRef<any>(null);
+  const popupRef = useRef<any>(null);
 
-  const { userInfoPopupComponent, mouseEvents } = useUserInfoPopup({
-    user: comment.user || {},
-    anchorEl: userInfoRef.current,
-  });
+  const { open: openPopup, mouseEvents } = useMouseEventsWithPopup();
 
   useEffect(() => {
     setContent(comment.content);
@@ -157,7 +154,7 @@ export function CommentItem(props: CommentItemProps) {
         <Grid container spacing={2} sx={{ flexWrap: 'nowrap' }}>
           <Grid item xs="auto">
             <Avatar
-              ref={userInfoRef}
+              ref={popupRef}
               src={comment.user?.avatar}
               onClick={handleUserClick}
               {...mouseEvents}
@@ -307,7 +304,7 @@ export function CommentItem(props: CommentItemProps) {
                 <IconButton
                   size="small"
                   disableRipple
-                  ref={anchorRef}
+                  ref={menuRef}
                   onClick={() => setOpenMenu((x) => !x)}
                 >
                   <MoreHorizRounded />
@@ -316,7 +313,7 @@ export function CommentItem(props: CommentItemProps) {
                 <ActionMenu
                   menu={commentMenu}
                   open={openMenu}
-                  anchorEl={anchorRef.current}
+                  anchorEl={menuRef.current}
                   onClose={closeMenu}
                   sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
                 />
@@ -334,7 +331,7 @@ export function CommentItem(props: CommentItemProps) {
         loading={loading}
       />
 
-      {userInfoPopupComponent}
+      <UserPopup open={openPopup} user={comment.user!} anchorEl={popupRef.current} />
     </>
   );
 }

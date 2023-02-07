@@ -2,13 +2,14 @@ import { Avatar, Box, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useCustomMediaQuery } from '~/hooks';
 import { User } from '~/models';
+import { themeMixins } from '~/utils/theme';
 import { PopperWrapper, PopperWrapperProps, UserButtonGroup } from '.';
 
-export interface UserInfoPopupProps extends PopperWrapperProps {
+export interface UserPopupProps extends PopperWrapperProps {
   user: Partial<User>;
 }
 
-export function UserInfoPopup(props: UserInfoPopupProps) {
+export function UserPopup(props: UserPopupProps) {
   const { user, open, anchorEl } = props;
 
   const [isOpen, setIsOpen] = useState(open);
@@ -40,20 +41,20 @@ export function UserInfoPopup(props: UserInfoPopupProps) {
         </Stack>
 
         {user.bio && (
-          <Typography
-            variant="body2"
+          <Box
             sx={{
               mt: 2,
               p: 1,
-              fontStyle: 'italic',
               bgcolor: 'action.hover',
               borderRadius: 0.5,
               borderLeft: 4,
               borderColor: 'primary.main',
             }}
           >
-            {user.bio}
-          </Typography>
+            <Typography variant="body2" fontStyle="italic" sx={{ ...themeMixins.truncate(1) }}>
+              {user.bio}
+            </Typography>
+          </Box>
         )}
 
         <Box mt={2}>

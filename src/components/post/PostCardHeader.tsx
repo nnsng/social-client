@@ -1,33 +1,29 @@
 import { MoreHorizRounded } from '@mui/icons-material';
 import { Avatar, Box, CardHeader, IconButton, SxProps, Tooltip, Typography } from '@mui/material';
-import { ActionMenu } from '~/components/common';
-import { useUserInfoPopup } from '~/hooks';
-import { MenuOption, Post } from '~/models';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ActionMenu, UserPopup } from '~/components/common';
+import { useMouseEventsWithPopup } from '~/hooks';
+import { MenuOption, Post } from '~/models';
 import { formatTime } from '~/utils/common';
 
 export interface PostCardHeaderProps {
   post: Post;
   actionMenu: MenuOption[];
   sx?: SxProps;
-  showPopup?: boolean;
 }
 
 export function PostCardHeader(props: PostCardHeaderProps) {
-  const { post, actionMenu = [], sx, showPopup = true } = props;
+  const { post, actionMenu = [], sx } = props;
 
   const navigate = useNavigate();
 
   const [openMenu, setOpenMenu] = useState(false);
 
-  const anchorRef = useRef<any>(null);
-  const userInfoRef = useRef<any>(null);
+  const menuRef = useRef<any>(null);
+  const popupRef = useRef<any>(null);
 
-  const { userInfoPopupComponent, mouseEvents } = useUserInfoPopup({
-    user: post.author || {},
-    anchorEl: userInfoRef.current,
-  });
+  const { open: openPopup, mouseEvents } = useMouseEventsWithPopup();
 
   const toggleMenu = () => setOpenMenu(!openMenu);
   const closeMenu = () => setOpenMenu(false);
@@ -41,7 +37,7 @@ export function PostCardHeader(props: PostCardHeaderProps) {
       <CardHeader
         avatar={
           <Avatar
-            ref={userInfoRef}
+            ref={popupRef}
             src={post.author?.avatar}
             onClick={handleAuthorClick}
             {...mouseEvents}
@@ -53,7 +49,7 @@ export function PostCardHeader(props: PostCardHeaderProps) {
             <IconButton
               disableTouchRipple
               size="small"
-              ref={anchorRef}
+              ref={menuRef}
               onClick={toggleMenu}
               sx={{
                 color: 'text.secondary',
@@ -69,7 +65,7 @@ export function PostCardHeader(props: PostCardHeaderProps) {
             <ActionMenu
               menu={actionMenu}
               open={openMenu}
-              anchorEl={anchorRef.current}
+              anchorEl={menuRef.current}
               onClose={closeMenu}
             />
           </Box>
@@ -109,7 +105,7 @@ export function PostCardHeader(props: PostCardHeaderProps) {
         }}
       />
 
-      {showPopup && userInfoPopupComponent}
+      <UserPopup open={openPopup} user={post.author!} anchorEl={popupRef.current} />
     </>
   );
 }

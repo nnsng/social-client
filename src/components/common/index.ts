@@ -14,4 +14,4 @@ export * from './PrivateRoute';
 export * from './ThemeSwitch';
 export * from './UserButtonGroup';
 export * from './UserInfo';
-export * from './UserInfoPopup';
+export * from './UserPopup';
