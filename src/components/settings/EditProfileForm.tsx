@@ -1,12 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Box, Button, CircularProgress, Stack } from '@mui/material';
 import i18next from 'i18next';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
-import { CommonForm } from '~/components/common';
-import { useCustomMediaQuery } from '~/hooks';
-import { FormField, User } from '~/models';
+import { User } from '~/models';
+import { MuiTextField } from '../formFields';
 import { AvatarField } from './AvatarField';
 
 export interface EditProfileFromProps {
@@ -17,22 +17,23 @@ export interface EditProfileFromProps {
 export function EditProfileForm(props: EditProfileFromProps) {
   const { defaultValues, onSubmit } = props;
 
-  const { t } = useTranslation('validate');
+  const { t } = useTranslation('editProfileForm');
+  const { t: tValidate } = useTranslation('validate');
 
   const schema = yup.object().shape({
     name: yup
       .string()
-      .required(t('required'))
-      .max(30, t('max', { max: 30 })),
+      .required(tValidate('required'))
+      .max(30, tValidate('max', { max: 30 })),
     avatar: yup.string(),
     username: yup
       .string()
-      .required(t('required'))
-      .min(6, t('min', { min: 6 }))
-      .max(20, t('max', { max: 20 }))
-      .matches(/^(?![-.])[a-zA-Z0-9.-]+(?<![-.])$/, t('notAllowed')),
+      .required(tValidate('required'))
+      .min(6, tValidate('min', { min: 6 }))
+      .max(20, tValidate('max', { max: 20 }))
+      .matches(/^(?![-.])[a-zA-Z0-9.-]+(?<![-.])$/, tValidate('notAllowed')),
     email: yup.string().email().required(),
-    bio: yup.string().max(100, t('max', { max: 100 })),
+    bio: yup.string().max(100, tValidate('max', { max: 100 })),
   });
 
   const {
@@ -57,49 +58,58 @@ export function EditProfileForm(props: EditProfileFromProps) {
 
   const removeAvatar = () => setValue('avatar', '');
 
-  const fieldList: FormField[] = [
-    {
-      name: 'avatar',
-    },
-    {
-      name: 'name',
-    },
-    {
-      name: 'username',
-    },
-    {
-      name: 'email',
-      props: {
-        disabled: true,
-      },
-    },
-    {
-      name: 'bio',
-      props: {
-        multiline: true,
-        rows: 3,
-        optional: true,
-      },
-    },
-  ];
-
   return (
-    <CommonForm
-      name="editProfileForm"
-      fieldList={fieldList}
-      control={control}
-      submitting={isSubmitting}
-      onSubmit={onSubmit && handleSubmit(onSubmit)}
-      avatarField={
+    <Box component="form" onSubmit={onSubmit && handleSubmit(onSubmit)}>
+      <Stack direction="column" spacing={2}>
         <AvatarField
-          key="avatar"
+          name="avatar"
           control={control}
           avatarUrl={avatarUrl || ''}
           loading={uploading}
           setLoading={setUploading}
           onRemove={removeAvatar}
+          t={t}
         />
-      }
-    />
+
+        <MuiTextField name="name" control={control} variant="outlined" label={t('label.name')} />
+
+        <MuiTextField
+          name="username"
+          control={control}
+          variant="outlined"
+          label={t('label.username')}
+        />
+
+        <MuiTextField
+          name="email"
+          control={control}
+          variant="outlined"
+          label={t('label.email')}
+          disabled
+        />
+
+        <MuiTextField
+          name="bio"
+          control={control}
+          variant="outlined"
+          label={t('label.bio')}
+          multiline={true}
+          rows={3}
+          optional={true}
+        />
+
+        <Stack direction={{ xs: 'column', sm: 'row' }}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={isSubmitting}
+            startIcon={isSubmitting && <CircularProgress size={20} />}
+          >
+            {t('submit')}
+          </Button>
+        </Stack>
+      </Stack>
+    </Box>
   );
 }

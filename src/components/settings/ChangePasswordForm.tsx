@@ -1,13 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button } from '@mui/material';
+import { Box, Button, CircularProgress, Stack } from '@mui/material';
 import i18next from 'i18next';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
-import { CommonForm } from '~/components/common';
-import { ChangePasswordFormValues, FormField } from '~/models';
+import { ChangePasswordFormValues } from '~/models';
 import { showErrorToastFromServer, showToast } from '~/utils/toast';
+import { MuiTextField } from '../formFields';
 
 export interface ChangePasswordFormProps {
   defaultValues: ChangePasswordFormValues;
@@ -70,33 +70,55 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
     }
   };
 
-  const fieldList: FormField[] = [
-    { name: 'currentPassword' },
-    { name: 'newPassword' },
-    { name: 'confirmPassword' },
-  ];
-
   return (
-    <CommonForm
-      name="changePasswordForm"
-      fieldList={fieldList}
-      control={control}
-      onSubmit={handleSubmit(submitForm)}
-      submitting={isSubmitting}
-      commonProps={{
-        type: 'password',
-      }}
-      action={
-        <Button
-          onClick={handleForgotPassword}
-          sx={{
-            mt: { xs: 1, sm: 0 },
-            ml: { xs: 0, sm: 3 },
-          }}
-        >
-          {t('forgotPassword')}
-        </Button>
-      }
-    />
+    <Box component="form" onSubmit={handleSubmit(submitForm)}>
+      <Stack direction="column" spacing={2}>
+        <MuiTextField
+          name="currentPassword"
+          control={control}
+          variant="outlined"
+          label={t('label.currentPassword')}
+          type="password"
+        />
+
+        <MuiTextField
+          name="newPassword"
+          control={control}
+          variant="outlined"
+          label={t('label.newPassword')}
+          type="password"
+        />
+
+        <MuiTextField
+          name="confirmPassword"
+          control={control}
+          variant="outlined"
+          label={t('label.confirmPassword')}
+          type="password"
+        />
+
+        <Stack direction={{ xs: 'column', sm: 'row' }}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={isSubmitting}
+            startIcon={isSubmitting && <CircularProgress size={20} />}
+          >
+            {t('submit')}
+          </Button>
+
+          <Button
+            onClick={handleForgotPassword}
+            sx={{
+              mt: { xs: 1, sm: 0 },
+              ml: { xs: 0, sm: 3 },
+            }}
+          >
+            {t('forgotPassword')}
+          </Button>
+        </Stack>
+      </Stack>
+    </Box>
   );
 }

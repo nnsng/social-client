@@ -46,15 +46,15 @@ export function MuiTextField(props: MuiTextFieldProps) {
               {label}
             </Typography>
 
-            {optional && (
-              <Typography variant="body2" component="span" color="text.secondary" fontWeight={400}>
-                ({t('optional')})
+            {error && (
+              <Typography variant="body2" component="span" color="error" fontWeight={500}>
+                {error.message}
               </Typography>
             )}
 
-            {error && !optional && (
-              <Typography variant="body2" component="span" color="error" fontWeight={500}>
-                {error.message}
+            {optional && !error && (
+              <Typography variant="body2" component="span" color="text.secondary" fontWeight={400}>
+                ({t('optional')})
               </Typography>
             )}
           </Stack>

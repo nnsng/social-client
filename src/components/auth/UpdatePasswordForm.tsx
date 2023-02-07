@@ -1,14 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Container } from '@mui/material';
+import { Box, Button, CircularProgress, Container, Stack } from '@mui/material';
 import queryString from 'query-string';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { authApi } from '~/api';
-import { CommonForm, PageTitle } from '~/components/common';
-import { ChangePasswordFormValues, FormField } from '~/models';
+import { PageTitle } from '~/components/common';
+import { ChangePasswordFormValues } from '~/models';
 import { themeMixins } from '~/utils/theme';
+import { MuiTextField } from '../formFields';
 
 export function UpdatePasswordForm() {
   const navigate = useNavigate();
@@ -47,23 +48,42 @@ export function UpdatePasswordForm() {
     navigate('/login', { replace: true });
   };
 
-  const fieldList: FormField[] = [{ name: 'newPassword' }, { name: 'confirmPassword' }];
-
   return (
     <Container maxWidth="sm">
       <Box mt={3} p={3} sx={{ ...themeMixins.paperBorder() }}>
         <PageTitle uppercase={false}>{t('pageTitle')}</PageTitle>
 
-        <CommonForm
-          name="updatePasswordForm"
-          fieldList={fieldList}
-          control={control}
-          onSubmit={handleSubmit(submitForm)}
-          submitting={isSubmitting}
-          commonProps={{
-            type: 'password',
-          }}
-        />
+        <Box component="form" onSubmit={handleSubmit(submitForm)}>
+          <Stack direction="column" spacing={2}>
+            <MuiTextField
+              name="newPassword"
+              control={control}
+              variant="outlined"
+              label={t('label.newPassword')}
+              type="password"
+            />
+
+            <MuiTextField
+              name="confirmPassword"
+              control={control}
+              variant="outlined"
+              label={t('label.confirmPassword')}
+              type="password"
+            />
+
+            <Stack direction={{ xs: 'column', sm: 'row' }}>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={isSubmitting}
+                startIcon={isSubmitting && <CircularProgress size={20} />}
+              >
+                {t('submit')}
+              </Button>
+            </Stack>
+          </Stack>
+        </Box>
       </Box>
     </Container>
   );

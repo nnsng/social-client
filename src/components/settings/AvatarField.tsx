@@ -1,22 +1,26 @@
+import { CloudUploadRounded } from '@mui/icons-material';
 import { Avatar, Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
+import { useState } from 'react';
 import { Control } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
+import { TFunction } from 'react-i18next';
 import { FileInputField } from '~/components/formFields';
 
 export interface AvatarFieldProps {
+  name: string;
   control: Control<any>;
   avatarUrl?: string;
   loading?: boolean;
   setLoading?: (value: boolean) => void;
   onRemove?: () => void;
+  t: TFunction;
 }
 
+const FILE_INPUT_ID = 'avatar-upload';
+
 export function AvatarField(props: AvatarFieldProps) {
-  const { control, avatarUrl = '', loading, setLoading, onRemove } = props;
+  const { name, control, avatarUrl = '', loading, setLoading, onRemove, t } = props;
 
-  const { t } = useTranslation('editProfileForm');
-
-  const FILE_INPUT_ID = 'avatar-upload';
+  const [hover, setHover] = useState(false);
 
   return (
     <Stack key="avatar" direction="column">
@@ -33,49 +37,57 @@ export function AvatarField(props: AvatarFieldProps) {
 
       <Stack alignItems="flex-end" spacing={2}>
         <Box position="relative">
-          <Avatar
-            src={avatarUrl}
+          <Box
             sx={{
               width: { xs: 56, sm: 68 },
               height: { xs: 56, sm: 68 },
+              position: 'relative',
+              borderRadius: '50%',
+              overflow: 'hidden',
             }}
-          />
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+          >
+            <Avatar src={avatarUrl} sx={{ width: '100%', height: '100%' }} />
 
-          {loading && (
-            <Stack
-              sx={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                position: 'absolute',
-                inset: '0',
-                bgcolor: 'action.disabled',
-                borderRadius: '50%',
-              }}
-            >
-              <CircularProgress size={24} />
-            </Stack>
-          )}
+            {hover && (
+              <Stack
+                component="label"
+                htmlFor={FILE_INPUT_ID}
+                justifyContent="center"
+                sx={{
+                  position: 'absolute',
+                  inset: 0,
+                  bgcolor: 'primary.main',
+                  color: 'text.main',
+                  cursor: 'pointer',
+                }}
+              >
+                {loading ? (
+                  <CircularProgress size={24} color="inherit" />
+                ) : (
+                  <CloudUploadRounded fontSize="medium" color="inherit" />
+                )}
+              </Stack>
+            )}
+          </Box>
         </Box>
 
-        <Button
-          component="label"
-          htmlFor={FILE_INPUT_ID}
-          variant="outlined"
-          size="small"
-          disabled={loading}
-        >
-          {t('change')}
-        </Button>
-
         {avatarUrl && (
-          <Button variant="text" size="small" color="error" disabled={loading} onClick={onRemove}>
+          <Button
+            variant="outlined"
+            size="small"
+            color="error"
+            disabled={loading}
+            onClick={onRemove}
+          >
             {t('remove')}
           </Button>
         )}
       </Stack>
 
       <FileInputField
-        name="avatar"
+        name={name}
         control={control}
         id={FILE_INPUT_ID}
         disabled={loading}
