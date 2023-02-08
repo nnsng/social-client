@@ -2,18 +2,20 @@ import { Grid } from '@mui/material';
 import queryString from 'query-string';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { postApi } from '~/api';
+import { postApi, userApi } from '~/api';
 import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { Suggestions } from '~/components/common';
 import { PostFilter, PostList } from '~/components/post';
 import { APP_NAME } from '~/constants';
 import { usePageTitle } from '~/hooks';
-import { ListParams, Post } from '~/models';
+import { ListParams, Post, User } from '~/models';
 import {
   postActions,
   selectPostList,
   selectPostLoading,
   selectTotalPages,
 } from '~/redux/slices/postSlice';
+import { showErrorToastFromServer } from '~/utils/toast';
 
 export function HomePage() {
   const navigate = useNavigate();
@@ -28,6 +30,7 @@ export function HomePage() {
     const params = queryString.parse(location.search);
     return { page: 1, by: 'all', ...params };
   });
+  const [suggestedUsers, setSuggestedUsers] = useState<Partial<User>[]>([]);
 
   usePageTitle(APP_NAME, false);
 
@@ -55,6 +58,26 @@ export function HomePage() {
     navigate(`?${queryString.stringify(rest)}`, { replace: true });
     dispatch(postActions.fetchPostList(filter));
   }, [dispatch, filter]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const userList = await userApi.search('', false);
+
+        const MAX_USERS = 5;
+        const randomNumbers = new Set<number>();
+
+        while (randomNumbers.size < MAX_USERS) {
+          randomNumbers.add(Math.trunc(Math.random() * userList.length));
+        }
+
+        const randomUsers = Array.from(randomNumbers).map((num) => userList[num]);
+        setSuggestedUsers(randomUsers);
+      } catch (error) {
+        showErrorToastFromServer(error);
+      }
+    })();
+  }, []);
 
   const handleFilterChange = (newFilter: ListParams) => {
     setFilter({
@@ -92,7 +115,9 @@ export function HomePage() {
         />
       </Grid>
 
-      <Grid item xs lg={4}></Grid>
+      <Grid item xs lg={4} display={{ xs: 'none', lg: 'block' }}>
+        <Suggestions userList={suggestedUsers} />
+      </Grid>
     </Grid>
   );
 }

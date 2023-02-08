@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { authApi } from '~/api';
 import { PageTitle } from '~/components/common';
+import { usePageTitle } from '~/hooks';
 import { ChangePasswordFormValues } from '~/models';
 import { themeMixins } from '~/utils/theme';
 import { MuiTextField } from '../formFields';
@@ -47,6 +48,8 @@ export function UpdatePasswordForm() {
     await authApi.resetPassword(formValues);
     navigate('/login', { replace: true });
   };
+
+  usePageTitle(t('pageTitle'));
 
   return (
     <Container maxWidth="sm">

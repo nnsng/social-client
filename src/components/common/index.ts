@@ -10,6 +10,8 @@ export * from './NoPost';
 export * from './PageTitle';
 export * from './PopperWrapper';
 export * from './PrivateRoute';
+export * from './SuggestionItem';
+export * from './Suggestions';
 export * from './ThemeSwitch';
 export * from './UserButtonGroup';
 export * from './UserInfo';

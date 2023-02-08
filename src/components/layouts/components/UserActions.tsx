@@ -65,24 +65,17 @@ export function UserActions() {
         },
       }}
     >
-      <Avatar
-        src={currentUser?.avatar}
-        alt={currentUser?.name}
-        sx={{
-          width: 36,
-          height: 36,
-        }}
-      >
-        {currentUser?.name[0].toUpperCase()}
-      </Avatar>
+      <Avatar src={currentUser?.avatar} alt={currentUser?.name} sx={{ width: 36, height: 36 }} />
 
-      <Stack ml={1} display={{ xs: 'none', md: 'flex' }}>
-        <Typography variant="subtitle2" fontWeight="500">
-          {currentUser?.name}
-        </Typography>
+      {currentUser?.name && (
+        <Stack ml={1} display={{ xs: 'none', md: 'flex' }}>
+          <Typography variant="subtitle2" fontWeight="500">
+            {currentUser.name}
+          </Typography>
 
-        <ArrowDropDownRounded />
-      </Stack>
+          <ArrowDropDownRounded />
+        </Stack>
+      )}
 
       <ActionMenu
         open={openMenu}

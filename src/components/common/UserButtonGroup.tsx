@@ -12,11 +12,11 @@ import { Button, CircularProgress, Stack } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { userApi } from '~/api';
-import { useAppDispatch, useAppSelector } from '~/app/hooks';
-import { FollowAction, MenuOption, User } from '~/models';
-import { selectCurrentUser, userActions } from '~/redux/slices/userSlice';
-import { showComingSoonToast, showErrorToastFromServer } from '~/utils/toast';
+import { useAppSelector } from '~/app/hooks';
+import { useFollowUser } from '~/hooks';
+import { MenuOption, User } from '~/models';
+import { selectCurrentUser } from '~/redux/slices/userSlice';
+import { showComingSoonToast } from '~/utils/toast';
 import { ActionMenu } from './ActionMenu';
 import { GrayButton } from './GrayButton';
 
@@ -35,27 +35,13 @@ export function UserButtonGroup({ user, updateUser, showActionMenu }: UserButton
 
   const { t } = useTranslation('userButtonGroup');
 
-  const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const [loading, setLoading] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
 
   const anchorRef = useRef<any>(null);
 
-  const handleFollow = async (action: FollowAction) => {
-    setLoading(true);
-
-    try {
-      const updated = await userApi[action](userId);
-      dispatch(userActions.updateCurrentUser(updated.currentUser));
-      updateUser?.(updated.selectedUser);
-    } catch (error) {
-      showErrorToastFromServer(error);
-    }
-
-    setLoading(false);
-  };
+  const { loading, follow, unfollow } = useFollowUser(updateUser);
 
   const renderFollowButton = () => {
     const isFollowed = currentUser?.following!.find(({ _id }) => _id === userId);
@@ -67,7 +53,7 @@ export function UserButtonGroup({ user, updateUser, showActionMenu }: UserButton
           startIcon={loading ? <CircularProgress size={16} /> : <PersonRemoveRounded />}
           disabled={loading}
           sx={{ flex: showActionMenu ? 2 : 1 }}
-          onClick={() => handleFollow('unfollow')}
+          onClick={() => unfollow(userId)}
         >
           {t('unfollow')}
         </GrayButton>
@@ -80,7 +66,7 @@ export function UserButtonGroup({ user, updateUser, showActionMenu }: UserButton
         startIcon={loading ? <CircularProgress size={16} color="inherit" /> : <PersonAddRounded />}
         disabled={loading}
         sx={{ flex: showActionMenu ? 2 : 1 }}
-        onClick={() => handleFollow('follow')}
+        onClick={() => follow(userId)}
       >
         {t('follow')}
       </Button>

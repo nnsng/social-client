@@ -57,7 +57,6 @@ export function PostFilter({ filter, onChange }: PostFilterProps) {
             fontSize: '0.875rem',
             fontWeight: 600,
             py: 0,
-            textTransform: 'uppercase',
           },
         }}
       >

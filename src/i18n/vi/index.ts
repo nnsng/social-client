@@ -28,6 +28,7 @@ import updatePasswordForm from './components/updatePasswordForm.json';
 import activeAccount from './components/activeAccount.json';
 import confirmDialog from './components/confirmDialog.json';
 import userCard from './components/userCard.json';
+import suggestions from './components/suggestions.json';
 
 // common
 import validate from './common/validate.json';
@@ -65,6 +66,7 @@ export default {
   activeAccount,
   confirmDialog,
   userCard,
+  suggestions,
 
   // common
   validate,

@@ -59,7 +59,7 @@ export function EditProfileForm(props: EditProfileFromProps) {
   const removeAvatar = () => setValue('avatar', '');
 
   return (
-    <Box component="form" onSubmit={onSubmit && handleSubmit(onSubmit)}>
+    <Box component="form" onSubmit={handleSubmit(onSubmit!)}>
       <Stack direction="column" spacing={2}>
         <AvatarField
           name="avatar"

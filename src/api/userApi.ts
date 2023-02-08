@@ -7,7 +7,7 @@ export const userApi = {
     return axiosClient.get(url);
   },
   getUserInfo(username: string): Promise<Partial<User>> {
-    const url = `/users/${username}`;
+    const url = `/users/info/${username}`;
     return axiosClient.get(url);
   },
   updateProfile(data: Partial<User>) {
@@ -22,8 +22,8 @@ export const userApi = {
     const url = '/users/unfollow';
     return axiosClient.post(url, { userId });
   },
-  search(q: string): Promise<Partial<User>[]> {
+  search(q: string, followed?: boolean): Promise<Partial<User>[]> {
     const url = '/users/search';
-    return axiosClient.get(url, { params: { q } });
+    return axiosClient.get(url, { params: { q, followed } });
   },
 };
