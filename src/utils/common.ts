@@ -18,10 +18,6 @@ export const slugifyString = (str: string) => {
   return slugify(str, { locale: 'vi', lower: true });
 };
 
-export const truncateText = (text: string, maxLength: number) => {
-  return text.length > maxLength ? `${text.slice(0, maxLength)}…` : text;
-};
-
 export const getImageUrlFromCDN = async (image: File) => {
   try {
     const formData = new FormData();
@@ -47,7 +43,7 @@ export const delay = async (ms: number) => {
 export const validateEmail = (email: string) => {
   const re =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return email.toLowerCase().match(re);
+  return email.trim().toLowerCase().match(re);
 };
 
 export const formatSearchResponse = (response: Post[] | Partial<User>[]): SearchResult[] => {
