@@ -17,6 +17,8 @@ import {
 } from '~/redux/slices/postSlice';
 import { showErrorToastFromServer } from '~/utils/toast';
 
+const MAX_SUGGEST_USERS = 3;
+
 export function HomePage() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -64,10 +66,9 @@ export function HomePage() {
       try {
         const userList = await userApi.search('', false);
 
-        const MAX_USERS = 5;
         const randomNumbers = new Set<number>();
 
-        while (randomNumbers.size < MAX_USERS) {
+        while (randomNumbers.size < MAX_SUGGEST_USERS) {
           randomNumbers.add(Math.trunc(Math.random() * userList.length));
         }
 

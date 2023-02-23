@@ -1,18 +1,9 @@
 import { Breakpoint } from '@mui/material';
-import { ReactElement, ReactNode } from 'react';
 import { IconType } from './mui';
 import { PostByTypes } from './types';
 
 export interface LayoutProps {
-  children: ReactNode;
   maxWidth?: false | Breakpoint;
-}
-
-export interface RouteItem {
-  path: string;
-  component: () => ReactElement;
-  layout?: (props: LayoutProps) => ReactElement;
-  layoutProps?: Partial<LayoutProps>;
 }
 
 export interface PaginationParams {
