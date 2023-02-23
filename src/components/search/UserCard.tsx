@@ -2,9 +2,9 @@ import { AccountCircleRounded } from '@mui/icons-material';
 import { Avatar, Box, CardContent, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '~/app/hooks';
+import { useAppSelector } from '~/store/hooks';
 import { User } from '~/models';
-import { selectCurrentUser } from '~/redux/slices/userSlice';
+import { selectCurrentUser } from '~/store/slices/userSlice';
 import { CustomCard, GrayButton, UserButtonGroup } from '../common';
 
 interface UserCardProps {

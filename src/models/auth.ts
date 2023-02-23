@@ -8,7 +8,7 @@ export interface AuthResponse {
 }
 
 export interface AuthPayload<T> {
-  formValues?: T;
+  formValues: T;
   navigate?: NavigateFunction;
 }
 

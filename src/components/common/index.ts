@@ -1,5 +1,6 @@
 export * from './ActionMenu';
 export * from './AppearanceDialog';
+export * from './Auth';
 export * from './ConfirmDialog';
 export * from './ContainedInput';
 export * from './CustomCard';
@@ -9,7 +10,6 @@ export * from './GrayButton';
 export * from './NoPost';
 export * from './PageTitle';
 export * from './PopperWrapper';
-export * from './PrivateRoute';
 export * from './SuggestionItem';
 export * from './Suggestions';
 export * from './ThemeSwitch';

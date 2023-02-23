@@ -1,12 +1,13 @@
 import { CssBaseline } from '@mui/material';
-import 'i18n';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import { store } from './app/store';
+import { store } from './store';
 import { CustomThemeProvider } from './components/common';
+
+import 'i18n';
 import './styles/index.css';
 
 ReactDOM.render(

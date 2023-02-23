@@ -1,20 +1,25 @@
-import { ChangePasswordFormValues, LoginFormValues, RegisterFormValues } from '~/models';
+import {
+  AuthResponse,
+  ChangePasswordFormValues,
+  LoginFormValues,
+  RegisterFormValues,
+} from '~/models';
 import axiosClient from './axiosClient';
 
 const clientUrl = window.location.origin;
 
 export const authApi = {
-  login(data: LoginFormValues) {
+  login(data: LoginFormValues): Promise<AuthResponse> {
     const url = '/auth/login';
     return axiosClient.post(url, data);
+  },
+  googleLogin(idToken: string): Promise<AuthResponse> {
+    const url = '/auth/google-login';
+    return axiosClient.post(url, { idToken });
   },
   register(data: RegisterFormValues) {
     const url = '/auth/register';
     return axiosClient.post(url, data, { params: { clientUrl } });
-  },
-  googleLogin(idToken: string) {
-    const url = '/auth/google-login';
-    return axiosClient.post(url, { idToken });
   },
   active(token: string) {
     const url = '/auth/active';

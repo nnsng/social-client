@@ -4,9 +4,9 @@ import {
   FavoriteRounded,
 } from '@mui/icons-material';
 import { Box, Button, Stack, Typography } from '@mui/material';
-import { useAppSelector } from '~/app/hooks';
+import { useAppSelector } from '~/store/hooks';
 import { Post } from '~/models';
-import { selectCurrentUser } from '~/redux/slices/userSlice';
+import { selectCurrentUser } from '~/store/slices/userSlice';
 
 export interface PostReactionProps {
   post: Post | null;

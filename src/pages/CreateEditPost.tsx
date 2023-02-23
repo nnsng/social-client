@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import { postApi } from '~/api';
-import { useAppSelector } from '~/app/hooks';
+import { useAppSelector } from '~/store/hooks';
 import { CreateEditForm } from '~/components/post';
 import { usePageTitle } from '~/hooks';
 import { Post } from '~/models';
-import { selectCurrentUser } from '~/redux/slices/userSlice';
+import { selectCurrentUser } from '~/store/slices/userSlice';
 import { showErrorToastFromServer } from '~/utils/toast';
 
 export function CreateEditPage() {

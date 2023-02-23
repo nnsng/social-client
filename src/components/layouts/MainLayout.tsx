@@ -1,8 +1,9 @@
 import { Box, Container, Grid } from '@mui/material';
+import { Outlet } from 'react-router-dom';
 import { LayoutProps } from '~/models';
 import { Header, Sidebar } from './components';
 
-export function MainLayout({ children, maxWidth }: LayoutProps) {
+export function MainLayout({ maxWidth }: LayoutProps) {
   return (
     <Box>
       <Header />
@@ -15,7 +16,7 @@ export function MainLayout({ children, maxWidth }: LayoutProps) {
             </Grid>
 
             <Grid item xs={12} md lg={9}>
-              {children}
+              <Outlet />
             </Grid>
           </Grid>
         </Container>

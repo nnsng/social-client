@@ -2,7 +2,7 @@ import { Comment } from '~/models';
 import axiosClient from './axiosClient';
 
 export const commentApi = {
-  getPostComment(postId: string) {
+  fetchPostComments(postId: string): Promise<Comment[]> {
     const url = '/comments';
     return axiosClient.get(url, { params: { postId } });
   },
@@ -18,7 +18,7 @@ export const commentApi = {
     const url = `/comments/${data._id}`;
     return axiosClient.delete(url);
   },
-  like(id: string) {
+  like(id: string): Promise<Comment> {
     const url = `/comments/${id}/like`;
     return axiosClient.post(url);
   },

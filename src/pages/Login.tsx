@@ -3,28 +3,25 @@ import { Box, Button, CircularProgress, Stack, Typography } from '@mui/material'
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { authApi } from '~/api';
-import { useAppDispatch, useAppSelector } from '~/app/hooks';
 import { AuthForm } from '~/components/auth';
-import { useLoginWithGoogle, usePageTitle } from '~/hooks';
+import { useAuthentication, usePageTitle } from '~/hooks';
 import { FormField, LoginFormValues } from '~/models';
-import { selectAuthSubmitting, userActions } from '~/redux/slices/userSlice';
+import { useAppSelector } from '~/store/hooks';
+import { selectAuthSubmitting } from '~/store/slices/userSlice';
 import { validateEmail } from '~/utils/common';
 import { showErrorToastFromServer, showToast } from '~/utils/toast';
 
 export function LoginPage() {
-  const navigate = useNavigate();
-
   const { t } = useTranslation('loginPage');
   const { t: tValidate } = useTranslation('validate');
 
-  const dispatch = useAppDispatch();
   const submitting = useAppSelector(selectAuthSubmitting);
 
-  const googleLogin = useLoginWithGoogle();
+  const { login, googleLogin } = useAuthentication();
 
   const [forgotLoading, setForgotLoading] = useState(false);
 
@@ -48,7 +45,7 @@ export function LoginPage() {
   });
 
   const submitForm = (formValues: LoginFormValues) => {
-    dispatch(userActions.login({ formValues, navigate }));
+    login(formValues);
   };
 
   const handleForgotPassword = async () => {

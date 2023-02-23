@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Socket } from 'socket.io-client';
-import { useAppDispatch } from '~/app/hooks';
-import { commentActions } from '~/redux/slices/commentSlice';
+import { useAppDispatch } from '~/store/hooks';
+import { commentActions } from '~/store/slices/commentSlice';
 import { Comment } from '~/models';
 
 export interface SocketProps {

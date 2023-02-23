@@ -3,14 +3,13 @@ import queryString from 'query-string';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useLocation } from 'react-router-dom';
 import { authApi } from '~/api';
-import { useAppDispatch, useAppSelector } from '~/app/hooks';
 import { PageTitle } from '~/components/common';
 import { SettingForm, SettingTabs } from '~/components/settings';
 import { SETTING_TABS } from '~/constants';
 import { usePageTitle } from '~/hooks';
 import { ChangePasswordFormValues, SettingTabItem, User } from '~/models';
-import { settingActions } from '~/redux/slices/settingSlice';
-import { selectCurrentUser } from '~/redux/slices/userSlice';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { selectCurrentUser, updateCurrentUserAsync } from '~/store/slices/userSlice';
 import { themeMixins } from '~/utils/theme';
 
 export function SettingsPage() {
@@ -27,7 +26,7 @@ export function SettingsPage() {
   usePageTitle(t('pageTitle'));
 
   const handleUpdateProfile = (formValues: Partial<User>) => {
-    dispatch(settingActions.updateProfile(formValues));
+    dispatch(updateCurrentUserAsync(formValues));
   };
 
   const handleChangePassword = async (formValues: ChangePasswordFormValues) => {

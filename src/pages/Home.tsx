@@ -3,19 +3,21 @@ import queryString from 'query-string';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { postApi, userApi } from '~/api';
-import { useAppDispatch, useAppSelector } from '~/app/hooks';
 import { Suggestions } from '~/components/common';
 import { PostFilter, PostList } from '~/components/post';
 import { APP_NAME } from '~/constants';
 import { usePageTitle } from '~/hooks';
 import { ListParams, Post, User } from '~/models';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import {
-  postActions,
+  fetchPostList,
   selectPostList,
   selectPostLoading,
   selectTotalPages,
-} from '~/redux/slices/postSlice';
+} from '~/store/slices/postSlice';
 import { showErrorToastFromServer } from '~/utils/toast';
+
+const MAX_SUGGEST_USERS = 3;
 
 export function HomePage() {
   const navigate = useNavigate();
@@ -56,7 +58,7 @@ export function HomePage() {
   useEffect(() => {
     const { page, by, ...rest } = filter;
     navigate(`?${queryString.stringify(rest)}`, { replace: true });
-    dispatch(postActions.fetchPostList(filter));
+    dispatch(fetchPostList(filter));
   }, [dispatch, filter]);
 
   useEffect(() => {
@@ -64,10 +66,9 @@ export function HomePage() {
       try {
         const userList = await userApi.search('', false);
 
-        const MAX_USERS = 5;
         const randomNumbers = new Set<number>();
 
-        while (randomNumbers.size < MAX_USERS) {
+        while (randomNumbers.size < MAX_SUGGEST_USERS) {
           randomNumbers.add(Math.trunc(Math.random() * userList.length));
         }
 
@@ -94,7 +95,7 @@ export function HomePage() {
 
   const handleDeletePost = async (post: Post) => {
     await postApi.remove(post._id!);
-    dispatch(postActions.fetchPostList(filter));
+    dispatch(fetchPostList(filter));
   };
 
   return (

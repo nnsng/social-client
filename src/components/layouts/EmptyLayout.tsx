@@ -1,10 +1,13 @@
 import { Box, Container } from '@mui/material';
+import { Outlet } from 'react-router-dom';
 import { LayoutProps } from '~/models';
 
-export function EmptyLayout({ children, maxWidth }: LayoutProps) {
+export function EmptyLayout({ maxWidth }: LayoutProps) {
   return (
     <Box component="main">
-      <Container maxWidth={maxWidth}>{children}</Container>
+      <Container maxWidth={maxWidth}>
+        <Outlet />
+      </Container>
     </Box>
   );
 }

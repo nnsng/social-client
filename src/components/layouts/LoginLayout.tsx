@@ -1,9 +1,9 @@
 import { Box, Stack } from '@mui/material';
+import { Outlet } from 'react-router-dom';
 import images from '~/assets/images';
-import { LayoutProps } from '~/models';
 import { themeMixins } from '~/utils/theme';
 
-export function AuthLayout({ children }: LayoutProps) {
+export function LoginLayout() {
   return (
     <Stack
       sx={{
@@ -37,7 +37,7 @@ export function AuthLayout({ children }: LayoutProps) {
           m: 'auto',
         }}
       >
-        {children}
+        <Outlet />
       </Box>
     </Stack>
   );

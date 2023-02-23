@@ -2,22 +2,21 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as yup from 'yup';
-import { useAppDispatch, useAppSelector } from '~/app/hooks';
 import { AuthForm } from '~/components/auth';
-import { usePageTitle } from '~/hooks';
+import { useAuthentication, usePageTitle } from '~/hooks';
 import { FormField, RegisterFormValues } from '~/models';
-import { selectAuthSubmitting, userActions } from '~/redux/slices/userSlice';
+import { useAppSelector } from '~/store/hooks';
+import { selectAuthSubmitting } from '~/store/slices/userSlice';
 
 export function RegisterPage() {
-  const navigate = useNavigate();
-
   const { t } = useTranslation('registerPage');
   const { t: tValidate } = useTranslation('validate');
 
-  const dispatch = useAppDispatch();
   const submitting = useAppSelector(selectAuthSubmitting);
+
+  const { register } = useAuthentication();
 
   usePageTitle(t('pageTitle'));
 
@@ -51,7 +50,7 @@ export function RegisterPage() {
   });
 
   const submitForm = (formValues: RegisterFormValues) => {
-    dispatch(userActions.register({ formValues, navigate }));
+    register(formValues);
   };
 
   const fieldList: FormField[] = [

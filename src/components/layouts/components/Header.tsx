@@ -1,7 +1,7 @@
 import { Box, Container, LinearProgress, Stack } from '@mui/material';
-import { useAppSelector } from '~/app/hooks';
+import { useAppSelector } from '~/store/hooks';
 import { useCustomMediaQuery } from '~/hooks';
-import { selectPostLoading } from '~/redux/slices/postSlice';
+import { selectPostLoading } from '~/store/slices/postSlice';
 import { themeMixins, themeVariables } from '~/utils/theme';
 import { Brand, SearchBox, SidebarMobileButton, UserActions } from '.';
 

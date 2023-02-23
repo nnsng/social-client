@@ -25,10 +25,10 @@ import {
 import { Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { AppearanceDialog } from '~/components/common';
 import { SidebarItem } from '~/models';
-import { configActions, selectOpenSidebar } from '~/redux/slices/configSlice';
+import { configActions, selectOpenSidebar } from '~/store/slices/configSlice';
 import { themeMixins } from '~/utils/theme';
 import { showComingSoonToast } from '~/utils/toast';
 import { SidebarWrapper } from './SidebarWrapper';
