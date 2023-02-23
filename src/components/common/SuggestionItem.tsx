@@ -2,9 +2,9 @@ import { Avatar, Box, Button, CircularProgress, Stack, Typography } from '@mui/m
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '~/app/hooks';
+import { useAppSelector } from '~/store/hooks';
 import { User } from '~/models';
-import { selectCurrentUser } from '~/redux/slices/userSlice';
+import { selectCurrentUser } from '~/store/slices/userSlice';
 
 export interface SuggestionItemProps {
   item: Partial<User>;

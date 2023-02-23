@@ -2,13 +2,13 @@ import { Box, Drawer, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { commentApi, postApi } from '~/api';
-import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { PostComment, PostDetail, PostReaction } from '~/components/post';
 import { PostDetailSkeleton } from '~/components/skeletons';
 import { APP_NAME } from '~/constants';
-import { commentActions, selectPostComments } from '~/redux/slices/commentSlice';
-import { postActions, selectPostDetail, selectPostLoading } from '~/redux/slices/postSlice';
-import { selectSocket } from '~/redux/slices/socketSlice';
+import { commentActions, selectPostComments } from '~/store/slices/commentSlice';
+import { postActions, selectPostDetail, selectPostLoading } from '~/store/slices/postSlice';
+import { selectSocket } from '~/store/slices/socketSlice';
 import { usePageTitle } from '~/hooks';
 import { Comment, CommentActionTypes, Post } from '~/models';
 

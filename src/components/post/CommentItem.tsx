@@ -23,11 +23,11 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '~/app/hooks';
+import { useAppSelector } from '~/store/hooks';
 import { ActionMenu, ConfirmDialog, UserPopup } from '~/components/common';
 import { useKeyUp, useMouseEventsWithPopup } from '~/hooks';
 import { Comment, CommentActionTypes, MenuOption } from '~/models';
-import { selectCurrentUser } from '~/redux/slices/userSlice';
+import { selectCurrentUser } from '~/store/slices/userSlice';
 import { formatTime } from '~/utils/common';
 import { showComingSoonToast, showErrorToastFromServer } from '~/utils/toast';
 

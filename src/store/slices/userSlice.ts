@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NavigateFunction } from 'react-router-dom';
-import { RootState } from '~/app/store';
+import { RootState } from '~/store';
 import { CONFIG } from '~/constants';
 import {
   AuthPayload,

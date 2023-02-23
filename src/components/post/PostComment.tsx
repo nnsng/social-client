@@ -1,10 +1,10 @@
 import { CloseRounded } from '@mui/icons-material';
 import { Avatar, CircularProgress, IconButton, List, Stack, Typography } from '@mui/material';
-import { useAppSelector } from '~/app/hooks';
+import { useAppSelector } from '~/store/hooks';
 import { ContainedInput } from '~/components/common';
 import { CommentItemSkeleton } from '~/components/skeletons';
-import { selectCurrentUser } from '~/redux/slices/userSlice';
-import { selectCommentLoading } from '~/redux/slices/commentSlice';
+import { selectCurrentUser } from '~/store/slices/userSlice';
+import { selectCommentLoading } from '~/store/slices/commentSlice';
 import { useKeyUp } from '~/hooks';
 import { Comment, CommentActionTypes } from '~/models';
 import { useEffect, useRef, useState } from 'react';

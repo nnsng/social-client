@@ -71,7 +71,7 @@ function* handleLogout(action: PayloadAction<NavigateFunction>) {
   navigate?.('/login');
 }
 
-export default function* authSaga() {
+export default function* userSaga() {
   yield takeLatest(userActions.login.type, handleLogin);
   yield takeLatest(userActions.register.type, handleRegister);
   yield takeLatest(userActions.googleLogin.type, handleGoogleLogin);

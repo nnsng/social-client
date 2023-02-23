@@ -2,7 +2,7 @@ import { call, put, takeLatest } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { userApi } from '~/api';
 import { User } from '~/models';
-import { userActions } from '~/redux/slices/userSlice';
+import { userActions } from '~/store/slices/userSlice';
 import { showErrorToastFromServer, showToast } from '~/utils/toast';
 import { settingActions } from '../slices/settingSlice';
 

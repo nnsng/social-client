@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import { Route, RouteObject, Routes, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { userApi } from '~/api';
-import { useAppDispatch } from '~/app/hooks';
+import { useAppDispatch } from '~/store/hooks';
 import { CustomScrollbar } from '~/components/common';
-import { socketActions } from '~/redux/slices/socketSlice';
+import { socketActions } from '~/store/slices/socketSlice';
 import { env, variables } from '~/utils/env';
 import { showErrorToastFromServer } from '~/utils/toast';
 import { SocketClient } from './components/socket';
 import { ACCESS_TOKEN } from './constants';
-import { userActions } from './redux/slices/userSlice';
+import { userActions } from './store/slices/userSlice';
 import routes from './routes';
 
 function App() {

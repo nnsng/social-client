@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { useAppSelector } from '~/app/hooks';
-import { selectCurrentUser } from '~/redux/slices/userSlice';
-import { selectSocket } from '~/redux/slices/socketSlice';
+import { useAppSelector } from '~/store/hooks';
+import { selectCurrentUser } from '~/store/slices/userSlice';
+import { selectSocket } from '~/store/slices/socketSlice';
 import { CommentSocket } from './CommentSocket';
 
 export function SocketClient() {

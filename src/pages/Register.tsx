@@ -4,11 +4,11 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
-import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { AuthForm } from '~/components/auth';
 import { usePageTitle } from '~/hooks';
 import { FormField, RegisterFormValues } from '~/models';
-import { selectAuthSubmitting, userActions } from '~/redux/slices/userSlice';
+import { selectAuthSubmitting, userActions } from '~/store/slices/userSlice';
 
 export function RegisterPage() {
   const navigate = useNavigate();

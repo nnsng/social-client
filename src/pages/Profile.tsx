@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { postApi, userApi } from '~/api';
-import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { UserInfo } from '~/components/common';
 import { PostList } from '~/components/post';
 import { UserInfoSkeleton } from '~/components/skeletons';
@@ -14,7 +14,7 @@ import {
   selectPostList,
   selectPostLoading,
   selectTotalPages,
-} from '~/redux/slices/postSlice';
+} from '~/store/slices/postSlice';
 import { showErrorToastFromServer } from '~/utils/toast';
 
 export function ProfilePage() {

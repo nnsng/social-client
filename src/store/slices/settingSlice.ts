@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { User } from '~/models';
-import { RootState } from '~/app/store';
+import { RootState } from '~/store';
 
 interface SettingState {
   submitting: boolean;

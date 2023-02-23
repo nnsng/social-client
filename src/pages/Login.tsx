@@ -7,11 +7,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { authApi } from '~/api';
-import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { AuthForm } from '~/components/auth';
 import { useLoginWithGoogle, usePageTitle } from '~/hooks';
 import { FormField, LoginFormValues } from '~/models';
-import { selectAuthSubmitting, userActions } from '~/redux/slices/userSlice';
+import { selectAuthSubmitting, userActions } from '~/store/slices/userSlice';
 import { validateEmail } from '~/utils/common';
 import { showErrorToastFromServer, showToast } from '~/utils/toast';
 

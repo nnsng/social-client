@@ -1,12 +1,10 @@
 import { combineReducers } from 'redux';
-import {
-  commentReducer,
-  configReducer,
-  postReducer,
-  settingReducer,
-  socketReducer,
-  userReducer,
-} from '~/redux/slices';
+import commentReducer from './commentSlice';
+import configReducer from './configSlice';
+import postReducer from './postSlice';
+import settingReducer from './settingSlice';
+import socketReducer from './socketSlice';
+import userReducer from './userSlice';
 
 const rootReducer = combineReducers({
   user: userReducer,

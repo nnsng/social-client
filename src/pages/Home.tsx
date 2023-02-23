@@ -3,7 +3,7 @@ import queryString from 'query-string';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { postApi, userApi } from '~/api';
-import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { Suggestions } from '~/components/common';
 import { PostFilter, PostList } from '~/components/post';
 import { APP_NAME } from '~/constants';
@@ -14,7 +14,7 @@ import {
   selectPostList,
   selectPostLoading,
   selectTotalPages,
-} from '~/redux/slices/postSlice';
+} from '~/store/slices/postSlice';
 import { showErrorToastFromServer } from '~/utils/toast';
 
 const MAX_SUGGEST_USERS = 3;

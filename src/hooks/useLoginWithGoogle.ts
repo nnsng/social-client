@@ -1,5 +1,5 @@
-import { useAppDispatch } from '~/app/hooks';
-import { userActions } from '~/redux/slices/userSlice';
+import { useAppDispatch } from '~/store/hooks';
+import { userActions } from '~/store/slices/userSlice';
 import { useGoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 import { env, variables } from '~/utils/env';

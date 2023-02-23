@@ -2,7 +2,7 @@ import { Grid, List } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { postApi } from '~/api';
-import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { PageTitle } from '~/components/common';
 import { PostList } from '~/components/post';
 import { usePageTitle } from '~/hooks';
@@ -12,7 +12,7 @@ import {
   selectPostList,
   selectPostLoading,
   selectTotalPages,
-} from '~/redux/slices/postSlice';
+} from '~/store/slices/postSlice';
 
 export function SavedPage() {
   const { t } = useTranslation('savedPage');

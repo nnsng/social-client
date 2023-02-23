@@ -3,14 +3,14 @@ import queryString from 'query-string';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useLocation } from 'react-router-dom';
 import { authApi } from '~/api';
-import { useAppDispatch, useAppSelector } from '~/app/hooks';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { PageTitle } from '~/components/common';
 import { SettingForm, SettingTabs } from '~/components/settings';
 import { SETTING_TABS } from '~/constants';
 import { usePageTitle } from '~/hooks';
 import { ChangePasswordFormValues, SettingTabItem, User } from '~/models';
-import { settingActions } from '~/redux/slices/settingSlice';
-import { selectCurrentUser } from '~/redux/slices/userSlice';
+import { settingActions } from '~/store/slices/settingSlice';
+import { selectCurrentUser } from '~/store/slices/userSlice';
 import { themeMixins } from '~/utils/theme';
 
 export function SettingsPage() {
