@@ -2,13 +2,13 @@ import { Grid, List } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { postApi } from '~/api';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { PageTitle } from '~/components/common';
 import { PostList } from '~/components/post';
 import { usePageTitle } from '~/hooks';
 import { Post } from '~/models';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import {
-  postActions,
+  fetchSavedList,
   selectPostList,
   selectPostLoading,
   selectTotalPages,
@@ -27,16 +27,12 @@ export function SavedPage() {
   usePageTitle(t('pageTitle'));
 
   useEffect(() => {
-    fetchSavedList(page);
+    dispatch(fetchSavedList({ page }));
   }, [dispatch, page]);
 
   const handleUnsavePost = async (post: Post) => {
     await postApi.unsave(post._id!);
-    fetchSavedList(page);
-  };
-
-  const fetchSavedList = (page: number) => {
-    dispatch(postActions.fetchSavedList({ page }));
+    dispatch(fetchSavedList({ page }));
   };
 
   return (

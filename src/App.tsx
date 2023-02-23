@@ -1,21 +1,22 @@
 import { useEffect } from 'react';
-import { Route, RouteObject, Routes, useNavigate } from 'react-router-dom';
+import { Route, RouteObject, Routes } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { userApi } from '~/api';
-import { useAppDispatch } from '~/store/hooks';
 import { CustomScrollbar } from '~/components/common';
+import { useAppDispatch } from '~/store/hooks';
 import { socketActions } from '~/store/slices/socketSlice';
 import { env, variables } from '~/utils/env';
 import { showErrorToastFromServer } from '~/utils/toast';
 import { SocketClient } from './components/socket';
 import { ACCESS_TOKEN } from './constants';
-import { userActions } from './store/slices/userSlice';
+import { useAuthentication } from './hooks';
 import routes from './routes';
+import { userActions } from './store/slices/userSlice';
 
 function App() {
-  const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
+
+  const { logout } = useAuthentication();
 
   useEffect(() => {
     (async () => {
@@ -29,7 +30,7 @@ function App() {
         dispatch(userActions.setCurrentUser(user));
       } catch (error) {
         showErrorToastFromServer(error);
-        dispatch(userActions.logout(navigate));
+        logout();
       }
     })();
   }, [dispatch]);

@@ -3,14 +3,14 @@ import queryString from 'query-string';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { postApi, userApi } from '~/api';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { Suggestions } from '~/components/common';
 import { PostFilter, PostList } from '~/components/post';
 import { APP_NAME } from '~/constants';
 import { usePageTitle } from '~/hooks';
 import { ListParams, Post, User } from '~/models';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import {
-  postActions,
+  fetchPostList,
   selectPostList,
   selectPostLoading,
   selectTotalPages,
@@ -58,7 +58,7 @@ export function HomePage() {
   useEffect(() => {
     const { page, by, ...rest } = filter;
     navigate(`?${queryString.stringify(rest)}`, { replace: true });
-    dispatch(postActions.fetchPostList(filter));
+    dispatch(fetchPostList(filter));
   }, [dispatch, filter]);
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export function HomePage() {
 
   const handleDeletePost = async (post: Post) => {
     await postApi.remove(post._id!);
-    dispatch(postActions.fetchPostList(filter));
+    dispatch(fetchPostList(filter));
   };
 
   return (

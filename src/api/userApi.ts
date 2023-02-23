@@ -10,8 +10,8 @@ export const userApi = {
     const url = `/users/info/${username}`;
     return axiosClient.get(url);
   },
-  updateProfile(data: Partial<User>) {
-    const url = '/users/update-profile';
+  updateCurrentUser(data: Partial<User>): Promise<User> {
+    const url = '/users/update';
     return axiosClient.post(url, data);
   },
   follow(userId: string): Promise<{ [key: string]: Partial<User> }> {

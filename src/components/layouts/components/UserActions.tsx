@@ -8,18 +8,16 @@ import { Avatar, Stack, Typography } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { ActionMenu } from '~/components/common';
+import { useAuthentication } from '~/hooks';
 import { MenuOption } from '~/models';
-import { selectCurrentUser, userActions } from '~/store/slices/userSlice';
 
 export function UserActions() {
   const navigate = useNavigate();
 
   const { t } = useTranslation('header');
 
-  const dispatch = useAppDispatch();
-  const currentUser = useAppSelector(selectCurrentUser);
+  const { logout, currentUser } = useAuthentication();
 
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -28,10 +26,6 @@ export function UserActions() {
   const navigateTo = (path: string) => {
     setOpenMenu(false);
     navigate(path);
-  };
-
-  const logout = () => {
-    dispatch(userActions.logout(navigate));
   };
 
   const menu: MenuOption[] = [

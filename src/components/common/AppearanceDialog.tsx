@@ -12,10 +12,10 @@ import {
 } from '@mui/material';
 import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { LANGUAGES, THEME_COLORS } from '~/constants';
-import { selectUserConfig, userActions } from '~/store/slices/userSlice';
 import { UserConfigKey } from '~/models';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { selectUserConfig, userActions } from '~/store/slices/userSlice';
 import { ThemeSwitch } from '.';
 
 export interface AppearanceDialogProps {

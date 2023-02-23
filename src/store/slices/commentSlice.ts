@@ -1,6 +1,20 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '~/store';
 import { Comment } from '~/models';
+import { commentApi } from '~/api';
+import { showErrorToastFromServer } from '~/utils/toast';
+
+export const fetchPostComments = createAsyncThunk(
+  'comment/fetchPostComments',
+  async (postId: string, { rejectWithValue }) => {
+    try {
+      return await commentApi.fetchPostComments(postId);
+    } catch (error) {
+      showErrorToastFromServer(error);
+      return rejectWithValue(error);
+    }
+  }
+);
 
 interface CommentState {
   loading: boolean;
@@ -16,16 +30,13 @@ const commentSlice = createSlice({
   name: 'comment',
   initialState,
   reducers: {
-    fetchPostComments(state, action: PayloadAction<string>) {
-      state.loading = true;
-      state.list = [];
-    },
-    fetchPostCommentsSuccess(state, action: PayloadAction<Comment[]>) {
-      state.loading = false;
-      state.list = action.payload;
-    },
-    fetchPostCommentsFailure(state) {
-      state.loading = false;
+    updateComment(state, action: PayloadAction<Comment>) {
+      const payloadComment = action.payload;
+      if (state.list) {
+        state.list = state.list.map((comment) =>
+          comment._id === payloadComment._id ? payloadComment : comment
+        );
+      }
     },
 
     create(state, action: PayloadAction<Comment>) {
@@ -43,14 +54,20 @@ const commentSlice = createSlice({
     remove(state, action: PayloadAction<string>) {
       state.list = state.list.filter((comment) => comment._id !== action.payload);
     },
-
-    like(state, action: PayloadAction<string>) {},
-    likeSuccess(state, action: PayloadAction<Comment>) {
-      const likedComment = action.payload;
-      state.list = state.list.map((comment) =>
-        comment._id === likedComment._id ? likedComment : comment
-      );
-    },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchPostComments.pending, (state) => {
+        state.loading = true;
+        state.list = [];
+      })
+      .addCase(fetchPostComments.fulfilled, (state, action) => {
+        state.loading = false;
+        state.list = action.payload;
+      })
+      .addCase(fetchPostComments.rejected, (state) => {
+        state.loading = false;
+      });
   },
 });
 

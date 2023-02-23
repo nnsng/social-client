@@ -1,17 +1,24 @@
-import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
-import createSagaMiddleware from 'redux-saga';
-import rootSaga from './sagas';
-import rootReducer from './slices';
+import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import commentReducer from './slices/commentSlice';
+import configReducer from './slices/configSlice';
+import postReducer from './slices/postSlice';
+import socketReducer from './slices/socketSlice';
+import userReducer from './slices/userSlice';
 
-const sagaMiddleware = createSagaMiddleware();
+const rootReducer = combineReducers({
+  comment: commentReducer,
+  config: configReducer,
+  post: postReducer,
+  socket: socketReducer,
+  user: userReducer,
+});
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }).concat(sagaMiddleware),
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware({ serializableCheck: false });
+  },
 });
-
-sagaMiddleware.run(rootSaga);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

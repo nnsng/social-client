@@ -1,16 +1,16 @@
-import { ListParams, Post } from '~/models';
+import { ListParams, ListResponse, Post } from '~/models';
 import axiosClient from './axiosClient';
 
 export const postApi = {
-  getAll(params: ListParams) {
+  fetchPostList(params: ListParams): Promise<ListResponse<Post>> {
     const url = '/posts';
     return axiosClient.get(url, { params });
   },
-  getSavedList(params: ListParams) {
+  fetchSavedList(params: ListParams): Promise<ListResponse<Post>> {
     const url = '/posts/saved';
     return axiosClient.get(url, { params });
   },
-  getBySlug(slug: string) {
+  getBySlug(slug: string): Promise<Post> {
     const url = `/posts/detail/${slug}`;
     return axiosClient.get(url);
   },
@@ -30,7 +30,7 @@ export const postApi = {
     const url = `/posts/${id}`;
     return axiosClient.delete(url);
   },
-  like(id: string) {
+  like(id: string): Promise<Partial<Post>> {
     const url = `/posts/${id}/like`;
     return axiosClient.post(url);
   },

@@ -2,15 +2,15 @@ import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { postApi, userApi } from '~/api';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { UserInfo } from '~/components/common';
 import { PostList } from '~/components/post';
 import { UserInfoSkeleton } from '~/components/skeletons';
 import { APP_NAME } from '~/constants';
 import { usePageTitle } from '~/hooks';
 import { Post, User } from '~/models';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import {
-  postActions,
+  fetchPostList,
   selectPostList,
   selectPostLoading,
   selectTotalPages,
@@ -51,7 +51,7 @@ export function ProfilePage() {
   }, [page]);
 
   const fetchUserPostList = ({ page }: { page: number }) => {
-    dispatch(postActions.fetchPostList({ page, username }));
+    dispatch(fetchPostList({ page, username }));
   };
 
   const handleSavePost = async (post: Post) => {

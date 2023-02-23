@@ -2,15 +2,21 @@ import { Box, Drawer, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { commentApi, postApi } from '~/api';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { PostComment, PostDetail, PostReaction } from '~/components/post';
 import { PostDetailSkeleton } from '~/components/skeletons';
 import { APP_NAME } from '~/constants';
-import { commentActions, selectPostComments } from '~/store/slices/commentSlice';
-import { postActions, selectPostDetail, selectPostLoading } from '~/store/slices/postSlice';
-import { selectSocket } from '~/store/slices/socketSlice';
 import { usePageTitle } from '~/hooks';
 import { Comment, CommentActionTypes, Post } from '~/models';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { commentActions, fetchPostComments, selectPostComments } from '~/store/slices/commentSlice';
+import {
+  fetchPostDetail,
+  postActions,
+  selectPostDetail,
+  selectPostLoading,
+} from '~/store/slices/postSlice';
+import { selectSocket } from '~/store/slices/socketSlice';
+import { showErrorToastFromServer } from '~/utils/toast';
 
 export function PostDetailPage() {
   const { slug } = useParams();
@@ -29,7 +35,7 @@ export function PostDetailPage() {
 
   useEffect(() => {
     if (!slug) return;
-    dispatch(postActions.fetchPostDetail(slug));
+    dispatch(fetchPostDetail(slug));
   }, [dispatch, slug]);
 
   useEffect(() => {
@@ -46,7 +52,7 @@ export function PostDetailPage() {
     if (!post) return;
 
     if (openComment) {
-      dispatch(commentActions.fetchPostComments(post?._id!));
+      dispatch(fetchPostComments(post?._id!));
     }
   }, [openComment]);
 
@@ -60,20 +66,26 @@ export function PostDetailPage() {
     await postApi.remove(post._id!);
   };
 
-  const handleLikePost = () => {
-    dispatch(postActions.likePost(post?._id!));
+  const handleLikePost = async () => {
+    try {
+      const response = await postApi.like(post?._id!);
+      dispatch(postActions.updatePostDetail(response));
+    } catch (error) {
+      showErrorToastFromServer(error);
+    }
   };
 
   const handleCommentAction = async (action: CommentActionTypes, comment: Comment) => {
     if (action === 'like') {
-      dispatch(commentActions.like(comment._id!));
+      const response = await commentApi.like(comment._id!);
+      dispatch(commentActions.updateComment(response));
       return;
     }
     await commentApi[action](comment);
   };
 
   const updateCommentCount = (count: number) => {
-    dispatch(postActions.updateCommentCount(count));
+    dispatch(postActions.updatePostDetail({ commentCount: count }));
   };
 
   return (
