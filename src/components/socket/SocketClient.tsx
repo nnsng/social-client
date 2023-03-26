@@ -3,6 +3,12 @@ import { useAppSelector } from '~/store/hooks';
 import { selectCurrentUser } from '~/store/slices/userSlice';
 import { selectSocket } from '~/store/slices/socketSlice';
 import { CommentSocket } from './CommentSocket';
+import { Socket } from 'socket.io-client';
+import { NotificationSocket } from './NotificationSocket';
+
+export interface SocketProps {
+  socket: Socket;
+}
 
 export function SocketClient() {
   const socket = useAppSelector(selectSocket);
@@ -19,12 +25,12 @@ export function SocketClient() {
 
   if (!socket) return null;
 
-  const SocketComponents = [CommentSocket];
+  const SocketComponents = [CommentSocket, NotificationSocket];
 
   return (
     <>
-      {SocketComponents.map((Socket, idx) => (
-        <Socket key={idx} socket={socket} />
+      {SocketComponents.map((Component, idx) => (
+        <Component key={idx} socket={socket} />
       ))}
     </>
   );

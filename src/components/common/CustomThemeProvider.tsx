@@ -14,17 +14,17 @@ export interface CustomThemeProviderProps {
 }
 
 export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
-  const { mode, mainColor, language } = useAppSelector(selectUserConfig);
+  const { theme: themeMode, mainColor, language } = useAppSelector(selectUserConfig);
 
-  const [theme, setTheme] = useState<Theme>(configTheme(mode, mainColor));
+  const [theme, setTheme] = useState<Theme>(configTheme(themeMode, mainColor));
 
   useEffect(() => {
-    setTheme(configTheme(mode, mainColor));
+    setTheme(configTheme(themeMode, mainColor));
 
     if (env(variables.environment) === 'development') {
       console.log(theme);
     }
-  }, [mode, mainColor]);
+  }, [themeMode, mainColor]);
 
   useEffect(() => {
     const faviconElement = document.getElementById('favicon') as HTMLLinkElement;
@@ -41,7 +41,7 @@ export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
       {children}
 
       <ToastContainer
-        theme={mode}
+        theme={themeMode}
         autoClose={2000}
         style={{ top: themeVariables.headerHeight }}
         toastStyle={{ backgroundColor: theme.palette.background.paper }}

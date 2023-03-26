@@ -29,8 +29,8 @@ export function AppearanceDialog(props: AppearanceDialogProps) {
   const { t } = useTranslation('appearanceDialog');
 
   const dispatch = useAppDispatch();
-  const { mode, mainColor, language } = useAppSelector(selectUserConfig);
-  const isDarkMode = mode === 'dark';
+  const { theme, mainColor, language } = useAppSelector(selectUserConfig);
+  const isDarkMode = theme === 'dark';
 
   const handleUpdateConfig = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name as UserConfigKey;
@@ -74,7 +74,7 @@ export function AppearanceDialog(props: AppearanceDialogProps) {
             <Typography fontWeight={500}>{t('darkMode')}:</Typography>
 
             <ThemeSwitch
-              name="mode"
+              name="theme"
               value={isDarkMode ? 'light' : 'dark'}
               checked={isDarkMode}
               onChange={handleUpdateConfig}

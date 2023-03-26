@@ -5,8 +5,8 @@
     "empty": "Không có thông báo"
   },
   "message": {
-    "follow": "{{name}} đang theo dõi bạn.",
-    "like": "{{name}} thích bài viết của bạn.",
-    "comment": "{{name}} đã bình luận về bài viết của bạn."
+    "follow": "<strong>{{name}}</strong> đang theo dõi bạn.",
+    "like": "<strong>{{name}}</strong> thích bài viết của bạn.",
+    "comment": "<strong>{{name}}</strong> đã bình luận về bài viết của bạn."
   }
 }

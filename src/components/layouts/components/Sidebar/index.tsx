@@ -9,31 +9,27 @@ import {
   ForumRounded,
   HomeOutlined,
   HomeRounded,
-  MenuOutlined,
   NotificationsOutlined,
   NotificationsRounded,
 } from '@mui/icons-material';
-import {
-  Divider,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  Typography,
-} from '@mui/material';
+import { Divider, List, ListItem, ListItemButton, ListItemIcon, Typography } from '@mui/material';
 import { Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { notificationApi } from '~/api';
 import { AppearanceDialog } from '~/components/common';
 import { SidebarItem } from '~/models';
+import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { configActions, selectOpenSidebar } from '~/store/slices/configSlice';
 import { themeMixins } from '~/utils/theme';
 import { showComingSoonToast } from '~/utils/toast';
 import { SidebarWrapper } from './SidebarWrapper';
 
-export function Sidebar() {
+interface SidebarProps {
+  type: 'normal' | 'drawer';
+}
+
+export function Sidebar({ type }: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -61,6 +57,11 @@ export function Sidebar() {
     callback?.();
   };
 
+  const showNotification = async () => {
+    const notificationList = await notificationApi.getAll();
+    console.log(notificationList);
+  };
+
   const menu: SidebarItem[] = [
     {
       label: t('main.home'),
@@ -81,7 +82,7 @@ export function Sidebar() {
       icon: NotificationsOutlined,
       activeIcon: NotificationsRounded,
       active: checkPathActive('/notifications'),
-      onClick: showComingSoonToast,
+      onClick: showNotification,
     },
     {
       label: t('main.create'),
@@ -107,70 +108,60 @@ export function Sidebar() {
   ];
 
   return (
-    <SidebarWrapper open={openSidebar} onClose={handleClose}>
-      <List sx={{ width: { xs: '100%', md: 'fit-content', lg: '100%' } }}>
-        {menu.map((item, idx) => {
-          const { label, icon, activeIcon, active, onClick } = item;
-          const Icon = active ? activeIcon : icon;
+    <>
+      <SidebarWrapper type={type} open={openSidebar} onClose={handleClose}>
+        <List sx={{ width: { xs: '100%', md: 'fit-content', lg: '100%' } }}>
+          {menu.map((item, idx) => {
+            const { label, icon, activeIcon, active, onClick } = item;
+            const Icon = active ? activeIcon : icon;
 
-          return (
-            <Fragment key={label}>
-              <ListItem
-                disablePadding
-                sx={{ width: { xs: '100%', md: 'fit-content', lg: '100%' } }}
-              >
-                <ListItemButton
+            return (
+              <Fragment key={label}>
+                <ListItem
+                  disablePadding
                   sx={{
-                    borderRadius: 2,
-                    py: 1.5,
-                    color: active ? 'text.primary' : 'text.secondary',
+                    width: { xs: '100%', md: 'fit-content', lg: '100%' },
                   }}
-                  onClick={handleClick(onClick)}
                 >
-                  <ListItemIcon
+                  <ListItemButton
                     sx={{
-                      color: 'inherit',
-                      minWidth: { md: '0', lg: '56px' },
+                      borderRadius: 2,
+                      py: 1.5,
+                      color: active ? 'text.primary' : 'text.secondary',
                     }}
+                    onClick={handleClick(onClick)}
                   >
-                    <Icon sx={{ fontSize: 24 }} />
-                  </ListItemIcon>
+                    <ListItemIcon
+                      sx={{
+                        color: 'inherit',
+                        minWidth: { md: '0', lg: '56px' },
+                      }}
+                    >
+                      <Icon sx={{ fontSize: 24 }} />
+                    </ListItemIcon>
 
-                  <Typography
-                    variant="body1"
-                    component="div"
-                    sx={{
-                      ...themeMixins.truncate(1),
-                      display: { xs: 'block', md: 'none', lg: '-webkit-box' },
-                      fontWeight: active ? 500 : 400,
-                    }}
-                  >
-                    {label}
-                  </Typography>
-                </ListItemButton>
-              </ListItem>
+                    <Typography
+                      variant="body1"
+                      component="div"
+                      sx={{
+                        ...themeMixins.truncate(1),
+                        display: { xs: 'block', md: 'none', lg: '-webkit-box' },
+                        fontWeight: active ? 500 : 400,
+                      }}
+                    >
+                      {label}
+                    </Typography>
+                  </ListItemButton>
+                </ListItem>
 
-              {[2, 4].includes(idx) && <Divider sx={{ my: 1 }} />}
-            </Fragment>
-          );
-        })}
-      </List>
+                {[2, 4].includes(idx) && <Divider sx={{ my: 1 }} />}
+              </Fragment>
+            );
+          })}
+        </List>
+      </SidebarWrapper>
 
       <AppearanceDialog open={openDialog} onClose={() => setOpenDialog(false)} />
-    </SidebarWrapper>
-  );
-}
-
-export function SidebarMobileButton() {
-  const dispatch = useAppDispatch();
-
-  const toggleSidebar = () => {
-    dispatch(configActions.toggleSidebar());
-  };
-
-  return (
-    <IconButton onClick={toggleSidebar}>
-      <MenuOutlined />
-    </IconButton>
+    </>
   );
 }
