@@ -49,16 +49,16 @@ export function SidebarWrapper({ type, children, open, onClose }: SidebarWrapper
   }
 
   if (type === 'normal' && !mdDown) {
-    const topHeight = themeVariables.headerHeight + 16;
-    const bottom = 16;
+    const TOP_HEIGHT = themeVariables.headerHeight + 16;
+    const BOTTOM = 16;
     return (
       <Stack
         component="aside"
         direction="column"
         sx={{
           position: 'sticky',
-          top: topHeight,
-          height: `calc(100vh - ${topHeight}px - ${bottom}px)`,
+          top: TOP_HEIGHT,
+          height: `calc(100vh - ${TOP_HEIGHT}px - ${BOTTOM}px)`,
         }}
       >
         {children}
