@@ -93,7 +93,7 @@ const initialState: UserState = {
   submitting: false,
   currentUser: null,
   config: {
-    mode: 'light',
+    theme: 'light',
     mainColor: '#FF652F',
     language: 'en',
     ...localConfig,

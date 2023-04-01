@@ -1,14 +1,11 @@
 import { Box, Container, LinearProgress, Stack } from '@mui/material';
 import { useAppSelector } from '~/store/hooks';
-import { useCustomMediaQuery } from '~/hooks';
 import { selectPostLoading } from '~/store/slices/postSlice';
 import { themeMixins, themeVariables } from '~/utils/theme';
-import { Brand, SearchBox, SidebarMobileButton, UserActions } from '.';
+import { Brand, SearchBox, Sidebar, UserActions } from '.';
 
 export function Header() {
   const loading = useAppSelector(selectPostLoading);
-
-  const mdUp = useCustomMediaQuery('up', 'md');
 
   return (
     <Box
@@ -31,7 +28,7 @@ export function Header() {
       <Container sx={{ height: '100%' }}>
         <Stack justifyContent="space-between" height="100%" position="relative">
           <Stack spacing={2}>
-            {!mdUp && <SidebarMobileButton />}
+            <Sidebar type="drawer" />
             <Brand />
           </Stack>
 

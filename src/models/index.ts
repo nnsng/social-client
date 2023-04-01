@@ -2,6 +2,7 @@ export * from './auth';
 export * from './common';
 export * from './formValues';
 export * from './mui';
+export * from './notification';
 export * from './post';
 export * from './settings';
 export * from './types';

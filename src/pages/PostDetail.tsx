@@ -39,12 +39,12 @@ export function PostDetailPage() {
   }, [dispatch, slug]);
 
   useEffect(() => {
-    if (!socket) return;
+    if (!socket || !post) return;
 
-    socket.emit('joinPost', { postId: post?._id });
+    socket.emit('joinPost', { postId: post._id });
 
     return () => {
-      socket.emit('leavePost', { postId: post?._id });
+      socket.emit('leavePost', { postId: post._id });
     };
   }, [socket, post]);
 
