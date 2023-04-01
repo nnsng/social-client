@@ -12,12 +12,19 @@ import {
   NotificationsOutlined,
   NotificationsRounded,
 } from '@mui/icons-material';
-import { Divider, List, ListItem, ListItemButton, ListItemIcon, Typography } from '@mui/material';
+import {
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  Paper,
+  Typography,
+} from '@mui/material';
 import { Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { notificationApi } from '~/api';
-import { AppearanceDialog } from '~/components/common';
+import { AppearanceDialog, Notifications } from '~/components/common';
 import { SidebarItem } from '~/models';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { configActions, selectOpenSidebar } from '~/store/slices/configSlice';
@@ -38,28 +45,23 @@ export function Sidebar({ type }: SidebarProps) {
   const dispatch = useAppDispatch();
   const openSidebar = useAppSelector(selectOpenSidebar);
 
-  const [openDialog, setOpenDialog] = useState(false);
-
-  const navigateTo = (path: string) => {
-    navigate(path);
-  };
+  const [openAppearance, setOpenAppearance] = useState(false);
+  const [openNotification, setOpenNotification] = useState(false);
 
   const checkPathActive = (path: string) => {
-    return location.pathname === path;
+    return !openAppearance && location.pathname === path;
   };
 
   const handleClose = () => {
+    setOpenNotification(false);
     dispatch(configActions.toggleSidebar(false));
   };
 
-  const handleClick = (callback?: () => void) => () => {
-    handleClose();
-    callback?.();
-  };
-
-  const showNotification = async () => {
-    const notificationList = await notificationApi.getAll();
-    console.log(notificationList);
+  const handleClick = (callback?: () => void, isCloseSidebar: boolean = true) => {
+    return () => {
+      isCloseSidebar && handleClose();
+      callback?.();
+    };
   };
 
   const menu: SidebarItem[] = [
@@ -68,7 +70,7 @@ export function Sidebar({ type }: SidebarProps) {
       icon: HomeOutlined,
       activeIcon: HomeRounded,
       active: checkPathActive('/'),
-      onClick: () => navigateTo('/'),
+      onClick: () => navigate('/'),
     },
     {
       label: t('main.messages'),
@@ -82,28 +84,28 @@ export function Sidebar({ type }: SidebarProps) {
       icon: NotificationsOutlined,
       activeIcon: NotificationsRounded,
       active: checkPathActive('/notifications'),
-      onClick: showNotification,
+      onClick: () => setOpenNotification(true),
     },
     {
       label: t('main.create'),
       icon: AddCircleOutlineOutlined,
       activeIcon: AddCircleRounded,
       active: checkPathActive('/create'),
-      onClick: () => navigateTo('/create'),
+      onClick: () => navigate('/create'),
     },
     {
       label: t('main.saved'),
       icon: BookmarkBorderOutlined,
       activeIcon: BookmarkRounded,
       active: checkPathActive('/saved'),
-      onClick: () => navigateTo('/saved'),
+      onClick: () => navigate('/saved'),
     },
     {
       label: t('main.appearance'),
       icon: DarkModeOutlined,
       activeIcon: DarkModeRounded,
-      active: openDialog,
-      onClick: () => setOpenDialog(true),
+      active: openAppearance,
+      onClick: () => setOpenAppearance(true),
     },
   ];
 
@@ -121,15 +123,20 @@ export function Sidebar({ type }: SidebarProps) {
                   disablePadding
                   sx={{
                     width: { xs: '100%', md: 'fit-content', lg: '100%' },
+                    my: 1,
                   }}
                 >
                   <ListItemButton
                     sx={{
+                      ...(active ? themeMixins.paperBorder() : {}),
                       borderRadius: 2,
                       py: 1.5,
                       color: active ? 'text.primary' : 'text.secondary',
+                      ':hover': {
+                        bgcolor: active ? 'inherit' : 'none',
+                      },
                     }}
-                    onClick={handleClick(onClick)}
+                    onClick={handleClick(onClick, label !== t('main.notifications'))}
                   >
                     <ListItemIcon
                       sx={{
@@ -159,9 +166,27 @@ export function Sidebar({ type }: SidebarProps) {
             );
           })}
         </List>
+
+        <Paper
+          sx={{
+            ...themeMixins.paperBorder(),
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            bottom: 0,
+            width: openNotification ? '100%' : 0,
+            transition: '0.3s ease-in-out',
+            overflow: 'hidden',
+          }}
+        >
+          <Notifications
+            open={openNotification}
+            onClose={() => setOpenNotification(!openNotification)}
+          />
+        </Paper>
       </SidebarWrapper>
 
-      <AppearanceDialog open={openDialog} onClose={() => setOpenDialog(false)} />
+      <AppearanceDialog open={openAppearance} onClose={() => setOpenAppearance(false)} />
     </>
   );
 }

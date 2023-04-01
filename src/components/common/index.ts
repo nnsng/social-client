@@ -8,6 +8,7 @@ export * from './CustomScrollbar';
 export * from './CustomThemeProvider';
 export * from './GrayButton';
 export * from './NoPost';
+export * from './Notifications';
 export * from './PageTitle';
 export * from './PopperWrapper';
 export * from './SuggestionItem';

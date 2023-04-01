@@ -61,8 +61,7 @@ export function AppearanceDialog(props: AppearanceDialogProps) {
       <DialogContent
         dividers
         sx={{
-          px: 3,
-          py: 3,
+          p: 3,
           '& .MuiTypography-root': {
             width: 120,
             mr: 2,

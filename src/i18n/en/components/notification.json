@@ -5,8 +5,9 @@
     "empty": "No notifications"
   },
   "message": {
-    "follow": "<strong>{{name}}</strong> is following you.",
-    "like": "<strong>{{name}}</strong> likes your post.",
+    "follow": "<strong>{{name}}</strong> followed you.",
+    "like": "<strong>{{name}}</strong> liked your post.",
     "comment": "<strong>{{name}}</strong> commented on your post."
-  }
+  },
+  "more": "and {{remain}} others"
 }

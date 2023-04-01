@@ -33,8 +33,10 @@ export function SidebarWrapper({ type, children, open, onClose }: SidebarWrapper
           <Stack
             direction="column"
             sx={{
+              position: 'relative',
               width: '75vw',
               maxWidth: 300,
+              height: '100%',
               px: 1,
               pt: 3,
             }}
@@ -47,13 +49,16 @@ export function SidebarWrapper({ type, children, open, onClose }: SidebarWrapper
   }
 
   if (type === 'normal' && !mdDown) {
+    const topHeight = themeVariables.headerHeight + 16;
+    const bottom = 16;
     return (
       <Stack
         component="aside"
         direction="column"
         sx={{
           position: 'sticky',
-          top: themeVariables.headerHeight + 16,
+          top: topHeight,
+          height: `calc(100vh - ${topHeight}px - ${bottom}px)`,
         }}
       >
         {children}

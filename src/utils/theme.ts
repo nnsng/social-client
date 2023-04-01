@@ -153,8 +153,8 @@ export const themeVariables = {
   boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 12px',
 };
 
-export const themeMixins: { [key: string]: (...args: any[]) => SxProps<Theme> } = {
-  truncate: (maxLine: number) => ({
+export const themeMixins = {
+  truncate: (maxLine: number): SxProps<Theme> => ({
     display: '-webkit-box',
     WebkitLineClamp: maxLine,
     WebkitBoxOrient: 'vertical',
@@ -162,7 +162,7 @@ export const themeMixins: { [key: string]: (...args: any[]) => SxProps<Theme> } 
     textOverflow: 'ellipsis',
   }),
 
-  paperBorder: (type?: 'top' | 'bottom' | 'left' | 'right') => {
+  paperBorder: (type?: 'top' | 'bottom' | 'left' | 'right'): SxProps<Theme> => {
     const borderType = type ? `border${type[0].toUpperCase()}${type.slice(1)}` : 'border';
     return {
       bgcolor: 'background.paper',
