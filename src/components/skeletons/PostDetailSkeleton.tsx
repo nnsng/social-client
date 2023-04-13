@@ -1,10 +1,10 @@
 import { Box, CardHeader } from '@mui/material';
-import { CustomCard } from '../common';
+import { StyledCard } from '../common';
 import { StyledSkeleton } from './StyledSkeleton';
 
 export function PostDetailSkeleton() {
   return (
-    <CustomCard>
+    <StyledCard>
       <StyledSkeleton variant="text" width="80%" height={24} />
 
       <CardHeader
@@ -33,6 +33,6 @@ export function PostDetailSkeleton() {
           />
         ))}
       </Box>
-    </CustomCard>
+    </StyledCard>
   );
 }

@@ -61,7 +61,7 @@ export function SettingsPage() {
 
       <Paper
         sx={{
-          ...themeMixins.paperBorder(),
+          ...themeMixins.getPaperStyles(),
           overflow: 'hidden',
         }}
       >

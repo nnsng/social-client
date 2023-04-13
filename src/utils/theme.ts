@@ -141,6 +141,11 @@ export const configTheme = (mode?: PaletteMode, mainColor?: string) => {
           placement: 'right',
         },
       },
+      MuiCircularProgress: {
+        defaultProps: {
+          color: 'primary',
+        },
+      },
     },
   });
 
@@ -162,14 +167,11 @@ export const themeMixins = {
     textOverflow: 'ellipsis',
   }),
 
-  paperBorder: (type?: 'top' | 'bottom' | 'left' | 'right'): SxProps<Theme> => {
-    const borderType = type ? `border${type[0].toUpperCase()}${type.slice(1)}` : 'border';
-    return {
-      bgcolor: 'background.paper',
-      boxShadow: (theme) => (theme.palette.mode === 'light' ? themeVariables.boxShadow : undefined),
-      [borderType]: (theme) => (theme.palette.mode === 'dark' ? 1 : 0),
-      borderColor: 'divider',
-      borderRadius: 2,
-    };
-  },
+  getPaperStyles: (): SxProps<Theme> => ({
+    backgroundColor: 'background.paper',
+    boxShadow: (theme) => (theme.palette.mode === 'light' ? themeVariables.boxShadow : undefined),
+    border: (theme) => (theme.palette.mode === 'dark' ? 1 : 0),
+    borderColor: 'divider',
+    borderRadius: 2,
+  }),
 };

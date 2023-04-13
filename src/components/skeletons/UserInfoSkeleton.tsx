@@ -7,7 +7,7 @@ export function UserInfoSkeleton() {
   return (
     <Box
       sx={{
-        ...themeMixins.paperBorder(),
+        ...themeMixins.getPaperStyles(),
         p: { xs: 1, sm: 2 },
         mb: 2,
       }}

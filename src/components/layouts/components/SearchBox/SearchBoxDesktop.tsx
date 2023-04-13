@@ -149,7 +149,7 @@ export function SearchBoxDesktop() {
       <Grow in={focused && !!input}>
         <Paper
           sx={{
-            ...themeMixins.paperBorder(),
+            ...themeMixins.getPaperStyles(),
             position: 'absolute',
             inset: '100% 0 auto',
             top: '100%',
