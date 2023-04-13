@@ -2,10 +2,10 @@ import { AccountCircleRounded } from '@mui/icons-material';
 import { Avatar, Box, CardContent, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '~/store/hooks';
 import { User } from '~/models';
+import { useAppSelector } from '~/store/hooks';
 import { selectCurrentUser } from '~/store/slices/userSlice';
-import { CustomCard, GrayButton, UserButtonGroup } from '../common';
+import { GrayButton, StyledCard, UserButtonGroup } from '../common';
 
 interface UserCardProps {
   user: Partial<User>;
@@ -19,7 +19,7 @@ export function UserCard({ user }: UserCardProps) {
   const currentUser = useAppSelector(selectCurrentUser);
 
   return (
-    <CustomCard>
+    <StyledCard>
       <CardContent sx={{ '&:last-child': { p: 0 } }}>
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
           <Stack flex={1} spacing={2}>
@@ -62,6 +62,6 @@ export function UserCard({ user }: UserCardProps) {
           </Stack>
         </Stack>
       </CardContent>
-    </CustomCard>
+    </StyledCard>
   );
 }

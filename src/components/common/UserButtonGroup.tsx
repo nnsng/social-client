@@ -17,8 +17,7 @@ import { useFollowUser } from '~/hooks';
 import { MenuOption, User } from '~/models';
 import { selectCurrentUser } from '~/store/slices/userSlice';
 import { showComingSoonToast } from '~/utils/toast';
-import { ActionMenu } from './ActionMenu';
-import { GrayButton } from './GrayButton';
+import { ActionMenu, GrayButton } from '.';
 
 export interface UserButtonGroupProps {
   user: Partial<User>;
@@ -63,7 +62,7 @@ export function UserButtonGroup({ user, updateUser, showActionMenu }: UserButton
     return (
       <Button
         variant="contained"
-        startIcon={loading ? <CircularProgress size={16} color="inherit" /> : <PersonAddRounded />}
+        startIcon={loading ? <CircularProgress size={16} /> : <PersonAddRounded />}
         disabled={loading}
         sx={{ flex: showActionMenu ? 2 : 1 }}
         onClick={() => follow(userId)}

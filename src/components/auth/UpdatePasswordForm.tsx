@@ -53,7 +53,7 @@ export function UpdatePasswordForm() {
 
   return (
     <Container maxWidth="sm">
-      <Box mt={3} p={3} sx={{ ...themeMixins.paperBorder() }}>
+      <Box mt={3} p={3} sx={{ ...themeMixins.getPaperStyles() }}>
         <PageTitle uppercase={false}>{t('pageTitle')}</PageTitle>
 
         <Box component="form" onSubmit={handleSubmit(submitForm)}>

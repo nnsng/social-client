@@ -2,7 +2,7 @@ import { FlagRounded, PersonOffRounded } from '@mui/icons-material';
 import { Avatar, Box, Stack, Typography } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActionMenu, CustomCard, UserButtonGroup } from '~/components/common';
+import { ActionMenu, StyledCard, UserButtonGroup } from '~/components/common';
 import { MenuOption, User } from '~/models';
 import { showComingSoonToast } from '~/utils/toast';
 
@@ -38,7 +38,7 @@ export function UserInfo(props: UserInfoProps) {
   const followArray: ('following' | 'followers')[] = ['following', 'followers'];
 
   return (
-    <CustomCard
+    <StyledCard
       sx={{
         p: { xs: 1, sm: 2 },
         mb: 1,
@@ -108,6 +108,6 @@ export function UserInfo(props: UserInfoProps) {
         onClose={() => setOpenMenu(false)}
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 2 }}
       />
-    </CustomCard>
+    </StyledCard>
   );
 }

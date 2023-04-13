@@ -1,5 +1,6 @@
-import { Switch } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Button, Card, Switch } from '@mui/material';
+import { styled, experimental_sx as sx } from '@mui/system';
+import { themeMixins } from '~/utils/theme';
 
 export const ThemeSwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -48,3 +49,21 @@ export const ThemeSwitch = styled(Switch)(({ theme }) => ({
     borderRadius: 20 / 2,
   },
 }));
+
+export const GrayButton = styled(Button)(
+  sx({
+    color: 'text.primary',
+    bgcolor: 'action.hover',
+    '&:hover': {
+      bgcolor: 'action.selected',
+    },
+  })
+);
+
+export const StyledCard = styled(Card)(
+  sx({
+    ...themeMixins.getPaperStyles(),
+    width: '100%',
+    padding: 2,
+  })
+);

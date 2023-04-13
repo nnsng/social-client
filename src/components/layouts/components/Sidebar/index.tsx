@@ -128,7 +128,7 @@ export function Sidebar({ type }: SidebarProps) {
                 >
                   <ListItemButton
                     sx={{
-                      ...(active ? themeMixins.paperBorder() : {}),
+                      ...(active ? themeMixins.getPaperStyles() : {}),
                       borderRadius: 2,
                       py: 1.5,
                       color: active ? 'text.primary' : 'text.secondary',
@@ -169,12 +169,13 @@ export function Sidebar({ type }: SidebarProps) {
 
         <Paper
           sx={{
-            ...themeMixins.paperBorder(),
+            ...themeMixins.getPaperStyles(),
             position: 'absolute',
             top: 0,
             left: 0,
             bottom: 0,
             width: openNotification ? '100%' : 0,
+            borderWidth: openNotification ? 1 : 0,
             transition: '0.3s ease-in-out',
             overflow: 'hidden',
           }}

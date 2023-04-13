@@ -12,10 +12,10 @@ import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import { Link, useNavigate } from 'react-router-dom';
 import remarkGfm from 'remark-gfm';
-import { useAppSelector } from '~/store/hooks';
-import { ConfirmDialog, CustomCard } from '~/components/common';
+import { ConfirmDialog, StyledCard } from '~/components/common';
 import { ROLE } from '~/constants';
 import { Post } from '~/models';
+import { useAppSelector } from '~/store/hooks';
 import { selectCurrentUser } from '~/store/slices/userSlice';
 import { copyPostLink } from '~/utils/common';
 import { themeMixins } from '~/utils/theme';
@@ -159,7 +159,7 @@ export function PostCard(props: PostCardProps) {
   };
 
   return (
-    <CustomCard>
+    <StyledCard>
       <PostCardHeader
         post={post}
         actionMenu={actionMenus[mode]}
@@ -245,6 +245,6 @@ export function PostCard(props: PostCardProps) {
         onConfirm={isSaved ? handleUnsavePost : handleDeletePost}
         loading={loading}
       />
-    </CustomCard>
+    </StyledCard>
   );
 }

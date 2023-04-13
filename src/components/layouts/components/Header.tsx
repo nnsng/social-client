@@ -11,7 +11,8 @@ export function Header() {
     <Box
       component="header"
       sx={{
-        ...themeMixins.paperBorder('bottom'),
+        ...themeMixins.getPaperStyles(),
+        borderWidth: ' 0 0 1px',
         position: 'sticky',
         zIndex: 'appBar',
         top: 0,

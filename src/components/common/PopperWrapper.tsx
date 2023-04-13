@@ -14,7 +14,7 @@ export function PopperWrapper(props: PopperWrapperProps) {
         <Grow {...TransitionProps}>
           <Paper
             sx={{
-              ...themeMixins.paperBorder(),
+              ...themeMixins.getPaperStyles(),
               overflow: 'hidden',
             }}
           >

@@ -116,7 +116,7 @@ export function CreateEditForm(props: CreateEditFormProps) {
       <Stack
         direction="column"
         sx={{
-          ...themeMixins.paperBorder(),
+          ...themeMixins.getPaperStyles(),
           position: 'relative',
           height: '100%',
         }}

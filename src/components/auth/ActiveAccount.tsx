@@ -92,7 +92,7 @@ export function ActiveAccount() {
 
   return (
     <Container maxWidth="sm">
-      <Box mt={3} p={3} sx={{ ...themeMixins.paperBorder() }}>
+      <Box mt={3} p={3} sx={{ ...themeMixins.getPaperStyles() }}>
         <Stack spacing={1} color={statusObject.color}>
           {renderStatusIcon()}
 

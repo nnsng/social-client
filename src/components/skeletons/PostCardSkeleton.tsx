@@ -1,10 +1,10 @@
 import { Box, CardHeader, Stack } from '@mui/material';
-import { CustomCard } from '../common';
+import { StyledCard } from '../common';
 import { StyledSkeleton } from './StyledSkeleton';
 
 export function PostCardSkeleton() {
   return (
-    <CustomCard>
+    <StyledCard>
       <CardHeader
         avatar={<StyledSkeleton variant="circular" width={40} height={40} />}
         title={<StyledSkeleton variant="text" width="20%" height={10} />}
@@ -45,6 +45,6 @@ export function PostCardSkeleton() {
           }}
         />
       </Stack>
-    </CustomCard>
+    </StyledCard>
   );
 }

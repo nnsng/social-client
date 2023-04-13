@@ -37,7 +37,7 @@ export function PostList(props: PostListProps) {
           <>
             {postList.length > 0 ? (
               postList.map((post) => (
-                <ListItem key={post._id} disablePadding>
+                <ListItem key={post._id} disablePadding sx={{ pb: 2 }}>
                   <PostCard post={post} mode={mode} {...postActions} />
                 </ListItem>
               ))

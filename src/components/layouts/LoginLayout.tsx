@@ -24,7 +24,7 @@ export function LoginLayout() {
     >
       <Box
         sx={{
-          ...themeMixins.paperBorder(),
+          ...themeMixins.getPaperStyles(),
           borderRadius: { xs: 0, sm: 4 },
           position: 'relative',
           zIndex: 2,
