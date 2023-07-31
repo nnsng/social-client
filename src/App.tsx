@@ -63,7 +63,6 @@ function App() {
   return (
     <CustomScrollbar>
       <SocketClient />
-
       <Routes>{createElementsFromRoutes(routes)}</Routes>
     </CustomScrollbar>
   );
