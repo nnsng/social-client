@@ -6,7 +6,7 @@ import { UserInfo } from '~/components/common';
 import { PostList } from '~/components/post';
 import { UserInfoSkeleton } from '~/components/skeletons';
 import { APP_NAME } from '~/constants';
-import { usePageTitle } from '~/hooks';
+import { usePageTitle } from '~/hooks/common';
 import { Post, User } from '~/models';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import {

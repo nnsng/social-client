@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { z } from 'zod';
 import { AuthForm } from '~/components/auth';
-import { useAuthentication, usePageTitle } from '~/hooks';
+import { useAuthentication, usePageTitle } from '~/hooks/common';
 import { FormField, RegisterFormValues } from '~/models';
 import { useAppSelector } from '~/store/hooks';
 import { selectAuthSubmitting } from '~/store/slices/userSlice';

@@ -1,6 +1,6 @@
 import { Box, Container, Grid } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-import { useCustomMediaQuery } from '~/hooks';
+import { useCustomMediaQuery } from '~/hooks/common';
 import { LayoutProps } from '~/models';
 import { Header, Sidebar } from './components';
 

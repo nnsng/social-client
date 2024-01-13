@@ -6,7 +6,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { postApi, userApi } from '~/api';
 import { PostList } from '~/components/post';
 import { UserCard } from '~/components/search';
-import { usePageTitle } from '~/hooks';
+import { usePageTitle } from '~/hooks/common';
 import { Post, SearchApiType, User } from '~/models';
 import { slugifyString } from '~/utils/common';
 

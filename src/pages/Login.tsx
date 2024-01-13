@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { z } from 'zod';
 import { authApi } from '~/api';
 import { AuthForm } from '~/components/auth';
-import { useAuthentication, usePageTitle } from '~/hooks';
+import { useAuthentication, usePageTitle } from '~/hooks/common';
 import { FormField, LoginFormValues } from '~/models';
 import { useAppSelector } from '~/store/hooks';
 import { selectAuthSubmitting } from '~/store/slices/userSlice';

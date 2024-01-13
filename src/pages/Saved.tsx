@@ -1,34 +1,30 @@
 import { Grid, List } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { postApi } from '~/api';
 import { PageTitle } from '~/components/common';
 import { PostList } from '~/components/post';
-import { usePageTitle } from '~/hooks';
+import { usePageTitle } from '~/hooks/common';
+import { usePostList } from '~/hooks/queries';
 import { Post } from '~/models';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import {
-  fetchSavedList,
-  selectPostList,
-  selectPostLoading,
-  selectTotalPages,
-} from '~/store/slices/postSlice';
+import { useAppDispatch } from '~/store/hooks';
+import { fetchSavedList } from '~/store/slices/postSlice';
 
 export function SavedPage() {
   const { t } = useTranslation('savedPage');
 
   const dispatch = useAppDispatch();
-  const postList = useAppSelector(selectPostList);
-  const totalPage = useAppSelector(selectTotalPages);
-  const loading = useAppSelector(selectPostLoading);
-
   const [page, setPage] = useState(1);
 
-  usePageTitle(t('pageTitle'));
+  const {
+    data: {
+      data: postList,
+      pagination: { totalPage },
+    },
+    isLoading,
+  } = usePostList({ saved: true, page });
 
-  useEffect(() => {
-    dispatch(fetchSavedList({ page }));
-  }, [dispatch, page]);
+  usePageTitle(t('pageTitle'));
 
   const handleUnsavePost = async (post: Post) => {
     await postApi.unsave(post._id!);
@@ -44,10 +40,10 @@ export function SavedPage() {
           <PostList
             postList={postList}
             page={{
-              total: totalPage,
+              total: totalPage || 1,
               current: page,
             }}
-            loading={loading}
+            loading={isLoading}
             onPageChange={setPage}
             onUnsave={handleUnsavePost}
             mode="saved"

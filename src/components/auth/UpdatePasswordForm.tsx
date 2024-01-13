@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { authApi } from '~/api';
 import { PageTitle } from '~/components/common';
-import { usePageTitle } from '~/hooks';
+import { usePageTitle } from '~/hooks/common';
 import { ChangePasswordFormValues } from '~/models';
 import { themeMixins } from '~/utils/theme';
 import { MuiTextField } from '../formFields';

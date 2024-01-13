@@ -9,7 +9,7 @@ import { Post } from '~/models';
 import { selectCurrentUser } from '~/store/slices/userSlice';
 
 export interface PostReactionProps {
-  post: Post | null;
+  post?: Post | null;
   onOpenComment?: () => void;
   onLikePost?: () => void;
 }

@@ -19,7 +19,7 @@ import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { postApi, userApi } from '~/api';
-import { useDebounce, useKeyUp } from '~/hooks';
+import { useDebounce, useKeyUp } from '~/hooks/common';
 import { SearchApiType, SearchResult } from '~/models';
 import { formatSearchResponse, slugifyString } from '~/utils/common';
 import { themeMixins } from '~/utils/theme';
