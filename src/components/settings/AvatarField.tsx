@@ -2,7 +2,7 @@ import { CloudUploadRounded } from '@mui/icons-material';
 import { Avatar, Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import { Control } from 'react-hook-form';
-import { TFunction } from 'react-i18next';
+import { TFunction } from 'i18next';
 import { FileInputField } from '~/components/formFields';
 
 export interface AvatarFieldProps {

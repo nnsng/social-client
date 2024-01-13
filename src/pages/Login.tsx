@@ -1,11 +1,11 @@
-import { yupResolver } from '@hookform/resolvers/yup';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import * as yup from 'yup';
+import { z } from 'zod';
 import { authApi } from '~/api';
 import { AuthForm } from '~/components/auth';
 import { useAuthentication, usePageTitle } from '~/hooks';
@@ -27,11 +27,10 @@ export function LoginPage() {
 
   usePageTitle(t('pageTitle'));
 
-  const schema = yup.object().shape({
-    email: yup.string().required(tValidate('required')).email(tValidate('invalid')),
-    password: yup
+  const schema = z.object({
+    email: z.string().min(1, tValidate('required')).email(tValidate('invalid')),
+    password: z
       .string()
-      .required(tValidate('required'))
       .min(6, tValidate('min', { min: 6 }))
       .max(255, tValidate('max', { max: 255 })),
   });
@@ -41,7 +40,7 @@ export function LoginPage() {
       email: '',
       password: '',
     },
-    resolver: yupResolver(schema),
+    resolver: zodResolver(schema),
   });
 
   const submitForm = (formValues: LoginFormValues) => {

@@ -1,5 +1,5 @@
 import { Button, Card, Switch } from '@mui/material';
-import { styled, experimental_sx as sx } from '@mui/system';
+import { styled } from '@mui/material/styles';
 import { themeMixins } from '~/utils/theme';
 
 export const ThemeSwitch = styled(Switch)(({ theme }) => ({
@@ -50,8 +50,8 @@ export const ThemeSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export const GrayButton = styled(Button)(
-  sx({
+export const GrayButton = styled(Button)(({ theme }) =>
+  theme.unstable_sx({
     color: 'text.primary',
     bgcolor: 'action.hover',
     '&:hover': {
@@ -60,8 +60,8 @@ export const GrayButton = styled(Button)(
   })
 );
 
-export const StyledCard = styled(Card)(
-  sx({
+export const StyledCard = styled(Card)(({ theme }) =>
+  theme.unstable_sx({
     ...themeMixins.getPaperStyles(),
     width: '100%',
     padding: 2,

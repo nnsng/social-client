@@ -1,39 +1,37 @@
-import { yupResolver } from '@hookform/resolvers/yup';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, CircularProgress, Stack } from '@mui/material';
 import i18next from 'i18next';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import * as yup from 'yup';
+import { z } from 'zod';
 import { User } from '~/models';
 import { MuiTextField } from '../formFields';
 import { AvatarField } from './AvatarField';
-
-export interface EditProfileFromProps {
+export interface EditProfileFormProps {
   defaultValues: Partial<User>;
   onSubmit?: (formValues: Partial<User>) => void;
 }
 
-export function EditProfileForm(props: EditProfileFromProps) {
+export function EditProfileForm(props: EditProfileFormProps) {
   const { defaultValues, onSubmit } = props;
 
   const { t } = useTranslation('editProfileForm');
   const { t: tValidate } = useTranslation('validate');
 
-  const schema = yup.object().shape({
-    name: yup
+  const schema = z.object({
+    name: z
       .string()
-      .required(tValidate('required'))
+      .min(1, tValidate('required'))
       .max(30, tValidate('max', { max: 30 })),
-    avatar: yup.string(),
-    username: yup
+    avatar: z.string(),
+    username: z
       .string()
-      .required(tValidate('required'))
       .min(6, tValidate('min', { min: 6 }))
       .max(20, tValidate('max', { max: 20 }))
-      .matches(/^(?![-.])[a-zA-Z0-9.-]+(?<![-.])$/, tValidate('notAllowed')),
-    email: yup.string().email().required(),
-    bio: yup.string().max(100, tValidate('max', { max: 100 })),
+      .regex(/^(?![-.])[a-zA-Z0-9.-]+(?<![-.])$/, tValidate('notAllowed')),
+    email: z.string().min(1, tValidate('required')).email(),
+    bio: z.string().max(100, tValidate('max', { max: 100 })),
   });
 
   const {
@@ -45,7 +43,7 @@ export function EditProfileForm(props: EditProfileFromProps) {
     formState: { isSubmitting },
   } = useForm<Partial<User>>({
     defaultValues,
-    resolver: yupResolver(schema),
+    resolver: zodResolver(schema),
   });
 
   const avatarUrl = watch('avatar');

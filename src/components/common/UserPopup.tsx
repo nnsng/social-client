@@ -5,7 +5,7 @@ import { User } from '~/models';
 import { themeMixins } from '~/utils/theme';
 import { PopperWrapper, PopperWrapperProps, UserButtonGroup } from '.';
 
-export interface UserPopupProps extends PopperWrapperProps {
+export interface UserPopupProps extends Omit<PopperWrapperProps, 'children'> {
   user: Partial<User>;
 }
 

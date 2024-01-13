@@ -1,10 +1,10 @@
-import { yupResolver } from '@hookform/resolvers/yup';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, CircularProgress, Stack } from '@mui/material';
 import i18next from 'i18next';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import * as yup from 'yup';
+import { z } from 'zod';
 import { ChangePasswordFormValues } from '~/models';
 import { showErrorToastFromServer, showToast } from '~/utils/toast';
 import { MuiTextField } from '../formFields';
@@ -21,20 +21,16 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
   const { t } = useTranslation('changePasswordForm');
   const { t: tValidate } = useTranslation('validate');
 
-  const schema = yup.object().shape({
-    currentPassword: yup
-      .string()
-      .required(tValidate('required'))
-      .min(6, tValidate('min', { min: 6 })),
-    newPassword: yup
-      .string()
-      .required(tValidate('required'))
-      .min(6, tValidate('min', { min: 6 })),
-    confirmPassword: yup
-      .string()
-      .required(tValidate('required'))
-      .oneOf([yup.ref('newPassword'), null], tValidate('notMatch')),
-  });
+  const schema = z
+    .object({
+      currentPassword: z.string().min(6, tValidate('min', { min: 6 })),
+      newPassword: z.string().min(6, tValidate('min', { min: 6 })),
+      confirmPassword: z.string(),
+    })
+    .refine((data) => data.newPassword === data.confirmPassword, {
+      message: tValidate('notMatch'),
+      path: ['confirmPassword'],
+    });
 
   const {
     control,
@@ -44,7 +40,7 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
     formState: { isSubmitting },
   } = useForm<ChangePasswordFormValues>({
     defaultValues,
-    resolver: yupResolver(schema),
+    resolver: zodResolver(schema),
   });
 
   useEffect(() => {

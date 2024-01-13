@@ -1,4 +1,4 @@
-import { yupResolver } from '@hookform/resolvers/yup';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Box,
   Button,
@@ -13,7 +13,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import * as yup from 'yup';
+import { z } from 'zod';
 import { FileInputField, InputField, MdEditorField, MuiTextField } from '~/components/formFields';
 import { useCustomMediaQuery } from '~/hooks';
 import { Post } from '~/models';
@@ -35,14 +35,14 @@ export function CreateEditForm(props: CreateEditFormProps) {
   const { t } = useTranslation('createEditForm');
   const { t: tValidate } = useTranslation('validate');
 
-  const schema = yup.object().shape({
-    title: yup
+  const schema = z.object({
+    title: z
       .string()
-      .required(tValidate('required'))
+      .min(1, tValidate('required'))
       .max(100, tValidate('max', { max: 100 })),
-    content: yup.string().required(tValidate('required')),
-    thumbnail: yup.string(),
-    description: yup.string(),
+    content: z.string().min(1, tValidate('required')),
+    thumbnail: z.string(),
+    description: z.string(),
   });
 
   const {
@@ -52,9 +52,9 @@ export function CreateEditForm(props: CreateEditFormProps) {
     reset,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm({
+  } = useForm<Post>({
     defaultValues,
-    resolver: yupResolver(schema),
+    resolver: zodResolver(schema),
   });
 
   const title = watch('title');

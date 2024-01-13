@@ -1,10 +1,10 @@
-import { yupResolver } from '@hookform/resolvers/yup';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, CircularProgress, Container, Stack } from '@mui/material';
 import queryString from 'query-string';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import * as yup from 'yup';
+import { z } from 'zod';
 import { authApi } from '~/api';
 import { PageTitle } from '~/components/common';
 import { usePageTitle } from '~/hooks';
@@ -20,16 +20,15 @@ export function UpdatePasswordForm() {
   const { t } = useTranslation('updatePasswordForm');
   const { t: tValidate } = useTranslation('validate');
 
-  const schema = yup.object().shape({
-    newPassword: yup
-      .string()
-      .required(tValidate('required'))
-      .min(6, tValidate('password.min', { min: 6 })),
-    confirmPassword: yup
-      .string()
-      .required(tValidate('required'))
-      .oneOf([yup.ref('newPassword'), null], tValidate('notMatch')),
-  });
+  const schema = z
+    .object({
+      newPassword: z.string().min(6, tValidate('password.min', { min: 6 })),
+      confirmPassword: z.string().min(6, tValidate('password.min', { min: 6 })),
+    })
+    .refine((data) => data.newPassword === data.confirmPassword, {
+      message: tValidate('notMatch'),
+      path: ['confirmPassword'],
+    });
 
   const {
     control,
@@ -41,7 +40,7 @@ export function UpdatePasswordForm() {
       newPassword: '',
       confirmPassword: '',
     },
-    resolver: yupResolver(schema),
+    resolver: zodResolver(schema),
   });
 
   const submitForm = async (formValues: ChangePasswordFormValues) => {

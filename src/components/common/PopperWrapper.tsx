@@ -1,8 +1,10 @@
 import { Box, ClickAwayListener, Grow, Paper, Popper, PopperProps } from '@mui/material';
+import { ReactNode } from 'react';
 import { themeMixins } from '~/utils/theme';
 
 export interface PopperWrapperProps extends PopperProps {
   onClose?: () => void;
+  children: ReactNode;
 }
 
 export function PopperWrapper(props: PopperWrapperProps) {
