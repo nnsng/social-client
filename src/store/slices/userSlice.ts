@@ -43,7 +43,6 @@ export const googleLogin = createAsyncThunk(
       localStorage.setItem(ACCESS_TOKEN, token);
       navigate?.('/', { replace: true });
       return user;
-      return user;
     } catch (error) {
       return rejectWithValue(error);
     }
@@ -90,7 +89,7 @@ const initialState: UserState = {
   currentUser: null,
   config: {
     theme: 'light',
-    color: '#FF652F',
+    mainColor: '#FF652F',
     language: 'en',
     ...localConfig,
   },
