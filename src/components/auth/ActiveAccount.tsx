@@ -1,6 +1,5 @@
 import { AutorenewRounded, ErrorRounded, TaskAltRounded } from '@mui/icons-material';
 import { Box, Button, CircularProgress, Container, Stack, Typography } from '@mui/material';
-import clsx from 'clsx';
 import { jwtDecode } from 'jwt-decode';
 import queryString from 'query-string';
 import { useEffect, useMemo, useState } from 'react';
@@ -85,7 +84,7 @@ export function ActiveAccount() {
       <StatusIcon
         fontSize="medium"
         color="inherit"
-        className={clsx({ spin: status === Status.PENDING })}
+        className={`${status === Status.PENDING ? 'spin' : ''}`}
       />
     );
   };

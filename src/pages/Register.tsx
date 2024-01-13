@@ -1,9 +1,9 @@
-import { yupResolver } from '@hookform/resolvers/yup';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import * as yup from 'yup';
+import { z } from 'zod';
 import { AuthForm } from '~/components/auth';
 import { useAuthentication, usePageTitle } from '~/hooks';
 import { FormField, RegisterFormValues } from '~/models';
@@ -20,23 +20,21 @@ export function RegisterPage() {
 
   usePageTitle(t('pageTitle'));
 
-  const schema = yup.object().shape({
-    email: yup.string().required(tValidate('required')).email(tValidate('invalid')),
-    password: yup
+  const schema = z.object({
+    email: z.string().min(1, tValidate('required')).email(tValidate('invalid')),
+    password: z
       .string()
-      .required(tValidate('required'))
       .min(6, tValidate('min', { min: 6 }))
       .max(255, tValidate('max', { max: 255 })),
-    name: yup
+    name: z
       .string()
-      .required(tValidate('required'))
+      .min(1, tValidate('required'))
       .max(30, tValidate('max', { max: 30 })),
-    username: yup
+    username: z
       .string()
-      .required(tValidate('required'))
       .min(6, tValidate('min', { min: 6 }))
       .max(20, tValidate('max', { max: 20 }))
-      .matches(/^[a-zA-Z0-9_\.]+$/, tValidate('notAllowed')),
+      .regex(/^(?![-.])[a-zA-Z0-9.-]+(?<![-.])$/, tValidate('notAllowed')),
   });
 
   const { control, handleSubmit } = useForm<RegisterFormValues>({
@@ -46,7 +44,7 @@ export function RegisterPage() {
       name: '',
       username: '',
     },
-    resolver: yupResolver(schema as any),
+    resolver: zodResolver(schema),
   });
 
   const submitForm = (formValues: RegisterFormValues) => {
