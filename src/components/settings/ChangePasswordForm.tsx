@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { ChangePasswordFormValues } from '~/models';
-import { showErrorToastFromServer, showToast } from '~/utils/toast';
+import { showToast } from '~/utils/toast';
 import { MuiTextField } from '../formFields';
 
 export interface ChangePasswordFormProps {
@@ -52,18 +52,14 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
       await onSubmit?.(formValues);
       reset();
       showToast('auth.changePassword');
-    } catch (error) {
-      showErrorToastFromServer(error);
-    }
+    } catch (error) {}
   };
 
   const handleForgotPassword = async () => {
     try {
       await onForgotPassword?.();
       showToast('checkEmail', 'info');
-    } catch (error) {
-      showErrorToastFromServer(error);
-    }
+    } catch (error) {}
   };
 
   return (

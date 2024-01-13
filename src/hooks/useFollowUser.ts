@@ -3,7 +3,6 @@ import { userApi } from '~/api';
 import { useAppDispatch } from '~/store/hooks';
 import { FollowAction, User } from '~/models';
 import { userActions } from '~/store/slices/userSlice';
-import { showErrorToastFromServer } from '~/utils/toast';
 
 export function useFollowUser(updateUser?: (user: Partial<User>) => void) {
   const dispatch = useAppDispatch();
@@ -17,9 +16,7 @@ export function useFollowUser(updateUser?: (user: Partial<User>) => void) {
       const updated = await userApi[action](userId);
       dispatch(userActions.updateCurrentUser(updated.currentUser));
       updateUser?.(updated.selectedUser);
-    } catch (error) {
-      showErrorToastFromServer(error);
-    }
+    } catch (error) {}
 
     setLoading(false);
   };

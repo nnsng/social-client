@@ -1,7 +1,6 @@
 import { InputHTMLAttributes } from 'react';
 import { Control, useController } from 'react-hook-form';
 import { getImageUrlFromCDN } from '~/utils/common';
-import { showErrorToastFromServer } from '~/utils/toast';
 
 export interface FileInputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -23,9 +22,7 @@ export function FileInputField(props: FileInputFieldProps) {
       const image = e.target.files[0];
       const imageUrl = await getImageUrlFromCDN(image);
       onChange(imageUrl);
-    } catch (error) {
-      showErrorToastFromServer(error);
-    }
+    } catch (error) {}
 
     setUploading?.(false);
   };

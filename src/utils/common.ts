@@ -4,7 +4,7 @@ import i18next from 'i18next';
 import slugify from 'slugify';
 import { otherApi } from '~/api';
 import { Post, SearchResult, User } from '~/models';
-import { showErrorToastFromServer, showToast } from './toast';
+import { showToast } from './toast';
 
 import 'dayjs/locale/vi';
 
@@ -26,9 +26,7 @@ export const getImageUrlFromCDN = async (image: File) => {
 
     const imageObject: any = await otherApi.uploadImageToCDN(formData);
     return imageObject?.url || '';
-  } catch (error) {
-    showErrorToastFromServer(error);
-  }
+  } catch (error) {}
 };
 
 export const copyPostLink = (post: Post) => {

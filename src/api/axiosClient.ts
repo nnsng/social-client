@@ -2,6 +2,7 @@ import axios from 'axios';
 import queryString from 'query-string';
 import { ACCESS_TOKEN } from '~/constants';
 import { env, variables } from '~/utils/env';
+import { showToast } from '~/utils/toast';
 
 const SERVER_URL = env(variables.serverUrl) || '';
 const BASE_URL = `${SERVER_URL}/api`;
@@ -23,12 +24,14 @@ axiosClient.interceptors.request.use(async (config) => {
 });
 
 axiosClient.interceptors.response.use(
-  (response) => {
-    return response.data ?? response;
-  },
+  (response) => response.data ?? response,
   (error) => {
-    // Handle errors
-    throw error;
+    const errorData = error.response.data;
+    const exceptErrorName: string[] = [];
+    if (!exceptErrorName.includes(errorData.name)) {
+      showToast(errorData.name, 'error');
+    }
+    return Promise.reject(errorData);
   }
 );
 

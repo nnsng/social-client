@@ -6,7 +6,6 @@ import { CustomScrollbar } from '~/components/common';
 import { useAppDispatch } from '~/store/hooks';
 import { socketActions } from '~/store/slices/socketSlice';
 import { env, variables } from '~/utils/env';
-import { showErrorToastFromServer } from '~/utils/toast';
 import { SocketClient } from './components/socket';
 import { ACCESS_TOKEN } from './constants';
 import { useAuthentication } from './hooks';
@@ -29,7 +28,6 @@ function App() {
 
         dispatch(userActions.setCurrentUser(user));
       } catch (error) {
-        showErrorToastFromServer(error);
         logout();
       }
     })();

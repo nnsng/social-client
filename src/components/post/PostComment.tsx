@@ -9,7 +9,6 @@ import { useKeyUp } from '~/hooks';
 import { Comment, CommentActionTypes } from '~/models';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { showErrorToastFromServer } from '~/utils/toast';
 import { CommentItem } from './CommentItem';
 
 export interface PostCommentProps {
@@ -54,9 +53,7 @@ export function PostComment(props: PostCommentProps) {
       };
 
       await onCommentAction?.('create', comment);
-    } catch (error) {
-      showErrorToastFromServer(error);
-    }
+    } catch (error) {}
 
     inputRef.current?.focus();
   };

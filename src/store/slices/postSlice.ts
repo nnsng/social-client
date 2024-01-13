@@ -2,7 +2,6 @@ import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@r
 import { postApi } from '~/api';
 import { ListParams, PaginationParams, Post } from '~/models';
 import { RootState } from '~/store';
-import { showErrorToastFromServer } from '~/utils/toast';
 
 const defaultParams = { page: 1, limit: 10 };
 
@@ -13,7 +12,6 @@ export const fetchPostList = createAsyncThunk(
       const newParams = { ...defaultParams, ...params };
       return await postApi.fetchPostList(newParams);
     } catch (error) {
-      showErrorToastFromServer(error);
       return rejectWithValue(error);
     }
   }
@@ -26,7 +24,6 @@ export const fetchSavedList = createAsyncThunk(
       const newParams = { ...defaultParams, ...params };
       return await postApi.fetchSavedList(newParams);
     } catch (error) {
-      showErrorToastFromServer(error);
       return rejectWithValue(error);
     }
   }
@@ -38,7 +35,6 @@ export const fetchPostDetail = createAsyncThunk(
     try {
       return await postApi.getBySlug(slug);
     } catch (error) {
-      showErrorToastFromServer(error);
       return rejectWithValue(error);
     }
   }

@@ -15,7 +15,6 @@ import {
   selectPostLoading,
   selectTotalPages,
 } from '~/store/slices/postSlice';
-import { showErrorToastFromServer } from '~/utils/toast';
 
 const MAX_SUGGEST_USERS = 3;
 
@@ -74,9 +73,7 @@ export function HomePage() {
 
         const randomUsers = Array.from(randomNumbers).map((num) => userList[num]);
         setSuggestedUsers(randomUsers);
-      } catch (error) {
-        showErrorToastFromServer(error);
-      }
+      } catch (error) {}
     })();
   }, []);
 

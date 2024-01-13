@@ -19,7 +19,7 @@ import { useAppSelector } from '~/store/hooks';
 import { selectCurrentUser } from '~/store/slices/userSlice';
 import { copyPostLink } from '~/utils/common';
 import { themeMixins } from '~/utils/theme';
-import { showComingSoonToast, showErrorToastFromServer, showToast } from '~/utils/toast';
+import { showComingSoonToast, showToast } from '~/utils/toast';
 import { PostCardHeader } from './PostCardHeader';
 
 const allowedElements = [
@@ -78,9 +78,7 @@ export function PostCard(props: PostCardProps) {
     try {
       await onSave?.(post);
       showToast('post.save');
-    } catch (error) {
-      showErrorToastFromServer(error);
-    }
+    } catch (error) {}
   };
 
   const handleDeletePost = async () => {
@@ -89,9 +87,7 @@ export function PostCard(props: PostCardProps) {
     try {
       await onDelete?.(post);
       showToast('post.delete');
-    } catch (error) {
-      showErrorToastFromServer(error);
-    }
+    } catch (error) {}
 
     setLoading(false);
     closeDialog();
@@ -102,9 +98,7 @@ export function PostCard(props: PostCardProps) {
     try {
       await onUnsave?.(post);
       showToast('post.unsave');
-    } catch (error) {
-      showErrorToastFromServer(error);
-    }
+    } catch (error) {}
     setLoading(false);
   };
 
