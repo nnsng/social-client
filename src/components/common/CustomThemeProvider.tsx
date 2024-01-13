@@ -1,4 +1,4 @@
-import { Theme, ThemeProvider } from '@mui/material';
+import { CssBaseline, Theme, ThemeProvider } from '@mui/material';
 import i18next from 'i18next';
 import { ReactNode, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
@@ -38,6 +38,8 @@ export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
+
       {children}
 
       <ToastContainer
