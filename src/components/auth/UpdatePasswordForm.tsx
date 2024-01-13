@@ -28,7 +28,7 @@ export function UpdatePasswordForm() {
     confirmPassword: yup
       .string()
       .required(tValidate('required'))
-      .oneOf([yup.ref('newPassword'), null], tValidate('notMatch')),
+      .oneOf([yup.ref('newPassword')], tValidate('notMatch')),
   });
 
   const {

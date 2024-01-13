@@ -1,13 +1,14 @@
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 import Providers from './providers';
 
 import 'i18n';
 import './styles/index.css';
 
-ReactDOM.render(
+const container = document.getElementById('app');
+const root = createRoot(container!);
+root.render(
   <Providers>
     <App />
-  </Providers>,
-  document.getElementById('root')
+  </Providers>
 );

@@ -33,7 +33,7 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
     confirmPassword: yup
       .string()
       .required(tValidate('required'))
-      .oneOf([yup.ref('newPassword'), null], tValidate('notMatch')),
+      .oneOf([yup.ref('newPassword')], tValidate('notMatch')),
   });
 
   const {
@@ -44,7 +44,7 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
     formState: { isSubmitting },
   } = useForm<ChangePasswordFormValues>({
     defaultValues,
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema as any),
   });
 
   useEffect(() => {

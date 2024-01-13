@@ -8,13 +8,12 @@ import * as yup from 'yup';
 import { User } from '~/models';
 import { MuiTextField } from '../formFields';
 import { AvatarField } from './AvatarField';
-
-export interface EditProfileFromProps {
+export interface EditProfileFormProps {
   defaultValues: Partial<User>;
   onSubmit?: (formValues: Partial<User>) => void;
 }
 
-export function EditProfileForm(props: EditProfileFromProps) {
+export function EditProfileForm(props: EditProfileFormProps) {
   const { defaultValues, onSubmit } = props;
 
   const { t } = useTranslation('editProfileForm');
@@ -45,7 +44,7 @@ export function EditProfileForm(props: EditProfileFromProps) {
     formState: { isSubmitting },
   } = useForm<Partial<User>>({
     defaultValues,
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema as any),
   });
 
   const avatarUrl = watch('avatar');

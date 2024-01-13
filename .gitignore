@@ -4,6 +4,12 @@ dist
 dist-ssr
 *.local
 
+# local env files
 .env
 
+# IDE files
 .vscode
+
+# lock files
+package-lock.json
+yarn.lock

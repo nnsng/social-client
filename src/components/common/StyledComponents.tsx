@@ -50,8 +50,8 @@ export const ThemeSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export const GrayButton = styled(Button)(
-  ({ theme }) => theme.unstable_sx({
+export const GrayButton = styled(Button)(({ theme }) =>
+  theme.unstable_sx({
     color: 'text.primary',
     bgcolor: 'action.hover',
     '&:hover': {
@@ -60,8 +60,8 @@ export const GrayButton = styled(Button)(
   })
 );
 
-export const StyledCard = styled(Card)(
-  ({ theme }) => theme.unstable_sx({
+export const StyledCard = styled(Card)(({ theme }) =>
+  theme.unstable_sx({
     ...themeMixins.getPaperStyles(),
     width: '100%',
     padding: 2,

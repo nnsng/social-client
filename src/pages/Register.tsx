@@ -46,7 +46,7 @@ export function RegisterPage() {
       name: '',
       username: '',
     },
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema as any),
   });
 
   const submitForm = (formValues: RegisterFormValues) => {

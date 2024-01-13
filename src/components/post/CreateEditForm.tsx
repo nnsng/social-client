@@ -52,9 +52,9 @@ export function CreateEditForm(props: CreateEditFormProps) {
     reset,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm({
+  } = useForm<Post>({
     defaultValues,
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema as any),
   });
 
   const title = watch('title');

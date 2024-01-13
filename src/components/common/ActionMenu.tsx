@@ -2,6 +2,7 @@ import { Drawer, MenuItem, MenuList, PopperProps } from '@mui/material';
 import { useCustomMediaQuery } from '~/hooks';
 import { MenuOption } from '~/models';
 import { PopperWrapper } from '.';
+import { ReactNode } from 'react';
 
 export interface ActionMenuProps extends PopperProps {
   menu: MenuOption[];
@@ -38,7 +39,9 @@ export function ActionMenu(props: ActionMenuProps) {
   );
 }
 
-interface ActionMenuWrapperProps extends Partial<ActionMenuProps> {}
+interface ActionMenuWrapperProps extends Partial<ActionMenuProps> {
+  children?: ReactNode;
+}
 
 function ActionMenuWrapper(props: ActionMenuWrapperProps) {
   const { open = false, onClose, children, ...rest } = props;
