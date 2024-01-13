@@ -13,7 +13,7 @@ import { FormField, LoginFormValues } from '~/models';
 import { useAppSelector } from '~/store/hooks';
 import { selectAuthSubmitting } from '~/store/slices/userSlice';
 import { validateEmail } from '~/utils/common';
-import { showErrorToastFromServer, showToast } from '~/utils/toast';
+import { showToast } from '~/utils/toast';
 
 export function LoginPage() {
   const { t } = useTranslation('loginPage');
@@ -65,9 +65,7 @@ export function LoginPage() {
 
       await authApi.forgotPassword(email);
       showToast('checkEmail', 'info');
-    } catch (error) {
-      showErrorToastFromServer(error);
-    }
+    } catch (error) {}
 
     setForgotLoading(false);
   };

@@ -8,7 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { authApi } from '~/api';
 import { usePageTitle } from '~/hooks';
 import { themeMixins } from '~/utils/theme';
-import { showErrorToastFromServer, showToast } from '~/utils/toast';
+import { showToast } from '~/utils/toast';
 
 enum Status {
   PENDING = 'pending',
@@ -52,7 +52,6 @@ export function ActiveAccount() {
         setStatus(Status.SUCCESS);
       } catch (error) {
         setStatus(Status.ERROR);
-        showErrorToastFromServer(error);
       }
     })();
   }, [token]);
@@ -72,9 +71,7 @@ export function ActiveAccount() {
       const { _id }: { _id: string } = jwtDecode(token);
       await authApi.reactive(_id);
       showToast('checkEmail', 'info');
-    } catch (error) {
-      showErrorToastFromServer(error);
-    }
+    } catch (error) {}
     setSubmitting(false);
   };
 

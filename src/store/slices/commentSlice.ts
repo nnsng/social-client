@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '~/store';
 import { Comment } from '~/models';
 import { commentApi } from '~/api';
-import { showErrorToastFromServer } from '~/utils/toast';
 
 export const fetchPostComments = createAsyncThunk(
   'comment/fetchPostComments',
@@ -10,7 +9,6 @@ export const fetchPostComments = createAsyncThunk(
     try {
       return await commentApi.fetchPostComments(postId);
     } catch (error) {
-      showErrorToastFromServer(error);
       return rejectWithValue(error);
     }
   }

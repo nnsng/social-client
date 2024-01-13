@@ -7,7 +7,6 @@ import { CreateEditForm } from '~/components/post';
 import { usePageTitle } from '~/hooks';
 import { Post } from '~/models';
 import { selectCurrentUser } from '~/store/slices/userSlice';
-import { showErrorToastFromServer } from '~/utils/toast';
 
 export function CreateEditPage() {
   const navigate = useNavigate();
@@ -29,7 +28,6 @@ export function CreateEditPage() {
         const post = await postApi.getForEdit(postId);
         setEditedPost(post);
       } catch (error) {
-        showErrorToastFromServer(error);
         navigate('/create');
       }
     })();

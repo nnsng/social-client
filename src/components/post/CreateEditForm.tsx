@@ -19,7 +19,6 @@ import { useCustomMediaQuery } from '~/hooks';
 import { Post } from '~/models';
 import { delay } from '~/utils/common';
 import { themeMixins, themeVariables } from '~/utils/theme';
-import { showErrorToastFromServer } from '~/utils/toast';
 
 export interface CreateEditFormProps {
   defaultValues: Post;
@@ -93,9 +92,7 @@ export function CreateEditForm(props: CreateEditFormProps) {
   const handleFormSubmit = async (formValues: Post) => {
     try {
       await onSubmit?.(formValues);
-    } catch (error) {
-      showErrorToastFromServer(error);
-    }
+    } catch (error) {}
   };
 
   const smUp = useCustomMediaQuery('up', 'sm');

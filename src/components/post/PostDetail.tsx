@@ -15,7 +15,7 @@ import { MenuOption, Post } from '~/models';
 import { useAppSelector } from '~/store/hooks';
 import { selectCurrentUser } from '~/store/slices/userSlice';
 import { copyPostLink } from '~/utils/common';
-import { showComingSoonToast, showErrorToastFromServer, showToast } from '~/utils/toast';
+import { showComingSoonToast, showToast } from '~/utils/toast';
 import { MdEditor, PostCardHeader } from '.';
 
 export interface PostDetailProps {
@@ -43,9 +43,7 @@ export function PostDetail(props: PostDetailProps) {
     try {
       await onSave?.(post);
       showToast('post.save');
-    } catch (error) {
-      showErrorToastFromServer(error);
-    }
+    } catch (error) {}
   };
 
   const handleRemovePost = async () => {
@@ -55,9 +53,7 @@ export function PostDetail(props: PostDetailProps) {
       await onDelete?.(post);
       showToast('post.delete');
       navigate('/');
-    } catch (error) {
-      showErrorToastFromServer(error);
-    }
+    } catch (error) {}
 
     setLoading(false);
     closeDialog();

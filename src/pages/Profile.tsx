@@ -15,7 +15,6 @@ import {
   selectPostLoading,
   selectTotalPages,
 } from '~/store/slices/postSlice';
-import { showErrorToastFromServer } from '~/utils/toast';
 
 export function ProfilePage() {
   const { username } = useParams();
@@ -40,9 +39,7 @@ export function ProfilePage() {
         const user = await userApi.getUserInfo(username);
         setUserInfo(user);
         fetchUserPostList({ page: 1 });
-      } catch (error) {
-        showErrorToastFromServer(error);
-      }
+      } catch (error) {}
     })();
   }, [username]);
 

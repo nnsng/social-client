@@ -2,7 +2,7 @@ import { ToastTypes } from '~/models';
 import { toast } from 'react-toastify';
 import { translateFiles } from './translation';
 
-export const showToast = (key: string = '', type: ToastTypes = 'success', message?: string) => {
+export const showToast = (key: string = '', type: ToastTypes = 'success') => {
   const { toast: toastTranslation } = translateFiles('toast');
 
   const content = key.split('.').reduce((obj, currentKey) => {
@@ -10,7 +10,7 @@ export const showToast = (key: string = '', type: ToastTypes = 'success', messag
   }, toastTranslation[type]);
 
   if (!content && type === 'error') {
-    return toast.error(message ?? toastTranslation.error.somethingWrong);
+    return toast.error(toastTranslation.error.somethingWrong);
   }
 
   toast[type](content);
@@ -18,10 +18,4 @@ export const showToast = (key: string = '', type: ToastTypes = 'success', messag
 
 export const showComingSoonToast = () => {
   showToast('comingSoon', 'info');
-};
-
-export const showErrorToastFromServer = (error: any) => {
-  const key = error?.response?.data?.name;
-  const message = error?.response?.data?.message;
-  showToast(key, 'error', message);
 };

@@ -9,7 +9,6 @@ import { UserCard } from '~/components/search';
 import { usePageTitle } from '~/hooks';
 import { Post, SearchApiType, User } from '~/models';
 import { slugifyString } from '~/utils/common';
-import { showErrorToastFromServer } from '~/utils/toast';
 
 export type SearchResultType = Post | Partial<User>;
 
@@ -37,9 +36,7 @@ export function SearchPage() {
 
         const response = await api.search(slugifyString(q as string));
         setResults(response);
-      } catch (error) {
-        showErrorToastFromServer(error);
-      }
+      } catch (error) {}
     })();
   }, [type, q]);
 

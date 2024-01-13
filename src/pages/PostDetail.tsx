@@ -16,7 +16,6 @@ import {
   selectPostLoading,
 } from '~/store/slices/postSlice';
 import { selectSocket } from '~/store/slices/socketSlice';
-import { showErrorToastFromServer } from '~/utils/toast';
 
 export function PostDetailPage() {
   const { slug } = useParams();
@@ -70,9 +69,7 @@ export function PostDetailPage() {
     try {
       const response = await postApi.like(post?._id!);
       dispatch(postActions.updatePostDetail(response));
-    } catch (error) {
-      showErrorToastFromServer(error);
-    }
+    } catch (error) {}
   };
 
   const handleCommentAction = async (action: CommentActionTypes, comment: Comment) => {

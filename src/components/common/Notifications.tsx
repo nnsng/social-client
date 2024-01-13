@@ -81,7 +81,7 @@ export function Notifications(props: NotificationsProps) {
   return (
     <Box>
       <Box position="relative" pl={2} py={2}>
-        <Typography variant='h6' fontWeight={600}>
+        <Typography variant="h6" fontWeight={600}>
           {t('label.title')}
         </Typography>
 

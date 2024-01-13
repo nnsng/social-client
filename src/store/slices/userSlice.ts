@@ -11,7 +11,7 @@ import {
   UserConfigKey,
 } from '~/models';
 import { RootState } from '~/store';
-import { showErrorToastFromServer, showToast } from '~/utils/toast';
+import { showToast } from '~/utils/toast';
 
 export const login = createAsyncThunk(
   'user/login',
@@ -23,7 +23,6 @@ export const login = createAsyncThunk(
       navigate?.('/', { replace: true });
       return user;
     } catch (error) {
-      showErrorToastFromServer(error);
       return rejectWithValue(error);
     }
   }
@@ -44,9 +43,7 @@ export const googleLogin = createAsyncThunk(
       localStorage.setItem(ACCESS_TOKEN, token);
       navigate?.('/', { replace: true });
       return user;
-      return user;
     } catch (error) {
-      showErrorToastFromServer(error);
       return rejectWithValue(error);
     }
   }
@@ -61,7 +58,6 @@ export const register = createAsyncThunk(
       navigate?.('/login', { replace: true });
       showToast('checkEmail', 'info');
     } catch (error) {
-      showErrorToastFromServer(error);
       return rejectWithValue(error);
     }
   }
@@ -75,7 +71,6 @@ export const updateCurrentUserAsync = createAsyncThunk(
       showToast('user.update');
       return response;
     } catch (error) {
-      showErrorToastFromServer(error);
       return rejectWithValue(error);
     }
   }

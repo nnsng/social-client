@@ -23,7 +23,6 @@ import { useDebounce, useKeyUp } from '~/hooks';
 import { SearchApiType, SearchResult } from '~/models';
 import { formatSearchResponse, slugifyString } from '~/utils/common';
 import { themeMixins } from '~/utils/theme';
-import { showErrorToastFromServer } from '~/utils/toast';
 
 const MAX_ITEM = 5;
 
@@ -74,9 +73,7 @@ export function SearchBoxDesktop() {
 
         const response = await api.search(slugifyString(q));
         setResults(formatSearchResponse(response));
-      } catch (error) {
-        showErrorToastFromServer(error);
-      }
+      } catch (error) {}
 
       setLoading(false);
     })();
