@@ -1,6 +1,6 @@
 import { useGoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
-import { ACCESS_TOKEN } from '~/constants';
+import { localStorageKey } from '~/constants';
 import { LoginFormValues, RegisterFormValues } from '~/models';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import {
@@ -42,7 +42,7 @@ export function useAuthentication() {
   const logout = async () => {
     await delay(500);
     dispatch(userActions.setCurrentUser(null));
-    localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem(localStorageKey.ACCESS_TOKEN);
     navigate('/login');
   };
 
