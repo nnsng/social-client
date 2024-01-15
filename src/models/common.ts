@@ -1,6 +1,7 @@
 import { Breakpoint } from '@mui/material';
 import { IconType } from './mui';
 import { PostByTypes } from './types';
+import { QueryOptions } from '@tanstack/react-query';
 
 export interface LayoutProps {
   maxWidth?: false | Breakpoint;
@@ -10,6 +11,7 @@ export interface PaginationParams {
   page: number;
   limit: number;
   totalRows: number;
+  totalPage?: number;
 }
 
 export interface ListResponse<T> {
@@ -70,3 +72,5 @@ export interface SearchFilter {
   search?: string;
   username?: string;
 }
+
+export type TanStackQueryOptions = Omit<QueryOptions, 'queryKey' | 'queryFn'>;

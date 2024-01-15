@@ -1,4 +1,4 @@
-import { useCustomMediaQuery } from '~/hooks';
+import { useCustomMediaQuery } from '~/hooks/common';
 import { SearchBoxDesktop } from './SearchBoxDesktop';
 import { SearchBoxMobile } from './SearchBoxMobile';
 

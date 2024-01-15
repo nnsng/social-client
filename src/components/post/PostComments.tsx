@@ -1,30 +1,30 @@
 import { CloseRounded } from '@mui/icons-material';
 import { Avatar, CircularProgress, IconButton, List, Stack, Typography } from '@mui/material';
-import { useAppSelector } from '~/store/hooks';
-import { ContainedInput } from '~/components/common';
-import { CommentItemSkeleton } from '~/components/skeletons';
-import { selectCurrentUser } from '~/store/slices/userSlice';
-import { selectCommentLoading } from '~/store/slices/commentSlice';
-import { useKeyUp } from '~/hooks';
-import { Comment, CommentActionTypes } from '~/models';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { ContainedInput } from '~/components/common';
+import { CommentItemSkeleton } from '~/components/skeletons';
+import { useKeyUp } from '~/hooks/common';
+import { usePostComments } from '~/hooks/queries';
+import { Comment, CommentActionTypes } from '~/models';
+import { useAppSelector } from '~/store/hooks';
+import { selectCurrentUser } from '~/store/slices/userSlice';
 import { CommentItem } from './CommentItem';
 
-export interface PostCommentProps {
-  commentList: Comment[];
+export interface PostCommentsProps {
   postId: string;
   onClose?: () => void;
   updateCommentCount?: (count: number) => void;
   onCommentAction?: (action: CommentActionTypes, comment: Comment) => void;
 }
 
-export function PostComment(props: PostCommentProps) {
-  const { commentList, postId, onClose, updateCommentCount, onCommentAction } = props;
+export function PostComments(props: PostCommentsProps) {
+  const { postId, onClose, updateCommentCount, onCommentAction } = props;
 
   const { t } = useTranslation('postComment');
 
-  const loading = useAppSelector(selectCommentLoading);
+  const { data: commentList, isLoading } = usePostComments(postId);
+
   const currentUser = useAppSelector(selectCurrentUser);
 
   const inputRef = useRef<HTMLInputElement>();
@@ -91,7 +91,7 @@ export function PostComment(props: PostCommentProps) {
             cursor: 'default',
           }}
         >
-          {loading ? <CircularProgress size={20} sx={{ mr: 1 }} /> : commentList.length || 0}
+          {isLoading ? <CircularProgress size={20} sx={{ mr: 1 }} /> : commentList.length || 0}
           {t(`comment${commentList.length > 1 ? 's' : ''}`)}
         </Typography>
 
@@ -129,7 +129,7 @@ export function PostComment(props: PostCommentProps) {
           py: 0,
         }}
       >
-        {loading ? (
+        {isLoading ? (
           <CommentItemSkeleton />
         ) : (
           commentList?.map((comment) => (

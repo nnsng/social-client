@@ -6,15 +6,12 @@ import { postApi, userApi } from '~/api';
 import { Suggestions } from '~/components/common';
 import { PostFilter, PostList } from '~/components/post';
 import { APP_NAME } from '~/constants';
-import { usePageTitle } from '~/hooks';
+import { usePageTitle } from '~/hooks/common';
+import { usePostList } from '~/hooks/queries';
 import { ListParams, Post, User } from '~/models';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import {
-  fetchPostList,
-  selectPostList,
-  selectPostLoading,
-  selectTotalPages,
-} from '~/store/slices/postSlice';
+import { useAppDispatch } from '~/store/hooks';
+import { fetchPostList } from '~/store/slices/postSlice';
+import { calculateTotalPage } from '~/utils/common';
 
 const MAX_SUGGEST_USERS = 3;
 
@@ -23,15 +20,20 @@ export function HomePage() {
   const location = useLocation();
 
   const dispatch = useAppDispatch();
-  const postList = useAppSelector(selectPostList);
-  const totalPage = useAppSelector(selectTotalPages);
-  const loading = useAppSelector(selectPostLoading);
 
   const [filter, setFilter] = useState<ListParams>(() => {
     const params = queryString.parse(location.search);
     return { page: 1, by: 'all', ...params };
   });
   const [suggestedUsers, setSuggestedUsers] = useState<Partial<User>[]>([]);
+
+  const {
+    data: {
+      data: postList,
+      pagination: { totalPage },
+    },
+    isLoading,
+  } = usePostList(filter);
 
   usePageTitle(APP_NAME, false);
 
@@ -57,8 +59,7 @@ export function HomePage() {
   useEffect(() => {
     const { page, by, ...rest } = filter;
     navigate(`?${queryString.stringify(rest)}`, { replace: true });
-    dispatch(fetchPostList(filter));
-  }, [dispatch, filter]);
+  }, [filter]);
 
   useEffect(() => {
     (async () => {
@@ -103,10 +104,10 @@ export function HomePage() {
         <PostList
           postList={postList}
           page={{
-            total: totalPage,
+            total: totalPage || 1,
             current: Number(filter.page) || 1,
           }}
-          loading={loading}
+          loading={isLoading}
           onPageChange={(page) => handleFilterChange({ page })}
           onSave={handleSavePost}
           onDelete={handleDeletePost}

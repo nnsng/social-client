@@ -13,7 +13,7 @@ import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '~/store/hooks';
-import { useFollowUser } from '~/hooks';
+import { useFollowUser } from '~/hooks/common';
 import { MenuOption, User } from '~/models';
 import { selectCurrentUser } from '~/store/slices/userSlice';
 import { showComingSoonToast } from '~/utils/toast';

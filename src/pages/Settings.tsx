@@ -6,7 +6,7 @@ import { authApi } from '~/api';
 import { PageTitle } from '~/components/common';
 import { SettingForm, SettingTabs } from '~/components/settings';
 import { SETTING_TABS } from '~/constants';
-import { usePageTitle } from '~/hooks';
+import { usePageTitle } from '~/hooks/common';
 import { ChangePasswordFormValues, SettingTabItem, User } from '~/models';
 import { useAppDispatch, useAppSelector } from '~/store/hooks';
 import { selectCurrentUser, updateCurrentUserAsync } from '~/store/slices/userSlice';

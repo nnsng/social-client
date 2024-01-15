@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { postApi } from '~/api';
 import { useAppSelector } from '~/store/hooks';
 import { CreateEditForm } from '~/components/post';
-import { usePageTitle } from '~/hooks';
+import { usePageTitle } from '~/hooks/common';
 import { Post } from '~/models';
 import { selectCurrentUser } from '~/store/slices/userSlice';
 

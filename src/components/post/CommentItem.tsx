@@ -24,7 +24,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ActionMenu, ConfirmDialog, UserPopup } from '~/components/common';
-import { useKeyUp, useMouseEventsWithPopup } from '~/hooks';
+import { useKeyUp, useMouseEventsWithPopup } from '~/hooks/common';
 import { Comment, CommentActionTypes, MenuOption } from '~/models';
 import { useAppSelector } from '~/store/hooks';
 import { selectCurrentUser } from '~/store/slices/userSlice';
