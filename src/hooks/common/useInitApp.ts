@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { userApi } from '~/api';
-import { ACCESS_TOKEN } from '~/constants';
+import { localStorageKey } from '~/constants';
 import { useAppDispatch } from '~/store/hooks';
 import { userActions } from '~/store/slices/userSlice';
 import { useInitSocket } from '../socket';
@@ -15,7 +15,7 @@ export function useInitApp() {
   useEffect(() => {
     (async () => {
       try {
-        const token = localStorage.getItem(ACCESS_TOKEN) || '';
+        const token = localStorage.getItem(localStorageKey.ACCESS_TOKEN) || '';
         if (!token) return;
 
         const user = await userApi.getCurrentUser();
