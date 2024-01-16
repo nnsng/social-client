@@ -26,8 +26,7 @@ import { useNavigate } from 'react-router-dom';
 import { ActionMenu, ConfirmDialog, UserPopup } from '~/components/common';
 import { useKeyUp, useMouseEventsWithPopup } from '~/hooks/common';
 import { Comment, CommentActionTypes, MenuOption } from '~/models';
-import { useAppSelector } from '~/store/hooks';
-import { selectCurrentUser } from '~/store/slices/userSlice';
+import { useUserStore } from '~/store';
 import { formatTime } from '~/utils/common';
 import { showComingSoonToast } from '~/utils/toast';
 
@@ -43,7 +42,7 @@ export function CommentItem(props: CommentItemProps) {
 
   const { t } = useTranslation('postComment');
 
-  const currentUser = useAppSelector(selectCurrentUser);
+  const currentUser = useUserStore((state) => state.currentUser);
 
   const [openMenu, setOpenMenu] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
@@ -121,8 +120,8 @@ export function CommentItem(props: CommentItemProps) {
 
   const onKeyUp = useKeyUp('Enter', handleEdit);
 
-  const isAuthor = comment.userId === currentUser?._id;
-  const isAdmin = currentUser?.role === 'admin';
+  const isAuthor = comment.userId === currentUser._id;
+  const isAdmin = currentUser.role === 'admin';
   const commentMenu: MenuOption[] = [
     {
       label: t('menu.edit'),
@@ -271,7 +270,7 @@ export function CommentItem(props: CommentItemProps) {
                   onClick={handleLikeComment}
                   sx={{ cursor: 'pointer' }}
                 >
-                  {comment.likes?.includes(currentUser?._id!) ? t('unlike') : t('like')}
+                  {comment.likes?.includes(currentUser._id!) ? t('unlike') : t('like')}
                 </Typography>
 
                 <Tooltip title={formatTime(comment.createdAt, 'DD/MM/YYYY, HH:mm')}>

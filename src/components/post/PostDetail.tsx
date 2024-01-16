@@ -12,8 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { ConfirmDialog, StyledCard } from '~/components/common';
 import { ROLE } from '~/constants';
 import { MenuOption, Post } from '~/models';
-import { useAppSelector } from '~/store/hooks';
-import { selectCurrentUser } from '~/store/slices/userSlice';
+import { useUserStore } from '~/store';
 import { copyPostLink } from '~/utils/common';
 import { showComingSoonToast, showToast } from '~/utils/toast';
 import { MdEditor, PostCardHeader } from '.';
@@ -32,7 +31,7 @@ export function PostDetail(props: PostDetailProps) {
 
   const { t } = useTranslation('postMenu');
 
-  const currentUser = useAppSelector(selectCurrentUser);
+  const currentUser = useUserStore((state) => state.currentUser);
 
   const [openDialog, setOpenDialog] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -59,8 +58,8 @@ export function PostDetail(props: PostDetailProps) {
     closeDialog();
   };
 
-  const isAuthor = post.authorId === currentUser?._id;
-  const isAdmin = currentUser?.role === ROLE.ADMIN;
+  const isAuthor = post.authorId === currentUser._id;
+  const isAdmin = currentUser.role === ROLE.ADMIN;
 
   const actionMenu: MenuOption[] = [
     {

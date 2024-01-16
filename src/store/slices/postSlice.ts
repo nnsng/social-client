@@ -1,7 +1,6 @@
-import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { postApi } from '~/api';
 import { ListParams, PaginationParams, Post } from '~/models';
-import { RootState } from '~/store';
 
 const defaultParams = { page: 1, limit: 10 };
 
@@ -111,15 +110,6 @@ const postSlice = createSlice({
 });
 
 export const postActions = postSlice.actions;
-
-export const selectPostLoading = (state: RootState) => state.post.loading;
-export const selectPostList = (state: RootState) => state.post.list;
-export const selectPostDetail = (state: RootState) => state.post.detail;
-export const selectPostPagination = (state: RootState) => state.post.pagination;
-
-export const selectTotalPages = createSelector(selectPostPagination, (pagination) =>
-  pagination ? Math.ceil(pagination?.totalRows / pagination?.limit) : 1
-);
 
 const postReducer = postSlice.reducer;
 export default postReducer;

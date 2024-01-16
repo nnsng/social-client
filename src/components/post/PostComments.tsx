@@ -5,10 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { ContainedInput } from '~/components/common';
 import { CommentItemSkeleton } from '~/components/skeletons';
 import { useKeyUp } from '~/hooks/common';
-import { usePostComments } from '~/hooks/queries';
+import { usePostComments } from '~/hooks/post';
 import { Comment, CommentActionTypes } from '~/models';
-import { useAppSelector } from '~/store/hooks';
-import { selectCurrentUser } from '~/store/slices/userSlice';
+import { useUserStore } from '~/store';
 import { CommentItem } from './CommentItem';
 
 export interface PostCommentsProps {
@@ -25,7 +24,7 @@ export function PostComments(props: PostCommentsProps) {
 
   const { data: commentList, isLoading } = usePostComments(postId);
 
-  const currentUser = useAppSelector(selectCurrentUser);
+  const currentUser = useUserStore((state) => state.currentUser);
 
   const inputRef = useRef<HTMLInputElement>();
   const [input, setInput] = useState<string>('');
@@ -48,7 +47,7 @@ export function PostComments(props: PostCommentsProps) {
     try {
       const comment: Comment = {
         postId,
-        userId: currentUser?._id!,
+        userId: currentUser._id!,
         content: input.trim(),
       };
 
@@ -97,7 +96,7 @@ export function PostComments(props: PostCommentsProps) {
 
         <Stack alignItems="center" mt={6} mb={3}>
           <Avatar
-            src={currentUser?.avatar}
+            src={currentUser.avatar}
             sx={{
               width: 36,
               height: 36,

@@ -172,7 +172,6 @@ const userSlice = createSlice({
 export const userActions = userSlice.actions;
 
 export const selectAuthSubmitting = (state: RootState) => state.user.submitting;
-export const selectCurrentUser = (state: RootState) => state.user.currentUser;
 export const selectUserConfig = (state: RootState) => state.user.config;
 
 const userReducer = userSlice.reducer;
