@@ -22,6 +22,7 @@ export function UpdatePasswordForm() {
 
   const schema = z
     .object({
+      token: z.string(),
       newPassword: z.string().min(6, tValidate('password.min', { min: 6 })),
       confirmPassword: z.string().min(6, tValidate('password.min', { min: 6 })),
     })
