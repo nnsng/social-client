@@ -1,14 +1,14 @@
 import { Box, Drawer, Grid } from '@mui/material';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { commentApi, postApi } from '~/api';
+import { commentApi } from '~/api';
 import { PostComments, PostDetail, PostReaction } from '~/components/post';
 import { PostDetailSkeleton } from '~/components/skeletons';
 import { APP_NAME } from '~/constants';
 import { usePageTitle } from '~/hooks/common';
-import { usePostDetail } from '~/hooks/queries';
+import { useDeletePost, useLikePost, usePostDetail, useSavePost } from '~/hooks/post';
 import { usePostSocket } from '~/hooks/socket';
-import { Comment, CommentActionTypes, Post } from '~/models';
+import { Comment, CommentActionTypes } from '~/models';
 import { useAppDispatch } from '~/store/hooks';
 import { commentActions } from '~/store/slices/commentSlice';
 import { postActions } from '~/store/slices/postSlice';
@@ -20,28 +20,19 @@ export function PostDetailPage() {
 
   const [openComment, setOpenComment] = useState(false);
 
-  const { data: post, isLoading } = usePostDetail(slug);
+  const { data: post, isLoading, refetch } = usePostDetail(slug);
   usePostSocket(post?._id);
+
+  const { mutate: deletePost } = useDeletePost();
+  const { mutate: savePost } = useSavePost();
+  const { mutate: likePost } = useLikePost(slug, {
+    onSuccess: () => refetch(),
+  });
 
   const pageTitle = isLoading ? APP_NAME : `${post?.title} | ${post?.author?.name}`;
   usePageTitle(pageTitle, false);
 
   const closeComment = () => setOpenComment(false);
-
-  const handleSavePost = async (post: Post) => {
-    await postApi.save(post._id!);
-  };
-
-  const handleDeletePost = async (post: Post) => {
-    await postApi.remove(post._id!);
-  };
-
-  const handleLikePost = async () => {
-    try {
-      const response = await postApi.like(post?._id!);
-      dispatch(postActions.updatePostDetail(response));
-    } catch (error) {}
-  };
 
   const handleCommentAction = async (action: CommentActionTypes, comment: Comment) => {
     if (action === 'like') {
@@ -62,7 +53,11 @@ export function PostDetailPage() {
         {isLoading || !post ? (
           <PostDetailSkeleton />
         ) : (
-          <PostDetail post={post} onSave={handleSavePost} onDelete={handleDeletePost} />
+          <PostDetail
+            post={post}
+            onSave={(post) => savePost(post._id!)}
+            onDelete={(post) => deletePost(post._id!)}
+          />
         )}
       </Grid>
 
@@ -71,7 +66,7 @@ export function PostDetailPage() {
           <PostReaction
             post={post}
             onOpenComment={() => setOpenComment(true)}
-            onLikePost={handleLikePost}
+            onLikePost={() => likePost(post?._id!)}
           />
         </Box>
       </Grid>

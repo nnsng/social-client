@@ -91,7 +91,7 @@ export function CreateEditForm(props: CreateEditFormProps) {
 
   const handleFormSubmit = async (formValues: Post) => {
     try {
-      await onSubmit?.(formValues);
+      await onSubmit?.({ ...defaultValues, ...formValues });
     } catch (error) {}
   };
 

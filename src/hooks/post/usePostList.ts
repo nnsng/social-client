@@ -1,15 +1,24 @@
 import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { postApi } from '~/api';
-import { ListParams, ListResponse, Post } from '~/models';
+import { QueryKey } from '~/constants';
+import { ListParams, ListResponse, Post, UseQueryOpt } from '~/models';
+import { useGlobalStore } from '~/store';
 import { calculateTotalPage } from '~/utils/common';
 
 interface Params extends ListParams {
   saved?: boolean;
 }
 
-export function usePostList({ saved = false, ...params }: Params) {
-  return useQuery<ListResponse<Post>>({
-    queryKey: ['postList', params],
+export function usePostList(
+  { saved = false, ...params }: Params,
+  options?: UseQueryOpt<ListResponse<Post>>
+) {
+  const setLoading = useGlobalStore((state) => state.setLoading);
+
+  const query = useQuery<ListResponse<Post>>({
+    ...options,
+    queryKey: [QueryKey.POST_LIST, params],
     queryFn: () => (saved ? postApi.fetchSavedList(params) : postApi.fetchPostList(params)),
     initialData: {
       data: [],
@@ -27,4 +36,10 @@ export function usePostList({ saved = false, ...params }: Params) {
       },
     }),
   });
+
+  useEffect(() => {
+    setLoading(query.isFetching);
+  }, [query.isFetching]);
+
+  return query;
 }

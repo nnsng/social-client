@@ -2,16 +2,12 @@ import { Grid } from '@mui/material';
 import queryString from 'query-string';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { postApi, userApi } from '~/api';
+import { userApi } from '~/api';
 import { Suggestions } from '~/components/common';
 import { PostFilter, PostList } from '~/components/post';
 import { APP_NAME } from '~/constants';
 import { usePageTitle } from '~/hooks/common';
-import { usePostList } from '~/hooks/queries';
-import { ListParams, Post, User } from '~/models';
-import { useAppDispatch } from '~/store/hooks';
-import { fetchPostList } from '~/store/slices/postSlice';
-import { calculateTotalPage } from '~/utils/common';
+import { ListParams, User } from '~/models';
 
 const MAX_SUGGEST_USERS = 3;
 
@@ -19,21 +15,11 @@ export function HomePage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const dispatch = useAppDispatch();
-
   const [filter, setFilter] = useState<ListParams>(() => {
     const params = queryString.parse(location.search);
     return { page: 1, by: 'all', ...params };
   });
   const [suggestedUsers, setSuggestedUsers] = useState<Partial<User>[]>([]);
-
-  const {
-    data: {
-      data: postList,
-      pagination: { totalPage },
-    },
-    isLoading,
-  } = usePostList(filter);
 
   usePageTitle(APP_NAME, false);
 
@@ -87,31 +73,12 @@ export function HomePage() {
     });
   };
 
-  const handleSavePost = async (post: Post) => {
-    await postApi.save(post._id!);
-  };
-
-  const handleDeletePost = async (post: Post) => {
-    await postApi.remove(post._id!);
-    dispatch(fetchPostList(filter));
-  };
-
   return (
     <Grid container spacing={{ xs: 0, lg: 8 }} flexDirection={{ xs: 'column-reverse', lg: 'row' }}>
       <Grid item xs md={11} lg>
         <PostFilter filter={filter} onChange={handleFilterChange} />
 
-        <PostList
-          postList={postList}
-          page={{
-            total: totalPage || 1,
-            current: Number(filter.page) || 1,
-          }}
-          loading={isLoading}
-          onPageChange={(page) => handleFilterChange({ page })}
-          onSave={handleSavePost}
-          onDelete={handleDeletePost}
-        />
+        <PostList filter={filter} onFilterChange={handleFilterChange} />
       </Grid>
 
       <Grid item xs lg={4} display={{ xs: 'none', lg: 'block' }}>

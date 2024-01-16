@@ -1,7 +1,7 @@
 import { Breakpoint } from '@mui/material';
+import { UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
 import { IconType } from './mui';
 import { PostByTypes } from './types';
-import { QueryOptions } from '@tanstack/react-query';
 
 export interface LayoutProps {
   maxWidth?: false | Breakpoint;
@@ -73,4 +73,17 @@ export interface SearchFilter {
   username?: string;
 }
 
-export type TanStackQueryOptions = Omit<QueryOptions, 'queryKey' | 'queryFn'>;
+export interface ApiServiceError {
+  name: string;
+  message: string;
+}
+
+export type UseQueryOpt<Response> = Omit<
+  UseQueryOptions<Response, ApiServiceError>,
+  'queryFn' | 'queryKey'
+>;
+
+export type UseMutationOpt<Response, Variables = void> = Omit<
+  UseMutationOptions<Response, ApiServiceError, Variables>,
+  'mutationFn'
+>;
