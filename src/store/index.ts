@@ -1,14 +1,12 @@
 import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import commentReducer from './slices/commentSlice';
 import configReducer from './slices/configSlice';
-import postReducer from './slices/postSlice';
 import socketReducer from './slices/socketSlice';
 import userReducer from './slices/userSlice';
 
 const rootReducer = combineReducers({
   comment: commentReducer,
   config: configReducer,
-  post: postReducer,
   socket: socketReducer,
   user: userReducer,
 });

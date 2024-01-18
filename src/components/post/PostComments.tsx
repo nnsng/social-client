@@ -5,24 +5,26 @@ import { useTranslation } from 'react-i18next';
 import { ContainedInput } from '~/components/common';
 import { CommentItemSkeleton } from '~/components/skeletons';
 import { useKeyUp } from '~/hooks/common';
-import { usePostComments } from '~/hooks/post';
-import { Comment, CommentActionTypes } from '~/models';
+import { useAddComment, usePostComments } from '~/hooks/post';
 import { useUserStore } from '~/store';
 import { CommentItem } from './CommentItem';
 
 export interface PostCommentsProps {
   postId: string;
   onClose?: () => void;
-  updateCommentCount?: (count: number) => void;
-  onCommentAction?: (action: CommentActionTypes, comment: Comment) => void;
 }
 
 export function PostComments(props: PostCommentsProps) {
-  const { postId, onClose, updateCommentCount, onCommentAction } = props;
+  const { postId, onClose } = props;
 
   const { t } = useTranslation('postComment');
 
-  const { data: commentList, isLoading } = usePostComments(postId);
+  const { data: commentList, isFetching } = usePostComments(postId);
+
+  const { mutate: addComment } = useAddComment({
+    onMutate: () => setInput(''),
+    onSettled: () => inputRef.current?.focus(),
+  });
 
   const currentUser = useUserStore((state) => state.currentUser);
 
@@ -33,28 +35,12 @@ export function PostComments(props: PostCommentsProps) {
     inputRef.current?.focus();
   }, []);
 
-  useEffect(() => {
-    updateCommentCount?.(commentList.length);
-  }, [commentList.length]);
-
-  const handleInputChange = (e: any) => {
-    setInput(e.target.value);
-  };
-
-  const handleSubmitComment = async () => {
-    setInput('');
-
-    try {
-      const comment: Comment = {
-        postId,
-        userId: currentUser._id!,
-        content: input.trim(),
-      };
-
-      await onCommentAction?.('create', comment);
-    } catch (error) {}
-
-    inputRef.current?.focus();
+  const handleSubmitComment = () => {
+    addComment({
+      postId,
+      userId: currentUser._id,
+      content: input.trim(),
+    });
   };
 
   const onKeyUp = useKeyUp('Enter', handleSubmitComment);
@@ -90,7 +76,7 @@ export function PostComments(props: PostCommentsProps) {
             cursor: 'default',
           }}
         >
-          {isLoading ? <CircularProgress size={20} sx={{ mr: 1 }} /> : commentList.length || 0}
+          {isFetching ? <CircularProgress size={20} sx={{ mr: 1 }} /> : commentList.length || 0}
           {t(`comment${commentList.length > 1 ? 's' : ''}`)}
         </Typography>
 
@@ -113,7 +99,7 @@ export function PostComments(props: PostCommentsProps) {
             autoFocus
             value={input}
             onSubmit={handleSubmitComment}
-            onChange={handleInputChange}
+            onChange={(e) => setInput(e.target.value)}
             onKeyUp={onKeyUp}
           />
         </Stack>
@@ -128,12 +114,10 @@ export function PostComments(props: PostCommentsProps) {
           py: 0,
         }}
       >
-        {isLoading ? (
+        {isFetching ? (
           <CommentItemSkeleton />
         ) : (
-          commentList?.map((comment) => (
-            <CommentItem key={comment._id} comment={comment} onCommentAction={onCommentAction} />
-          ))
+          commentList.map((comment) => <CommentItem key={comment._id} comment={comment} />)
         )}
       </List>
     </Stack>
