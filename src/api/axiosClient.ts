@@ -1,10 +1,10 @@
 import axios from 'axios';
 import queryString from 'query-string';
 import { ACCESS_TOKEN } from '~/constants';
-import { env, variables } from '~/utils/env';
+import { env } from '~/utils/env';
 import { showToast } from '~/utils/toast';
 
-const SERVER_URL = env(variables.serverUrl) || '';
+const SERVER_URL = env.VITE_SERVER_URL || '';
 const BASE_URL = `${SERVER_URL}/api`;
 
 const axiosClient = axios.create({
@@ -17,7 +17,7 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(async (config) => {
   const token = localStorage.getItem(ACCESS_TOKEN);
-  if (token && config.url !== env(variables.cdnUrl)) {
+  if (token && config.url !== env.VITE_CDN_URL) {
     config.headers && (config.headers.Authorization = `Bearer ${token}`);
   }
   return config;

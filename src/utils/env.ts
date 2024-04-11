@@ -1,12 +1,10 @@
-export const env = (variable: string) => {
-  const value = import.meta.env[variable];
-  if (!value) throw new Error(`Missing: import.meta.env['${variable}'].`);
-  return value as string;
-};
+import { z } from 'zod';
 
-export const variables = {
-  serverUrl: 'VITE_SERVER_URL',
-  cdnUrl: 'VITE_CDN_URL',
-  googleClientId: 'VITE_GOOGLE_CLIENT_ID',
-  environment: 'VITE_ENVIRONMENT',
-};
+const envSchema = z.object({
+  VITE_SERVER_URL: z.string().url(),
+  VITE_CDN_URL: z.string().url(),
+  VITE_GOOGLE_CLIENT_ID: z.string(),
+  VITE_ENVIRONMENT: z.string(),
+});
+
+export const env = envSchema.parse(import.meta.env);

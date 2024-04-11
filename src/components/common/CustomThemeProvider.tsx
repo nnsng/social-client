@@ -6,7 +6,7 @@ import { useAppSelector } from '~/store/hooks';
 import favicons from '~/assets/favicons';
 import { selectUserConfig } from '~/store/slices/userSlice';
 import { configTheme, themeVariables } from '~/utils/theme';
-import { env, variables } from '~/utils/env';
+import { env } from '~/utils/env';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 export interface CustomThemeProviderProps {
@@ -21,7 +21,7 @@ export function CustomThemeProvider({ children }: CustomThemeProviderProps) {
   useEffect(() => {
     setTheme(configTheme(themeMode, mainColor));
 
-    if (env(variables.environment) === 'development') {
+    if (env.VITE_ENVIRONMENT === 'development') {
       console.log(theme);
     }
   }, [themeMode, mainColor]);

@@ -5,7 +5,7 @@ import { userApi } from '~/api';
 import { CustomScrollbar } from '~/components/common';
 import { useAppDispatch } from '~/store/hooks';
 import { socketActions } from '~/store/slices/socketSlice';
-import { env, variables } from '~/utils/env';
+import { env } from '~/utils/env';
 import { SocketClient } from './components/socket';
 import { ACCESS_TOKEN } from './constants';
 import { useAuthentication } from './hooks';
@@ -34,7 +34,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    const socket = io(env(variables.serverUrl));
+    const socket = io(env.VITE_SERVER_URL);
     if (!socket) return;
 
     dispatch(socketActions.setSocket(socket));

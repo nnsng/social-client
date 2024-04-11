@@ -11,7 +11,7 @@ import {
   userActions,
 } from '~/store/slices/userSlice';
 import { delay } from '~/utils/common';
-import { env, variables } from '~/utils/env';
+import { env } from '~/utils/env';
 
 export function useAuthentication() {
   const navigate = useNavigate();
@@ -19,9 +19,8 @@ export function useAuthentication() {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const clientId = env(variables.googleClientId);
   const { signIn: googleLogin } = useGoogleLogin({
-    clientId,
+    clientId: env.VITE_GOOGLE_CLIENT_ID,
     isSignedIn: false,
     accessType: 'offline',
     onSuccess(res: any) {
