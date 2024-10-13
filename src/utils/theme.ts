@@ -1,6 +1,5 @@
-import { PaletteMode, Theme } from '@mui/material';
+import { PaletteMode, SxProps, Theme } from '@mui/material';
 import { createTheme, PaletteOptions, responsiveFontSizes } from '@mui/material/styles';
-import { SxProps } from '@mui/system';
 
 const getPalette = (mode: PaletteMode = 'light', mainColor = '#7575FF') => {
   const lightPalette: PaletteOptions = {

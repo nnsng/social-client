@@ -1,10 +1,9 @@
-import { Theme } from '@mui/material';
-import { Box } from '@mui/system';
-import { useCustomMediaQuery } from '~/hooks';
+import { Box, Theme } from '@mui/material';
 import MarkdownIt from 'markdown-it';
 import { useEffect, useRef } from 'react';
 import Editor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
+import { useCustomMediaQuery } from '~/hooks';
 import { getImageUrlFromCDN } from '~/utils/common';
 
 export interface MdEditorChange {

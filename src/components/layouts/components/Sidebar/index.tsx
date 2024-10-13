@@ -129,12 +129,10 @@ export function Sidebar({ type }: SidebarProps) {
                   <ListItemButton
                     sx={{
                       ...(active ? themeMixins.getPaperStyles() : {}),
+                      border: 0,
                       borderRadius: 2,
                       py: 1.5,
                       color: active ? 'text.primary' : 'text.secondary',
-                      ':hover': {
-                        bgcolor: active ? 'inherit' : 'none',
-                      },
                     }}
                     onClick={handleClick(onClick, label !== t('main.notifications'))}
                   >
