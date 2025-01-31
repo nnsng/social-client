@@ -8,14 +8,14 @@ import { Route, RouteObject, Routes } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { SocketClient } from './components/socket';
 import { StorageKey } from './constants';
-import { useAuthentication } from './hooks';
+import { useAuth } from './hooks';
 import routes from './routes';
 import { userActions } from './store/slices/userSlice';
 
 function App() {
   const dispatch = useAppDispatch();
 
-  const { logout } = useAuthentication();
+  const { onLogout } = useAuth();
 
   useEffect(() => {
     (async () => {
@@ -28,7 +28,7 @@ function App() {
 
         dispatch(userActions.setCurrentUser(user));
       } catch (error) {
-        logout();
+        onLogout();
       }
     })();
   }, [dispatch]);

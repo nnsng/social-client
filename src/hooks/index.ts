@@ -1,4 +1,4 @@
-export * from './useAuthentication';
+export * from './useAuth';
 export * from './useCustomMediaQuery';
 export * from './useDebounce';
 export * from './useFollowUser';

@@ -1,6 +1,6 @@
 import { authApi } from '@/api';
 import { AuthForm } from '@/components/auth';
-import { useAuthentication, usePageTitle } from '@/hooks';
+import { useAuth, usePageTitle } from '@/hooks';
 import { FormField, LoginFormValues } from '@/models';
 import { useAppSelector } from '@/store/hooks';
 import { selectAuthSubmitting } from '@/store/slices/userSlice';
@@ -21,7 +21,7 @@ export function LoginPage() {
 
   const submitting = useAppSelector(selectAuthSubmitting);
 
-  const { login, googleLogin } = useAuthentication();
+  const { onLogin, onGoogleLogin } = useAuth();
 
   const [forgotLoading, setForgotLoading] = useState(false);
 
@@ -44,7 +44,7 @@ export function LoginPage() {
   });
 
   const submitForm = (formValues: LoginFormValues) => {
-    login(formValues);
+    onLogin(formValues);
   };
 
   const handleForgotPassword = async () => {
@@ -83,7 +83,7 @@ export function LoginPage() {
         fieldList={fieldList}
         onSubmit={handleSubmit(submitForm)}
         submitting={submitting}
-        onGoogleLogin={googleLogin}
+        onGoogleLogin={onGoogleLogin}
       />
 
       <Box textAlign="center" my={1}>

@@ -1,5 +1,5 @@
 import { ActionMenu } from '@/components/common';
-import { useAuthentication } from '@/hooks';
+import { useAuth } from '@/hooks';
 import { MenuOption } from '@/models';
 import {
   AccountCircleRounded,
@@ -17,7 +17,7 @@ export function UserActions() {
 
   const { t } = useTranslation('header');
 
-  const { logout, currentUser } = useAuthentication();
+  const { onLogout, currentUser } = useAuth();
 
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -42,7 +42,7 @@ export function UserActions() {
     {
       label: t('user.logout'),
       icon: LogoutOutlined,
-      onClick: logout,
+      onClick: onLogout,
     },
   ];
 

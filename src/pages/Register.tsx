@@ -1,5 +1,5 @@
 import { AuthForm } from '@/components/auth';
-import { useAuthentication, usePageTitle } from '@/hooks';
+import { useAuth, usePageTitle } from '@/hooks';
 import { FormField, RegisterFormValues } from '@/models';
 import { useAppSelector } from '@/store/hooks';
 import { selectAuthSubmitting } from '@/store/slices/userSlice';
@@ -16,7 +16,7 @@ export function RegisterPage() {
 
   const submitting = useAppSelector(selectAuthSubmitting);
 
-  const { register } = useAuthentication();
+  const { onRegister } = useAuth();
 
   usePageTitle(t('pageTitle'));
 
@@ -48,7 +48,7 @@ export function RegisterPage() {
   });
 
   const submitForm = (formValues: RegisterFormValues) => {
-    register(formValues);
+    onRegister(formValues);
   };
 
   const fieldList: FormField[] = [
