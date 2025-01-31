@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN } from '@/constants';
+import { StorageKey } from '@/constants';
 import { LoginFormValues, RegisterFormValues } from '@/models';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
@@ -41,7 +41,7 @@ export function useAuthentication() {
   const logout = async () => {
     await delay(500);
     dispatch(userActions.setCurrentUser(null));
-    localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem(StorageKey.ACCESS_TOKEN);
     navigate('/login');
   };
 

@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN } from '@/constants';
+import { StorageKey } from '@/constants';
 import { env } from '@/utils/env';
 import { showToast } from '@/utils/toast';
 import axios from 'axios';
@@ -16,7 +16,7 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use(async (config) => {
-  const token = localStorage.getItem(ACCESS_TOKEN);
+  const token = localStorage.getItem(StorageKey.ACCESS_TOKEN);
   if (token && config.url !== env.VITE_CDN_URL) {
     config.headers && (config.headers.Authorization = `Bearer ${token}`);
   }

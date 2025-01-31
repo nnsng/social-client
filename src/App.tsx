@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { Route, RouteObject, Routes } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { SocketClient } from './components/socket';
-import { ACCESS_TOKEN } from './constants';
+import { StorageKey } from './constants';
 import { useAuthentication } from './hooks';
 import routes from './routes';
 import { userActions } from './store/slices/userSlice';
@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
-        const token = localStorage.getItem(ACCESS_TOKEN) || '';
+        const token = localStorage.getItem(StorageKey.ACCESS_TOKEN) || '';
         if (!token) return;
 
         const user = await userApi.getCurrentUser();
