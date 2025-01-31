@@ -1,14 +1,18 @@
 import { Box, ListItemButton, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { SettingTabItem } from '~/models';
+import { SettingTabItem, type SettingTab } from '~/models';
 
 interface SettingTabProps {
   tabs: SettingTabItem[];
-  activeTab: string;
+  activeTab: SettingTab;
 }
 
 export function SettingTabs({ tabs, activeTab }: SettingTabProps) {
   const navigate = useNavigate();
+
+  const handleTabChange = (tab: SettingTabItem) => {
+    navigate(`/settings/${tab.tab}`, { replace: true });
+  };
 
   return (
     <Box width={{ xs: '100%', md: 200 }}>
@@ -36,7 +40,7 @@ export function SettingTabs({ tabs, activeTab }: SettingTabProps) {
                 fontWeight: 500,
               },
             }}
-            onClick={() => navigate(`/settings?tab=${tab.tab}`)}
+            onClick={() => handleTabChange(tab)}
           >
             <Typography variant="subtitle2" component="span">
               {tab.label}

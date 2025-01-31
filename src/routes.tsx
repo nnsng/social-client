@@ -87,7 +87,7 @@ const privateRoutes: RouteObject[] = [
         element: <ProfilePage />,
       },
       {
-        path: '/settings',
+        path: '/settings/:tab',
         element: <SettingsPage />,
       },
       {

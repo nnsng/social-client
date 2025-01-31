@@ -37,7 +37,7 @@ export function UserActions() {
     {
       label: t('user.settings'),
       icon: SettingsRounded,
-      onClick: () => navigateTo('/settings'),
+      onClick: () => navigateTo('/settings/profile'),
     },
     {
       label: t('user.logout'),
