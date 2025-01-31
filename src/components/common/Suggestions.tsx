@@ -1,8 +1,8 @@
+import { useFollowUser } from '@/hooks';
+import { User } from '@/models';
+import { themeVariables } from '@/utils/theme';
 import { Box, Divider, List, ListItem, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { useFollowUser } from '~/hooks';
-import { User } from '~/models';
-import { themeVariables } from '~/utils/theme';
 import { SuggestionItem } from './SuggestionItem';
 
 export interface SuggestionsProps {

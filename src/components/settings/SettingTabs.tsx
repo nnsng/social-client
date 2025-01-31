@@ -1,6 +1,6 @@
+import { SettingTabItem, type SettingTab } from '@/models';
 import { Box, ListItemButton, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { SettingTabItem, type SettingTab } from '~/models';
 
 interface SettingTabProps {
   tabs: SettingTabItem[];

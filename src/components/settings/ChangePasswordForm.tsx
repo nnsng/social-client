@@ -1,3 +1,5 @@
+import { ChangePasswordFormValues } from '@/models';
+import { showToast } from '@/utils/toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, CircularProgress, Stack } from '@mui/material';
 import i18next from 'i18next';
@@ -5,8 +7,6 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { ChangePasswordFormValues } from '~/models';
-import { showToast } from '~/utils/toast';
 import { MuiTextField } from '../formFields';
 
 export interface ChangePasswordFormProps {

@@ -1,21 +1,21 @@
-import { Box, Drawer, Grid } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { commentApi, postApi } from '~/api';
-import { PostComment, PostDetail, PostReaction } from '~/components/post';
-import { PostDetailSkeleton } from '~/components/skeletons';
-import { APP_NAME } from '~/constants';
-import { usePageTitle } from '~/hooks';
-import { Comment, CommentActionTypes, Post } from '~/models';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { commentActions, fetchPostComments, selectPostComments } from '~/store/slices/commentSlice';
+import { commentApi, postApi } from '@/api';
+import { PostComment, PostDetail, PostReaction } from '@/components/post';
+import { PostDetailSkeleton } from '@/components/skeletons';
+import { APP_NAME } from '@/constants';
+import { usePageTitle } from '@/hooks';
+import { Comment, CommentActionTypes, Post } from '@/models';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { commentActions, fetchPostComments, selectPostComments } from '@/store/slices/commentSlice';
 import {
   fetchPostDetail,
   postActions,
   selectPostDetail,
   selectPostLoading,
-} from '~/store/slices/postSlice';
-import { selectSocket } from '~/store/slices/socketSlice';
+} from '@/store/slices/postSlice';
+import { selectSocket } from '@/store/slices/socketSlice';
+import { Box, Drawer, Grid } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 export function PostDetailPage() {
   const { slug } = useParams();

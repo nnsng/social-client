@@ -1,3 +1,8 @@
+import { postApi, userApi } from '@/api';
+import { useDebounce, useKeyUp } from '@/hooks';
+import { SearchApiType, SearchResult } from '@/models';
+import { formatSearchResponse, slugifyString } from '@/utils/common';
+import { themeMixins } from '@/utils/theme';
 import { CloseRounded, SearchRounded } from '@mui/icons-material';
 import {
   Avatar,
@@ -18,11 +23,6 @@ import queryString from 'query-string';
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { postApi, userApi } from '~/api';
-import { useDebounce, useKeyUp } from '~/hooks';
-import { SearchApiType, SearchResult } from '~/models';
-import { formatSearchResponse, slugifyString } from '~/utils/common';
-import { themeMixins } from '~/utils/theme';
 
 const MAX_ITEM = 5;
 

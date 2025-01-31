@@ -1,6 +1,5 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { authApi, userApi } from '~/api';
-import { ACCESS_TOKEN, CONFIG } from '~/constants';
+import { authApi, userApi } from '@/api';
+import { ACCESS_TOKEN, CONFIG } from '@/constants';
 import {
   AuthPayload,
   GoogleAuthPayload,
@@ -9,9 +8,10 @@ import {
   User,
   UserConfig,
   UserConfigKey,
-} from '~/models';
-import { RootState } from '~/store';
-import { showToast } from '~/utils/toast';
+} from '@/models';
+import { RootState } from '@/store';
+import { showToast } from '@/utils/toast';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export const login = createAsyncThunk(
   'user/login',

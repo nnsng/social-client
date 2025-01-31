@@ -1,9 +1,9 @@
+import { NotificationType } from '@/models';
+import { useAppDispatch } from '@/store/hooks';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { NotificationType } from '~/models';
-import { useAppDispatch } from '~/store/hooks';
 import { SocketProps } from './SocketClient';
 
 const EVENTS = {

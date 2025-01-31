@@ -1,8 +1,8 @@
+import { ACCESS_TOKEN } from '@/constants';
+import { env } from '@/utils/env';
+import { showToast } from '@/utils/toast';
 import axios from 'axios';
 import queryString from 'query-string';
-import { ACCESS_TOKEN } from '~/constants';
-import { env } from '~/utils/env';
-import { showToast } from '~/utils/toast';
 
 const SERVER_URL = env.VITE_SERVER_URL || '';
 const BASE_URL = `${SERVER_URL}/api`;

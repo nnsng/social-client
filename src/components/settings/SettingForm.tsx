@@ -1,4 +1,4 @@
-import { ChangePasswordFormValues, User, type SettingTab } from '~/models';
+import { ChangePasswordFormValues, User, type SettingTab } from '@/models';
 import { ChangePasswordForm } from './ChangePasswordForm';
 import { EditProfileForm } from './EditProfileForm';
 

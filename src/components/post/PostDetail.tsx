@@ -1,3 +1,10 @@
+import { ConfirmDialog, StyledCard } from '@/components/common';
+import { ROLE } from '@/constants';
+import { MenuOption, Post } from '@/models';
+import { useAppSelector } from '@/store/hooks';
+import { selectCurrentUser } from '@/store/slices/userSlice';
+import { copyPostLink } from '@/utils/common';
+import { showComingSoonToast, showToast } from '@/utils/toast';
 import {
   BookmarkRounded,
   BorderColorRounded,
@@ -9,13 +16,6 @@ import { Box, CardContent, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { ConfirmDialog, StyledCard } from '~/components/common';
-import { ROLE } from '~/constants';
-import { MenuOption, Post } from '~/models';
-import { useAppSelector } from '~/store/hooks';
-import { selectCurrentUser } from '~/store/slices/userSlice';
-import { copyPostLink } from '~/utils/common';
-import { showComingSoonToast, showToast } from '~/utils/toast';
 import { MdEditor, PostCardHeader } from '.';
 
 export interface PostDetailProps {

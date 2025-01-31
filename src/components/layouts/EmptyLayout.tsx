@@ -1,6 +1,6 @@
+import { LayoutProps } from '@/models';
 import { Box, Container } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-import { LayoutProps } from '~/models';
 
 export function EmptyLayout({ maxWidth }: LayoutProps) {
   return (

@@ -3,7 +3,7 @@ import {
   ChangePasswordFormValues,
   LoginFormValues,
   RegisterFormValues,
-} from '~/models';
+} from '@/models';
 import axiosClient from './axiosClient';
 
 const clientUrl = window.location.origin;

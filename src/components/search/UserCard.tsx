@@ -1,10 +1,10 @@
+import { User } from '@/models';
+import { useAppSelector } from '@/store/hooks';
+import { selectCurrentUser } from '@/store/slices/userSlice';
 import { AccountCircleRounded } from '@mui/icons-material';
 import { Avatar, Box, CardContent, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { User } from '~/models';
-import { useAppSelector } from '~/store/hooks';
-import { selectCurrentUser } from '~/store/slices/userSlice';
 import { GrayButton, StyledCard, UserButtonGroup } from '../common';
 
 interface UserCardProps {

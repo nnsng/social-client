@@ -1,12 +1,12 @@
+import favicons from '@/assets/favicons';
+import { useAppSelector } from '@/store/hooks';
+import { selectUserConfig } from '@/store/slices/userSlice';
+import { env } from '@/utils/env';
+import { configTheme, themeVariables } from '@/utils/theme';
 import { CssBaseline, Theme, ThemeProvider } from '@mui/material';
 import i18next from 'i18next';
 import { ReactNode, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
-import { useAppSelector } from '~/store/hooks';
-import favicons from '~/assets/favicons';
-import { selectUserConfig } from '~/store/slices/userSlice';
-import { configTheme, themeVariables } from '~/utils/theme';
-import { env } from '~/utils/env';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 export interface CustomThemeProviderProps {

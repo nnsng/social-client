@@ -1,3 +1,11 @@
+import { authApi } from '@/api';
+import { AuthForm } from '@/components/auth';
+import { useAuthentication, usePageTitle } from '@/hooks';
+import { FormField, LoginFormValues } from '@/models';
+import { useAppSelector } from '@/store/hooks';
+import { selectAuthSubmitting } from '@/store/slices/userSlice';
+import { validateEmail } from '@/utils/common';
+import { showToast } from '@/utils/toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
@@ -6,14 +14,6 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { z } from 'zod';
-import { authApi } from '~/api';
-import { AuthForm } from '~/components/auth';
-import { useAuthentication, usePageTitle } from '~/hooks';
-import { FormField, LoginFormValues } from '~/models';
-import { useAppSelector } from '~/store/hooks';
-import { selectAuthSubmitting } from '~/store/slices/userSlice';
-import { validateEmail } from '~/utils/common';
-import { showToast } from '~/utils/toast';
 
 export function LoginPage() {
   const { t } = useTranslation('loginPage');

@@ -1,4 +1,4 @@
-import { ListParams, ListResponse, Post } from '~/models';
+import { ListParams, ListResponse, Post } from '@/models';
 import axiosClient from './axiosClient';
 
 export const postApi = {

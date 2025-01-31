@@ -1,8 +1,8 @@
+import { userApi } from '@/api';
+import { FollowAction, User } from '@/models';
+import { useAppDispatch } from '@/store/hooks';
+import { userActions } from '@/store/slices/userSlice';
 import { useState } from 'react';
-import { userApi } from '~/api';
-import { useAppDispatch } from '~/store/hooks';
-import { FollowAction, User } from '~/models';
-import { userActions } from '~/store/slices/userSlice';
 
 export function useFollowUser(updateUser?: (user: Partial<User>) => void) {
   const dispatch = useAppDispatch();

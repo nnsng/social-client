@@ -1,12 +1,12 @@
+import { Post } from '@/models';
+import { useAppSelector } from '@/store/hooks';
+import { selectCurrentUser } from '@/store/slices/userSlice';
 import {
   ChatBubbleOutlineRounded,
   FavoriteBorderRounded,
   FavoriteRounded,
 } from '@mui/icons-material';
 import { Box, Button, Stack, Typography } from '@mui/material';
-import { useAppSelector } from '~/store/hooks';
-import { Post } from '~/models';
-import { selectCurrentUser } from '~/store/slices/userSlice';
 
 export interface PostReactionProps {
   post: Post | null;

@@ -1,3 +1,8 @@
+import { authApi } from '@/api';
+import { PageTitle } from '@/components/common';
+import { usePageTitle } from '@/hooks';
+import { ChangePasswordFormValues } from '@/models';
+import { themeMixins } from '@/utils/theme';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, CircularProgress, Container, Stack } from '@mui/material';
 import queryString from 'query-string';
@@ -5,11 +10,6 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
-import { authApi } from '~/api';
-import { PageTitle } from '~/components/common';
-import { usePageTitle } from '~/hooks';
-import { ChangePasswordFormValues } from '~/models';
-import { themeMixins } from '~/utils/theme';
 import { MuiTextField } from '../formFields';
 
 export function UpdatePasswordForm() {

@@ -1,14 +1,14 @@
+import { AuthForm } from '@/components/auth';
+import { useAuthentication, usePageTitle } from '@/hooks';
+import { FormField, RegisterFormValues } from '@/models';
+import { useAppSelector } from '@/store/hooks';
+import { selectAuthSubmitting } from '@/store/slices/userSlice';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { z } from 'zod';
-import { AuthForm } from '~/components/auth';
-import { useAuthentication, usePageTitle } from '~/hooks';
-import { FormField, RegisterFormValues } from '~/models';
-import { useAppSelector } from '~/store/hooks';
-import { selectAuthSubmitting } from '~/store/slices/userSlice';
 
 export function RegisterPage() {
   const { t } = useTranslation('registerPage');

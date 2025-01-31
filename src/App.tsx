@@ -1,11 +1,11 @@
+import { userApi } from '@/api';
+import { CustomScrollbar } from '@/components/common';
+import { useAppDispatch } from '@/store/hooks';
+import { socketActions } from '@/store/slices/socketSlice';
+import { env } from '@/utils/env';
 import { useEffect } from 'react';
 import { Route, RouteObject, Routes } from 'react-router-dom';
 import { io } from 'socket.io-client';
-import { userApi } from '~/api';
-import { CustomScrollbar } from '~/components/common';
-import { useAppDispatch } from '~/store/hooks';
-import { socketActions } from '~/store/slices/socketSlice';
-import { env } from '~/utils/env';
 import { SocketClient } from './components/socket';
 import { ACCESS_TOKEN } from './constants';
 import { useAuthentication } from './hooks';

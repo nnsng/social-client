@@ -1,14 +1,14 @@
+import { authApi } from '@/api';
+import { PageTitle } from '@/components/common';
+import { SettingForm, SettingTabs } from '@/components/settings';
+import { usePageTitle } from '@/hooks';
+import { ChangePasswordFormValues, SettingTabItem, User, type SettingTab } from '@/models';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { selectCurrentUser, updateCurrentUserAsync } from '@/store/slices/userSlice';
+import { themeMixins } from '@/utils/theme';
 import { Box, Paper, Stack } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Navigate, useParams } from 'react-router-dom';
-import { authApi } from '~/api';
-import { PageTitle } from '~/components/common';
-import { SettingForm, SettingTabs } from '~/components/settings';
-import { usePageTitle } from '~/hooks';
-import { ChangePasswordFormValues, SettingTabItem, User, type SettingTab } from '~/models';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { selectCurrentUser, updateCurrentUserAsync } from '~/store/slices/userSlice';
-import { themeMixins } from '~/utils/theme';
 
 export function SettingsPage() {
   const { tab: activeTab } = useParams<{ tab: SettingTab }>();

@@ -1,4 +1,4 @@
-import { User } from '~/models';
+import { User } from '@/models';
 import axiosClient from './axiosClient';
 
 export const userApi = {

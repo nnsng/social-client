@@ -1,12 +1,12 @@
+import { postApi } from '@/api';
+import { CreateEditForm } from '@/components/post';
+import { usePageTitle } from '@/hooks';
+import { Post } from '@/models';
+import { useAppSelector } from '@/store/hooks';
+import { selectCurrentUser } from '@/store/slices/userSlice';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
-import { postApi } from '~/api';
-import { useAppSelector } from '~/store/hooks';
-import { CreateEditForm } from '~/components/post';
-import { usePageTitle } from '~/hooks';
-import { Post } from '~/models';
-import { selectCurrentUser } from '~/store/slices/userSlice';
 
 export function CreateEditPage() {
   const navigate = useNavigate();

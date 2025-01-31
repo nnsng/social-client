@@ -1,14 +1,14 @@
+import { postApi, userApi } from '@/api';
+import { PostList } from '@/components/post';
+import { UserCard } from '@/components/search';
+import { usePageTitle } from '@/hooks';
+import { Post, SearchApiType, User } from '@/models';
+import { slugifyString } from '@/utils/common';
 import { Box, List, ListItem, Typography } from '@mui/material';
 import queryString from 'query-string';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useParams } from 'react-router-dom';
-import { postApi, userApi } from '~/api';
-import { PostList } from '~/components/post';
-import { UserCard } from '~/components/search';
-import { usePageTitle } from '~/hooks';
-import { Post, SearchApiType, User } from '~/models';
-import { slugifyString } from '~/utils/common';
 
 export type SearchResultType = Post | Partial<User>;
 

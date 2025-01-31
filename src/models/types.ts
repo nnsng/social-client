@@ -1,4 +1,4 @@
-import { postApi, userApi } from '~/api';
+import { postApi, userApi } from '@/api';
 
 export type PostByTypes = 'all' | 'following';
 

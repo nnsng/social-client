@@ -1,3 +1,6 @@
+import { ActionMenu } from '@/components/common';
+import { useAuthentication } from '@/hooks';
+import { MenuOption } from '@/models';
 import {
   AccountCircleRounded,
   ArrowDropDownRounded,
@@ -8,9 +11,6 @@ import { Avatar, Stack, Typography } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { ActionMenu } from '~/components/common';
-import { useAuthentication } from '~/hooks';
-import { MenuOption } from '~/models';
 
 export function UserActions() {
   const navigate = useNavigate();

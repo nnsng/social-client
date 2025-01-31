@@ -1,7 +1,7 @@
+import images from '@/assets/images';
+import { themeMixins } from '@/utils/theme';
 import { Box, Stack } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-import images from '~/assets/images';
-import { themeMixins } from '~/utils/theme';
 
 export function LoginLayout() {
   return (

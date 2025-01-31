@@ -1,4 +1,4 @@
-import { Comment } from '~/models';
+import { Comment } from '@/models';
 import axiosClient from './axiosClient';
 
 export const commentApi = {
