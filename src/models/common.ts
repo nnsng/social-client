@@ -56,9 +56,11 @@ export interface SidebarItem {
   onClick?: () => void;
 }
 
+export type SettingTab = 'profile' | 'password';
+
 export interface SettingTabItem {
   label: string;
-  tab: string;
+  tab: SettingTab;
 }
 
 export interface SearchParams {

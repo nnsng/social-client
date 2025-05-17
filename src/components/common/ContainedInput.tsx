@@ -1,7 +1,7 @@
 import { SendRounded } from '@mui/icons-material';
 import { OutlinedInput, OutlinedInputProps } from '@mui/material';
 
-export interface ContainedInputProps extends OutlinedInputProps {
+interface ContainedInputProps extends OutlinedInputProps {
   onSubmit?: () => void;
 }
 

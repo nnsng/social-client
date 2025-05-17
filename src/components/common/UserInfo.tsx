@@ -1,12 +1,12 @@
+import { ActionMenu, StyledCard, UserButtonGroup } from '@/components/common';
+import { MenuOption, User } from '@/models';
+import { showComingSoonToast } from '@/utils/toast';
 import { FlagRounded, PersonOffRounded } from '@mui/icons-material';
 import { Avatar, Box, Stack, Typography } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActionMenu, StyledCard, UserButtonGroup } from '~/components/common';
-import { MenuOption, User } from '~/models';
-import { showComingSoonToast } from '~/utils/toast';
 
-export interface UserInfoProps {
+interface UserInfoProps {
   userInfo: Partial<User>;
   updateUser?: (user: Partial<User>) => void;
 }

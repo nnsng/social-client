@@ -1,10 +1,9 @@
-import { SETTING_TABS } from '~/constants';
-import { ChangePasswordFormValues, User } from '~/models';
+import { ChangePasswordFormValues, User, type SettingTab } from '@/models';
 import { ChangePasswordForm } from './ChangePasswordForm';
 import { EditProfileForm } from './EditProfileForm';
 
 interface SettingFormProps {
-  activeTab: string;
+  activeTab: SettingTab;
   user: User | null;
   onUpdateProfile?: (values: Partial<User>) => void;
   onChangePassword?: (values: ChangePasswordFormValues) => void;
@@ -14,13 +13,11 @@ interface SettingFormProps {
 export function SettingForm(props: SettingFormProps) {
   const { activeTab, user, onUpdateProfile, onChangePassword, onForgotPassword } = props;
 
-  const { EDIT_PROFILE, CHANGE_PASSWORD } = SETTING_TABS;
-
   if (!user) return null;
 
   return (
     <>
-      {activeTab === EDIT_PROFILE && (
+      {activeTab === 'profile' && (
         <EditProfileForm
           defaultValues={{
             name: user?.name,
@@ -33,10 +30,9 @@ export function SettingForm(props: SettingFormProps) {
         />
       )}
 
-      {activeTab === CHANGE_PASSWORD && (
+      {activeTab === 'password' && (
         <ChangePasswordForm
           defaultValues={{
-            userId: user?._id,
             currentPassword: '',
             newPassword: '',
             confirmPassword: '',

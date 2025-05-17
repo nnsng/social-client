@@ -1,20 +1,20 @@
-import { Grid } from '@mui/material';
-import queryString from 'query-string';
-import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { postApi, userApi } from '~/api';
-import { Suggestions } from '~/components/common';
-import { PostFilter, PostList } from '~/components/post';
-import { APP_NAME } from '~/constants';
-import { usePageTitle } from '~/hooks';
-import { ListParams, Post, User } from '~/models';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { postApi, userApi } from '@/api';
+import { Suggestions } from '@/components/common';
+import { PostFilter, PostList } from '@/components/post';
+import { APP_NAME } from '@/constants';
+import { usePageTitle } from '@/hooks';
+import { ListParams, Post, User } from '@/models';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   fetchPostList,
   selectPostList,
   selectPostLoading,
   selectTotalPages,
-} from '~/store/slices/postSlice';
+} from '@/store/slices/postSlice';
+import { Grid } from '@mui/material';
+import queryString from 'query-string';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const MAX_SUGGEST_USERS = 3;
 

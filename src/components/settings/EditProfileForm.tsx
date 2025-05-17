@@ -1,3 +1,4 @@
+import { User, type UserFormValues } from '@/models';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, CircularProgress, Stack } from '@mui/material';
 import i18next from 'i18next';
@@ -5,10 +6,9 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
-import { User } from '~/models';
 import { MuiTextField } from '../formFields';
 import { AvatarField } from './AvatarField';
-export interface EditProfileFormProps {
+interface EditProfileFormProps {
   defaultValues: Partial<User>;
   onSubmit?: (formValues: Partial<User>) => void;
 }
@@ -41,7 +41,7 @@ export function EditProfileForm(props: EditProfileFormProps) {
     setValue,
     clearErrors,
     formState: { isSubmitting },
-  } = useForm<Partial<User>>({
+  } = useForm<UserFormValues>({
     defaultValues,
     resolver: zodResolver(schema),
   });

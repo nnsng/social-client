@@ -19,6 +19,8 @@ export interface User {
   createdAt?: string;
 }
 
+export type UserFormValues = Required<Pick<User, 'name' | 'avatar' | 'username' | 'email' | 'bio'>>;
+
 export interface UserConfig {
   theme: PaletteMode;
   mainColor: string;

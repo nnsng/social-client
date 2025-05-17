@@ -11,7 +11,7 @@ import { useState } from 'react';
 import { Control, useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
-export interface MuiTextFieldProps extends OutlinedTextFieldProps {
+interface MuiTextFieldProps extends OutlinedTextFieldProps {
   name: string;
   control: Control<any>;
   label?: string;

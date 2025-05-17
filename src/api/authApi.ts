@@ -3,7 +3,8 @@ import {
   ChangePasswordFormValues,
   LoginFormValues,
   RegisterFormValues,
-} from '~/models';
+  type CreatePasswordFormValues,
+} from '@/models';
 import axiosClient from './axiosClient';
 
 const clientUrl = window.location.origin;
@@ -13,9 +14,9 @@ export const authApi = {
     const url = '/auth/login';
     return axiosClient.post(url, data);
   },
-  googleLogin(idToken: string): Promise<AuthResponse> {
+  googleLogin(accessToken: string): Promise<AuthResponse> {
     const url = '/auth/google-login';
-    return axiosClient.post(url, { idToken });
+    return axiosClient.post(url, { accessToken });
   },
   register(data: RegisterFormValues) {
     const url = '/auth/register';
@@ -37,7 +38,7 @@ export const authApi = {
     const url = '/auth/password/forgot';
     return axiosClient.post(url, { email }, { params: { clientUrl } });
   },
-  resetPassword(data: ChangePasswordFormValues) {
+  resetPassword(data: ChangePasswordFormValues | CreatePasswordFormValues) {
     const url = '/auth/password/reset';
     return axiosClient.post(url, data);
   },

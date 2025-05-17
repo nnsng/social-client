@@ -1,6 +1,6 @@
+import { ListParams, PostByTypes } from '@/models';
 import { MenuItem, Select, SelectChangeEvent, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { ListParams, PostByTypes } from '~/models';
 
 interface PostFilterProps {
   filter: Partial<ListParams>;

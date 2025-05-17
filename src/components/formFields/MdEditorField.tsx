@@ -1,7 +1,7 @@
 import { Control, useController } from 'react-hook-form';
 import { MdEditor, MdEditorChange } from '../post';
 
-export interface MdEditorFieldProps {
+interface MdEditorFieldProps {
   name: string;
   control: Control<any>;
   placeholder?: string;

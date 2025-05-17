@@ -1,3 +1,7 @@
+import { LANGUAGES, THEME_COLORS } from '@/constants';
+import { UserConfigKey } from '@/models';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { selectUserConfig, userActions } from '@/store/slices/userSlice';
 import { CheckBoxRounded, CloseRounded, SquareRounded } from '@mui/icons-material';
 import {
   Dialog,
@@ -12,13 +16,9 @@ import {
 } from '@mui/material';
 import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LANGUAGES, THEME_COLORS } from '~/constants';
-import { UserConfigKey } from '~/models';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { selectUserConfig, userActions } from '~/store/slices/userSlice';
 import { ThemeSwitch } from '.';
 
-export interface AppearanceDialogProps {
+interface AppearanceDialogProps {
   open: boolean;
   onClose: () => void;
 }

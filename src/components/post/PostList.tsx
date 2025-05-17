@@ -1,10 +1,10 @@
+import { NoPost } from '@/components/common';
+import { PostCardSkeleton } from '@/components/skeletons';
+import { Post } from '@/models';
 import { Box, List, ListItem, Pagination, Stack } from '@mui/material';
-import { NoPost } from '~/components/common';
-import { PostCardSkeleton } from '~/components/skeletons';
-import { Post } from '~/models';
 import { PostCard } from './PostCard';
 
-export interface PostListProps {
+interface PostListProps {
   postList: Post[];
   page?: {
     current: number;

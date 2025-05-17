@@ -1,9 +1,9 @@
+import { useAppSelector } from '@/store/hooks';
+import { selectSocket } from '@/store/slices/socketSlice';
+import { selectCurrentUser } from '@/store/slices/userSlice';
 import { useEffect } from 'react';
-import { useAppSelector } from '~/store/hooks';
-import { selectCurrentUser } from '~/store/slices/userSlice';
-import { selectSocket } from '~/store/slices/socketSlice';
-import { CommentSocket } from './CommentSocket';
 import { Socket } from 'socket.io-client';
+import { CommentSocket } from './CommentSocket';
 import { NotificationSocket } from './NotificationSocket';
 
 export interface SocketProps {

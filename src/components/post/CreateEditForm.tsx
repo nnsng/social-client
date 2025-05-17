@@ -1,3 +1,8 @@
+import { FileInputField, InputField, MdEditorField, MuiTextField } from '@/components/formFields';
+import { useCustomMediaQuery } from '@/hooks';
+import { Post, type PostFormValues } from '@/models';
+import { delay } from '@/utils/common';
+import { themeMixins, themeVariables } from '@/utils/theme';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Box,
@@ -14,15 +19,10 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { z } from 'zod';
-import { FileInputField, InputField, MdEditorField, MuiTextField } from '~/components/formFields';
-import { useCustomMediaQuery } from '~/hooks';
-import { Post } from '~/models';
-import { delay } from '~/utils/common';
-import { themeMixins, themeVariables } from '~/utils/theme';
 
-export interface CreateEditFormProps {
+interface CreateEditFormProps {
   defaultValues: Post;
-  onSubmit?: (data: Post) => void;
+  onSubmit?: (data: PostFormValues) => void;
   isNewPost?: boolean;
 }
 
@@ -51,7 +51,7 @@ export function CreateEditForm(props: CreateEditFormProps) {
     reset,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm<Post>({
+  } = useForm<PostFormValues>({
     defaultValues,
     resolver: zodResolver(schema),
   });
@@ -89,7 +89,7 @@ export function CreateEditForm(props: CreateEditFormProps) {
     setValue('thumbnail', '');
   };
 
-  const handleFormSubmit = async (formValues: Post) => {
+  const handleFormSubmit = async (formValues: PostFormValues) => {
     try {
       await onSubmit?.(formValues);
     } catch (error) {}

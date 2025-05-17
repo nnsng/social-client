@@ -1,3 +1,11 @@
+import { ConfirmDialog, StyledCard } from '@/components/common';
+import { ROLE } from '@/constants';
+import { Post } from '@/models';
+import { useAppSelector } from '@/store/hooks';
+import { selectCurrentUser } from '@/store/slices/userSlice';
+import { copyPostLink } from '@/utils/common';
+import { themeMixins } from '@/utils/theme';
+import { showComingSoonToast, showToast } from '@/utils/toast';
 import {
   BookmarkRemoveRounded,
   BookmarkRounded,
@@ -12,14 +20,6 @@ import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import { Link, useNavigate } from 'react-router-dom';
 import remarkGfm from 'remark-gfm';
-import { ConfirmDialog, StyledCard } from '~/components/common';
-import { ROLE } from '~/constants';
-import { Post } from '~/models';
-import { useAppSelector } from '~/store/hooks';
-import { selectCurrentUser } from '~/store/slices/userSlice';
-import { copyPostLink } from '~/utils/common';
-import { themeMixins } from '~/utils/theme';
-import { showComingSoonToast, showToast } from '~/utils/toast';
 import { PostCardHeader } from './PostCardHeader';
 
 const allowedElements = [
@@ -41,7 +41,7 @@ const allowedElements = [
   'span',
 ];
 
-export interface PostCardProps {
+interface PostCardProps {
   post: Post;
   onSave?: (post: Post) => void;
   onUnsave?: (post: Post) => void;

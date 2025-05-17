@@ -1,7 +1,7 @@
+import images from '@/assets/images';
+import { themeMixins } from '@/utils/theme';
 import { Box, Stack } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-import images from '~/assets/images';
-import { themeMixins } from '~/utils/theme';
 
 export function LoginLayout() {
   return (
@@ -31,7 +31,7 @@ export function LoginLayout() {
           width: '100%',
           maxWidth: 640,
           height: { xs: '100vh', sm: 'fit-content' },
-          minHeight: 600,
+          // minHeight: 600,
           py: 6,
           px: { xs: 4, sm: 16 },
           m: 'auto',

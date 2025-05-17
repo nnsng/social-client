@@ -1,7 +1,7 @@
+import { usePageTitle } from '@/hooks';
+import { themeVariables } from '@/utils/theme';
 import { Box, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { usePageTitle } from '~/hooks';
-import { themeVariables } from '~/utils/theme';
 
 export function NotFoundPage() {
   const { t } = useTranslation('notFoundPage');

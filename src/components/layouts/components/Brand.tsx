@@ -1,6 +1,6 @@
+import { APP_NAME } from '@/constants';
 import { Avatar, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { APP_NAME } from '~/constants';
 
 export function Brand() {
   const navigate = useNavigate();

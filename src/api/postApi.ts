@@ -1,4 +1,4 @@
-import { ListParams, ListResponse, Post } from '~/models';
+import { ListParams, ListResponse, Post, type PostFormValues } from '@/models';
 import axiosClient from './axiosClient';
 
 export const postApi = {
@@ -18,11 +18,11 @@ export const postApi = {
     const url = `/posts/${id}`;
     return axiosClient.get(url);
   },
-  create(data: Post): Promise<Post> {
+  create(data: PostFormValues): Promise<Post> {
     const url = '/posts';
     return axiosClient.post(url, data);
   },
-  update(data: Post): Promise<Post> {
+  update(data: PostFormValues): Promise<Post> {
     const url = `/posts/${data._id}`;
     return axiosClient.patch(url, data);
   },

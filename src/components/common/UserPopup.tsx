@@ -1,11 +1,11 @@
+import { useCustomMediaQuery } from '@/hooks';
+import { User } from '@/models';
+import { themeMixins } from '@/utils/theme';
 import { Avatar, Box, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
-import { useCustomMediaQuery } from '~/hooks';
-import { User } from '~/models';
-import { themeMixins } from '~/utils/theme';
 import { PopperWrapper, PopperWrapperProps, UserButtonGroup } from '.';
 
-export interface UserPopupProps extends Omit<PopperWrapperProps, 'children'> {
+interface UserPopupProps extends Omit<PopperWrapperProps, 'children'> {
   user: Partial<User>;
 }
 

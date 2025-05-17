@@ -1,23 +1,17 @@
+import { authApi } from '@/api';
+import { PageTitle } from '@/components/common';
+import { SettingForm, SettingTabs } from '@/components/settings';
+import { usePageTitle } from '@/hooks';
+import { ChangePasswordFormValues, SettingTabItem, User, type SettingTab } from '@/models';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { selectCurrentUser, updateCurrentUserAsync } from '@/store/slices/userSlice';
+import { themeMixins } from '@/utils/theme';
 import { Box, Paper, Stack } from '@mui/material';
-import queryString from 'query-string';
 import { useTranslation } from 'react-i18next';
-import { Navigate, useLocation } from 'react-router-dom';
-import { authApi } from '~/api';
-import { PageTitle } from '~/components/common';
-import { SettingForm, SettingTabs } from '~/components/settings';
-import { SETTING_TABS } from '~/constants';
-import { usePageTitle } from '~/hooks';
-import { ChangePasswordFormValues, SettingTabItem, User } from '~/models';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { selectCurrentUser, updateCurrentUserAsync } from '~/store/slices/userSlice';
-import { themeMixins } from '~/utils/theme';
+import { Navigate, useParams } from 'react-router-dom';
 
 export function SettingsPage() {
-  const location = useLocation();
-  const { tab: activeTab } = queryString.parse(location.search) as { tab: string | undefined };
-
-  const { EDIT_PROFILE, CHANGE_PASSWORD } = SETTING_TABS;
-
+  const { tab: activeTab } = useParams<{ tab: SettingTab }>();
   const { t } = useTranslation('settingsPage');
 
   const dispatch = useAppDispatch();
@@ -41,18 +35,18 @@ export function SettingsPage() {
   const tabs: SettingTabItem[] = [
     {
       label: t('tabs.editProfile'),
-      tab: EDIT_PROFILE,
+      tab: 'profile',
     },
     {
       label: t('tabs.changePassword'),
-      tab: CHANGE_PASSWORD,
+      tab: 'password',
     },
   ];
 
-  const tabsValue = tabs.map((tab) => tab.tab);
+  const isValidTab = tabs.some((tab) => tab.tab === activeTab);
 
-  if (!activeTab || !tabsValue.includes(activeTab)) {
-    return <Navigate to={`/settings?tab=${tabsValue[0]}`} replace />;
+  if (!activeTab || !isValidTab) {
+    return <Navigate to={`/settings/profile`} replace />;
   }
 
   return (

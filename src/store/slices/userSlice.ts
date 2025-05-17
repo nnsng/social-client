@@ -1,6 +1,5 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { authApi, userApi } from '~/api';
-import { ACCESS_TOKEN, CONFIG } from '~/constants';
+import { authApi, userApi } from '@/api';
+import { StorageKey } from '@/constants';
 import {
   AuthPayload,
   GoogleAuthPayload,
@@ -9,9 +8,10 @@ import {
   User,
   UserConfig,
   UserConfigKey,
-} from '~/models';
-import { RootState } from '~/store';
-import { showToast } from '~/utils/toast';
+} from '@/models';
+import { RootState } from '@/store';
+import { showToast } from '@/utils/toast';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export const login = createAsyncThunk(
   'user/login',
@@ -19,7 +19,7 @@ export const login = createAsyncThunk(
     try {
       const { formValues, navigate } = payload;
       const { user, token } = await authApi.login(formValues);
-      localStorage.setItem(ACCESS_TOKEN, token);
+      localStorage.setItem(StorageKey.ACCESS_TOKEN, token);
       navigate?.('/', { replace: true });
       return user;
     } catch (error) {
@@ -32,15 +32,15 @@ export const googleLogin = createAsyncThunk(
   'user/googleLogin',
   async (payload: GoogleAuthPayload, { rejectWithValue }) => {
     try {
-      const { token, navigate } = payload;
-      const { user, activeToken } = await authApi.googleLogin(token);
+      const { token: googleToken, navigate } = payload;
+      const { user, activeToken, token } = await authApi.googleLogin(googleToken);
 
       if (activeToken) {
         navigate?.(`/create-password?token=${activeToken}`);
         return null;
       }
 
-      localStorage.setItem(ACCESS_TOKEN, token);
+      localStorage.setItem(StorageKey.ACCESS_TOKEN, token);
       navigate?.('/', { replace: true });
       return user;
     } catch (error) {
@@ -82,7 +82,7 @@ interface UserState {
   config: UserConfig;
 }
 
-const localConfig = JSON.parse(localStorage.getItem(CONFIG) || '{}');
+const localConfig = JSON.parse(localStorage.getItem(StorageKey.CONFIG) || '{}');
 
 const initialState: UserState = {
   submitting: false,
@@ -116,7 +116,7 @@ const userSlice = createSlice({
     updateConfig(state, action: PayloadAction<{ name: UserConfigKey; value: any }>) {
       const { name, value } = action.payload;
       state.config[name] = value;
-      localStorage.setItem(CONFIG, JSON.stringify(state.config));
+      localStorage.setItem(StorageKey.CONFIG, JSON.stringify(state.config));
     },
   },
   extraReducers(builder) {

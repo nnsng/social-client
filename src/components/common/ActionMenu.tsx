@@ -1,10 +1,10 @@
+import { useCustomMediaQuery } from '@/hooks';
+import { MenuOption } from '@/models';
 import { Drawer, MenuItem, MenuList, PopperProps } from '@mui/material';
-import { useCustomMediaQuery } from '~/hooks';
-import { MenuOption } from '~/models';
-import { PopperWrapper } from '.';
 import { ReactNode } from 'react';
+import { PopperWrapper } from '.';
 
-export interface ActionMenuProps extends PopperProps {
+interface ActionMenuProps extends PopperProps {
   menu: MenuOption[];
   onClose?: () => void;
 }

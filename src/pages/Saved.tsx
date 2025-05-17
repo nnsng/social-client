@@ -1,18 +1,18 @@
-import { Grid, List } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { postApi } from '~/api';
-import { PageTitle } from '~/components/common';
-import { PostList } from '~/components/post';
-import { usePageTitle } from '~/hooks';
-import { Post } from '~/models';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
+import { postApi } from '@/api';
+import { PageTitle } from '@/components/common';
+import { PostList } from '@/components/post';
+import { usePageTitle } from '@/hooks';
+import { Post } from '@/models';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
   fetchSavedList,
   selectPostList,
   selectPostLoading,
   selectTotalPages,
-} from '~/store/slices/postSlice';
+} from '@/store/slices/postSlice';
+import { Grid, List } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export function SavedPage() {
   const { t } = useTranslation('savedPage');

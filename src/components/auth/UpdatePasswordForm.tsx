@@ -1,3 +1,8 @@
+import { authApi } from '@/api';
+import { PageTitle } from '@/components/common';
+import { usePageTitle } from '@/hooks';
+import { ChangePasswordFormValues, type CreatePasswordFormValues } from '@/models';
+import { themeMixins } from '@/utils/theme';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, CircularProgress, Container, Stack } from '@mui/material';
 import queryString from 'query-string';
@@ -5,11 +10,6 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
-import { authApi } from '~/api';
-import { PageTitle } from '~/components/common';
-import { usePageTitle } from '~/hooks';
-import { ChangePasswordFormValues } from '~/models';
-import { themeMixins } from '~/utils/theme';
 import { MuiTextField } from '../formFields';
 
 export function UpdatePasswordForm() {
@@ -22,6 +22,7 @@ export function UpdatePasswordForm() {
 
   const schema = z
     .object({
+      token: z.string(),
       newPassword: z.string().min(6, tValidate('password.min', { min: 6 })),
       confirmPassword: z.string().min(6, tValidate('password.min', { min: 6 })),
     })
@@ -34,7 +35,7 @@ export function UpdatePasswordForm() {
     control,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm<ChangePasswordFormValues>({
+  } = useForm<CreatePasswordFormValues>({
     defaultValues: {
       token,
       newPassword: '',
@@ -43,7 +44,7 @@ export function UpdatePasswordForm() {
     resolver: zodResolver(schema),
   });
 
-  const submitForm = async (formValues: ChangePasswordFormValues) => {
+  const submitForm = async (formValues: CreatePasswordFormValues) => {
     await authApi.resetPassword(formValues);
     navigate('/login', { replace: true });
   };

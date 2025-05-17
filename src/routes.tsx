@@ -37,7 +37,7 @@ const publicRoutes: RouteObject[] = [
         element: <ActiveAccount />,
       },
       {
-        path: '/password',
+        path: '/create-password',
         element: <UpdatePasswordForm />,
       },
     ],
@@ -87,7 +87,7 @@ const privateRoutes: RouteObject[] = [
         element: <ProfilePage />,
       },
       {
-        path: '/settings',
+        path: '/settings/:tab',
         element: <SettingsPage />,
       },
       {

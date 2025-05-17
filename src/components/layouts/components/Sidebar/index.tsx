@@ -1,3 +1,9 @@
+import { AppearanceDialog, Notifications } from '@/components/common';
+import { SidebarItem } from '@/models';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { configActions, selectOpenSidebar } from '@/store/slices/configSlice';
+import { themeMixins } from '@/utils/theme';
+import { showComingSoonToast } from '@/utils/toast';
 import {
   AddCircleOutlineOutlined,
   AddCircleRounded,
@@ -24,12 +30,6 @@ import {
 import { Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { AppearanceDialog, Notifications } from '~/components/common';
-import { SidebarItem } from '~/models';
-import { useAppDispatch, useAppSelector } from '~/store/hooks';
-import { configActions, selectOpenSidebar } from '~/store/slices/configSlice';
-import { themeMixins } from '~/utils/theme';
-import { showComingSoonToast } from '~/utils/toast';
 import { SidebarWrapper } from './SidebarWrapper';
 
 interface SidebarProps {

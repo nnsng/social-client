@@ -1,9 +1,9 @@
+import { otherApi } from '@/api';
+import { Post, SearchResult, User } from '@/models';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import i18next from 'i18next';
 import slugify from 'slugify';
-import { otherApi } from '~/api';
-import { Post, SearchResult, User } from '~/models';
 import { showToast } from './toast';
 
 import 'dayjs/locale/vi';

@@ -1,3 +1,7 @@
+import { notificationApi } from '@/api';
+import { Notification } from '@/models';
+import { useAppSelector } from '@/store/hooks';
+import { selectCurrentUser } from '@/store/slices/userSlice';
 import { CloseRounded } from '@mui/icons-material';
 import {
   Avatar,
@@ -14,11 +18,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { notificationApi } from '~/api';
 import { themeMixins } from 'utils/theme';
-import { Notification } from '~/models';
-import { useAppSelector } from '~/store/hooks';
-import { selectCurrentUser } from '~/store/slices/userSlice';
 
 const NUMBER_OF_NAME_TO_SHOW = 1;
 

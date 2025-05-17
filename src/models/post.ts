@@ -5,7 +5,7 @@ export interface Post {
   title: string;
   content: string;
   thumbnail: string;
-  description?: string;
+  description: string;
   authorId: string;
   author?: User;
   likes?: string[];
@@ -14,6 +14,8 @@ export interface Post {
   slug?: string;
   createdAt?: string;
 }
+
+export type PostFormValues = Pick<Post, '_id' | 'title' | 'content' | 'thumbnail' | 'description'>;
 
 export interface Comment {
   _id?: string;

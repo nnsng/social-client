@@ -1,11 +1,11 @@
+import { FileInputField } from '@/components/formFields';
 import { CloudUploadRounded } from '@mui/icons-material';
 import { Avatar, Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
+import { TFunction } from 'i18next';
 import { useState } from 'react';
 import { Control } from 'react-hook-form';
-import { TFunction } from 'i18next';
-import { FileInputField } from '~/components/formFields';
 
-export interface AvatarFieldProps {
+interface AvatarFieldProps {
   name: string;
   control: Control<any>;
   avatarUrl?: string;

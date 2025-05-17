@@ -1,10 +1,10 @@
+import { useCustomMediaQuery } from '@/hooks';
+import { useAppDispatch } from '@/store/hooks';
+import { configActions } from '@/store/slices/configSlice';
+import { themeVariables } from '@/utils/theme';
 import { MenuOutlined } from '@mui/icons-material';
 import { Drawer, IconButton, Stack } from '@mui/material';
 import { ReactNode } from 'react';
-import { useCustomMediaQuery } from '~/hooks';
-import { useAppDispatch } from '~/store/hooks';
-import { configActions } from '~/store/slices/configSlice';
-import { themeVariables } from '~/utils/theme';
 
 interface SidebarWrapperProps {
   type: 'normal' | 'drawer';

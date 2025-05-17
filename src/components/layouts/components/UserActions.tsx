@@ -1,3 +1,6 @@
+import { ActionMenu } from '@/components/common';
+import { useAuth } from '@/hooks';
+import { MenuOption } from '@/models';
 import {
   AccountCircleRounded,
   ArrowDropDownRounded,
@@ -8,16 +11,13 @@ import { Avatar, Stack, Typography } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { ActionMenu } from '~/components/common';
-import { useAuthentication } from '~/hooks';
-import { MenuOption } from '~/models';
 
 export function UserActions() {
   const navigate = useNavigate();
 
   const { t } = useTranslation('header');
 
-  const { logout, currentUser } = useAuthentication();
+  const { onLogout, currentUser } = useAuth();
 
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -37,12 +37,12 @@ export function UserActions() {
     {
       label: t('user.settings'),
       icon: SettingsRounded,
-      onClick: () => navigateTo('/settings'),
+      onClick: () => navigateTo('/settings/profile'),
     },
     {
       label: t('user.logout'),
       icon: LogoutOutlined,
-      onClick: logout,
+      onClick: onLogout,
     },
   ];
 

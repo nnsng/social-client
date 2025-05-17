@@ -1,7 +1,7 @@
+import { Comment } from '@/models';
+import { useAppDispatch } from '@/store/hooks';
+import { commentActions } from '@/store/slices/commentSlice';
 import { useEffect } from 'react';
-import { Comment } from '~/models';
-import { useAppDispatch } from '~/store/hooks';
-import { commentActions } from '~/store/slices/commentSlice';
 import { SocketProps } from './SocketClient';
 
 const EVENTS = {

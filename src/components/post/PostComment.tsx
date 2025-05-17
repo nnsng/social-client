@@ -1,17 +1,17 @@
+import { ContainedInput } from '@/components/common';
+import { CommentItemSkeleton } from '@/components/skeletons';
+import { useKeyUp } from '@/hooks';
+import { Comment, CommentActionTypes } from '@/models';
+import { useAppSelector } from '@/store/hooks';
+import { selectCommentLoading } from '@/store/slices/commentSlice';
+import { selectCurrentUser } from '@/store/slices/userSlice';
 import { CloseRounded } from '@mui/icons-material';
 import { Avatar, CircularProgress, IconButton, List, Stack, Typography } from '@mui/material';
-import { useAppSelector } from '~/store/hooks';
-import { ContainedInput } from '~/components/common';
-import { CommentItemSkeleton } from '~/components/skeletons';
-import { selectCurrentUser } from '~/store/slices/userSlice';
-import { selectCommentLoading } from '~/store/slices/commentSlice';
-import { useKeyUp } from '~/hooks';
-import { Comment, CommentActionTypes } from '~/models';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CommentItem } from './CommentItem';
 
-export interface PostCommentProps {
+interface PostCommentProps {
   commentList: Comment[];
   postId: string;
   onClose?: () => void;
@@ -27,7 +27,7 @@ export function PostComment(props: PostCommentProps) {
   const loading = useAppSelector(selectCommentLoading);
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const inputRef = useRef<HTMLInputElement>();
+  const inputRef = useRef<HTMLInputElement>(null);
   const [input, setInput] = useState<string>('');
 
   useEffect(() => {

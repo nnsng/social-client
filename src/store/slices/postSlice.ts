@@ -1,7 +1,7 @@
+import { postApi } from '@/api';
+import { ListParams, PaginationParams, Post } from '@/models';
+import { RootState } from '@/store';
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { postApi } from '~/api';
-import { ListParams, PaginationParams, Post } from '~/models';
-import { RootState } from '~/store';
 
 const defaultParams = { page: 1, limit: 10 };
 

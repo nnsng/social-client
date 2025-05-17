@@ -1,3 +1,8 @@
+import { useFollowUser } from '@/hooks';
+import { MenuOption, User } from '@/models';
+import { useAppSelector } from '@/store/hooks';
+import { selectCurrentUser } from '@/store/slices/userSlice';
+import { showComingSoonToast } from '@/utils/toast';
 import {
   AccountCircleRounded,
   EditRounded,
@@ -12,14 +17,9 @@ import { Button, CircularProgress, Stack } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '~/store/hooks';
-import { useFollowUser } from '~/hooks';
-import { MenuOption, User } from '~/models';
-import { selectCurrentUser } from '~/store/slices/userSlice';
-import { showComingSoonToast } from '~/utils/toast';
 import { ActionMenu, GrayButton } from '.';
 
-export interface UserButtonGroupProps {
+interface UserButtonGroupProps {
   user: Partial<User>;
   updateUser?: (user: Partial<User>) => void;
   showActionMenu?: boolean;
@@ -105,9 +105,7 @@ export function UserButtonGroup({ user, updateUser, showActionMenu }: UserButton
           fullWidth
           sx={{ flex: 1 }}
           onClick={() => {
-            const url = isInProfilePage
-              ? '/settings?tab=edit-profile'
-              : `/profile/${user.username!}`;
+            const url = isInProfilePage ? '/settings/profile' : `/profile/${user.username!}`;
             navigate(url);
           }}
         >

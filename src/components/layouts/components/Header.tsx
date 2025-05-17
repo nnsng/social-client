@@ -1,7 +1,7 @@
+import { useAppSelector } from '@/store/hooks';
+import { selectPostLoading } from '@/store/slices/postSlice';
+import { themeMixins, themeVariables } from '@/utils/theme';
 import { Box, Container, LinearProgress, Stack } from '@mui/material';
-import { useAppSelector } from '~/store/hooks';
-import { selectPostLoading } from '~/store/slices/postSlice';
-import { themeMixins, themeVariables } from '~/utils/theme';
 import { Brand, SearchBox, Sidebar, UserActions } from '.';
 
 export function Header() {

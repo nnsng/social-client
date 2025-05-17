@@ -1,14 +1,14 @@
+import images from '@/assets/images';
+import { MuiTextField } from '@/components/formFields';
+import { APP_NAME } from '@/constants';
+import { FormField, LoginFormValues, RegisterFormValues } from '@/models';
 import { Avatar, Box, CircularProgress, Stack, Typography } from '@mui/material';
 import { FormEventHandler } from 'react';
 import { Control } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import images from '~/assets/images';
-import { MuiTextField } from '~/components/formFields';
-import { APP_NAME } from '~/constants';
-import { FormField, LoginFormValues, RegisterFormValues } from '~/models';
 import { AuthButton } from './AuthButton';
 
-export interface AuthFormProps {
+interface AuthFormProps {
   name: 'login' | 'register';
   control: Control<LoginFormValues> | Control<RegisterFormValues>;
   onSubmit: FormEventHandler<HTMLFormElement>;

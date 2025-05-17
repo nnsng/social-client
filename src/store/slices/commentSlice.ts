@@ -1,7 +1,7 @@
+import { commentApi } from '@/api';
+import { Comment } from '@/models';
+import { RootState } from '@/store';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '~/store';
-import { Comment } from '~/models';
-import { commentApi } from '~/api';
 
 export const fetchPostComments = createAsyncThunk(
   'comment/fetchPostComments',

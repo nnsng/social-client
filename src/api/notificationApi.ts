@@ -1,4 +1,4 @@
-import { Notification } from '~/models';
+import { Notification } from '@/models';
 import axiosClient from './axiosClient';
 
 export const notificationApi = {

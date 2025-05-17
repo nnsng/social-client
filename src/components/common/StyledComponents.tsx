@@ -1,6 +1,6 @@
+import { themeMixins } from '@/utils/theme';
 import { Button, Card, Switch } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { themeMixins } from '~/utils/theme';
 
 export const ThemeSwitch = styled(Switch)(({ theme }) => ({
   width: 62,

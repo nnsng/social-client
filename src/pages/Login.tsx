@@ -1,3 +1,11 @@
+import { authApi } from '@/api';
+import { AuthForm } from '@/components/auth';
+import { useAuth, usePageTitle } from '@/hooks';
+import { FormField, LoginFormValues } from '@/models';
+import { useAppSelector } from '@/store/hooks';
+import { selectAuthSubmitting } from '@/store/slices/userSlice';
+import { validateEmail } from '@/utils/common';
+import { showToast } from '@/utils/toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
@@ -6,14 +14,6 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { z } from 'zod';
-import { authApi } from '~/api';
-import { AuthForm } from '~/components/auth';
-import { useAuthentication, usePageTitle } from '~/hooks';
-import { FormField, LoginFormValues } from '~/models';
-import { useAppSelector } from '~/store/hooks';
-import { selectAuthSubmitting } from '~/store/slices/userSlice';
-import { validateEmail } from '~/utils/common';
-import { showToast } from '~/utils/toast';
 
 export function LoginPage() {
   const { t } = useTranslation('loginPage');
@@ -21,7 +21,7 @@ export function LoginPage() {
 
   const submitting = useAppSelector(selectAuthSubmitting);
 
-  const { login, googleLogin } = useAuthentication();
+  const { onLogin, onGoogleLogin } = useAuth();
 
   const [forgotLoading, setForgotLoading] = useState(false);
 
@@ -44,7 +44,7 @@ export function LoginPage() {
   });
 
   const submitForm = (formValues: LoginFormValues) => {
-    login(formValues);
+    onLogin(formValues);
   };
 
   const handleForgotPassword = async () => {
@@ -83,7 +83,7 @@ export function LoginPage() {
         fieldList={fieldList}
         onSubmit={handleSubmit(submitForm)}
         submitting={submitting}
-        onGoogleLogin={googleLogin}
+        onGoogleLogin={onGoogleLogin}
       />
 
       <Box textAlign="center" my={1}>

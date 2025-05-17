@@ -1,12 +1,12 @@
+import { User } from '@/models';
+import { useAppSelector } from '@/store/hooks';
+import { selectCurrentUser } from '@/store/slices/userSlice';
 import { Avatar, Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '~/store/hooks';
-import { User } from '~/models';
-import { selectCurrentUser } from '~/store/slices/userSlice';
 
-export interface SuggestionItemProps {
+interface SuggestionItemProps {
   item: Partial<User>;
   onFollow?: (userId: string) => void;
 }

@@ -1,26 +1,26 @@
+import { userApi } from '@/api';
+import { CustomScrollbar } from '@/components/common';
+import { useAppDispatch } from '@/store/hooks';
+import { socketActions } from '@/store/slices/socketSlice';
+import { env } from '@/utils/env';
 import { useEffect } from 'react';
 import { Route, RouteObject, Routes } from 'react-router-dom';
 import { io } from 'socket.io-client';
-import { userApi } from '~/api';
-import { CustomScrollbar } from '~/components/common';
-import { useAppDispatch } from '~/store/hooks';
-import { socketActions } from '~/store/slices/socketSlice';
-import { env } from '~/utils/env';
 import { SocketClient } from './components/socket';
-import { ACCESS_TOKEN } from './constants';
-import { useAuthentication } from './hooks';
+import { StorageKey } from './constants';
+import { useAuth } from './hooks';
 import routes from './routes';
 import { userActions } from './store/slices/userSlice';
 
 function App() {
   const dispatch = useAppDispatch();
 
-  const { logout } = useAuthentication();
+  const { onLogout } = useAuth();
 
   useEffect(() => {
     (async () => {
       try {
-        const token = localStorage.getItem(ACCESS_TOKEN) || '';
+        const token = localStorage.getItem(StorageKey.ACCESS_TOKEN) || '';
         if (!token) return;
 
         const user = await userApi.getCurrentUser();
@@ -28,7 +28,7 @@ function App() {
 
         dispatch(userActions.setCurrentUser(user));
       } catch (error) {
-        logout();
+        onLogout();
       }
     })();
   }, [dispatch]);
