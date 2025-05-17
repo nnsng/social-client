@@ -11,7 +11,7 @@ export interface MdEditorChange {
   text: string;
 }
 
-export interface MdEditorProps {
+interface MdEditorProps {
   onEditorChange?: (value: MdEditorChange) => void;
   readOnly?: boolean;
   value?: string;

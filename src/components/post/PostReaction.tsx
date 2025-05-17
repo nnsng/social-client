@@ -8,7 +8,7 @@ import {
 } from '@mui/icons-material';
 import { Box, Button, Stack, Typography } from '@mui/material';
 
-export interface PostReactionProps {
+interface PostReactionProps {
   post: Post | null;
   onOpenComment?: () => void;
   onLikePost?: () => void;

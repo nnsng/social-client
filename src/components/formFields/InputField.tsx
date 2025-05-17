@@ -1,7 +1,7 @@
 import { InputBase, InputBaseProps } from '@mui/material';
 import { Control, useController } from 'react-hook-form';
 
-export interface InputFieldProps extends InputBaseProps {
+interface InputFieldProps extends InputBaseProps {
   name: string;
   control: Control<any>;
 }

@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { MuiTextField } from '../formFields';
 
-export interface ChangePasswordFormProps {
+interface ChangePasswordFormProps {
   defaultValues: ChangePasswordFormValues;
   onSubmit?: (formValues: ChangePasswordFormValues) => void;
   onForgotPassword?: () => void;

@@ -31,7 +31,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-export interface CommentItemProps {
+interface CommentItemProps {
   comment: Comment;
   onCommentAction?: (action: CommentActionTypes, comment: Comment) => void;
 }

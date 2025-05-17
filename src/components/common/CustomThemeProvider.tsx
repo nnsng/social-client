@@ -8,7 +8,7 @@ import i18next from 'i18next';
 import { ReactNode, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 
-export interface CustomThemeProviderProps {
+interface CustomThemeProviderProps {
   children: ReactNode;
 }
 

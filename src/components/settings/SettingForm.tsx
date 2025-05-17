@@ -33,7 +33,6 @@ export function SettingForm(props: SettingFormProps) {
       {activeTab === 'password' && (
         <ChangePasswordForm
           defaultValues={{
-            userId: user?._id,
             currentPassword: '',
             newPassword: '',
             confirmPassword: '',

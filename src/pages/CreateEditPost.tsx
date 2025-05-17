@@ -1,7 +1,7 @@
 import { postApi } from '@/api';
 import { CreateEditForm } from '@/components/post';
 import { usePageTitle } from '@/hooks';
-import { Post } from '@/models';
+import { Post, type PostFormValues } from '@/models';
 import { useAppSelector } from '@/store/hooks';
 import { selectCurrentUser } from '@/store/slices/userSlice';
 import { useEffect, useState } from 'react';
@@ -41,7 +41,7 @@ export function CreateEditPage() {
     description: '',
     ...editedPost,
   };
-  const handleFormSubmit = async (data: Post) => {
+  const handleFormSubmit = async (data: PostFormValues) => {
     const action = isNewPost ? 'create' : 'update';
     const savedPost = await postApi[action](data);
     navigate(`/post/${savedPost.slug}`);

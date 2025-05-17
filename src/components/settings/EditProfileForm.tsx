@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 import { MuiTextField } from '../formFields';
 import { AvatarField } from './AvatarField';
-export interface EditProfileFormProps {
+interface EditProfileFormProps {
   defaultValues: Partial<User>;
   onSubmit?: (formValues: Partial<User>) => void;
 }

@@ -5,7 +5,7 @@ import { Avatar, Box, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import { PopperWrapper, PopperWrapperProps, UserButtonGroup } from '.';
 
-export interface UserPopupProps extends Omit<PopperWrapperProps, 'children'> {
+interface UserPopupProps extends Omit<PopperWrapperProps, 'children'> {
   user: Partial<User>;
 }
 

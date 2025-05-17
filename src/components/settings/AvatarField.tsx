@@ -5,7 +5,7 @@ import { TFunction } from 'i18next';
 import { useState } from 'react';
 import { Control } from 'react-hook-form';
 
-export interface AvatarFieldProps {
+interface AvatarFieldProps {
   name: string;
   control: Control<any>;
   avatarUrl?: string;

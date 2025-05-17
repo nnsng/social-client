@@ -6,7 +6,7 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-export interface SuggestionItemProps {
+interface SuggestionItemProps {
   item: Partial<User>;
   onFollow?: (userId: string) => void;
 }

@@ -41,7 +41,7 @@ const allowedElements = [
   'span',
 ];
 
-export interface PostCardProps {
+interface PostCardProps {
   post: Post;
   onSave?: (post: Post) => void;
   onUnsave?: (post: Post) => void;

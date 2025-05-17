@@ -18,7 +18,7 @@ import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ThemeSwitch } from '.';
 
-export interface AppearanceDialogProps {
+interface AppearanceDialogProps {
   open: boolean;
   onClose: () => void;
 }

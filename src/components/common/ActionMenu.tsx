@@ -4,7 +4,7 @@ import { Drawer, MenuItem, MenuList, PopperProps } from '@mui/material';
 import { ReactNode } from 'react';
 import { PopperWrapper } from '.';
 
-export interface ActionMenuProps extends PopperProps {
+interface ActionMenuProps extends PopperProps {
   menu: MenuOption[];
   onClose?: () => void;
 }

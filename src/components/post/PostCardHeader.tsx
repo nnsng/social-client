@@ -7,7 +7,7 @@ import { Avatar, Box, CardHeader, IconButton, SxProps, Tooltip, Typography } fro
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export interface PostCardHeaderProps {
+interface PostCardHeaderProps {
   post: Post;
   actionMenu: MenuOption[];
   sx?: SxProps;

@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { MdEditor, PostCardHeader } from '.';
 
-export interface PostDetailProps {
+interface PostDetailProps {
   post: Post | null;
   onSave?: (post: Post) => void;
   onDelete?: (post: Post) => void;

@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CommentItem } from './CommentItem';
 
-export interface PostCommentProps {
+interface PostCommentProps {
   commentList: Comment[];
   postId: string;
   onClose?: () => void;

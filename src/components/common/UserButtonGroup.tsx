@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ActionMenu, GrayButton } from '.';
 
-export interface UserButtonGroupProps {
+interface UserButtonGroupProps {
   user: Partial<User>;
   updateUser?: (user: Partial<User>) => void;
   showActionMenu?: boolean;

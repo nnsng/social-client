@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { z } from 'zod';
 
-export interface CreateEditFormProps {
+interface CreateEditFormProps {
   defaultValues: Post;
   onSubmit?: (data: PostFormValues) => void;
   isNewPost?: boolean;

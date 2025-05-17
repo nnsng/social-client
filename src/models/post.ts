@@ -15,7 +15,7 @@ export interface Post {
   createdAt?: string;
 }
 
-export type PostFormValues = Pick<Post, 'title' | 'content' | 'thumbnail' | 'description'>;
+export type PostFormValues = Pick<Post, '_id' | 'title' | 'content' | 'thumbnail' | 'description'>;
 
 export interface Comment {
   _id?: string;

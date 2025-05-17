@@ -8,7 +8,7 @@ import { Control } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { AuthButton } from './AuthButton';
 
-export interface AuthFormProps {
+interface AuthFormProps {
   name: 'login' | 'register';
   control: Control<LoginFormValues> | Control<RegisterFormValues>;
   onSubmit: FormEventHandler<HTMLFormElement>;

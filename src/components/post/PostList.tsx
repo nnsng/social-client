@@ -4,7 +4,7 @@ import { Post } from '@/models';
 import { Box, List, ListItem, Pagination, Stack } from '@mui/material';
 import { PostCard } from './PostCard';
 
-export interface PostListProps {
+interface PostListProps {
   postList: Post[];
   page?: {
     current: number;

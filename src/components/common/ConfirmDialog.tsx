@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-export interface ConfirmDialogProps {
+interface ConfirmDialogProps {
   type: string;
   open: boolean;
   onClose: () => void;

@@ -5,7 +5,7 @@ import { Box, Divider, List, ListItem, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { SuggestionItem } from './SuggestionItem';
 
-export interface SuggestionsProps {
+interface SuggestionsProps {
   userList: Partial<User>[];
 }
 
