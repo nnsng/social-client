@@ -32,8 +32,8 @@ export const googleLogin = createAsyncThunk(
   'user/googleLogin',
   async (payload: GoogleAuthPayload, { rejectWithValue }) => {
     try {
-      const { token, navigate } = payload;
-      const { user, activeToken } = await authApi.googleLogin(token);
+      const { token: googleToken, navigate } = payload;
+      const { user, activeToken, token } = await authApi.googleLogin(googleToken);
 
       if (activeToken) {
         navigate?.(`/create-password?token=${activeToken}`);

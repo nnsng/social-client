@@ -21,7 +21,7 @@ export function LoginPage() {
 
   const submitting = useAppSelector(selectAuthSubmitting);
 
-  const { onLogin } = useAuth();
+  const { onLogin, onGoogleLogin } = useAuth();
 
   const [forgotLoading, setForgotLoading] = useState(false);
 
@@ -83,7 +83,7 @@ export function LoginPage() {
         fieldList={fieldList}
         onSubmit={handleSubmit(submitForm)}
         submitting={submitting}
-        // onGoogleLogin={onGoogleLogin}
+        onGoogleLogin={onGoogleLogin}
       />
 
       <Box textAlign="center" my={1}>

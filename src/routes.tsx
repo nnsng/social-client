@@ -37,7 +37,7 @@ const publicRoutes: RouteObject[] = [
         element: <ActiveAccount />,
       },
       {
-        path: '/password',
+        path: '/create-password',
         element: <UpdatePasswordForm />,
       },
     ],

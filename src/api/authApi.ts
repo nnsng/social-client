@@ -13,9 +13,9 @@ export const authApi = {
     const url = '/auth/login';
     return axiosClient.post(url, data);
   },
-  googleLogin(idToken: string): Promise<AuthResponse> {
+  googleLogin(accessToken: string): Promise<AuthResponse> {
     const url = '/auth/google-login';
-    return axiosClient.post(url, { idToken });
+    return axiosClient.post(url, { accessToken });
   },
   register(data: RegisterFormValues) {
     const url = '/auth/register';

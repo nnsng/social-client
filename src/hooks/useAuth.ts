@@ -10,7 +10,7 @@ import {
 } from '@/store/slices/userSlice';
 import { delay } from '@/utils/common';
 import { env } from '@/utils/env';
-import { useGoogleLogin } from 'react-google-login';
+import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 
 export function useAuth() {
@@ -19,15 +19,11 @@ export function useAuth() {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const { signIn: onGoogleLogin } = useGoogleLogin({
-    clientId: env.VITE_GOOGLE_CLIENT_ID,
-    isSignedIn: false,
-    accessType: 'offline',
-    onSuccess(res: any) {
-      const token = res.tokenId;
+  const onGoogleLogin = useGoogleLogin({
+    onSuccess(res) {
+      const token = res.access_token;
       dispatch(googleLogin({ token, navigate }));
     },
-    onFailure(error) {},
   });
 
   const onLogin = (formValues: LoginFormValues) => {

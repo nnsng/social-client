@@ -22,6 +22,7 @@ export function UpdatePasswordForm() {
 
   const schema = z
     .object({
+      token: z.string().optional(),
       newPassword: z.string().min(6, tValidate('password.min', { min: 6 })),
       confirmPassword: z.string().min(6, tValidate('password.min', { min: 6 })),
     })
@@ -34,7 +35,7 @@ export function UpdatePasswordForm() {
     control,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm<ChangePasswordFormValues>({
+  } = useForm<Pick<ChangePasswordFormValues, 'token' | 'newPassword' | 'confirmPassword'>>({
     defaultValues: {
       token,
       newPassword: '',
