@@ -1,4 +1,4 @@
-import { User } from '@/models';
+import { User, type UserFormValues } from '@/models';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, CircularProgress, Stack } from '@mui/material';
 import i18next from 'i18next';
@@ -41,7 +41,7 @@ export function EditProfileForm(props: EditProfileFormProps) {
     setValue,
     clearErrors,
     formState: { isSubmitting },
-  } = useForm<z.infer<typeof schema>>({
+  } = useForm<UserFormValues>({
     defaultValues,
     resolver: zodResolver(schema),
   });

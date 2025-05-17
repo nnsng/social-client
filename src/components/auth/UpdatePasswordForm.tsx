@@ -1,7 +1,7 @@
 import { authApi } from '@/api';
 import { PageTitle } from '@/components/common';
 import { usePageTitle } from '@/hooks';
-import { ChangePasswordFormValues } from '@/models';
+import { ChangePasswordFormValues, type CreatePasswordFormValues } from '@/models';
 import { themeMixins } from '@/utils/theme';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, CircularProgress, Container, Stack } from '@mui/material';
@@ -22,7 +22,7 @@ export function UpdatePasswordForm() {
 
   const schema = z
     .object({
-      token: z.string().optional(),
+      token: z.string(),
       newPassword: z.string().min(6, tValidate('password.min', { min: 6 })),
       confirmPassword: z.string().min(6, tValidate('password.min', { min: 6 })),
     })
@@ -35,7 +35,7 @@ export function UpdatePasswordForm() {
     control,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm<Pick<ChangePasswordFormValues, 'token' | 'newPassword' | 'confirmPassword'>>({
+  } = useForm<CreatePasswordFormValues>({
     defaultValues: {
       token,
       newPassword: '',
@@ -44,7 +44,7 @@ export function UpdatePasswordForm() {
     resolver: zodResolver(schema),
   });
 
-  const submitForm = async (formValues: ChangePasswordFormValues) => {
+  const submitForm = async (formValues: CreatePasswordFormValues) => {
     await authApi.resetPassword(formValues);
     navigate('/login', { replace: true });
   };

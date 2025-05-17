@@ -3,6 +3,7 @@ import {
   ChangePasswordFormValues,
   LoginFormValues,
   RegisterFormValues,
+  type CreatePasswordFormValues,
 } from '@/models';
 import axiosClient from './axiosClient';
 
@@ -37,7 +38,7 @@ export const authApi = {
     const url = '/auth/password/forgot';
     return axiosClient.post(url, { email }, { params: { clientUrl } });
   },
-  resetPassword(data: ChangePasswordFormValues) {
+  resetPassword(data: ChangePasswordFormValues | CreatePasswordFormValues) {
     const url = '/auth/password/reset';
     return axiosClient.post(url, data);
   },

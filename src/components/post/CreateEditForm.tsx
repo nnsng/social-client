@@ -1,6 +1,6 @@
 import { FileInputField, InputField, MdEditorField, MuiTextField } from '@/components/formFields';
 import { useCustomMediaQuery } from '@/hooks';
-import { Post } from '@/models';
+import { Post, type PostFormValues } from '@/models';
 import { delay } from '@/utils/common';
 import { themeMixins, themeVariables } from '@/utils/theme';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -22,7 +22,7 @@ import { z } from 'zod';
 
 export interface CreateEditFormProps {
   defaultValues: Post;
-  onSubmit?: (data: Post) => void;
+  onSubmit?: (data: PostFormValues) => void;
   isNewPost?: boolean;
 }
 
@@ -51,7 +51,7 @@ export function CreateEditForm(props: CreateEditFormProps) {
     reset,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm<z.infer<typeof schema>>({
+  } = useForm<PostFormValues>({
     defaultValues,
     resolver: zodResolver(schema),
   });
@@ -89,7 +89,7 @@ export function CreateEditForm(props: CreateEditFormProps) {
     setValue('thumbnail', '');
   };
 
-  const handleFormSubmit = async (formValues: Post) => {
+  const handleFormSubmit = async (formValues: PostFormValues) => {
     try {
       await onSubmit?.(formValues);
     } catch (error) {}
@@ -251,9 +251,7 @@ export function CreateEditForm(props: CreateEditFormProps) {
             autoFocus
             disabled={isSubmitting || uploading}
             startIcon={isSubmitting && <CircularProgress size={20} />}
-            onClick={handleSubmit(
-              handleFormSubmit as (post: z.infer<typeof schema>) => Promise<void>
-            )}
+            onClick={handleSubmit(handleFormSubmit)}
           >
             {isNewPost ? t('btnLabel.create') : t('btnLabel.edit')}
           </Button>

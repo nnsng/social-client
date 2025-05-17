@@ -11,9 +11,13 @@ export interface RegisterFormValues {
 }
 
 export interface ChangePasswordFormValues {
-  userId?: string;
-  currentPassword?: string;
+  currentPassword: string;
   newPassword: string;
   confirmPassword: string;
-  token?: string;
+}
+
+export interface CreatePasswordFormValues {
+  token: string;
+  newPassword: string;
+  confirmPassword: string;
 }
