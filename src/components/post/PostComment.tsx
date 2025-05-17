@@ -27,7 +27,7 @@ export function PostComment(props: PostCommentProps) {
   const loading = useAppSelector(selectCommentLoading);
   const currentUser = useAppSelector(selectCurrentUser);
 
-  const inputRef = useRef<HTMLInputElement>();
+  const inputRef = useRef<HTMLInputElement>(null);
   const [input, setInput] = useState<string>('');
 
   useEffect(() => {

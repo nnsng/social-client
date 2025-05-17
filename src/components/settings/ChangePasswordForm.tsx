@@ -38,7 +38,7 @@ export function ChangePasswordForm(props: ChangePasswordFormProps) {
     reset,
     clearErrors,
     formState: { isSubmitting },
-  } = useForm<ChangePasswordFormValues>({
+  } = useForm<z.infer<typeof schema>>({
     defaultValues,
     resolver: zodResolver(schema),
   });

@@ -51,7 +51,7 @@ export function CreateEditForm(props: CreateEditFormProps) {
     reset,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm<Post>({
+  } = useForm<z.infer<typeof schema>>({
     defaultValues,
     resolver: zodResolver(schema),
   });
@@ -251,7 +251,9 @@ export function CreateEditForm(props: CreateEditFormProps) {
             autoFocus
             disabled={isSubmitting || uploading}
             startIcon={isSubmitting && <CircularProgress size={20} />}
-            onClick={handleSubmit(handleFormSubmit)}
+            onClick={handleSubmit(
+              handleFormSubmit as (post: z.infer<typeof schema>) => Promise<void>
+            )}
           >
             {isNewPost ? t('btnLabel.create') : t('btnLabel.edit')}
           </Button>

@@ -41,7 +41,7 @@ export function EditProfileForm(props: EditProfileFormProps) {
     setValue,
     clearErrors,
     formState: { isSubmitting },
-  } = useForm<Partial<User>>({
+  } = useForm<z.infer<typeof schema>>({
     defaultValues,
     resolver: zodResolver(schema),
   });

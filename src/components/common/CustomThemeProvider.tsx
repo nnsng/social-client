@@ -7,7 +7,6 @@ import { CssBaseline, Theme, ThemeProvider } from '@mui/material';
 import i18next from 'i18next';
 import { ReactNode, useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
 
 export interface CustomThemeProviderProps {
   children: ReactNode;
