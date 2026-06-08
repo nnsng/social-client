@@ -8,12 +8,12 @@ import {
   Typography,
 } from '@mui/material';
 import { useState } from 'react';
-import { Control, useController } from 'react-hook-form';
+import { useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 interface MuiTextFieldProps extends OutlinedTextFieldProps {
   name: string;
-  control: Control<any>;
+  control: any;
   label?: string;
   optional?: boolean;
 }

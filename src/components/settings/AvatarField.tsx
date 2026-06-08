@@ -3,11 +3,10 @@ import { CloudUploadRounded } from '@mui/icons-material';
 import { Avatar, Box, Button, CircularProgress, Stack, Typography } from '@mui/material';
 import { TFunction } from 'i18next';
 import { useState } from 'react';
-import { Control } from 'react-hook-form';
 
 interface AvatarFieldProps {
   name: string;
-  control: Control<any>;
+  control: any;
   avatarUrl?: string;
   loading?: boolean;
   setLoading?: (value: boolean) => void;

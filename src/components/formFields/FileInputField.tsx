@@ -1,10 +1,10 @@
 import { getImageUrlFromCDN } from '@/utils/common';
 import { InputHTMLAttributes } from 'react';
-import { Control, useController } from 'react-hook-form';
+import { useController } from 'react-hook-form';
 
 interface FileInputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
-  control: Control<any>;
+  control: any;
   setUploading?: (value: boolean) => void;
 }
 
