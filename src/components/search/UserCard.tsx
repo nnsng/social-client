@@ -53,7 +53,9 @@ export function UserCard({ user }: UserCardProps) {
                 variant="contained"
                 fullWidth
                 startIcon={<AccountCircleRounded />}
-                onClick={() => navigate(generatePath(PATH.PROFILE, { username: currentUser!.username }))}
+                onClick={() =>
+                  navigate(generatePath(PATH.PROFILE, { username: currentUser!.username }))
+                }
               >
                 {t('viewProfile')}
               </GrayButton>

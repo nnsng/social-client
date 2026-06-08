@@ -119,7 +119,9 @@ export function UserButtonGroup({ user, updateUser, showActionMenu }: UserButton
             variant="contained"
             startIcon={showActionMenu ? undefined : <ForumRounded />}
             sx={{ flex: 1 }}
-            onClick={() => window.dispatchEvent(new CustomEvent('open-chat', { detail: { userId } }))}
+            onClick={() =>
+              window.dispatchEvent(new CustomEvent('open-chat', { detail: { userId } }))
+            }
           >
             {showActionMenu ? <ForumRounded /> : t('message')}
           </GrayButton>

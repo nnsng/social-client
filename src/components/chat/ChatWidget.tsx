@@ -231,8 +231,9 @@ export function ChatWidget() {
     setSearchText('');
     setSearchResults([]);
     try {
-      const { conversation, messages: chatMessages } =
-        await messageApi.getOrCreateConversation(user._id);
+      const { conversation, messages: chatMessages } = await messageApi.getOrCreateConversation(
+        user._id
+      );
       setActiveConversation(conversation);
       setMessages(chatMessages);
       fetchConversations();
@@ -349,7 +350,10 @@ export function ChatWidget() {
                     <Typography variant="subtitle2" sx={{ fontWeight: 600, color: '#FFFFFF' }}>
                       {activeConversation.otherParticipant.name}
                     </Typography>
-                    <Typography variant="caption" sx={{ opacity: 0.8, color: '#FFFFFF', display: 'block', mt: -0.5 }}>
+                    <Typography
+                      variant="caption"
+                      sx={{ opacity: 0.8, color: '#FFFFFF', display: 'block', mt: -0.5 }}
+                    >
                       @{activeConversation.otherParticipant.username}
                     </Typography>
                   </Box>
@@ -377,11 +381,7 @@ export function ChatWidget() {
                   <DeleteOutlineRounded fontSize="small" />
                 </IconButton>
               )}
-              <IconButton
-                size="small"
-                onClick={() => setIsOpen(false)}
-                sx={{ color: '#FFFFFF' }}
-              >
+              <IconButton size="small" onClick={() => setIsOpen(false)} sx={{ color: '#FFFFFF' }}>
                 <CloseRounded fontSize="small" />
               </IconButton>
             </Box>
@@ -426,10 +426,7 @@ export function ChatWidget() {
                             <ListItemAvatar>
                               <Avatar src={user.avatar} />
                             </ListItemAvatar>
-                            <ListItemText
-                              primary={user.name}
-                              secondary={`@${user.username}`}
-                            />
+                            <ListItemText primary={user.name} secondary={`@${user.username}`} />
                           </ListItemButton>
                         </ListItem>
                       ))}
@@ -443,62 +440,67 @@ export function ChatWidget() {
                       No users found
                     </Typography>
                   )
-                ) : (
-                  /* Conversations List */
-                  loadingConversations ? (
-                    <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
-                      <CircularProgress size={24} />
-                    </Box>
-                  ) : conversations.length > 0 ? (
-                    <List sx={{ p: 0 }}>
-                      {conversations.map((conv) => {
-                        const otherUser = conv.otherParticipant;
-                        return (
-                          <ListItem key={conv._id} disablePadding>
-                            <ListItemButton onClick={() => handleSelectConversation(conv)}>
-                              <ListItemAvatar>
-                                <Avatar src={otherUser.avatar} />
-                              </ListItemAvatar>
-                              <ListItemText
-                                primary={
-                                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-                                    <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
-                                      {otherUser.name}
+                ) : /* Conversations List */
+                loadingConversations ? (
+                  <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
+                    <CircularProgress size={24} />
+                  </Box>
+                ) : conversations.length > 0 ? (
+                  <List sx={{ p: 0 }}>
+                    {conversations.map((conv) => {
+                      const otherUser = conv.otherParticipant;
+                      return (
+                        <ListItem key={conv._id} disablePadding>
+                          <ListItemButton onClick={() => handleSelectConversation(conv)}>
+                            <ListItemAvatar>
+                              <Avatar src={otherUser.avatar} />
+                            </ListItemAvatar>
+                            <ListItemText
+                              primary={
+                                <Box
+                                  sx={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'baseline',
+                                  }}
+                                >
+                                  <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                                    {otherUser.name}
+                                  </Typography>
+                                  {conv.lastMessage && (
+                                    <Typography variant="caption" color="text.secondary">
+                                      {formatTime(conv.lastMessage.createdAt)}
                                     </Typography>
-                                    {conv.lastMessage && (
-                                      <Typography variant="caption" color="text.secondary">
-                                        {formatTime(conv.lastMessage.createdAt)}
-                                      </Typography>
-                                    )}
-                                  </Box>
-                                }
-                                secondary={
-                                  conv.lastMessage
-                                    ? (conv.lastMessage.senderId === currentUser._id ? 'You: ' : '') + conv.lastMessage.text
-                                    : 'Started a conversation'
-                                }
-                                secondaryTypographyProps={{
-                                  sx: {
-                                    overflow: 'hidden',
-                                    textOverflow: 'ellipsis',
-                                    whiteSpace: 'nowrap',
-                                  },
-                                }}
-                              />
-                            </ListItemButton>
-                          </ListItem>
-                        );
-                      })}
-                    </List>
-                  ) : (
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{ textAlign: 'center', py: 4, px: 2 }}
-                    >
-                      No conversations yet. Search for someone to start chatting!
-                    </Typography>
-                  )
+                                  )}
+                                </Box>
+                              }
+                              secondary={
+                                conv.lastMessage
+                                  ? (conv.lastMessage.senderId === currentUser._id ? 'You: ' : '') +
+                                    conv.lastMessage.text
+                                  : 'Started a conversation'
+                              }
+                              secondaryTypographyProps={{
+                                sx: {
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                  whiteSpace: 'nowrap',
+                                },
+                              }}
+                            />
+                          </ListItemButton>
+                        </ListItem>
+                      );
+                    })}
+                  </List>
+                ) : (
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ textAlign: 'center', py: 4, px: 2 }}
+                  >
+                    No conversations yet. Search for someone to start chatting!
+                  </Typography>
                 )}
               </Box>
             </Box>
@@ -508,9 +510,25 @@ export function ChatWidget() {
           {activeTab === 'chat' && (
             <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, overflow: 'hidden' }}>
               {/* Message History */}
-              <Box sx={{ flexGrow: 1, overflowY: 'auto', p: 2, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  overflowY: 'auto',
+                  p: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 1.5,
+                }}
+              >
                 {loadingMessages ? (
-                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      height: '100%',
+                    }}
+                  >
                     <CircularProgress size={24} />
                   </Box>
                 ) : messages.length > 0 ? (
@@ -568,7 +586,11 @@ export function ChatWidget() {
               <Divider />
 
               {/* Message Input */}
-              <Box component="form" onSubmit={handleSendMessage} sx={{ p: 1.5, display: 'flex', gap: 1 }}>
+              <Box
+                component="form"
+                onSubmit={handleSendMessage}
+                sx={{ p: 1.5, display: 'flex', gap: 1 }}
+              >
                 <TextField
                   fullWidth
                   size="small"

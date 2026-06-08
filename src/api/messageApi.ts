@@ -10,7 +10,9 @@ export const messageApi = {
     const url = `/messages/conversation/${conversationId}`;
     return axiosClient.get(url);
   },
-  getOrCreateConversation(userId: string): Promise<{ conversation: Conversation; messages: Message[] }> {
+  getOrCreateConversation(
+    userId: string
+  ): Promise<{ conversation: Conversation; messages: Message[] }> {
     const url = `/messages/user/${userId}`;
     return axiosClient.get(url);
   },
