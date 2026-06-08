@@ -454,42 +454,14 @@ export function ChatWidget() {
                       {conversations.map((conv) => {
                         const otherUser = conv.otherParticipant;
                         return (
-                          <ListItem
-                            key={conv._id}
-                            disablePadding
-                            secondaryAction={
-                              <IconButton
-                                edge="end"
-                                size="small"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setConversationToDelete(conv);
-                                  setOpenDeleteConfirm(true);
-                                }}
-                                sx={{
-                                  opacity: 0,
-                                  transition: 'opacity 0.2s',
-                                  '.MuiListItem-root:hover &': {
-                                    opacity: 0.6,
-                                  },
-                                  '&:hover': {
-                                    opacity: '1 !important',
-                                    color: 'error.main',
-                                  },
-                                  mr: 0.5,
-                                }}
-                              >
-                                <DeleteOutlineRounded fontSize="small" />
-                              </IconButton>
-                            }
-                          >
+                          <ListItem key={conv._id} disablePadding>
                             <ListItemButton onClick={() => handleSelectConversation(conv)}>
                               <ListItemAvatar>
                                 <Avatar src={otherUser.avatar} />
                               </ListItemAvatar>
                               <ListItemText
                                 primary={
-                                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', pr: 2 }}>
+                                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
                                     <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
                                       {otherUser.name}
                                     </Typography>
@@ -510,7 +482,6 @@ export function ChatWidget() {
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
                                     whiteSpace: 'nowrap',
-                                    pr: 2,
                                   },
                                 }}
                               />
