@@ -17,6 +17,8 @@ import {
   HomeRounded,
   NotificationsOutlined,
   NotificationsRounded,
+  SettingsOutlined,
+  SettingsRounded,
 } from '@mui/icons-material';
 import {
   Divider,
@@ -73,13 +75,6 @@ export function Sidebar({ type }: SidebarProps) {
       onClick: () => navigate('/'),
     },
     {
-      label: t('main.messages'),
-      icon: ForumOutlined,
-      activeIcon: ForumRounded,
-      active: checkPathActive('/messages'),
-      onClick: showComingSoonToast,
-    },
-    {
       label: t('main.notifications'),
       icon: NotificationsOutlined,
       activeIcon: NotificationsRounded,
@@ -99,6 +94,13 @@ export function Sidebar({ type }: SidebarProps) {
       activeIcon: BookmarkRounded,
       active: checkPathActive('/saved'),
       onClick: () => navigate('/saved'),
+    },
+    {
+      label: t('main.settings'),
+      icon: SettingsOutlined,
+      activeIcon: SettingsRounded,
+      active: checkPathActive('/settings/profile') || location.pathname.startsWith('/settings'),
+      onClick: () => navigate('/settings/profile'),
     },
     {
       label: t('main.appearance'),
@@ -159,7 +161,7 @@ export function Sidebar({ type }: SidebarProps) {
                   </ListItemButton>
                 </ListItem>
 
-                {[2, 4].includes(idx) && <Divider sx={{ my: 1 }} />}
+                {[1, 3].includes(idx) && <Divider sx={{ my: 1 }} />}
               </Fragment>
             );
           })}

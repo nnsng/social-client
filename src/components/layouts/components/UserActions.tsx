@@ -35,11 +35,6 @@ export function UserActions() {
       onClick: () => navigateTo(`/profile/${currentUser?.username}`),
     },
     {
-      label: t('user.settings'),
-      icon: SettingsRounded,
-      onClick: () => navigateTo('/settings/profile'),
-    },
-    {
       label: t('user.logout'),
       icon: LogoutOutlined,
       onClick: onLogout,
