@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { Route, RouteObject, Routes } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { SocketClient } from './components/socket';
+import { ChatWidget } from './components/chat';
 import { StorageKey } from './constants';
 import { useAuth } from './hooks';
 import routes from './routes';
@@ -61,6 +62,7 @@ function App() {
   return (
     <CustomScrollbar>
       <SocketClient />
+      <ChatWidget />
       <Routes>{createElementsFromRoutes(routes)}</Routes>
     </CustomScrollbar>
   );

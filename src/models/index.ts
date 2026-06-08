@@ -7,3 +7,4 @@ export * from './post';
 export * from './settings';
 export * from './types';
 export * from './user';
+export * from './chat';

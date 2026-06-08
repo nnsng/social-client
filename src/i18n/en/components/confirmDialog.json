@@ -15,6 +15,12 @@
       "content": "Are you sure you want to delete this comment?"
     }
   },
+  "chat": {
+    "delete": {
+      "title": "Delete conversation?",
+      "content": "Are you sure you want to delete this conversation? This will delete all messages for both users."
+    }
+  },
   "button": {
     "cancel": "Cancel",
     "confirm": "Confirm"

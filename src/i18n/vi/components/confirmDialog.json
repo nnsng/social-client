@@ -15,6 +15,12 @@
       "content": "Bạn có chắn chắc muốn xóa bình luận này?"
     }
   },
+  "chat": {
+    "delete": {
+      "title": "Xóa cuộc trò chuyện?",
+      "content": "Bạn có chắc chắn muốn xóa cuộc trò chuyện này? Thao tác này sẽ xóa tất cả tin nhắn đối với cả hai người."
+    }
+  },
   "button": {
     "cancel": "Hủy",
     "confirm": "Xác nhận"
