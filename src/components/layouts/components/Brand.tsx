@@ -1,4 +1,4 @@
-import { APP_NAME } from '@/constants';
+import { APP_NAME, PATH } from '@/constants';
 import { Avatar, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ export function Brand() {
   const handleHomeClick = () => {
     const event = new Event('homeClick');
     window.dispatchEvent(event);
-    navigate('/');
+    navigate(PATH.HOME);
   };
 
   return (

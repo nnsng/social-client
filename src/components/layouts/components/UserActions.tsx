@@ -1,16 +1,12 @@
 import { ActionMenu } from '@/components/common';
+import { PATH } from '@/constants';
 import { useAuth } from '@/hooks';
 import { MenuOption } from '@/models';
-import {
-  AccountCircleRounded,
-  ArrowDropDownRounded,
-  LogoutOutlined,
-  SettingsRounded,
-} from '@mui/icons-material';
+import { AccountCircleRounded, ArrowDropDownRounded, LogoutOutlined } from '@mui/icons-material';
 import { Avatar, Stack, Typography } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { generatePath, useNavigate } from 'react-router-dom';
 
 export function UserActions() {
   const navigate = useNavigate();
@@ -32,7 +28,8 @@ export function UserActions() {
     {
       label: t('user.profile'),
       icon: AccountCircleRounded,
-      onClick: () => navigateTo(`/profile/${currentUser?.username}`),
+      onClick: () =>
+        navigateTo(generatePath(PATH.PROFILE, { username: currentUser?.username || '' })),
     },
     {
       label: t('user.logout'),

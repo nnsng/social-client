@@ -1,4 +1,5 @@
 import { authApi } from '@/api';
+import { PATH } from '@/constants';
 import { usePageTitle } from '@/hooks';
 import { themeMixins } from '@/utils/theme';
 import { showToast } from '@/utils/toast';
@@ -58,7 +59,7 @@ export function ActiveAccount() {
 
   const handleClick = async () => {
     if (status === Status.SUCCESS) {
-      navigate('/login', { replace: true });
+      navigate(PATH.LOGIN, { replace: true });
       return;
     }
 

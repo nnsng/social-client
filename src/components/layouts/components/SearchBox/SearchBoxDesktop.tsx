@@ -1,6 +1,7 @@
 import { postApi, userApi } from '@/api';
 import { useDebounce, useKeyUp } from '@/hooks';
 import { SearchApiType, SearchResult } from '@/models';
+import { PATH } from '@/constants';
 import { formatSearchResponse, slugifyString } from '@/utils/common';
 import { themeMixins } from '@/utils/theme';
 import { CloseRounded, SearchRounded } from '@mui/icons-material';
@@ -22,7 +23,7 @@ import {
 import queryString from 'query-string';
 import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams, generatePath } from 'react-router-dom';
 
 const MAX_ITEM = 5;
 
@@ -92,7 +93,8 @@ export function SearchBoxDesktop() {
     const value = isSearchUser ? input.slice(1) : input;
     if (!value) return;
 
-    navigate(`/search/${searchType}?q=${value}`);
+    const query = queryString.stringify({ q: value });
+    navigate({ pathname: generatePath(PATH.SEARCH, { type: searchType }), search: query });
     inputRef.current.blur();
   };
 

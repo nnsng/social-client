@@ -1,9 +1,9 @@
 import { AppearanceDialog, Notifications } from '@/components/common';
+import { PATH } from '@/constants';
 import { SidebarItem } from '@/models';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { configActions, selectOpenSidebar } from '@/store/slices/configSlice';
 import { themeMixins } from '@/utils/theme';
-import { showComingSoonToast } from '@/utils/toast';
 import {
   AddCircleOutlineOutlined,
   AddCircleRounded,
@@ -11,8 +11,6 @@ import {
   BookmarkRounded,
   DarkModeOutlined,
   DarkModeRounded,
-  ForumOutlined,
-  ForumRounded,
   HomeOutlined,
   HomeRounded,
   NotificationsOutlined,
@@ -31,7 +29,7 @@ import {
 } from '@mui/material';
 import { Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { generatePath, useLocation, useNavigate } from 'react-router-dom';
 import { SidebarWrapper } from './SidebarWrapper';
 
 interface SidebarProps {
@@ -71,8 +69,8 @@ export function Sidebar({ type }: SidebarProps) {
       label: t('main.home'),
       icon: HomeOutlined,
       activeIcon: HomeRounded,
-      active: checkPathActive('/'),
-      onClick: () => navigate('/'),
+      active: checkPathActive(PATH.HOME),
+      onClick: () => navigate(PATH.HOME),
     },
     {
       label: t('main.notifications'),
@@ -85,22 +83,24 @@ export function Sidebar({ type }: SidebarProps) {
       label: t('main.create'),
       icon: AddCircleOutlineOutlined,
       activeIcon: AddCircleRounded,
-      active: checkPathActive('/create'),
-      onClick: () => navigate('/create'),
+      active: checkPathActive(PATH.CREATE_POST),
+      onClick: () => navigate(PATH.CREATE_POST),
     },
     {
       label: t('main.saved'),
       icon: BookmarkBorderOutlined,
       activeIcon: BookmarkRounded,
-      active: checkPathActive('/saved'),
-      onClick: () => navigate('/saved'),
+      active: checkPathActive(PATH.SAVED),
+      onClick: () => navigate(PATH.SAVED),
     },
     {
       label: t('main.settings'),
       icon: SettingsOutlined,
       activeIcon: SettingsRounded,
-      active: checkPathActive('/settings/profile') || location.pathname.startsWith('/settings'),
-      onClick: () => navigate('/settings/profile'),
+      active:
+        checkPathActive(generatePath(PATH.SETTINGS, { tab: 'profile' })) ||
+        location.pathname.startsWith('/settings'),
+      onClick: () => navigate(generatePath(PATH.SETTINGS, { tab: 'profile' })),
     },
     {
       label: t('main.appearance'),

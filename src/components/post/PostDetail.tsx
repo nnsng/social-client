@@ -1,5 +1,5 @@
 import { ConfirmDialog, StyledCard } from '@/components/common';
-import { ROLE } from '@/constants';
+import { PATH, ROLE } from '@/constants';
 import { MenuOption, Post } from '@/models';
 import { useAppSelector } from '@/store/hooks';
 import { selectCurrentUser } from '@/store/slices/userSlice';
@@ -52,7 +52,7 @@ export function PostDetail(props: PostDetailProps) {
     try {
       await onDelete?.(post);
       showToast('post.delete');
-      navigate('/');
+      navigate(PATH.HOME);
     } catch (error) {}
 
     setLoading(false);

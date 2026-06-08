@@ -1,5 +1,6 @@
 import { notificationApi } from '@/api';
 import { Notification } from '@/models';
+import { PATH } from '@/constants';
 import { useAppSelector } from '@/store/hooks';
 import { selectCurrentUser } from '@/store/slices/userSlice';
 import { CloseRounded } from '@mui/icons-material';
@@ -17,7 +18,7 @@ import {
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, generatePath } from 'react-router-dom';
 import { themeMixins } from 'utils/theme';
 
 const NUMBER_OF_NAME_TO_SHOW = 1;
@@ -58,9 +59,9 @@ export function Notifications(props: NotificationsProps) {
 
   const handleNotificationClick = ({ type, postSlug }: Notification) => {
     if (type === 'follow') {
-      navigate(`/profile/${currentUser?.username}`);
+      navigate(generatePath(PATH.PROFILE, { username: currentUser?.username || '' }));
     } else {
-      navigate(`/post/${postSlug}`);
+      navigate(generatePath(PATH.POST_DETAIL, { slug: postSlug || '' }));
     }
     onClose?.();
   };

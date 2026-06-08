@@ -1,10 +1,11 @@
 import { User } from '@/models';
 import { useAppSelector } from '@/store/hooks';
 import { selectCurrentUser } from '@/store/slices/userSlice';
+import { PATH } from '@/constants';
 import { AccountCircleRounded } from '@mui/icons-material';
 import { Avatar, Box, CardContent, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, generatePath } from 'react-router-dom';
 import { GrayButton, StyledCard, UserButtonGroup } from '../common';
 
 interface UserCardProps {
@@ -27,7 +28,7 @@ export function UserCard({ user }: UserCardProps) {
               src={user.avatar}
               sx={{ width: 60, height: 60 }}
               component={Link}
-              to={`/profile/${user.username}`}
+              to={generatePath(PATH.PROFILE, { username: user.username || '' })}
             >
               {user.name![0].toUpperCase()}
             </Avatar>
@@ -35,7 +36,7 @@ export function UserCard({ user }: UserCardProps) {
             <Box>
               <Typography
                 component={Link}
-                to={`/profile/${user.username}`}
+                to={generatePath(PATH.PROFILE, { username: user.username || '' })}
                 variant="body1"
                 fontWeight={600}
               >
@@ -52,7 +53,7 @@ export function UserCard({ user }: UserCardProps) {
                 variant="contained"
                 fullWidth
                 startIcon={<AccountCircleRounded />}
-                onClick={() => navigate(`/profile/${currentUser!.username}`)}
+                onClick={() => navigate(generatePath(PATH.PROFILE, { username: currentUser!.username }))}
               >
                 {t('viewProfile')}
               </GrayButton>

@@ -1,7 +1,7 @@
 import { postApi, userApi } from '@/api';
 import { Suggestions } from '@/components/common';
 import { PostFilter, PostList } from '@/components/post';
-import { APP_NAME } from '@/constants';
+import { APP_NAME, PATH } from '@/constants';
 import { usePageTitle } from '@/hooks';
 import { ListParams, Post, User } from '@/models';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -56,7 +56,7 @@ export function HomePage() {
 
   useEffect(() => {
     const { page, by, ...rest } = filter;
-    navigate(`?${queryString.stringify(rest)}`, { replace: true });
+    navigate({ pathname: '.', search: queryString.stringify(rest) }, { replace: true });
     dispatch(fetchPostList(filter));
   }, [dispatch, filter]);
 

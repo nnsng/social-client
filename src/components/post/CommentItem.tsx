@@ -1,6 +1,7 @@
 import { ActionMenu, ConfirmDialog, UserPopup } from '@/components/common';
 import { useKeyUp, useMouseEventsWithPopup } from '@/hooks';
 import { Comment, CommentActionTypes, MenuOption } from '@/models';
+import { PATH } from '@/constants';
 import { useAppSelector } from '@/store/hooks';
 import { selectCurrentUser } from '@/store/slices/userSlice';
 import { formatTime } from '@/utils/common';
@@ -29,7 +30,7 @@ import {
 } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, generatePath } from 'react-router-dom';
 
 interface CommentItemProps {
   comment: Comment;
@@ -72,7 +73,7 @@ export function CommentItem(props: CommentItemProps) {
   const closeMenu = () => setOpenMenu(false);
 
   const handleUserClick = () => {
-    navigate(`/profile/${comment.user?.username}`);
+    navigate(generatePath(PATH.PROFILE, { username: comment.user?.username || '' }));
   };
 
   const handleChange = (e: any) => {

@@ -1,4 +1,4 @@
-import { StorageKey } from '@/constants';
+import { PATH, StorageKey } from '@/constants';
 import { LoginFormValues, RegisterFormValues } from '@/models';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import {
@@ -9,7 +9,6 @@ import {
   userActions,
 } from '@/store/slices/userSlice';
 import { delay } from '@/utils/common';
-import { env } from '@/utils/env';
 import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 
@@ -38,7 +37,7 @@ export function useAuth() {
     await delay(500);
     dispatch(userActions.setCurrentUser(null));
     localStorage.removeItem(StorageKey.ACCESS_TOKEN);
-    navigate('/login');
+    navigate(PATH.LOGIN);
   };
 
   return {

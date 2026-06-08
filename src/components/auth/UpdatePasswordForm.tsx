@@ -1,7 +1,8 @@
 import { authApi } from '@/api';
 import { PageTitle } from '@/components/common';
+import { PATH } from '@/constants';
 import { usePageTitle } from '@/hooks';
-import { ChangePasswordFormValues, type CreatePasswordFormValues } from '@/models';
+import { type CreatePasswordFormValues } from '@/models';
 import { themeMixins } from '@/utils/theme';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, CircularProgress, Container, Stack } from '@mui/material';
@@ -46,7 +47,7 @@ export function UpdatePasswordForm() {
 
   const submitForm = async (formValues: CreatePasswordFormValues) => {
     await authApi.resetPassword(formValues);
-    navigate('/login', { replace: true });
+    navigate(PATH.LOGIN, { replace: true });
   };
 
   usePageTitle(t('pageTitle'));

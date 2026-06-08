@@ -1,12 +1,13 @@
 import { postApi } from '@/api';
 import { CreateEditForm } from '@/components/post';
+import { PATH } from '@/constants';
 import { usePageTitle } from '@/hooks';
 import { Post, type PostFormValues } from '@/models';
 import { useAppSelector } from '@/store/hooks';
 import { selectCurrentUser } from '@/store/slices/userSlice';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, generatePath } from 'react-router-dom';
 
 export function CreateEditPage() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export function CreateEditPage() {
         const post = await postApi.getForEdit(postId);
         setEditedPost(post);
       } catch (error) {
-        navigate('/create');
+        navigate(PATH.CREATE_POST);
       }
     })();
   }, [postId, navigate]);
@@ -44,7 +45,7 @@ export function CreateEditPage() {
   const handleFormSubmit = async (data: PostFormValues) => {
     const action = isNewPost ? 'create' : 'update';
     const savedPost = await postApi[action](data);
-    navigate(`/post/${savedPost.slug}`);
+    navigate(generatePath(PATH.POST_DETAIL, { slug: savedPost.slug }));
   };
 
   return (

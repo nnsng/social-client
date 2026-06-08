@@ -1,3 +1,4 @@
+import { PATH } from '@/constants';
 import { RouteObject } from 'react-router-dom';
 import { ActiveAccount, UpdatePasswordForm } from './components/auth';
 import { Auth } from './components/common';
@@ -20,11 +21,11 @@ const publicRoutes: RouteObject[] = [
     element: <LoginLayout />,
     children: [
       {
-        path: '/login',
+        path: PATH.LOGIN,
         element: <LoginPage />,
       },
       {
-        path: '/register',
+        path: PATH.REGISTER,
         element: <RegisterPage />,
       },
     ],
@@ -33,11 +34,11 @@ const publicRoutes: RouteObject[] = [
     element: <EmptyLayout maxWidth="sm" />,
     children: [
       {
-        path: '/active',
+        path: PATH.ACTIVE,
         element: <ActiveAccount />,
       },
       {
-        path: '/create-password',
+        path: PATH.CREATE_PASSWORD,
         element: <UpdatePasswordForm />,
       },
     ],
@@ -49,15 +50,15 @@ const privateRoutes: RouteObject[] = [
     element: <MainLayout />,
     children: [
       {
-        path: '/',
+        path: PATH.HOME,
         element: <HomePage />,
       },
       {
-        path: '/post/:slug',
+        path: PATH.POST_DETAIL,
         element: <PostDetailPage />,
       },
       {
-        path: '/saved',
+        path: PATH.SAVED,
         element: <SavedPage />,
       },
     ],
@@ -66,11 +67,11 @@ const privateRoutes: RouteObject[] = [
     element: <HeaderOnlyLayout />,
     children: [
       {
-        path: '/create',
+        path: PATH.CREATE_POST,
         element: <CreateEditPage />,
       },
       {
-        path: '/edit/:postId',
+        path: PATH.EDIT_POST,
         element: <CreateEditPage />,
       },
       {
@@ -83,15 +84,15 @@ const privateRoutes: RouteObject[] = [
     element: <HeaderOnlyLayout maxWidth="md" />,
     children: [
       {
-        path: '/profile/:username',
+        path: PATH.PROFILE,
         element: <ProfilePage />,
       },
       {
-        path: '/settings/:tab',
+        path: PATH.SETTINGS,
         element: <SettingsPage />,
       },
       {
-        path: '/search/:type',
+        path: PATH.SEARCH,
         element: <SearchPage />,
       },
     ],

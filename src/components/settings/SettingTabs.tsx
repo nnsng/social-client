@@ -1,6 +1,7 @@
 import { SettingTabItem, type SettingTab } from '@/models';
+import { PATH } from '@/constants';
 import { Box, ListItemButton, Stack, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, generatePath } from 'react-router-dom';
 
 interface SettingTabProps {
   tabs: SettingTabItem[];
@@ -11,7 +12,7 @@ export function SettingTabs({ tabs, activeTab }: SettingTabProps) {
   const navigate = useNavigate();
 
   const handleTabChange = (tab: SettingTabItem) => {
-    navigate(`/settings/${tab.tab}`, { replace: true });
+    navigate(generatePath(PATH.SETTINGS, { tab: tab.tab }), { replace: true });
   };
 
   return (
@@ -22,6 +23,7 @@ export function SettingTabs({ tabs, activeTab }: SettingTabProps) {
             key={idx}
             selected={tab.tab === activeTab}
             sx={{
+              flex: { xs: '1', md: 'none' },
               py: 2,
               px: { xs: 1, md: 3 },
               borderRightWidth: { xs: 0, md: 2 },

@@ -1,11 +1,12 @@
 import { ActionMenu, UserPopup } from '@/components/common';
 import { useMouseEventsWithPopup } from '@/hooks';
 import { MenuOption, Post } from '@/models';
+import { PATH } from '@/constants';
 import { formatTime } from '@/utils/common';
 import { MoreHorizRounded } from '@mui/icons-material';
 import { Avatar, Box, CardHeader, IconButton, SxProps, Tooltip, Typography } from '@mui/material';
 import { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, generatePath } from 'react-router-dom';
 
 interface PostCardHeaderProps {
   post: Post;
@@ -29,7 +30,7 @@ export function PostCardHeader(props: PostCardHeaderProps) {
   const closeMenu = () => setOpenMenu(false);
 
   const handleAuthorClick = () => {
-    navigate(`/profile/${post.author?.username}`);
+    navigate(generatePath(PATH.PROFILE, { username: post.author?.username || '' }));
   };
 
   return (
